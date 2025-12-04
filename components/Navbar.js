@@ -56,8 +56,8 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </button>
-            <div className="absolute right-0 mt-0 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-10">
-              <Link href="/services" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
+            <div className="absolute right-0 mt-0 w-56 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-10">
+              <Link href="/services" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition text-sm font-semibold border-b border-gray-100">
                 جميع الخدمات
               </Link>
               <Link href="/services/construction" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
@@ -69,8 +69,20 @@ export default function Navbar() {
               <Link href="/services/project-management" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
                 إدارة المشاريع
               </Link>
+              <Link href="/services/engineering-consultation" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
+                الاستشارات الهندسية
+              </Link>
               <Link href="/services/maintenance" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
-                الصيانة والإصلاحات
+                شركات الصيانة
+              </Link>
+              <Link href="/services/equipment-rental" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
+                تأجير المعدات
+              </Link>
+              <Link href="/services/cleaning" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
+                خدمات التنظيف
+              </Link>
+              <Link href="/services/furniture-decor" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">
+                الأثاث والديكور
               </Link>
             </div>
           </div>
@@ -162,7 +174,7 @@ export default function Navbar() {
                 <div className="bg-emerald-50 rounded mt-1 py-2 px-2">
                   <Link
                     href="/services"
-                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
+                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition font-semibold text-sm border-b border-gray-200"
                     onClick={closeMenu}
                   >
                     جميع الخدمات
@@ -189,11 +201,39 @@ export default function Navbar() {
                     إدارة المشاريع
                   </Link>
                   <Link
+                    href="/services/engineering-consultation"
+                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
+                    onClick={closeMenu}
+                  >
+                    الاستشارات الهندسية
+                  </Link>
+                  <Link
                     href="/services/maintenance"
                     className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
                     onClick={closeMenu}
                   >
-                    الصيانة والإصلاحات
+                    شركات الصيانة
+                  </Link>
+                  <Link
+                    href="/services/equipment-rental"
+                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
+                    onClick={closeMenu}
+                  >
+                    تأجير المعدات
+                  </Link>
+                  <Link
+                    href="/services/cleaning"
+                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
+                    onClick={closeMenu}
+                  >
+                    خدمات التنظيف
+                  </Link>
+                  <Link
+                    href="/services/furniture-decor"
+                    className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition"
+                    onClick={closeMenu}
+                  >
+                    الأثاث والديكور
                   </Link>
                 </div>
               )}
