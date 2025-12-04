@@ -78,11 +78,14 @@ export default function Footer() {
           <div>
             <h4 className="text-base font-semibold mb-4 text-gray-900">تواصل معنا</h4>
             <ul className="space-y-3 text-sm text-gray-700">
-              <li className="flex items-start gap-2">
-                <span className="text-lg flex-shrink-0">📞</span>
-                <a href="tel:+971567856001" className="hover:text-primary transition font-medium">
-                  +971 567 856 001
-                </a>
+              <li className="flex flex-col gap-1">
+                <div className="flex items-start gap-2">
+                  <span className="text-lg flex-shrink-0">📞</span>
+                  <span className="font-medium text-gray-700">
+                    +971 567 856 001
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600 mr-7">💬 متاح فقط عبر واتساب</p>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-lg flex-shrink-0">📧</span>
