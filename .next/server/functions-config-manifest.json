@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/blog/[slug]":{},"/":{},"/services":{},"/services/location/[city]":{},"/services/[id]":{}}}
+{"version":1,"functions":{"/":{},"/blog/[slug]":{},"/services":{},"/services/[id]":{},"/services/location/[city]":{}}}
