@@ -1,119 +1,175 @@
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Link from "next/link";
+import { getAllServices } from "../lib/services-detailed";
 
-// Data for the 8 main services
-const servicesData = [
-  {
-    title: "مقاولات البناء",
-    desc: "ربط مباشر مع مقاولين معتمدين وموثوقين في العين وأبوظبي، مع سجل إنجازات موثق.",
-    slug: "building-contracting",
-    icon: "🏗️",
-  },
-  {
-    title: "التصميم الداخلي",
-    desc: "استشارات تصميم داخلي وخارجي مدعومة بالذكاء الاصطناعي 'وياك'، لضمان مطابقة الرؤية للميزانية.",
-    slug: "interior-design",
-    icon: "🛋️",
-  },
-  {
-    title: "إدارة المشاريع",
-    desc: "أدوات ذكية لمتابعة سير العمل، الجداول الزمنية، والميزانيات، لضمان تسليم المشروع في الوقت المحدد.",
-    slug: "project-management",
-    icon: "📊",
-  },
-  {
-    title: "الاستشارات الهندسية",
-    desc: "الوصول إلى شبكة من المهندسين والاستشاريين لضمان الامتثال لأعلى معايير الجودة والسلامة في الإمارات.",
-    slug: "engineering-consultancy",
-    icon: "📐",
-  },
-  {
-    title: "شركات الصيانة",
-    desc: "خدمات صيانة سريعة وموثوقة للمباني والمنشآت، مع نظام تقييم شفاف.",
-    slug: "maintenance-companies",
-    icon: "🛠️",
-  },
-  {
-    title: "تأجير المعدات",
-    desc: "منصة لتأجير المعدات الثقيلة والخفيفة من مزودين موثوقين بأسعار تنافسية.",
-    slug: "equipment-rental",
-    icon: "🚜",
-  },
-  {
-    title: "خدمات التنظيف",
-    desc: "تنظيف احترافي للمواقع بعد الانتهاء من البناء والتشطيب.",
-    slug: "cleaning-services",
-    icon: "🧼",
-  },
-  {
-    title: "محلات الأثاث والديكور",
-    desc: "اختيارات متنوعة من الأثاث والديكور من مزودين معتمدين بأسعار منافسة.",
-    slug: "furniture-decor",
-    icon: "🖼️",
-  },
-];
-
-export default function Services() {
+export default function Services({ services }) {
   return (
     <>
       <Head>
-        <title>خدمات بيت الريف: مقاولات، تصميم، إدارة مشاريع في الإمارات</title>
+        <title>خدمات بيت الريف - مقاولات، تصميم، إدارة مشاريع</title>
         <meta
           name="description"
-          content="اكتشف خدمات بيت الريف المتكاملة: مقاولات البناء، التصميم الداخلي، إدارة المشاريع، والاستشارات الهندسية. حلول ذكية لرحلة بناء سلسة في العين وأبوظبي."
+          content="استكشف جميع خدمات بيت الريف المتكاملة: مقاولات البناء، التصميم الداخلي، إدارة المشاريع، الاستشارات الهندسية، الصيانة، تأجير المعدات، التنظيف، والأثاث والديكور."
         />
+        <meta property="og:title" content="خدمات بيت الريف" />
+        <meta property="og:type" content="website" />
       </Head>
 
       <div className="min-h-screen flex flex-col bg-beige">
         <Navbar />
-        <main className="flex-1 max-w-7xl mx-auto px-4 py-8 sm:py-12">
-          <header className="text-center mb-8 sm:mb-12">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-green-800 mb-3">
-              خدمات بيت الريف المتكاملة
-            </h1>
-            <p className="text-md sm:text-lg text-gray-600 max-w-3xl mx-auto px-2">
-              نقدم لك كل ما تحتاجه في رحلة البناء والتصميم، من الاستشارة الهندسية إلى تسليم المفتاح، مدعومة بالذكاء الاصطناعي "وياك".
-            </p>
-          </header>
-
-          {/* Services Grid - Mobile First: 1 column, then 2, then 3 */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {servicesData.map((service) => (
-              // Link to the future Service Details Page
-              <Link key={service.slug} href={`/services/${service.slug}`} passHref>
-                <div className="bg-white p-4 sm:p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer border-t-4 border-green-600 flex flex-col">
-                  <div className="flex items-center mb-3">
-                    <div className="text-3xl sm:text-4xl mr-3">{service.icon}</div>
-                    <h2 className="text-lg sm:text-xl font-bold text-gray-900">{service.title}</h2>
-                  </div>
-                  <p className="text-sm text-gray-600 mb-4 flex-grow">{service.desc}</p>
-                  <span className="text-green-600 font-semibold text-sm hover:text-green-700 mt-auto">
-                    تعرّف على المزيد ←
-                  </span>
-                </div>
-              </Link>
-            ))}
+        <main className="flex-1">
+          {/* Hero Section */}
+          <section className="bg-gradient-to-b from-primary to-primary-dark text-white py-12 md:py-20">
+            <div className="max-w-6xl mx-auto px-4 text-center">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">
+                خدمات بيت الريف المتكاملة
+              </h1>
+              <p className="text-lg md:text-xl max-w-2xl mx-auto">
+                نقدم لك مجموعة شاملة من الخدمات المتخصصة لتلبية جميع احتياجات مشروعك من البداية إلى النهاية
+              </p>
+            </div>
           </section>
 
-          {/* CTA Section - Mobile First */}
-          <section className="mt-12 sm:mt-16 text-center bg-green-50 p-6 sm:p-8 rounded-xl shadow-inner">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-              جاهز لبدء مشروعك الذكي؟
-            </h2>
-            <p className="text-md text-gray-600 mb-6">
-              حمل تطبيق بيت الريف الآن واستفد من مساعد الذكاء الاصطناعي "وياك" في إدارة مشروعك.
-            </p>
-            <Link href="#" passHref>
-              <a className="bg-green-700 text-white px-6 py-3 rounded-full text-md sm:text-lg font-semibold hover:bg-green-800 transition duration-300 shadow-lg">
-                حمل التطبيق الآن
+          {/* Services Grid */}
+          <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service) => (
+                <Link key={service.id} href={`/services/${service.id}`}>
+                  <div className="group bg-white rounded-2xl shadow-soft hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer h-full">
+                    {/* Icon Container */}
+                    <div className="h-48 bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center overflow-hidden relative">
+                      <div className="relative w-full h-full">
+                        <Image
+                          src={service.icon}
+                          alt={service.title}
+                          fill
+                          className="object-contain p-4 group-hover:scale-110 transition-transform duration-300"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4">
+                        {service.shortDesc}
+                      </p>
+
+                      {/* Rating */}
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="text-yellow-400">⭐</span>
+                        <span className="font-semibold text-gray-900">
+                          {service.rating}
+                        </span>
+                        <span className="text-gray-500 text-sm">
+                          ({service.reviews}+ تقييم)
+                        </span>
+                      </div>
+
+                      {/* Price */}
+                      <div className="mb-4 pb-4 border-b border-gray-200">
+                        <p className="text-sm text-gray-600">السعر:</p>
+                        <p className="text-lg font-bold text-primary">
+                          {service.price}
+                        </p>
+                      </div>
+
+                      {/* Benefits Preview */}
+                      <div className="mb-4">
+                        <p className="text-xs font-semibold text-gray-600 mb-2">
+                          المميزات الرئيسية:
+                        </p>
+                        <ul className="space-y-1">
+                          {service.benefits.slice(0, 2).map((benefit, index) => (
+                            <li
+                              key={index}
+                              className="text-xs text-gray-600 flex items-start gap-2"
+                            >
+                              <span className="text-primary flex-shrink-0">✓</span>
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* CTA Button */}
+                      <button className="w-full py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition text-center">
+                        اعرف المزيد →
+                      </button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section className="bg-gradient-to-b from-blue-50 to-beige py-12 md:py-16">
+            <div className="max-w-6xl mx-auto px-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-12 text-center">
+                لماذا تختار خدمات بيت الريف؟
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-4xl mb-3">🏆</div>
+                  <h3 className="font-bold text-lg mb-2">معتمدون</h3>
+                  <p className="text-gray-600">جميع الشركاء معتمدون وموثوقون</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl mb-3">💰</div>
+                  <h3 className="font-bold text-lg mb-2">أسعار منافسة</h3>
+                  <p className="text-gray-600">أفضل الأسعار في السوق</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl mb-3">⚡</div>
+                  <h3 className="font-bold text-lg mb-2">سريع وفعال</h3>
+                  <p className="text-gray-600">خدمة سريعة وموثوقة</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl mb-3">🤝</div>
+                  <h3 className="font-bold text-lg mb-2">دعم 24/7</h3>
+                  <p className="text-gray-600">فريق دعم متواصل</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-12 md:py-16">
+            <div className="max-w-6xl mx-auto px-4 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                جاهز لبدء مشروعك؟
+              </h2>
+              <p className="text-lg mb-8 max-w-2xl mx-auto">
+                انضم إلى آلاف العملاء الراضين الذين استخدموا خدمات بيت الريف وحققوا أحلامهم
+              </p>
+              <a
+                href="https://app.bietalreef.ae"
+                className="inline-block px-10 py-4 rounded-full bg-white text-primary font-bold text-lg hover:bg-gray-100 transition"
+              >
+                ابدأ الآن مجاناً
               </a>
-            </Link>
+            </div>
           </section>
         </main>
         <Footer />
       </div>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const services = getAllServices();
+
+  return {
+    props: {
+      services,
+    },
+    revalidate: 3600, // Revalidate every hour
+  };
 }

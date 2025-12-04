@@ -51,10 +51,10 @@ export default function Hero() {
               ابدأ الآن
             </a>
             <Link
-              href="/platform"
+              href="/services"
               className="flex-1 sm:flex-none px-6 py-3 rounded-full border-2 border-primary text-primary text-sm font-semibold hover:bg-primary hover:text-white transition text-center"
             >
-              تعرّف على المنصة
+              استكشف الخدمات
             </Link>
           </div>
         </div>
