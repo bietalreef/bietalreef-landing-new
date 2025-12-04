@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { useEffect } from "react";
+import InstallPrompt from "../components/InstallPrompt";
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -11,5 +12,10 @@ export default function MyApp({ Component, pageProps }) {
     }
   }, []);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <InstallPrompt />
+      <Component {...pageProps} />
+    </>
+  );
 }

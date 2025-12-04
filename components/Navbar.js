@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import SmartAppLink from './SmartAppLink';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,12 +116,11 @@ export default function Navbar() {
             </div>
           </div>
 
-          <a
-            href="https://app.bietalreef.ae"
+          <SmartAppLink
             className="px-5 py-2 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition ml-2"
           >
             دخول المنصة
-          </a>
+          </SmartAppLink>
         </div>
 
         {/* Mobile Hamburger Menu Button */}
@@ -292,13 +292,12 @@ export default function Navbar() {
               )}
             </div>
 
-            <a
-              href="https://app.bietalreef.ae"
+            <SmartAppLink
               className="block py-3 px-4 rounded-lg bg-primary text-white text-center font-semibold hover:bg-primary-dark transition mt-3"
               onClick={closeMenu}
             >
               دخول المنصة
-            </a>
+            </SmartAppLink>
           </div>
         </div>
       )}

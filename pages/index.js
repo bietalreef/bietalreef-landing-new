@@ -6,6 +6,7 @@ import Hero from "../components/Hero";
 import ServiceCard from "../components/ServiceCard";
 import Footer from "../components/Footer";
 import WayakChatWidget from "../components/WayakChatWidget";
+import SmartAppLink from "../components/SmartAppLink";
 import { getAllServices } from "../lib/services-detailed";
 
 const services = [
