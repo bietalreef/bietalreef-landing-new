@@ -6,10 +6,8 @@ export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
-    { src: "/hero-villa-1.webp", alt: "فيلا حديثة فاخرة" },
-    { src: "/hero-villa-2.jpg", alt: "مشروع بناء عصري" },
-    { src: "/hero-villa-3.jpg", alt: "تصميم معماري حديث" },
-    { src: "/hero-villa-4.jpg", alt: "واجهة فيلا فاخرة" },
+    { src: "/hero-tablet.jpg", alt: "تطبيق بيت الريف الذكي" },
+    { src: "/hero-services-1.jpg", alt: "خدمات بيت الريف المتكاملة" },
   ];
 
   useEffect(() => {
