@@ -6,8 +6,10 @@ export default function Hero() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const images = [
-    { src: "/hero-tablet.jpg", alt: "تطبيق بيت الريف الذكي" },
-    { src: "/hero-services-1.jpg", alt: "خدمات بيت الريف المتكاملة" },
+    { src: "/hero-villa-1.webp", alt: "فيلا حديثة فاخرة" },
+    { src: "/hero-villa-2.jpg", alt: "مشروع بناء عصري" },
+    { src: "/hero-villa-3.jpg", alt: "تصميم معماري حديث" },
+    { src: "/hero-villa-4.jpg", alt: "واجهة فيلا فاخرة" },
   ];
 
   useEffect(() => {
@@ -106,36 +108,30 @@ export default function Hero() {
                     fill
                     className="object-cover"
                     priority={index === 0}
-                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
               ))}
-              
-              {/* Image Counter */}
-              <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                {currentImage + 1} / {images.length}
-              </div>
             </div>
 
-            {/* Carousel Controls */}
-            <div className="bg-white px-4 py-3 flex items-center justify-center gap-2">
+            {/* Image Counter */}
+            <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-semibold">
+              {currentImage + 1} / {images.length}
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
               {images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToImage(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`w-3 h-3 rounded-full transition ${
                     index === currentImage
-                      ? "bg-primary w-6"
-                      : "bg-gray-300 hover:bg-gray-400"
+                      ? "bg-primary"
+                      : "bg-white bg-opacity-50 hover:bg-opacity-75"
                   }`}
-                  aria-label={`صورة ${index + 1}`}
+                  aria-label={`Go to image ${index + 1}`}
                 />
               ))}
-            </div>
-
-            {/* Image Description */}
-            <div className="bg-gradient-to-r from-primary to-primary-dark text-white px-4 py-2 text-center text-sm font-semibold">
-              {images[currentImage].alt}
             </div>
           </div>
         </div>
