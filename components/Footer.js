@@ -80,8 +80,8 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-700">
               <li className="flex items-start gap-2">
                 <span className="text-lg flex-shrink-0">📞</span>
-                <a href="tel:+971XXXXXXXXX" className="hover:text-primary transition font-medium">
-                  +971 XXXX XXXX
+                <a href="tel:+971567856001" className="hover:text-primary transition font-medium">
+                  +971 567 856 001
                 </a>
               </li>
               <li className="flex items-start gap-2">
@@ -154,7 +154,7 @@ export default function Footer() {
                 <span className="text-lg">▶️</span>
               </a>
               <a
-                href="https://wa.me/971XXXXXXXXX"
+                href="https://wa.me/971567856001"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-blue-300 bg-opacity-30 hover:bg-opacity-50 flex items-center justify-center transition"
