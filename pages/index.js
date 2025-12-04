@@ -155,13 +155,13 @@ export default function Home({ allServices }) {
           </section>
 
           {/* Platform Features Section */}
-          <section className="max-w-6xl mx-auto px-4 mt-12 mb-12">
+          <section className="max-w-6xl mx-auto px-4 mt-12 mb-12 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 rounded-2xl p-8 md:p-12">
             <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-6 text-center">
               منصة بيت الريف: سوق متكامل وذكي
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Marketplace Feature */}
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 shadow-soft">
+              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
                 <div className="text-3xl mb-3">🛒</div>
                 <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
                   سوق مواد البناء والديكور
@@ -177,7 +177,7 @@ export default function Home({ allServices }) {
               </div>
 
               {/* Dashboard Feature */}
-              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 shadow-soft">
+              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
                 <div className="text-3xl mb-3">📊</div>
                 <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
                   لوحة تحكم ذكية
@@ -193,7 +193,7 @@ export default function Home({ allServices }) {
               </div>
 
               {/* WEYAAK AI Feature */}
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 shadow-soft">
+              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow">
                 <div className="text-3xl mb-3">🤖</div>
                 <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
                   وياك: مساعدك الذكي
