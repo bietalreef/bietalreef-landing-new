@@ -50,6 +50,9 @@ export default function Navbar() {
           <Link href="/about" className="text-gray-700 hover:text-primary transition">
             من نحن
           </Link>
+          <Link href="/blog" className="text-gray-700 hover:text-primary transition">
+            المدونة
+          </Link>
           <Link href="/legal" className="text-gray-700 hover:text-primary transition">
             الشروط والأحكام
           </Link>
@@ -116,6 +119,13 @@ export default function Navbar() {
               onClick={closeMenu}
             >
               من نحن
+            </Link>
+            <Link
+              href="/blog"
+              className="block py-2 px-3 text-gray-700 hover:bg-primary hover:text-white rounded transition"
+              onClick={closeMenu}
+            >
+              المدونة
             </Link>
             <Link
               href="/legal"

@@ -1,0 +1,24 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow sensitive paths
+Disallow: /admin
+Disallow: /api
+Disallow: /_next
+
+# Sitemap location
+Sitemap: https://bietalreef.ae/sitemap.xml
+
+# Crawl delay (in seconds)
+Crawl-delay: 1
+
+# User-agent specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# User-agent specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

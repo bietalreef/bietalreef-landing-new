@@ -36,6 +36,14 @@ export default function Home() {
         <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bietalreef.ae" />
+        {/* PWA Meta Tags */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0F3F1A" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="بيت الريف" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </Head>
 
       <div className="min-h-screen flex flex-col bg-beige">
