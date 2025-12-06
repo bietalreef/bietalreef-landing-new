@@ -23,7 +23,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
     {
       id: '1',
       type: 'wayak',
-      content: 'يا هلا والله بشريكي! حيّاك في بيت الريف. شو الخطة اليوم؟',
+      content: 'يا هلا والله! حيّاك الله في بيت الريف. شو الخطة اليوم؟',
       timestamp: new Date(),
     }
   ]);
@@ -172,7 +172,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
       setMessages([{
         id: '1',
         type: 'wayak',
-        content: 'يا هلا والله بشريكي! حيّاك في بيت الريف. شو الخطة اليوم؟',
+        content: 'يا هلا والله! حيّاك الله في بيت الريف. شو الخطة اليوم؟',
         timestamp: new Date(),
       }]);
     }
