@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
 // Initialize OpenAI client
@@ -28,10 +27,7 @@ const SYSTEM_PROMPT = `
 مساعدة المستخدم في استكشاف منصة بيت الريف، الإجابة على استفساراته حول البناء والتصميم، وتوجيهه للأدوات المناسبة.
 `;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -46,7 +42,7 @@ export default async function handler(
     // Prepare messages array with system prompt and history
     const messages = [
       { role: 'system', content: SYSTEM_PROMPT },
-      ...(history || []).map((msg: any) => ({
+      ...(history || []).map((msg) => ({
         role: msg.type === 'user' ? 'user' : 'assistant',
         content: msg.content
       })),
@@ -55,7 +51,7 @@ export default async function handler(
 
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o', // Using GPT-4o for best performance
-      messages: messages as any,
+      messages: messages,
       temperature: 0.7,
       max_tokens: 500,
     });

@@ -1,24 +1,10 @@
-import { X, Download, Mic, Send, Volume2, Settings, Sparkles, Trash2, MessageCircle } from 'lucide-react';
+import { X, Download, Mic, Send, Volume2, Settings, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
-interface Message {
-  id: string;
-  type: 'user' | 'wayak';
-  content: string;
-  timestamp: Date;
-  isVoice?: boolean;
-}
-
-interface WeyakChatProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onOpen: () => void;
-}
-
-export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
-  const [messages, setMessages] = useState<Message[]>([
+export function WeyakChat({ isOpen, onClose, onOpen }) {
+  const [messages, setMessages] = useState([
     {
       id: '1',
       type: 'wayak',
@@ -31,15 +17,10 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [showSettings, setShowSettings] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const messagesEndRef = useRef(null);
+  const recordingIntervalRef = useRef(null);
 
   // Settings State
-  const [temperature, setTemperature] = useState(0.7);
-  const [responseLength, setResponseLength] = useState('medium');
-  const [voiceGender, setVoiceGender] = useState('male');
-  const [voiceSpeed, setVoiceSpeed] = useState(1.0);
-  const [autoPlayVoice, setAutoPlayVoice] = useState(false);
   const [bgTheme, setBgTheme] = useState('blue');
 
   useEffect(() => {
@@ -66,7 +47,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
     };
   }, [isRecording]);
 
-  const formatDuration = (seconds: number) => {
+  const formatDuration = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -75,7 +56,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
 
-    const newMessage: Message = {
+    const newMessage = {
       id: Date.now().toString(),
       type: 'user',
       content: inputText,
@@ -102,7 +83,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
 
       const data = await response.json();
 
-      const aiMessage: Message = {
+      const aiMessage = {
         id: (Date.now() + 1).toString(),
         type: 'wayak',
         content: data.reply,
@@ -112,7 +93,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error('Chat Error:', error);
-      const errorMessage: Message = {
+      const errorMessage = {
         id: (Date.now() + 1).toString(),
         type: 'wayak',
         content: 'عذراً يا شريكي، واجهت مشكلة بسيطة في الاتصال. ممكن تعيد المحاولة؟ 🙏',
@@ -128,19 +109,17 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
     if (isRecording) {
       setIsRecording(false);
       // Simulate voice message
-      const voiceMessage: Message = {
+      const voiceMessage = {
         id: Date.now().toString(),
         type: 'user',
         content: 'رسالة صوتية',
         timestamp: new Date(),
         isVoice: true,
-        isVoice: true,
-        isVoice: true,
       };
       setMessages(prev => [...prev, voiceMessage]);
       setIsTyping(true);
       setTimeout(() => {
-        const aiMessage: Message = {
+        const aiMessage = {
           id: (Date.now() + 1).toString(),
           type: 'wayak',
           content: 'تم استلام رسالتك الصوتية. فالك طيب!',
@@ -213,7 +192,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
     }
   };
 
-  const currentTheme = bgThemes[bgTheme as keyof typeof bgThemes];
+  const currentTheme = bgThemes[bgTheme];
 
   return (
     <>
