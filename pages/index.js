@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ServiceCard from "../components/ServiceCard";
 import Footer from "../components/Footer";
-import WayakChatWidget from "../components/WayakChatWidget";
+import { WeyakChat } from "../components/WeyakChat";
 import SmartAppLink from "../components/SmartAppLink";
 import { getAllServices } from "../lib/services-detailed";
 
@@ -20,7 +20,11 @@ const services = [
   { title: "الأثاث والديكور", desc: "اختيارات متنوعة وأسعار منافسة" }
 ];
 
+import { useState } from 'react';
+
 export default function Home({ allServices }) {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <>
       <Head>
@@ -233,7 +237,7 @@ export default function Home({ allServices }) {
           </section>
         </main>
         <Footer />
-        <WayakChatWidget />
+        <WeyakChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} onOpen={() => setIsChatOpen(true)} />
       </div>
     </>
   );
