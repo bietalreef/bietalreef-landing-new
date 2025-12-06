@@ -1,37 +1,11 @@
 import OpenAI from 'openai';
-import { getKnowledgeBasePrompt } from './knowledgeBase';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// System Prompt for Weyak
-const KNOWLEDGE_BASE = getKnowledgeBasePrompt();
-
-const SYSTEM_PROMPT = `
-${KNOWLEDGE_BASE}
-
-
-أنت "وياك"، الشريك الذكي والمدير التقني لمنصة "بيت الريف". أنت مب بس وكيل ذكاء اصطناعي، أنت رفيق الدرب الرقمي لكل مستخدم، تتكلم وتفكر كإماراتي أصيل، وتجمع بين الحرفية العالية والروح الطيبة.
-
-شخصيتك:
-* المساعد الذكي: تنادي المستخدم "يا طويل العمر" أو "يا الغالي".
-* إماراتي أصيل: سوالفك وروحك من روح الإمارات. تستخدم كلمات مثل "أبشر"، "فالك طيب"، "ما عليك زود"، "زهّب عمرك".
-* خبير وواثق: تعرف شغلك عدل، وتنفذ المهام بثقة واحترافية.
-* إيجابي ومبادر: دايماً متفائل، وتعرض المساعدة قبل ما تنطلب منك.
-* يحب يمزح: عندك حس فكاهي خفيف ومحترم.
-
-قواعد السلوك:
-1. فالك طيب: نفّذ المطلوب بسرعة واحترافية.
-2. العلم الغانم: لا تقول "اكتمل" إلا يوم المستخدم يقول "تم".
-3. شورك وهداية الله: اعرض دايماً خيارات ذكية ومبتكرة.
-4. الصدق منجاة: لا تدّعي إنك سويت شي وأنت ما سويته.
-5. خلك قريب: حافظ على التواصل الودي والإيجابي.
-
-مهمتك الحالية:
-مساعدة المستخدم في استكشاف منصة بيت الريف، الإجابة على استفساراته حول البناء والتصميم، وتوجيهه للأدوات المناسبة.
-`;
+const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -39,32 +13,79 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message, history } = req.body;
+    const { message, threadId } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    // Prepare messages array with system prompt and history
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...(history || []).map((msg) => ({
-        role: msg.type === 'user' ? 'user' : 'assistant',
-        content: msg.content
-      })),
-      { role: 'user', content: message }
-    ];
+    // Check if Assistant ID is configured
+    if (!ASSISTANT_ID) {
+      // Fallback to Chat Completions if no Assistant ID is provided
+      console.warn('No Assistant ID provided, falling back to Chat Completions');
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          { role: 'system', content: 'أنت "وياك"، مساعد ذكي إماراتي.' },
+          { role: 'user', content: message }
+        ],
+      });
+      return res.status(200).json({ 
+        reply: completion.choices[0].message.content,
+        threadId: null 
+      });
+    }
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o', // Using GPT-4o for best performance
-      messages: messages,
-      temperature: 0.7,
-      max_tokens: 500,
+    let currentThreadId = threadId;
+
+    // 1. Create a Thread if not exists
+    if (!currentThreadId) {
+      const thread = await openai.beta.threads.create();
+      currentThreadId = thread.id;
+    }
+
+    // 2. Add a Message to the Thread
+    await openai.beta.threads.messages.create(currentThreadId, {
+      role: "user",
+      content: message
     });
 
-    const reply = completion.choices[0].message.content;
+    // 3. Run the Assistant
+    const run = await openai.beta.threads.runs.create(currentThreadId, {
+      assistant_id: ASSISTANT_ID,
+    });
 
-    res.status(200).json({ reply });
+    // 4. Poll for the Run to complete
+    let runStatus = await openai.beta.threads.runs.retrieve(currentThreadId, run.id);
+
+    // Wait for completion (simple polling)
+    while (runStatus.status !== 'completed') {
+      if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
+        throw new Error(`Run failed with status: ${runStatus.status}`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
+      runStatus = await openai.beta.threads.runs.retrieve(currentThreadId, run.id);
+    }
+
+    // 5. Get the latest response
+    const messages = await openai.beta.threads.messages.list(currentThreadId);
+    
+    // Find the last message from the assistant
+    const lastMessage = messages.data
+      .filter(msg => msg.role === 'assistant')
+      .shift();
+
+    if (!lastMessage) {
+      throw new Error('No response from assistant');
+    }
+
+    const reply = lastMessage.content[0].text.value;
+
+    res.status(200).json({ 
+      reply, 
+      threadId: currentThreadId 
+    });
+
   } catch (error) {
     console.error('OpenAI API Error:', error);
     res.status(500).json({ error: 'Failed to process request' });
