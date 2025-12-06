@@ -96,7 +96,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }) {
       const errorMessage = {
         id: (Date.now() + 1).toString(),
         type: 'wayak',
-        content: 'السموحة منك يا الغالي، واجهت مشكلة بسيطة في الاتصال. ممكن تعيد المحاولة؟ 🙏',
+        content: `السموحة منك يا الغالي، واجهت مشكلة: ${error.message || 'غير معروفة'}. ممكن تعيد المحاولة؟ 🙏`,
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, errorMessage]);
