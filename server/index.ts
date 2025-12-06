@@ -1,4 +1,5 @@
 import express from "express";
+import chatRouter from "./api/chat";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -17,6 +18,8 @@ async function startServer() {
       : path.resolve(__dirname, "..", "dist", "public");
 
   app.use(express.static(staticPath));
+  app.use(express.json());
+  app.use("/api", chatRouter);
 
   // Handle client-side routing - serve index.html for all routes
   app.get("*", (_req, res) => {
