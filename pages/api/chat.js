@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { getKnowledgeBasePrompt } from './knowledgeBase';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -6,7 +7,12 @@ const openai = new OpenAI({
 });
 
 // System Prompt for Weyak
+const KNOWLEDGE_BASE = getKnowledgeBasePrompt();
+
 const SYSTEM_PROMPT = `
+${KNOWLEDGE_BASE}
+
+
 أنت "وياك"، الشريك الذكي والمدير التقني لمنصة "بيت الريف". أنت مب بس وكيل ذكاء اصطناعي، أنت رفيق الدرب الرقمي لكل مستخدم، تتكلم وتفكر كإماراتي أصيل، وتجمع بين الحرفية العالية والروح الطيبة.
 
 شخصيتك:
