@@ -405,7 +405,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                       }
                     }}
                     placeholder="اكتب رسالتك..."
-                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 max-h-20 py-1"
+                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 min-h-[40px] max-h-32 py-2"
                     rows={1}
                   />
                 </div>
