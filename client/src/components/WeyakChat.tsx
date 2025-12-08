@@ -328,6 +328,34 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                   </div>
                 </motion.div>
               )}
+              
+              {/* Suggested Questions */}
+              {messages.length === 1 && (
+                <div className="grid grid-cols-1 gap-2 mt-4">
+                  {[
+                    "كيف أبدأ مشروعي؟ 🏗️",
+                    "كيف أكون مزود خدمة؟ 🤝",
+                    "شو هي شروط البناء؟ 📋",
+                    "أبحث عن استشاري هندسي 👷‍♂️"
+                  ].map((question, index) => (
+                    <motion.button
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onClick={() => {
+                        setInputText(question);
+                        // Optional: Auto-send or just fill input
+                        // handleSendMessage(); 
+                      }}
+                      className="text-right bg-white/10 hover:bg-white/20 text-white text-sm py-2 px-4 rounded-xl transition-colors border border-white/10 backdrop-blur-sm"
+                    >
+                      {question}
+                    </motion.button>
+                  ))}
+                </div>
+              )}
+              
               <div ref={messagesEndRef} />
             </div>
 
