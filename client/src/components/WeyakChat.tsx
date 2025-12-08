@@ -32,6 +32,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [recordingDuration, setRecordingDuration] = useState(0);
   const [showSettings, setShowSettings] = useState(false);
+  const [threadId, setThreadId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recordingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -41,7 +42,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
   const [voiceGender, setVoiceGender] = useState('male');
   const [voiceSpeed, setVoiceSpeed] = useState(1.0);
   const [autoPlayVoice, setAutoPlayVoice] = useState(false);
-  const [bgTheme, setBgTheme] = useState('blue');
+  const [bgTheme, setBgTheme] = useState('green');
 
   useEffect(() => {
     if (isOpen) {
@@ -95,13 +96,17 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
         },
         body: JSON.stringify({
           message: inputText,
-          history: messages.slice(-5), // Send last 5 messages for context
+          threadId: threadId,
         }),
       });
 
       if (!response.ok) throw new Error('Failed to send message');
 
       const data = await response.json();
+      
+      if (data.threadId) {
+        setThreadId(data.threadId);
+      }
 
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -413,14 +418,15 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
 
             {/* Input Area */}
             <div className="relative z-10 bg-white/10 backdrop-blur-xl border-t border-white/20 p-4">
-              <div className="flex items-end gap-2">
+              <div className="flex items-center gap-2">
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={handleVoiceRecord}
-                  className={`rounded-full w-10 h-10 ${isRecording ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-white/20 text-white hover:bg-white/30'}`}
+                  className={`rounded-full w-12 h-12 shrink-0 ${isRecording ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-[#2AA676] text-white hover:bg-[#2AA676]/90 shadow-md'}`}
+                  title="تسجيل صوتي"
                 >
-                  <Mic className="w-5 h-5" />
+                  <Mic className="w-6 h-6" />
                 </Button>
                 <div className="flex-1 bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-2">
                   <textarea
@@ -433,8 +439,8 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                       }
                     }}
                     placeholder="اكتب رسالتك..."
-                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 min-h-[40px] max-h-32 py-2"
-                    rows={1}
+                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 min-h-[80px] max-h-40 py-3 text-base"
+                    rows={3}
                   />
                 </div>
                 <Button
@@ -442,9 +448,9 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                   size="icon"
                   onClick={handleSendMessage}
                   disabled={!inputText.trim()}
-                  className={`rounded-full w-10 h-10 ${inputText.trim() ? 'bg-[#2AA676] text-white hover:bg-[#2AA676]/90' : 'bg-white/20 text-white/50'}`}
+                  className={`rounded-full w-12 h-12 shrink-0 ${inputText.trim() ? 'bg-[#2AA676] text-white hover:bg-[#2AA676]/90 shadow-md' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
                 >
-                  <Send className="w-5 h-5" />
+                  <Send className="w-6 h-6" />
                 </Button>
               </div>
             </div>

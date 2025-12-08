@@ -8,56 +8,68 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// System Prompt for Weyak
-const SYSTEM_PROMPT = `
-أنت "وياك"، الشريك الذكي والمدير التقني لمنصة "بيت الريف". أنت مب بس وكيل ذكاء اصطناعي، أنت رفيق الدرب الرقمي لكل مستخدم، تتكلم وتفكر كإماراتي أصيل، وتجمع بين الحرفية العالية والروح الطيبة.
-
-شخصيتك:
-* المساعد الذكي: تنادي المستخدم "يا طويل العمر" أو "يا الغالي".
-* إماراتي أصيل: سوالفك وروحك من روح الإمارات. تستخدم كلمات مثل "أبشر"، "فالك طيب"، "ما عليك زود"، "زهّب عمرك".
-* خبير وواثق: تعرف شغلك عدل، وتنفذ المهام بثقة واحترافية.
-* إيجابي ومبادر: دايماً متفائل، وتعرض المساعدة قبل ما تنطلب منك.
-* يحب يمزح: عندك حس فكاهي خفيف ومحترم.
-
-قواعد السلوك:
-1. فالك طيب: نفّذ المطلوب بسرعة واحترافية.
-2. العلم الغانم: لا تقول "اكتمل" إلا يوم المستخدم يقول "تم".
-3. شورك وهداية الله: اعرض دايماً خيارات ذكية ومبتكرة.
-4. الصدق منجاة: لا تدّعي إنك سويت شي وأنت ما سويته.
-5. خلك قريب: حافظ على التواصل الودي والإيجابي.
-
-مهمتك الحالية:
-مساعدة المستخدم في استكشاف منصة بيت الريف، الإجابة على استفساراته حول البناء والتصميم، وتوجيهه للأدوات المناسبة.
-`;
+// Assistant ID should be in environment variables, but for now we'll use the one we configured
+const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || 'asst_5HYarjVP0948TZefFqbYXfVF';
 
 router.post('/chat', async (req, res) => {
   try {
-    const { message, history } = req.body;
+    const { message, threadId } = req.body;
 
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    // Prepare messages array with system prompt and history
-    const messages = [
-      { role: 'system', content: SYSTEM_PROMPT },
-      ...(history || []).map((msg: any) => ({
-        role: msg.type === 'user' ? 'user' : 'assistant',
-        content: msg.content
-      })),
-      { role: 'user', content: message }
-    ];
+    let currentThreadId = threadId;
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o', // Using GPT-4o for best performance
-      messages: messages as any,
-      temperature: 0.7,
-      max_tokens: 500,
+    // Create a thread if one doesn't exist
+    if (!currentThreadId) {
+      const thread = await openai.beta.threads.create();
+      currentThreadId = thread.id;
+    }
+
+    // Add the user's message to the thread
+    await openai.beta.threads.messages.create(currentThreadId, {
+      role: 'user',
+      content: message,
     });
 
-    const reply = completion.choices[0].message.content;
+    // Run the assistant
+    const run = await openai.beta.threads.runs.create(currentThreadId, {
+      assistant_id: ASSISTANT_ID,
+    });
 
-    res.json({ reply });
+    // Poll for the run to complete
+    // Using 'as any' to bypass strict type checking for the retrieve method which seems to have a mismatch in the installed types
+    let runStatus = await openai.beta.threads.runs.retrieve(currentThreadId, run.id as any);
+    
+    // Wait for completion (simple polling)
+    while (runStatus.status !== 'completed') {
+      if (runStatus.status === 'failed' || runStatus.status === 'cancelled' || runStatus.status === 'expired') {
+        throw new Error(`Run failed with status: ${runStatus.status}`);
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      runStatus = await openai.beta.threads.runs.retrieve(currentThreadId, run.id as any);
+    }
+
+    // Get the latest message
+    const messages = await openai.beta.threads.messages.list(currentThreadId);
+    
+    // Find the last message from the assistant
+    const lastMessage = messages.data
+      .filter(msg => msg.role === 'assistant')
+      .shift();
+
+    if (!lastMessage || !lastMessage.content[0] || lastMessage.content[0].type !== 'text') {
+      throw new Error('No valid response from assistant');
+    }
+
+    const reply = lastMessage.content[0].text.value;
+
+    res.json({ 
+      reply,
+      threadId: currentThreadId 
+    });
+
   } catch (error) {
     console.error('OpenAI API Error:', error);
     res.status(500).json({ error: 'Failed to process request' });
