@@ -40,16 +40,17 @@ export default function Home() {
           <div className="w-full md:w-1/2 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] group">
               <img 
-                src="https://images.unsplash.com/photo-1600596542815-2495db98dada?q=80&w=2088&auto=format&fit=crop" 
+                src="/images/villa.jpg" 
                 alt="Modern House" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm backdrop-blur-sm">
-                4/2
+                4/4
               </div>
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 <div className="w-2 h-2 rounded-full bg-white/50"></div>
                 <div className="w-2 h-2 rounded-full bg-white"></div>
+                <div className="w-2 h-2 rounded-full bg-white/50"></div>
                 <div className="w-2 h-2 rounded-full bg-white/50"></div>
               </div>
             </div>
@@ -58,7 +59,7 @@ export default function Home() {
           {/* Content Side */}
           <div className="w-full md:w-1/2 space-y-8 text-right">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm text-sm text-gray-600">
-              <span className="text-lg">🤖</span>
+              <img src="/images/weyak-icon.png" alt="Weyak" className="w-6 h-6 object-contain" />
               <span>وياك أفضل وكيل شخصي إماراتي</span>
             </div>
 

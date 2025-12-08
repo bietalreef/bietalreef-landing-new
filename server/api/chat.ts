@@ -9,7 +9,11 @@ const openai = new OpenAI({
 });
 
 // Assistant ID should be in environment variables, but for now we'll use the one we configured
-const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || 'asst_5HYarjVP0948TZefFqbYXfVF';
+const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
+
+if (!ASSISTANT_ID) {
+  console.warn('Warning: OPENAI_ASSISTANT_ID is not set in environment variables.');
+}
 
 router.post('/chat', async (req, res) => {
   try {

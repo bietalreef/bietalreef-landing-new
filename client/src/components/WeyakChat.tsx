@@ -191,7 +191,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
       secondary: '#2F80ED'
     },
     green: {
-      gradient: 'from-[#1F3D2B] via-[#2AA676] to-[#4A90E2]',
+      gradient: 'from-[#1F3D2B] via-[#2AA676] to-[#1F3D2B]',
       primary: '#2AA676',
       secondary: '#4A90E2'
     },
@@ -234,7 +234,9 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
             className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-[#2AA676] to-[#4A90E2] shadow-lg flex items-center justify-center cursor-pointer group"
           >
             <div className="absolute inset-0 rounded-full bg-white/20 animate-ping opacity-75" />
-            <div className="relative z-10 group-hover:scale-110 transition-transform text-3xl">👨‍✈️</div>
+            <div className="relative z-10 group-hover:scale-110 transition-transform w-12 h-12 rounded-full overflow-hidden border-2 border-white/50">
+              <img src="/images/weyak-icon.png" alt="Weyak" className="w-full h-full object-cover" />
+            </div>
             <span className="absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white" />
           </motion.button>
         )}
@@ -278,7 +280,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
             <div className="relative z-10 bg-white/10 backdrop-blur-xl border-b border-white/20 px-5 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center overflow-hidden">
-                  <span className="text-2xl">👨‍✈️</span>
+                  <img src="/images/weyak-icon.png" alt="Weyak" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold">وياك</h3>
@@ -423,7 +425,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                   variant="ghost"
                   size="icon"
                   onClick={handleVoiceRecord}
-                  className={`rounded-full w-12 h-12 shrink-0 ${isRecording ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-[#2AA676] text-white hover:bg-[#2AA676]/90 shadow-md'}`}
+                  className={`rounded-full w-12 h-12 shrink-0 transition-all duration-300 ${isRecording ? 'bg-red-500 text-white hover:bg-red-600 scale-110 animate-pulse' : 'bg-white/20 text-white hover:bg-white/30'}`}
                   title="تسجيل صوتي"
                 >
                   <Mic className="w-6 h-6" />
@@ -439,7 +441,7 @@ export function WeyakChat({ isOpen, onClose, onOpen }: WeyakChatProps) {
                       }
                     }}
                     placeholder="اكتب رسالتك..."
-                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 min-h-[80px] max-h-40 py-3 text-base"
+                    className="w-full bg-transparent border-none outline-none resize-none text-[#1F3D2B] placeholder:text-gray-400 min-h-[100px] max-h-40 py-3 text-lg"
                     rows={3}
                   />
                 </div>
