@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { useEffect } from "react";
 import InstallPrompt from "../components/InstallPrompt";
+import WeyakChat from "../components/WeyakChat";
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <InstallPrompt />
+      <WeyakChat />
       <Component {...pageProps} />
     </>
   );

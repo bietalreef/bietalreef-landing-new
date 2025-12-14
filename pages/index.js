@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import ServiceCard from "../components/ServiceCard";
+import ServicesAndTools from "../components/ServicesAndTools";
 import Footer from "../components/Footer";
 import { WeyakChat } from "../components/WeyakChat";
 import SmartAppLink from "../components/SmartAppLink";
@@ -60,104 +60,7 @@ export default function Home({ allServices }) {
         <main className="flex-1">
           <Hero />
 
-          {/* Detailed Services Section with Flexible Pricing */}
-          <section className="max-w-7xl mx-auto px-4 py-16 md:py-24">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                خدمات متكاملة لرحلة بناء سلسة
-              </h2>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                8 خدمات رئيسية مع باقات مرنة تناسب احتياجاتك وميزانيتك
-              </p>
-            </div>
-
-            {/* Services Grid with Detailed Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {allServices.map((service) => (
-                <Link key={service.id} href={`/services/${service.id}`}>
-                  <div className="group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer h-full border border-gray-100 hover:border-primary">
-                    {/* Icon Container */}
-                    <div className="h-40 bg-gradient-to-br from-blue-50 via-green-50 to-blue-50 flex items-center justify-center overflow-hidden relative border-b-2 border-gray-100">
-                      <div className="relative w-32 h-32">
-                        <Image
-                          src={service.icon}
-                          alt={service.title}
-                          fill
-                          className="object-contain p-2 group-hover:scale-125 transition-transform duration-500 drop-shadow-lg"
-                        />
-                      </div>
-                      {/* Shine Effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-5">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                        {service.shortDesc}
-                      </p>
-
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-yellow-400 text-lg">⭐</span>
-                        <span className="font-bold text-gray-900">
-                          {service.rating}
-                        </span>
-                        <span className="text-gray-500 text-xs">
-                          ({service.reviews}+)
-                        </span>
-                      </div>
-
-                      {/* Flexible Pricing */}
-                      <div className="mb-4 pb-4 border-b border-gray-200">
-                        <p className="text-xs text-gray-600 mb-2 font-semibold">الباقات المتاحة:</p>
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-700">خطة مجانية</span>
-                            <span className="bg-green-100 text-green-800 px-2 py-1 rounded font-semibold">مجاني</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-700">خطة أساسية</span>
-                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded font-semibold">منخفض</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-700">خطة احترافية</span>
-                            <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded font-semibold">متوسط</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-gray-700">خطة متقدمة</span>
-                            <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded font-semibold">متقدم</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Quick Features */}
-                      <div className="mb-4">
-                        <ul className="space-y-1.5">
-                          {service.benefits.slice(0, 2).map((benefit, index) => (
-                            <li
-                              key={index}
-                              className="text-xs text-gray-700 flex items-start gap-2"
-                            >
-                              <span className="text-primary font-bold flex-shrink-0 mt-0.5">✓</span>
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* CTA Button */}
-                      <button className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-2 rounded-lg font-semibold text-sm hover:shadow-lg transition-all group-hover:translate-y-[-2px]">
-                        اعرف المزيد →
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <ServicesAndTools />
 
           {/* Platform Features Section */}
           <section className="max-w-6xl mx-auto px-4 mt-12 mb-12 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 rounded-2xl p-8 md:p-12">
