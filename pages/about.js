@@ -6,11 +6,18 @@ export default function About() {
   return (
     <>
       <Head>
-        <title>من نحن – بيت الريف</title>
+        <title>من نحن | بيت الريف - منصة البناء والصيانة الذكية في الإمارات</title>
         <meta
           name="description"
-          content="بيت الريف: منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي والذكاء الاصطناعي، لخدمة قطاع المقاولات والبناء."
+          content="بيت الريف: منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي والذكاء الاصطناعي لخدمة قطاع المقاولات والبناء. من العين إلى جميع إمارات الدولة."
         />
+        <meta name="keywords" content="بيت الريف, من نحن, منصة مقاولات إماراتية, رؤية 2030, ذكاء اصطناعي بناء, وياك" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/about" />
+        <meta property="og:title" content="من نحن | بيت الريف - منصة البناء الذكية" />
+        <meta property="og:description" content="منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي لقطاع البناء والمقاولات." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bietalreef.ae/about" />
       </Head>
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-blue-50">
         <Navbar />

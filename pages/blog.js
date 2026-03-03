@@ -20,19 +20,21 @@ export default function Blog() {
   return (
     <>
       <Head>
-        <title>المدونة - بيت الريف: مقالات وحالات نجاح</title>
+        <title>المدونة | بيت الريف - مقالات البناء والصيانة والتصميم في الإمارات</title>
         <meta
           name="description"
-          content="اقرأ أحدث المقالات والحالات الناجحة حول البناء والتصميم الداخلي والصيانة والمقاولات في الإمارات"
+          content="اقرأ أحدث المقالات والنصائح حول البناء والمقاولات والتصميم الداخلي والصيانة في الإمارات. حالات نجاح، نصائح مقاولات، وأدلة البناء الذكي."
         />
         <meta
           name="keywords"
-          content="مدونة البناء, مقالات التصميم, حالات النجاح, نصائح المقاولات, الصيانة الدورية"
+          content="مدونة البناء الإمارات, مقالات تصميم داخلي, نصائح مقاولات, صيانة منازل, بناء فلل, ترميم, أدلة البناء"
         />
-        <meta property="og:title" content="المدونة - بيت الريف: مقالات وحالات نجاح" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/blog" />
+        <meta property="og:title" content="المدونة | بيت الريف - مقالات البناء والصيانة" />
         <meta
           property="og:description"
-          content="اقرأ أحدث المقالات والحالات الناجحة حول البناء والتصميم الداخلي والصيانة"
+          content="أحدث المقالات والنصائح حول البناء والمقاولات والتصميم في الإمارات"
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bietalreef.ae/blog" />

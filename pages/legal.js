@@ -6,7 +6,10 @@ export default function Legal() {
   return (
     <>
       <Head>
-        <title>الشروط والأحكام – بيت الريف</title>
+        <title>الشروط والأحكام | بيت الريف - سياسة الخصوصية والاستخدام</title>
+        <meta name="description" content="الشروط والأحكام، سياسة الخصوصية، سياسة الكوكيز، وإخلاء المسؤولية لمنصة بيت الريف للبناء والصيانة في الإمارات." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/legal" />
       </Head>
       <div className="min-h-screen flex flex-col bg-beige">
         <Navbar />

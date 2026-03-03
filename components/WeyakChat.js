@@ -160,7 +160,7 @@ export default function WeyakChat() {
               disabled={!input.trim() || isLoading}
               className="p-3 bg-[#1B4D3E] text-white rounded-xl hover:bg-[#143d31] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md flex-shrink-0"
             >
-              <Send className={`w-5 h-5 ${document.dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <Send className={`w-5 h-5 ${typeof document !== 'undefined' && document.dir === 'rtl' ? 'rotate-180' : ''}`} />
             </button>
           </form>
           <div className="text-center mt-2">

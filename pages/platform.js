@@ -9,10 +9,16 @@ export default function Platform() {
   return (
     <>
       <Head>
-        <title>منصة بيت الريف – كيفية العمل | منصة الخدمات الذكية</title>
-        <meta name="description" content="اكتشف كيفية عمل منصة بيت الريف - المنصة الذكية لربط العملاء مع مزودي الخدمات المعتمدين في الإمارات" />
-        <meta property="og:title" content="منصة بيت الريف – كيفية العمل" />
-        <meta property="og:description" content="اكتشف كيفية عمل منصة بيت الريف - المنصة الذكية لربط العملاء مع مزودي الخدمات المعتمدين" />
+        <title>منصة بيت الريف | كيفية العمل - سوق الخدمات الذكية للبناء والصيانة</title>
+        <meta name="description" content="اكتشف كيفية عمل منصة بيت الريف - المنصة الذكية لربط العملاء مع مقاولين وحرفيين معتمدين في جميع الإمارات. سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك." />
+        <meta name="keywords" content="منصة بيت الريف, كيفية العمل, سوق خدمات البناء, وياك, ذكاء اصطناعي, مقاولين معتمدين" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/platform" />
+        <meta property="og:title" content="منصة بيت الريف | كيفية العمل - سوق الخدمات الذكية" />
+        <meta property="og:description" content="المنصة الذكية لربط العملاء مع مقاولين وحرفيين معتمدين في جميع الإمارات." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bietalreef.ae/platform" />
+        <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
       </Head>
 
       <div className="min-h-screen flex flex-col bg-white">

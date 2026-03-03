@@ -1,24 +1,42 @@
+# بيت الريف - Beit Al Reef
+# https://bietalreef.ae
+
 # Allow all search engines
 User-agent: *
 Allow: /
+Allow: /services
+Allow: /services/
+Allow: /shop
+Allow: /shop/
+Allow: /blog
+Allow: /blog/
+Allow: /about
+Allow: /platform
 
 # Disallow sensitive paths
 Disallow: /admin
 Disallow: /api
-Disallow: /_next
+Disallow: /_next/static/
+Disallow: /_next/data/
 
 # Sitemap location
 Sitemap: https://bietalreef.ae/sitemap.xml
 
-# Crawl delay (in seconds)
-Crawl-delay: 1
-
-# User-agent specific rules for Google
+# Google
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
-# User-agent specific rules for Bing
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2

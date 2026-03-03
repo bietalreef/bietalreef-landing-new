@@ -1,2 +1,9 @@
 node_modules
+.next
+out
+.env
+.env.local
+.env.production
 rclone_*.conf
+*.log
+.DS_Store

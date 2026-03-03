@@ -9,14 +9,19 @@ export default function Services({ services }) {
   return (
     <>
       <Head>
-        <title>خدمات بيت الريف - أفضل الخدمات في العين وأبوظبي والإمارات</title>
+        <title>خدمات بيت الريف | مقاولات، صيانة، تصميم داخلي، مواد بناء في دبي وأبوظبي والعين والإمارات</title>
         <meta
           name="description"
-          content="استكشف جميع خدمات بيت الريف المتكاملة: مقاولات البناء، التصميم الداخلي، إدارة المشاريع، الاستشارات الهندسية، الصيانة، تأجير المعدات، التنظيف، والأثاث والديكور. مع وياك - أفضل وكيل شخصي إماراتي."
+          content="استكشف خدمات بيت الريف المتكاملة: مقاولات بناء، استشارات هندسية، شركات صيانة، عمالة حرفية، ورش صناعية، تأجير معدات، مواد بناء، أثاث وديكور، وخدمات نظافة. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات."
         />
-        <meta property="og:title" content="خدمات بيت الريف - منصة الخدمات الذكية" />
+        <meta name="keywords" content="خدمات بناء الإمارات, مقاولات دبي, مقاولات أبوظبي, صيانة العين, تصميم داخلي الشارقة, سباكة, كهرباء, تكييف, دهانات, نجارة, ورش حدادة, تأجير معدات بناء, مواد بناء, أثاث وديكور, تنظيف منازل" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/services" />
+        <meta property="og:title" content="خدمات بيت الريف | مقاولات، صيانة، تصميم داخلي في الإمارات" />
+        <meta property="og:description" content="سوق متكامل لخدمات البناء والصيانة والتصميم في جميع الإمارات. مقاولون معتمدون وحرفيون موثقون." />
         <meta property="og:type" content="website" />
-        <meta name="keywords" content="خدمات البناء العين، مقاولات أبوظبي، تصميم داخلي، إدارة مشاريع، استشارات هندسية" />
+        <meta property="og:url" content="https://bietalreef.ae/services" />
+        <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
       </Head>
 
       <div className="min-h-screen flex flex-col bg-white">
