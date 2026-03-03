@@ -312,6 +312,68 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ═══ القسم 6: منصات بيت الريف — الدومينات الفرعية (مهم لـ SEO) ═══ */}
+        <div className="mb-8 border-t border-[#E6DCC8] pt-8">
+          <h2 className="text-sm font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">منصات بيت الريف</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {/* الموقع الرئيسي */}
+            <a
+              href="https://bietalreef.ae"
+              className="group bg-white rounded-xl p-4 transition-all border border-[#E6DCC8] hover:border-primary/40 shadow-sm hover:shadow-md"
+              title="بيت الريف - منصة البناء والصيانة الذكية في الإمارات"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-black text-primary">بر</span>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-gray-900 group-hover:text-primary font-bold text-sm transition-colors">bietalreef.ae</h3>
+                  <p className="text-gray-400 text-[10px]">الموقع الرئيسي — دليل المقاولين والخدمات</p>
+                </div>
+              </div>
+            </a>
+
+            {/* التطبيق الذكي — وكيل وياك */}
+            <a
+              href="https://app.bietalreef.ae"
+              className="group bg-white rounded-xl p-4 transition-all border border-[#E6DCC8] hover:border-primary/40 shadow-sm hover:shadow-md"
+              title="تطبيق بيت الريف الذكي - وكيل وياك AI للبناء والصيانة"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl" aria-hidden="true">📱</span>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-gray-900 group-hover:text-primary font-bold text-sm transition-colors">app.bietalreef.ae</h3>
+                  <p className="text-gray-400 text-[10px]">التطبيق الذكي — وكيل وياك AI، المتجر، الخريطة</p>
+                </div>
+              </div>
+            </a>
+
+            {/* صفحة وياك AI */}
+            <a
+              href="https://weyaakai.bietalreef.ae"
+              className="group bg-white rounded-xl p-4 transition-all border border-[#E6DCC8] hover:border-primary/40 shadow-sm hover:shadow-md"
+              title="وياك AI - المساعد الذكي لإدارة مشاريع البناء والصيانة بالذكاء الاصطناعي"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl" aria-hidden="true">🤖</span>
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-gray-900 group-hover:text-primary font-bold text-sm transition-colors">weyaakai.bietalreef.ae</h3>
+                  <p className="text-gray-400 text-[10px]">وياك AI — وكيلك الذكي للبناء والصيانة</p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          {/* نص SEO إضافي للدومينات الفرعية */}
+          <p className="text-gray-300 text-[9px] mt-3 leading-relaxed text-center">
+            منصة بيت الريف تتكون من عدة خدمات رقمية متكاملة: الموقع الرئيسي (bietalreef.ae) لاستعراض الخدمات والمقاولين، التطبيق الذكي (app.bietalreef.ae) للتسوق والخريطة التفاعلية وأدوات الذكاء الاصطناعي، ووياك AI (weyaakai.bietalreef.ae) الوكيل الذكي الذي يتصفح الإنترنت وينفذ المهام نيابة عنك.
+          </p>
+        </div>
+
         {/* ═══ الشريط السفلي — SEO Coverage Text ═══ */}
         <div className="border-t border-[#E6DCC8] pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
