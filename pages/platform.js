@@ -1,25 +1,21 @@
-import Head from "next/head";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
 
 export default function Platform() {
   const [activeTab, setActiveTab] = useState("client");
 
   return (
     <>
-      <Head>
-        <title>منصة بيت الريف | كيفية العمل - سوق الخدمات الذكية للبناء والصيانة</title>
-        <meta name="description" content="اكتشف كيفية عمل منصة بيت الريف - المنصة الذكية لربط العملاء مع مقاولين وحرفيين معتمدين في جميع الإمارات. سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك." />
-        <meta name="keywords" content="منصة بيت الريف, كيفية العمل, سوق خدمات البناء, وياك, ذكاء اصطناعي, مقاولين معتمدين" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bietalreef.ae/platform" />
-        <meta property="og:title" content="منصة بيت الريف | كيفية العمل - سوق الخدمات الذكية" />
-        <meta property="og:description" content="المنصة الذكية لربط العملاء مع مقاولين وحرفيين معتمدين في جميع الإمارات." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bietalreef.ae/platform" />
-        <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
-      </Head>
+      <SEOHead
+        title="منصة بيت الريف | كيفية العمل - سوق الخدمات الذكية للبناء والصيانة"
+        description="اكتشف كيفية عمل منصة بيت الريف - المنصة الذكية لربط العملاء مع مقاولين وحرفيين معتمدين في جميع الإمارات. سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك."
+        keywords="منصة بيت الريف, كيفية العمل, سوق خدمات البناء, وياك, ذكاء اصطناعي, مقاولين معتمدين, Beit Al Reef platform"
+        ogImage="https://bietalreef.ae/og-weyaak.jpg"
+        breadcrumbs={[{ name: "مميزات المنصة", item: "https://bietalreef.ae/platform" }]}
+        includePWA={false}
+      />
 
       <div className="min-h-screen flex flex-col bg-white">
         <Navbar />

@@ -1,24 +1,34 @@
-import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
+
+// JSON-LD: AboutPage + BreadcrumbList
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "من نحن | بيت الريف",
+  "description": "منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي والذكاء الاصطناعي لخدمة قطاع المقاولات والبناء.",
+  "url": "https://bietalreef.ae/about",
+  "publisher": {
+    "@type": "Organization",
+    "name": "بيت الريف",
+    "url": "https://bietalreef.ae",
+    "logo": "https://bietalreef.ae/logo.png"
+  }
+};
 
 export default function About() {
   return (
     <>
-      <Head>
-        <title>من نحن | بيت الريف - منصة البناء والصيانة الذكية في الإمارات</title>
-        <meta
-          name="description"
-          content="بيت الريف: منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي والذكاء الاصطناعي لخدمة قطاع المقاولات والبناء. من العين إلى جميع إمارات الدولة."
-        />
-        <meta name="keywords" content="بيت الريف, من نحن, منصة مقاولات إماراتية, رؤية 2030, ذكاء اصطناعي بناء, وياك" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bietalreef.ae/about" />
-        <meta property="og:title" content="من نحن | بيت الريف - منصة البناء الذكية" />
-        <meta property="og:description" content="منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي لقطاع البناء والمقاولات." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bietalreef.ae/about" />
-      </Head>
+      <SEOHead
+        title="من نحن | بيت الريف - منصة البناء والصيانة الذكية في الإمارات"
+        description="بيت الريف: منصة إماراتية أصيلة تجسد رؤية الإمارات 2030 في التحول الرقمي والذكاء الاصطناعي لخدمة قطاع المقاولات والبناء. من العين إلى جميع إمارات الدولة."
+        keywords="بيت الريف, من نحن, منصة مقاولات إماراتية, رؤية 2030, ذكاء اصطناعي بناء, وياك, Beit Al Reef"
+        ogImage="https://bietalreef.ae/og-weyaak.jpg"
+        structuredData={aboutPageSchema}
+        breadcrumbs={[{ name: "من نحن", item: "https://bietalreef.ae/about" }]}
+        includePWA={false}
+      />
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 via-white to-blue-50">
         <Navbar />
         <main className="flex-1 max-w-5xl mx-auto px-4 py-12 md:py-16 space-y-12">
