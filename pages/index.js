@@ -162,30 +162,30 @@ export default function Home({ allServices }) {
           <Hero />
 
           {/* ═══ Platform Visual Gallery — 10 Images Grid ═══ */}
-          <section dir="rtl" className="w-full bg-[#0F3F1A] py-12 px-4">
+          <section dir="rtl" className="w-full bg-[#F5EEE1] py-12 px-4 border-b border-[#E6DCC8]">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-center text-white text-xl md:text-2xl font-bold mb-2">
+              <h2 className="text-center text-[#0F3F1A] text-xl md:text-2xl font-bold mb-1">
                 منصة بيت الريف بالصور
               </h2>
-              <p className="text-center text-[#D4AF37] text-sm mb-8">
+              <p className="text-center text-[#8B6914] text-sm mb-8">
                 أدوات ذكية · سوق متكامل · وياك الوكيل الذكي
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                 {[
-                  { src: "/bait-alreef-ai-tools.webp",            alt: "أدوات الذكاء الاصطناعي" },
-                  { src: "/bait-alreef-core-system.webp",         alt: "النظام الأساسي" },
-                  { src: "/bait-alreef-ecosystem-overview.webp",  alt: "نظرة عامة على المنظومة" },
-                  { src: "/bait-alreef-marketplace-materials.webp",alt: "سوق مواد البناء" },
-                  { src: "/bait-alreef-weyaak-marketing.webp",    alt: "تسويق وياك" },
-                  { src: "/bait-alreef-tools-suite.webp",         alt: "مجموعة الأدوات" },
-                  { src: "/bait-alreef-project-journey.webp",     alt: "رحلة المشروع" },
-                  { src: "/bait-alreef-task-management.webp",     alt: "إدارة المهام" },
-                  { src: "/bait-alreef-workflow-system.webp",     alt: "نظام سير العمل" },
-                  { src: "/bait-alreef-superapp-overview.webp",   alt: "نظرة عامة على التطبيق" },
+                  { src: "/bait-alreef-ai-tools.webp",             alt: "أدوات الذكاء الاصطناعي" },
+                  { src: "/bait-alreef-core-system.webp",          alt: "النظام الأساسي" },
+                  { src: "/bait-alreef-ecosystem-overview.webp",   alt: "نظرة عامة على المنظومة" },
+                  { src: "/bait-alreef-marketplace-materials.webp", alt: "سوق مواد البناء" },
+                  { src: "/bait-alreef-weyaak-marketing.webp",     alt: "تسويق وياك" },
+                  { src: "/bait-alreef-tools-suite.webp",          alt: "مجموعة الأدوات" },
+                  { src: "/bait-alreef-project-journey.webp",      alt: "رحلة المشروع" },
+                  { src: "/bait-alreef-task-management.webp",      alt: "إدارة المهام" },
+                  { src: "/bait-alreef-workflow-system.webp",      alt: "نظام سير العمل" },
+                  { src: "/bait-alreef-superapp-overview.webp",    alt: "نظرة عامة على التطبيق" },
                 ].map((img, i) => (
                   <div
                     key={i}
-                    className="relative w-full overflow-hidden rounded-xl border border-white/10 shadow-md group"
+                    className="relative w-full overflow-hidden rounded-xl border border-[#E6DCC8] shadow-sm group"
                     style={{ aspectRatio: "16/10" }}
                   >
                     <Image
@@ -196,7 +196,7 @@ export default function Home({ allServices }) {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
                       <span className="text-white text-xs font-semibold">{img.alt}</span>
                     </div>
                   </div>

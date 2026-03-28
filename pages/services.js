@@ -206,47 +206,6 @@ export default function Services({ services }) {
               </div>
             </div>
           </section>
-          {/* ═══ Services Visual Gallery — 8 Images ═══ */}
-          <section dir="rtl" className="w-full bg-[#0F3F1A] py-12 px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-center text-white text-xl md:text-2xl font-bold mb-2">
-                مشاريعنا وخدماتنا بالصور
-              </h2>
-              <p className="text-center text-[#D4AF37] text-sm mb-8">
-                مقاولات · صيانة · تشطيبات · معدات
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[
-                  { src: "/bait-alreef-construction-catalog.webp", alt: "كتالوج المقاولات" },
-                  { src: "/bait-alreef-management-catalog.webp",   alt: "كتالوج الإدارة" },
-                  { src: "/bait-alreef-hero-2.webp",                alt: "خدمات البناء" },
-                  { src: "/bait-alreef-hero-4.webp",                alt: "مشاريع الصيانة" },
-                  { src: "/bait-alreef-hero-6.webp",                alt: "التشطيبات الداخلية" },
-                  { src: "/bait-alreef-hero-8.webp",                alt: "الأعمال الهندسية" },
-                  { src: "/bait-alreef-hero-10.webp",               alt: "معدات البناء" },
-                  { src: "/hero-services-1.jpg",                   alt: "خدمات متكاملة" },
-                ].map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative w-full overflow-hidden rounded-xl border border-white/10 shadow-md group"
-                    style={{ aspectRatio: "16/10" }}
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      loading="lazy"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                      <span className="text-white text-xs font-semibold">{img.alt}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
         </main>
         <Footer />
       </div>

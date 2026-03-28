@@ -690,46 +690,6 @@ export default function Platform() {
               </div>
             </div>
           </section>
-          {/* ═══ Platform Visual Gallery — 7 Images ═══ */}
-          <section dir="rtl" className="w-full bg-[#0F3F1A] py-12 px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-center text-white text-xl md:text-2xl font-bold mb-2">
-                منصة بيت الريف بالصور
-              </h2>
-              <p className="text-center text-[#D4AF37] text-sm mb-8">
-                أدوات ذكية · تحليل البيانات · إدارة متكاملة
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                {[
-                  { src: "/bait-alreef-benefits-platform.webp",    alt: "مزايا المنصة" },
-                  { src: "/bait-alreef-search-comparison.webp",    alt: "مقارنة وبحث ذكي" },
-                  { src: "/bait-alreef-seo-visibility.webp",       alt: "ظهور في محركات البحث" },
-                  { src: "/bait-alreef-ecommerce-optimization.webp",alt: "تحسين التجارة الإلكترونية" },
-                  { src: "/bait-alreef-hero-12.webp",               alt: "لوحة تحكم ذكية" },
-                  { src: "/bait-alreef-hero-14.webp",               alt: "تحليل المشاريع" },
-                  { src: "/bait-alreef-hero-16.webp",               alt: "إدارة العقود" },
-                ].map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative w-full overflow-hidden rounded-xl border border-white/10 shadow-md group"
-                    style={{ aspectRatio: "16/10" }}
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      loading="lazy"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                      <span className="text-white text-xs font-semibold">{img.alt}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
         </main>
         <Footer />
       </div>
