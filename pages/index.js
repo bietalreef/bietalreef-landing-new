@@ -83,7 +83,7 @@ const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "بيت الريف",
-  "alternateName": "Beit Al Reef",
+  "alternateName": "Beet Al Reef",
   "url": "https://bietalreef.ae",
   "potentialAction": {
     "@type": "SearchAction",
@@ -161,51 +161,64 @@ export default function Home({ allServices }) {
         <main className="flex-1">
           <Hero />
 
-          {/* ═══ Platform Visual Gallery — 10 Images Grid ═══ */}
-          <section dir="rtl" className="w-full bg-[#F5EEE1] py-12 px-4 border-b border-[#E6DCC8]">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-center text-[#0F3F1A] text-xl md:text-2xl font-bold mb-1">
-                منصة بيت الريف بالصور
-              </h2>
-              <p className="text-center text-[#8B6914] text-sm mb-8">
-                أدوات ذكية · سوق متكامل · وياك الوكيل الذكي
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                {[
-                  { src: "/bait-alreef-ai-tools.webp",             alt: "أدوات الذكاء الاصطناعي" },
-                  { src: "/bait-alreef-core-system.webp",          alt: "النظام الأساسي" },
-                  { src: "/bait-alreef-ecosystem-overview.webp",   alt: "نظرة عامة على المنظومة" },
-                  { src: "/bait-alreef-marketplace-materials.webp", alt: "سوق مواد البناء" },
-                  { src: "/bait-alreef-weyaak-marketing.webp",     alt: "تسويق وياك" },
-                  { src: "/bait-alreef-tools-suite.webp",          alt: "مجموعة الأدوات" },
-                  { src: "/bait-alreef-project-journey.webp",      alt: "رحلة المشروع" },
-                  { src: "/bait-alreef-task-management.webp",      alt: "إدارة المهام" },
-                  { src: "/bait-alreef-workflow-system.webp",      alt: "نظام سير العمل" },
-                  { src: "/bait-alreef-superapp-overview.webp",    alt: "نظرة عامة على التطبيق" },
-                ].map((img, i) => (
-                  <div
-                    key={i}
-                    className="relative w-full overflow-hidden rounded-xl border border-[#E6DCC8] shadow-sm group"
-                    style={{ aspectRatio: "16/10" }}
-                  >
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      loading="lazy"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                      <span className="text-white text-xs font-semibold">{img.alt}</span>
-                    </div>
-                  </div>
-                ))}
+          {/* ═══ IMAGE BREAK 1: Ecosystem Overview — full-width visual after Hero ═══ */}
+          <section dir="rtl" className="w-full py-16 px-4 bg-white border-b border-[#E6DCC8]">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+              <div className="flex-1 order-2 md:order-1">
+                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">المنظومة المتكاملة</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
+                  كل ما تحتاجه لمشروعك<br />في مكان واحد
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  من التصميم إلى التسليم — منصة بيت الريف تجمع المقاولين والمصممين وسوق المواد ووكيل الذكاء الاصطناعي وياك في منظومة متكاملة تُدار بذكاء.
+                </p>
+                <Link href="/platform" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F3F1A] border border-[#0F3F1A] px-5 py-2.5 rounded-full hover:bg-[#0F3F1A] hover:text-white transition-all duration-300">
+                  اكتشف المنصة ←
+                </Link>
+              </div>
+              <div className="flex-1 order-1 md:order-2 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
+                <Image
+                  src="/bait-alreef-ecosystem-overview.webp"
+                  alt="منظومة بيت الريف المتكاملة"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
             </div>
           </section>
 
+          {/* ═══ Services & Tools Section ═══ */}
           <ServicesAndTools />
+
+          {/* ═══ IMAGE BREAK 2: Weyaak AI — visual separator between tools and features ═══ */}
+          <section dir="rtl" className="w-full py-16 px-4 bg-[#F5EEE1] border-y border-[#E6DCC8]">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+              <div className="flex-1 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
+                <Image
+                  src="/bait-alreef-weyaak-marketing.webp"
+                  alt="وياك — وكيلك الذكي"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">الذكاء الاصطناعي</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
+                  وياك — وكيلك الذكي<br />الذي يعمل نيابة عنك
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  وياك هو أول وكيل ذكاء اصطناعي متخصص في قطاع البناء في الإمارات. يحلل عروضك، يختار أفضل مقاول، ويدير مشروعك من الألف إلى الياء.
+                </p>
+                <Link href="/platform" className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-[#0F3F1A] px-5 py-2.5 rounded-full hover:bg-[#1a5c28] transition-all duration-300">
+                  ابدأ مع وياك ←
+                </Link>
+              </div>
+            </div>
+          </section>
 
           {/* Platform Features Section */}
           <section className="max-w-6xl mx-auto px-4 mt-12 mb-12 bg-gradient-to-br from-[#F5EEE1] via-[#F7F1E8] to-[#F5EEE1] rounded-2xl p-8 md:p-12 border border-[#E6DCC8]">
@@ -239,7 +252,7 @@ export default function Home({ allServices }) {
                   متابعة شاملة لمشاريعك وتقييماتك ومعاملاتك من لوحة تحكم موحدة. إحصائيات فورية وتقارير مفصلة.
                 </p>
                 <ul className="text-xs text-gray-600 space-y-1">
-                  <li>✓ متابعة المشاريع الحية</li>
+                  <li>✓ متابعة مراحل المشروع لحظة بلحظة</li>
                   <li>✓ إحصائيات التقييمات والمعاملات</li>
                   <li>✓ تقارير الأداء والنمو</li>
                 </ul>
@@ -263,6 +276,35 @@ export default function Home({ allServices }) {
             </div>
           </section>
 
+          {/* ═══ IMAGE BREAK 3: AI Tools — visual before final CTA ═══ */}
+          <section dir="rtl" className="w-full py-16 px-4 bg-white border-t border-[#E6DCC8]">
+            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+              <div className="flex-1 order-2 md:order-1">
+                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">47 أداة ذكية</p>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
+                  أدوات الذكاء الاصطناعي<br />لكل مرحلة من مشروعك
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
+                  حاسبة المواد، تقدير التكلفة، تحليل المخططات، فحص الجودة، محلل العقود — 47 أداة ذكية تغطي كل احتياجات مشروعك من البداية للنهاية.
+                </p>
+                <Link href="https://app.bietalreef.ae" className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-[#D4AF37] px-6 py-3 rounded-full hover:bg-[#b8962e] transition-all duration-300 shadow-md">
+                  جرّب الأدوات مجاناً ←
+                </Link>
+              </div>
+              <div className="flex-1 order-1 md:order-2 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
+                <Image
+                  src="/bait-alreef-ai-tools.webp"
+                  alt="أدوات الذكاء الاصطناعي في بيت الريف"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Why Choose Us */}
           <section className="max-w-6xl mx-auto px-4 mt-12 mb-16">
             <div className="bg-white rounded-2xl shadow-soft p-6 grid md:grid-cols-2 gap-6 border border-[#E6DCC8]">
               <div>
