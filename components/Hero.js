@@ -80,12 +80,12 @@ export default function Hero() {
           {/* Trust Indicators */}
           <div className="flex gap-8 mb-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#D4AF37]">+1000</div>
-              <div className="text-xs text-gray-300 mt-1">مزود خدمة</div>
+              <div className="text-3xl font-bold text-[#D4AF37]">47</div>
+              <div className="text-xs text-gray-300 mt-1">🧠 الأدوات الذكية</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#D4AF37]">+5000</div>
-              <div className="text-xs text-gray-300 mt-1">مشروع منجز</div>
+              <div className="text-3xl font-bold text-[#D4AF37]">90+</div>
+              <div className="text-xs text-gray-300 mt-1">🛒 سوق الخدمات</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-[#D4AF37]">4.8★</div>

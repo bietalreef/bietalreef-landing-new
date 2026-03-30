@@ -3,24 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import ServicesAndTools from "../components/ServicesAndTools";
 import Footer from "../components/Footer";
-import SmartAppLink from "../components/SmartAppLink";
 import { getAllServices } from "../lib/services-detailed";
-import { useState } from 'react';
-
-// بيانات الخدمات الرئيسية — محدّثة من figmawebapp
-const services = [
-  { title: "مقاولات البناء", desc: "شركات مقاولات معتمدة لبناء الفلل والمباني والمشاريع السكنية والتجارية في الإمارات", icon: "🏗️" },
-  { title: "الاستشارات الهندسية", desc: "مكاتب استشارات هندسية معتمدة وتصميم معماري احترافي لجميع أنواع المشاريع", icon: "📐" },
-  { title: "شركات الصيانة", desc: "صيانة شاملة للمباني والفلل: سباكة، كهرباء، تكييف، دهانات وترميم", icon: "🔧" },
-  { title: "العمالة الحرفية", desc: "حرفيون مهرة وعمالة متخصصة لجميع أعمال البناء والتشطيبات والترميم", icon: "👷" },
-  { title: "الورش الصناعية", desc: "ورش حدادة، نجارة، ألمنيوم، رخام وزجاج بأعلى معايير الجودة", icon: "🔨" },
-  { title: "تأجير المعدات", desc: "رافعات، حفارات، خلاطات وجميع معدات البناء الثقيلة والخفيفة للإيجار", icon: "🚜" },
-  { title: "محلات مواد البناء", desc: "أسمنت، حديد، بلوك، بلاط، رخام كرارا، بورسلان وجميع مواد البناء", icon: "🧱" },
-  { title: "الأثاث والديكور", desc: "أثاث فاخر وديكورات عصرية ومطابخ مودرن بأفضل الأسعار", icon: "🪑" },
-  { title: "خدمات النظافة", desc: "تنظيف منازل، فلل، مباني، وتنظيف ما بعد البناء والتشطيبات", icon: "✨" },
-];
+import { useState, useEffect, useRef } from "react";
 
 // JSON-LD Structured Data
 const structuredData = {
@@ -60,30 +45,14 @@ const structuredData = {
     { "@type": "City", "name": "رأس الخيمة" },
     { "@type": "City", "name": "أم القيوين" },
     { "@type": "City", "name": "الفجيرة" }
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "خدمات بيت الريف",
-    "itemListElement": [
-      { "@type": "OfferCatalog", "name": "مقاولات البناء" },
-      { "@type": "OfferCatalog", "name": "الاستشارات الهندسية" },
-      { "@type": "OfferCatalog", "name": "شركات الصيانة" },
-      { "@type": "OfferCatalog", "name": "العمالة الحرفية" },
-      { "@type": "OfferCatalog", "name": "الورش الصناعية" },
-      { "@type": "OfferCatalog", "name": "تأجير المعدات" },
-      { "@type": "OfferCatalog", "name": "محلات مواد البناء" },
-      { "@type": "OfferCatalog", "name": "الأثاث والديكور" },
-      { "@type": "OfferCatalog", "name": "خدمات النظافة" }
-    ]
-  }
+  ]
 };
 
-// WebSite structured data for sitelinks search box
 const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "بيت الريف",
-  "alternateName": "Beet Al Reef",
+  "alternateName": "Beit Al Reef",
   "url": "https://bietalreef.ae",
   "potentialAction": {
     "@type": "SearchAction",
@@ -92,13 +61,86 @@ const websiteStructuredData = {
   }
 };
 
-export default function Home({ allServices }) {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+// Auto-scroll slider component
+function ImageSlider({ title, images }) {
+  const [current, setCurrent] = useState(0);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  return (
+    <div dir="rtl" className="w-full py-10 px-4 border-b border-[#E6DCC8] bg-white">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-lg md:text-xl font-bold text-[#0F3F1A] mb-6 text-right">
+          {title}
+        </h2>
+        <div className="relative w-full overflow-hidden rounded-2xl shadow-md border border-[#E6DCC8]">
+          {/* Slides */}
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(${current * 100}%)` }}
+          >
+            {images.map((img, i) => (
+              <div
+                key={i}
+                className="min-w-full relative"
+                style={{ height: "380px" }}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  loading="lazy"
+                  className="object-contain bg-[#f9f6f0]"
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Dots */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  i === current ? "bg-[#D4AF37] scale-125" : "bg-[#0F3F1A]/30"
+                }`}
+                aria-label={`الصورة ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Prev / Next arrows */}
+          <button
+            onClick={() => setCurrent((prev) => (prev - 1 + images.length) % images.length)}
+            className="absolute top-1/2 right-4 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F3F1A] rounded-full w-9 h-9 flex items-center justify-center shadow-md transition"
+            aria-label="السابق"
+          >
+            ›
+          </button>
+          <button
+            onClick={() => setCurrent((prev) => (prev + 1) % images.length)}
+            className="absolute top-1/2 left-4 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F3F1A] rounded-full w-9 h-9 flex items-center justify-center shadow-md transition"
+            aria-label="التالي"
+          >
+            ‹
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Home({ allServices }) {
   return (
     <>
       <Head>
-        {/* ═══ Primary Meta Tags ═══ */}
         <title>بيت الريف | منصة المقاولات والبناء والصيانة الذكية في الإمارات - مقاولون معتمدون في دبي وأبوظبي والعين</title>
         <meta
           name="description"
@@ -113,30 +155,21 @@ export default function Home({ allServices }) {
         <meta name="author" content="بيت الريف" />
         <meta name="geo.region" content="AE" />
         <meta name="geo.placename" content="العين، أبوظبي، الإمارات" />
-
-        {/* ═══ Open Graph / Facebook ═══ */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bietalreef.ae" />
         <meta property="og:title" content="بيت الريف | منصة المقاولات والبناء والصيانة الذكية في الإمارات" />
-        <meta
-          property="og:description"
-          content="سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات."
-        />
+        <meta property="og:description" content="سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات." />
         <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="ar_AE" />
         <meta property="og:locale:alternate" content="en_AE" />
         <meta property="og:site_name" content="بيت الريف" />
-
-        {/* ═══ Twitter Card ═══ */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@bietalreef" />
         <meta name="twitter:title" content="بيت الريف | منصة المقاولات والبناء الذكية في الإمارات" />
         <meta name="twitter:description" content="سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك. مقاولون معتمدون في جميع الإمارات." />
         <meta name="twitter:image" content="https://bietalreef.ae/og-weyaak.jpg" />
-
-        {/* ═══ PWA Meta Tags ═══ */}
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0F3F1A" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -144,187 +177,57 @@ export default function Home({ allServices }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="بيت الريف" />
         <link rel="apple-touch-icon" href="/logo.png" />
-
-        {/* ═══ JSON-LD Structured Data ═══ */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }} />
       </Head>
 
-      <div className="min-h-screen flex flex-col bg-beige">
+      <div className="min-h-screen flex flex-col bg-[#F9F6F0]">
         <Navbar />
         <main className="flex-1">
+
+          {/* ═══ HERO ═══ */}
           <Hero />
 
-          {/* ═══ IMAGE BREAK 1: Ecosystem Overview — full-width visual after Hero ═══ */}
-          <section dir="rtl" className="w-full py-16 px-4 bg-white border-b border-[#E6DCC8]">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-1 order-2 md:order-1">
-                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">المنظومة المتكاملة</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
-                  كل ما تحتاجه لمشروعك<br />في مكان واحد
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                  من التصميم إلى التسليم — منصة بيت الريف تجمع المقاولين والمصممين وسوق المواد ووكيل الذكاء الاصطناعي وياك في منظومة متكاملة تُدار بذكاء.
-                </p>
-                <Link href="/platform" className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F3F1A] border border-[#0F3F1A] px-5 py-2.5 rounded-full hover:bg-[#0F3F1A] hover:text-white transition-all duration-300">
-                  اكتشف المنصة ←
-                </Link>
-              </div>
-              <div className="flex-1 order-1 md:order-2 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
-                <Image
-                  src="/bait-alreef-ecosystem-overview.webp"
-                  alt="منظومة بيت الريف المتكاملة"
-                  fill
-                  loading="lazy"
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          </section>
+          {/* ═══ SLIDER 1: AI + وياك ═══ */}
+          <ImageSlider
+            title="وكيلك الذكي لإدارة مشاريع البناء في الإمارات"
+            images={[
+              { src: "/images/webp/bait-alreef-weyaak-ai-growth-engine.webp",                alt: "bait-alreef-weyaak-ai-growth-engine" },
+              { src: "/images/webp/bait-alreef-weyaak-fast-response-advantage.webp",         alt: "bait-alreef-weyaak-fast-response-advantage" },
+              { src: "/images/webp/bait-alreef-marketing-automation-client-reactivation.webp", alt: "bait-alreef-marketing-automation-client-reactivation" },
+            ]}
+          />
 
-          {/* ═══ Services & Tools Section ═══ */}
-          <ServicesAndTools />
+          {/* ═══ SLIDER 2: التصميم و 3D ═══ */}
+          <ImageSlider
+            title="تصميم داخلي وخارجي ثلاثي الأبعاد قبل التنفيذ"
+            images={[
+              { src: "/images/webp/bait-alreef-3d-room-designer-before-execution.webp",          alt: "bait-alreef-3d-room-designer-before-execution" },
+              { src: "/images/webp/bait-alreef-vr-design-living-experience.webp",                alt: "bait-alreef-vr-design-living-experience" },
+              { src: "/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp", alt: "bait-alreef-unified-platform-design-build-manage-market" },
+            ]}
+          />
 
-          {/* ═══ IMAGE BREAK 2: Weyaak AI — visual separator between tools and features ═══ */}
-          <section dir="rtl" className="w-full py-16 px-4 bg-[#F5EEE1] border-y border-[#E6DCC8]">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-1 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
-                <Image
-                  src="/bait-alreef-weyaak-marketing.webp"
-                  alt="وياك — وكيلك الذكي"
-                  fill
-                  loading="lazy"
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">الذكاء الاصطناعي</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
-                  وياك — وكيلك الذكي<br />الذي يعمل نيابة عنك
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                  وياك هو أول وكيل ذكاء اصطناعي متخصص في قطاع البناء في الإمارات. يحلل عروضك، يختار أفضل مقاول، ويدير مشروعك من الألف إلى الياء.
-                </p>
-                <Link href="/platform" className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-[#0F3F1A] px-5 py-2.5 rounded-full hover:bg-[#1a5c28] transition-all duration-300">
-                  ابدأ مع وياك ←
-                </Link>
-              </div>
-            </div>
-          </section>
+          {/* ═══ SLIDER 3: الإدارة والأنظمة ═══ */}
+          <ImageSlider
+            title="إدارة المشاريع والتكاليف والمواد بشكل ذكي"
+            images={[
+              { src: "/images/webp/bait-alreef-control-dashboard-leadership-transparency.webp", alt: "bait-alreef-control-dashboard-leadership-transparency" },
+              { src: "/images/webp/bait-alreef-dashboard-data-sales-control.webp",              alt: "bait-alreef-dashboard-data-sales-control" },
+              { src: "/images/webp/bait-alreef-boq-automation-document-processing.webp",        alt: "bait-alreef-boq-automation-document-processing" },
+            ]}
+          />
 
-          {/* Platform Features Section */}
-          <section className="max-w-6xl mx-auto px-4 mt-12 mb-12 bg-gradient-to-br from-[#F5EEE1] via-[#F7F1E8] to-[#F5EEE1] rounded-2xl p-8 md:p-12 border border-[#E6DCC8]">
-            <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-6 text-center">
-              منصة بيت الريف: سوق متكامل وذكي
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Marketplace Feature */}
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-[#E6DCC8]">
-                <div className="text-3xl mb-3">🛒</div>
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  سوق مواد البناء والديكور
-                </h3>
-                <p className="text-sm text-gray-700 mb-3">
-                  تصفح واشترِ مواد البناء والأثاث والديكور من أفضل الموردين المعتمدين بأسعار منافسة وتوصيل سريع.
-                </p>
-                <ul className="text-xs text-gray-600 space-y-1">
-                  <li>✓ رخام كرارا، بلاط بورسلان، باركيه</li>
-                  <li>✓ أسمنت، حديد تسليح، بلوك خرساني</li>
-                  <li>✓ مطابخ مودرن، أثاث وديكور حديث</li>
-                </ul>
-              </div>
+          {/* ═══ SLIDER 4: المنصة الكاملة ═══ */}
+          <ImageSlider
+            title="منصة متكاملة تربط التصميم والبناء والتسويق"
+            images={[
+              { src: "/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp", alt: "bait-alreef-smart-construction-ecosystem-cover" },
+              { src: "/images/webp/bait-alreef-premier-integrated-business-system.webp", alt: "bait-alreef-premier-integrated-business-system" },
+              { src: "/images/webp/bait-alreef-uae-smart-network-coverage.webp",         alt: "bait-alreef-uae-smart-network-coverage" },
+            ]}
+          />
 
-              {/* Dashboard Feature */}
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-[#E6DCC8]">
-                <div className="text-3xl mb-3">📊</div>
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  لوحة تحكم ذكية
-                </h3>
-                <p className="text-sm text-gray-700 mb-3">
-                  متابعة شاملة لمشاريعك وتقييماتك ومعاملاتك من لوحة تحكم موحدة. إحصائيات فورية وتقارير مفصلة.
-                </p>
-                <ul className="text-xs text-gray-600 space-y-1">
-                  <li>✓ متابعة مراحل المشروع لحظة بلحظة</li>
-                  <li>✓ إحصائيات التقييمات والمعاملات</li>
-                  <li>✓ تقارير الأداء والنمو</li>
-                </ul>
-              </div>
-
-              {/* WEYAAK AI Feature */}
-              <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-[#E6DCC8]">
-                <div className="text-3xl mb-3">🤖</div>
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
-                  وياك: وكيلك الذكي
-                </h3>
-                <p className="text-sm text-gray-700 mb-3">
-                  وكيل ذكاء اصطناعي متقدم يساعدك في اختيار المقاولين، التصاميم، والحلول الأمثل لمشروعك. يتصفح الإنترنت وينفذ المهام نيابة عنك.
-                </p>
-                <ul className="text-xs text-gray-600 space-y-1">
-                  <li>✓ توصيات ذكية مخصصة</li>
-                  <li>✓ استشارات فورية 24/7</li>
-                  <li>✓ تنفيذ المهام تلقائياً</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* ═══ IMAGE BREAK 3: AI Tools — visual before final CTA ═══ */}
-          <section dir="rtl" className="w-full py-16 px-4 bg-white border-t border-[#E6DCC8]">
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-1 order-2 md:order-1">
-                <p className="text-xs font-semibold tracking-widest text-[#8B6914] uppercase mb-3">47 أداة ذكية</p>
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0F3F1A] mb-4 leading-snug">
-                  أدوات الذكاء الاصطناعي<br />لكل مرحلة من مشروعك
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base leading-relaxed mb-6">
-                  حاسبة المواد، تقدير التكلفة، تحليل المخططات، فحص الجودة، محلل العقود — 47 أداة ذكية تغطي كل احتياجات مشروعك من البداية للنهاية.
-                </p>
-                <Link href="https://app.bietalreef.ae" className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-[#D4AF37] px-6 py-3 rounded-full hover:bg-[#b8962e] transition-all duration-300 shadow-md">
-                  جرّب الأدوات مجاناً ←
-                </Link>
-              </div>
-              <div className="flex-1 order-1 md:order-2 relative w-full rounded-2xl overflow-hidden shadow-lg border border-[#E6DCC8]" style={{ minHeight: '280px' }}>
-                <Image
-                  src="/bait-alreef-ai-tools.webp"
-                  alt="أدوات الذكاء الاصطناعي في بيت الريف"
-                  fill
-                  loading="lazy"
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Why Choose Us */}
-          <section className="max-w-6xl mx-auto px-4 mt-12 mb-16">
-            <div className="bg-white rounded-2xl shadow-soft p-6 grid md:grid-cols-2 gap-6 border border-[#E6DCC8]">
-              <div>
-                <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">
-                  لماذا يختار المحترفون في الإمارات منصة بيت الريف؟
-                </h2>
-                <p className="text-sm text-gray-700 mb-4">
-                  منصة شاملة تجمع الملاك والمقاولين والمصممين المعتمدين، مدعومة بوكيل الذكاء الاصطناعي وياك لإدارة مشاريع ذكية وفعالة. سوق متكامل يوفر كل ما تحتاجه من الخدمات إلى المواد والأثاث.
-                </p>
-              </div>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700">
-                <li>✓ وكيل وياك الذكي لحلول فورية</li>
-                <li>✓ مقاولون ومصممون معتمدون موثوقون</li>
-                <li>✓ سوق متكامل للمواد والأثاث</li>
-                <li>✓ 47 أداة ذكاء اصطناعي متقدمة</li>
-                <li>✓ شفافية كاملة في التكاليف والجودة</li>
-                <li>✓ تغطية جميع إمارات الدولة</li>
-              </ul>
-            </div>
-          </section>
         </main>
         <Footer />
       </div>
@@ -335,9 +238,7 @@ export default function Home({ allServices }) {
 export async function getStaticProps() {
   const allServices = getAllServices();
   return {
-    props: {
-      allServices,
-    },
+    props: { allServices },
     revalidate: 3600,
   };
 }
