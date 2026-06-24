@@ -5,6 +5,12 @@ export const ENGLISH_STATIC_PAGES = {
     description: 'Browse building, maintenance, design, materials and provider-related categories across UAE cities and service areas.',
     cta: 'Browse categories'
   },
+  categories: {
+    title: 'Categories',
+    heading: 'Service categories in the UAE',
+    description: 'Browse structured category pages for construction, maintenance, materials, design and service discovery across the UAE.',
+    cta: 'Explore UAE areas'
+  },
   providers: {
     title: 'Providers',
     heading: 'Service providers, contractors and suppliers',
@@ -44,7 +50,7 @@ export const ENGLISH_STATIC_PAGES = {
   blog: {
     title: 'Blog',
     heading: 'Building, maintenance and design insights',
-    description: 'A future content area for practical guides about UAE construction services, materials, maintenance, design and local service search.',
+    description: 'A future content area for practical guides about UAE construction services, maintenance, building materials, design and local service search.',
     cta: 'Browse services'
   },
   legal: {
@@ -52,6 +58,30 @@ export const ENGLISH_STATIC_PAGES = {
     heading: 'Legal information',
     description: 'General legal, privacy and terms information for the Biet Al Reef public website and its connected digital services.',
     cta: 'Back to home'
+  },
+  privacy: {
+    title: 'Privacy Policy',
+    heading: 'Privacy policy',
+    description: 'Privacy information for users of the Biet Al Reef public website and connected digital services.',
+    cta: 'Back to legal'
+  },
+  terms: {
+    title: 'Terms and Conditions',
+    heading: 'Terms and conditions',
+    description: 'General terms and conditions for the Biet Al Reef public website and connected digital services.',
+    cta: 'Back to legal'
+  },
+  press: {
+    title: 'Media Information',
+    heading: 'Biet Al Reef media information',
+    description: 'Media and brand information for Biet Al Reef as a UAE-focused construction and maintenance service discovery project.',
+    cta: 'Explore platform'
+  },
+  webp: {
+    title: 'WebP Image Tool',
+    heading: 'WebP image conversion information',
+    description: 'A public information page for image optimization and WebP conversion guidance connected to the Biet Al Reef digital workflow.',
+    cta: 'Browse tools'
   }
 };
 
