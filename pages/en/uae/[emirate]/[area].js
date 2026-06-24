@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../components/EnglishLayout';
-import { UAE_EMIRATES, SERVICE_CATEGORIES, getArea } from '../../../../data/siteTaxonomy';
+import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea } from '../../../../data/siteTaxonomy';
 
 export default function EnglishAreaPage({ emirate, area }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${area.slug}`;
@@ -35,9 +35,10 @@ export default function EnglishAreaPage({ emirate, area }) {
 }
 
 export async function getStaticProps({ params }) {
-  const result = getArea(params.emirate, params.area);
-  if (!result) return { notFound: true };
-  return { props: result, revalidate: 3600 };
+  const emirate = getEmirate(params.emirate);
+  const area = getArea(params.emirate, params.area);
+  if (!emirate || !area) return { notFound: true };
+  return { props: { emirate, area }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
