@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../../components/EnglishLayout';
-import { UAE_EMIRATES, SERVICE_CATEGORIES, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
+import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
 
 export default function EnglishLocalServicePage({ emirate, area, service }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${area.slug}/${service.slug}`;
@@ -22,7 +22,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
             <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameEn} in {area.nameEn}</h1>
           </div>
           <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page organizes {service.nameEn.toLowerCase()} information for {area.nameEn}, {emirate.nameEn}. It supports local discovery, internal linking and future provider matching inside Biet Al Reef.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
             <div className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm">
               <h2 className="font-black text-[#0F3F1A] mb-2">Area</h2>
               <Link href={`/en/uae/${emirate.slug}/${area.slug}`} className="text-[#B8922B] font-bold">{area.nameEn}</Link>
@@ -35,8 +35,18 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
               <h2 className="font-black text-[#0F3F1A] mb-2">Category</h2>
               <Link href={`/en/categories/${service.slug}`} className="text-[#B8922B] font-bold">{service.nameEn}</Link>
             </div>
-          </div>
-          <Link href="https://app.bietalreef.ae" className="inline-flex rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">Open Biet Al Reef app</Link>
+          </section>
+          <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
+            <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">What this page covers</h2>
+            <p className="text-gray-600 leading-8 mb-5">Users looking for {service.nameEn.toLowerCase()} in {area.nameEn} can use this page to understand the category, move to the broader emirate page, or continue to related local service pages.</p>
+            <div className="flex flex-wrap gap-2">
+              {SERVICE_CATEGORIES.filter((item) => item.slug !== service.slug).slice(0, 8).map((item) => (
+                <Link key={item.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${item.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
+                  {item.nameEn}
+                </Link>
+              ))}
+            </div>
+          </section>
         </main>
       </EnglishLayout>
     </>
@@ -44,10 +54,11 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
 }
 
 export async function getStaticProps({ params }) {
-  const areaResult = getArea(params.emirate, params.area);
+  const emirate = getEmirate(params.emirate);
+  const area = getArea(params.emirate, params.area);
   const service = getServiceCategory(params.service);
-  if (!areaResult || !service) return { notFound: true };
-  return { props: { ...areaResult, service }, revalidate: 3600 };
+  if (!emirate || !area || !service) return { notFound: true };
+  return { props: { emirate, area, service }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
