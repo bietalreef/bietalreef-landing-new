@@ -4,6 +4,8 @@
 # Allow all search engines
 User-agent: *
 Allow: /
+Allow: /en
+Allow: /en/
 Allow: /services
 Allow: /services/
 Allow: /categories
