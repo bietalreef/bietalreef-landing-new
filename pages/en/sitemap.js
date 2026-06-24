@@ -1,21 +1,24 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
+import { ENGLISH_STATIC_PAGES, ENGLISH_SEO_SERVICE_PAGES } from '../../data/englishPages';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getAllAreaPaths, getAllAreaServicePaths } from '../../data/siteTaxonomy';
 
 export default function EnglishHtmlSitemap() {
-  const mainPages = ['/en', '/en/services', '/en/uae', '/en/providers', '/en/marketplace', '/en/tools', '/en/weyaak', '/en/platform', '/en/about', '/en/blog', '/en/legal'];
+  const mainPages = ['/en', ...Object.keys(ENGLISH_STATIC_PAGES).map((slug) => `/en/${slug}`)];
+  const serviceSeoPages = Object.keys(ENGLISH_SEO_SERVICE_PAGES).map((slug) => `/en/${slug}`);
   const categoryPages = SERVICE_CATEGORIES.map((s) => `/en/categories/${s.slug}`);
   const emiratePages = UAE_EMIRATES.map((e) => `/en/uae/${e.slug}`);
   const areaPages = getAllAreaPaths().map((i) => `/en/uae/${i.emirate}/${i.area}`);
-  const localServicePages = getAllAreaServicePaths().slice(0, 250).map((i) => `/en/uae/${i.emirate}/${i.area}/${i.service}`);
+  const localServicePages = getAllAreaServicePaths().map((i) => `/en/uae/${i.emirate}/${i.area}/${i.service}`);
 
   const groups = [
     ['Main pages', mainPages],
+    ['Service SEO pages', serviceSeoPages],
     ['Categories', categoryPages],
     ['Emirates', emiratePages],
     ['Areas', areaPages],
-    ['Local service pages sample', localServicePages]
+    ['Local service pages', localServicePages]
   ];
 
   return (
@@ -34,7 +37,7 @@ export default function EnglishHtmlSitemap() {
             {groups.map(([title, links]) => (
               <section key={title} className="bg-white border border-[#E6DCC8] rounded-3xl p-6 shadow-sm">
                 <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">{title}</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-[420px] overflow-y-auto pr-2">
                   {links.map((href) => (
                     <Link key={href} href={href} className="text-sm text-gray-600 hover:text-[#B8922B] border-b border-[#F0E6D6] py-1">{href}</Link>
                   ))}
