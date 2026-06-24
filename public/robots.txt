@@ -6,12 +6,18 @@ User-agent: *
 Allow: /
 Allow: /services
 Allow: /services/
-Allow: /shop
-Allow: /shop/
-Allow: /blog
-Allow: /blog/
-Allow: /about
+Allow: /categories
+Allow: /categories/
+Allow: /uae
+Allow: /uae/
+Allow: /providers
+Allow: /marketplace
+Allow: /tools
+Allow: /weyaak
 Allow: /platform
+Allow: /about
+Allow: /blog
+Allow: /legal
 
 # Disallow sensitive paths
 Disallow: /admin
