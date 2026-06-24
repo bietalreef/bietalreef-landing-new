@@ -44,16 +44,16 @@ export default function Hero() {
 
           <div className="flex gap-8 mb-8">
             <div className="text-center">
-              <div className="text-3xl font-black text-gray-900">1000+</div>
-              <div className="text-xs text-gray-500 mt-1">مزود خدمة</div>
+              <div className="text-3xl font-black text-gray-900">47</div>
+              <div className="text-xs text-gray-500 mt-1">أداة ذكية</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-black text-gray-900">5000+</div>
-              <div className="text-xs text-gray-500 mt-1">مشروع منجز</div>
+              <div className="text-3xl font-black text-gray-900">90+</div>
+              <div className="text-xs text-gray-500 mt-1">خدمة وتخصص</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-black text-gray-900">★ 4.8</div>
-              <div className="text-xs text-gray-500 mt-1">تقييم المستخدمين</div>
+              <div className="text-3xl font-black text-gray-900">7</div>
+              <div className="text-xs text-gray-500 mt-1">إمارات الدولة</div>
             </div>
           </div>
 
