@@ -12,7 +12,7 @@ export default function AreaServicePage({ emirate, area, service }) {
     mainEntity: [
       {
         '@type': 'Question',
-        name: `كيف أجد ${service.nameAr} في ${area.nameAr؟` ,
+        name: `كيف أجد ${service.nameAr} في ${area.nameAr}؟`,
         acceptedAnswer: {
           '@type': 'Answer',
           text: `من خلال بيت الريف يمكنك استعراض صفحة ${service.nameAr} في ${area.nameAr} والانتقال إلى مزودي الخدمة أو التواصل مع فريق بيت الريف لترتيب الطلب.`
@@ -20,7 +20,7 @@ export default function AreaServicePage({ emirate, area, service }) {
       },
       {
         '@type': 'Question',
-        name: `هل تغطي بيت الريف ${emirate.nameAr؟`,
+        name: `هل تغطي بيت الريف ${emirate.nameAr}؟`,
         acceptedAnswer: {
           '@type': 'Answer',
           text: `نعم، بيت الريف ينظم صفحات الخدمات حسب الإمارة والمنطقة والتخصص داخل ${emirate.nameAr}.`
