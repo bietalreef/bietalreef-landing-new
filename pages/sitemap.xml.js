@@ -21,22 +21,23 @@ function generateSitemap() {
     ['/legal', '0.4', 'monthly']
   ];
 
-  const currentServicePages = [
-    'construction',
-    'interior-design',
-    'project-management',
-    'engineering-consultation',
-    'maintenance',
-    'equipment-rental',
-    'cleaning-services',
-    'furniture-decoration',
-    'building-materials',
-    'specialized-services'
+  const englishPages = [
+    ['/en', '0.9', 'weekly'],
+    ['/en/services', '0.8', 'weekly'],
+    ['/en/categories', '0.8', 'weekly'],
+    ['/en/providers', '0.8', 'weekly'],
+    ['/en/marketplace', '0.8', 'weekly'],
+    ['/en/tools', '0.8', 'weekly'],
+    ['/en/weyaak', '0.8', 'weekly'],
+    ['/en/platform', '0.8', 'monthly'],
+    ['/en/about', '0.6', 'monthly'],
+    ['/en/blog', '0.6', 'weekly'],
+    ['/en/legal', '0.4', 'monthly']
   ];
 
   const urls = [
     ...staticPages.map(([path, priority, changefreq]) => buildUrl(path, priority, changefreq)),
-    ...currentServicePages.map((slug) => buildUrl(`/services/${slug}`, '0.8', 'weekly')),
+    ...englishPages.map(([path, priority, changefreq]) => buildUrl(path, priority, changefreq)),
     ...SERVICE_CATEGORIES.map((service) => buildUrl(`/categories/${service.slug}`, '0.8', 'weekly')),
     ...UAE_EMIRATES.map((emirate) => buildUrl(`/uae/${emirate.slug}`, '0.85', 'weekly')),
     ...getAllAreaPaths().map((item) => buildUrl(`/uae/${item.emirate}/${item.area}`, '0.75', 'weekly')),

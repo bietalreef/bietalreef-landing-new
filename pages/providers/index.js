@@ -21,7 +21,7 @@ export default function ProvidersPage() {
               <h1 className="text-3xl md:text-5xl font-black mb-5">صفحات هبوط وتسويق لمزودي خدمات البناء والتصميم</h1>
               <p className="text-white/80 max-w-3xl leading-8">بيت الريف يجهز بنية ظهور لمزودي الخدمة حسب الإمارة، المنطقة، والتخصص، مع رابط مباشر لاحقاً إلى حساب المزود داخل التطبيق.</p>
               <div className="flex flex-col sm:flex-row gap-3 mt-8">
-                <a href="https://app.bietalreef.ae" className="px-7 py-3 rounded-full bg-[#D4AF37] text-[#0F3F1A] font-black text-center hover:bg-[#c49b2e] transition">سجل كمزود خدمة</a>
+                <a href="https://wa.me/971567856001" className="px-7 py-3 rounded-full bg-[#D4AF37] text-[#0F3F1A] font-black text-center hover:bg-[#c49b2e] transition">سجل كمزود خدمة</a>
                 <Link href="/uae" className="px-7 py-3 rounded-full border-2 border-white text-white font-bold text-center hover:bg-white hover:text-[#0F3F1A] transition">استعرض المدن</Link>
               </div>
             </div>
@@ -31,7 +31,7 @@ export default function ProvidersPage() {
             <h2 className="text-2xl md:text-3xl font-black mb-8">التخصصات التي يدعمها بيت الريف</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {SERVICE_CATEGORIES.map((service) => (
-                <Link key={service.slug} href={`/services/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-md hover:border-[#D4AF37] transition">
+                <Link key={service.slug} href={`/categories/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-md hover:border-[#D4AF37] transition">
                   <div className="text-3xl mb-3">{service.icon}</div>
                   <h3 className="font-black text-[#0F3F1A] mb-2">{service.nameAr}</h3>
                   <p className="text-sm text-gray-600 leading-7">{service.descAr}</p>
