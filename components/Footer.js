@@ -126,7 +126,7 @@ export default function Footer() {
         </CollapsibleSection>
 
         <div className="mb-6">
-          <a href="https://app.bietalreef.ae" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group">
+          <a href="/weyaak" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group" title="وياك — وكيل بيت الريف الذكي للمقاولات والصيانة">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-2xl" aria-hidden="true">🤖</div>
               <div className="flex-1">
@@ -152,17 +152,17 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-600">
               <li>📞 <a href="https://wa.me/971567856001" className="font-medium hover:text-primary" dir="ltr">+971 567 856 001</a></li>
               <li>📧 <a href="mailto:info@bietalreef.ae" className="hover:text-primary font-medium">info@bietalreef.ae</a></li>
-              <li>🌐 <a href="https://bietalreef.ae" className="hover:text-primary font-medium">bietalreef.ae</a></li>
-              <li>📱 <a href="https://app.bietalreef.ae" className="hover:text-primary font-medium">app.bietalreef.ae</a></li>
+              <li>🌐 <a href="/" className="hover:text-primary font-medium">bietalreef.ae</a></li>
+              <li>📱 <a href="/platform" className="hover:text-primary font-medium">منصة بيت الريف</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-base font-semibold mb-3 text-gray-900">منصات بيت الريف</h4>
             <div className="space-y-2 text-sm">
-              <a href="https://bietalreef.ae" className="block text-gray-600 hover:text-primary">الموقع التعريفي</a>
-              <a href="https://app.bietalreef.ae" className="block text-gray-600 hover:text-primary">تطبيق بيت الريف</a>
-              <a href="https://weyaakai.bietalreef.ae" className="block text-gray-600 hover:text-primary">وياك AI</a>
+              <a href="/" className="block text-gray-600 hover:text-primary">الموقع التعريفي</a>
+              <a href="/platform" className="block text-gray-600 hover:text-primary">منصة بيت الريف</a>
+              <a href="/weyaak" className="block text-gray-600 hover:text-primary">وياك AI</a>
             </div>
           </div>
         </div>
