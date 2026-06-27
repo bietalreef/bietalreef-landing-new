@@ -36,6 +36,25 @@ const sections = [
   }
 ];
 
+const workflowSteps = [
+  {
+    title: 'إرسال الطلب',
+    desc: 'العميل يحدد نوع الخدمة أو المادة المطلوبة، الموقع، الميزانية، الصور والمرفقات.',
+  },
+  {
+    title: 'فرز الطلب بذكاء',
+    desc: 'وياك والمنصة يصنفان الطلب حسب الخدمة والمدينة والتخصص المناسب.',
+  },
+  {
+    title: 'استقبال العروض',
+    desc: 'مزودو الخدمة والموردون المناسبون يرسلون عروضهم ببيانات واضحة وقابلة للمقارنة.',
+  },
+  {
+    title: 'اختيار وتنفيذ',
+    desc: 'العميل يقارن العروض، يختار الأنسب، ثم يتابع المشروع حتى التسليم والتقييم.',
+  },
+];
+
 const faq = [
   { q: "ما هي منصة بيت الريف؟", a: "بيت الريف هي أول منصة رقمية متكاملة في الإمارات تجمع جميع أطراف عملية البناء والصيانة (الملاك، المقاولون، الموردون) في بيئة ذكية واحدة." },
   { q: "كيف تضمن المنصة جودة المزودين؟", a: "نطبق نظام تحقق صارم يتضمن مراجعة التراخيص، سابقة الأعمال، وتقييمات العملاء الفعليين الموثقة." },
@@ -79,7 +98,6 @@ export default function PlatformPage() {
           </p>
         </header>
 
-        {/* Ecosystem Sections */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           {sections.map((section, i) => (
             <div key={i} className="bg-white rounded-[32px] border border-[#E6DCC8] p-8 md:p-10 hover:shadow-xl transition-all group">
@@ -95,7 +113,25 @@ export default function PlatformPage() {
           ))}
         </section>
 
-        {/* Core Values */}
+        <section className="bg-white rounded-[40px] border border-[#E6DCC8] p-8 md:p-12 mb-20 shadow-sm">
+          <div className="text-center mb-12">
+            <p className="text-[#D4AF37] font-black mb-3">Workflow</p>
+            <h2 className="text-3xl font-black text-[#0F3F1A] mb-4">رحلة العمل داخل منصة بيت الريف</h2>
+            <p className="text-gray-600 max-w-3xl mx-auto leading-8">
+              المسار التشغيلي واضح من أول طلب العميل حتى مقارنة العروض، اختيار مزود الخدمة، متابعة التنفيذ، ثم التقييم النهائي.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {workflowSteps.map((step, i) => (
+              <div key={step.title} className="rounded-3xl bg-[#FDFBF7] border border-[#E6DCC8] p-6 relative">
+                <div className="w-10 h-10 rounded-full bg-[#0F3F1A] text-white flex items-center justify-center font-black mb-5">{i + 1}</div>
+                <h3 className="text-lg font-black text-[#0F3F1A] mb-3">{step.title}</h3>
+                <p className="text-sm text-gray-600 leading-7">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="bg-[#0F3F1A] rounded-[40px] p-8 md:p-16 text-white mb-20">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-black mb-4">لماذا بيت الريف؟</h2>
@@ -116,7 +152,6 @@ export default function PlatformPage() {
           </div>
         </section>
 
-        {/* FAQ Section (AEO) */}
         <section className="max-w-3xl mx-auto mb-20">
           <h2 className="text-2xl font-black text-[#0F3F1A] mb-10 text-center">أسئلة شائعة حول المنصة</h2>
           <div className="space-y-4">
@@ -129,7 +164,6 @@ export default function PlatformPage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="text-center bg-white rounded-[40px] border border-[#E6DCC8] p-12 shadow-sm">
           <h2 className="text-3xl font-black text-[#0F3F1A] mb-6">هل أنت مستعد للانضمام للمستقبل؟</h2>
           <p className="text-gray-500 mb-10 max-w-xl mx-auto">سواء كنت مالك مشروع، مقاول، أو مورد مواد بناء، هناك مكان لك في منصة بيت الريف.</p>
