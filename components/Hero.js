@@ -1,44 +1,143 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { ChevronRight, ChevronLeft, Star } from "lucide-react";
 
 export default function Hero() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const images = [
-    { src: "/bait-alreef-home-hero.webp", alt: "منصة بيت الريف" },
-    { src: "/bait-alreef-future-construction-uae.webp", alt: "مستقبل البناء في الإمارات" },
-    { src: "/bait-alreef-ecosystem-overview.webp", alt: "منظومة بيت الريف" },
-    { src: "/bait-alreef-weyaak-marketing.webp", alt: "وياك" },
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    { src: "/hero-villa-1.webp", alt: "تصميم فلل حديثة" },
+    { src: "/hero-villa-2.jpg", alt: "بناء ومقاولات" },
+    { src: "/hero-villa-3.jpg", alt: "تصميم داخلي فاخر" },
+    { src: "/hero-villa-4.jpg", alt: "مشاريع سكنية متميزة" },
+    { src: "/bait-alreef-home-hero.webp", alt: "منصة بيت الريف" }
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => setCurrentImage((prev) => (prev + 1) % images.length), 5000);
-    return () => clearInterval(interval);
-  }, [images.length]);
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section dir="rtl" className="relative w-full overflow-hidden bg-white border-b border-[#E6DCC8]">
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-16 flex flex-col lg:flex-row items-center gap-10">
-        <div className="flex-1 w-full text-right order-2 lg:order-1">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F3F1A] text-white text-xs mb-6 shadow-sm">
-            <span className="text-[11px] font-semibold">🤖 وياك</span>
-            <span className="text-[11px]">أفضل وكيل شخصي إماراتي</span>
+    <section dir="rtl" className="w-full bg-[#FDFBF7] py-8 md:py-12">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          
+          {/* Slider Part (Left on Desktop, Top on Mobile) */}
+          <div className="w-full lg:w-7/12 order-2 lg:order-1">
+            <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-[32px] overflow-hidden shadow-2xl border-4 border-white group">
+              {slides.map((slide, index) => (
+                <div 
+                  key={index} 
+                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                >
+                  <Image 
+                    src={slide.src} 
+                    alt={slide.alt} 
+                    fill 
+                    className="object-cover" 
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                  />
+                </div>
+              ))}
+              
+              {/* Navigation Arrows */}
+              <button 
+                onClick={prevSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/40 transition-all opacity-0 group-hover:opacity-100"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              <button 
+                onClick={nextSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/40 transition-all opacity-0 group-hover:opacity-100"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+
+              {/* Slide Counter */}
+              <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-full bg-black/30 backdrop-blur-md text-white text-[10px] font-bold">
+                {currentSlide + 1} / {slides.length}
+              </div>
+
+              {/* Dots */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {slides.map((_, i) => (
+                  <button 
+                    key={i} 
+                    onClick={() => setCurrentSlide(i)}
+                    className={`w-2 h-2 rounded-full transition-all ${i === currentSlide ? "bg-white w-6" : "bg-white/50"}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-3 leading-tight">وياك — <span className="text-[#0F3F1A]">مساعدك الذكي</span></h1>
-          <p className="text-lg sm:text-xl text-gray-800 font-bold mb-5 leading-relaxed">أول مساعد شخصي صُمم ليفهم اختياراتك ويدعمك في كل خطوة</p>
-          <p className="text-gray-600 text-sm sm:text-base mb-8 leading-8 max-w-xl">منصة بيت الريف تجمع بين التصميم المعماري، البناء، الصيانة، وإدارة المشاريع في مكان واحد. <strong className="text-[#0F3F1A]">وياك</strong> يساعدك في اتخاذ القرار الأفضل.</p>
-          <div className="flex gap-8 mb-8">
-            <div className="text-center"><div className="text-3xl font-black text-gray-900">47</div><div className="text-xs text-gray-500 mt-1">أداة ذكية</div></div>
-            <div className="text-center"><div className="text-3xl font-black text-gray-900">90+</div><div className="text-xs text-gray-500 mt-1">خدمة وتخصص</div></div>
-            <div className="text-center"><div className="text-3xl font-black text-gray-900">7</div><div className="text-xs text-gray-500 mt-1">إمارات الدولة</div></div>
+
+          {/* Content Part (Right on Desktop, Bottom on Mobile) */}
+          <div className="w-full lg:w-5/12 text-right order-1 lg:order-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0F3F1A] text-white mb-6">
+              <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              </div>
+              <span className="text-[11px] font-bold">وياك أفضل وكيل شخصي إماراتي</span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F3F1A] mb-4 leading-tight">
+              وياك — <span className="text-gray-900">مساعدك الذكي</span>
+            </h1>
+            
+            <p className="text-xl font-bold text-[#0F3F1A] mb-4">
+              أول مساعد شخصي صُمم ليفهم اختياراتك ويدعمك في كل خطوة
+            </p>
+
+            <p className="text-gray-600 text-sm leading-relaxed mb-8 max-w-xl">
+              منصة بيت الريف تجمع بين التصميم المعماري، البناء، الصيانة، وإدارة المشاريع في مكان واحد. 
+              محرك <strong className="text-[#0F3F1A]">وياك</strong> يساعدك في اتخاذ القرار الأفضل ويخفض التكاليف ويختار لك الخدمة المناسبة 
+              بسهولة في العين وأبوظبي وباقي الإمارات.
+            </p>
+
+            <div className="grid grid-cols-3 gap-4 mb-10">
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-1 text-2xl font-black text-gray-900">
+                  <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
+                  4.8
+                </div>
+                <div className="text-[10px] text-gray-400 font-bold mt-1">تقييم المستخدمين</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-black text-gray-900">+90</div>
+                <div className="text-[10px] text-gray-400 font-bold mt-1">فئة من الخدمات</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-black text-gray-900">47</div>
+                <div className="text-[10px] text-gray-400 font-bold mt-1">أدوات ذكية</div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <Link 
+                href="/weyaak" 
+                className="flex-1 min-w-[180px] px-8 py-4 bg-[#D4AF37] text-white rounded-2xl font-black text-center shadow-lg shadow-[#D4AF37]/20 hover:bg-[#b8922b] transition-all"
+              >
+                ابدأ الآن — وياك يساعدك
+              </Link>
+              <Link 
+                href="/platform" 
+                className="flex-1 min-w-[180px] px-8 py-4 bg-[#0F3F1A] text-white rounded-2xl font-black text-center shadow-lg shadow-[#0F3F1A]/20 hover:bg-[#1a5c28] transition-all"
+              >
+                اكتشف المنصة
+              </Link>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Link href="/weyaak" className="px-8 py-3 rounded-full bg-[#0F3F1A] text-white text-sm font-bold shadow-lg hover:bg-[#1a5c28] transition text-center">تعرف على وياك</Link>
-            <Link href="/platform" className="px-8 py-3 rounded-full border-2 border-[#0F3F1A] text-[#0F3F1A] text-sm font-bold hover:bg-[#0F3F1A] hover:text-white transition text-center">اكتشف المنصة</Link>
-            <a href="https://wa.me/971567856001" className="px-8 py-3 rounded-full border border-[#E6DCC8] text-gray-700 text-sm font-bold hover:border-[#0F3F1A] hover:text-[#0F3F1A] transition text-center">تواصل معنا</a>
-          </div>
+
         </div>
-        <div className="flex-1 w-full max-w-lg order-1 lg:order-2"><div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-[#E6DCC8] bg-[#F9F6F0]"><div className="relative w-full h-72 md:h-[420px]">{images.map((image, index) => (<div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentImage ? "opacity-100" : "opacity-0"}`}><Image src={image.src} alt={image.alt} fill className="object-cover" priority={index === 0} sizes="(max-width: 1024px) 100vw, 50vw" /></div>))}</div></div></div>
       </div>
     </section>
   );
