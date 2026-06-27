@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { useEffect } from "react";
 import InstallPrompt from "../components/InstallPrompt";
 import WeyakChat from "../components/WeyakChat";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function MyApp({ Component, pageProps }) {
       <InstallPrompt />
       <WeyakChat />
       <Component {...pageProps} />
+      <SpeedInsights />
     </>
   );
 }
