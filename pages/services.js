@@ -1,28 +1,43 @@
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
 import { getAllServices } from "../lib/services-detailed";
+
+// JSON-LD: ItemList of services
+const servicesItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "جميع خدمات بيت الريف في الإمارات",
+  "description": "سوق متكامل لخدمات البناء والصيانة والتصميم في جميع الإمارات",
+  "url": "https://bietalreef.ae/services",
+  "numberOfItems": 9,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "مقاولات البناء", "url": "https://bietalreef.ae/services/construction-contracting" },
+    { "@type": "ListItem", "position": 2, "name": "الاستشارات الهندسية", "url": "https://bietalreef.ae/services/engineering-consultation" },
+    { "@type": "ListItem", "position": 3, "name": "شركات الصيانة", "url": "https://bietalreef.ae/services/maintenance-companies" },
+    { "@type": "ListItem", "position": 4, "name": "العمالة الحرفية", "url": "https://bietalreef.ae/services/craftsmen" },
+    { "@type": "ListItem", "position": 5, "name": "الورش الصناعية", "url": "https://bietalreef.ae/services/workshops" },
+    { "@type": "ListItem", "position": 6, "name": "تأجير المعدات", "url": "https://bietalreef.ae/services/equipment-rental" },
+    { "@type": "ListItem", "position": 7, "name": "محلات مواد البناء", "url": "https://bietalreef.ae/services/building-materials" },
+    { "@type": "ListItem", "position": 8, "name": "الأثاث والديكور", "url": "https://bietalreef.ae/services/furniture-stores" },
+    { "@type": "ListItem", "position": 9, "name": "خدمات النظافة", "url": "https://bietalreef.ae/services/cleaning-services" }
+  ]
+};
 
 export default function Services({ services }) {
   return (
     <>
-      <Head>
-        <title>خدمات بيت الريف | مقاولات، صيانة، تصميم داخلي، مواد بناء في دبي وأبوظبي والعين والإمارات</title>
-        <meta
-          name="description"
-          content="استكشف خدمات بيت الريف المتكاملة: مقاولات بناء، استشارات هندسية، شركات صيانة، عمالة حرفية، ورش صناعية، تأجير معدات، مواد بناء، أثاث وديكور، وخدمات نظافة. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات."
-        />
-        <meta name="keywords" content="خدمات بناء الإمارات, مقاولات دبي, مقاولات أبوظبي, صيانة العين, تصميم داخلي الشارقة, سباكة, كهرباء, تكييف, دهانات, نجارة, ورش حدادة, تأجير معدات بناء, مواد بناء, أثاث وديكور, تنظيف منازل" />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://bietalreef.ae/services" />
-        <meta property="og:title" content="خدمات بيت الريف | مقاولات، صيانة، تصميم داخلي في الإمارات" />
-        <meta property="og:description" content="سوق متكامل لخدمات البناء والصيانة والتصميم في جميع الإمارات. مقاولون معتمدون وحرفيون موثقون." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bietalreef.ae/services" />
-        <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
-      </Head>
+      <SEOHead
+        title="خدمات بيت الريف | مقاولات، صيانة، تصميم داخلي، مواد بناء في دبي وأبوظبي والعين والإمارات"
+        description="استكشف خدمات بيت الريف المتكاملة: مقاولات بناء، استشارات هندسية، شركات صيانة، عمالة حرفية، ورش صناعية، تأجير معدات، مواد بناء، أثاث وديكور، وخدمات نظافة. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات."
+        keywords="خدمات بناء الإمارات, مقاولات دبي, مقاولات أبوظبي, صيانة العين, تصميم داخلي الشارقة, سباكة, كهرباء, تكييف, دهانات, نجارة, ورش حدادة, تأجير معدات بناء, مواد بناء, أثاث وديكور, تنظيف منازل"
+        ogImage="https://bietalreef.ae/og-weyaak.jpg"
+        structuredData={servicesItemListSchema}
+        breadcrumbs={[{ name: "جميع الخدمات", item: "https://bietalreef.ae/services" }]}
+        includePWA={false}
+      />
 
       <div className="min-h-screen flex flex-col bg-white">
         <Navbar />

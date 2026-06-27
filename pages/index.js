@@ -1,10 +1,10 @@
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ServicesAndTools from "../components/ServicesAndTools";
 import Footer from "../components/Footer";
+import SEOHead from "../components/SEOHead";
 import SmartAppLink from "../components/SmartAppLink";
 import { getAllServices } from "../lib/services-detailed";
 import { useState, useEffect } from 'react';
@@ -150,6 +150,51 @@ const structuredData = {
   }
 };
 
+// LocalBusiness Schema — يحسّن ظهور الموقع في نتائج البحث المحلي
+const localBusinessData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://bietalreef.ae/#business",
+  "name": "بيت الريف",
+  "alternateName": "Beit Al Reef",
+  "description": "منصة البناء والصيانة الذكية في الإمارات. سوق متكامل لخدمات المقاولات والتصميم الداخلي والصيانة ومواد البناء والأثاث مع وكيل الذكاء الاصطناعي وياك.",
+  "url": "https://bietalreef.ae",
+  "telephone": "+971567856001",
+  "email": "info@bietalreef.ae",
+  "priceRange": "$$",
+  "address": { "@type": "PostalAddress", "addressLocality": "العين", "addressRegion": "أبوظبي", "addressCountry": "AE" },
+  "geo": { "@type": "GeoCoordinates", "latitude": "24.2075", "longitude": "55.7447" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "12500", "bestRating": "5", "worstRating": "1" },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "00:00", "closes": "23:59"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "دبي" }, { "@type": "City", "name": "أبوظبي" },
+    { "@type": "City", "name": "العين" }, { "@type": "City", "name": "الشارقة" }
+  ]
+};
+
+// ItemList Schema — قائمة الخدمات
+const servicesItemListData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "خدمات بيت الريف في الإمارات",
+  "numberOfItems": 9,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "مقاولات البناء", "url": "https://bietalreef.ae/services/construction-contracting" },
+    { "@type": "ListItem", "position": 2, "name": "الاستشارات الهندسية", "url": "https://bietalreef.ae/services/engineering-consultation" },
+    { "@type": "ListItem", "position": 3, "name": "شركات الصيانة", "url": "https://bietalreef.ae/services/maintenance-companies" },
+    { "@type": "ListItem", "position": 4, "name": "العمالة الحرفية", "url": "https://bietalreef.ae/services/craftsmen" },
+    { "@type": "ListItem", "position": 5, "name": "الورش الصناعية", "url": "https://bietalreef.ae/services/workshops" },
+    { "@type": "ListItem", "position": 6, "name": "تأجير المعدات", "url": "https://bietalreef.ae/services/equipment-rental" },
+    { "@type": "ListItem", "position": 7, "name": "محلات مواد البناء", "url": "https://bietalreef.ae/services/building-materials" },
+    { "@type": "ListItem", "position": 8, "name": "الأثاث والديكور", "url": "https://bietalreef.ae/services/furniture-stores" },
+    { "@type": "ListItem", "position": 9, "name": "خدمات النظافة", "url": "https://bietalreef.ae/services/cleaning-services" }
+  ]
+};
+
 // WebSite structured data for sitelinks search box
 const websiteStructuredData = {
   "@context": "https://schema.org",
@@ -169,64 +214,14 @@ export default function Home({ allServices }) {
 
   return (
     <>
-      <Head>
-        {/* ═══ Primary Meta Tags ═══ */}
-        <title>بيت الريف | منصة المقاولات والبناء والصيانة الذكية في الإمارات - مقاولون معتمدون في دبي وأبوظبي والعين</title>
-        <meta
-          name="description"
-          content="بيت الريف: منصة البناء والصيانة الذكية في الإمارات. سوق متكامل لخدمات المقاولات، التصميم الداخلي، الصيانة، مواد البناء والأثاث. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات. وكيل الذكاء الاصطناعي وياك لإدارة مشاريعك."
-        />
-        <meta
-          name="keywords"
-          content="بيت الريف, مقاولات الإمارات, مقاولات دبي, مقاولات أبوظبي, مقاولات العين, شركة صيانة الشارقة, تصميم داخلي الإمارات, سباكة دبي, كهرباء أبوظبي, تكييف العين, دهانات الشارقة, مواد بناء, أثاث وديكور, بناء فلل, ترميم منازل, استشارات هندسية, وياك, weyaak, bietalreef"
-        />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <link rel="canonical" href="https://bietalreef.ae" />
-        <meta name="author" content="بيت الريف" />
-        <meta name="geo.region" content="AE" />
-        <meta name="geo.placename" content="العين، أبوظبي، الإمارات" />
-
-        {/* ═══ Open Graph / Facebook ═══ */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://bietalreef.ae" />
-        <meta property="og:title" content="بيت الريف | منصة المقاولات والبناء والصيانة الذكية في الإمارات" />
-        <meta
-          property="og:description"
-          content="سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات."
-        />
-        <meta property="og:image" content="https://bietalreef.ae/og-weyaak.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="ar_AE" />
-        <meta property="og:locale:alternate" content="en_AE" />
-        <meta property="og:site_name" content="بيت الريف" />
-
-        {/* ═══ Twitter Card ═══ */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@bietalreef" />
-        <meta name="twitter:title" content="بيت الريف | منصة المقاولات والبناء الذكية في الإمارات" />
-        <meta name="twitter:description" content="سوق متكامل للخدمات والمواد والأثاث مع وكيل الذكاء الاصطناعي وياك. مقاولون معتمدون في جميع الإمارات." />
-        <meta name="twitter:image" content="https://bietalreef.ae/og-weyaak.jpg" />
-
-        {/* ═══ PWA Meta Tags ═══ */}
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#0F3F1A" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="بيت الريف" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-
-        {/* ═══ JSON-LD Structured Data ═══ */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
-        />
-      </Head>
+      <SEOHead
+        title="بيت الريف | منصة المقاولات والبناء والصيانة الذكية في الإمارات - مقاولون معتمدون في دبي وأبوظبي والعين"
+        description="بيت الريف: منصة البناء والصيانة الذكية في الإمارات. سوق متكامل لخدمات المقاولات، التصميم الداخلي، الصيانة، مواد البناء والأثاث. مقاولون معتمدون في دبي، أبوظبي، العين، الشارقة وجميع الإمارات. وكيل الذكاء الاصطناعي وياك لإدارة مشاريعك."
+        keywords="بيت الريف, مقاولات الإمارات, مقاولات دبي, مقاولات أبوظبي, مقاولات العين, شركة صيانة الشارقة, تصميم داخلي الإمارات, سباكة دبي, كهرباء أبوظبي, تكييف العين, دهانات الشارقة, مواد بناء, أثاث وديكور, بناء فلل, ترميم منازل, استشارات هندسية, وياك, weyaak, bietalreef"
+        ogImage="https://bietalreef.ae/og-weyaak.jpg"
+        structuredData={[structuredData, websiteStructuredData, localBusinessData, servicesItemListData]}
+        includePWA={true}
+      />
 
       <div className="min-h-screen flex flex-col bg-beige">
         <Navbar />
