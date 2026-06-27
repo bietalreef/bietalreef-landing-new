@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
 
 function CollapsibleSection({ title, defaultOpen = false, children }) {
@@ -11,6 +12,7 @@ function CollapsibleSection({ title, defaultOpen = false, children }) {
           onClick={() => setExpanded(!expanded)}
           className="flex items-center gap-1 text-primary hover:text-primary-dark text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/5"
           aria-expanded={expanded}
+          type="button"
         >
           {expanded ? 'أقل' : 'المزيد'}
           <svg className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
@@ -47,18 +49,19 @@ export default function Footer() {
         <CollapsibleSection title="خدماتنا في جميع الإمارات" defaultOpen={false}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {SERVICE_CATEGORIES.map((service) => (
-              <a
+              <Link
                 key={service.slug}
                 href={`/categories/${service.slug}`}
                 className="group flex items-center gap-2.5 bg-white rounded-xl p-3 border border-[#E6DCC8] hover:border-primary/40 shadow-sm hover:shadow-md"
-                title={`${service.nameAr} في الإمارات`}
+                title={`${service.nameAr} في الإمارات | بيت الريف`}
+                aria-label={`${service.nameAr} في الإمارات`}
               >
                 <span className="text-xl flex-shrink-0" aria-hidden="true">{service.icon}</span>
                 <div className="min-w-0">
                   <span className="text-gray-700 group-hover:text-primary text-xs font-semibold block truncate">{service.nameAr}</span>
                   <span className="text-gray-400 text-[9px] block truncate">{service.nameEn}</span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </CollapsibleSection>
@@ -67,19 +70,20 @@ export default function Footer() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {UAE_EMIRATES.map((emirate) => (
               <div key={emirate.slug} className="bg-white rounded-2xl border border-[#E6DCC8] p-4 shadow-sm">
-                <a href={`/uae/${emirate.slug}`} className="font-bold text-gray-900 hover:text-primary mb-3 text-sm flex items-center gap-2">
+                <Link href={`/uae/${emirate.slug}`} className="font-bold text-gray-900 hover:text-primary mb-3 text-sm flex items-center gap-2" title={`خدمات بيت الريف في ${emirate.nameAr}`}>
                   <span className="text-amber-600" aria-hidden="true">📍</span>
                   {emirate.nameAr}
-                </a>
+                </Link>
                 <div className="flex flex-wrap gap-1.5">
                   {emirate.areas.map((area) => (
-                    <a
+                    <Link
                       key={`${emirate.slug}-${area.slug}`}
                       href={`/uae/${emirate.slug}/${area.slug}`}
                       className="text-gray-500 hover:text-primary text-[10px] bg-[#FDFBF7] border border-[#E6DCC8] rounded-full px-2 py-1"
+                      title={`خدمات في ${area.nameAr} - ${emirate.nameAr}`}
                     >
                       {area.nameAr}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -95,19 +99,20 @@ export default function Footer() {
                 <ul className="space-y-1">
                   {topServices.map((service) => (
                     <li key={`${emirate.slug}-${service.slug}`}>
-                      <a
+                      <Link
                         href={`/uae/${emirate.slug}/${emirate.areas[0].slug}/${service.slug}`}
                         className="text-gray-500 hover:text-primary text-[11px] block py-0.5"
+                        title={`${service.nameAr} في ${emirate.nameAr}`}
                       >
                         {service.nameAr} في {emirate.nameAr}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                   <li>
-                    <a href={`/uae/${emirate.slug}`} className="text-primary hover:text-primary-dark text-xs font-medium inline-flex items-center gap-1 mt-1">
+                    <Link href={`/uae/${emirate.slug}`} className="text-primary hover:text-primary-dark text-xs font-medium inline-flex items-center gap-1 mt-1" title={`كل مناطق ${emirate.nameAr}`}>
                       كل مناطق {emirate.nameAr}
                       <span aria-hidden="true">←</span>
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -118,15 +123,15 @@ export default function Footer() {
         <CollapsibleSection title="روابط سريعة">
           <div className="flex flex-wrap gap-2">
             {quickLinks.map((link) => (
-              <a key={link.href + link.label} href={link.href} className="bg-white text-gray-500 hover:text-primary text-xs font-medium px-3 py-1.5 rounded-full border border-[#E6DCC8] hover:border-primary/30 shadow-sm">
+              <Link key={link.href + link.label} href={link.href} className="bg-white text-gray-500 hover:text-primary text-xs font-medium px-3 py-1.5 rounded-full border border-[#E6DCC8] hover:border-primary/30 shadow-sm">
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </CollapsibleSection>
 
         <div className="mb-6">
-          <a href="/weyaak" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group" title="وياك — وكيل بيت الريف الذكي للمقاولات والصيانة">
+          <Link href="/weyaak" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group" title="وياك — وكيل بيت الريف الذكي للمقاولات والصيانة">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-2xl" aria-hidden="true">🤖</div>
               <div className="flex-1">
@@ -134,7 +139,7 @@ export default function Footer() {
                 <p className="text-gray-400 text-[10px]">يساعدك في فهم الخدمات، مقارنة الخيارات، وتنظيم طلباتك داخل بيت الريف.</p>
               </div>
             </div>
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 border-t border-[#E6DCC8] pt-8">
@@ -152,17 +157,17 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-gray-600">
               <li>📞 <a href="https://wa.me/971567856001" className="font-medium hover:text-primary" dir="ltr">+971 567 856 001</a></li>
               <li>📧 <a href="mailto:info@bietalreef.ae" className="hover:text-primary font-medium">info@bietalreef.ae</a></li>
-              <li>🌐 <a href="/" className="hover:text-primary font-medium">bietalreef.ae</a></li>
-              <li>📱 <a href="/platform" className="hover:text-primary font-medium">منصة بيت الريف</a></li>
+              <li>🌐 <Link href="/" className="hover:text-primary font-medium">bietalreef.ae</Link></li>
+              <li>📱 <Link href="/platform" className="hover:text-primary font-medium">منصة بيت الريف</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-base font-semibold mb-3 text-gray-900">منصات بيت الريف</h4>
             <div className="space-y-2 text-sm">
-              <a href="/" className="block text-gray-600 hover:text-primary">الموقع التعريفي</a>
-              <a href="/platform" className="block text-gray-600 hover:text-primary">منصة بيت الريف</a>
-              <a href="/weyaak" className="block text-gray-600 hover:text-primary">وياك AI</a>
+              <Link href="/" className="block text-gray-600 hover:text-primary">الموقع التعريفي</Link>
+              <Link href="/platform" className="block text-gray-600 hover:text-primary">منصة بيت الريف</Link>
+              <Link href="/weyaak" className="block text-gray-600 hover:text-primary">وياك AI</Link>
             </div>
           </div>
         </div>
