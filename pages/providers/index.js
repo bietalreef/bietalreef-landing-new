@@ -21,7 +21,7 @@ export default function ProvidersPage() {
               <h1 className="text-3xl md:text-5xl font-black mb-5">صفحات هبوط وتسويق لمزودي خدمات البناء والتصميم</h1>
               <p className="text-white/80 max-w-3xl leading-8">بيت الريف يجهز بنية ظهور لمزودي الخدمة حسب الإمارة، المنطقة، والتخصص، مع رابط مباشر لاحقاً إلى حساب المزود داخل التطبيق.</p>
               <div className="flex flex-col sm:flex-row gap-3 mt-8">
-                <a href="https://app.bietalreef.ae" className="px-7 py-3 rounded-full bg-[#D4AF37] text-[#0F3F1A] font-black text-center hover:bg-[#c49b2e] transition">سجل كمزود خدمة</a>
+                <a href="https://wa.me/971567856001" className="px-7 py-3 rounded-full bg-[#D4AF37] text-[#0F3F1A] font-black text-center hover:bg-[#c49b2e] transition">سجل كمزود خدمة</a>
                 <Link href="/uae" className="px-7 py-3 rounded-full border-2 border-white text-white font-bold text-center hover:bg-white hover:text-[#0F3F1A] transition">استعرض المدن</Link>
               </div>
             </div>
