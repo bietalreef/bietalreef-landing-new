@@ -1,0 +1,56 @@
+import Head from 'next/head';
+import Link from 'next/link';
+import EnglishLayout from '../../../components/EnglishLayout';
+import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../../data/siteTaxonomy';
+
+export default function EnglishCategoryPage({ service }) {
+  const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
+  return (
+    <>
+      <Head>
+        <title>{`${service.nameEn} in the UAE | Biet Al Reef`}</title>
+        <meta name="description" content={`Find ${service.nameEn.toLowerCase()} pages across UAE emirates, cities and service areas through Biet Al Reef.`} />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/categories/${service.slug}`} />
+        <link rel="alternate" hrefLang="en" href={canonical} />
+      </Head>
+      <EnglishLayout>
+        <main className="max-w-7xl mx-auto px-4 py-14 md:py-20">
+          <p className="text-[#B8922B] font-black mb-3">Service category</p>
+          <div className="flex items-center gap-4 mb-5">
+            <div className="text-4xl">{service.icon}</div>
+            <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameEn} in the UAE</h1>
+          </div>
+          <p className="text-gray-600 leading-8 max-w-3xl mb-10">Browse {service.nameEn.toLowerCase()} information pages by emirate and local area. These pages are built for clear navigation and search indexing.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {UAE_EMIRATES.map((emirate) => (
+              <div key={emirate.slug} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm">
+                <Link href={`/en/uae/${emirate.slug}`} className="font-black text-[#0F3F1A] hover:text-[#B8922B] block mb-3">{emirate.nameEn}</Link>
+                <div className="flex flex-wrap gap-2">
+                  {emirate.areas.slice(0, 8).map((area) => (
+                    <Link key={area.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
+                      {area.nameEn}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </EnglishLayout>
+    </>
+  );
+}
+
+export async function getStaticProps({ params }) {
+  const service = getServiceCategory(params.slug);
+  if (!service) return { notFound: true };
+  return { props: { service }, revalidate: 3600 };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: SERVICE_CATEGORIES.map((service) => ({ params: { slug: service.slug } })),
+    fallback: 'blocking'
+  };
+}

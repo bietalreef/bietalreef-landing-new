@@ -9,17 +9,18 @@ const GOOGLE_VERIFICATION = 'HIY1XgYFRFCLwaTob54Dtx0InJae_SFmyX1bNslZDRg';
 /**
  * SEOHead — مكوّن SEO موحّد لجميع صفحات bietalreef.ae (Next.js)
  * مستوحى من src/components/seo/SEOHead.tsx في مستودع Figmawebapp (app.bietalreef.ae)
- *
- * Props:
- * @param {string}         title         — عنوان الصفحة (مطلوب)
- * @param {string}         description   — وصف الصفحة (مطلوب)
- * @param {string}         [keywords]    — الكلمات المفتاحية
- * @param {string}         [ogImage]     — رابط صورة Open Graph
- * @param {string}         [ogType]      — نوع الصفحة (website | article)
- * @param {boolean}        [noIndex]     — منع الفهرسة
- * @param {object|array}   [structuredData] — بيانات JSON-LD المهيكلة
+ * 
+ * @param {string} title — عنوان الصفحة
+ * @param {string} description — وصف الصفحة (Meta Description)
+ * @param {string} [keywords] — كلمات مفتاحية (اختياري)
+ * @param {string} [ogImage] — رابط الصورة للمشاركة
+ * @param {string} [ogType] — نوع المحتوى (website, article, etc.)
+ * @param {boolean} [noIndex] — منع المحركات من الفهرسة
+ * @param {object|array} [structuredData] — بيانات JSON-LD المهيكلة
  * @param {Array<{name,item}>} [breadcrumbs] — مسار التنقل (بعد الرئيسية)
- * @param {boolean}        [includePWA]  — إدراج tags الـ PWA (افتراضي: true)
+ * @param {boolean} [includePWA] — إدراج tags الـ PWA (افتراضي: true)
+ * @param {string} [canonicalPath] — المسار اليدوي لـ canonical (اختياري)
+ * @param {string} [alternatePath] — المسار اليدوي للنسخة الإنجليزية (اختياري)
  */
 export default function SEOHead({
   title,
@@ -31,32 +32,35 @@ export default function SEOHead({
   structuredData = null,
   breadcrumbs = null,
   includePWA = true,
+  canonicalPath,
+  alternatePath,
 }) {
   const router = useRouter();
+  
   // إزالة query string من canonical
-  const canonicalPath = router.asPath.split('?')[0];
-  const canonicalUrl =
-    canonicalPath === '/' || canonicalPath === ''
-      ? SITE_DOMAIN
-      : `${SITE_DOMAIN}${canonicalPath}`;
+  const cleanPath = canonicalPath || router.asPath.split('?')[0];
+  const canonicalUrl = cleanPath === '/' || cleanPath === ''
+    ? SITE_DOMAIN
+    : `${SITE_DOMAIN}${cleanPath}`;
+
+  const enPath = alternatePath || (cleanPath === '/' ? '/en' : `/en${cleanPath}`);
 
   // بناء BreadcrumbList Schema
-  const breadcrumbSchema =
-    breadcrumbs && breadcrumbs.length > 0
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: SITE_DOMAIN },
-            ...breadcrumbs.map((crumb, index) => ({
-              '@type': 'ListItem',
-              position: index + 2,
-              name: crumb.name,
-              item: crumb.item || `${SITE_DOMAIN}${crumb.href || ''}`,
-            })),
-          ],
-        }
-      : null;
+  const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: SITE_DOMAIN },
+          ...breadcrumbs.map((crumb, index) => ({
+            '@type': 'ListItem',
+            position: index + 2,
+            name: crumb.name,
+            item: crumb.item || `${SITE_DOMAIN}${crumb.href || ''}`,
+          })),
+        ],
+      }
+    : null;
 
   // تجميع schemas في مصفوفة واحدة
   const schemas = [];
@@ -95,7 +99,7 @@ export default function SEOHead({
 
       {/* ═══ hreflang — ثنائي اللغة ═══ */}
       <link rel="alternate" hrefLang="ar-AE" href={canonicalUrl} />
-      <link rel="alternate" hrefLang="en-AE" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="en-AE" href={`${SITE_DOMAIN}${enPath}`} />
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* ═══ Open Graph / Facebook ═══ */}

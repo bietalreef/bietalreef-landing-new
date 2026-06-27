@@ -7,7 +7,79 @@ import Footer from "../components/Footer";
 import SEOHead from "../components/SEOHead";
 import SmartAppLink from "../components/SmartAppLink";
 import { getAllServices } from "../lib/services-detailed";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// ─── Auto-scroll Slider Component ───────────────────────────────────────────
+function ImageSlider({ title, images }) {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div dir="rtl" className="w-full py-8 px-4 border-b border-[#E6DCC8] bg-white">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-base md:text-lg font-bold text-[#0F3F1A] mb-4 text-right">
+          {title}
+        </h2>
+        <div className="relative w-full overflow-hidden rounded-2xl shadow border border-[#E6DCC8]">
+          {/* Slides wrapper */}
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(${current * 100}%)`,
+              transition: 'transform 0.6s ease-in-out',
+            }}
+          >
+            {images.map((img, i) => (
+              <div key={i} className="min-w-full" style={{ height: '340px', position: 'relative', flexShrink: 0 }}>
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  loading="lazy"
+                  className="object-contain"
+                  style={{ background: '#f9f6f0' }}
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation dots */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  i === current ? 'bg-[#D4AF37] scale-125' : 'bg-[#0F3F1A]/30'
+                }`}
+                aria-label={`الصورة ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Arrows */}
+          <button
+            onClick={() => setCurrent((p) => (p - 1 + images.length) % images.length)}
+            className="absolute top-1/2 right-3 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F3F1A] rounded-full w-8 h-8 flex items-center justify-center shadow text-lg"
+            aria-label="السابق"
+          >›</button>
+          <button
+            onClick={() => setCurrent((p) => (p + 1) % images.length)}
+            className="absolute top-1/2 left-3 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-[#0F3F1A] rounded-full w-8 h-8 flex items-center justify-center shadow text-lg"
+            aria-label="التالي"
+          >‹</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // بيانات الخدمات الرئيسية — محدّثة من figmawebapp
 const services = [
@@ -155,6 +227,46 @@ export default function Home({ allServices }) {
         <Navbar />
         <main className="flex-1">
           <Hero />
+
+          {/* ═══ SLIDER 1: AI + وياك ═══ */}
+          <ImageSlider
+            title="وكيلك الذكي لإدارة مشاريع البناء في الإمارات"
+            images={[
+              { src: "/images/webp/bait-alreef-weyaak-ai-growth-engine.webp",                  alt: "bait-alreef-weyaak-ai-growth-engine" },
+              { src: "/images/webp/bait-alreef-weyaak-fast-response-advantage.webp",           alt: "bait-alreef-weyaak-fast-response-advantage" },
+              { src: "/images/webp/bait-alreef-marketing-automation-client-reactivation.webp", alt: "bait-alreef-marketing-automation-client-reactivation" },
+            ]}
+          />
+
+          {/* ═══ SLIDER 2: التصميم و 3D ═══ */}
+          <ImageSlider
+            title="تصميم داخلي وخارجي ثلاثي الأبعاد قبل التنفيذ"
+            images={[
+              { src: "/images/webp/bait-alreef-3d-room-designer-before-execution.webp",           alt: "bait-alreef-3d-room-designer-before-execution" },
+              { src: "/images/webp/bait-alreef-vr-design-living-experience.webp",                 alt: "bait-alreef-vr-design-living-experience" },
+              { src: "/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp", alt: "bait-alreef-unified-platform-design-build-manage-market" },
+            ]}
+          />
+
+          {/* ═══ SLIDER 3: الإدارة والأنظمة ═══ */}
+          <ImageSlider
+            title="إدارة المشاريع والتكاليف والمواد بشكل ذكي"
+            images={[
+              { src: "/images/webp/bait-alreef-control-dashboard-leadership-transparency.webp", alt: "bait-alreef-control-dashboard-leadership-transparency" },
+              { src: "/images/webp/bait-alreef-dashboard-data-sales-control.webp",              alt: "bait-alreef-dashboard-data-sales-control" },
+              { src: "/images/webp/bait-alreef-boq-automation-document-processing.webp",        alt: "bait-alreef-boq-automation-document-processing" },
+            ]}
+          />
+
+          {/* ═══ SLIDER 4: المنصة الكاملة ═══ */}
+          <ImageSlider
+            title="منصة متكاملة تربط التصميم والبناء والتسويق"
+            images={[
+              { src: "/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp", alt: "bait-alreef-smart-construction-ecosystem-cover" },
+              { src: "/images/webp/bait-alreef-premier-integrated-business-system.webp", alt: "bait-alreef-premier-integrated-business-system" },
+              { src: "/images/webp/bait-alreef-uae-smart-network-coverage.webp",         alt: "bait-alreef-uae-smart-network-coverage" },
+            ]}
+          />
 
           <ServicesAndTools />
 
