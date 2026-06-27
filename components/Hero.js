@@ -25,7 +25,7 @@ export default function Hero() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section dir="rtl" className="w-full bg-[#FDFBF7] py-8 md:py-12">
+    <section dir="rtl" className="w-full bg-white py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           
@@ -82,24 +82,21 @@ export default function Hero() {
 
           {/* Content Part (Right on Desktop, Bottom on Mobile) */}
           <div className="w-full lg:w-5/12 text-right order-1 lg:order-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0F3F1A] text-white mb-6">
-              <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              </div>
-              <span className="text-[11px] font-bold">وياك أفضل وكيل شخصي إماراتي</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 mb-6">
+              <span className="text-[11px] font-bold">🤖 وياك أفضل وكيل شخصي إماراتي</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0F3F1A] mb-4 leading-tight">
-              وياك — <span className="text-gray-900">مساعدك الذكي</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-4 leading-tight">
+              وياك — <span className="text-[#D4AF37]">مساعدك الذكي</span>
             </h1>
             
-            <p className="text-xl font-bold text-[#0F3F1A] mb-4">
+            <p className="text-lg font-bold text-gray-700 mb-4">
               أول مساعد شخصي صُمم ليفهم اختياراتك ويدعمك في كل خطوة
             </p>
 
             <p className="text-gray-600 text-sm leading-relaxed mb-8 max-w-xl">
               منصة بيت الريف تجمع بين التصميم المعماري، البناء، الصيانة، وإدارة المشاريع في مكان واحد. 
-              محرك <strong className="text-[#0F3F1A]">وياك</strong> يساعدك في اتخاذ القرار الأفضل ويخفض التكاليف ويختار لك الخدمة المناسبة 
+              محرك <strong className="text-gray-900">وياك</strong> يساعدك في اتخاذ القرار الأفضل ويخفض التكاليف ويختار لك الخدمة المناسبة 
               بسهولة في العين وأبوظبي وباقي الإمارات.
             </p>
 
