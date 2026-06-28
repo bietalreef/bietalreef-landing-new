@@ -1,10 +1,12 @@
-import Link from 'next/link';
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
-import { MessageCircle, Mail, MapPin, Clock, ArrowLeft, Send } from 'lucide-react';
+import { MessageCircle, Mail, MapPin, Clock, ArrowLeft, Send, CheckCircle } from 'lucide-react';
 
 export default function ContactPage() {
+  const [submitted, setSubmitted] = useState(false);
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
@@ -23,6 +25,19 @@ export default function ContactPage() {
         addressCountry: 'AE',
       },
     },
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    setSubmitted(true);
+    form.reset();
   };
 
   return (
@@ -59,7 +74,13 @@ export default function ContactPage() {
         <section className="max-w-6xl mx-auto px-4 py-12 md:py-16 grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
             <h2 className="text-2xl font-black text-[#0F3F1A] mb-6">طلب تواصل سريع</h2>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4" action="mailto:info@bietalreef.ae" method="post" encType="text/plain">
+            {submitted && (
+              <div role="status" className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800 flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 mt-1" />
+                <p className="font-bold leading-7">تم استلام طلبك بنجاح. سيتواصل فريق بيت الريف معك عبر الهاتف أو واتساب.</p>
+              </div>
+            )}
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit} noValidate={false}>
               <label className="space-y-2">
                 <span className="font-bold text-sm text-gray-700">الاسم</span>
                 <input required name="name" className="w-full rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 outline-none focus:border-[#D4AF37]" placeholder="اكتب اسمك" />
