@@ -70,7 +70,7 @@ export default function Services({ services }) {
                   'construction': 'general-contracting',
                   'interior-design': 'interior-design',
                   'project-management': 'project-management',
-                  'engineering-consultation': 'engineering-consultants',
+                  'engineering-consultants': 'engineering-consultants',
                   'maintenance': 'general-maintenance',
                   'equipment-rental': 'equipment-rental',
                   'cleaning-services': 'cleaning-services',
