@@ -1,50 +1,38 @@
-# بيت الريف - Beit Al Reef
-# https://bietalreef.ae
-
-# Allow all search engines
 User-agent: *
 Allow: /
-Allow: /en
-Allow: /en/
-Allow: /services
-Allow: /services/
-Allow: /categories
+Allow: /providers/
 Allow: /categories/
-Allow: /uae
 Allow: /uae/
-Allow: /providers
-Allow: /marketplace
-Allow: /tools
-Allow: /weyaak
-Allow: /platform
-Allow: /about
-Allow: /blog
-Allow: /legal
+Allow: /services/
+Allow: /join-provider
 
-# Disallow sensitive paths
-Disallow: /admin
-Disallow: /api
-Disallow: /_next/static/
-Disallow: /_next/data/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*sort=
+Disallow: /*?*filter=
 
-# Sitemap location
 Sitemap: https://bietalreef.ae/sitemap.xml
+Sitemap: https://bietalreef.ae/sitemap-providers.xml
 
-# Google
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 0
 
-# Google Images
-User-agent: Googlebot-Image
-Allow: /
-
-# Bing
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
-# Yandex
-User-agent: Yandex
+User-agent: ChatGPT-User
 Allow: /
-Crawl-delay: 2
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
