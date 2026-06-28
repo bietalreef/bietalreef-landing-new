@@ -46,7 +46,7 @@ module.exports = {
       },
       {
         source: '/services/workshops',
-        destination: '/categories/workshops',
+        destination: '/categories/carpentry',
         permanent: true,
       },
       {
