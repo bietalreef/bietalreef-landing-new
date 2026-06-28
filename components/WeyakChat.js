@@ -142,7 +142,7 @@ export default function WeyakChat() {
                     handleSubmit(e);
                   }
                 }}
-                placeholder="اكتب استفسارك هنا..."
+                placeholder="كيف يمكنني مساعدتك؟"
                 className="w-full p-3 pl-10 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B4D3E]/20 focus:border-[#1B4D3E] resize-none text-right min-h-[50px] max-h-[120px] text-sm shadow-sm"
                 rows={1}
                 style={{ direction: 'rtl' }}

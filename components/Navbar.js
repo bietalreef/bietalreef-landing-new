@@ -11,7 +11,7 @@ const serviceLinks = [
   { href: '/categories/engineering-consultants', label: 'المكاتب الهندسية' },
   { href: '/categories/general-maintenance', label: 'الصيانة العامة' },
   { href: '/categories/equipment-rental', label: 'تأجير المعدات' },
-  { href: '/categories/cleaning-services', label: 'خدمات التنظيف' },
+  { href: '/building-materials-uae', label: 'مواد البناء' },
   { href: '/categories/furniture-decor', label: 'الأثاث والديكور' },
 ];
 

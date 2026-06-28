@@ -14,14 +14,14 @@ const servicesItemListSchema = {
   "url": "https://bietalreef.ae/services",
   "numberOfItems": 9,
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "مقاولات البناء", "url": "https://bietalreef.ae/services/construction-contracting" },
+    { "@type": "ListItem", "position": 1, "name": "مقاولات البناء", "url": "https://bietalreef.ae/categories/general-contracting" },
     { "@type": "ListItem", "position": 2, "name": "الاستشارات الهندسية", "url": "https://bietalreef.ae/services/engineering-consultation" },
-    { "@type": "ListItem", "position": 3, "name": "شركات الصيانة", "url": "https://bietalreef.ae/services/maintenance-companies" },
+    { "@type": "ListItem", "position": 3, "name": "شركات الصيانة", "url": "https://bietalreef.ae/categories/general-maintenance" },
     { "@type": "ListItem", "position": 4, "name": "العمالة الحرفية", "url": "https://bietalreef.ae/services/craftsmen" },
     { "@type": "ListItem", "position": 5, "name": "الورش الصناعية", "url": "https://bietalreef.ae/services/workshops" },
     { "@type": "ListItem", "position": 6, "name": "تأجير المعدات", "url": "https://bietalreef.ae/services/equipment-rental" },
-    { "@type": "ListItem", "position": 7, "name": "محلات مواد البناء", "url": "https://bietalreef.ae/services/building-materials" },
-    { "@type": "ListItem", "position": 8, "name": "الأثاث والديكور", "url": "https://bietalreef.ae/services/furniture-stores" },
+    { "@type": "ListItem", "position": 7, "name": "محلات مواد البناء", "url": "https://bietalreef.ae/building-materials-uae" },
+    { "@type": "ListItem", "position": 8, "name": "الأثاث والديكور", "url": "https://bietalreef.ae/categories/furniture-decor" },
     { "@type": "ListItem", "position": 9, "name": "خدمات النظافة", "url": "https://bietalreef.ae/services/cleaning-services" }
   ]
 };
@@ -71,7 +71,7 @@ export default function Services({ services }) {
                   'interior-design': 'interior-design',
                   'project-management': 'project-management',
                   'engineering-consultation': 'engineering-consultation',
-                  'maintenance': 'ac-technicians',
+                  'maintenance': 'general-maintenance',
                   'equipment-rental': 'equipment-rental',
                   'cleaning-services': 'cleaning-services',
                   'furniture-decoration': 'furniture-decor',

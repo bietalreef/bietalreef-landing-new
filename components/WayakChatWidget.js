@@ -270,7 +270,7 @@ export default function WayakChatWidget() {
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="اكتب رسالتك..."
+                placeholder="كيف يمكنني مساعدتك؟"
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-primary text-sm"
                 disabled={isLoading}
               />

@@ -151,7 +151,7 @@ export default function HomePage({ allServices }) {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {allServices.slice(0, 4).map((service) => (
-              <Link key={service.id} href={`/services/${service.id}`} className="group bg-white p-6 rounded-3xl border border-[#E6DCC8] hover:border-emerald-500 transition-all text-center">
+              <Link key={service.id} href={service.id === 'building-materials' ? '/building-materials-uae' : service.id === 'construction' ? '/categories/general-contracting' : service.id === 'maintenance' ? '/categories/general-maintenance' : service.id === 'craftsmen' ? '/categories/carpentry' : `/categories/${service.id}`} className="group bg-white p-6 rounded-3xl border border-[#E6DCC8] hover:border-emerald-500 transition-all text-center">
                 <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">
                   {service.id === 'contractors' ? '🏗️' : service.id === 'interior-design' ? '🎨' : service.id === 'building-materials' ? '🧱' : '🛠️'}
                 </div>

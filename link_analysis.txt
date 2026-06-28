@@ -1,0 +1,231 @@
+pages/about.js:        <link rel="canonical" href="https://bietalreef.ae/about" />
+pages/blog.js:import Link from "next/link";
+pages/blog.js:        <link rel="canonical" href="https://bietalreef.ae/blog" />
+pages/blog.js:                  <Link key={post.id} href={`/blog/${post.slug}`}>
+pages/blog/[slug].js:import Link from "next/link";
+pages/blog/[slug].js:            <Link href="/blog">
+pages/blog/[slug].js:                  href={`https://www.facebook.com/sharer/sharer.php?u=https://bietalreef.ae/blog/${post.slug}`}
+pages/blog/[slug].js:                  href={`https://twitter.com/intent/tweet?url=https://bietalreef.ae/blog/${post.slug}&text=${encodeURIComponent(post.title)}`}
+pages/blog/[slug].js:                  href={`https://www.linkedin.com/sharing/share-offsite/?url=https://bietalreef.ae/blog/${post.slug}`}
+pages/blog/[slug].js:                    <Link key={relatedPost.id} href={`/blog/${relatedPost.slug}`}>
+pages/blog/[slug].js:                href="https://app.bietalreef.ae"
+pages/categories/[slug].js:import Link from 'next/link';
+pages/categories/[slug].js:        <link rel="canonical" href={`https://bietalreef.ae/categories/${service.slug}`} />
+pages/categories/[slug].js:                <Link href={`/uae/${emirate.slug}`} className="font-black text-[#0F3F1A] hover:text-[#B8922B] block mb-3">{emirate.nameAr}</Link>
+pages/categories/[slug].js:                    <Link key={area.slug} href={`/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
+pages/categories/index.js:import Link from "next/link";
+pages/categories/index.js:                <Link key={category.slug} href={`/categories/${category.slug}`}>
+pages/contractors-in-uae.js:import Link from 'next/link';
+pages/contractors-in-uae.js:        <link rel="canonical" href="https://bietalreef.ae/contractors-in-uae" />
+pages/contractors-in-uae.js:            <Link href="/categories/general-contracting" className="rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">استعرض مقاولات عامة</Link>
+pages/contractors-in-uae.js:            <Link href="/uae" className="rounded-full border border-[#0F3F1A] text-[#0F3F1A] px-6 py-3 font-black">اختر الإمارة</Link>
+pages/en-sitemap.js:import Link from 'next/link';
+pages/en-sitemap.js:        <link rel="canonical" href="https://bietalreef.ae/en-sitemap" />
+pages/en-sitemap.js:              <Link key={href} href={href} className="text-sm bg-white border border-[#E6DCC8] rounded-xl px-3 py-2 text-gray-600 hover:text-[#B8922B]">{href}</Link>
+pages/en/[slug].js:import Link from 'next/link';
+pages/en/[slug].js:        <link rel="canonical" href={canonical} />
+pages/en/[slug].js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae${arPath}`} />
+pages/en/[slug].js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/[slug].js:                  <Link href={`/en/categories/${service.slug}`} className="text-[#B8922B] font-black">{service.nameEn}</Link>
+pages/en/[slug].js:                    <Link key={emirate.slug} href={`/en/uae/${emirate.slug}/${emirate.areas[0].slug}/${service.slug}`} className="bg-white border border-[#E6DCC8] rounded-2xl p-4 shadow-sm hover:border-[#D4AF37] font-bold text-gray-700">
+pages/en/[slug].js:                <Link key={item.slug} href={`/en/categories/${item.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/[slug].js:                <Link key={emirate.slug} href={`/en/uae/${emirate.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/[slug].js:          <Link href={slug === 'platform' ? '/en/platform' : '/en/uae'} className="inline-flex rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">{page.cta}</Link>
+pages/en/categories/[slug].js:import Link from 'next/link';
+pages/en/categories/[slug].js:        <link rel="canonical" href={canonical} />
+pages/en/categories/[slug].js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/categories/${service.slug}`} />
+pages/en/categories/[slug].js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/categories/[slug].js:                <Link href={`/en/uae/${emirate.slug}`} className="font-black text-[#0F3F1A] hover:text-[#B8922B] block mb-3">{emirate.nameEn}</Link>
+pages/en/categories/[slug].js:                    <Link key={area.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
+pages/en/categories/index.js:import Link from 'next/link';
+pages/en/categories/index.js:        <link rel="canonical" href="https://bietalreef.ae/en/categories" />
+pages/en/categories/index.js:        <link rel="alternate" hrefLang="ar" href="https://bietalreef.ae/services" />
+pages/en/categories/index.js:        <link rel="alternate" hrefLang="en" href="https://bietalreef.ae/en/categories" />
+pages/en/categories/index.js:              <Link key={service.slug} href={`/en/categories/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/index.js:import Link from 'next/link';
+pages/en/index.js:        <link rel="canonical" href="https://bietalreef.ae/en" />
+pages/en/index.js:        <link rel="alternate" hrefLang="ar" href="https://bietalreef.ae/" />
+pages/en/index.js:        <link rel="alternate" hrefLang="en" href="https://bietalreef.ae/en" />
+pages/en/index.js:                <Link href="/en/uae" className="rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">Browse UAE areas</Link>
+pages/en/index.js:                <Link href="/en/services" className="rounded-full bg-white border border-[#E6DCC8] px-6 py-3 font-black text-[#0F3F1A]">Explore services</Link>
+pages/en/index.js:                <Link key={service.slug} href={`/en/categories/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/index.js:                <Link key={emirate.slug} href={`/en/uae/${emirate.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-4 text-center font-black text-[#0F3F1A] hover:border-[#D4AF37]">
+pages/en/map/[city].js:import Link from 'next/link';
+pages/en/map/[city].js:        <link rel="canonical" href={canonical} />
+pages/en/map/[city].js:              <Link key={service.slug} href={`/en/map/${city}/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/map/[city].js:                <Link key={emirate.slug} href={`/en/uae/${emirate.slug}`} className="text-gray-600 hover:text-[#B8922B] font-bold">{emirate.nameEn}</Link>
+pages/en/map/[city]/[service].js:import Link from 'next/link';
+pages/en/map/[city]/[service].js:        <link rel="canonical" href={canonical} />
+pages/en/map/[city]/[service].js:            <Link href={`/en/categories/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">{service.nameEn}</Link>
+pages/en/map/[city]/[service].js:            <Link href={`/en/map/${city}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">{cityName}</Link>
+pages/en/map/[city]/[service].js:            <Link href="/en/uae" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">UAE areas</Link>
+pages/en/product/[slug].js:import Link from 'next/link';
+pages/en/product/[slug].js:        <link rel="canonical" href={canonical} />
+pages/en/product/[slug].js:          <Link href="/en/marketplace" className="text-[#B8922B] font-black">Back to marketplace</Link>
+pages/en/provider/[slug].js:import Link from 'next/link';
+pages/en/provider/[slug].js:        <link rel="canonical" href={canonical} />
+pages/en/provider/[slug].js:          <Link href="/en/providers" className="text-[#B8922B] font-black">Back to providers</Link>
+pages/en/seo/[slug].js:import Link from 'next/link';
+pages/en/seo/[slug].js:        <link rel="canonical" href={canonical} />
+pages/en/seo/[slug].js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/seo/${slug}`} />
+pages/en/seo/[slug].js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/seo/[slug].js:            <Link href="/en/platform" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Platform</Link>
+pages/en/seo/[slug].js:            <Link href="/en/marketplace" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Marketplace</Link>
+pages/en/seo/[slug].js:            <Link href="/en/tools" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Tools</Link>
+pages/en/sitemap.js:import Link from 'next/link';
+pages/en/sitemap.js:        <link rel="canonical" href="https://bietalreef.ae/en/sitemap" />
+pages/en/sitemap.js:                    <Link key={href} href={href} className="text-sm text-gray-600 hover:text-[#B8922B] border-b border-[#F0E6D6] py-1">{href}</Link>
+pages/en/uae/[emirate]/[area].js:import Link from 'next/link';
+pages/en/uae/[emirate]/[area].js:        <link rel="canonical" href={canonical} />
+pages/en/uae/[emirate]/[area].js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}`} />
+pages/en/uae/[emirate]/[area].js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/uae/[emirate]/[area].js:              <Link key={service.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
+pages/en/uae/[emirate]/[area]/[service].js:import Link from 'next/link';
+pages/en/uae/[emirate]/[area]/[service].js:        <link rel="canonical" href={canonical} />
+pages/en/uae/[emirate]/[area]/[service].js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}/${service.slug}`} />
+pages/en/uae/[emirate]/[area]/[service].js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/uae/[emirate]/[area]/[service].js:              <Link href={`/en/uae/${emirate.slug}/${area.slug}`} className="text-[#B8922B] font-bold">{area.nameEn}</Link>
+pages/en/uae/[emirate]/[area]/[service].js:              <Link href={`/en/uae/${emirate.slug}`} className="text-[#B8922B] font-bold">{emirate.nameEn}</Link>
+pages/en/uae/[emirate]/[area]/[service].js:              <Link href={`/en/categories/${service.slug}`} className="text-[#B8922B] font-bold">{service.nameEn}</Link>
+pages/en/uae/[emirate]/[area]/[service].js:                <Link key={item.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${item.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
+pages/en/uae/[emirate]/index.js:import Link from 'next/link';
+pages/en/uae/[emirate]/index.js:        <link rel="canonical" href={canonical} />
+pages/en/uae/[emirate]/index.js:        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}`} />
+pages/en/uae/[emirate]/index.js:        <link rel="alternate" hrefLang="en" href={canonical} />
+pages/en/uae/[emirate]/index.js:                <Link key={area.slug} href={`/en/uae/${emirate.slug}/${area.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-4 shadow-sm hover:border-[#D4AF37] font-bold text-gray-700">{area.nameEn}</Link>
+pages/en/uae/[emirate]/index.js:                <Link key={service.slug} href={`/en/uae/${emirate.slug}/${emirate.areas[0].slug}/${service.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-4 shadow-sm hover:border-[#D4AF37]">
+pages/en/uae/index.js:import Link from 'next/link';
+pages/en/uae/index.js:        <link rel="canonical" href="https://bietalreef.ae/en/uae" />
+pages/en/uae/index.js:        <link rel="alternate" hrefLang="ar" href="https://bietalreef.ae/uae" />
+pages/en/uae/index.js:        <link rel="alternate" hrefLang="en" href="https://bietalreef.ae/en/uae" />
+pages/en/uae/index.js:              <Link key={emirate.slug} href={`/en/uae/${emirate.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">
+pages/index.js:import Link from "next/link";
+pages/index.js:                <Link 
+pages/index.js:                  href={section.link}
+pages/index.js:                <Link href="/weyaak" className="px-8 py-4 bg-white text-[#0F3F1A] rounded-2xl font-black shadow-lg hover:bg-emerald-50 transition-colors">
+pages/index.js:                <Link href="/platform" className="px-8 py-4 bg-white/10 text-white rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-colors">
+pages/index.js:            <Link href="/services" className="text-sm font-bold text-emerald-600 hover:underline">عرض الكل</Link>
+pages/index.js:              <Link key={service.id} href={`/services/${service.id}`} className="group bg-white p-6 rounded-3xl border border-[#E6DCC8] hover:border-emerald-500 transition-all text-center">
+pages/interior-design-uae.js:import Link from 'next/link';
+pages/interior-design-uae.js:        <link rel="canonical" href="https://bietalreef.ae/interior-design-uae" />
+pages/interior-design-uae.js:            <Link href="/categories/interior-design" className="rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">استعرض التصميم الداخلي</Link>
+pages/interior-design-uae.js:            <Link href="/uae" className="rounded-full border border-[#0F3F1A] text-[#0F3F1A] px-6 py-3 font-black">اختر الإمارة</Link>
+pages/legal.js:        <link rel="canonical" href="https://bietalreef.ae/legal" />
+pages/marketplace.js:import Link from 'next/link';
+pages/marketplace.js:              <Link href={`/categories/${cat.id}`} className="text-[#D4AF37] font-bold text-sm flex items-center gap-2">
+pages/marketplace.js:            <Link href="/uae" className="px-10 py-4 bg-[#D4AF37] text-white rounded-2xl font-black shadow-lg hover:bg-[#b8922b] transition-all">
+pages/marketplace.js:            <a href="https://wa.me/971567856001" className="px-10 py-4 bg-white/10 text-white rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-all">
+pages/platform.js:import Link from 'next/link';
+pages/platform.js:              <Link href="/uae" className="text-emerald-600 font-bold text-sm flex items-center gap-2">
+pages/platform.js:            <Link href="/uae" className="px-10 py-4 bg-[#0F3F1A] text-white rounded-2xl font-black shadow-lg hover:bg-[#1a5c28] transition-all">
+pages/platform.js:            <a href="https://wa.me/971567856001" className="px-10 py-4 bg-white text-[#0F3F1A] rounded-2xl font-bold border border-[#E6DCC8] hover:border-[#0F3F1A] transition-all">
+pages/provider/[slug].js:import Link from 'next/link';
+pages/provider/[slug].js:  return <><Head><title>{title}</title><meta name="description" content="صفحة مزود خدمة عامة داخل موقع بيت الريف التعريفي، مهيأة للفهرسة وتربط لاحقاً بحساب المزود داخل التطبيق."/><link rel="canonical" href={`https://bietalreef.ae/provider/${slug}`}/></Head><div dir="rtl" className="min-h-screen bg-[#FDFBF7]"><Navbar/><main className="max-w-6xl mx-auto px-4 py-14"><h1 className="text-4xl font-black text-[#0F3F1A] mb-4">صفحة مزود خدمة</h1><p className="text-gray-600 leading-8 mb-6">هذه صفحة عامة مؤقتة لمزود الخدمة: {slug}. سيتم ربطها لاحقاً ببيانات المزود الفعلية من التطبيق.</p><Link href="/providers" className="rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">مزودو الخدمات</Link></main><Footer/></div></>;
+pages/providers/index.js:import Link from 'next/link';
+pages/providers/index.js:              <a href="https://wa.me/971567856001" className="px-10 py-4 bg-[#D4AF37] text-white rounded-2xl font-black shadow-lg hover:bg-[#b8922b] transition-all">
+pages/providers/index.js:              <Link href="/uae" className="px-10 py-4 bg-white/10 text-white rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-all">
+pages/providers/index.js:              <Link key={service.slug} href={`/categories/${service.slug}`} className="group bg-white rounded-3xl border border-[#E6DCC8] p-8 hover:shadow-xl transition-all">
+pages/providers/index.js:                    <Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="px-4 py-2 rounded-full bg-white border border-[#E6DCC8] text-xs font-bold text-gray-600 hover:border-emerald-500 hover:text-emerald-600 transition-all">
+pages/providers/index.js:              <a href="https://wa.me/971567856001" className="px-10 py-4 bg-white text-emerald-600 rounded-2xl font-black shadow-lg hover:bg-emerald-50 transition-all">
+pages/providers/index.js:              <Link href="/platform" className="px-10 py-4 bg-emerald-500 text-white rounded-2xl font-bold border border-emerald-400 hover:bg-emerald-400 transition-all">
+pages/services.js:import Link from "next/link";
+pages/services.js:                  <Link key={service.id} href={`/categories/${categorySlug}`}>
+pages/services.js:                  href="https://app.bietalreef.ae"
+pages/services.js:                  href="/"
+pages/services/location/[city].js:import Link from 'next/link';
+pages/services/location/[city].js:              <Link key={service.id} href={`/services/${service.id}`}>
+pages/services/location/[city].js:          <Link href="https://app.bietalreef.ae">
+pages/tools.js:import Link from 'next/link';
+pages/tools.js:              <Link 
+pages/tools.js:                href="/platform" 
+pages/tools.js:            <Link href="/platform" className="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition-all">
+pages/tools.js:            <Link href="/weyaak" className="px-10 py-4 bg-blue-500 text-white rounded-2xl font-bold border border-blue-400 hover:bg-blue-400 transition-all">
+pages/uae/[emirate].js:import Link from 'next/link';
+pages/uae/[emirate].js:        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirate.slug}`} />
+pages/uae/[emirate].js:              <div className="mb-4 text-sm text-white/70"><Link href="/uae" className="hover:text-[#D4AF37]">الإمارات</Link> / {emirate.nameAr}</div>
+pages/uae/[emirate].js:                <Link key={area.slug} href={`/uae/${emirate.slug}/${area.slug}`} className="bg-white border border-[#E6DCC8] rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-[#D4AF37] transition">
+pages/uae/[emirate].js:                  <Link key={service.slug} href={`/services/${service.slug}`} className="rounded-2xl border border-[#E6DCC8] p-4 hover:border-[#D4AF37] hover:bg-[#FDFBF7] transition">
+pages/uae/[emirate]/[area].js:import Link from 'next/link';
+pages/uae/[emirate]/[area].js:        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}`} />
+pages/uae/[emirate]/[area].js:                <Link href="/uae" className="hover:text-[#D4AF37]">الإمارات</Link> / <Link href={`/uae/${emirate.slug}`} className="hover:text-[#D4AF37]">{emirate.nameAr}</Link> / {area.nameAr}
+pages/uae/[emirate]/[area].js:                <Link key={service.slug} href={`/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="group bg-white border border-[#E6DCC8] rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-[#D4AF37] transition">
+pages/uae/[emirate]/[area]/[service].js:import Link from 'next/link';
+pages/uae/[emirate]/[area]/[service].js:        <link rel="canonical" href={pageUrl} />
+pages/uae/[emirate]/[area]/[service].js:                <Link href="/uae" className="hover:text-[#D4AF37]">الإمارات</Link> / <Link href={`/uae/${emirate.slug}`} className="hover:text-[#D4AF37]">{emirate.nameAr}</Link> / <Link href={`/uae/${emirate.slug}/${area.slug}`} className="hover:text-[#D4AF37]">{area.nameAr}</Link> / {service.nameAr}
+pages/uae/[emirate]/[area]/[service].js:                <Link href="/providers" className="px-7 py-3 rounded-full bg-[#D4AF37] text-[#0F3F1A] font-black text-center hover:bg-[#c49b2e] transition">استعرض مزودي الخدمة</Link>
+pages/uae/[emirate]/[area]/[service].js:                <a href="https://wa.me/971567856001" className="px-7 py-3 rounded-full border-2 border-white text-white font-bold text-center hover:bg-white hover:text-[#0F3F1A] transition">تواصل معنا</a>
+pages/uae/[emirate]/[area]/[service].js:              <Link href={`/uae/${emirate.slug}/${area.slug}`} className="inline-flex text-[#0F3F1A] font-black hover:text-[#B8922B]">استعرض خدمات أخرى في {area.nameAr} ←</Link>
+pages/uae/index.js:import Link from 'next/link';
+pages/uae/index.js:        <link rel="canonical" href="https://bietalreef.ae/uae" />
+pages/uae/index.js:                <Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="group bg-white border border-[#E6DCC8] rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-[#D4AF37] transition">
+pages/uae/index.js:                  <Link key={service.slug} href={`/categories/${service.slug}`} className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-2 text-sm font-bold text-gray-700 hover:text-[#0F3F1A] hover:border-[#D4AF37] transition">
+pages/weyaak.js:import Link from 'next/link';
+pages/weyaak.js:            <Link href="/platform" className="px-10 py-4 bg-[#0F3F1A] text-white rounded-2xl font-black shadow-lg hover:bg-[#1a5c28] transition-all">
+pages/weyaak.js:            <Link href="/services" className="px-10 py-4 bg-white text-[#0F3F1A] rounded-2xl font-bold border border-[#E6DCC8] hover:border-[#0F3F1A] transition-all">
+components/EnglishLayout.js:import Link from 'next/link';
+components/EnglishLayout.js:          <Link href="/en" className="flex items-center gap-3">
+components/EnglishLayout.js:            {navLinks.map(([href, label]) => (<Link key={href} href={href} className="hover:text-[#B8922B]">{label}</Link>))}
+components/EnglishLayout.js:          <Link href="/" className="rounded-full bg-white border border-[#E6DCC8] text-[#0F3F1A] px-5 py-2.5 text-sm font-black">العربية</Link>
+components/EnglishLayout.js:              <Link href="/en/uae" className="hover:text-[#D4AF37]">UAE areas</Link>
+components/EnglishLayout.js:              <Link href="/en/services" className="hover:text-[#D4AF37]">Service categories</Link>
+components/EnglishLayout.js:              <Link href="/en/providers" className="hover:text-[#D4AF37]">Providers</Link>
+components/EnglishLayout.js:              <Link href="/en/marketplace" className="hover:text-[#D4AF37]">Marketplace</Link>
+components/EnglishLayout.js:              <Link href="/en/tools" className="hover:text-[#D4AF37]">Smart tools</Link>
+components/EnglishLayout.js:              <Link href="/en/weyaak" className="hover:text-[#D4AF37]">Weyaak</Link>
+components/EnglishLayout.js:              <Link href="/en/platform" className="hover:text-[#D4AF37]">Platform</Link>
+components/EnglishLayout.js:              <Link href="/en/sitemap" className="hover:text-[#D4AF37]">HTML sitemap</Link>
+components/EnglishLayout.js:              <a href="https://wa.me/971567856001" className="hover:text-[#D4AF37]">+971 567 856 001</a>
+components/EnglishLayout.js:              <a href="mailto:info@bietalreef.ae" className="hover:text-[#D4AF37]">info@bietalreef.ae</a>
+components/EnglishLayout.js:              <Link href="/en/legal" className="hover:text-[#D4AF37]">Legal</Link>
+components/Footer.js:import Link from 'next/link';
+components/Footer.js:                href={`/categories/${service.slug}`}
+components/Footer.js:                <Link href={`/uae/${emirate.slug}`} className="font-bold text-gray-900 hover:text-primary mb-3 text-sm flex items-center gap-2" title={`خدمات بيت الريف في ${emirate.nameAr}`}>
+components/Footer.js:                      href={`/uae/${emirate.slug}/${area.slug}`}
+components/Footer.js:                        href={`/uae/${emirate.slug}/${emirate.areas[0].slug}/${service.slug}`}
+components/Footer.js:                    <Link href={`/uae/${emirate.slug}`} className="text-primary hover:text-primary-dark text-xs font-medium inline-flex items-center gap-1 mt-1" title={`كل مناطق ${emirate.nameAr}`}>
+components/Footer.js:              <Link key={link.href + link.label} href={link.href} className="bg-white text-gray-500 hover:text-primary text-xs font-medium px-3 py-1.5 rounded-full border border-[#E6DCC8] hover:border-primary/30 shadow-sm">
+components/Footer.js:          <Link href="/weyaak" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group" title="وياك — وكيل بيت الريف الذكي للمقاولات والصيانة">
+components/Footer.js:              <li>📞 <a href="https://wa.me/971567856001" className="font-medium hover:text-primary" dir="ltr">+971 567 856 001</a></li>
+components/Footer.js:              <li>📧 <a href="mailto:info@bietalreef.ae" className="hover:text-primary font-medium">info@bietalreef.ae</a></li>
+components/Footer.js:              <li>🌐 <Link href="/" className="hover:text-primary font-medium">bietalreef.ae</Link></li>
+components/Footer.js:              <li>📱 <Link href="/platform" className="hover:text-primary font-medium">منصة بيت الريف</Link></li>
+components/Footer.js:              <Link href="/" className="block text-gray-600 hover:text-primary">الموقع التعريفي</Link>
+components/Footer.js:              <Link href="/platform" className="block text-gray-600 hover:text-primary">منصة بيت الريف</Link>
+components/Footer.js:              <Link href="/weyaak" className="block text-gray-600 hover:text-primary">وياك AI</Link>
+components/Hero.js:import Link from "next/link";
+components/Hero.js:              <Link 
+components/Hero.js:                href="/weyaak" 
+components/Hero.js:              <Link 
+components/Hero.js:                href="/platform" 
+components/HomeVisualShowcase.js:import Link from 'next/link';
+components/HomeVisualShowcase.js:          <Link key={item.href} href={item.href} className="bg-white border border-[#E6DCC8] rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-[#D4AF37] transition">
+components/HomeVisualShowcase.js:              <Link href={section.href} className="inline-flex rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black hover:bg-[#1F6B3A] transition">{section.cta}</Link>
+components/Navbar.js:import Link from 'next/link';
+components/Navbar.js:import SmartAppLink from './SmartAppLink';
+components/Navbar.js:        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+components/Navbar.js:            <Link key={item.href} href={item.href} className="px-3 py-2 text-gray-700 hover:text-primary transition rounded">{item.label}</Link>
+components/Navbar.js:              <Link href="/services" className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition text-sm font-semibold border-b border-gray-100">جميع الخدمات</Link>
+components/Navbar.js:                <Link key={item.href} href={item.href} className="block px-4 py-2 text-gray-700 hover:bg-emerald-50 hover:text-primary transition">{item.label}</Link>
+components/Navbar.js:            <Link key={item.href} href={item.href} className="px-3 py-2 text-gray-700 hover:text-primary transition rounded">{item.label}</Link>
+components/Navbar.js:          <SmartAppLink className="px-5 py-2 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition ml-2">تعرف على المنصة</SmartAppLink>
+components/Navbar.js:            <Link href="/" className="block py-2 px-3 text-gray-700 hover:bg-primary hover:text-white rounded transition" onClick={closeMenu}>الرئيسية</Link>
+components/Navbar.js:                <Link href="/services" className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition font-semibold" onClick={closeMenu}>جميع الخدمات</Link>
+components/Navbar.js:                  <Link key={item.href} href={item.href} className="block py-2 px-3 text-gray-700 hover:text-primary rounded transition" onClick={closeMenu}>{item.label}</Link>
+components/Navbar.js:              <Link key={item.href} href={item.href} className="block py-2 px-3 text-gray-700 hover:bg-primary hover:text-white rounded transition" onClick={closeMenu}>{item.label}</Link>
+components/Navbar.js:            <Link href="/legal" className="block py-2 px-3 text-gray-700 hover:bg-primary hover:text-white rounded transition" onClick={closeMenu}>الشروط والخصوصية</Link>
+components/Navbar.js:            <SmartAppLink className="block py-3 px-4 rounded-lg bg-primary text-white text-center font-semibold hover:bg-primary-dark transition mt-3" onClick={closeMenu}>تعرف على المنصة</SmartAppLink>
+components/SEOHead.js:      <link rel="canonical" href={canonicalUrl} />
+components/SEOHead.js:      <link rel="alternate" hrefLang="ar-AE" href={canonicalUrl} />
+components/SEOHead.js:      <link rel="alternate" hrefLang="en-AE" href={`${SITE_DOMAIN}${enPath}`} />
+components/SEOHead.js:      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+components/SEOHead.js:          <link rel="manifest" href="/manifest.json" />
+components/SEOHead.js:          <link rel="apple-touch-icon" href="/logo.png" />
+components/ServiceCard.js:import Link from "next/link";
+components/ServiceCard.js:    <Link href={slug ? `/services/${slug}` : "#"}>
+components/ServiceDetailEnhanced.js:              href="https://app.bietalreef.ae"
+components/ServiceDetailEnhanced.js:              href="https://wa.me/971567856001"
+components/SmartAppLink.js:import Link from 'next/link';
+components/SmartAppLink.js:      href="/platform"
+components/WayakChatWidget.js:import Link from "next/link";
+components/WayakChatWidget.js:    // Internal links will be handled by Next.js Link component
+components/WayakChatWidget.js:                        <Link key={idx} href={suggestion.link}>

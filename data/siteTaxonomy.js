@@ -137,6 +137,7 @@ export const SERVICE_CATEGORIES = [
   { slug: 'engineering-consultants', nameAr: 'مكاتب هندسية واستشارية', nameEn: 'Engineering Consultants', icon: '📐', descAr: 'تصميم معماري وإنشائي وMEP واعتمادات بلدية وإشراف.' },
   { slug: 'interior-design', nameAr: 'تصميم داخلي', nameEn: 'Interior Design', icon: '🛋️', descAr: 'تصميم داخلي وديكور ومجالس وغرف ومطابخ وتنسيق ألوان.' },
   { slug: 'finishing-works', nameAr: 'تشطيبات', nameEn: 'Finishing Works', icon: '🎨', descAr: 'دهانات وجبس وأرضيات ورخام وسيراميك وأسقف مستعارة.' },
+  { slug: 'general-maintenance', nameAr: 'صيانة عامة', nameEn: 'General Maintenance', icon: '🛠️', descAr: 'خدمات صيانة شاملة للمباني والفلل: سباكة، كهرباء، تكييف، دهانات وترميم.' },
   { slug: 'building-materials', nameAr: 'مواد بناء', nameEn: 'Building Materials', icon: '🧱', descAr: 'أسمنت وحديد وبلوك ورمل وحصى ومواد تشطيب.' },
   { slug: 'furniture-decor', nameAr: 'أثاث وفرش وديكور', nameEn: 'Furniture & Decor', icon: '🪑', descAr: 'أثاث جاهز وتفصيل مجالس وستائر وسجاد وإكسسوارات.' },
   { slug: 'carpentry', nameAr: 'نجارة', nameEn: 'Carpentry', icon: '🪵', descAr: 'أبواب وخزائن ومطابخ وأعمال خشبية حسب الطلب.' },

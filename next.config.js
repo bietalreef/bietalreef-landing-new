@@ -25,4 +25,61 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = {
+  ...nextConfig,
+  async redirects() {
+    return [
+      {
+        source: '/services/construction-contracting',
+        destination: '/categories/general-contracting',
+        permanent: true,
+      },
+      {
+        source: '/services/maintenance-companies',
+        destination: '/categories/general-maintenance',
+        permanent: true,
+      },
+      {
+        source: '/services/craftsmen',
+        destination: '/categories/carpentry',
+        permanent: true,
+      },
+      {
+        source: '/services/workshops',
+        destination: '/categories/workshops',
+        permanent: true,
+      },
+      {
+        source: '/services/building-materials',
+        destination: '/building-materials-uae',
+        permanent: true,
+      },
+      {
+        source: '/services/furniture-stores',
+        destination: '/categories/furniture-decor',
+        permanent: true,
+      },
+      // Redirect old city-specific service links to general category pages
+      {
+        source: '/services/construction-contracting/dubai',
+        destination: '/categories/general-contracting',
+        permanent: true,
+      },
+      {
+        source: '/services/maintenance-companies/dubai',
+        destination: '/categories/general-maintenance',
+        permanent: true,
+      },
+      {
+        source: '/services/construction-contracting/abu-dhabi',
+        destination: '/categories/general-contracting',
+        permanent: true,
+      },
+      {
+        source: '/services/construction-contracting/al-ain',
+        destination: '/categories/general-contracting',
+        permanent: true,
+      },
+    ];
+  },
+};
