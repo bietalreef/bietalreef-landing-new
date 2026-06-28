@@ -132,6 +132,19 @@ export const UAE_EMIRATES = [
   }
 ];
 
+export const ACCOUNT_TYPES = [
+  { slug: 'factory-workshop', nameAr: 'مصنع / ورشة', nameEn: 'Factory / Workshop' },
+  { slug: 'contracting-company', nameAr: 'شركة مقاولات', nameEn: 'Contracting Company' },
+  { slug: 'consultancy-office', nameAr: 'مكتب استشاري', nameEn: 'Consultancy Office' },
+  { slug: 'showroom-store', nameAr: 'معرض / محل', nameEn: 'Showroom / Store' }
+];
+
+export const MAIN_SPECIALTIES = [
+  { slug: 'carpentry-workshop', nameAr: 'ورشة منجرة', nameEn: 'Carpentry Workshop', parent: 'factory-workshop' },
+  { slug: 'marble-workshop', nameAr: 'ورشة رخام', nameEn: 'Marble Workshop', parent: 'factory-workshop' },
+  { slug: 'general-contracting', nameAr: 'مقاولات عامة', nameEn: 'General Contracting', parent: 'contracting-company' }
+];
+
 export const SERVICE_CATEGORIES = [
   { slug: 'general-contracting', nameAr: 'مقاولات عامة', nameEn: 'General Contracting', icon: '🏗️', descAr: 'بناء فلل وملاحق ومجالس ومشاريع سكنية وتجارية.' },
   { slug: 'engineering-consultants', nameAr: 'مكاتب هندسية واستشارية', nameEn: 'Engineering Consultants', icon: '📐', descAr: 'تصميم معماري وإنشائي وMEP واعتمادات بلدية وإشراف.' },
