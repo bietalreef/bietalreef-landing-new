@@ -235,9 +235,9 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      provider,
-      emirate,
-      area
+      provider: provider || null,
+      emirate: emirate || null,
+      area: area || null
     },
     revalidate: 3600
   };
