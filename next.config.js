@@ -35,6 +35,16 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/categories/engineering-consultation',
+        destination: '/categories/engineering-consultants',
+        permanent: true,
+      },
+      {
+        source: '/services/engineering-consultation',
+        destination: '/categories/engineering-consultants',
+        permanent: true,
+      },
+      {
         source: '/services/maintenance-companies',
         destination: '/categories/general-maintenance',
         permanent: true,
