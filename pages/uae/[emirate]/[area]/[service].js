@@ -3,8 +3,9 @@ import Link from 'next/link';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import { getEmirate, getArea, getServiceCategory, getAllAreaServicePaths } from '../../../../data/siteTaxonomy';
+import { providers } from '../../../../data/providers';
 
-export default function AreaServicePage({ emirate, area, service }) {
+export default function AreaServicePage({ emirate, area, service, relatedProviders }) {
   const pageUrl = `https://bietalreef.ae/uae/${emirate.slug}/${area.slug}/${service.slug}`;
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -84,6 +85,44 @@ export default function AreaServicePage({ emirate, area, service }) {
             </div>
           </section>
 
+          {/* Providers Section */}
+          {relatedProviders.length > 0 && (
+            <section className="max-w-6xl mx-auto px-4 py-12 md:py-16">
+              <h2 className="text-2xl font-black text-[#0F3F1A] mb-6">مزودو الخدمات المتخصصون في {area.nameAr}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {relatedProviders.map((provider) => (
+                  <Link key={provider.slug} href={`/providers/${provider.slug}`} className="bg-white rounded-lg border border-[#E6DCC8] hover:border-[#B8922B] transition overflow-hidden group">
+                    <div className="relative h-32 bg-gray-200 overflow-hidden">
+                      {provider.cover && (
+                        <img src={provider.cover} alt={provider.nameAr} className="w-full h-full object-cover group-hover:scale-105 transition" />
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <div className="flex items-start gap-3 mb-3">
+                        {provider.logo && (
+                          <img src={provider.logo} alt={provider.nameAr} className="w-12 h-12 rounded bg-gray-100 p-1 flex-shrink-0" />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-bold text-[#0F3F1A] truncate">{provider.nameAr}</h3>
+                          {provider.verified && (
+                            <p className="text-xs text-green-600">✔ معتمد</p>
+                          )}
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">{provider.descriptionAr}</p>
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-[#B8922B] font-bold">عرض الصفحة →</span>
+                        <a href={`tel:${provider.phone}`} onClick={(e) => e.preventDefault()} className="text-gray-600 hover:text-[#0F3F1A]">
+                          {provider.phone}
+                        </a>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="max-w-6xl mx-auto px-4 pb-16">
             <div className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
               <h2 className="text-2xl font-black mb-4">كيف يساعدك بيت الريف؟</h2>
@@ -103,7 +142,18 @@ export async function getStaticProps({ params }) {
   const area = getArea(params.emirate, params.area);
   const service = getServiceCategory(params.service);
   if (!emirate || !area || !service) return { notFound: true };
-  return { props: { emirate, area, service }, revalidate: 3600 };
+  
+  // Filter providers that match this area and service
+  const relatedProviders = providers.filter(provider => {
+    const isInArea = provider.serviceAreas?.includes(params.area);
+    const categoryKeywords = params.service.split('-');
+    const hasService = provider.services?.some(svc => 
+      categoryKeywords.some(keyword => svc.toLowerCase().includes(keyword))
+    );
+    return isInArea && hasService;
+  });
+  
+  return { props: { emirate, area, service, relatedProviders }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
