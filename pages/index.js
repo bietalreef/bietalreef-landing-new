@@ -60,7 +60,7 @@ export default function Home({ allServices }) {
                 المنصة الذكية الأولى في الإمارات لربط الملاك بأفضل مزودي خدمات المقاولات والصيانة المعتمدين.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/uae" className="bg-[#D4AF37] text-[#0F3F1A] px-10 py-4 rounded-2xl font-black text-lg hover:bg-[#B8922B] transition-all transform hover:scale-105 shadow-2xl">
+                <Link href="/uae" className="bg-[#D4AF37] text-gray-900 px-10 py-4 rounded-2xl font-black text-lg hover:bg-[#B8922B] transition-all transform hover:scale-105 shadow-2xl">
                   استكشف الخدمات
                 </Link>
                 <Link href="/about" className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-white/30 transition-all shadow-2xl">
@@ -71,15 +71,15 @@ export default function Home({ allServices }) {
           </section>
 
           {/* ══ Weyaak AI Section - Restored ══ */}
-          <section className="py-20 bg-[#0F3F1A] text-white relative overflow-hidden">
+          <section className="py-20 bg-gray-900 text-white relative overflow-hidden">
             <div className="absolute inset-0 opacity-10">
               <Image src="/bait-alreef-weyaak-fast-response-advantage.webp" alt="Background" fill className="object-cover" />
             </div>
             <div className="max-w-7xl mx-auto px-4 relative z-10">
               <div className="flex flex-col md:flex-row items-center gap-12">
                 <div className="md:w-1/2">
-                  <div className="inline-flex items-center gap-2 bg-emerald-500/20 px-4 py-2 rounded-full text-emerald-400 font-bold mb-6 border border-emerald-500/30">
-                    <span className="w-2 h-2 bg-emerald-400 rounded-full animate-ping"></span>
+                  <div className="inline-flex items-center gap-2 bg-amber-500/20 px-4 py-2 rounded-full text-amber-400 font-bold mb-6 border border-amber-500/30">
+                    <span className="w-2 h-2 bg-amber-400 rounded-full animate-ping"></span>
                     وياك AI متوفر الآن
                   </div>
                   <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
@@ -90,7 +90,7 @@ export default function Home({ allServices }) {
                     لا تشغل بالك بالتفاصيل التقنية، وياك يفهم احتياجاتك، يقارن بين الموردين، ويقترح عليك الحلول الأمثل لميزانيتك وجدولك الزمني.
                   </p>
                   <div className="flex flex-wrap gap-4">
-                    <Link href="/weyaak" className="px-8 py-4 bg-[#D4AF37] text-[#0F3F1A] rounded-2xl font-black shadow-lg hover:bg-[#B8922B] transition-colors">
+                    <Link href="/weyaak" className="px-8 py-4 bg-[#D4AF37] text-gray-900 rounded-2xl font-black shadow-lg hover:bg-[#B8922B] transition-colors">
                       تحدث مع وياك
                     </Link>
                   </div>
@@ -103,7 +103,7 @@ export default function Home({ allServices }) {
                         "من هم أفضل مقاولي التكييف في أبوظبي؟",
                         "قارن لي بين أسعار حديد الإمارات والحديد العماني"
                       ].map((msg, i) => (
-                        <div key={i} className={`p-4 rounded-2xl text-sm font-bold ${i === 1 ? 'bg-[#D4AF37] text-[#0F3F1A] mr-8' : 'bg-white/10 text-white ml-8'}`}>
+                        <div key={i} className={`p-4 rounded-2xl text-sm font-bold ${i === 1 ? 'bg-[#D4AF37] text-gray-900 mr-8' : 'bg-white/10 text-white ml-8'}`}>
                           {msg}
                         </div>
                       ))}
@@ -117,7 +117,7 @@ export default function Home({ allServices }) {
           {/* ══ Main Portals - Visual Cards ══ */}
           <section className="py-24 max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-4">بوابات بيت الريف المتخصصة</h2>
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4">بوابات بيت الريف المتخصصة</h2>
               <p className="text-gray-600 max-w-2xl mx-auto font-medium text-lg">حلول مصممة خصيصاً لتلبية احتياجات كافة أطراف قطاع البناء</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -145,14 +145,14 @@ export default function Home({ allServices }) {
           <section className="py-20 bg-[#FDFBF7]">
             <div className="max-w-7xl mx-auto px-4">
               <div className="flex items-center justify-between mb-12">
-                <h2 className="text-2xl md:text-4xl font-black text-[#0F3F1A]">الخدمات الأكثر طلباً</h2>
+                <h2 className="text-2xl md:text-4xl font-black text-gray-900">الخدمات الأكثر طلباً</h2>
                 <Link href="/categories" className="text-sm font-bold text-[#D4AF37] hover:underline">عرض الكل</Link>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {SERVICE_CATEGORIES.slice(0, 4).map((service) => (
                   <Link key={service.slug} href={`/categories/${service.slug}`} className="group bg-white p-8 rounded-3xl border border-[#E6DCC8] hover:border-[#D4AF37] transition-all text-center shadow-sm hover:shadow-xl">
                     <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{service.icon}</div>
-                    <h3 className="font-black text-[#0F3F1A] text-lg mb-2">{service.nameAr}</h3>
+                    <h3 className="font-black text-gray-900 text-lg mb-2">{service.nameAr}</h3>
                     <p className="text-xs text-gray-500 font-medium line-clamp-2">{service.descAr}</p>
                   </Link>
                 ))}
@@ -170,7 +170,7 @@ export default function Home({ allServices }) {
                 { label: "إمارات الدولة", value: "7" }
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-2">{stat.value}</div>
+                  <div className="text-3xl md:text-5xl font-black text-gray-900 mb-2">{stat.value}</div>
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">{stat.label}</div>
                 </div>
               ))}

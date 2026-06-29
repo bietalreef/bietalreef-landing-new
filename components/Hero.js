@@ -127,7 +127,7 @@ export default function Hero() {
               </Link>
               <Link 
                 href="/platform" 
-                className="flex-1 min-w-[180px] px-8 py-4 bg-[#0F3F1A] text-white rounded-2xl font-black text-center shadow-lg shadow-[#0F3F1A]/20 hover:bg-[#1a5c28] transition-all"
+                className="flex-1 min-w-[180px] px-8 py-4 bg-gray-800 text-white rounded-2xl font-black text-center shadow-lg shadow-gray-800/20 hover:bg-gray-900 transition-all"
               >
                 اكتشف المنصة
               </Link>
