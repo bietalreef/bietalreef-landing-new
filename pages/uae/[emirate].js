@@ -41,7 +41,7 @@ export default function EmiratePage({ emirate }) {
               <h2 className="text-2xl font-black mb-5">التخصصات في {emirate.nameAr}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {SERVICE_CATEGORIES.map((service) => (
-                  <Link key={service.slug} href={`/services/${service.slug}`} className="rounded-2xl border border-[#E6DCC8] p-4 hover:border-[#D4AF37] hover:bg-[#FDFBF7] transition">
+                  <Link key={service.slug} href={`/categories/${service.slug}`} className="rounded-2xl border border-[#E6DCC8] p-4 hover:border-[#D4AF37] hover:bg-[#FDFBF7] transition">
                     <h3 className="font-black text-[#0F3F1A] mb-1">{service.icon} {service.nameAr}</h3>
                     <p className="text-xs text-gray-500 leading-6">{service.descAr}</p>
                   </Link>

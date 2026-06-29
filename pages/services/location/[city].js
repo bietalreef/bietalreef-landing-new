@@ -124,7 +124,7 @@ export default function CityServices({ city, cityData }) {
             gap: '30px',
           }}>
             {services.map((service) => (
-              <Link key={service.id} href={`/services/${service.id}`}>
+              <Link key={service.id} href={`/categories/${service.id}`}>
                 <div style={{
                   backgroundColor: 'white',
                   padding: '30px',
