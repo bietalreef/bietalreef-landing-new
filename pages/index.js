@@ -9,21 +9,39 @@ import { getAllServices } from '../lib/services-detailed';
 
 export default function Home({ allServices }) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
-  // استخدام صور احترافية نقية تماماً من المشروع
-  const sliderImages = [
-    "/bait-alreef-hero-2.webp",
-    "/bait-alreef-hero-10.webp",
-    "/bait-alreef-hero-18.webp",
-    "/bait-alreef-hero-4.webp"
+
+  // الصور المعتمدة للـ Hero Slider فقط
+  const heroSlides = [
+    {
+      src: '/bait-alreef-construction-catalog.webp',
+      alt: 'منصة بيت الريف للبناء والمقاولات والصيانة في الإمارات',
+      title: 'منصة بيت الريف الذكية',
+    },
+    {
+      src: '/bait-alreef-hero-18.webp',
+      alt: 'خدمات بناء الفلل والمقاولات في الإمارات عبر بيت الريف',
+      title: 'مقاولات وبناء فلل في الإمارات',
+    },
+    {
+      src: '/bait-alreef-hero-2.webp',
+      alt: 'تصميم وتنفيذ مشاريع البناء الحديثة في الإمارات',
+      title: 'مشاريع البناء والتصميم في الإمارات',
+    },
+    {
+      src: '/images/seo/categories/interior-design.webp',
+      alt: 'خدمات التصميم الداخلي والديكور في الإمارات عبر منصة بيت الريف',
+      title: 'التصميم الداخلي والديكور في الإمارات',
+    },
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, [sliderImages.length]);
+  }, [heroSlides.length]);
+
+  const goToSlide = (i) => setCurrentSlide(i);
 
   return (
     <>
@@ -35,37 +53,89 @@ export default function Home({ allServices }) {
 
       <div dir="rtl" className="min-h-screen bg-white text-gray-900 font-sans">
         <Navbar />
-        
+
         <main>
-          {/* ══ Hero Section - Professional Slider ══ */}
-          <section className="relative h-[80vh] flex items-center overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              {sliderImages.map((img, index) => (
-                <div 
-                  key={index}
-                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-                >
-                  <Image src={img} alt={`بيت الريف شريحة ${index + 1}`} fill className="object-cover" priority={index === 0} />
-                  <div className="absolute inset-0 bg-black/40"></div>
+          {/* ══ Hero Section ══ */}
+          <section className="w-full bg-white py-8 md:py-12">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+
+                {/* Slider — يسار على Desktop، أعلى على Mobile */}
+                <div className="w-full lg:w-7/12 order-1 lg:order-1">
+                  <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-[2rem] overflow-hidden shadow-2xl">
+                    {heroSlides.map((slide, index) => (
+                      <div
+                        key={index}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                          index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                        }`}
+                      >
+                        <Image
+                          src={slide.src}
+                          alt={slide.alt}
+                          title={slide.title}
+                          fill
+                          className="object-cover object-center"
+                          priority={index === 0}
+                          loading={index === 0 ? 'eager' : 'lazy'}
+                          sizes="(max-width: 1024px) 100vw, 58vw"
+                        />
+                      </div>
+                    ))}
+
+                    {/* Dots */}
+                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                      {heroSlides.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => goToSlide(i)}
+                          aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            i === currentSlide ? 'w-6 bg-white' : 'w-2 bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-            
-            <div className="relative z-10 max-w-7xl mx-auto px-4 w-full text-center">
-              <h1 className="text-4xl md:text-7xl font-black text-white mb-8 leading-tight drop-shadow-2xl">
-                بناء، صيانة، وتصميم <br />
-                <span className="text-[#D4AF37]">بذكاء واحترافية</span>
-              </h1>
-              <p className="text-xl text-white mb-10 leading-relaxed font-bold drop-shadow-lg max-w-2xl mx-auto">
-                المنصة الذكية الأولى في الإمارات لربط الملاك بأفضل مزودي خدمات المقاولات والصيانة المعتمدين.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/uae" className="bg-[#D4AF37] text-gray-900 px-10 py-4 rounded-2xl font-black text-lg hover:bg-[#B8922B] transition-all transform hover:scale-105 shadow-2xl">
-                  استكشف الخدمات
-                </Link>
-                <Link href="/about" className="bg-white/20 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-white/30 transition-all shadow-2xl">
-                  تعرف علينا
-                </Link>
+
+                {/* المحتوى — يمين على Desktop، أسفل على Mobile */}
+                <div className="w-full lg:w-5/12 text-right order-2 lg:order-2">
+
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold mb-5">
+                    منصة بيت الريف
+                  </div>
+
+                  {/* H1 */}
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-4 leading-tight">
+                    منصة بيت الريف للبناء والمقاولات والصيانة في الإمارات
+                  </h1>
+
+                  {/* الوصف المختصر */}
+                  <p className="text-base font-bold text-gray-700 mb-4 leading-relaxed">
+                    دليلك الذكي للوصول إلى المقاولين، المكاتب الهندسية، الحرفيين، الموردين، المصانع، ومعارض مواد البناء في جميع إمارات دولة الإمارات العربية المتحدة.
+                  </p>
+
+                  {/* الفقرة */}
+                  <p className="text-sm text-gray-600 leading-relaxed mb-5">
+                    تجمع منصة بيت الريف بين أصحاب المشاريع ومزودي الخدمات في مكان واحد، مع إمكانية البحث حسب الإمارة والمدينة والتخصص، واستكشاف خدمات البناء والتشطيب والتصميم الداخلي ومواد البناء بطريقة منظمة وسهلة.
+                  </p>
+
+                  {/* فقرة وياك */}
+                  <p className="text-sm text-gray-600 leading-relaxed mb-8">
+                    وياك هو مساعدك الذكي داخل منصة بيت الريف، صُمم ليفهم احتياجاتك، ويقترح عليك الخدمات والتخصصات المناسبة، ويرشدك خطوة بخطوة حتى تصل إلى مزود الخدمة الأنسب لمشروعك.
+                  </p>
+
+                  {/* الزر الوحيد */}
+                  <Link
+                    href="#weyaak-assistant"
+                    className="inline-block px-8 py-4 bg-[#D4AF37] text-white rounded-2xl font-black text-base shadow-lg shadow-[#D4AF37]/20 hover:bg-[#b8922b] transition-all"
+                  >
+                    ابدأ مع وياك
+                  </Link>
+
+                </div>
               </div>
             </div>
           </section>
