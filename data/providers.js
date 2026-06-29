@@ -41,9 +41,9 @@ export const providers = [
   },
   {
     slug: 'al-hoot-marble-granite-factory',
-    nameAr: 'مصنع الحوت للرخام والجرانيت',
-    nameEn: 'Al Hoot Marble & Granite Factory',
-    phone: '0506623518',
+    nameAr: 'مصنع الحوت الأبيض للرخام والجرانيت',
+    nameEn: 'White Whale Marble & Granite Factory',
+    phone: '050 662 3518',
     whatsapp: '+971506623518',
     city: 'al-ain',
     area: 'mazid-company-camp',

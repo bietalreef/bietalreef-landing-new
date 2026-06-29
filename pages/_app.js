@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/provider_styles.css";
 import { useEffect } from "react";
 import InstallPrompt from "../components/InstallPrompt";
 import WeyakChat from "../components/WeyakChat";
