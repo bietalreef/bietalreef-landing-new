@@ -1,261 +1,192 @@
-import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Hero from "../components/Hero";
-import { getAllServices } from "../lib/services-detailed";
-import SEOHead from "../components/SEOHead";
-import { 
-  Users, 
-  ShoppingBag, 
-  Wrench, 
-  ChevronLeft, 
-  ShieldCheck,
-  ArrowLeft,
-  ArrowRight
-} from "lucide-react";
+import Head from 'next/head';
+import Link from 'next/link';
+import Image from 'next/image';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../data/siteTaxonomy';
 
-export default function HomePage({ allServices }) {
-  const portalSections = [
-    {
-      id: "providers",
-      title: "دليل مزودي الخدمات",
-      desc: "اعثر على أفضل المقاولين، المصممين، والحرفيين المعتمدين في جميع إمارات الدولة.",
-      image: "/images/seo/home/providers-portal.webp",
-      icon: <Users className="w-5 h-5" />,
-      color: "bg-emerald-600",
-      link: "/providers",
-      features: ["مقارنة التقييمات", "عروض أسعار فورية", "تغطية شاملة"],
-      keywords: "مقاولين، مصممين، حرفيين، الإمارات"
-    },
-    {
-      id: "marketplace",
-      title: "سوق مواد البناء",
-      desc: "تسوق مواد البناء، التشطيب، الأثاث والديكور من أفضل الموردين بأسعار تنافسية.",
-      image: "/images/seo/home/marketplace-portal.webp",
-      icon: <ShoppingBag className="w-5 h-5" />,
-      color: "bg-blue-600",
-      link: "/marketplace",
-      features: ["أثاث وديكور", "مواد تشطيب", "إضاءة ذكية"],
-      keywords: "مواد بناء، تشطيب، أثاث، ديكور"
-    },
-    {
-      id: "tools",
-      title: "الأدوات الذكية",
-      desc: "مجموعة من الأدوات المتقدمة لحساب التكاليف، إدارة العقود، والتصميم ثلاثي الأبعاد.",
-      image: "/images/seo/home/tools-portal.webp",
-      icon: <Wrench className="w-5 h-5" />,
-      color: "bg-amber-500",
-      link: "/tools",
-      features: ["حاسبة مواد", "مقارن الأسعار", "إدارة العقود"],
-      keywords: "حاسبة تكاليف، إدارة مشاريع، أدوات ذكية"
-    }
-  ];
-
+export default function Home() {
   return (
-    <div dir="rtl" className="min-h-screen bg-[#FDFBF7]">
-      <SEOHead 
-        title="بيت الريف | منصة البناء والصيانة الذكية في الإمارات"
-        description="بيت الريف هي المنصة الشاملة لقطاع البناء والتشطيب في الإمارات. اكتشف أفضل المقاولين، تسوق مواد البناء، واستخدم أدوات الذكاء الاصطناعي لإدارة مشروعك."
-        keywords="مقاولين الإمارات، بناء فلل، تشطيبات، مواد بناء، دبي، أبوظبي، وياك AI، أدوات بناء"
-      />
-      <Navbar />
-      <Hero />
+    <>
+      <Head>
+        <title>بيت الريف | المنصة الذكية لخدمات المقاولات والصيانة والتصميم في الإمارات</title>
+        <meta name="description" content="بيت الريف هي وجهتك الأولى لخدمات البناء والصيانة والديكور في الإمارات. نجمع بين التكنولوجيا والاحترافية لتقديم تجربة فريدة لملاك العقارات ومزودي الخدمات." />
+        <link rel="canonical" href="https://bietalreef.ae" />
+      </Head>
 
-      <main className="max-w-7xl mx-auto px-4 py-16">
-        {/* ══ بوابة المحركات الرئيسية (Visual Cards) ══ */}
-        <section className="mb-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-6">بوابتك الرقمية لعالم البناء</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">اختر المحرك المناسب لاحتياجك وابدأ رحلتك مع بيت الريف من خلال تجربة بصرية متكاملة.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {portalSections.map((section) => (
-              <div 
-                key={section.id}
-                className="group bg-white rounded-[32px] overflow-hidden border border-[#E6DCC8] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-              >
-                {/* Image Section */}
-                <div className="relative h-64 overflow-hidden">
-                  <Image 
-                    src={section.image}
-                    alt={`${section.title} - بيت الريف`}
-                    title={section.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                    <p className="text-white text-xs font-bold">{section.keywords}</p>
-                  </div>
-                  <div className={`absolute top-4 right-4 ${section.color} text-white p-3 rounded-2xl shadow-lg`}>
-                    {section.icon}
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-8">
-                  <h3 className="text-2xl font-black text-[#0F3F1A] mb-4">{section.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6 h-12 overflow-hidden">{section.desc}</p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {section.features.map((f, i) => (
-                      <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-100 text-[10px] font-bold text-gray-500">
-                        <ShieldCheck className="w-3 h-3 text-emerald-500" />
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link 
-                    href={section.link}
-                    className="flex items-center justify-between w-full px-6 py-4 bg-[#FDFBF7] border border-[#E6DCC8] rounded-2xl text-[#0F3F1A] font-black text-sm group-hover:bg-[#0F3F1A] group-hover:text-white group-hover:border-[#0F3F1A] transition-all duration-300"
-                  >
-                    استكشف الآن
-                    <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-2" />
+      <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
+        <Navbar />
+        
+        <main>
+          {/* Hero Section - Pure Visual Branding */}
+          <section className="relative min-h-[90vh] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <Image 
+                src="/images/seo/home/hero-main.webp" 
+                alt="بيت الريف - مستقبل البناء" 
+                fill 
+                className="object-cover opacity-40 scale-105"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-l from-[#0F3F1A] via-transparent to-transparent"></div>
+            </div>
+            
+            <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+              <div className="max-w-3xl">
+                <span className="inline-block bg-[#D4AF37] text-[#0F3F1A] px-4 py-1 rounded-full text-sm font-black mb-6 animate-fade-in">
+                  المنصة الذكية الأولى في الإمارات
+                </span>
+                <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight">
+                  بناء، صيانة، وتصميم <br />
+                  <span className="text-[#D4AF37]">بذكاء واحترافية</span>
+                </h1>
+                <p className="text-xl text-white/90 mb-10 leading-relaxed font-medium">
+                  نحن نعيد تعريف تجربة خدمات العقارات من خلال حلول تقنية متكاملة تربطك بأفضل المتخصصين المعتمدين لضمان نجاح مشروعك.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Link href="/uae" className="bg-[#D4AF37] text-[#0F3F1A] px-10 py-4 rounded-2xl font-black text-lg hover:bg-[#B8922B] transition-all transform hover:scale-105">
+                    استكشف الخدمات
+                  </Link>
+                  <Link href="/about" className="bg-white/10 backdrop-blur-md border border-white/20 px-10 py-4 rounded-2xl font-black text-lg hover:bg-white/20 transition-all">
+                    تعرف علينا
                   </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
 
-        {/* ══ قسم وياك AI (Visual Refactor) ══ */}
-        <section className="bg-[#0F3F1A] rounded-[48px] p-8 md:p-20 text-white mb-24 overflow-hidden relative shadow-2xl">
-          {/* Decorative Background Image */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <Image 
-              src="/images/seo/home/ai-tools.webp" 
-              alt="AI Background" 
-              fill 
-              className="object-cover"
-            />
-          </div>
-          
-          <div className="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-8">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span className="text-xs font-bold">وياك AI — وكيلك الشخصي في الإمارات</span>
-              </div>
-              <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
-                وكيلك الذكي <br />
-                <span className="text-[#D4AF37]">في كل خطوة بناء</span>
-              </h2>
-              <p className="text-emerald-50/70 text-xl mb-10 leading-relaxed max-w-xl">
-                لا تشغل بالك بالتفاصيل التقنية، وياك يفهم احتياجاتك، يقارن بين الموردين، ويقترح عليك الحلول الأمثل لميزانيتك وجدولك الزمني في دبي وأبوظبي وكافة الإمارات.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/weyaak" className="px-10 py-5 bg-[#D4AF37] text-white rounded-2xl font-black shadow-xl hover:bg-[#b8922b] transition-all transform hover:scale-105">
-                  تحدث مع وياك الآن
-                </Link>
-                <Link href="/platform" className="px-10 py-5 bg-white/10 text-white rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-all">
-                  اكتشف المنظومة
-                </Link>
-              </div>
+          {/* Core Portals - Visual Cards */}
+          <section className="py-24 max-w-7xl mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-4">بوابات بيت الريف المتخصصة</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto font-medium text-lg">حلول مصممة خصيصاً لتلبية احتياجات كافة أطراف قطاع البناء</p>
             </div>
 
-            <div className="hidden lg:block relative">
-              <div className="bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-[32px] p-10 border border-white/10 backdrop-blur-md shadow-3xl">
-                <div className="space-y-6">
-                  {[
-                    { q: "احسب لي كمية الرخام المطلوبة لفيلا 400 متر", type: "user" },
-                    { q: "من هم أفضل مقاولي التكييف المعتمدين في أبوظبي؟", type: "ai" },
-                    { q: "قارن لي بين أسعار حديد الإمارات والحديد العماني اليوم", type: "user" }
-                  ].map((msg, i) => (
-                    <div key={i} className={`p-5 rounded-2xl text-sm font-bold shadow-sm transition-all hover:scale-102 ${msg.type === 'ai' ? 'bg-[#D4AF37] text-white mr-12' : 'bg-white/10 text-emerald-50 ml-12'}`}>
-                      {msg.q}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "بوابة الملاك",
+                  desc: "أدوات ذكية لإدارة مشاريعك، تتبع الصيانة، والحصول على عروض أسعار دقيقة من مقاولين معتمدين.",
+                  img: "/images/seo/home/platform-features.webp",
+                  link: "/uae",
+                  label: "ابدأ مشروعك"
+                },
+                {
+                  title: "بوابة مزودي الخدمة",
+                  desc: "نمِّ أعمالك من خلال منصة احترافية تمنحك وصولاً مباشراً لطلبات المشاريع وأدوات إدارة العملاء.",
+                  img: "/images/seo/home/providers-portal.webp",
+                  link: "/providers",
+                  label: "انضم كشريك"
+                },
+                {
+                  title: "سوق مواد البناء",
+                  desc: "اكتشف مجموعة واسعة من مواد البناء والديكور من أفضل الموردين بأسعار تنافسية وجودة مضمونة.",
+                  img: "/images/seo/home/marketplace-portal.webp",
+                  link: "/categories/building-materials",
+                  label: "تصفح المتجر"
+                }
+              ].map((portal, i) => (
+                <Link key={i} href={portal.link} className="group bg-white rounded-[2.5rem] overflow-hidden border border-[#E6DCC8] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-3">
+                  <div className="relative h-72 overflow-hidden">
+                    <Image src={portal.img} alt={portal.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/80 via-transparent to-transparent opacity-60"></div>
+                    <div className="absolute bottom-6 right-8 text-white">
+                      <h3 className="text-2xl font-black">{portal.title}</h3>
                     </div>
-                  ))}
-                </div>
-              </div>
-              {/* Decorative Elements */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-emerald-500/20 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
+                  </div>
+                  <div className="p-8">
+                    <p className="text-gray-600 leading-relaxed mb-8 font-medium">{portal.desc}</p>
+                    <div className="flex items-center justify-between border-t border-gray-50 pt-6">
+                      <span className="text-[#D4AF37] font-black group-hover:translate-x-[-4px] transition-transform">
+                        {portal.label} ←
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ══ الخدمات الشائعة (Visual Cards Refactor) ══ */}
-        <section className="mb-24">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-black text-[#0F3F1A] mb-2">الخدمات الأكثر طلباً</h2>
-              <p className="text-gray-500 text-sm">تصفح التخصصات الرائدة التي يفضلها عملاؤنا في الإمارات</p>
+          {/* Smart Tools Section - Professional Icons & Visuals */}
+          <section className="bg-[#0F3F1A] py-24 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+              <Image src="/images/seo/tools/smart-tools-grid.webp" alt="Background" fill className="object-cover" />
             </div>
-            <Link href="/services" className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-[#E6DCC8] rounded-xl text-sm font-black text-[#0F3F1A] hover:bg-[#0F3F1A] hover:text-white transition-all">
-              عرض الكل <ArrowLeft className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { id: 'general-contracting', title: 'المقاولات العامة', image: '/images/seo/categories/general-contracting.jpg', desc: 'بناء وتشييد الفلل والمباني' },
-              { id: 'interior-design', title: 'التصميم الداخلي', image: '/images/seo/categories/interior-design.webp', desc: 'ديكورات وتصاميم عصرية' },
-              { id: 'building-materials', title: 'مواد البناء', image: '/images/seo/categories/building-materials.webp', desc: 'توريد أجود الخامات والتشطيبات' },
-              { id: 'general-maintenance', title: 'الصيانة العامة', image: '/images/seo/home/benefits.webp', desc: 'حلول صيانة متكاملة للمباني' }
-            ].map((service) => (
-              <Link 
-                key={service.id} 
-                href={`/categories/${service.id}`} 
-                className="group bg-white rounded-3xl overflow-hidden border border-[#E6DCC8] hover:shadow-xl transition-all duration-500"
-              >
-                <div className="relative h-48">
-                  <Image 
-                    src={service.image} 
-                    alt={service.title} 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="font-black text-[#0F3F1A] text-lg mb-1">{service.title}</h3>
-                  <p className="text-xs text-gray-500 mb-4">{service.desc}</p>
-                  <div className="text-[#D4AF37] font-bold text-xs flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    عرض التفاصيل <ChevronLeft className="w-3 h-3" />
+            <div className="max-w-7xl mx-auto px-4 relative z-10">
+              <div className="flex flex-col lg:flex-row items-center gap-16">
+                <div className="lg:w-1/2">
+                  <h2 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight">
+                    أدوات ذكية <br />
+                    <span className="text-[#D4AF37]">لإدارة مشاريعك باحترافية</span>
+                  </h2>
+                  <div className="space-y-6">
+                    {[
+                      { title: "المساعد الذكي 'وياك'", desc: "استشارات فورية مدعومة بالذكاء الاصطناعي لمساعدتك في اتخاذ قراراتك." },
+                      { title: "نظام تحليل العروض", desc: "قارن بين عروض الأسعار والمواصفات الفنية بضغطة زر واحدة." },
+                      { title: "إدارة العقود والمدفوعات", desc: "بيئة آمنة وموثقة تضمن حقوق كافة الأطراف في كل مرحلة." }
+                    ].map((tool, i) => (
+                      <div key={i} className="flex gap-4 p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:bg-white/10 transition-colors group">
+                        <div className="w-12 h-12 rounded-xl bg-[#D4AF37] flex items-center justify-center text-[#0F3F1A] font-black shrink-0 group-hover:rotate-12 transition-transform">
+                          {i + 1}
+                        </div>
+                        <div>
+                          <h4 className="text-white font-black text-lg mb-1">{tool.title}</h4>
+                          <p className="text-white/60 text-sm font-medium">{tool.desc}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* ══ أرقام وحقائق (Visual Refactor) ══ */}
-        <section className="bg-white rounded-[40px] border border-[#E6DCC8] p-12 shadow-sm">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-            {[
-              { label: "أداة ذكاء اصطناعي", value: "47", color: "text-emerald-600" },
-              { label: "مزود خدمة معتمد", value: "1,200+", color: "text-blue-600" },
-              { label: "مشروع مكتمل", value: "5,000+", color: "text-[#D4AF37]" },
-              { label: "إمارات الدولة", value: "7", color: "text-red-600" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center relative">
-                {i < 3 && <div className="hidden md:block absolute -left-6 top-1/2 -translate-y-1/2 w-[1px] h-12 bg-gray-100"></div>}
-                <div className={`text-4xl md:text-5xl font-black ${stat.color} mb-3 tracking-tight`}>{stat.value}</div>
-                <div className="text-xs font-black text-gray-400 uppercase tracking-widest">{stat.label}</div>
+                <div className="lg:w-1/2 relative">
+                  <div className="relative aspect-square max-w-md mx-auto">
+                    <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[100px] opacity-20 animate-pulse"></div>
+                    <div className="relative z-10 rounded-[3rem] overflow-hidden border-8 border-white/10 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-700">
+                      <Image src="/images/seo/tools/weyaak-ai.webp" alt="Smart Tools" fill className="object-cover" />
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
-  );
-}
+            </div>
+          </section>
 
-export async function getStaticProps() {
-  const allServices = getAllServices();
-  return {
-    props: {
-      allServices,
-    },
-    revalidate: 3600,
-  };
+          {/* Emirates Quick Navigation */}
+          <section className="py-24 bg-white">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-black text-[#0F3F1A] mb-3">خدماتنا عبر الإمارات</h2>
+                  <p className="text-gray-600 font-medium">نغطي كافة أرجاء الدولة لضمان وصول الخدمة إليك أينما كنت</p>
+                </div>
+                <Link href="/uae" className="hidden md:block text-[#D4AF37] font-black hover:underline">مشاهدة كافة الإمارات ←</Link>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                {UAE_EMIRATES.map((emirate) => (
+                  <Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="group relative aspect-square rounded-2xl overflow-hidden border border-[#E6DCC8] hover:border-[#D4AF37] transition-all">
+                    <Image src={`/images/seo/emirates/${emirate.slug}.webp`} alt={emirate.nameAr} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-transparent to-transparent opacity-80"></div>
+                    <div className="absolute bottom-4 inset-x-4 text-center">
+                      <h4 className="text-white font-black text-sm">{emirate.nameAr}</h4>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <Footer />
+      </div>
+
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out forwards;
+        }
+      `}</style>
+    </>
+  );
 }
