@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
@@ -9,50 +10,92 @@ export default function CategoryPage({ service, relatedProviders }) {
   return (
     <>
       <Head>
-        <title>{`${service.nameAr} في الإمارات | بيت الريف`}</title>
-        <meta name="description" content={`دليل ${service.nameAr} في الإمارات عبر بيت الريف. اختر الإمارة أو المنطقة للوصول إلى صفحة خدمة محلية مخصصة.`} />
+        <title>{`${service.nameAr} في الإمارات | دليل بيت الريف للمقاولات`}</title>
+        <meta name="description" content={`دليل ${service.nameAr} الشامل في الإمارات. ابحث عن أفضل مزودي الخدمات، الشركات، والمقاولين المعتمدين في أبوظبي، دبي، والشارقة.`} />
         <link rel="canonical" href={`https://bietalreef.ae/categories/${service.slug}`} />
       </Head>
-      <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
-        <Navbar />
-        <main className="max-w-6xl mx-auto px-4 py-14 md:py-20">
-          <p className="text-[#B8922B] font-black mb-3">التخصصات</p>
-          <div className="flex items-center gap-4 mb-5">
-            <div className="text-4xl">{service.icon}</div>
-            <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameAr} في الإمارات</h1>
-          </div>
-          <p className="text-gray-600 leading-8 max-w-3xl mb-10">{service.descAr} اختر الإمارة أو المنطقة المناسبة للوصول إلى صفحة محلية أدق ضمن موقع بيت الريف.</p>
 
-          {/* Providers Section */}
+      <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
+        <Navbar />
+        
+        <main>
+          {/* Hero Section */}
+          <section className="relative bg-[#0F3F1A] text-white py-20 overflow-hidden">
+            <div className="absolute inset-0 opacity-15">
+              <Image 
+                src="/images/seo/home/platform-features.webp" 
+                alt={service.nameAr} 
+                fill 
+                className="object-cover grayscale"
+                priority
+              />
+            </div>
+            <div className="relative max-w-6xl mx-auto px-4">
+              <nav className="flex mb-6 text-sm font-medium text-[#D4AF37]">
+                <Link href="/" className="hover:underline">الرئيسية</Link>
+                <span className="mx-2">/</span>
+                <Link href="/categories" className="hover:underline">التخصصات</Link>
+                <span className="mx-2">/</span>
+                <span>{service.nameAr}</span>
+              </nav>
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="text-6xl bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 w-fit">
+                  {service.icon}
+                </div>
+                <div>
+                  <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">{service.nameAr} في الإمارات</h1>
+                  <p className="text-xl text-white/90 max-w-2xl leading-relaxed font-medium">
+                    {service.descAr} تصفح الدليل المحلي حسب الإمارة والمنطقة للوصول إلى أفضل المتخصصين.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Providers Grid (Visual Cards) */}
           {relatedProviders.length > 0 && (
-            <section className="mb-14">
-              <h2 className="text-2xl font-black text-[#0F3F1A] mb-6">مزودو الخدمات المتخصصون</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <section className="max-w-7xl mx-auto px-4 py-20">
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <h2 className="text-3xl font-black text-[#0F3F1A] mb-3">مزودو خدمات معتمدون</h2>
+                  <p className="text-gray-600 font-medium">نخبة من الشركات والمحترفين في مجال {service.nameAr}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {relatedProviders.map((provider) => (
-                  <Link key={provider.slug} href={`/providers/${provider.slug}`} className="bg-white rounded-lg border border-[#E6DCC8] hover:border-[#B8922B] transition overflow-hidden group">
-                    <div className="relative h-32 bg-gray-200 overflow-hidden">
-                      {provider.cover && (
-                        <img src={provider.cover} alt={provider.nameAr} className="w-full h-full object-cover group-hover:scale-105 transition" />
+                  <Link key={provider.slug} href={`/providers/${provider.slug}`} className="group bg-white rounded-3xl overflow-hidden border border-[#E6DCC8] shadow-sm hover:shadow-2xl transition-all duration-500">
+                    <div className="relative h-40 bg-gray-100 overflow-hidden">
+                      {provider.cover ? (
+                        <Image src={provider.cover} alt={provider.nameAr} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#0F3F1A] to-[#1F6B3A] opacity-80"></div>
                       )}
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-start gap-3 mb-3">
-                        {provider.logo && (
-                          <img src={provider.logo} alt={provider.nameAr} className="w-12 h-12 rounded bg-gray-100 p-1 flex-shrink-0" />
+                      <div className="absolute top-4 left-4">
+                        {provider.verified && (
+                          <span className="bg-white/90 backdrop-blur-sm text-green-700 text-[10px] font-black px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                            معتمد
+                          </span>
                         )}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-bold text-[#0F3F1A] truncate">{provider.nameAr}</h3>
-                          {provider.verified && (
-                            <p className="text-xs text-green-600">✔ معتمد</p>
+                      </div>
+                    </div>
+                    <div className="p-8 relative">
+                      <div className="absolute -top-10 right-8">
+                        <div className="w-20 h-20 rounded-2xl bg-white p-2 shadow-xl border border-gray-50 overflow-hidden">
+                          {provider.logo ? (
+                            <Image src={provider.logo} alt={provider.nameAr} width={80} height={80} className="object-contain" />
+                          ) : (
+                            <div className="w-full h-full bg-[#FDFBF7] flex items-center justify-center text-2xl">{service.icon}</div>
                           )}
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">{provider.descriptionAr}</p>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-[#B8922B] font-bold">عرض الصفحة →</span>
-                        <a href={`tel:${provider.phone}`} onClick={(e) => e.preventDefault()} className="text-gray-600 hover:text-[#0F3F1A]">
-                          {provider.phone}
-                        </a>
+                      <div className="mt-8">
+                        <h3 className="text-xl font-black text-[#0F3F1A] mb-3 group-hover:text-[#B8922B] transition-colors truncate">{provider.nameAr}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed mb-6 font-medium line-clamp-2">{provider.descriptionAr}</p>
+                        <div className="flex items-center justify-between pt-6 border-t border-gray-50">
+                          <span className="text-[#D4AF37] font-black text-sm group-hover:translate-x-[-4px] transition-transform">عرض الملف ←</span>
+                          <span className="text-gray-400 text-xs font-medium">{provider.phone}</span>
+                        </div>
                       </div>
                     </div>
                   </Link>
@@ -61,32 +104,46 @@ export default function CategoryPage({ service, relatedProviders }) {
             </section>
           )}
 
-          {/* CTA Section */}
-          <section className="bg-[#0F3F1A] text-white rounded-lg p-8 mb-14 text-center">
-            <h2 className="text-2xl font-black mb-3">هل تقدم هذه الخدمة؟</h2>
-            <p className="mb-6">انضم الآن إلى شبكة مزودي الخدمات في بيت الريف</p>
-            <Link href="/join-provider" className="bg-[#B8922B] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#9a7a23] transition inline-block">
-              سجل مزود خدمة
-            </Link>
-          </section>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {UAE_EMIRATES.map((emirate) => (
-              <div key={emirate.slug} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm">
-                <Link href={`/uae/${emirate.slug}`} className="font-black text-[#0F3F1A] hover:text-[#B8922B] block mb-3">{emirate.nameAr}</Link>
-                <div className="flex flex-wrap gap-2">
-                  {emirate.areas.slice(0, 8).map((area) => (
-                    <Link key={area.slug} href={`/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
-                      {area.nameAr}
-                    </Link>
-                  ))}
-                </div>
+          {/* Emirates & Areas Navigation */}
+          <section className="bg-[#F0F7F2] py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-black text-[#0F3F1A] mb-4">الدليل الجغرافي لـ {service.nameAr}</h2>
+                <p className="text-gray-600 font-medium">اختر الإمارة والمنطقة للوصول إلى المتخصصين الأقرب إليك</p>
               </div>
-            ))}
-          </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {UAE_EMIRATES.map((emirate) => (
+                  <div key={emirate.slug} className="bg-white rounded-3xl p-8 border border-[#E6DCC8] shadow-sm hover:shadow-lg transition-shadow">
+                    <Link href={`/uae/${emirate.slug}`} className="flex items-center justify-between mb-6 group">
+                      <h3 className="text-2xl font-black text-[#0F3F1A] group-hover:text-[#B8922B] transition-colors">{emirate.nameAr}</h3>
+                      <span className="w-10 h-10 rounded-full bg-[#F0F7F2] flex items-center justify-center text-[#0F3F1A] font-black group-hover:bg-[#0F3F1A] group-hover:text-white transition-all">←</span>
+                    </Link>
+                    <div className="flex flex-wrap gap-2">
+                      {emirate.areas.slice(0, 12).map((area) => (
+                        <Link key={area.slug} href={`/uae/${emirate.slug}/${area.slug}/${service.slug}`} className="text-xs font-bold bg-[#FDFBF7] border border-[#E6DCC8] rounded-full px-4 py-2 text-gray-600 hover:border-[#D4AF37] hover:text-[#0F3F1A] transition-all">
+                          {area.nameAr}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
+
         <Footer />
       </div>
+
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .group {
+          animation: fadeIn 0.5s ease-out forwards;
+        }
+      `}</style>
     </>
   );
 }
@@ -95,9 +152,7 @@ export async function getStaticProps({ params }) {
   const service = getServiceCategory(params.slug);
   if (!service) return { notFound: true };
   
-  // Filter providers that match this service category
   const relatedProviders = providers.filter(provider => {
-    // Check if provider's services include keywords from this category
     const categoryKeywords = params.slug.split('-');
     return provider.services?.some(service => 
       categoryKeywords.some(keyword => service.toLowerCase().includes(keyword))
