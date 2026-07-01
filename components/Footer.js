@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
 
 function CollapsibleSection({ title, defaultOpen = false, children }) {
@@ -26,61 +28,87 @@ function CollapsibleSection({ title, defaultOpen = false, children }) {
 }
 
 export default function Footer() {
+  const router = useRouter();
+  const { pathname } = router;
+  
+  // منطق الـ Smart Footer بناءً على المسار الحالي
+  const isEmiratePage = pathname.includes('/uae/[emirate]');
+  const isServicePage = pathname.includes('/categories/');
+  const isProviderPage = pathname.includes('/provider/');
+
   const topServices = SERVICE_CATEGORIES.slice(0, 8);
   const quickLinks = [
     { href: '/', label: 'الرئيسية' },
-    { href: '/services', label: 'جميع الخدمات' },
     { href: '/uae', label: 'دليل الإمارات' },
     { href: '/providers', label: 'مزودو الخدمات' },
-    { href: '/marketplace', label: 'السوق' },
-    { href: '/tools', label: 'الأدوات الذكية' },
+    { href: '/services', label: 'الخدمات والعروض' },
+    { href: '/marketplace', label: 'المنتجات والمتاجر' },
     { href: '/weyaak', label: 'وياك' },
-    { href: '/platform', label: 'مميزات المنصة' },
+    { href: '/tools', label: 'الأدوات' },
     { href: '/about', label: 'من نحن' },
-    { href: '/blog', label: 'المدونة' },
-    { href: '/legal#privacy', label: 'سياسة الخصوصية' },
-    { href: '/legal#terms', label: 'الشروط والأحكام' }
+    { href: '/legal', label: 'الشروط والأحكام' },
   ];
 
   return (
     <footer className="mt-16 md:mt-24 bg-gradient-to-b from-[#F5EEE1] via-[#F7F1E8] to-[#F5EEE1] text-gray-900 border-t border-[#E6DCC8]" dir="rtl" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-        <CollapsibleSection title="خدماتنا في جميع الإمارات" defaultOpen={false}>
+        {/* Smart Contextual Sections */}
+        {isEmiratePage && (
+          <CollapsibleSection title="إمارات ومدن أخرى قد تهمك" defaultOpen={true}>
+            <div className="flex flex-wrap gap-2">
+              {UAE_EMIRATES.map(e => (
+                <Link key={e.slug} href={`/uae/${e.slug}`} className="bg-white px-4 py-2 rounded-full border border-[#E6DCC8] text-xs font-bold hover:text-primary transition">
+                  {e.nameAr}
+                </Link>
+              ))}
+            </div>
+          </CollapsibleSection>
+        )}
+
+        {isServicePage && (
+          <CollapsibleSection title="تخصصات مرتبطة" defaultOpen={true}>
+            <div className="flex flex-wrap gap-2">
+              {SERVICE_CATEGORIES.slice(0, 10).map(s => (
+                <Link key={s.slug} href={`/categories/${s.slug}`} className="bg-white px-4 py-2 rounded-full border border-[#E6DCC8] text-xs font-bold hover:text-primary transition">
+                  {s.nameAr}
+                </Link>
+              ))}
+            </div>
+          </CollapsibleSection>
+        )}
+
+        <CollapsibleSection title="دليل الخدمات في الإمارات" defaultOpen={false}>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             {SERVICE_CATEGORIES.map((service) => (
               <Link
                 key={service.slug}
                 href={`/categories/${service.slug}`}
                 className="group flex items-center gap-2.5 bg-white rounded-xl p-3 border border-[#E6DCC8] hover:border-primary/40 shadow-sm hover:shadow-md"
-                title={`${service.nameAr} في الإمارات | بيت الريف`}
-                aria-label={`${service.nameAr} في الإمارات`}
               >
                 <span className="text-xl flex-shrink-0" aria-hidden="true">{service.icon}</span>
                 <div className="min-w-0">
                   <span className="text-gray-700 group-hover:text-primary text-xs font-semibold block truncate">{service.nameAr}</span>
-                  <span className="text-gray-400 text-[9px] block truncate">{service.nameEn}</span>
                 </div>
               </Link>
             ))}
           </div>
         </CollapsibleSection>
 
-        <CollapsibleSection title="الإمارات والمدن والمناطق">
+        <CollapsibleSection title="التغطية الجغرافية">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {UAE_EMIRATES.map((emirate) => (
               <div key={emirate.slug} className="bg-white rounded-2xl border border-[#E6DCC8] p-4 shadow-sm">
-                <Link href={`/uae/${emirate.slug}`} className="font-bold text-gray-900 hover:text-primary mb-3 text-sm flex items-center gap-2" title={`خدمات بيت الريف في ${emirate.nameAr}`}>
+                <Link href={`/uae/${emirate.slug}`} className="font-bold text-gray-900 hover:text-primary mb-3 text-sm flex items-center gap-2">
                   <span className="text-amber-600" aria-hidden="true">📍</span>
                   {emirate.nameAr}
                 </Link>
                 <div className="flex flex-wrap gap-1.5">
-                  {emirate.areas.map((area) => (
+                  {emirate.areas.slice(0, 6).map((area) => (
                     <Link
                       key={`${emirate.slug}-${area.slug}`}
                       href={`/uae/${emirate.slug}/${area.slug}`}
                       className="text-gray-500 hover:text-primary text-[10px] bg-[#FDFBF7] border border-[#E6DCC8] rounded-full px-2 py-1"
-                      title={`خدمات في ${area.nameAr} - ${emirate.nameAr}`}
                     >
                       {area.nameAr}
                     </Link>
@@ -91,95 +119,38 @@ export default function Footer() {
           </div>
         </CollapsibleSection>
 
-        <CollapsibleSection title="خدمات بالقرب منك">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {UAE_EMIRATES.map((emirate) => (
-              <div key={`near-${emirate.slug}`}>
-                <h3 className="font-bold text-gray-900 mb-2 text-sm">خدمات في {emirate.nameAr}</h3>
-                <ul className="space-y-1">
-                  {topServices.map((service) => (
-                    <li key={`${emirate.slug}-${service.slug}`}>
-                      <Link
-                        href={`/uae/${emirate.slug}/${emirate.areas[0].slug}/${service.slug}`}
-                        className="text-gray-500 hover:text-primary text-[11px] block py-0.5"
-                        title={`${service.nameAr} في ${emirate.nameAr}`}
-                      >
-                        {service.nameAr} في {emirate.nameAr}
-                      </Link>
-                    </li>
-                  ))}
-                  <li>
-                    <Link href={`/uae/${emirate.slug}`} className="text-primary hover:text-primary-dark text-xs font-medium inline-flex items-center gap-1 mt-1" title={`كل مناطق ${emirate.nameAr}`}>
-                      كل مناطق {emirate.nameAr}
-                      <span aria-hidden="true">←</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title="روابط سريعة">
-          <div className="flex flex-wrap gap-2">
-            {quickLinks.map((link) => (
-              <Link key={link.href + link.label} href={link.href} className="bg-white text-gray-500 hover:text-primary text-xs font-medium px-3 py-1.5 rounded-full border border-[#E6DCC8] hover:border-primary/30 shadow-sm">
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </CollapsibleSection>
-
-        <div className="mb-6">
-          <Link href="/weyaak" className="block bg-white rounded-2xl p-4 border border-[#E6DCC8] shadow-sm hover:shadow-md group" title="وياك — وكيل بيت الريف الذكي للمقاولات والصيانة">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-2xl" aria-hidden="true">🤖</div>
-              <div className="flex-1">
-                <h3 className="text-gray-900 font-bold text-sm group-hover:text-primary">وياك — وكيلك الذكي</h3>
-                <p className="text-gray-400 text-[10px]">يساعدك في فهم الخدمات، مقارنة الخيارات، وتنظيم طلباتك داخل بيت الريف.</p>
-              </div>
-            </div>
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 border-t border-[#E6DCC8] pt-8">
           <div>
-            <h3 className="text-lg font-bold mb-3 text-gray-900">بيت الريف</h3>
-            <p className="text-sm text-gray-600 mb-3 leading-relaxed">منصة البناء والصيانة الذكية في الإمارات. موقع تعريفي ودليل خدمات يربط العملاء بالمقاولين والحرفيين والموردين.</p>
-            <address className="text-xs text-gray-500 not-italic">
-              <p>العين - أبوظبي - الإمارات العربية المتحدة</p>
-              <p className="mt-1">نغطي جميع إمارات الدولة</p>
-            </address>
-          </div>
-
-          <div>
-            <h4 className="text-base font-semibold mb-3 text-gray-900">تواصل معنا</h4>
-            <ul className="space-y-3 text-sm text-gray-600">
-              <li>📞 <a href="https://wa.me/971567856001" className="font-medium hover:text-primary" dir="ltr">+971 567 856 001</a></li>
-              <li>📧 <a href="mailto:info@bietalreef.ae" className="hover:text-primary font-medium">info@bietalreef.ae</a></li>
-              <li>🌐 <Link href="/" className="hover:text-primary font-medium">bietalreef.ae</Link></li>
-              <li>📱 <Link href="/platform" className="hover:text-primary font-medium">منصة بيت الريف</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-base font-semibold mb-3 text-gray-900">منصات بيت الريف</h4>
-            <div className="space-y-2 text-sm">
-              <Link href="/" className="block text-gray-600 hover:text-primary">الموقع التعريفي</Link>
-              <Link href="/platform" className="block text-gray-600 hover:text-primary">منصة بيت الريف</Link>
-              <Link href="/weyaak" className="block text-gray-600 hover:text-primary">وياك AI</Link>
+            <div className="flex items-center gap-2 mb-4">
+              <Image src="/logo.png" alt="بيت الريف" width={40} height={40} />
+              <span className="font-black text-xl text-gray-900">بيت الريف</span>
             </div>
+            <p className="text-sm text-gray-600 mb-3 leading-relaxed">منصة البناء والصيانة الذكية في الإمارات. نربط أصحاب المشاريع بنخبة مزودي الخدمات المعتمدين.</p>
+          </div>
+          <div>
+            <h4 className="text-base font-semibold mb-4 text-gray-900">روابط سريعة</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {quickLinks.map(link => (
+                <Link key={link.href} href={link.href} className="text-sm text-gray-600 hover:text-primary transition">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="text-base font-semibold mb-4 text-gray-900">تواصل معنا</h4>
+            <ul className="space-y-3 text-sm text-gray-600">
+              <li>📞 <a href="tel:+971567856001" className="hover:text-primary" dir="ltr">+971 567 856 001</a></li>
+              <li>📧 <a href="mailto:info@bietalreef.ae" className="hover:text-primary">info@bietalreef.ae</a></li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-[#E6DCC8] pt-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-center md:text-right flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center"><span className="text-2xl font-black text-primary">بر</span></div>
-              <div><h2 className="text-lg font-black text-gray-900">بيت الريف</h2><p className="text-gray-400 text-xs">منصة البناء والصيانة الذكية في الإمارات</p></div>
-            </div>
-            <p className="text-gray-300 text-[10px] text-center max-w-lg leading-relaxed">يغطي بيت الريف جميع إمارات الدولة مع صفحات محلية للمدن والمناطق والتخصصات.</p>
-            <p className="text-gray-300 text-[10px]">&copy; {new Date().getFullYear()} بيت الريف. جميع الحقوق محفوظة.</p>
+        <div className="border-t border-[#E6DCC8] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-400 text-xs">&copy; {new Date().getFullYear()} بيت الريف. جميع الحقوق محفوظة.</p>
+          <div className="flex gap-4 text-xs text-gray-400">
+            <Link href="/legal" className="hover:text-primary">الشروط والأحكام</Link>
+            <Link href="/legal" className="hover:text-primary">سياسة الخصوصية</Link>
           </div>
         </div>
       </div>
