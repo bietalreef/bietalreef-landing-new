@@ -81,53 +81,47 @@ export default function UAEDirectoryHome() {
             buttonText={pageData.buttonText}
           />
 
-          {/* Emirates Grid */}
+          {/* Activities Grid */}
           <section id="directory" className="max-w-6xl mx-auto px-4 py-16">
             <div className="flex items-center justify-between mb-10 border-b border-[#E6DCC8] pb-4">
               <h2 className="text-2xl md:text-3xl font-black text-gray-900">
-                {pageData.sectionTitle}
+                تصفح حسب نوع النشاط
               </h2>
               <span className="text-sm font-bold text-primary bg-primary/5 px-4 py-1 rounded-full">
-                7 إمارات
+                {SERVICE_CATEGORIES.length} نشاط
               </span>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {UAE_EMIRATES.map((emirate) => (
-                <UnifiedCard 
-                  key={emirate.slug}
-                  type={ENTITY_TYPES.EMIRATE}
-                  entity={{
-                    slug: `uae/${emirate.slug}`,
-                    title: `إمارة ${emirate.nameAr}`,
-                    image: `/images/seo/emirates/${emirate.slug}.webp`,
-                    emirate: emirate.nameAr,
-                    city: emirate.areas.length + ' منطقة',
-                    isFeatured: true
-                  }}
-                />
+              {SERVICE_CATEGORIES.map((service) => (
+                <Link
+                  key={service.slug}
+                  href={`/uae/${service.slug}`}
+                  className="group bg-white rounded-[2rem] overflow-hidden border border-[#E6DCC8] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                >
+                  <div className="relative h-64 overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <span className="text-6xl" aria-hidden="true">{service.icon}</span>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-xl font-black text-gray-900 mb-3 group-hover:text-primary transition">
+                      {service.nameAr}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed mb-6 font-medium line-clamp-2">
+                      {service.descAr}
+                    </p>
+                    <div className="flex items-center justify-between border-t border-gray-50 pt-6">
+                      <span className="text-sm font-bold text-[#0F3F1A] bg-[#F0F7F2] px-4 py-2 rounded-full">
+                        {UAE_EMIRATES.length} إمارات
+                      </span>
+                      <span className="text-[#D4AF37] font-black group-hover:translate-x-[-4px] transition-transform">استكشف الآن ←</span>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>
 
-          {/* Activities / Services Quick Links */}
-          <section className="bg-white py-16 border-y border-[#E6DCC8]">
-            <div className="max-w-6xl mx-auto px-4">
-              <h2 className="text-2xl font-black mb-8 text-center">تصفح حسب النشاط</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {SERVICE_CATEGORIES.slice(0, 12).map((service) => (
-                  <Link 
-                    key={service.slug}
-                    href={`/categories/${service.slug}`}
-                    className="flex flex-col items-center p-4 rounded-2xl border border-gray-100 hover:border-primary hover:shadow-md transition bg-[#FDFBF7]"
-                  >
-                    <span className="text-3xl mb-2">{service.icon}</span>
-                    <span className="text-xs font-bold text-center text-gray-700">{service.nameAr}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
+
 
           {/* SEO Content Section */}
           <SeoContent title="دليل الإمارات للمقاولات والبناء">
