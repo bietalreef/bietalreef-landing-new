@@ -60,8 +60,8 @@ export default function Home({ allServices }) {
             <div className="max-w-7xl mx-auto px-4">
               <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
 
-                {/* Slider — يسار على Desktop، أعلى على Mobile */}
-                <div className="w-full lg:w-7/12 order-1 lg:order-1">
+                {/* Slider — يسار على Desktop (نهاية السطر في RTL)، أعلى على Mobile */}
+                <div className="w-full lg:w-7/12 order-1 lg:order-2">
                   <div className="relative aspect-[16/10] md:aspect-[16/9] rounded-[2rem] overflow-hidden shadow-2xl">
                     {heroSlides.map((slide, index) => (
                       <div
@@ -99,8 +99,8 @@ export default function Home({ allServices }) {
                   </div>
                 </div>
 
-                {/* المحتوى — يمين على Desktop، أسفل على Mobile */}
-                <div className="w-full lg:w-5/12 text-right order-2 lg:order-2">
+                {/* المحتوى — يمين على Desktop (بداية السطر في RTL)، أسفل على Mobile */}
+                <div className="w-full lg:w-5/12 text-right order-2 lg:order-1">
 
                   {/* Badge */}
                   <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold mb-5">
