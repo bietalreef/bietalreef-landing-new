@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import { ChevronLeft, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/router';
+import { NAV_CONFIG } from '../data/siteTaxonomy';
 
 /**
  * SecondaryHeader — الهيدر الثانوي الموحد
- * يظهر أسفل الهيدر الرئيسي في الصفحات الداخلية.
- * يحتوي على زر الرجوع، العنوان، والـ Breadcrumb.
  */
 export default function SecondaryHeader({ 
   title, 

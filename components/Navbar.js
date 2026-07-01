@@ -5,17 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SmartAppLink from './SmartAppLink';
 
-const mainLinks = [
-  { href: '/', label: 'الرئيسية' },
-  { href: '/uae', label: 'دليل الإمارات' },
-  { href: '/providers', label: 'مزودو الخدمات' },
-  { href: '/services', label: 'الخدمات والعروض' },
-  { href: '/marketplace', label: 'المنتجات والمتاجر' },
-  { href: '/weyaak', label: 'وياك' },
-  { href: '/tools', label: 'الأدوات' },
-  { href: '/about', label: 'من نحن' },
-  { href: '/legal', label: 'الشروط والأحكام' },
-];
+import { NAV_CONFIG } from '../data/siteTaxonomy';
+const mainLinks = NAV_CONFIG;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

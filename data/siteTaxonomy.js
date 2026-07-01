@@ -197,3 +197,36 @@ export function getAllAreaServicePaths() {
     )
   );
 }
+
+/**
+ * Unified Navigation Configuration
+ * المصدر الوحيد لروابط التنقل في الموقع (Navbar & Footer)
+ */
+export const NAV_CONFIG = [
+  { href: '/', label: 'الرئيسية' },
+  { href: '/uae', label: 'دليل الإمارات' },
+  { href: '/providers', label: 'مزودو الخدمات' },
+  { href: '/services', label: 'الخدمات والعروض' },
+  { href: '/marketplace', label: 'المنتجات والمتاجر' },
+  { href: '/weyaak', label: 'وياك' },
+  { href: '/tools', label: 'الأدوات' },
+  { href: '/about', label: 'من نحن' },
+  { href: '/legal', label: 'الشروط والأحكام' },
+];
+
+/**
+ * Unified Entity Types
+ * تعريف أنواع الكيانات في المحرك الموحد
+ */
+export const ENTITY_TYPES = {
+  PROVIDER: 'provider',
+  SERVICE: 'service',
+  PRODUCT: 'product',
+  OFFER: 'offer',
+  ARTICLE: 'article',
+  CATEGORY: 'category',
+  SPECIALTY: 'specialty',
+  CITY: 'city',
+  EMIRATE: 'emirate',
+  TOOL: 'tool'
+};

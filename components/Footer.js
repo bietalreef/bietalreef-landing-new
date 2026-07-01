@@ -37,17 +37,8 @@ export default function Footer() {
   const isProviderPage = pathname.includes('/provider/');
 
   const topServices = SERVICE_CATEGORIES.slice(0, 8);
-  const quickLinks = [
-    { href: '/', label: 'الرئيسية' },
-    { href: '/uae', label: 'دليل الإمارات' },
-    { href: '/providers', label: 'مزودو الخدمات' },
-    { href: '/services', label: 'الخدمات والعروض' },
-    { href: '/marketplace', label: 'المنتجات والمتاجر' },
-    { href: '/weyaak', label: 'وياك' },
-    { href: '/tools', label: 'الأدوات' },
-    { href: '/about', label: 'من نحن' },
-    { href: '/legal', label: 'الشروط والأحكام' },
-  ];
+  const { NAV_CONFIG } = require('../data/siteTaxonomy');
+  const quickLinks = NAV_CONFIG;
 
   return (
     <footer className="mt-16 md:mt-24 bg-gradient-to-b from-[#F5EEE1] via-[#F7F1E8] to-[#F5EEE1] text-gray-900 border-t border-[#E6DCC8]" dir="rtl" role="contentinfo">
