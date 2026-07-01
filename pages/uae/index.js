@@ -3,67 +3,145 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../data/siteTaxonomy';
+import SecondaryHeader from '../../components/SecondaryHeader';
+import UnifiedCard from '../../components/UnifiedCard';
+import ClientRequestCard from '../../components/ClientRequestCard';
+import SeoContent from '../../components/SeoContent';
+import FAQ from '../../components/FAQ';
+import { UAE_EMIRATES, SERVICE_CATEGORIES, ENTITY_TYPES } from '../../data/siteTaxonomy';
 
-export default function UAEDirectory() {
+export default function UAEDirectoryHome() {
+  const pageData = {
+    badge: 'دليل الإمارات',
+    h1: 'دليل الإمارات لمزودي خدمات المقاولات والبناء',
+    desc: 'اكتشف الشركات والموردين والمصانع ومزودي الخدمات في الإمارات حسب النشاط والإمارة والتخصص.',
+    sectionTitle: 'تصفح إمارات الدولة',
+    clientTitle: 'تبحث عن شركة أو مزود خدمة؟',
+    clientDesc: 'أرسل طلبك وسنساعدك في توجيهه حسب الإمارة والتخصص ونوع المشروع عبر وكيلنا الذكي وياك.',
+    buttonText: 'ابدأ طلبك الآن'
+  };
+
+  const faqItems = [
+    ['ما هو دليل الإمارات في بيت الريف؟', 'هو محرك بحث وتنظيم جغرافي يربط أصحاب المشاريع بمزودي الخدمات في كل إمارة ومنطقة في الدولة.'],
+    ['هل تصفح الدليل وإرسال الطلبات مجاني؟', 'نعم، تصفح الدليل واستخدام وكيلنا الذكي وياك لإرسال الطلبات مجاني تماماً للعملاء.'],
+    ['كيف أضيف شركتي إلى الدليل؟', 'يمكنك الضغط على زر "إضافة شركتي" أو التواصل معنا لتوثيق ملفك التجاري وظهوره في نتائج البحث.'],
+  ];
+
   return (
     <>
       <Head>
-        <title>خدمات بيت الريف في جميع إمارات الدولة | دليل المقاولات والصيانة</title>
-        <meta name="description" content="تصفح خدمات بيت الريف في أبوظبي، دبي، الشارقة وكافة إمارات الدولة. دليل بصري شامل للمقاولات، التصميم الداخلي، ومواد البناء بنظام البطاقات الذكية." />
+        <title>{pageData.h1} | بيت الريف</title>
+        <meta name="description" content={pageData.desc} />
         <link rel="canonical" href="https://bietalreef.ae/uae" />
       </Head>
 
-      <div dir="rtl" className="min-h-screen bg-white text-gray-900 font-sans">
+      <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar />
         
+        {/* Unified Secondary Header with Breadcrumb */}
+        <SecondaryHeader 
+          title={pageData.badge}
+          breadcrumbs={[]}
+        />
+
         <main>
           {/* Hero Section */}
-          <section className="relative h-[50vh] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
+          <section className="relative h-[40vh] md:h-[50vh] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <Image src="/bait-alreef-uae-smart-network-coverage.webp" alt="دليل الإمارات" fill className="object-cover opacity-30" priority />
+              <Image 
+                src="/bait-alreef-uae-smart-network-coverage.webp" 
+                alt={pageData.h1} 
+                fill 
+                className="object-cover opacity-30" 
+                priority 
+              />
             </div>
-            <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-              <nav className="flex mb-6 text-sm font-medium text-[#D4AF37]">
-                <Link href="/" className="hover:underline">الرئيسية</Link>
-                <span className="mx-2">/</span>
-                <span>دليل الإمارات</span>
-              </nav>
-              <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">دليل خدمات بيت الريف الشامل</h1>
-              <p className="text-xl text-white/90 max-w-3xl leading-relaxed font-medium">
-                استكشف خدماتنا الاحترافية في جميع إمارات الدولة. حلول متكاملة للمقاولات، الصيانة، والتصميم الداخلي بين يديك.
+            <div className="relative z-10 max-w-6xl mx-auto px-4 w-full text-center md:text-right">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight max-w-4xl">
+                {pageData.h1}
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed font-medium mb-8">
+                {pageData.desc}
               </p>
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <Link href="#directory" className="bg-[#D4AF37] text-white font-black px-8 py-3 rounded-full hover:bg-[#B8962E] transition shadow-lg">
+                  تصفح الدليل
+                </Link>
+                <Link href="/providers" className="bg-white/10 backdrop-blur-md text-white border border-white/20 font-black px-8 py-3 rounded-full hover:bg-white/20 transition">
+                  إضافة شركتي
+                </Link>
+              </div>
             </div>
           </section>
 
+          {/* Client Request CTA */}
+          <ClientRequestCard 
+            title={pageData.clientTitle}
+            desc={pageData.clientDesc}
+            buttonText={pageData.buttonText}
+          />
+
           {/* Emirates Grid */}
-          <section className="max-w-7xl mx-auto px-4 py-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <section id="directory" className="max-w-6xl mx-auto px-4 py-16">
+            <div className="flex items-center justify-between mb-10 border-b border-[#E6DCC8] pb-4">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900">
+                {pageData.sectionTitle}
+              </h2>
+              <span className="text-sm font-bold text-primary bg-primary/5 px-4 py-1 rounded-full">
+                7 إمارات
+              </span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {UAE_EMIRATES.map((emirate) => (
-                <Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="group bg-white rounded-[2rem] overflow-hidden border border-[#E6DCC8] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative h-64 overflow-hidden">
-                    <Image src={`/images/seo/emirates/${emirate.slug}.webp`} alt={emirate.nameAr} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60"></div>
-                    <div className="absolute bottom-6 right-8 text-white">
-                      <h3 className="text-2xl font-black">{emirate.nameAr}</h3>
-                      <p className="text-[#D4AF37] text-xs font-bold uppercase mt-1" dir="ltr">{emirate.nameEn}</p>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <p className="text-gray-600 leading-relaxed mb-6 font-medium line-clamp-3">
-                      {emirate.description || `استكشف أفضل خدمات المقاولات والصيانة والديكور في ${emirate.nameAr} مع ضمان الجودة والاحترافية من بيت الريف.`}
-                    </p>
-                    <div className="flex items-center justify-between border-t border-gray-50 pt-6">
-                      <span className="text-sm font-bold text-[#0F3F1A] bg-[#F0F7F2] px-4 py-2 rounded-full">
-                        {emirate.areas.length} منطقة نشطة
-                      </span>
-                      <span className="text-[#D4AF37] font-black group-hover:translate-x-[-4px] transition-transform">استكشف الآن ←</span>
-                    </div>
-                  </div>
-                </Link>
+                <UnifiedCard 
+                  key={emirate.slug}
+                  type={ENTITY_TYPES.EMIRATE}
+                  entity={{
+                    slug: `uae/${emirate.slug}`,
+                    title: `إمارة ${emirate.nameAr}`,
+                    image: `/images/seo/emirates/${emirate.slug}.webp`,
+                    emirate: emirate.nameAr,
+                    city: emirate.areas.length + ' منطقة',
+                    isFeatured: true
+                  }}
+                />
               ))}
             </div>
           </section>
+
+          {/* Activities / Services Quick Links */}
+          <section className="bg-white py-16 border-y border-[#E6DCC8]">
+            <div className="max-w-6xl mx-auto px-4">
+              <h2 className="text-2xl font-black mb-8 text-center">تصفح حسب النشاط</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {SERVICE_CATEGORIES.slice(0, 12).map((service) => (
+                  <Link 
+                    key={service.slug}
+                    href={`/categories/${service.slug}`}
+                    className="flex flex-col items-center p-4 rounded-2xl border border-gray-100 hover:border-primary hover:shadow-md transition bg-[#FDFBF7]"
+                  >
+                    <span className="text-3xl mb-2">{service.icon}</span>
+                    <span className="text-xs font-bold text-center text-gray-700">{service.nameAr}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* SEO Content Section */}
+          <SeoContent title="دليل الإمارات للمقاولات والبناء">
+            <p>
+              يساعد دليل بيت الريف العملاء على الوصول إلى مزودي خدمات المقاولات والبناء في الإمارات حسب النشاط والإمارة والتخصص، مع تنظيم واضح يخدم البحث في Google ومحركات الذكاء الاصطناعي.
+            </p>
+            <p className="mt-4">
+              نغطي في هذا الدليل جميع إمارات الدولة السبع (أبوظبي، دبي، الشارقة، عجمان، أم القيوين، رأس الخيمة، والفجيرة)، مع تفاصيل دقيقة للمناطق والأحياء لضمان وصولك لأقرب مزود خدمة لموقع مشروعك.
+            </p>
+          </SeoContent>
+
+          {/* FAQ Section */}
+          <FAQ items={faqItems} />
+
         </main>
         <Footer />
       </div>
