@@ -14,7 +14,7 @@ export default function WeyakChat() {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -40,12 +40,15 @@ export default function WeyakChat() {
       if (!response.ok) throw new Error('Failed to fetch response');
 
       const data = await response.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: data.reply || data.message || 'وصلت رسالتك، لكن لم أتمكن من تجهيز رد مناسب الآن.'
+      }]);
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
-        content: 'المعذرة، واجهت مشكلة تقنية بسيطة. ممكن تعيد سؤالك؟' 
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: 'المعذرة، واجهت مشكلة تقنية بسيطة. ممكن تعيد سؤالك؟'
       }]);
     } finally {
       setIsLoading(false);
@@ -63,7 +66,6 @@ export default function WeyakChat() {
         aria-label="Open Chat"
       >
         <div className="relative">
-          {/* Fallback icon if image fails */}
           <MessageCircle className="w-8 h-8" />
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -92,7 +94,7 @@ export default function WeyakChat() {
               <p className="text-xs text-green-100 opacity-90">مستشارك الذكي من بيت الريف</p>
             </div>
           </div>
-          <button 
+          <button
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-white/10 rounded-full transition-colors"
           >
