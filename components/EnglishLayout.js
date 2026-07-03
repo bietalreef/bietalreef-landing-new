@@ -24,17 +24,30 @@ import {
   MessageCircle,
   ChevronDown,
   ChevronUp,
+  Rocket,
+  Building2,
 } from 'lucide-react';
 
-const navLinks = [
+const primaryLinks = [
   ['/en', 'Home', Home],
   ['/en/uae', 'UAE Directory', MapPinned],
   ['/en/providers', 'Service Providers', UsersRound],
   ['/en/services', 'Services & Offers', Wrench],
   ['/en/marketplace', 'Products & Stores', ShoppingBag],
-  ['/en/tools', 'Smart Tools', BriefcaseBusiness],
-  ['/en/weyaak', 'Weyaak AI', Bot],
 ];
+
+const platformLinks = [
+  ['/en/weyaak', 'Weyaak AI', Bot],
+  ['/en/tools', 'Smart Tools', BriefcaseBusiness],
+];
+
+const companyLinks = [
+  ['/en/about', 'About Biet Al Reef', Building2],
+  ['/en/why-biet-alreef', 'Why Biet Al Reef', Building2],
+  ['/en/how-it-works', 'How it works', Building2],
+];
+
+const navLinks = [...primaryLinks, ...platformLinks];
 
 const socialLinks = [
   { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
@@ -143,9 +156,35 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
   );
 }
 
+function DrawerLink({ href, label, icon: Icon, onClick, nested = false }) {
+  return (
+    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold text-gray-800 transition hover:bg-primary/5 hover:text-primary ${nested ? 'mr-8' : ''}`}>
+      <Icon className="h-5 w-5 text-primary" />
+      <span>{label}</span>
+    </Link>
+  );
+}
+
+function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
+  return (
+    <div className="border-t border-gray-100 pt-3">
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
+        <span className="flex items-center gap-3">
+          <Icon className="h-5 w-5 text-primary" />
+          {title}
+        </span>
+        {open ? <ChevronUp className="h-4 w-4 text-primary" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
+      </button>
+      {open && <div className="mt-1 space-y-1 pb-2">{children}</div>}
+    </div>
+  );
+}
+
 export default function EnglishLayout({ children }) {
   const [open, setOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
+  const [platformOpen, setPlatformOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
   const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
 
   return (
@@ -191,22 +230,29 @@ export default function EnglishLayout({ children }) {
               <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
               <span className="h-10 w-10" />
             </div>
-            <div className="flex-1 overflow-y-auto px-5 py-5">
+            <div className="flex-1 overflow-y-auto px-5 py-4">
               <div className="space-y-1">
-                {navLinks.map(([href, label, Icon]) => (
-                  <Link key={href} href={href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold text-gray-800 transition hover:bg-primary/5 hover:text-primary">
-                    <Icon className="h-5 w-5 text-primary" />
-                    <span>{label}</span>
-                  </Link>
+                {primaryLinks.map(([href, label, Icon]) => (
+                  <DrawerLink key={href} href={href} label={label} icon={Icon} onClick={() => setOpen(false)} />
                 ))}
               </div>
-              <div className="mt-5 rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] p-4 text-sm font-bold leading-7 text-gray-600">
-                English keeps the Arabic-first interface direction. Only labels and copy are translated.
+              <div className="mt-5 space-y-3">
+                <DrawerSection title="Platform" icon={Rocket} open={platformOpen} onToggle={() => setPlatformOpen((value) => !value)}>
+                  {platformLinks.map(([href, label, Icon]) => <DrawerLink key={href} href={href} label={label} icon={Icon} nested onClick={() => setOpen(false)} />)}
+                </DrawerSection>
+                <DrawerSection title="Biet Al Reef" icon={Building2} open={companyOpen} onToggle={() => setCompanyOpen((value) => !value)}>
+                  {companyLinks.map(([href, label, Icon]) => <DrawerLink key={href} href={href} label={label} icon={Icon} nested onClick={() => setOpen(false)} />)}
+                </DrawerSection>
               </div>
             </div>
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
-              <Link href="/" onClick={() => setOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-5 py-3 text-center text-base font-black text-primary">
-                AR 🇦🇪
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">EN</span>
+                <Link href="/" onClick={() => setOpen(false)} className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AR 🇦🇪</Link>
+              </div>
+              <Link href="/en/about" onClick={() => setOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg">
+                Explore the platform
+                <Rocket className="h-4 w-4" />
               </Link>
             </div>
           </aside>
