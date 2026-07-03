@@ -17,34 +17,10 @@ const heroSlides = [
 ];
 
 const gatewayCards = [
-  {
-    title: 'دليل الإمارات',
-    desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.',
-    href: '/uae',
-    icon: MapPinned,
-    label: 'بحث حسب المكان',
-  },
-  {
-    title: 'مزودو الخدمات',
-    desc: 'استعرض الشركات والورش والموردين حسب نوع المزود والنشاط والتخصص.',
-    href: '/providers',
-    icon: UsersRound,
-    label: 'شركات وموردون',
-  },
-  {
-    title: 'الخدمات والعروض',
-    desc: 'اختر الخدمة المطلوبة، ثم أرسل تفاصيل مشروعك لطلب عرض أو توجيه مناسب.',
-    href: '/services',
-    icon: Wrench,
-    label: 'طلب خدمة',
-  },
-  {
-    title: 'المنتجات والمتاجر',
-    desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج.',
-    href: '/marketplace',
-    icon: ShoppingBag,
-    label: 'مواد ومنتجات',
-  },
+  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان' },
+  { title: 'مزودو الخدمات', desc: 'استعرض الشركات والورش والموردين حسب نوع المزود والنشاط والتخصص.', href: '/providers', icon: UsersRound, label: 'شركات وموردون' },
+  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم أرسل تفاصيل مشروعك لطلب عرض أو توجيه مناسب.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
+  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
 ];
 
 const experienceCards = [
@@ -58,7 +34,7 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length), 6500);
+    const timer = setInterval(() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length), 6200);
     return () => clearInterval(timer);
   }, []);
 
@@ -73,20 +49,8 @@ export default function Home() {
       logo: `${SITE_URL}/logo.png`,
       description,
       areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
-      contactPoint: {
-        '@type': 'ContactPoint',
-        telephone: '+971567856001',
-        contactType: 'customer support',
-        areaServed: 'AE',
-        availableLanguage: ['Arabic', 'English'],
-      },
-      sameAs: [
-        'https://www.instagram.com/bietalreef',
-        'https://www.facebook.com/share/14fy6hGM7SJ/',
-        'https://youtube.com/@bietalreef',
-        'https://www.tiktok.com/@bietalreef0',
-        'https://www.linkedin.com/in/bietalreef',
-      ],
+      contactPoint: { '@type': 'ContactPoint', telephone: '+971567856001', contactType: 'customer support', areaServed: 'AE', availableLanguage: ['Arabic', 'English'] },
+      sameAs: ['https://www.instagram.com/bietalreef', 'https://www.facebook.com/share/14fy6hGM7SJ/', 'https://youtube.com/@bietalreef', 'https://www.tiktok.com/@bietalreef0', 'https://www.linkedin.com/in/bietalreef'],
     },
     {
       '@context': 'https://schema.org',
@@ -94,11 +58,7 @@ export default function Home() {
       name: 'بيت الريف',
       url: SITE_URL,
       inLanguage: 'ar-AE',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: `${SITE_URL}/providers?search={search_term_string}`,
-        'query-input': 'required name=search_term_string',
-      },
+      potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/providers?search={search_term_string}`, 'query-input': 'required name=search_term_string' },
     },
     {
       '@context': 'https://schema.org',
@@ -126,33 +86,33 @@ export default function Home() {
         <Navbar />
         <main>
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
-            <div className="pointer-events-none absolute -top-24 right-10 h-72 w-72 rounded-full bg-[#D4AF37]/20 blur-3xl biet-glow-orb" />
-            <div className="pointer-events-none absolute left-0 top-24 h-80 w-80 rounded-full bg-[#0F3F1A]/10 blur-3xl biet-glow-orb" />
+            <div className="pointer-events-none absolute -top-20 right-8 h-64 w-64 rounded-full bg-[#D4AF37]/16 blur-3xl biet-glow-orb" />
+            <div className="pointer-events-none absolute left-0 top-16 h-72 w-72 rounded-full bg-[#0F3F1A]/8 blur-3xl biet-glow-orb" />
 
-            <div className="relative mx-auto max-w-7xl px-4 py-8 md:py-14 lg:py-18">
-              <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
+            <div className="relative mx-auto max-w-7xl px-4 pt-1 pb-8 md:pt-8 md:pb-14 lg:py-14">
+              <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
                 <div className="order-2 text-center lg:order-1 lg:text-right">
                   <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/80 px-4 py-2 text-xs font-black text-[#6F5400] shadow-sm backdrop-blur">
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    بيت الريف Ecosystem
+                    Hi — مرحباً بك في الدار
                   </div>
 
-                  <h1 className="mt-6 text-4xl font-black leading-tight tracking-tight text-[#0F3F1A] md:text-6xl lg:text-7xl">
-                    مستقبل البناء يبدأ
+                  <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-[#0F3F1A] md:text-6xl lg:text-7xl">
+                    مستقبل البناء أصبح
                     <span className="block bg-gradient-to-l from-[#0F3F1A] via-[#1B7A3A] to-[#B89200] bg-clip-text text-transparent">
-                      مع بيت الريف ووياك
+                      بين يديك
                     </span>
                   </h1>
 
-                  <p className="mx-auto mt-5 max-w-2xl text-base font-semibold leading-9 text-gray-700 md:text-lg lg:mx-0">
-                    منصة ذكية تجعل رحلة البناء أو الصيانة أو التشطيب أكثر وضوحًا: اختر المكان، أو المزود، أو الخدمة، أو المنتج، ودع وياك يرشدك للخطوة التالية.
+                  <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-9 text-gray-700 md:text-lg lg:mx-0">
+                    <strong className="text-[#0F3F1A]">منصة بيت الريف</strong> تجمع لك دليل الإمارات، مزودي الخدمات، الخدمات والعروض، والمنتجات والمتاجر في تجربة واحدة واضحة وسريعة وموثوقة.
                   </p>
 
                   <WeyaakHeroCard />
 
-                  <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                     <Link href="/weyaak" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">
-                      ابدأ مع وياك
+                      تحدث مع وياك الآن
                       <ArrowLeft className="h-5 w-5" aria-hidden="true" />
                     </Link>
                     <Link href="/uae" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
@@ -163,29 +123,18 @@ export default function Home() {
                 </div>
 
                 <div className="order-1 lg:order-2">
-                  <div className="relative mx-auto max-w-3xl biet-float">
-                    <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-[#D4AF37]/25 via-transparent to-[#0F3F1A]/20 blur-2xl" />
-                    <div className="relative aspect-[16/11] overflow-hidden rounded-[2.5rem] border border-[#E6DCC8] bg-[#0F3F1A] shadow-2xl">
+                  <div className="relative mx-auto max-w-3xl">
+                    <div className="absolute -inset-3 rounded-[2.6rem] bg-gradient-to-br from-[#D4AF37]/18 via-transparent to-[#0F3F1A]/12 blur-2xl" />
+                    <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-[#F7F1E8] shadow-2xl md:rounded-[2.5rem]">
                       {heroSlides.map((slide, index) => (
-                        <div key={slide.src} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
-                          <Image src={slide.src} alt={slide.alt} title={slide.title} fill className="object-cover" priority={index === 0} sizes="(max-width: 1024px) 100vw, 52vw" />
+                        <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1800ms] ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+                          <Image src={slide.src} alt={slide.alt} title={slide.title} fill className="scale-105 object-cover transition-transform duration-[6200ms] ease-linear" priority={index === 0} sizes="(max-width: 1024px) 100vw, 52vw" />
                         </div>
                       ))}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/85 via-[#0F3F1A]/15 to-transparent" />
-                      <div className="absolute bottom-6 right-6 left-6 text-white">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/62 via-transparent to-white/10" />
+                      <div className="absolute bottom-5 right-5 left-5 text-white">
                         <p className="text-sm font-black text-[#F4D35E]">منصة البناء الذكية</p>
                         <h2 className="mt-2 max-w-xl text-2xl font-black leading-tight md:text-4xl">كل طريق يبدأ من اختيار القسم الصحيح</h2>
-                      </div>
-                      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-black/20 p-1 backdrop-blur">
-                        {heroSlides.map((_, i) => (
-                          <button
-                            key={i}
-                            type="button"
-                            onClick={() => setCurrentSlide(i)}
-                            aria-label={`الشريحة ${i + 1}`}
-                            className={`min-h-[24px] min-w-[24px] rounded-full border border-white/70 transition-all ${i === currentSlide ? 'bg-white' : 'bg-white/60 hover:bg-white/90'}`}
-                          />
-                        ))}
                       </div>
                     </div>
                   </div>
@@ -194,8 +143,8 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="mx-auto max-w-7xl px-4 py-12 md:py-18">
-            <div className="mb-10 text-center md:text-right">
+          <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
+            <div className="mb-8 text-center md:text-right">
               <span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span>
               <h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2>
               <p className="mt-4 max-w-3xl text-base leading-8 text-gray-600 md:text-lg">
@@ -229,9 +178,9 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="bg-white py-14 md:py-20">
+          <section className="bg-white py-12 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
-              <div className="mb-10 text-center">
+              <div className="mb-8 text-center">
                 <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">تجربة قصيرة، واضحة، وقابلة للفهم</h2>
                 <p className="mx-auto mt-4 max-w-3xl text-gray-600 leading-8">
                   الصفحة الرئيسية ليست زينة فقط؛ هي بوابة تشغيل ذكية توجه المستخدم والذكاء الاصطناعي إلى هيكل بيت الريف الصحيح.
