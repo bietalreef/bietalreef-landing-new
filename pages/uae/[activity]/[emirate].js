@@ -1,30 +1,24 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SecondaryHeader from '../../../components/SecondaryHeader';
 import ClientRequestCard from '../../../components/ClientRequestCard';
 import SeoContent from '../../../components/SeoContent';
 import FAQ from '../../../components/FAQ';
-import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate } from '../../../data/siteTaxonomy';
+import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea } from '../../../data/siteTaxonomy';
 
-export default function ActivityEmirateLanding({ activity, emirate, activitySlug, emirateSlug }) {
-  if (!activity || !emirate) return null;
+export default function AreaPage({ emirate, area, emirateSlug, areaSlug }) {
+  if (!emirate || !area) return null;
 
   const pageData = {
-    badge: `إمارة ${emirate.nameAr}`,
-    h1: `أفضل ${activity.nameAr} في ${emirate.nameAr}`,
-    desc: `استعرض ${activity.nameAr} في ${emirate.nameAr} ومناطقها مثل ${emirate.areas.slice(0, 5).map(a => a.nameAr).join('، ')} حسب التخصص ونوع المشروع.`,
-    sectionTitle: `التخصصات المتاحة في ${emirate.nameAr}`,
-    clientTitle: `تبحث عن ${activity.nameAr} في ${emirate.nameAr}؟`,
-    clientDesc: `أرسل طلبك وسنساعدك في توجيهه إلى الشركات المناسبة في ${emirate.nameAr} حسب التخصص والخدمة المطلوبة عبر وياك.`,
+    h1: `خدمات البناء والمقاولات في ${area.nameAr}`,
+    desc: `اختر الخدمة المناسبة في ${area.nameAr} داخل ${emirate.nameAr}: مقاولات، نجارة، رخام، صيانة، تصميم داخلي ومواد بناء.`,
   };
 
   const faqItems = [
-    [`كيف أختار أفضل ${activity.nameAr} في ${emirate.nameAr}؟`, `ابدأ بتحديد التخصص والمنطقة، ثم راجع الترخيص والخبرة ونطاق الخدمة قبل طلب عرض السعر من مزودي الخدمات في ${emirate.nameAr}.`],
-    ['هل يمكن طلب أكثر من عرض سعر؟', 'نعم، يمكنك إرسال طلبك عبر المساعد الذكي "وياك" ليتم توجيهه إلى أكثر من مزود خدمة مناسب في نفس الإمارة.'],
-    [`ما هي المناطق التي يغطيها الدليل في ${emirate.nameAr}؟`, `نغطي جميع مناطق ${emirate.nameAr} بما في ذلك ${emirate.areas.slice(0, 8).map(a => a.nameAr).join('، ')} وغيرها من الأحياء الحيوية.`],
+    [`ما الخدمات المتاحة في ${area.nameAr}؟`, `تستطيع تصفح خدمات المقاولات والصيانة والتشطيبات والنجارة والرخام والتصميم الداخلي وغيرها داخل ${area.nameAr}.`],
+    ['كيف أطلب عرض سعر؟', 'اختر الخدمة المطلوبة ثم استخدم زر طلب عرض السعر أو اسأل وياك لتوجيه طلبك.'],
   ];
 
   return (
@@ -32,104 +26,45 @@ export default function ActivityEmirateLanding({ activity, emirate, activitySlug
       <Head>
         <title>{pageData.h1} | بيت الريف</title>
         <meta name="description" content={pageData.desc} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${activitySlug}/${emirateSlug}`} />
+        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${areaSlug}`} />
       </Head>
 
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
-        <Navbar />
-        
-        <SecondaryHeader 
-          title={pageData.h1}
-          breadcrumbs={[
-            { label: 'دليل الإمارات', href: '/uae' },
-            { label: activity.nameAr, href: `/uae/${activitySlug}` },
-            { label: emirate.nameAr }
-          ]}
-        />
+        <Navbar pageTitle={area.nameAr} />
+        <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
 
         <main>
-          {/* Hero Section */}
-          <section className="relative h-[450px] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <Image 
-                src={`/images/seo/emirates/${emirateSlug}.webp`}
-                alt={pageData.h1}
-                fill 
-                className="object-cover opacity-30" 
-                priority 
-              />
-              <div className="absolute inset-0 bg-gradient-to-l from-[#0F3F1A] via-transparent to-transparent"></div>
-            </div>
-            <div className="relative z-10 max-w-6xl mx-auto px-4 w-full text-right">
-              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1.5 rounded-full text-sm font-bold mb-6 backdrop-blur-sm">
-                {pageData.badge}
-              </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight max-w-4xl">
-                {pageData.h1}
-              </h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed font-medium mb-10">
-                {pageData.desc}
-              </p>
-              <button className="bg-[#D4AF37] hover:bg-[#B8962E] text-white font-black px-10 py-4 rounded-xl transition-all shadow-xl hover:scale-105">
-                إضافة شركتي في {emirate.nameAr}
-              </button>
+          <section className="bg-[#0F3F1A] text-white">
+            <div className="max-w-6xl mx-auto px-4 py-16 text-center md:text-right">
+              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6">{emirate.nameAr}</span>
+              <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight">{pageData.h1}</h1>
+              <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed mx-auto md:mx-0">{pageData.desc}</p>
             </div>
           </section>
 
-          {/* Client Request Card */}
-          <ClientRequestCard 
-            title={pageData.clientTitle}
-            desc={pageData.clientDesc}
-            buttonText={`اطلب عرض سعر في ${emirate.nameAr}`}
-          />
+          <ClientRequestCard title={`تبحث عن خدمة في ${area.nameAr}؟`} desc="حدد نوع الخدمة المطلوبة وسيتم توجيه طلبك حسب المنطقة والتخصص المناسب." buttonText={`اطلب عرض سعر في ${area.nameAr}`} />
 
-          {/* Specialties / Areas Grid */}
           <section className="max-w-6xl mx-auto px-4 py-16">
-            <div className="flex items-center justify-between mb-12 border-b border-[#E6DCC8] pb-6">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900">
-                {pageData.sectionTitle}
-              </h2>
-              <div className="h-1 w-20 bg-primary rounded-full"></div>
+            <div className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر الخدمة في {area.nameAr}</h2>
+              <p className="mt-3 text-gray-600 leading-8">هذه هي المرحلة الثالثة في دليل الإمارات: المكان ثم الخدمة.</p>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {emirate.areas.map((area) => (
-                <div
-                  key={area.slug}
-                  className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-                >
-                  <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/10 transition">
-                    <span className="text-primary text-xl">📍</span>
-                  </div>
-                  <h3 className="text-lg font-black text-gray-900 mb-2">
-                    {activity.nameAr} في {area.nameAr}
-                  </h3>
-                  <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                    استكشف أفضل مزودي خدمات {activity.nameAr} المتواجدين في منطقة {area.nameAr} بـ {emirate.nameAr}.
-                  </p>
-                  <button className="text-sm font-bold text-primary flex items-center gap-2 group-hover:gap-3 transition-all">
-                    اطلب الآن <span dir="ltr">←</span>
-                  </button>
-                </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SERVICE_CATEGORIES.map((service) => (
+                <Link key={service.slug} href={`/uae/${emirateSlug}/${areaSlug}/${service.slug}`} className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                  <div className="text-3xl mb-4">{service.icon}</div>
+                  <h3 className="text-lg font-black text-gray-900 group-hover:text-primary transition">{service.nameAr} في {area.nameAr}</h3>
+                  <p className="mt-3 text-sm text-gray-500 leading-7">{service.descAr}</p>
+                </Link>
               ))}
             </div>
           </section>
 
-          {/* SEO Content */}
-          <SeoContent title={`${activity.nameAr} في ${emirate.nameAr} - دليل بيت الريف`}>
-            <p>
-              تعتبر خدمات {activity.nameAr} من الركائز الأساسية في قطاع البناء والتشييد في {emirate.nameAr}. 
-              نحن في بيت الريف نهدف إلى تسهيل عملية البحث والوصول إلى أفضل الشركات المتخصصة والموثوقة.
-            </p>
-            <p className="mt-4">
-              يغطي دليلنا كافة مناطق {emirate.nameAr} الحيوية، مما يضمن لك العثور على مزود الخدمة الأقرب لمشروعك، 
-              سواء كان مشروعاً سكنياً أو تجارياً أو صناعياً.
-            </p>
+          <SeoContent title={`${area.nameAr} في دليل بيت الريف`}>
+            <p>صفحة {area.nameAr} داخل {emirate.nameAr} تساعد المستخدم على اختيار الخدمة بعد تحديد المكان، وهذا يجعل البحث أوضح وأكثر دقة لأصحاب المشاريع.</p>
           </SeoContent>
 
-          {/* FAQ */}
-          <FAQ items={faqItems} title={`أسئلة شائعة حول ${activity.nameAr} في ${emirate.nameAr}`} />
-
+          <FAQ items={faqItems} title={`أسئلة شائعة حول الخدمات في ${area.nameAr}`} />
         </main>
         <Footer />
       </div>
@@ -138,40 +73,15 @@ export default function ActivityEmirateLanding({ activity, emirate, activitySlug
 }
 
 export async function getStaticProps({ params }) {
-  const { activity: activitySlug, emirate: emirateSlug } = params;
-  const activity = SERVICE_CATEGORIES.find(s => s.slug === activitySlug);
+  const emirateSlug = params.activity;
+  const areaSlug = params.emirate;
   const emirate = getEmirate(emirateSlug);
-
-  if (!activity || !emirate) {
-    return { notFound: true };
-  }
-
-  return {
-    props: {
-      activity,
-      emirate,
-      activitySlug,
-      emirateSlug,
-    },
-    revalidate: 3600,
-  };
+  const area = getArea(emirateSlug, areaSlug);
+  if (!emirate || !area) return { notFound: true };
+  return { props: { emirate, area, emirateSlug, areaSlug }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
-  const paths = [];
-  SERVICE_CATEGORIES.forEach(service => {
-    UAE_EMIRATES.forEach(emirate => {
-      paths.push({
-        params: {
-          activity: service.slug,
-          emirate: emirate.slug,
-        },
-      });
-    });
-  });
-
-  return {
-    paths,
-    fallback: 'blocking',
-  };
+  const paths = UAE_EMIRATES.flatMap((emirate) => emirate.areas.map((area) => ({ params: { activity: emirate.slug, emirate: area.slug } })));
+  return { paths, fallback: 'blocking' };
 }
