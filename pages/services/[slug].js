@@ -1,9 +1,11 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
+import SEOHead from '../../components/SEOHead';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
+
+const SITE_URL = 'https://bietalreef.ae';
 
 const aliases = {
   construction: 'general-contracting',
@@ -22,25 +24,61 @@ const aliases = {
 export default function ServiceLandingPage({ service }) {
   const title = `${service.nameAr} | الخدمات والعروض`;
   const desc = `صفحة مخصصة لخدمة ${service.nameAr} داخل قسم الخدمات والعروض في بيت الريف، بعيدًا عن مسارات دليل الإمارات أو المنتجات.`;
+  const serviceUrl = `${SITE_URL}/services/${service.slug}`;
   const faqItems = [
     [`ما هي خدمة ${service.nameAr}؟`, service.descAr],
     ['هل هذه الصفحة من دليل الإمارات؟', 'لا. هذه الصفحة تابعة لقسم الخدمات والعروض. البحث حسب المكان يتم من دليل الإمارات، أما هذه الصفحة فهي للخدمة نفسها.'],
     ['كيف أطلب عرض سعر؟', 'أرسل تفاصيل المشروع، الموقع، الصور أو المقاسات المتاحة حتى يتم توجيه الطلب بطريقة صحيحة.'],
   ];
 
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: service.nameAr,
+      description: service.descAr,
+      url: serviceUrl,
+      serviceType: service.nameAr,
+      areaServed: UAE_EMIRATES.map((emirate) => ({ '@type': 'AdministrativeArea', name: emirate.nameAr })),
+      provider: {
+        '@type': 'Organization',
+        name: 'بيت الريف',
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.png`,
+      },
+      availableChannel: {
+        '@type': 'ServiceChannel',
+        serviceUrl,
+        servicePhone: '+971567856001',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    },
+  ];
+
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={desc} />
-        <link rel="canonical" href={`https://bietalreef.ae/services/${service.slug}`} />
-      </Head>
+      <SEOHead
+        title={`${title} | بيت الريف`}
+        description={desc}
+        keywords={`${service.nameAr}, خدمات ${service.nameAr}, عروض ${service.nameAr}, مقاولات الإمارات, بيت الريف`}
+        canonicalPath={`/services/${service.slug}`}
+        structuredData={structuredData}
+        breadcrumbs={[{ name: 'الخدمات والعروض', href: '/services' }, { name: service.nameAr, href: `/services/${service.slug}` }]}
+      />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="الخدمات والعروض" />
         <main>
           <section className="bg-[#0F3F1A] text-white">
             <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">
-              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#D4AF37]">
+              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F4D35E]">
                 الخدمات والعروض
               </span>
               <div className="mt-6 text-5xl">{service.icon}</div>
@@ -61,7 +99,7 @@ export default function ServiceLandingPage({ service }) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {['وصف الخدمة', 'طلب عرض سعر', 'اختيار المكان'].map((item, index) => (
                 <div key={item} className="rounded-3xl bg-white border border-[#E6DCC8] p-7 shadow-sm">
-                  <span className="text-sm font-black text-[#D4AF37]">0{index + 1}</span>
+                  <span className="text-sm font-black text-[#6F5400]">0{index + 1}</span>
                   <h2 className="mt-3 text-xl font-black text-[#0F3F1A]">{item}</h2>
                   <p className="mt-3 text-sm leading-8 text-gray-600">
                     {index === 0 && `تعرف على نطاق ${service.nameAr} وما يناسب مشروعك.`}
@@ -70,6 +108,14 @@ export default function ServiceLandingPage({ service }) {
                   </p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          <section className="max-w-6xl mx-auto px-4 py-10" aria-label="العروض المتاحة">
+            <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
+              <h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد عروض متاحة حاليًا</h2>
+              <p className="mt-3 text-gray-600 leading-8">لا يوجد عرض جاهز مرتبط بخدمة {service.nameAr} الآن. يمكنك طلب عرض سعر مخصص حسب تفاصيل مشروعك.</p>
+              <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب عرض سعر مخصص</a>
             </div>
           </section>
 
