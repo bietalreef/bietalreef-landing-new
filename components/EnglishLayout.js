@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -11,6 +12,8 @@ import {
   ShieldCheck,
   Mail,
   Phone,
+  Menu,
+  X,
 } from 'lucide-react';
 
 const navLinks = [
@@ -24,49 +27,15 @@ const navLinks = [
 ];
 
 const footerGroups = [
-  {
-    title: 'Biet Al Reef',
-    icon: Home,
-    links: [
-      ['/en/about', 'About Biet Al Reef'],
-      ['/en/why-biet-alreef', 'Why Biet Al Reef'],
-      ['/en/how-it-works', 'How it works'],
-    ],
-  },
-  {
-    title: 'Platform',
-    icon: BriefcaseBusiness,
-    links: [
-      ['/en/uae', 'UAE Directory'],
-      ['/en/providers', 'Service Providers'],
-      ['/en/services', 'Services & Offers'],
-      ['/en/marketplace', 'Products & Stores'],
-      ['/en/tools', 'Smart Tools'],
-      ['/en/weyaak', 'Weyaak AI'],
-      ['/en/blog', 'Blog'],
-    ],
-  },
-  {
-    title: 'Support',
-    icon: Phone,
-    links: [
-      ['/en/contact', 'Contact us'],
-      ['/en/faq', 'FAQ'],
-      ['https://wa.me/971567856001', 'WhatsApp support'],
-    ],
-  },
-  {
-    title: 'Legal',
-    icon: ShieldCheck,
-    links: [
-      ['/en/privacy', 'Privacy Policy'],
-      ['/en/terms', 'Terms & Conditions'],
-      ['/en/legal', 'Legal information'],
-    ],
-  },
+  { title: 'Biet Al Reef', icon: Home, links: [['/en/about', 'About Biet Al Reef'], ['/en/why-biet-alreef', 'Why Biet Al Reef'], ['/en/how-it-works', 'How it works']] },
+  { title: 'Platform', icon: BriefcaseBusiness, links: [['/en/uae', 'UAE Directory'], ['/en/providers', 'Service Providers'], ['/en/services', 'Services & Offers'], ['/en/marketplace', 'Products & Stores'], ['/en/tools', 'Smart Tools'], ['/en/weyaak', 'Weyaak AI'], ['/en/blog', 'Blog']] },
+  { title: 'Support', icon: Phone, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['https://wa.me/971567856001', 'WhatsApp support']] },
+  { title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/terms', 'Terms & Conditions'], ['/en/legal', 'Legal information']] },
 ];
 
 export default function EnglishLayout({ children }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
       <header className="sticky top-0 z-50 border-b border-[#E6DCC8] bg-white/95 shadow-sm backdrop-blur">
@@ -88,17 +57,49 @@ export default function EnglishLayout({ children }) {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link href="/" className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-[#E6DCC8] bg-white px-3 py-2 text-sm font-black text-primary shadow-sm" aria-label="Switch to Arabic">
-              <span aria-hidden="true">🇦🇪</span>
+            <Link href="/" className="inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white px-3 py-2 text-xs font-black text-primary shadow-sm" aria-label="Switch to Arabic">
               <span>AR</span>
+              <span aria-hidden="true">🇦🇪</span>
             </Link>
-            <div className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#0F3F1A] px-3 py-2 text-sm font-black text-white shadow-sm" aria-label="English version">
-              <span aria-hidden="true">🇺🇸</span>
-              <span>EN</span>
-            </div>
+            <button type="button" onClick={() => setOpen(true)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#E6DCC8] bg-white text-primary shadow-sm lg:hidden" aria-label="Open menu">
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
         </div>
       </header>
+
+      {open && (
+        <div className="fixed inset-0 z-[100] lg:hidden" dir="rtl">
+          <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
+          <aside className="absolute bottom-0 left-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-r-[28px] bg-white shadow-2xl">
+            <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
+              <button type="button" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label="Close menu">
+                <X className="h-6 w-6" />
+              </button>
+              <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
+              <span className="h-10 w-10" />
+            </div>
+            <div className="flex-1 overflow-y-auto px-5 py-5">
+              <div className="space-y-1">
+                {navLinks.map(([href, label, Icon]) => (
+                  <Link key={href} href={href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold text-gray-800 transition hover:bg-primary/5 hover:text-primary">
+                    <Icon className="h-5 w-5 text-primary" />
+                    <span>{label}</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-5 rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] p-4 text-sm font-bold leading-7 text-gray-600">
+                English keeps the Arabic-first interface direction. Only labels and copy are translated.
+              </div>
+            </div>
+            <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
+              <Link href="/" onClick={() => setOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-5 py-3 text-center text-base font-black text-primary">
+                AR 🇦🇪
+              </Link>
+            </div>
+          </aside>
+        </div>
+      )}
 
       {children}
 
