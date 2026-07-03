@@ -89,6 +89,20 @@ function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   );
 }
 
+function LanguageSwitch({ mobile = false, onClick }) {
+  return (
+    <Link
+      href="/en"
+      onClick={onClick}
+      className={`${mobile ? 'h-11 px-3' : 'min-h-[40px] px-4 py-2'} inline-flex items-center justify-center gap-2 rounded-xl border border-[#E6DCC8] bg-white text-sm font-black text-primary shadow-sm transition hover:border-primary`}
+      aria-label="English version"
+    >
+      <span className="text-base" aria-hidden="true">US</span>
+      <span>EN</span>
+    </Link>
+  );
+}
+
 export default function Navbar() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -124,14 +138,18 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <LanguageSwitch />
             <SmartAppLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
               تعرف على المنصة
             </SmartAppLink>
           </div>
 
-          <button onClick={openMenu} className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm md:hidden" aria-label="فتح القائمة">
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitch mobile />
+            <button onClick={openMenu} className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="فتح القائمة">
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -171,6 +189,10 @@ export default function Navbar() {
             </div>
 
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AE عربي</span>
+                <LanguageSwitch mobile onClick={closeMenu} />
+              </div>
               <SmartAppLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
                 تعرف على المنصة
                 <Rocket className="h-4 w-4" />
