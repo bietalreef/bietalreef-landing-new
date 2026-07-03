@@ -10,6 +10,8 @@ export const providers = [
     emirate: 'abu-dhabi',
     accountType: 'factory-workshop',
     mainSpecialty: 'carpentry-workshop',
+    categorySlugs: ['carpentry', 'interior-design', 'furniture-decor', 'finishing-works'],
+    providerTypeAr: 'ورشة نجارة وتصميم داخلي',
     verified: true,
     logo: '/images/providers/arkleen-logo.png',
     cover: '/images/providers/arkleen-cover.jpg',
@@ -50,6 +52,8 @@ export const providers = [
     emirate: 'abu-dhabi',
     accountType: 'factory-workshop',
     mainSpecialty: 'marble-workshop',
+    categorySlugs: ['marble-ceramic', 'building-materials', 'finishing-works'],
+    providerTypeAr: 'مصنع رخام وجرانيت',
     verified: true,
     logo: '/images/providers/al-hoot-logo.png',
     cover: '/images/providers/al-hoot-cover.jpg',
@@ -83,3 +87,16 @@ export const providers = [
     ]
   }
 ];
+
+export function getProvidersByCategory(categorySlug) {
+  return providers.filter((provider) => provider.categorySlugs?.includes(categorySlug));
+}
+
+export function getProvidersByAreaAndCategory(emirateSlug, areaSlug, categorySlug) {
+  return providers.filter((provider) => {
+    const matchesEmirate = provider.emirate === emirateSlug;
+    const matchesArea = provider.city === areaSlug || provider.area === areaSlug || provider.serviceAreas?.includes(areaSlug);
+    const matchesCategory = provider.categorySlugs?.includes(categorySlug);
+    return matchesEmirate && matchesArea && matchesCategory;
+  });
+}
