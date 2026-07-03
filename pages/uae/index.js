@@ -3,28 +3,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import SecondaryHeader from '../../components/SecondaryHeader';
-import UnifiedCard from '../../components/UnifiedCard';
 import ClientRequestCard from '../../components/ClientRequestCard';
 import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
-import { UAE_EMIRATES, SERVICE_CATEGORIES, ENTITY_TYPES } from '../../data/siteTaxonomy';
+import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../data/siteTaxonomy';
 
 export default function UAEDirectoryHome() {
   const pageData = {
-    badge: 'دليل الإمارات',
     h1: 'دليل الإمارات لمزودي خدمات المقاولات والبناء',
-    desc: 'اكتشف الشركات والموردين والمصانع ومزودي الخدمات في الإمارات حسب النشاط والإمارة والتخصص.',
-    sectionTitle: 'تصفح الأنشطة الرئيسية',
-    clientTitle: 'تبحث عن شركة أو مزود خدمة؟',
-    clientDesc: 'أرسل طلبك وسنساعدك في توجيهه حسب الإمارة والتخصص ونوع المشروع عبر وكيلنا الذكي وياك.',
-    buttonText: 'ابدأ طلبك الآن'
+    desc: 'ابدأ من الإمارة ثم اختر المدينة أو المنطقة ثم الخدمة المناسبة لمشروعك في البناء والصيانة والتصميم الداخلي.',
   };
 
   const faqItems = [
-    ['ما هو دليل الإمارات في بيت الريف؟', 'هو محرك بحث وتنظيم جغرافي يربط أصحاب المشاريع بمزودي الخدمات في كل إمارة ومنطقة في الدولة، مع توفير بيانات دقيقة لكل تخصص.'],
-    ['هل تصفح الدليل وإرسال الطلبات مجاني؟', 'نعم، تصفح الدليل واستخدام وكيلنا الذكي وياك لإرسال الطلبات مجاني تماماً للعملاء، وهدفنا هو تسهيل الوصول للمزود المناسب.'],
-    ['كيف أختار المزود المناسب من الدليل؟', 'نوصي بمراجعة ملف المزود، والاطلاع على المشاريع السابقة، والتأكد من نطاق التغطية الجغرافية قبل طلب عرض السعر.'],
+    ['كيف أستخدم دليل الإمارات؟', 'ابدأ باختيار الإمارة، ثم المدينة أو المنطقة، وبعدها اختر نوع الخدمة مثل المقاولات أو النجارة أو الرخام أو الصيانة.'],
+    ['هل يبدأ الدليل بالمكان أم بالخدمة؟', 'دليل الإمارات في بيت الريف يبدأ بالمكان أولًا حتى تكون رحلة البحث أوضح: الإمارة ثم المدينة ثم الخدمة.'],
+    ['هل يمكنني طلب عرض سعر من الدليل؟', 'نعم، يمكنك استخدام زر طلب عرض سعر أو سؤال المساعد الذكي وياك لتوجيه طلبك للمسار المناسب.'],
   ];
 
   return (
@@ -36,107 +29,63 @@ export default function UAEDirectoryHome() {
       </Head>
 
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
-        <Navbar />
-        
-        <SecondaryHeader 
-          title={pageData.badge}
-          breadcrumbs={[]}
-        />
-
+        <Navbar pageTitle="دليل الإمارات" />
         <main>
-          {/* Hero Section */}
-          <section className="relative h-[400px] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
+          <section className="relative overflow-hidden bg-[#0F3F1A] text-white">
             <div className="absolute inset-0 z-0">
-              <Image 
-                src="/bait-alreef-uae-smart-network-coverage.webp" 
-                alt={pageData.h1} 
-                fill 
-                className="object-cover opacity-30" 
-                priority 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-transparent to-transparent"></div>
+              <Image src="/bait-alreef-uae-smart-network-coverage.webp" alt={pageData.h1} fill className="object-cover opacity-25" priority />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-[#0F3F1A]/70 to-[#0F3F1A]/30" />
             </div>
-            <div className="relative z-10 max-w-6xl mx-auto px-4 w-full text-center md:text-right">
-              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6 backdrop-blur-sm">
-                {pageData.badge}
+            <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center">
+              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6">
+                ابدأ من المكان
               </span>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight max-w-4xl">
-                {pageData.h1}
-              </h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed font-medium mb-8">
-                {pageData.desc}
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                <Link href="#directory" className="bg-[#D4AF37] text-white font-black px-8 py-3 rounded-xl hover:bg-[#B8962E] transition shadow-lg hover:scale-105">
-                  تصفح الأنشطة
-                </Link>
-                <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 font-black px-8 py-3 rounded-xl hover:bg-white/20 transition">
-                  إضافة شركتي
-                </button>
-              </div>
+              <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight">{pageData.h1}</h1>
+              <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">{pageData.desc}</p>
             </div>
           </section>
 
-          {/* Client Request CTA */}
-          <ClientRequestCard 
-            title={pageData.clientTitle}
-            desc={pageData.clientDesc}
-            buttonText={pageData.buttonText}
-          />
-
-          {/* Activities Grid */}
-          <section id="directory" className="max-w-6xl mx-auto px-4 py-16">
-            <div className="flex items-center justify-between mb-12 border-b border-[#E6DCC8] pb-6">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900">
-                {pageData.sectionTitle}
-              </h2>
-              <div className="h-1.5 w-24 bg-primary rounded-full"></div>
+          <section className="max-w-6xl mx-auto px-4 py-16">
+            <div className="mb-10 text-center md:text-right">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر الإمارة</h2>
+              <p className="mt-3 text-gray-600 leading-8">الواجهة الرئيسية للدليل هي الإمارات السبع. بعدها تظهر المدن والمناطق والخدمات المتاحة.</p>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {SERVICE_CATEGORIES.map((service) => (
-                <UnifiedCard 
-                  key={service.slug}
-                  type={ENTITY_TYPES.EMIRATE} // نستخدمه كقالب للنشاط في هذه الصفحة
-                  entity={{
-                    slug: `uae/${service.slug}`,
-                    title: service.nameAr,
-                    image: `/images/seo/categories/${service.slug}.webp`,
-                    emirate: 'نشاط رئيسي',
-                    city: '7 إمارات',
-                    description: service.descAr,
-                    isFeatured: true,
-                    services: service.subCategories?.map(s => s.nameAr) || []
-                  }}
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {UAE_EMIRATES.map((emirate) => (
+                <Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="group rounded-3xl bg-white border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-bold text-primary mb-2">إمارة</p>
+                      <h3 className="text-2xl font-black text-gray-900 group-hover:text-primary transition">{emirate.nameAr}</h3>
+                      <p className="mt-3 text-sm text-gray-600 leading-7">{emirate.description}</p>
+                    </div>
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/5 text-2xl">📍</span>
+                  </div>
+                  <div className="mt-5 border-t border-gray-100 pt-4 text-xs font-bold text-gray-500">{emirate.areas.length} مدينة ومنطقة</div>
+                </Link>
               ))}
             </div>
           </section>
 
-          {/* SEO Content Section */}
-          <SeoContent title="دليل الإمارات للمقاولات والبناء - بيت الريف">
-            <div className="space-y-6">
-              <p>
-                يعد دليل بيت الريف المرجع الأول في دولة الإمارات العربية المتحدة للوصول إلى مزودي خدمات المقاولات والبناء. نحن نهدف إلى تنظيم السوق وربط أصحاب المشاريع بالشركات الموثوقة والموردين والمصانع في جميع أنحاء الدولة.
-              </p>
-              <p>
-                من خلال هذا الدليل، يمكنك البحث حسب النشاط (مثل المقاولات العامة، التصميم الداخلي، أو الصيانة) ثم اختيار الإمارة المطلوبة للوصول إلى أدق التفاصيل الجغرافية والتخصصات المتاحة.
-              </p>
-              <div className="bg-blue-50 p-6 rounded-2xl border-r-4 border-primary">
-                <h3 className="font-black text-primary mb-2">لماذا تستخدم دليل بيت الريف؟</h3>
-                <ul className="list-disc list-inside space-y-2 text-sm">
-                  <li>تنظيم جغرافي دقيق يغطي كافة مناطق الدولة.</li>
-                  <li>تخصصات متنوعة تشمل كافة مراحل البناء والتشييد.</li>
-                  <li>سهولة الوصول إلى مزودي الخدمات عبر المساعد الذكي وياك.</li>
-                  <li>بيانات محدثة وموثقة لضمان أفضل تجربة للمستخدم.</li>
-                </ul>
-              </div>
-            </div>
+          <ClientRequestCard title="تبحث عن مزود خدمة في الإمارات؟" desc="اسأل وياك أو أرسل طلبك وسنرشدك إلى المسار الصحيح حسب الإمارة والمدينة ونوع الخدمة." buttonText="ابدأ طلبك الآن" />
+
+          <SeoContent title="كيف يخدم دليل الإمارات أصحاب المشاريع؟">
+            <p>يعتمد دليل الإمارات في بيت الريف على ترتيب جغرافي واضح يبدأ من الإمارة ثم المدينة أو المنطقة ثم نوع الخدمة. هذا يساعد صاحب المشروع على الوصول إلى مزودي الخدمات الأقرب والأكثر صلة دون تشتيت.</p>
+            <p className="mt-4">بعد اختيار الإمارة يمكنك تصفح المناطق المتاحة، ثم اختيار تخصص مثل المقاولات العامة، النجارة، الرخام والسيراميك، التصميم الداخلي أو الصيانة العامة.</p>
           </SeoContent>
 
-          {/* FAQ Section */}
-          <FAQ items={faqItems} title="أسئلة شائعة حول دليل الإمارات" />
+          <section className="max-w-6xl mx-auto px-4 py-12">
+            <h2 className="text-2xl font-black mb-6">خدمات شائعة داخل الدليل</h2>
+            <div className="flex flex-wrap gap-3">
+              {SERVICE_CATEGORIES.slice(0, 10).map((service) => (
+                <Link key={service.slug} href="/uae" className="rounded-full bg-white border border-[#E6DCC8] px-4 py-2 text-sm font-bold text-gray-700 hover:text-primary hover:border-primary transition">
+                  {service.icon} {service.nameAr}
+                </Link>
+              ))}
+            </div>
+          </section>
 
+          <FAQ items={faqItems} title="أسئلة شائعة حول دليل الإمارات" />
         </main>
         <Footer />
       </div>
