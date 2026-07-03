@@ -14,6 +14,16 @@ import {
   Phone,
   Menu,
   X,
+  Layers3,
+  Handshake,
+  Headphones,
+  Instagram,
+  Facebook,
+  Youtube,
+  Linkedin,
+  MessageCircle,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 
 const navLinks = [
@@ -26,15 +36,117 @@ const navLinks = [
   ['/en/weyaak', 'Weyaak AI', Bot],
 ];
 
-const footerGroups = [
-  { title: 'Biet Al Reef', icon: Home, links: [['/en/about', 'About Biet Al Reef'], ['/en/why-biet-alreef', 'Why Biet Al Reef'], ['/en/how-it-works', 'How it works']] },
-  { title: 'Platform', icon: BriefcaseBusiness, links: [['/en/uae', 'UAE Directory'], ['/en/providers', 'Service Providers'], ['/en/services', 'Services & Offers'], ['/en/marketplace', 'Products & Stores'], ['/en/tools', 'Smart Tools'], ['/en/weyaak', 'Weyaak AI'], ['/en/blog', 'Blog']] },
-  { title: 'Support', icon: Phone, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['https://wa.me/971567856001', 'WhatsApp support']] },
-  { title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/terms', 'Terms & Conditions'], ['/en/legal', 'Legal information']] },
+const socialLinks = [
+  { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
+  { href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn', label: 'Instagram', icon: Instagram },
+  { href: 'https://www.facebook.com/share/14fy6hGM7SJ/', label: 'Facebook', icon: Facebook },
+  { href: 'https://youtube.com/@bietalreef?si=z78hlji5r9YheMGj', label: 'YouTube', icon: Youtube },
+  { href: 'https://www.tiktok.com/@bietalreef0?_r=1&_t=ZS-97iuKMbktCn', label: 'TikTok', icon: 'tiktok' },
+  { href: 'https://www.linkedin.com/in/bietalreef', label: 'LinkedIn', icon: Linkedin },
 ];
+
+const footerGroups = [
+  {
+    id: 'biet-alreef',
+    title: 'Biet Al Reef',
+    icon: Home,
+    links: [
+      ['/en/about', 'About Biet Al Reef'],
+      ['/en/why-biet-alreef', 'Why Biet Al Reef'],
+      ['/en/how-it-works', 'How it works'],
+    ],
+  },
+  {
+    id: 'platform',
+    title: 'Platform',
+    icon: Layers3,
+    links: [
+      ['/en/uae', 'UAE Directory'],
+      ['/en/providers', 'Service Providers'],
+      ['/en/services', 'Services & Offers'],
+      ['/en/marketplace', 'Products & Stores'],
+      ['/en/pricing', 'Pricing'],
+      ['/en/blog', 'Blog'],
+    ],
+  },
+  {
+    id: 'partners',
+    title: 'Partners',
+    icon: Handshake,
+    links: [
+      ['/en/partners', 'Become a partner'],
+      ['/en/providers/register', 'Register as provider'],
+      ['/en/suppliers', 'Suppliers'],
+      ['/en/factories', 'Factories'],
+    ],
+  },
+  {
+    id: 'support',
+    title: 'Support',
+    icon: Headphones,
+    links: [
+      ['/en/contact', 'Contact us'],
+      ['/en/faq', 'FAQ'],
+      ['/en/support-policy', 'Support policy'],
+      ['tel:+971567856001', 'Call us'],
+    ],
+  },
+  {
+    id: 'legal',
+    title: 'Legal',
+    icon: ShieldCheck,
+    links: [
+      ['/en/privacy', 'Privacy Policy'],
+      ['/en/legal', 'Terms & Conditions'],
+      ['/en/cookies', 'Cookie Policy'],
+    ],
+  },
+];
+
+function TikTokIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M16.6 5.82c1.04.75 2.31 1.19 3.68 1.19v3.18c-1.34 0-2.6-.29-3.68-.82v5.87c0 3.58-2.9 6.48-6.48 6.48S3.64 18.82 3.64 15.24s2.9-6.48 6.48-6.48c.4 0 .79.04 1.17.11v3.33a3.14 3.14 0 1 0 2.14 2.98V2.28h3.17c.14 1.43.88 2.68 2 3.54Z" />
+    </svg>
+  );
+}
+
+function SocialLink({ href, label, icon: Icon }) {
+  return (
+    <a href={href} aria-label={label} title={label} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark">
+      {Icon === 'tiktok' ? <TikTokIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
+    </a>
+  );
+}
+
+function FooterLink({ href, children }) {
+  if (href?.startsWith('tel:') || href?.startsWith('mailto:') || href?.startsWith('http')) {
+    return <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</a>;
+  }
+  return <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</Link>;
+}
+
+function FooterAccordionSection({ section, isOpen, onToggle }) {
+  const Icon = section.icon;
+  return (
+    <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
+        <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
+        <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
+      </button>
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
+        <ul className="space-y-1">
+          {section.links.map(([href, label]) => <li key={href}><FooterLink href={href}>{label}</FooterLink></li>)}
+        </ul>
+      </div>
+    </nav>
+  );
+}
 
 export default function EnglishLayout({ children }) {
   const [open, setOpen] = useState(false);
+  const [openSection, setOpenSection] = useState(null);
+  const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
 
   return (
     <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
@@ -103,42 +215,24 @@ export default function EnglishLayout({ children }) {
 
       {children}
 
-      <footer className="mt-16 border-t border-[#E6DCC8] bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 text-center">
-          <Image src="/logo.png" alt="Biet Al Reef" width={86} height={86} className="mx-auto h-20 w-20 object-contain" />
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-8 text-gray-600">
-            A UAE-focused public information website for construction, maintenance, interior design, building materials, providers, cities, and service areas.
-          </p>
-          <div className="mt-5 flex justify-center gap-3 text-primary">
-            <a href="https://wa.me/971567856001" aria-label="WhatsApp" className="rounded-full bg-primary/10 p-3 hover:bg-primary hover:text-white"><Phone className="h-5 w-5" /></a>
-            <a href="mailto:info@bietalreef.ae" aria-label="Email" className="rounded-full bg-primary/10 p-3 hover:bg-primary hover:text-white"><Mail className="h-5 w-5" /></a>
+      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
+            <div className="text-center md:text-right">
+              <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
+              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
+                The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a professional experience.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
+                {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
+              </div>
+            </div>
+            <div className="md:contents">
+              {footerGroups.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
+            </div>
           </div>
         </div>
-
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 border-t border-[#E6DCC8] px-4 md:grid-cols-4">
-          {footerGroups.map((group) => {
-            const Icon = group.icon;
-            return (
-              <section key={group.title} className="border-b border-[#E6DCC8] py-6 md:border-b-0 md:border-l md:px-6">
-                <h2 className="mb-4 flex items-center gap-2 text-lg font-black text-primary">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                  {group.title}
-                </h2>
-                <div className="grid gap-3 text-sm font-semibold text-gray-600">
-                  {group.links.map(([href, label]) => href.startsWith('http') ? (
-                    <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="hover:text-[#B8922B]">{label}</a>
-                  ) : (
-                    <Link key={href} href={href} className="hover:text-[#B8922B]">{label}</Link>
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
-
-        <div className="bg-[#0F3F1A] px-4 py-4 text-center text-sm font-bold text-white">
-          All rights reserved © 2026 Biet Al Reef
-        </div>
+        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">All rights reserved © 2026 Biet Al Reef</div>
       </footer>
     </div>
   );
