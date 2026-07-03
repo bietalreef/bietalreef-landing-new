@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -10,11 +11,14 @@ import {
   Facebook,
   Youtube,
   Linkedin,
-  MessageCircle
+  MessageCircle,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 const footerSections = [
   {
+    id: 'biet-alreef',
     title: 'بيت الريف',
     icon: Home,
     links: [
@@ -24,6 +28,7 @@ const footerSections = [
     ]
   },
   {
+    id: 'platform',
     title: 'المنصة',
     icon: Layers3,
     links: [
@@ -36,6 +41,7 @@ const footerSections = [
     ]
   },
   {
+    id: 'partners',
     title: 'الشركاء',
     icon: Handshake,
     links: [
@@ -46,6 +52,7 @@ const footerSections = [
     ]
   },
   {
+    id: 'support',
     title: 'الدعم',
     icon: Headphones,
     links: [
@@ -56,6 +63,7 @@ const footerSections = [
     ]
   },
   {
+    id: 'legal',
     title: 'القانونية',
     icon: ShieldCheck,
     links: [
@@ -83,22 +91,61 @@ function SocialLink({ href, label, children }) {
 function FooterLink({ href, children }) {
   if (href?.startsWith('tel:') || href?.startsWith('mailto:')) {
     return (
-      <a href={href} className="text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
+      <a href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className="text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
+    <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
       {children}
     </Link>
+  );
+}
+
+function FooterAccordionSection({ section, isOpen, onToggle }) {
+  const Icon = section.icon;
+
+  return (
+    <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
+      <button
+        type="button"
+        onClick={onToggle}
+        className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0"
+        aria-expanded={isOpen}
+      >
+        <h2 className="flex items-center gap-2 text-base font-black text-primary">
+          <Icon className="h-5 w-5" />
+          {section.title}
+        </h2>
+        <span className="text-primary md:hidden">
+          {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+        </span>
+      </button>
+
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
+        <ul className="space-y-1">
+          {section.links.map((link) => (
+            <li key={link.href}>
+              <FooterLink href={link.href}>{link.label}</FooterLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
   );
 }
 
 export { footerSections };
 
 export default function Footer() {
+  const [openSection, setOpenSection] = useState(null);
+
+  const toggleSection = (sectionId) => {
+    setOpenSection((current) => (current === sectionId ? null : sectionId));
+  };
+
   return (
     <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -127,24 +174,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {footerSections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <nav key={section.title} aria-label={section.title}>
-                <h2 className="mb-4 flex items-center gap-2 text-base font-black text-primary">
-                  <Icon className="h-5 w-5" />
-                  {section.title}
-                </h2>
-                <ul className="space-y-1">
-                  {section.links.map((link) => (
-                    <li key={link.href}>
-                      <FooterLink href={link.href}>{link.label}</FooterLink>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            );
-          })}
+          <div className="md:contents">
+            {footerSections.map((section) => (
+              <FooterAccordionSection
+                key={section.id}
+                section={section}
+                isOpen={openSection === section.id}
+                onToggle={() => toggleSection(section.id)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
