@@ -17,7 +17,8 @@ import {
   Building2,
   BriefcaseBusiness,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Globe2
 } from 'lucide-react';
 import SmartAppLink from './SmartAppLink';
 
@@ -94,11 +95,11 @@ function LanguageSwitch({ mobile = false, onClick }) {
     <Link
       href="/en"
       onClick={onClick}
-      className={`${mobile ? 'h-11 px-3' : 'min-h-[40px] px-4 py-2'} inline-flex items-center justify-center gap-2 rounded-xl border border-[#E6DCC8] bg-white text-sm font-black text-primary shadow-sm transition hover:border-primary`}
+      className={`${mobile ? 'h-10 px-2.5 text-[11px]' : 'min-h-[36px] px-3 py-1.5 text-xs'} inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white font-black text-primary shadow-sm transition hover:border-primary`}
       aria-label="English version"
     >
-      <span className="text-base" aria-hidden="true">US</span>
       <span>EN</span>
+      <Globe2 className="h-3.5 w-3.5" aria-hidden="true" />
     </Link>
   );
 }
@@ -115,10 +116,10 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" dir="rtl">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
-            <div className="relative h-12 w-12">
-              <Image src="/logo.png" alt="بيت الريف" width={48} height={48} className="h-full w-full object-contain" priority />
+            <div className="relative h-11 w-11">
+              <Image src="/logo.png" alt="بيت الريف" width={44} height={44} className="h-full w-full object-contain" priority />
             </div>
             <div className="hidden flex-col sm:flex">
               <span className="text-sm font-bold text-primary">بيت الريف</span>
@@ -146,7 +147,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-2 md:hidden">
             <LanguageSwitch mobile />
-            <button onClick={openMenu} className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="فتح القائمة">
+            <button onClick={openMenu} className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="فتح القائمة">
               <Menu className="h-6 w-6" />
             </button>
           </div>
