@@ -74,6 +74,7 @@ export default function SEOHead({
     <Head>
       {/* ═══ Primary Meta Tags ═══ */}
       <title>{title}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <meta
