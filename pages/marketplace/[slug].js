@@ -1,8 +1,8 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
+import SEOHead from '../../components/SEOHead';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️' },
@@ -13,25 +13,53 @@ const categories = [
 
 export default function MarketplaceCategoryPage({ category }) {
   const title = `${category.title} | المنتجات والمتاجر`;
+  const description = `تصفح ${category.title} داخل قسم المنتجات والمتاجر في بيت الريف.`;
   const faqItems = [
     [`ما هي ${category.title}؟`, category.desc],
     ['هل هذه صفحة خدمة؟', 'لا. هذه الصفحة تتبع قسم المنتجات والمتاجر، وليست قسم الخدمات والعروض أو دليل الإمارات.'],
     ['كيف أطلب عرض سعر؟', 'أرسل نوع المنتج والكمية والموقع ليتم توجيه الطلب بطريقة مناسبة.'],
   ];
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: title,
+      description,
+      url: `https://bietalreef.ae/marketplace/${category.id}`,
+      inLanguage: 'ar-AE',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'بيت الريف',
+        url: 'https://bietalreef.ae',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer },
+      })),
+    },
+  ];
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={`تصفح ${category.title} داخل قسم المنتجات والمتاجر في بيت الريف.`} />
-        <link rel="canonical" href={`https://bietalreef.ae/marketplace/${category.id}`} />
-      </Head>
+      <SEOHead
+        title={`${title} | بيت الريف`}
+        description={description}
+        keywords={`${category.title}, منتجات البناء, مواد التشطيب, المنتجات والمتاجر, بيت الريف`}
+        canonicalPath={`/marketplace/${category.id}`}
+        structuredData={structuredData}
+        breadcrumbs={[{ name: 'المنتجات والمتاجر', href: '/marketplace' }, { name: category.title, href: `/marketplace/${category.id}` }]}
+      />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="المنتجات والمتاجر" />
         <main>
           <section className="bg-[#0F3F1A] text-white">
             <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">
-              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#D4AF37]">المنتجات والمتاجر</span>
+              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F4D35E]">المنتجات والمتاجر</span>
               <div className="mt-6 text-5xl">{category.icon}</div>
               <h1 className="mt-6 text-3xl md:text-5xl font-black leading-tight">{category.title}</h1>
               <p className="mt-6 max-w-3xl text-lg leading-9 text-white/90 mx-auto md:mx-0">{category.desc}</p>
@@ -46,6 +74,17 @@ export default function MarketplaceCategoryPage({ category }) {
             <div className="rounded-[2rem] bg-white border border-[#E6DCC8] p-8 shadow-sm">
               <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">مسار المنتجات والمتاجر</h2>
               <p className="text-gray-600 leading-8">هذه الصفحة مخصصة للمنتجات والمواد. إذا كنت تبحث عن خدمة تنفيذية فانتقل إلى الخدمات والعروض، وإذا كنت تبحث حسب الإمارة فابدأ من دليل الإمارات.</p>
+            </div>
+          </section>
+
+          <section className="max-w-6xl mx-auto px-4 py-10" aria-label="قائمة المنتجات">
+            <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
+              <h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد منتجات متاحة حاليًا</h2>
+              <p className="mt-3 text-gray-600 leading-8">لا يوجد منتج منشور حاليًا داخل تصنيف {category.title}. يمكنك إرسال طلبك وسنساعدك في الوصول إلى المورد أو المتجر المناسب.</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب المنتج عبر واتساب</a>
+                <Link href="/marketplace" className="rounded-2xl border border-[#E6DCC8] px-7 py-3 text-sm font-black text-primary">العودة إلى المنتجات والمتاجر</Link>
+              </div>
             </div>
           </section>
 
