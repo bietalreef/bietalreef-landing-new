@@ -17,7 +17,9 @@ import {
   Building2,
   BriefcaseBusiness,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  LogIn,
+  UserPlus
 } from 'lucide-react';
 import SmartAppLink from './SmartAppLink';
 
@@ -40,6 +42,11 @@ const companyLinks = [
   { href: '/how-it-works', label: 'كيف يعمل', icon: Building2 }
 ];
 
+const accountLinks = [
+  { href: '/login', label: 'تسجيل دخول', icon: LogIn },
+  { href: '/login?mode=register', label: 'إنشاء حساب', icon: UserPlus }
+];
+
 const desktopLinks = [
   ...primaryLinks,
   { href: '/tools', label: 'الأدوات', icon: BriefcaseBusiness },
@@ -50,8 +57,9 @@ const desktopLinks = [
 
 function isActivePath(pathname, href) {
   if (!href || href.startsWith('tel:') || href.startsWith('mailto:')) return false;
-  if (href === '/') return pathname === '/';
-  return pathname === href || pathname.startsWith(`${href}/`);
+  const cleanHref = href.split('?')[0];
+  if (cleanHref === '/') return pathname === '/';
+  return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
 }
 
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
@@ -93,6 +101,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
 
   const closeMenu = () => setIsOpen(false);
   const openMenu = () => setIsOpen(true);
@@ -123,14 +132,23 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <SmartAppLink className="mr-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
+            <Link href="/login" className="mr-2 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white px-4 py-2 text-sm font-black text-primary transition hover:bg-primary/5 whitespace-nowrap">
+              <LogIn className="h-4 w-4" />
+              دخول
+            </Link>
+            <SmartAppLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
               تعرف على المنصة
             </SmartAppLink>
           </div>
 
-          <button onClick={openMenu} className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm md:hidden" aria-label="فتح القائمة">
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/login" className="inline-flex h-11 items-center justify-center rounded-xl border border-gray-200 px-3 text-sm font-black text-primary shadow-sm" aria-label="تسجيل دخول">
+              دخول
+            </Link>
+            <button onClick={openMenu} className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="فتح القائمة">
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -155,6 +173,12 @@ export default function Navbar() {
               </div>
 
               <div className="mt-5 space-y-3">
+                <DrawerSection title="حساب العميل" icon={LogIn} open={accountOpen} onToggle={() => setAccountOpen((value) => !value)}>
+                  {accountLinks.map((item) => (
+                    <DrawerLink key={item.href} {...item} nested active={isActivePath(router.pathname, item.href)} onClick={closeMenu} />
+                  ))}
+                </DrawerSection>
+
                 <DrawerSection title="المنصة" icon={Rocket} open={platformOpen} onToggle={() => setPlatformOpen((value) => !value)}>
                   {platformLinks.map((item) => (
                     <DrawerLink key={item.href} {...item} nested active={isActivePath(router.pathname, item.href)} onClick={closeMenu} />
@@ -170,6 +194,10 @@ export default function Navbar() {
             </div>
 
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
+              <Link href="/login" onClick={closeMenu} className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/20 bg-primary/5 px-5 py-3 text-center text-base font-black text-primary">
+                تسجيل دخول العميل
+                <LogIn className="h-4 w-4" />
+              </Link>
               <SmartAppLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
                 تعرف على المنصة
                 <Rocket className="h-4 w-4" />
