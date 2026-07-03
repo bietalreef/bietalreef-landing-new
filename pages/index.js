@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
+import WeyaakHeroCard from '../components/WeyaakHeroCard';
 import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
@@ -147,26 +148,7 @@ export default function Home() {
                     منصة ذكية تجعل رحلة البناء أو الصيانة أو التشطيب أكثر وضوحًا: اختر المكان، أو المزود، أو الخدمة، أو المنتج، ودع وياك يرشدك للخطوة التالية.
                   </p>
 
-                  <div className="mt-7 rounded-[2rem] border border-[#E6DCC8] bg-white/90 p-5 text-right shadow-xl shadow-[#0F3F1A]/5 backdrop-blur biet-soft-pulse">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg">
-                        <Bot className="h-6 w-6" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <h2 className="text-xl font-black text-[#0F3F1A]">وياك، وكيلك الذكي في كل خطوة بناء</h2>
-                        <p className="mt-2 text-sm leading-7 text-gray-600">
-                          اكتب احتياجك بلغة بسيطة: أريد مقاول، نجار، رخام، صيانة، أو تشطيب. وياك يحول السؤال إلى مسار واضح داخل بيت الريف.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                      {['أحتاج مقاول في أبوظبي', 'أريد رخام لمجلس', 'أبحث عن نجار في العين'].map((item) => (
-                        <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-sm font-bold text-gray-800">
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <WeyaakHeroCard />
 
                   <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                     <Link href="/weyaak" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">
