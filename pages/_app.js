@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "../styles/provider_styles.css";
 import { useEffect } from "react";
 import InstallPrompt from "../components/InstallPrompt";
+import AppOpenGate from "../components/AppOpenGate";
 import WeyakChat from "../components/WeyakChat";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -18,10 +19,10 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
       <InstallPrompt />
+      <AppOpenGate />
       <WeyakChat />
       <Component {...pageProps} />
       <SpeedInsights />
     </>
   );
 }
-// Trigger build Sat Jun 27 08:58:38 UTC 2026
