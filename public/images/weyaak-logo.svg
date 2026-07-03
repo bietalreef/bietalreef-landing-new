@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Weyaak AI Logo</title>
+  <desc id="desc">A premium Weyaak AI mark with a golden W and smart circuit brain, adapted for Biet Al Reef light interface.</desc>
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#FFF7D6" stop-opacity="1"/>
+      <stop offset="48%" stop-color="#F6E7B7" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FDFBF7" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF1A8"/>
+      <stop offset="35%" stop-color="#D4AF37"/>
+      <stop offset="70%" stop-color="#A57913"/>
+      <stop offset="100%" stop-color="#F6D66E"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F3F1A"/>
+      <stop offset="100%" stop-color="#071E10"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0F3F1A" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#D4AF37" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect x="34" y="34" width="444" height="444" rx="96" fill="url(#halo)"/>
+  <circle cx="256" cy="250" r="178" fill="#FFFFFF" opacity="0.46"/>
+
+  <g filter="url(#softShadow)">
+    <path d="M152 264c-34-20-50-55-41-91 12-52 67-78 114-55 19-42 77-49 108-15 42-6 81 26 81 72 0 37-27 69-64 76" fill="none" stroke="url(#green)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M150 264c30-7 54-17 72-39m-3-88v73m53-88v83m56-81v91m-128-7h145m-177 47h190" fill="none" stroke="#D4AF37" stroke-width="7" stroke-linecap="round" opacity="0.78"/>
+    <circle cx="219" cy="137" r="9" fill="#D4AF37"/>
+    <circle cx="272" cy="122" r="9" fill="#D4AF37"/>
+    <circle cx="328" cy="124" r="9" fill="#D4AF37"/>
+    <circle cx="168" cy="255" r="9" fill="#D4AF37"/>
+    <circle cx="358" cy="255" r="9" fill="#D4AF37"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M136 290h49l35 90 35-90h43l35 90 35-90h49l-62 144h-43l-36-86-36 86h-43L136 290z" fill="url(#gold)"/>
+    <path d="M136 290h49l35 90 35-90h43l35 90 35-90h49" fill="none" stroke="#FFF2A8" stroke-width="7" stroke-linejoin="round" opacity="0.72"/>
+  </g>
+
+  <path d="M170 441c48 17 125 22 194 0" fill="none" stroke="#D4AF37" stroke-width="8" stroke-linecap="round" opacity="0.45"/>
+</svg>
