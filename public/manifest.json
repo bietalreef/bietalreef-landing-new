@@ -1,13 +1,18 @@
 {
+  "id": "/",
   "name": "بيت الريف - منصة البناء والتصميم الذكية",
   "short_name": "بيت الريف",
   "description": "منصة شاملة لإدارة مشاريع البناء والتصميم الداخلي والخارجي في الإمارات",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "portrait-primary",
   "theme_color": "#0F3F1A",
-  "background_color": "#FFFFFF",
+  "background_color": "#FDFBF7",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "/logo.png",
@@ -45,10 +50,10 @@
   "categories": ["business", "productivity"],
   "shortcuts": [
     {
-      "name": "الخدمات",
-      "short_name": "الخدمات",
-      "description": "عرض جميع الخدمات المتاحة",
-      "url": "/services",
+      "name": "دليل الإمارات",
+      "short_name": "الدليل",
+      "description": "استكشف الخدمات حسب الإمارة والمدينة",
+      "url": "/uae?source=pwa-shortcut",
       "icons": [
         {
           "src": "/logo.png",
@@ -57,10 +62,34 @@
       ]
     },
     {
-      "name": "المدونة",
-      "short_name": "المدونة",
-      "description": "اقرأ أحدث المقالات والحالات",
-      "url": "/blog",
+      "name": "مزودو الخدمات",
+      "short_name": "المزودون",
+      "description": "تصفح مزودي الخدمات في بيت الريف",
+      "url": "/providers?source=pwa-shortcut",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "الخدمات والعروض",
+      "short_name": "الخدمات",
+      "description": "عرض جميع الخدمات والعروض المتاحة",
+      "url": "/services?source=pwa-shortcut",
+      "icons": [
+        {
+          "src": "/logo.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "وياك AI",
+      "short_name": "وياك",
+      "description": "افتح مساعد وياك الذكي",
+      "url": "/weyaak?source=pwa-shortcut",
       "icons": [
         {
           "src": "/logo.png",
