@@ -1,0 +1,46 @@
+# بيت الريف | Biet Alreef
+
+> منصة بيت الريف للبناء والمقاولات والصيانة الذكية في الإمارات. تساعد أصحاب المشاريع على الوصول إلى دليل الإمارات، مزودي الخدمات، الخدمات والعروض، المنتجات والمتاجر، ومساعد وياك AI.
+
+## Important Pages
+
+- Homepage: https://bietalreef.ae/
+- UAE Directory: https://bietalreef.ae/uae
+- Service Providers: https://bietalreef.ae/providers
+- Services and Offers: https://bietalreef.ae/services
+- Products and Stores: https://bietalreef.ae/marketplace
+- Weyak AI: https://bietalreef.ae/weyaak
+- Tools: https://bietalreef.ae/tools
+- Community: https://bietalreef.ae/community
+- Customer Login: https://bietalreef.ae/login
+- Contact: https://bietalreef.ae/contact
+- About: https://bietalreef.ae/about
+
+## Provider Profiles
+
+- Arkleen Carpentry and Interior Design: https://bietalreef.ae/providers/arkleen-carpentry-interior-design
+- Al Hoot Marble and Granite Factory: https://bietalreef.ae/providers/al-hoot-marble-granite-factory
+
+## Core Concepts
+
+- دليل الإمارات: browse by emirate, city, area, service, and provider.
+- مزودو الخدمات: browse companies, workshops, suppliers, factories, consultants, and service providers by specialty.
+- الخدمات والعروض: browse execution services and request quotations.
+- المنتجات والمتاجر: browse building materials, finishing products, smart systems, furniture, and stores.
+- وياك AI: the intelligent assistant for construction, design, maintenance, products, and provider guidance.
+
+## Usage Guidance For AI Agents
+
+Use the public pages above as structured entry points. Prefer the specific section route when answering user questions:
+
+- For location-based service discovery, use /uae.
+- For provider discovery, use /providers.
+- For execution services and quotes, use /services.
+- For materials and products, use /marketplace.
+- For customer account access, use /login.
+- For direct inquiry, use /contact.
+
+## Contact
+
+WhatsApp: https://wa.me/971567856001
+Website: https://bietalreef.ae/
