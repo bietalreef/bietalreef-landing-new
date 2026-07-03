@@ -13,40 +13,17 @@ import {
   Linkedin,
   MessageCircle,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  LogIn
 } from 'lucide-react';
 
 const socialLinks = [
-  {
-    href: 'https://wa.me/971567856001',
-    label: 'WhatsApp',
-    icon: MessageCircle,
-  },
-  {
-    href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn',
-    label: 'Instagram',
-    icon: Instagram,
-  },
-  {
-    href: 'https://www.facebook.com/share/14fy6hGM7SJ/',
-    label: 'Facebook',
-    icon: Facebook,
-  },
-  {
-    href: 'https://youtube.com/@bietalreef?si=z78hlji5r9YheMGj',
-    label: 'YouTube',
-    icon: Youtube,
-  },
-  {
-    href: 'https://www.tiktok.com/@bietalreef0?_r=1&_t=ZS-97iuKMbktCn',
-    label: 'TikTok',
-    icon: 'tiktok',
-  },
-  {
-    href: 'https://www.linkedin.com/in/bietalreef',
-    label: 'LinkedIn',
-    icon: Linkedin,
-  },
+  { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
+  { href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn', label: 'Instagram', icon: Instagram },
+  { href: 'https://www.facebook.com/share/14fy6hGM7SJ/', label: 'Facebook', icon: Facebook },
+  { href: 'https://youtube.com/@bietalreef?si=z78hlji5r9YheMGj', label: 'YouTube', icon: Youtube },
+  { href: 'https://www.tiktok.com/@bietalreef0?_r=1&_t=ZS-97iuKMbktCn', label: 'TikTok', icon: 'tiktok' },
+  { href: 'https://www.linkedin.com/in/bietalreef', label: 'LinkedIn', icon: Linkedin },
 ];
 
 const footerSections = [
@@ -71,6 +48,16 @@ const footerSections = [
       { href: '/marketplace', label: 'المنتجات والمتاجر' },
       { href: '/pricing', label: 'الأسعار' },
       { href: '/blog', label: 'المدونة' }
+    ]
+  },
+  {
+    id: 'account',
+    title: 'حساب العميل',
+    icon: LogIn,
+    links: [
+      { href: '/login', label: 'تسجيل دخول' },
+      { href: '/login?mode=register', label: 'إنشاء حساب' },
+      { href: '/contact', label: 'مساعدة الحساب' }
     ]
   },
   {
@@ -117,14 +104,7 @@ function TikTokIcon(props) {
 
 function SocialLink({ href, label, icon: Icon }) {
   return (
-    <a
-      href={href}
-      aria-label={label}
-      title={label}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark"
-    >
+    <a href={href} aria-label={label} title={label} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark">
       {Icon === 'tiktok' ? <TikTokIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
     </a>
   );
@@ -132,47 +112,22 @@ function SocialLink({ href, label, icon: Icon }) {
 
 function FooterLink({ href, children }) {
   if (href?.startsWith('tel:') || href?.startsWith('mailto:')) {
-    return (
-      <a href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
-        {children}
-      </a>
-    );
+    return <a href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</a>;
   }
-
-  return (
-    <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">
-      {children}
-    </Link>
-  );
+  return <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</Link>;
 }
 
 function FooterAccordionSection({ section, isOpen, onToggle }) {
   const Icon = section.icon;
-
   return (
     <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button
-        type="button"
-        onClick={onToggle}
-        className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0"
-        aria-expanded={isOpen}
-      >
-        <h2 className="flex items-center gap-2 text-base font-black text-primary">
-          <Icon className="h-5 w-5" />
-          {section.title}
-        </h2>
-        <span className="text-primary md:hidden">
-          {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-        </span>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
+        <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
+        <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
       </button>
-
       <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
         <ul className="space-y-1">
-          {section.links.map((link) => (
-            <li key={link.href}>
-              <FooterLink href={link.href}>{link.label}</FooterLink>
-            </li>
-          ))}
+          {section.links.map((link) => <li key={link.href}><FooterLink href={link.href}>{link.label}</FooterLink></li>)}
         </ul>
       </div>
     </nav>
@@ -183,43 +138,25 @@ export { footerSections, socialLinks };
 
 export default function Footer() {
   const [openSection, setOpenSection] = useState(null);
-
-  const toggleSection = (sectionId) => {
-    setOpenSection((current) => (current === sectionId ? null : sectionId));
-  };
+  const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
 
   return (
     <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(6,1fr)]">
           <div className="text-center md:text-right">
             <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
-            <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
-              منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.
-            </p>
+            <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.</p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
-              {socialLinks.map((item) => (
-                <SocialLink key={item.label} {...item} />
-              ))}
+              {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
             </div>
           </div>
-
           <div className="md:contents">
-            {footerSections.map((section) => (
-              <FooterAccordionSection
-                key={section.id}
-                section={section}
-                isOpen={openSection === section.id}
-                onToggle={() => toggleSection(section.id)}
-              />
-            ))}
+            {footerSections.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
           </div>
         </div>
       </div>
-
-      <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">
-        جميع الحقوق محفوظة © 2026 بيت الريف
-      </div>
+      <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">جميع الحقوق محفوظة © 2026 بيت الريف</div>
     </footer>
   );
 }
