@@ -59,13 +59,15 @@ export default function WeyakChat() {
     <>
       {/* Floating Button */}
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${
           isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         } bg-[#1B4D3E] text-white`}
         aria-label="Open Chat"
+        title="Open Chat"
       >
-        <div className="relative">
+        <div className="relative" aria-hidden="true">
           <MessageCircle className="w-8 h-8" />
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -79,11 +81,13 @@ export default function WeyakChat() {
         className={`fixed bottom-6 right-6 z-50 w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden border border-gray-100 ${
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-10 pointer-events-none'
         }`}
+        role="dialog"
+        aria-label="وياك مساعد بيت الريف"
       >
         {/* Header */}
         <div className="bg-[#1B4D3E] p-4 flex items-center justify-between text-white shrink-0">
           <div className="flex items-center gap-3">
-            <div className="relative">
+            <div className="relative" aria-hidden="true">
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center overflow-hidden border-2 border-white/20">
                 <MessageCircle className="w-6 h-6" />
               </div>
@@ -95,15 +99,18 @@ export default function WeyakChat() {
             </div>
           </div>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-white/10 rounded-full transition-colors"
+            aria-label="إغلاق المحادثة"
+            title="إغلاق المحادثة"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth" aria-live="polite">
           {messages.map((msg, idx) => (
             <div
               key={idx}
@@ -123,7 +130,7 @@ export default function WeyakChat() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-white p-4 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin text-[#1B4D3E]" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#1B4D3E]" aria-hidden="true" />
                 <span className="text-xs text-gray-500">جاري الكتابة...</span>
               </div>
             </div>
@@ -135,7 +142,9 @@ export default function WeyakChat() {
         <div className="p-4 bg-white border-t border-gray-100 shrink-0">
           <form onSubmit={handleSubmit} className="flex items-end gap-2">
             <div className="flex-1 relative">
+              <label htmlFor="weyaak-message" className="sr-only">اكتب رسالتك إلى وياك</label>
               <textarea
+                id="weyaak-message"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => {
@@ -153,22 +162,23 @@ export default function WeyakChat() {
                 type="button"
                 className="absolute left-2 bottom-2.5 p-1.5 text-gray-400 hover:text-[#1B4D3E] transition-colors"
                 title="تسجيل صوتي (قريباً)"
+                aria-label="تسجيل صوتي قريباً"
               >
-                <Mic className="w-5 h-5" />
+                <Mic className="w-5 h-5" aria-hidden="true" />
               </button>
             </div>
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
               className="p-3 bg-[#1B4D3E] text-white rounded-xl hover:bg-[#143d31] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md flex-shrink-0"
+              aria-label="إرسال الرسالة"
+              title="إرسال الرسالة"
             >
-              <Send className={`w-5 h-5 ${typeof document !== 'undefined' && document.dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <Send className={`w-5 h-5 ${typeof document !== 'undefined' && document.dir === 'rtl' ? 'rotate-180' : ''}`} aria-hidden="true" />
             </button>
           </form>
           <div className="text-center mt-2">
-            <p className="text-[10px] text-gray-400">
-              مدعوم بالذكاء الاصطناعي من بيت الريف
-            </p>
+            <p className="text-[10px] text-gray-400">مدعوم بالذكاء الاصطناعي من بيت الريف</p>
           </div>
         </div>
       </div>
