@@ -10,6 +10,7 @@ export const UAE_EMIRATES = [
     areas: [
       { slug: 'abu-dhabi-city', nameAr: 'مدينة أبوظبي', nameEn: 'Abu Dhabi City' },
       { slug: 'al-ain', nameAr: 'العين', nameEn: 'Al Ain' },
+      { slug: 'mazid-company-camp', nameAr: 'مزيد - معسكر الشركات', nameEn: 'Mazyad Company Camp' },
       { slug: 'al-dhafra', nameAr: 'الظفرة', nameEn: 'Al Dhafra' },
       { slug: 'baniyas', nameAr: 'بني ياس', nameEn: 'Baniyas' },
       { slug: 'khalifa-city', nameAr: 'مدينة خليفة', nameEn: 'Khalifa City' },
