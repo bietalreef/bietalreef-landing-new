@@ -16,6 +16,39 @@ import {
   ChevronUp
 } from 'lucide-react';
 
+const socialLinks = [
+  {
+    href: 'https://wa.me/971567856001',
+    label: 'WhatsApp',
+    icon: MessageCircle,
+  },
+  {
+    href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn',
+    label: 'Instagram',
+    icon: Instagram,
+  },
+  {
+    href: 'https://www.facebook.com/share/14fy6hGM7SJ/',
+    label: 'Facebook',
+    icon: Facebook,
+  },
+  {
+    href: 'https://youtube.com/@bietalreef?si=z78hlji5r9YheMGj',
+    label: 'YouTube',
+    icon: Youtube,
+  },
+  {
+    href: 'https://www.tiktok.com/@bietalreef0?_r=1&_t=ZS-97iuKMbktCn',
+    label: 'TikTok',
+    icon: 'tiktok',
+  },
+  {
+    href: 'https://www.linkedin.com/in/bietalreef',
+    label: 'LinkedIn',
+    icon: Linkedin,
+  },
+];
+
 const footerSections = [
   {
     id: 'biet-alreef',
@@ -74,16 +107,25 @@ const footerSections = [
   }
 ];
 
-function SocialLink({ href, label, children }) {
+function TikTokIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M16.6 5.82c1.04.75 2.31 1.19 3.68 1.19v3.18c-1.34 0-2.6-.29-3.68-.82v5.87c0 3.58-2.9 6.48-6.48 6.48S3.64 18.82 3.64 15.24s2.9-6.48 6.48-6.48c.4 0 .79.04 1.17.11v3.33a3.14 3.14 0 1 0 2.14 2.98V2.28h3.17c.14 1.43.88 2.68 2 3.54Z" />
+    </svg>
+  );
+}
+
+function SocialLink({ href, label, icon: Icon }) {
   return (
     <a
       href={href}
       aria-label={label}
+      title={label}
       target="_blank"
       rel="noopener noreferrer"
       className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark"
     >
-      {children}
+      {Icon === 'tiktok' ? <TikTokIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
     </a>
   );
 }
@@ -137,7 +179,7 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
   );
 }
 
-export { footerSections };
+export { footerSections, socialLinks };
 
 export default function Footer() {
   const [openSection, setOpenSection] = useState(null);
@@ -155,22 +197,10 @@ export default function Footer() {
             <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
               منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.
             </p>
-            <div className="mt-5 flex items-center justify-center gap-3 md:justify-start" dir="ltr">
-              <SocialLink href="https://wa.me/971567856001" label="WhatsApp">
-                <MessageCircle className="h-5 w-5" />
-              </SocialLink>
-              <SocialLink href="https://www.instagram.com/" label="Instagram">
-                <Instagram className="h-5 w-5" />
-              </SocialLink>
-              <SocialLink href="https://www.facebook.com/" label="Facebook">
-                <Facebook className="h-5 w-5" />
-              </SocialLink>
-              <SocialLink href="https://www.youtube.com/" label="YouTube">
-                <Youtube className="h-5 w-5" />
-              </SocialLink>
-              <SocialLink href="https://www.linkedin.com/" label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </SocialLink>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
+              {socialLinks.map((item) => (
+                <SocialLink key={item.label} {...item} />
+              ))}
             </div>
           </div>
 
