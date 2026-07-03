@@ -13,8 +13,7 @@ import {
   Linkedin,
   MessageCircle,
   ChevronDown,
-  ChevronUp,
-  LogIn
+  ChevronUp
 } from 'lucide-react';
 
 const socialLinks = [
@@ -48,16 +47,6 @@ const footerSections = [
       { href: '/marketplace', label: 'المنتجات والمتاجر' },
       { href: '/pricing', label: 'الأسعار' },
       { href: '/blog', label: 'المدونة' }
-    ]
-  },
-  {
-    id: 'account',
-    title: 'حساب العميل',
-    icon: LogIn,
-    links: [
-      { href: '/login', label: 'تسجيل دخول' },
-      { href: '/login?mode=register', label: 'إنشاء حساب' },
-      { href: '/contact', label: 'مساعدة الحساب' }
     ]
   },
   {
@@ -143,7 +132,7 @@ export default function Footer() {
   return (
     <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(6,1fr)]">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
           <div className="text-center md:text-right">
             <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
             <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.</p>
