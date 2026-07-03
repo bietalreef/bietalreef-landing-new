@@ -1,10 +1,12 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEOHead from '../components/SEOHead';
 import { ArrowLeft, Bot, Building2, MapPinned, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
+
+const SITE_URL = 'https://bietalreef.ae';
 
 const heroSlides = [
   { src: '/bait-alreef-construction-catalog.webp', alt: 'منصة بيت الريف للبناء والمقاولات والصيانة في الإمارات', title: 'منصة بيت الريف الذكية' },
@@ -34,13 +36,68 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  const description = 'بيت الريف منصة ذكية لخدمات البناء والصيانة والتصميم في الإمارات. ابدأ من دليل الإمارات أو مزودي الخدمات أو الخدمات والعروض أو المنتجات والمتاجر، واسأل وياك ليساعدك خطوة بخطوة.';
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'بيت الريف',
+      alternateName: 'Biet Alreef',
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo.png`,
+      description,
+      areaServed: {
+        '@type': 'Country',
+        name: 'United Arab Emirates',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+971567856001',
+        contactType: 'customer support',
+        areaServed: 'AE',
+        availableLanguage: ['Arabic', 'English'],
+      },
+      sameAs: [
+        'https://www.instagram.com/bietalreef',
+        'https://www.facebook.com/share/14fy6hGM7SJ/',
+        'https://youtube.com/@bietalreef',
+        'https://www.tiktok.com/@bietalreef0',
+        'https://www.linkedin.com/in/bietalreef',
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'بيت الريف',
+      url: SITE_URL,
+      inLanguage: 'ar-AE',
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${SITE_URL}/providers?search={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'بيت الريف | منصة البناء والمقاولات والصيانة الذكية في الإمارات',
+      url: SITE_URL,
+      description,
+      inLanguage: 'ar-AE',
+      isPartOf: { '@id': SITE_URL },
+      about: ['البناء', 'المقاولات', 'الصيانة', 'التصميم الداخلي', 'مواد البناء', 'مزودو الخدمات في الإمارات'],
+    },
+  ];
+
   return (
     <>
-      <Head>
-        <title>بيت الريف | منصة البناء والمقاولات والصيانة الذكية في الإمارات</title>
-        <meta name="description" content="بيت الريف منصة ذكية لخدمات البناء والصيانة والتصميم في الإمارات. ابدأ من دليل الإمارات أو مزودي الخدمات أو الخدمات والعروض أو المنتجات والمتاجر، واسأل وياك ليساعدك خطوة بخطوة." />
-        <link rel="canonical" href="https://bietalreef.ae" />
-      </Head>
+      <SEOHead
+        title="بيت الريف | منصة البناء والمقاولات والصيانة الذكية في الإمارات"
+        description={description}
+        keywords="بيت الريف, مقاولات الإمارات, مزودو خدمات, دليل الإمارات, مواد بناء, تصميم داخلي, صيانة, وياك AI"
+        canonicalPath="/"
+        structuredData={structuredData}
+      />
 
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar />
