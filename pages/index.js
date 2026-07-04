@@ -89,8 +89,8 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section className="relative z-10 mx-auto -mt-12 max-w-5xl px-4 md:-mt-10">
-            <p className="mx-auto mb-4 max-w-3xl text-center text-base font-bold leading-8 text-gray-700 md:text-lg">نحن لا نربطك بعميل فقط... <span className="text-[#0F3F1A] font-black">نبني لك حضوراً رقمياً دائماً</span> حيث يبحث عنك عملاؤك.</p>
+          <section className="relative z-10 mx-auto mt-3 max-w-5xl px-4 md:mt-5">
+            <p className="mx-auto mb-5 max-w-3xl text-center text-base font-bold leading-8 text-gray-700 md:text-lg">نحن لا نربطك بعميل فقط... <span className="text-[#0F3F1A] font-black">نبني لك حضوراً رقمياً دائماً</span> حيث يبحث عنك عملاؤك.</p>
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
               <WeyaakHeroCard />
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
