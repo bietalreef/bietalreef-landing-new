@@ -14,7 +14,7 @@ export default function WeyaakHeroCard() {
         </div>
         <div className="w-full text-center">
           <p className="text-2xl font-black text-[#8A6A00]">وياك</p>
-          <h2 className="mt-1 whitespace-nowrap text-[1.32rem] font-black leading-tight text-[#0F3F1A] sm:text-2xl md:text-3xl">وكيلك الذكي في كل خطوة بناء</h2>
+          <h2 className="mt-1 whitespace-nowrap text-[1.04rem] font-black leading-tight text-[#0F3F1A] min-[390px]:text-[1.14rem] sm:text-2xl md:text-3xl">وكيلك الذكي في كل خطوة بناء</h2>
           <p className="mx-auto mt-2 max-w-2xl text-sm leading-7 text-gray-600">
             يرتب لك الطريق داخل بيت الريف، يقارن الخيارات، ويقربك من القرار الصحيح.
           </p>
