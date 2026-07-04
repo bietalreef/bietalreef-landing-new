@@ -36,14 +36,14 @@ const providerPresenceCards = [
   { title: 'محتوى موجه للبحث والذكاء الاصطناعي', desc: 'نساعد تخصصك على الظهور عبر محتوى منظم يخدم Google ومحركات الذكاء الاصطناعي.', icon: Sparkles },
 ];
 
-const clientTrustBadges = ['ثقة', 'أمان', 'بدون عمولة'];
-
 const experienceCards = [
   { title: 'مسار واضح', desc: 'كل زائر يبدأ من بوابة مفهومة بدل التشتت بين الصفحات.', icon: Search },
   { title: 'وياك حاضر', desc: 'المساعد الذكي يربط السؤال بالقسم المناسب داخل المنصة.', icon: Bot },
   { title: 'هوية عربية', desc: 'تصميم يحافظ على اتجاه وتجربة بيت الريف حتى مع تعدد اللغات.', icon: Sparkles },
   { title: 'قابل للنمو', desc: 'كل قسم جاهز لاحقًا للربط مع التطبيق وقاعدة البيانات.', icon: Building2 },
 ];
+
+const trustBadges = ['ثقة', 'أمان', 'بدون عمولة'];
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -105,16 +105,16 @@ export default function Home() {
             <div className="pointer-events-none absolute -top-20 right-8 h-64 w-64 rounded-full bg-[#D4AF37]/16 blur-3xl biet-glow-orb" />
             <div className="pointer-events-none absolute left-0 top-16 h-72 w-72 rounded-full bg-[#0F3F1A]/8 blur-3xl biet-glow-orb" />
 
-            <div className="relative mx-auto max-w-7xl px-4 pt-1 pb-6 md:pt-2 md:pb-10">
-              <div className="mb-2 flex justify-center lg:justify-start">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/90 px-5 py-2.5 text-sm font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur">
+            <div className="relative mx-auto max-w-7xl px-4 pt-0 pb-6 md:pb-10">
+              <div className="mb-2 flex justify-center md:mb-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/92 px-5 py-2.5 text-sm font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur">
                   <Sparkles className="h-4 w-4" aria-hidden="true" />
                   <span className="font-black uppercase tracking-[0.22em] text-[#0F3F1A]">Hi</span>
                   <span className="text-[#6F5400]">— مرحباً بك في الدار</span>
                 </div>
               </div>
 
-              <div className="relative mx-auto max-w-5xl">
+              <div className="relative mx-auto max-w-6xl">
                 <div className="absolute -inset-3 rounded-[2.6rem] bg-gradient-to-br from-[#D4AF37]/18 via-transparent to-[#0F3F1A]/12 blur-2xl" />
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-[#F7F1E8] shadow-2xl md:rounded-[2.5rem]">
                   {heroSlides.map((slide, index) => (
@@ -122,35 +122,29 @@ export default function Home() {
                       <Image src={slide.src} alt={slide.alt} title={slide.title} fill className="scale-105 object-cover transition-transform duration-[6200ms] ease-linear" priority={index === 0} sizes="100vw" />
                     </div>
                   ))}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/62 via-transparent to-white/10" />
-                  <div className="absolute bottom-5 right-5 left-5 text-white">
-                    <p className="text-sm font-black text-[#F4D35E] md:text-base">منصة بيت الريف الذكية</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/66 via-[#0F3F1A]/12 to-white/8" />
+                  <div className="absolute inset-x-5 bottom-6 text-center text-white md:bottom-8">
+                    <h1 className="text-3xl font-black leading-tight md:text-6xl">منصة بيت الريف الذكية</h1>
                   </div>
                 </div>
               </div>
 
-              <div className="mx-auto mt-4 max-w-5xl text-center lg:text-right">
-                <p className="inline-flex items-center gap-2 rounded-full border border-[#E6DCC8] bg-white/90 px-5 py-3 text-sm font-black leading-7 text-[#0F3F1A] shadow-sm md:text-base">
-                  <span>كل طريق يبدأ من اختيار القسم الصحيح</span>
-                  <ArrowLeft className="h-4 w-4 text-[#6F5400]" aria-hidden="true" />
-                </p>
+              <div className="mx-auto mt-3 flex max-w-6xl flex-col items-center justify-between gap-3 rounded-[1.7rem] border border-[#E6DCC8] bg-white/88 px-5 py-4 shadow-sm backdrop-blur md:flex-row">
+                <p className="text-base font-black text-[#0F3F1A] md:text-lg">كل طريق يبدأ من اختيار القسم الصحيح</p>
+                <Link href="#gateways" className="inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition hover:-translate-x-1">
+                  اختر القسم
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                </Link>
               </div>
 
-              <div className="mx-auto mt-5 max-w-5xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-7 text-center shadow-sm backdrop-blur md:px-8 md:py-8 lg:text-right">
-                <h2 className="text-4xl font-black leading-[1.18] tracking-[-0.035em] text-[#0F3F1A] md:text-6xl">
-                  محرك الأعمال الرقمي
-                  <span className="block bg-gradient-to-l from-[#0F3F1A] via-[#1B7A3A] to-[#B89200] bg-clip-text text-transparent">
-                    للمقاولات والبناء
-                  </span>
-                </h2>
-
-                <p className="mx-auto mt-5 max-w-2xl text-base font-bold leading-9 text-gray-700 md:text-lg lg:mx-0">
+              <div className="mx-auto mt-6 max-w-5xl text-center">
+                <p className="mx-auto max-w-3xl text-base font-bold leading-9 text-gray-700 md:text-lg">
                   نحن لا نربطك بعميل فقط... <span className="text-[#0F3F1A] font-black">نبني لك حضوراً رقمياً دائماً</span> حيث يبحث عنك عملاؤك.
                 </p>
 
                 <WeyaakHeroCard />
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
                   <Link href="/weyaak" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">
                     تحدث مع وياك الآن
                     <ArrowLeft className="h-5 w-5" aria-hidden="true" />
@@ -160,23 +154,23 @@ export default function Home() {
                     <ArrowLeft className="h-5 w-5" aria-hidden="true" />
                   </Link>
                 </div>
+
+                <div className="mx-auto mt-4 grid max-w-xl grid-cols-3 gap-2">
+                  {trustBadges.map((label) => (
+                    <div key={label} className="flex min-h-[44px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white/90 px-3 py-2 text-sm font-black text-[#0F3F1A] shadow-sm">
+                      <CheckCircle className="h-4 w-4 text-[#B89200]" aria-hidden="true" />
+                      {label}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
 
           {/* ═══ CLIENT JOURNEY SECTION ═══ */}
-          <section className="mx-auto max-w-7xl px-4 pt-2 pb-8 md:pt-4 md:pb-14">
-            <div className="mb-5 flex flex-wrap items-center justify-center gap-3 md:justify-start">
-              {clientTrustBadges.map((badge) => (
-                <span key={badge} className="inline-flex items-center gap-2 rounded-full border border-[#E6DCC8] bg-white px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-sm">
-                  <CheckCircle className="h-4 w-4 text-[#B89200]" aria-hidden="true" />
-                  {badge}
-                </span>
-              ))}
-            </div>
-
+          <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
             <div className="mb-8 text-center md:text-right">
-              <h2 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">ابحث... تواصل... أو دع وياك يتولى المهمة</h2>
+              <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">ابحث... تواصل... أو دع وياك يتولى المهمة</h2>
               <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">
                 تواصل مباشرة مع مزودي الخدمة، أو اترك وياك يفهم طلبك ويرشح لك الأنسب، أو حوّل احتياجك إلى مناقصة داخلية تصل إلى مزودين مؤهلين حسب الخدمة والمنطقة.
               </p>
@@ -199,7 +193,7 @@ export default function Home() {
           </section>
 
           {/* ═══ GATEWAY CARDS SECTION ═══ */}
-          <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
+          <section id="gateways" className="mx-auto max-w-7xl px-4 py-8 md:py-14 scroll-mt-24">
             <div className="mb-8 text-center md:text-right">
               <span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span>
               <h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2>
