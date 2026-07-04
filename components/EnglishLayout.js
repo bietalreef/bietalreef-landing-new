@@ -10,8 +10,6 @@ import {
   Bot,
   BriefcaseBusiness,
   ShieldCheck,
-  Mail,
-  Phone,
   Menu,
   X,
   Layers3,
@@ -200,6 +198,19 @@ export default function EnglishLayout({ children }) {
         }
         .english-readable main :where(.text-center) {
           text-align: left !important;
+        }
+        .english-readable main :where(.en-center),
+        .english-readable main :where(.en-center h1),
+        .english-readable main :where(.en-center h2),
+        .english-readable main :where(.en-center h3),
+        .english-readable main :where(.en-center p),
+        .english-readable main :where(.en-center span) {
+          direction: ltr;
+          unicode-bidi: plaintext;
+          text-align: center !important;
+        }
+        .english-readable main :where(.en-no-break) {
+          white-space: nowrap;
         }
         .english-footer-text,
         .english-footer-text :where(p, a, li, h2, span) {
