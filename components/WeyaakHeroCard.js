@@ -9,6 +9,7 @@ export default function WeyaakHeroCard() {
   return (
     <div className="mt-5 rounded-[2rem] border border-[#E6DCC8] bg-white/92 p-5 text-center shadow-xl shadow-[#0F3F1A]/5 backdrop-blur biet-soft-pulse">
       <div className="flex flex-col items-center gap-4">
+        <p className="text-base font-black text-[#8A6A00] md:text-lg">منصة البناء الذكية</p>
         <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-[2rem] bg-[#FDFBF7] p-2 shadow-inner ring-1 ring-[#E6DCC8]">
           <img src="/images/weyaak-new-logo.jpg" alt="شعار وياك" className="h-24 w-24 object-contain rounded-xl" />
         </div>
