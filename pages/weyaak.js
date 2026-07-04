@@ -102,8 +102,8 @@ export default function WeyaakPage() {
             </div>
             <div className="bg-white/5 rounded-3xl p-6 border border-white/10 backdrop-blur-md">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border border-emerald-100 shadow-sm">
+                  <img src="/images/weyaak-new-logo.jpg" alt="وياك AI" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <div className="text-xs font-bold">وياك AI</div>

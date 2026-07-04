@@ -89,7 +89,7 @@ export default function EnglishHome() {
 
               <div className="mx-auto mt-8 max-w-3xl rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm">
                 <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-[1.7rem] border border-[#E6DCC8] bg-white shadow-inner">
-                  <Image src="/images/weyaak-logo.svg" alt="Weyaak AI" width={82} height={82} className="h-20 w-20 object-contain" />
+                  <Image src="/images/weyaak-new-logo.jpg" alt="Weyaak AI" width={82} height={82} className="h-20 w-20 object-contain rounded-xl" />
                 </div>
                 <h3 className="text-2xl font-black text-[#0F3F1A]">Weyaak</h3>
                 <p className="mt-2 text-lg font-black text-[#0F3F1A]">Your smart agent in every building step</p>
