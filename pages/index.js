@@ -11,6 +11,9 @@ const SITE_URL = 'https://bietalreef.ae';
 
 const heroSlides = [
   { src: '/bait-alreef-hero-2.webp', alt: 'واجهة فيلا حديثة تمثل منصة بيت الريف للبناء والمقاولات في الإمارات', title: 'منصة بيت الريف الذكية' },
+  { src: '/bait-alreef-hero-clean.webp', alt: 'مشهد بناء حديث في الإمارات لمنصة بيت الريف', title: 'رحلة بناء أوضح' },
+  { src: '/bait-alreef-hero-18.webp', alt: 'منصة بيت الريف لتنظيم رحلة البناء والمقاولات في الإمارات', title: 'كل طريق يبدأ من اختيار القسم الصحيح' },
+  { src: '/images/seo/categories/interior-design.webp', alt: 'خدمات التصميم الداخلي والديكور في الإمارات عبر بيت الريف', title: 'تصميم وتشطيب ومواد ومزودون' },
 ];
 
 const gatewayCards = [
@@ -18,6 +21,13 @@ const gatewayCards = [
   { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي' },
   { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
   { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
+];
+
+const introModels = [
+  { title: 'دليل الإمارات', desc: 'ابدأ من المكان', icon: MapPinned },
+  { title: 'مزودون موثوقون', desc: 'شركات وورش', icon: UsersRound },
+  { title: 'خدمات وعروض', desc: 'طلب أو مقارنة', icon: Wrench },
+  { title: 'منتجات ومتاجر', desc: 'مواد وموردون', icon: ShoppingBag },
 ];
 
 const clientJourneyCards = [
@@ -79,16 +89,28 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="relative z-10 mx-auto mt-0 max-w-5xl px-4 md:mt-2">
-            <div className="mx-auto mb-5 max-w-3xl text-center">
+          <section className="relative z-10 mx-auto -mt-7 max-w-5xl px-4 md:-mt-9">
+            <div className="rounded-[2.25rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-2xl shadow-[#8A6A00]/8 backdrop-blur md:px-10 md:py-9">
               <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
               <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">
-                كل ما يحتاجه مشروعك في مكان واحد:<br className="hidden sm:block" /> مزود، خدمة، منتج، أو مسار واضح مع وياك.
+                كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.
               </p>
               <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
                 ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة
               </h2>
+              <div className="mt-6 grid grid-cols-4 gap-2 md:gap-4">
+                {introModels.map((item) => { const Icon = item.icon; return (
+                  <div key={item.title} className="rounded-2xl border border-[#EEE4D1] bg-gradient-to-b from-[#FFFDF8] to-[#F7F1E8] px-2 py-3 shadow-sm md:px-3 md:py-4">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#B0912F] shadow-inner ring-1 ring-[#E6DCC8] md:h-16 md:w-16"><Icon className="h-7 w-7 md:h-9 md:w-9" aria-hidden="true" /></div>
+                    <p className="mt-2 text-[0.7rem] font-black leading-5 text-[#0F3F1A] md:text-sm">{item.title}</p>
+                    <p className="hidden text-xs font-semibold text-gray-500 md:block">{item.desc}</p>
+                  </div>
+                ); })}
+              </div>
             </div>
+          </section>
+
+          <section className="relative z-10 mx-auto mt-4 max-w-5xl px-4 md:mt-5">
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
               <WeyaakHeroCard />
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
