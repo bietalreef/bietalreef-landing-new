@@ -77,20 +77,19 @@ export default function Home() {
                     <Image src={slide.src} alt={slide.alt} title={slide.title} fill priority={index === 0} className="scale-105 object-cover object-center transition-transform duration-[6200ms] ease-linear" sizes="100vw" />
                   </div>
                 ))}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0F3F1A]/10 via-[#0F3F1A]/18 to-[#0F3F1A]/62" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0F3F1A]/10 via-[#0F3F1A]/18 to-[#0F3F1A]/34" />
                 <div className="absolute inset-x-0 top-3 z-10 flex justify-center px-4 md:top-5">
                   <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/88 px-4 py-2 text-xs font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur md:px-5 md:py-2.5 md:text-sm"><Sparkles className="h-4 w-4" aria-hidden="true" /><span>مرحباً بك في الدار</span></div>
-                </div>
-                <div className="absolute inset-x-0 bottom-5 z-10 px-5 text-center text-white md:bottom-9">
-                  <p className="text-sm font-black text-[#F4D35E] drop-shadow md:text-base">منصة البناء الذكية</p>
-                  <h1 className="mx-auto mt-2 max-w-3xl text-3xl font-black leading-tight drop-shadow-lg md:text-6xl">منصة بيت الريف الذكية</h1>
-                  <p className="mx-auto mt-3 max-w-2xl text-sm font-bold leading-7 text-white/92 md:text-lg">كل ما يحتاجه مشروعك في مكان واحد: مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
                 </div>
               </div>
             </div>
           </section>
           <section className="relative z-10 mx-auto mt-3 max-w-5xl px-4 md:mt-5">
-            <p className="mx-auto mb-5 max-w-3xl text-center text-base font-bold leading-8 text-gray-700 md:text-lg">نحن لا نربطك بعميل فقط... <span className="text-[#0F3F1A] font-black">نبني لك حضوراً رقمياً دائماً</span> حيث يبحث عنك عملاؤك.</p>
+            <div className="mx-auto mb-5 max-w-3xl text-center">
+              <p className="text-sm font-black text-[#8A6A00] md:text-base">منصة البناء الذكية</p>
+              <h1 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
+              <p className="mx-auto mt-3 max-w-2xl text-sm font-bold leading-8 text-gray-700 md:text-lg">كل ما يحتاجه مشروعك في مكان واحد: مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
+            </div>
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
               <WeyaakHeroCard />
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
