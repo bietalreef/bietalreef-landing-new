@@ -8,7 +8,7 @@ const GOOGLE_VERIFICATION = 'HIY1XgYFRFCLwaTob54Dtx0InJae_SFmyX1bNslZDRg';
 
 /**
  * SEOHead — مكوّن SEO موحّد لجميع صفحات bietalreef.ae (Next.js)
- * مستوحى من src/components/seo/SEOHead.tsx في مستودع Figmawebapp (app.bietalreef.ae)
+ * محسّن للـ SEO و AEO و GEO
  * 
  * @param {string} title — عنوان الصفحة
  * @param {string} description — وصف الصفحة (Meta Description)
@@ -89,7 +89,7 @@ export default function SEOHead({
       <meta name="author" content={SITE_NAME} />
       <meta name="application-name" content={SITE_NAME} />
 
-      {/* ═══ Geo Tags (UAE) — مهم للـ Local SEO ═══ */}
+      {/* ═══ Geo Tags (UAE) — مهم للـ Local SEO و GEO ═══ */}
       <meta name="geo.region" content="AE" />
       <meta name="geo.placename" content="الإمارات العربية المتحدة" />
       <meta name="geo.position" content="25.2048;55.2708" />
@@ -103,7 +103,7 @@ export default function SEOHead({
       <link rel="alternate" hrefLang="en-AE" href={`${SITE_DOMAIN}${enPath}`} />
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
-      {/* ═══ Open Graph / Facebook ═══ */}
+      {/* ═══ Open Graph / Facebook — مهم للـ Social Sharing و AEO ═══ */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={title} />
@@ -126,6 +126,11 @@ export default function SEOHead({
       {/* ═══ Google Search Console ═══ */}
       <meta name="google-site-verification" content={GOOGLE_VERIFICATION} />
 
+      {/* ═══ Additional SEO Meta Tags ═══ */}
+      <meta name="format-detection" content="telephone=+971567856001" />
+      <meta name="revisit-after" content="7 days" />
+      <meta name="rating" content="general" />
+
       {/* ═══ PWA Meta Tags ═══ */}
       {includePWA && (
         <>
@@ -139,7 +144,7 @@ export default function SEOHead({
         </>
       )}
 
-      {/* ═══ JSON-LD Structured Data ═══ */}
+      {/* ═══ JSON-LD Structured Data — مهم للـ AEO ═══ */}
       {schemas.map((schema, index) => (
         <script
           key={index}
@@ -147,6 +152,10 @@ export default function SEOHead({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ))}
+
+      {/* ═══ Preconnect to external domains ═══ */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
     </Head>
   );
 }
