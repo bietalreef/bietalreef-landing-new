@@ -10,26 +10,10 @@ import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, Us
 const SITE_URL = 'https://bietalreef.ae';
 
 const heroSlides = [
-  {
-    src: '/images/webp/bait-alreef-premiere-cover-smart-construction-platform.webp',
-    alt: 'منصة بيت الريف الذكية لإدارة مشاريع البناء والصيانة في الإمارات',
-    title: 'منصة بيت الريف الذكية',
-  },
-  {
-    src: '/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp',
-    alt: 'منظومة بيت الريف للبناء والمقاولات ومزودي الخدمات في الإمارات',
-    title: 'منظومة البناء الذكية',
-  },
-  {
-    src: '/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp',
-    alt: 'منصة موحدة للتصميم والبناء وإدارة المشروع والمنتجات في الإمارات',
-    title: 'منصة موحدة لمشروعك',
-  },
-  {
-    src: '/images/webp/bait-alreef-why-biet-alreef-premium-comparison.webp',
-    alt: 'لماذا يختار العملاء منصة بيت الريف للمقاولات والبناء في الإمارات',
-    title: 'لماذا بيت الريف',
-  },
+  { src: '/images/webp/bait-alreef-premiere-cover-smart-construction-platform.webp', alt: 'منصة بيت الريف الذكية لإدارة مشاريع البناء والصيانة في الإمارات', title: 'منصة بيت الريف الذكية' },
+  { src: '/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp', alt: 'منظومة بيت الريف للبناء والمقاولات ومزودي الخدمات في الإمارات', title: 'منظومة البناء الذكية' },
+  { src: '/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp', alt: 'منصة موحدة للتصميم والبناء وإدارة المشروع والمنتجات في الإمارات', title: 'منصة موحدة لمشروعك' },
+  { src: '/images/webp/bait-alreef-why-biet-alreef-premium-comparison.webp', alt: 'لماذا يختار العملاء منصة بيت الريف للمقاولات والبناء في الإمارات', title: 'لماذا بيت الريف' },
 ];
 
 const gatewayCards = [
@@ -81,9 +65,9 @@ export default function Home() {
 
   const description = 'بيت الريف محرك الأعمال الرقمي لقطاع المقاولات والبناء في الإمارات. يساعد العميل على البحث والتواصل أو تحويل احتياجه إلى مناقصة داخلية، ويساعد مزود الخدمة على إدارة نشاطه من هاتفه وبناء حضور رقمي مستدام.';
   const structuredData = [
-    { '@context': 'https://schema.org', '@type': 'Organization', name: 'بيت الريف', alternateName: 'Biet Alreef', url: SITE_URL, logo: `${SITE_URL}/logo.png`, description, areaServed: { '@type': 'Country', name: 'United Arab Emirates' }, contactPoint: { '@type': 'ContactPoint', telephone: '+971567856001', contactType: 'customer support', areaServed: 'AE', availableLanguage: ['Arabic', 'English'] }, sameAs: ['https://www.instagram.com/bietalreef', 'https://www.facebook.com/share/14fy6hGM7SJ/', 'https://youtube.com/@bietalreef', 'https://www.tiktok.com/@bietalreef0', 'https://www.linkedin.com/in/bietalreef'] },
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'بيت الريف', alternateName: 'Biet Alreef', url: SITE_URL, logo: `${SITE_URL}/logo.png`, description, areaServed: { '@type': 'Country', name: 'United Arab Emirates' } },
     { '@context': 'https://schema.org', '@type': 'WebSite', name: 'بيت الريف', url: SITE_URL, inLanguage: 'ar-AE', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/providers?search={search_term_string}`, 'query-input': 'required name=search_term_string' } },
-    { '@context': 'https://schema.org', '@type': 'WebPage', name: 'بيت الريف | محرك الأعمال الرقمي للمقاولات والبناء في الإمارات', url: SITE_URL, description, inLanguage: 'ar-AE', isPartOf: { '@id': SITE_URL }, about: ['البناء', 'المقاولات', 'الصيانة', 'التصميم الداخلي', 'مواد البناء', 'مزودو الخدمات في الإمارات', 'محرك أعمال رقمي'] },
+    { '@context': 'https://schema.org', '@type': 'WebPage', name: 'بيت الريف | محرك الأعمال الرقمي للمقاولات والبناء في الإمارات', url: SITE_URL, description, inLanguage: 'ar-AE', about: ['البناء', 'المقاولات', 'الصيانة', 'التصميم الداخلي', 'مواد البناء', 'مزودو الخدمات في الإمارات', 'محرك أعمال رقمي'] },
   ];
 
   return (
@@ -108,30 +92,17 @@ export default function Home() {
           <section className="relative z-10 mx-auto -mt-7 max-w-5xl px-4 md:-mt-9">
             <div className="relative overflow-hidden rounded-[2.25rem] border border-[#E6DCC8] bg-white/96 px-5 pb-5 pt-6 text-center shadow-2xl shadow-[#8A6A00]/8 backdrop-blur md:px-10 md:pb-8 md:pt-9">
               <div className="pointer-events-none absolute inset-x-4 bottom-0 h-40 overflow-hidden rounded-b-[2rem] md:inset-x-8 md:h-52">
-                <Image
-                  src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp"
-                  alt="خلفية بصرية خفيفة لمنظومة بيت الريف الذكية"
-                  fill
-                  className="translate-y-1/3 scale-110 object-cover object-center opacity-18 blur-[0.2px]"
-                  sizes="(max-width: 768px) 92vw, 900px"
-                />
+                <Image src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp" alt="خلفية بصرية خفيفة لمنظومة بيت الريف الذكية" fill className="translate-y-1/3 scale-110 object-cover object-center opacity-[0.18] blur-[0.2px]" sizes="(max-width: 768px) 92vw, 900px" />
                 <div className="absolute inset-0 bg-gradient-to-b from-white via-white/70 to-white/20" />
               </div>
               <div className="relative z-10">
                 <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
-                <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">
-                  كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.
-                </p>
-                <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
-                  ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة
-                </h2>
+                <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
+                <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة</h2>
                 <div className="mt-6 grid grid-cols-4 gap-2 md:gap-4">
                   {introModels.map((item) => (
                     <div key={item.title} className="overflow-hidden rounded-2xl border border-[#EEE4D1] bg-white/86 px-2 py-3 shadow-sm backdrop-blur md:px-3 md:py-4">
-                      <div className="relative mx-auto h-12 w-12 overflow-hidden rounded-2xl bg-white shadow-inner ring-1 ring-[#E6DCC8] md:h-16 md:w-16">
-                        <Image src={item.image} alt={item.title} fill className="scale-125 object-cover object-center" sizes="64px" />
-                        <div className="absolute inset-0 bg-white/25" />
-                      </div>
+                      <div className="relative mx-auto h-12 w-12 overflow-hidden rounded-2xl bg-white shadow-inner ring-1 ring-[#E6DCC8] md:h-16 md:w-16"><Image src={item.image} alt={item.title} fill className="scale-125 object-cover object-center" sizes="64px" /><div className="absolute inset-0 bg-white/25" /></div>
                       <p className="mt-2 text-[0.7rem] font-black leading-5 text-[#0F3F1A] md:text-sm">{item.title}</p>
                       <p className="hidden text-xs font-semibold text-gray-500 md:block">{item.desc}</p>
                     </div>
@@ -160,10 +131,20 @@ export default function Home() {
               {gatewayCards.map((card) => { const Icon = card.icon; return <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" /><div className="relative"><div className="mb-6 flex items-center justify-between"><div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span></div><h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3><p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p><span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span></div></Link>; })}
             </div>
           </section>
+
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
-          <section className="bg-[#0F3F1A] py-12 text-white md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]"><div><span className="text-sm font-black text-[#F4D35E]">لمزود الخدمة</span><h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">أدر نشاطك التجاري من هاتفك</h2><p className="mt-5 text-base font-semibold leading-9 text-white/78 md:text-lg">هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.</p></div><div className="grid grid-cols-1 gap-4 md:grid-cols-3">{providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur"><div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F4D35E]/15 text-[#F4D35E]"><Icon className="h-6 w-6" aria-hidden="true" /></div><h3 className="text-xl font-black">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-white/70">{item.desc}</p></div>; })}</div></div></div></section>
+
+          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
+            <div className="mx-auto max-w-7xl px-4">
+              <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">لمزود الخدمة</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">أدر نشاطك التجاري من هاتفك</h2><p className="mx-auto mt-5 max-w-4xl text-base font-semibold leading-9 text-gray-600 md:text-lg">هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.</p></div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                {providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}
+              </div>
+            </div>
+          </section>
+
           <section className="bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">لا نبيع لك إعلاناً مؤقتاً</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 text-center shadow-sm"><div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
         </main>
         <Footer />
