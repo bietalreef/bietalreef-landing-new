@@ -49,7 +49,7 @@ export default function EnglishHome() {
               <div className="relative min-h-[560px] overflow-hidden rounded-b-[2.5rem] border-b border-[#E6DCC8] bg-[#F7F1E8] shadow-xl shadow-[#0F3F1A]/8 md:min-h-[680px] md:rounded-[2.75rem] md:border">
                 <Image src="/images/home-premium-hero.svg" alt="Premium Biet Al Reef construction scene in the UAE" fill priority className="object-cover object-center" sizes="100vw" />
                 <div className="absolute inset-0 bg-gradient-to-b from-white/58 via-white/16 to-[#FDFBF7]/82" />
-                <div className="absolute inset-x-0 top-9 mx-auto max-w-4xl px-5 text-center md:top-14">
+                <div className="absolute inset-x-0 top-9 mx-auto max-w-4xl px-5 text-center md:top-14 en-center">
                   <p className="text-xs font-black tracking-[0.22em] text-[#6F5400] md:text-sm">Smart building platform</p>
                   <h1 className="mt-4 text-4xl font-black leading-[1.2] text-[#0F3F1A] drop-shadow-sm md:text-7xl">
                     The future of building
@@ -77,23 +77,23 @@ export default function EnglishHome() {
           </section>
 
           <section className="relative z-10 mx-auto -mt-8 max-w-5xl px-4 md:-mt-12">
-            <div className="rounded-t-[2.5rem] border border-[#E6DCC8] bg-white/96 px-5 py-8 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-12">
+            <div className="rounded-t-[2.5rem] border border-[#E6DCC8] bg-white/96 px-5 py-8 shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-12 en-center">
               <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#FDFBF7] px-4 py-2 text-xs font-black text-[#6F5400] shadow-sm">
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
                 Hi — Welcome to the house
               </div>
-              <h2 className="mt-5 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">Biet Al Reef Platform</h2>
-              <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-9 text-gray-700 md:text-lg">
-                A smart platform bringing together the UAE Directory, service providers, services and offers, products and stores in one clear, fast and trusted experience.
+              <h2 className="mx-auto mt-5 max-w-full text-[2rem] font-black leading-tight text-[#0F3F1A] sm:text-4xl md:text-6xl en-no-break">Biet Al Reef Platform</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-700 md:text-lg">
+                A smart platform that brings together the UAE Directory, service providers, services and offers, products and stores in one clear, fast and trusted experience.
               </p>
 
-              <div className="mx-auto mt-8 max-w-3xl rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm">
-                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-[1.7rem] border border-[#E6DCC8] bg-white shadow-inner">
+              <div className="mx-auto mt-8 max-w-3xl rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm en-center">
+                <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-[1.7rem] border border-[#E6DCC8] bg-white shadow-inner">
                   <Image src="/images/weyaak-new-logo.jpg" alt="Weyaak AI" width={82} height={82} className="h-20 w-20 object-contain rounded-xl" />
                 </div>
-                <h3 className="text-2xl font-black text-[#0F3F1A]">Weyaak</h3>
-                <p className="mt-2 text-lg font-black text-[#0F3F1A]">Your smart agent in every building step</p>
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-gray-600">Weyaak organizes the way inside Biet Al Reef, compares options, saves time and helps you choose the right section.</p>
+                <h3 className="text-3xl font-black text-[#0F3F1A]">Weyaak</h3>
+                <p className="mx-auto mt-2 max-w-2xl text-base font-black text-[#0F3F1A] sm:text-lg md:text-xl en-no-break">Your smart agent in every building step</p>
+                <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-gray-600 md:text-base">Weyaak organizes the way inside Biet Al Reef, compares options, saves time and helps you choose the right section.</p>
               </div>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
