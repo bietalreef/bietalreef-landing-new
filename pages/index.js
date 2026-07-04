@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import WeyaakHeroCard from '../components/WeyaakHeroCard';
-import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
+import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -25,15 +25,15 @@ const gatewayCards = [
 ];
 
 const clientJourneyCards = [
-  { title: 'بحث وتواصل مباشر', desc: 'استهدف الخدمة أو المنطقة بنفسك، وتواصل بحرية مع مزودي الخدمة المناسبين.', icon: Search },
-  { title: 'مساعدة وياك الذكية', desc: 'وياك يفهم احتياجك، يسألك عن التفاصيل المهمة، ويرشدك إلى المسار الأنسب.', icon: Bot },
+  { title: 'بحث وتواصل مباشر', desc: 'ابحث كما تريد... واتخذ القرار بنفسك. تواصل بحرية مع مزودي الخدمة المناسبين.', icon: Search },
+  { title: 'مساعدة وياك الذكية', desc: 'دع وياك يتولى المهمة. يفهم احتياجك، يسألك عن التفاصيل، ويرشدك إلى المسار الأنسب.', icon: Bot },
   { title: 'مناقصة داخلية مؤهلة', desc: 'حوّل طلبك إلى مناقصة تصل لمن يخص خدمتك حسب النشاط والمنطقة والتخصص.', icon: UsersRound },
 ];
 
 const providerPresenceCards = [
-  { title: 'حضورك حيث يبحث عميلك', desc: 'لسنا منصة تربطك بعميل فقط؛ نبني لك وجوداً رقمياً يظهر في المكان الذي يبحث فيه عميلك.', icon: MapPinned },
-  { title: 'أدوات تشغيل من هاتفك', desc: 'ملف مهني، طلبات، عروض أسعار، مستندات، ومتابعة أعمالك من واجهة واحدة.', icon: Building2 },
-  { title: 'محتوى موجه للبحث والذكاء الاصطناعي', desc: 'نساعد نشاطك وتخصصك على الظهور عبر محتوى منظم يخدم Google ومحركات الذكاء الاصطناعي.', icon: Sparkles },
+  { title: 'حضورك حيث يبحث عميلك', desc: 'لا نبيع لك إعلاناً... نبني لك حضوراً رقمياً دائماً في Google، والذكاء الاصطناعي، وبيت الريف.', icon: MapPinned },
+  { title: 'أدوات تشغيل من هاتفك', desc: 'أدر نشاطك التجاري بالكامل من هاتفك. ملف مهني، طلبات، عروض أسعار، ومتابعة أعمالك.', icon: Building2 },
+  { title: 'محتوى موجه للبحث والذكاء الاصطناعي', desc: 'نساعد تخصصك على الظهور عبر محتوى منظم يخدم Google ومحركات الذكاء الاصطناعي.', icon: Sparkles },
 ];
 
 const experienceCards = [
@@ -97,13 +97,13 @@ export default function Home() {
 
       <div dir="rtl" className="app-viewport-lock bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar />
-        <main>
+        <main className="-mt-[1px]"> {/* Eliminate white space below header */}
           {/* ═══ HERO SECTION WITH SLIDES ═══ */}
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] pt-0">
             <div className="pointer-events-none absolute -top-20 right-8 h-64 w-64 rounded-full bg-[#D4AF37]/16 blur-3xl biet-glow-orb" />
             <div className="pointer-events-none absolute left-0 top-16 h-72 w-72 rounded-full bg-[#0F3F1A]/8 blur-3xl biet-glow-orb" />
 
-            <div className="relative mx-auto max-w-7xl px-4 pt-1 pb-8 md:pt-8 md:pb-14 lg:py-14">
+            <div className="relative mx-auto max-w-7xl px-4 pt-4 pb-8 md:pt-10 md:pb-14 lg:py-16">
               <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
                 <div className="order-2 text-center lg:order-1 lg:text-right">
                   <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/85 px-5 py-2.5 text-sm font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur">
@@ -120,8 +120,7 @@ export default function Home() {
                   </h1>
 
                   <p className="mx-auto mt-5 max-w-2xl text-base font-bold leading-9 text-gray-700 md:text-lg lg:mx-0">
-                    <strong className="text-[#0F3F1A]">للعميل:</strong> ابحث وتواصل مباشرة أو دع وياك يساعدك في اختيار الأنسب. <br className="hidden md:block" />
-                    <strong className="text-[#0F3F1A]">لمزود الخدمة:</strong> أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي حيث يبحث عنك عملاؤك.
+                    نحن لا نربطك بعميل فقط... <span className="text-[#0F3F1A] font-black">نبني لك حضوراً رقمياً دائماً</span> حيث يبحث عنك عملاؤك.
                   </p>
 
                   <WeyaakHeroCard />
@@ -163,7 +162,7 @@ export default function Home() {
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
             <div className="mb-8 text-center md:text-right">
               <span className="text-sm font-black text-[#6F5400]">للعميل</span>
-              <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">اختر طريقتك للوصول للحل</h2>
+              <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">ابحث... تواصل... أو دع وياك يتولى المهمة</h2>
               <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">
                 تواصل مباشرة مع مزودي الخدمة، أو اترك وياك يفهم طلبك ويرشح لك الأنسب، أو حوّل احتياجك إلى مناقصة داخلية تصل إلى مزودين مؤهلين حسب الخدمة والمنطقة.
               </p>
@@ -173,7 +172,7 @@ export default function Home() {
               {clientJourneyCards.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm">
+                  <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow">
                     <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15">
                       <Icon className="h-7 w-7" aria-hidden="true" />
                     </div>
