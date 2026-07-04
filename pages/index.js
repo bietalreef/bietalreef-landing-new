@@ -18,9 +18,21 @@ const heroSlides = [
 
 const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان' },
-  { title: 'مزودو الخدمات', desc: 'استعرض الشركات والورش والموردين حسب نوع المزود والنشاط والتخصص.', href: '/providers', icon: UsersRound, label: 'شركات وموردون' },
-  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم أرسل تفاصيل مشروعك لطلب عرض أو توجيه مناسب.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
-  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
+  { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي' },
+  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
+  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
+];
+
+const clientJourneyCards = [
+  { title: 'بحث وتواصل مباشر', desc: 'استهدف الخدمة أو المنطقة بنفسك، وتواصل بحرية مع مزودي الخدمة المناسبين.', icon: Search },
+  { title: 'مساعدة وياك الذكية', desc: 'وياك يفهم احتياجك، يسألك عن التفاصيل المهمة، ويرشدك إلى المسار الأنسب.', icon: Bot },
+  { title: 'مناقصة داخلية مؤهلة', desc: 'حوّل طلبك إلى مناقصة تصل لمن يخص خدمتك حسب النشاط والمنطقة والتخصص.', icon: UsersRound },
+];
+
+const providerPresenceCards = [
+  { title: 'حضورك حيث يبحث عميلك', desc: 'لسنا منصة تربطك بعميل فقط؛ نبني لك وجوداً رقمياً يظهر في المكان الذي يبحث فيه عميلك.', icon: MapPinned },
+  { title: 'أدوات تشغيل من هاتفك', desc: 'ملف مهني، طلبات، عروض أسعار، مستندات، ومتابعة أعمالك من واجهة واحدة.', icon: Building2 },
+  { title: 'محتوى موجه للبحث والذكاء الاصطناعي', desc: 'نساعد نشاطك وتخصصك على الظهور عبر محتوى منظم يخدم Google ومحركات الذكاء الاصطناعي.', icon: Sparkles },
 ];
 
 const experienceCards = [
@@ -38,7 +50,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const description = 'بيت الريف منصة ذكية لخدمات البناء والصيانة والتصميم في الإمارات. ابدأ من دليل الإمارات أو مزودي الخدمات أو الخدمات والعروض أو المنتجات والمتاجر، واسأل وياك ليساعدك خطوة بخطوة.';
+  const description = 'بيت الريف محرك الأعمال الرقمي لقطاع المقاولات والبناء في الإمارات. يساعد العميل على البحث والتواصل أو تحويل احتياجه إلى مناقصة داخلية، ويساعد مزود الخدمة على إدارة نشاطه من هاتفه وبناء حضور رقمي مستدام.';
   const structuredData = [
     {
       '@context': 'https://schema.org',
@@ -63,21 +75,21 @@ export default function Home() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'بيت الريف | منصة البناء والمقاولات والصيانة الذكية في الإمارات',
+      name: 'بيت الريف | محرك الأعمال الرقمي للمقاولات والبناء في الإمارات',
       url: SITE_URL,
       description,
       inLanguage: 'ar-AE',
       isPartOf: { '@id': SITE_URL },
-      about: ['البناء', 'المقاولات', 'الصيانة', 'التصميم الداخلي', 'مواد البناء', 'مزودو الخدمات في الإمارات'],
+      about: ['البناء', 'المقاولات', 'الصيانة', 'التصميم الداخلي', 'مواد البناء', 'مزودو الخدمات في الإمارات', 'محرك أعمال رقمي'],
     },
   ];
 
   return (
     <>
       <SEOHead
-        title="بيت الريف | منصة البناء والمقاولات والصيانة الذكية في الإمارات"
+        title="بيت الريف | محرك الأعمال الرقمي للمقاولات والبناء في الإمارات"
         description={description}
-        keywords="بيت الريف, مقاولات الإمارات, مزودو خدمات, دليل الإمارات, مواد بناء, تصميم داخلي, صيانة, وياك AI"
+        keywords="بيت الريف, محرك الأعمال الرقمي, مقاولات الإمارات, مزودو خدمات, دليل الإمارات, مواد بناء, تصميم داخلي, صيانة, وياك AI"
         canonicalPath="/"
         structuredData={structuredData}
       />
@@ -92,20 +104,22 @@ export default function Home() {
             <div className="relative mx-auto max-w-7xl px-4 pt-1 pb-8 md:pt-8 md:pb-14 lg:py-14">
               <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
                 <div className="order-2 text-center lg:order-1 lg:text-right">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/80 px-4 py-2 text-xs font-black text-[#6F5400] shadow-sm backdrop-blur">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/85 px-5 py-2.5 text-sm font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur">
                     <Sparkles className="h-4 w-4" aria-hidden="true" />
-                    Hi — مرحباً بك في الدار
+                    <span className="font-black uppercase tracking-[0.22em] text-[#0F3F1A]">Hi</span>
+                    <span className="text-[#6F5400]">— مرحباً بك في الدار</span>
                   </div>
 
-                  <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-[#0F3F1A] md:text-6xl lg:text-7xl">
-                    مستقبل البناء أصبح
+                  <h1 className="mt-5 text-4xl font-black leading-[1.18] tracking-[-0.035em] text-[#0F3F1A] md:text-6xl lg:text-7xl">
+                    محرك الأعمال الرقمي
                     <span className="block bg-gradient-to-l from-[#0F3F1A] via-[#1B7A3A] to-[#B89200] bg-clip-text text-transparent">
-                      بين يديك
+                      للمقاولات والبناء
                     </span>
                   </h1>
 
-                  <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-9 text-gray-700 md:text-lg lg:mx-0">
-                    <strong className="text-[#0F3F1A]">منصة بيت الريف</strong> تجمع لك دليل الإمارات، مزودي الخدمات، الخدمات والعروض، والمنتجات والمتاجر في تجربة واحدة واضحة وسريعة وموثوقة.
+                  <p className="mx-auto mt-5 max-w-2xl text-base font-bold leading-9 text-gray-700 md:text-lg lg:mx-0">
+                    <strong className="text-[#0F3F1A]">للعميل:</strong> ابحث وتواصل مباشرة أو دع وياك يساعدك في اختيار الأنسب. <br className="hidden md:block" />
+                    <strong className="text-[#0F3F1A]">لمزود الخدمة:</strong> أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي حيث يبحث عنك عملاؤك.
                   </p>
 
                   <WeyaakHeroCard />
@@ -115,8 +129,8 @@ export default function Home() {
                       تحدث مع وياك الآن
                       <ArrowLeft className="h-5 w-5" aria-hidden="true" />
                     </Link>
-                    <Link href="/uae" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
-                      استكشف دليل الإمارات
+                    <Link href="/providers" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
+                      ابدأ كمزود خدمة
                       <ArrowLeft className="h-5 w-5" aria-hidden="true" />
                     </Link>
                   </div>
@@ -140,6 +154,31 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
+            <div className="mb-8 text-center md:text-right">
+              <span className="text-sm font-black text-[#6F5400]">للعميل</span>
+              <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">اختر طريقتك للوصول للحل</h2>
+              <p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">
+                تواصل مباشرة مع مزودي الخدمة، أو اترك وياك يفهم طلبك ويرشح لك الأنسب، أو حوّل احتياجك إلى مناقصة داخلية تصل إلى مزودين مؤهلين حسب الخدمة والمنطقة.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {clientJourneyCards.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm">
+                    <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15">
+                      <Icon className="h-7 w-7" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3>
+                    <p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p>
+                  </div>
+                );
+              })}
             </div>
           </section>
 
@@ -178,12 +217,41 @@ export default function Home() {
             </div>
           </section>
 
+          <section className="bg-[#0F3F1A] py-12 text-white md:py-18">
+            <div className="mx-auto max-w-7xl px-4">
+              <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                <div>
+                  <span className="text-sm font-black text-[#F4D35E]">لمزود الخدمة</span>
+                  <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">أدر نشاطك التجاري من هاتفك</h2>
+                  <p className="mt-5 text-base font-semibold leading-9 text-white/78 md:text-lg">
+                    هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                  {providerPresenceCards.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur">
+                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F4D35E]/15 text-[#F4D35E]">
+                          <Icon className="h-6 w-6" aria-hidden="true" />
+                        </div>
+                        <h3 className="text-xl font-black">{item.title}</h3>
+                        <p className="mt-3 text-sm font-semibold leading-8 text-white/70">{item.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
+
           <section className="bg-white py-12 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
               <div className="mb-8 text-center">
-                <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">تجربة قصيرة، واضحة، وقابلة للفهم</h2>
-                <p className="mx-auto mt-4 max-w-3xl text-gray-600 leading-8">
-                  الصفحة الرئيسية ليست زينة فقط؛ هي بوابة تشغيل ذكية توجه المستخدم والذكاء الاصطناعي إلى هيكل بيت الريف الصحيح.
+                <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">لا نبيع لك إعلاناً مؤقتاً</h2>
+                <p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">
+                  الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
