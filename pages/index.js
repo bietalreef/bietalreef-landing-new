@@ -10,10 +10,7 @@ import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, Us
 const SITE_URL = 'https://bietalreef.ae';
 
 const heroSlides = [
-  { src: '/bait-alreef-hero-18.webp', alt: 'منصة بيت الريف لتنظيم رحلة البناء والمقاولات في الإمارات', title: 'كل طريق يبدأ من اختيار القسم الصحيح' },
-  { src: '/bait-alreef-construction-catalog.webp', alt: 'دليل بيت الريف لخدمات البناء والصيانة والتصميم في الإمارات', title: 'كل الأقسام في مسار واحد واضح' },
-  { src: '/bait-alreef-hero-2.webp', alt: 'تصميم وتنفيذ مشاريع البناء الحديثة في الإمارات عبر بيت الريف', title: 'من الفكرة إلى اختيار المزود المناسب' },
-  { src: '/images/seo/categories/interior-design.webp', alt: 'خدمات التصميم الداخلي والديكور في الإمارات عبر بيت الريف', title: 'تصميم وتشطيب ومواد ومزودون' },
+  { src: '/bait-alreef-hero-2.webp', alt: 'واجهة فيلا حديثة تمثل منصة بيت الريف للبناء والمقاولات في الإمارات', title: 'منصة بيت الريف الذكية' },
 ];
 
 const gatewayCards = [
@@ -77,18 +74,20 @@ export default function Home() {
                     <Image src={slide.src} alt={slide.alt} title={slide.title} fill priority={index === 0} className="scale-105 object-cover object-center transition-transform duration-[6200ms] ease-linear" sizes="100vw" />
                   </div>
                 ))}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0F3F1A]/10 via-[#0F3F1A]/18 to-[#0F3F1A]/34" />
-                <div className="absolute inset-x-0 top-3 z-10 flex justify-center px-4 md:top-5">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/88 px-4 py-2 text-xs font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur md:px-5 md:py-2.5 md:text-sm"><Sparkles className="h-4 w-4" aria-hidden="true" /><span>مرحباً بك في الدار</span></div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-[#FDFBF7]/10" />
               </div>
             </div>
           </section>
-          <section className="relative z-10 mx-auto mt-3 max-w-5xl px-4 md:mt-5">
+
+          <section className="relative z-10 mx-auto mt-0 max-w-5xl px-4 md:mt-2">
             <div className="mx-auto mb-5 max-w-3xl text-center">
-              <p className="text-sm font-black text-[#8A6A00] md:text-base">منصة البناء الذكية</p>
-              <h1 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
-              <p className="mx-auto mt-3 max-w-2xl text-sm font-bold leading-8 text-gray-700 md:text-lg">كل ما يحتاجه مشروعك في مكان واحد: مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
+              <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
+              <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">
+                كل ما يحتاجه مشروعك في مكان واحد:<br className="hidden sm:block" /> مزود، خدمة، منتج، أو مسار واضح مع وياك.
+              </p>
+              <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
+                ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة
+              </h2>
             </div>
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
               <WeyaakHeroCard />
@@ -101,6 +100,7 @@ export default function Home() {
               </div>
             </div>
           </section>
+
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="mb-6 text-center md:text-right"><span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -108,7 +108,6 @@ export default function Home() {
             </div>
           </section>
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-            <div className="mb-8 text-center md:text-right"><h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">ابحث... تواصل... أو دع وياك يتولى المهمة</h2><p className="mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">تواصل مباشرة مع مزودي الخدمة، أو اترك وياك يفهم طلبك ويرشح لك الأنسب، أو حوّل احتياجك إلى مناقصة داخلية تصل إلى مزودين مؤهلين حسب الخدمة والمنطقة.</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
           <section className="bg-[#0F3F1A] py-12 text-white md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr]"><div><span className="text-sm font-black text-[#F4D35E]">لمزود الخدمة</span><h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">أدر نشاطك التجاري من هاتفك</h2><p className="mt-5 text-base font-semibold leading-9 text-white/78 md:text-lg">هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.</p></div><div className="grid grid-cols-1 gap-4 md:grid-cols-3">{providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur"><div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F4D35E]/15 text-[#F4D35E]"><Icon className="h-6 w-6" aria-hidden="true" /></div><h3 className="text-xl font-black">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-white/70">{item.desc}</p></div>; })}</div></div></div></section>
