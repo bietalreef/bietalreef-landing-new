@@ -189,6 +189,25 @@ export default function EnglishLayout({ children }) {
 
   return (
     <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+      <style jsx global>{`
+        .english-readable main :where(h1, h2, h3, h4, p, li) {
+          direction: ltr;
+          unicode-bidi: plaintext;
+          text-align: left;
+        }
+        .english-readable main :where(span, a, button) {
+          unicode-bidi: plaintext;
+        }
+        .english-readable main :where(.text-center) {
+          text-align: left !important;
+        }
+        .english-footer-text,
+        .english-footer-text :where(p, a, li, h2, span) {
+          direction: ltr;
+          unicode-bidi: plaintext;
+          text-align: left;
+        }
+      `}</style>
       <header className="sticky top-0 z-50 border-b border-[#E6DCC8] bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <Link href="/en" className="flex flex-shrink-0 items-center gap-2">
@@ -259,12 +278,12 @@ export default function EnglishLayout({ children }) {
         </div>
       )}
 
-      {children}
+      <div className="english-readable">{children}</div>
 
       <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className="text-center md:text-right">
+            <div className="text-center md:text-right english-footer-text">
               <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
               <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
                 The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a professional experience.
@@ -273,7 +292,7 @@ export default function EnglishLayout({ children }) {
                 {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
               </div>
             </div>
-            <div className="md:contents">
+            <div className="md:contents english-footer-text">
               {footerGroups.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
             </div>
           </div>
