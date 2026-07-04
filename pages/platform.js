@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
@@ -41,7 +42,7 @@ const sections = [
   {
     title: 'وياك مدير أعمالك الذكي',
     desc: 'مساعد ذكي يعمل 24 ساعة: يساعدك في كتابة العروض، إنشاء المستندات، الرد على العملاء، وتنظيم عملك. كل ذلك من هاتفك.',
-    icon: <Users className="w-6 h-6" />,
+    isWeyaak: true,
     color: 'text-pink-600',
     bg: 'bg-pink-50',
     keywords: ['مساعد ذكي', 'إدارة أعمال', 'موبايل']
@@ -137,8 +138,12 @@ export default function PlatformPage() {
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 py-4 md:py-6">
           {sections.map((section, i) => (
             <div key={i} className="bg-white rounded-[1.5rem] md:rounded-[2rem] border border-[#E6DCC8] p-4 md:p-6 hover:shadow-lg transition-all group">
-              <div className={`${section.bg} ${section.color} w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform`}>
-                {section.icon}
+              <div className={`${section.bg} ${section.color} w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center mb-3 md:mb-4 group-hover:scale-110 transition-transform overflow-hidden`}>
+                {section.isWeyaak ? (
+                  <Image src="/images/weyaak-logo.jpg" alt="Weyaak" width={56} height={56} className="object-cover" />
+                ) : (
+                  section.icon
+                )}
               </div>
               <h3 className="text-base md:text-lg font-black text-[#0F3F1A] mb-2 md:mb-3">{section.title}</h3>
               <p className="text-gray-600 leading-relaxed text-xs md:text-sm mb-3 md:mb-4">{section.desc}</p>

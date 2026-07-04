@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import WeyaakHeroCard from '../components/WeyaakHeroCard';
-import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, Globe, Zap, MessageSquare, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, Globe, Zap, MessageSquare, CheckCircle } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -28,7 +28,7 @@ const clientPathCards = [
   },
   { 
     title: 'مساعدة وياك الذكية - مستشارك الرقمي', 
-    icon: Bot,
+    isWeyaak: true,
     desc: 'احكِ لوياك ما تحتاجه باللغة التي تريدها وبطريقتك الخاصة. وياك يحلل طلبك بذكاء، يفهم التخصص المطلوب والمنطقة الجغرافية والميزانية، ويقترح عليك أفضل المزودين المؤهلين. كأنك تستشير خبيراً يعرف السوق الإماراتي بعمق.',
     cta: 'جرّب وياك الآن',
     href: '/weyaak',
@@ -72,7 +72,7 @@ const providerFeatureCards = [
   },
   { 
     title: 'وياك - مدير أعمالك الرقمي 24/7', 
-    icon: Zap,
+    isWeyaak: true,
     desc: 'وياك ليس مجرد روبوت محادثة عادي. هو مساعد أعمالك الذكي الذي يعمل 24 ساعة يومياً: يساعدك في كتابة عروض الأسعار الاحترافية، إنشاء العقود والمستندات، الرد على استفسارات العملاء، وتنظيم عملك اليومي. كل ذلك من هاتفك الذكي أينما كنت.',
     keywords: ['مساعد ذكي', 'إدارة أعمال', 'تطبيق موبايل']
   },
@@ -258,8 +258,12 @@ export default function Home() {
                 const Icon = item.icon;
                 return (
                   <Link key={item.title} href={item.href} className="group rounded-[1.5rem] md:rounded-[2rem] border border-[#E6DCC8] bg-white p-4 md:p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                    <div className="mb-3 md:mb-4 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15">
-                      <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                    <div className="mb-3 md:mb-4 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 overflow-hidden">
+                      {item.isWeyaak ? (
+                        <Image src="/images/weyaak-logo.jpg" alt="Weyaak" width={48} height={48} className="object-cover" />
+                      ) : (
+                        <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                      )}
                     </div>
                     <h3 className="text-lg md:text-xl font-black text-[#0F3F1A]">{item.title}</h3>
                     <p className="mt-2 md:mt-3 text-xs md:text-sm font-semibold leading-6 text-gray-600">{item.desc}</p>
@@ -322,8 +326,12 @@ export default function Home() {
                   const Icon = item.icon;
                   return (
                     <div key={item.title} className="rounded-[1.5rem] md:rounded-[2rem] border border-white/10 bg-white/8 p-4 md:p-6 backdrop-blur transition hover:bg-white/12">
-                      <div className="mb-3 md:mb-4 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-[#F4D35E]/15 text-[#F4D35E]">
-                        <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                      <div className="mb-3 md:mb-4 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-xl md:rounded-2xl bg-[#F4D35E]/15 text-[#F4D35E] overflow-hidden">
+                        {item.isWeyaak ? (
+                          <Image src="/images/weyaak-logo.jpg" alt="Weyaak" width={48} height={48} className="object-cover" />
+                        ) : (
+                          <Icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                        )}
                       </div>
                       <h3 className="text-base md:text-lg font-black">{item.title}</h3>
                       <p className="mt-2 md:mt-3 text-xs md:text-sm font-semibold leading-6 text-white/70">{item.desc}</p>
@@ -391,6 +399,9 @@ export default function Home() {
               <div className="grid grid-cols-1 gap-3 md:gap-4 md:grid-cols-2">
                 {weyaakCards.map((card) => (
                   <div key={card.title} className="rounded-[1.5rem] md:rounded-[2rem] border border-[#E6DCC8] bg-white p-4 md:p-6 shadow-sm">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] overflow-hidden shadow-lg">
+                      <Image src="/images/weyaak-logo.jpg" alt="Weyaak" width={48} height={48} className="object-cover" />
+                    </div>
                     <h3 className="text-lg md:text-xl font-black text-[#0F3F1A] mb-2 md:mb-3">{card.title}</h3>
                     <p className="text-xs md:text-sm font-semibold leading-6 text-gray-600 mb-3 md:mb-4">{card.desc}</p>
                     <div className="space-y-1 md:space-y-2">
