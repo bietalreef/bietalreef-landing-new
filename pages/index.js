@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
@@ -7,6 +8,13 @@ import WeyaakHeroCard from '../components/WeyaakHeroCard';
 import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle, ShieldCheck } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
+
+const heroSlides = [
+  { src: '/bait-alreef-hero-18.webp', alt: 'منصة بيت الريف لتنظيم رحلة البناء والمقاولات في الإمارات', title: 'كل طريق يبدأ من اختيار القسم الصحيح' },
+  { src: '/bait-alreef-construction-catalog.webp', alt: 'دليل بيت الريف لخدمات البناء والصيانة والتصميم في الإمارات', title: 'كل الأقسام في مسار واحد واضح' },
+  { src: '/bait-alreef-hero-2.webp', alt: 'تصميم وتنفيذ مشاريع البناء الحديثة في الإمارات عبر بيت الريف', title: 'من الفكرة إلى اختيار المزود المناسب' },
+  { src: '/images/seo/categories/interior-design.webp', alt: 'خدمات التصميم الداخلي والديكور في الإمارات عبر بيت الريف', title: 'تصميم وتشطيب ومواد ومزودون' },
+];
 
 const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان' },
@@ -41,6 +49,13 @@ const trustBadges = [
 ];
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length), 6200);
+    return () => clearInterval(timer);
+  }, []);
+
   const description = 'بيت الريف محرك الأعمال الرقمي لقطاع المقاولات والبناء في الإمارات. يساعد العميل على البحث والتواصل أو تحويل احتياجه إلى مناقصة داخلية، ويساعد مزود الخدمة على إدارة نشاطه من هاتفه وبناء حضور رقمي مستدام.';
   const structuredData = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'بيت الريف', alternateName: 'Biet Alreef', url: SITE_URL, logo: `${SITE_URL}/logo.png`, description, areaServed: { '@type': 'Country', name: 'United Arab Emirates' }, contactPoint: { '@type': 'ContactPoint', telephone: '+971567856001', contactType: 'customer support', areaServed: 'AE', availableLanguage: ['Arabic', 'English'] }, sameAs: ['https://www.instagram.com/bietalreef', 'https://www.facebook.com/share/14fy6hGM7SJ/', 'https://youtube.com/@bietalreef', 'https://www.tiktok.com/@bietalreef0', 'https://www.linkedin.com/in/bietalreef'] },
@@ -57,12 +72,16 @@ export default function Home() {
           <section className="relative isolate overflow-hidden bg-[#FDFBF7] pt-0">
             <div className="relative mx-auto max-w-7xl px-0 md:px-4">
               <div className="relative aspect-[16/10] overflow-hidden rounded-b-[2rem] border-b border-[#E6DCC8] bg-[#F7F1E8] shadow-xl shadow-[#0F3F1A]/8 md:aspect-[16/7] md:rounded-[2.75rem] md:border">
-                <Image src="/images/home-premium-hero.svg" alt="مشهد فاخر لمنصة بيت الريف في الإمارات" fill priority className="object-cover object-center" sizes="100vw" />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/10 to-[#0F3F1A]/38" />
+                {heroSlides.map((slide, index) => (
+                  <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1600ms] ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+                    <Image src={slide.src} alt={slide.alt} title={slide.title} fill priority={index === 0} className="scale-105 object-cover object-center transition-transform duration-[6200ms] ease-linear" sizes="100vw" />
+                  </div>
+                ))}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0F3F1A]/10 via-[#0F3F1A]/18 to-[#0F3F1A]/62" />
                 <div className="absolute inset-x-0 top-3 z-10 flex justify-center px-4 md:top-5">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/88 px-4 py-2 text-xs font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur md:px-5 md:py-2.5 md:text-sm"><Sparkles className="h-4 w-4" aria-hidden="true" /><span className="font-black uppercase tracking-[0.16em] text-[#0F3F1A]">Hi</span><span>— مرحباً بك في الدار</span></div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/88 px-4 py-2 text-xs font-black tracking-wide text-[#6F5400] shadow-sm backdrop-blur md:px-5 md:py-2.5 md:text-sm"><Sparkles className="h-4 w-4" aria-hidden="true" /><span>مرحباً بك في الدار</span></div>
                 </div>
-                <div className="absolute inset-x-0 bottom-6 z-10 px-5 text-center text-white md:bottom-10">
+                <div className="absolute inset-x-0 bottom-5 z-10 px-5 text-center text-white md:bottom-9">
                   <p className="text-sm font-black text-[#F4D35E] drop-shadow md:text-base">منصة البناء الذكية</p>
                   <h1 className="mx-auto mt-2 max-w-3xl text-3xl font-black leading-tight drop-shadow-lg md:text-6xl">منصة بيت الريف الذكية</h1>
                   <p className="mx-auto mt-3 max-w-2xl text-sm font-bold leading-7 text-white/92 md:text-lg">كل ما يحتاجه مشروعك في مكان واحد: مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
