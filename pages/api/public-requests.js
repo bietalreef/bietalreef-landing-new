@@ -1,8 +1,34 @@
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '8mb',
+    },
+  },
+};
+
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+function sanitizeAttachments(raw) {
+  if (!Array.isArray(raw)) return [];
+
+  return raw
+    .slice(0, 4)
+    .filter((item) => item && typeof item === 'object')
+    .map((item) => ({
+      name: String(item.name || 'image').slice(0, 120),
+      type: String(item.type || 'image/jpeg').slice(0, 60),
+      size: Number.isFinite(Number(item.size)) ? Number(item.size) : 0,
+      data_url: String(item.data_url || '').startsWith('data:image/') ? String(item.data_url || '') : '',
+    }))
+    .filter((item) => item.data_url && item.size > 0);
+}
+
 function normalizePayload(body) {
   const payload = body?.payload && typeof body.payload === 'object' ? body.payload : body || {};
+  const attachments = sanitizeAttachments(payload.attachments);
+  const currentUtm = payload.utm && typeof payload.utm === 'object' ? payload.utm : {};
+
   return {
     ...payload,
     full_name: String(payload.full_name || '').trim(),
@@ -10,7 +36,8 @@ function normalizePayload(body) {
     email: String(payload.email || '').trim(),
     source_path: String(payload.source_path || '').trim(),
     source_page_title: String(payload.source_page_title || '').trim(),
-    utm: payload.utm && typeof payload.utm === 'object' ? payload.utm : {},
+    attachments,
+    utm: attachments.length > 0 ? { ...currentUtm, attachments } : currentUtm,
   };
 }
 
