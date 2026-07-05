@@ -7,7 +7,11 @@ export const config = {
 };
 
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SUPABASE_PUBLIC_KEY =
+  process.env.SUPABASE_ANON_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.SUPABASE_PUBLISHABLE_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 function createRequestNumber(prefix = 'BR') {
   const now = new Date();
@@ -94,8 +98,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, message: 'Method not allowed' });
   }
 
-  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    return res.status(500).json({ ok: false, message: 'إعدادات الربط غير مكتملة.', missing: { SUPABASE_URL: !SUPABASE_URL, SUPABASE_ANON_KEY: !SUPABASE_ANON_KEY } });
+  if (!SUPABASE_URL || !SUPABASE_PUBLIC_KEY) {
+    return res.status(500).json({
+      ok: false,
+      message: 'إعدادات الربط غير مكتملة.',
+      missing: {
+        SUPABASE_URL: !SUPABASE_URL,
+        SUPABASE_PUBLIC_KEY: !SUPABASE_PUBLIC_KEY,
+      },
+    });
   }
 
   const formType = req.body?.formType;
@@ -112,8 +123,8 @@ export default async function handler(req, res) {
     const response = await fetch(`${SUPABASE_URL.replace(/\/$/, '')}/rest/v1/rpc/${rpcName}`, {
       method: 'POST',
       headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_PUBLIC_KEY,
+        Authorization: `Bearer ${SUPABASE_PUBLIC_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ p_payload: payload }),
