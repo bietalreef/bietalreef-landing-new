@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, Loader2, MessageSquareText, Phone, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ImagePlus, Loader2, MessageSquareText, Phone, ShieldCheck, X } from 'lucide-react';
 
 const emirates = ['أبوظبي', 'دبي', 'الشارقة', 'عجمان', 'رأس الخيمة', 'الفجيرة', 'أم القيوين'];
 const serviceCategories = ['مقاولات وتشطيبات', 'تصميم داخلي', 'نجارة وأبواب', 'رخام وسيراميك', 'صيانة عامة', 'كهرباء وسباكة', 'مواد بناء', 'أخرى'];
+const MAX_ATTACHMENTS = 4;
+const MAX_ORIGINAL_IMAGE_SIZE = 8 * 1024 * 1024;
+const MAX_COMPRESSED_SIZE = 1_500_000;
+const MAX_IMAGE_DIMENSION = 1400;
 
 function readUtm() {
   if (typeof window === 'undefined') return {};
@@ -12,6 +16,66 @@ function readUtm() {
     if (params.get(key)) result[key] = params.get(key);
   });
   return result;
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('تعذر قراءة الصورة.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error('تعذر تجهيز الصورة.'));
+    image.src = src;
+  });
+}
+
+function dataUrlSize(dataUrl) {
+  const base64 = String(dataUrl || '').split(',')[1] || '';
+  return Math.ceil((base64.length * 3) / 4);
+}
+
+async function compressImage(file) {
+  const source = await readFileAsDataUrl(file);
+  const image = await loadImage(source);
+  const ratio = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(image.width, image.height));
+  const width = Math.max(1, Math.round(image.width * ratio));
+  const height = Math.max(1, Math.round(image.height * ratio));
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(image, 0, 0, width, height);
+
+  let quality = 0.78;
+  let dataUrl = canvas.toDataURL('image/jpeg', quality);
+  while (dataUrlSize(dataUrl) > MAX_COMPRESSED_SIZE && quality > 0.45) {
+    quality -= 0.08;
+    dataUrl = canvas.toDataURL('image/jpeg', quality);
+  }
+  return dataUrl;
+}
+
+async function fileToAttachment(file) {
+  if (!file.type?.startsWith('image/')) throw new Error('الملفات المسموحة صور فقط.');
+  if (file.size > MAX_ORIGINAL_IMAGE_SIZE) throw new Error('حجم الصورة كبير جدًا. اختر صورة أقل من 8MB.');
+  const dataUrl = await compressImage(file);
+  const size = dataUrlSize(dataUrl);
+  if (size > MAX_COMPRESSED_SIZE) throw new Error('الصورة ما زالت كبيرة بعد الضغط. اختر صورة أوضح بحجم أقل.');
+  return {
+    name: file.name || 'project-image.jpg',
+    type: 'image/jpeg',
+    size,
+    data_url: dataUrl,
+  };
 }
 
 const initialState = {
@@ -35,6 +99,8 @@ const initialState = {
 export default function PublicLeadForm({ formType = 'quote' }) {
   const isQuote = formType === 'quote';
   const [form, setForm] = useState(initialState);
+  const [attachments, setAttachments] = useState([]);
+  const [attachmentMessage, setAttachmentMessage] = useState('');
   const [status, setStatus] = useState('idle');
   const [serverMessage, setServerMessage] = useState('');
   const [requestNumber, setRequestNumber] = useState('');
@@ -64,6 +130,32 @@ export default function PublicLeadForm({ formType = 'quote' }) {
     setForm((current) => ({ ...current, [key]: value }));
   }
 
+  async function handleFiles(event) {
+    const files = Array.from(event.target.files || []);
+    event.target.value = '';
+    if (!files.length) return;
+    setAttachmentMessage('');
+
+    if (attachments.length + files.length > MAX_ATTACHMENTS) {
+      setAttachmentMessage(`يمكن إرفاق ${MAX_ATTACHMENTS} صور كحد أقصى.`);
+      return;
+    }
+
+    try {
+      const prepared = [];
+      for (const file of files) {
+        prepared.push(await fileToAttachment(file));
+      }
+      setAttachments((current) => [...current, ...prepared].slice(0, MAX_ATTACHMENTS));
+    } catch (error) {
+      setAttachmentMessage(error?.message || 'تعذر إرفاق الصور.');
+    }
+  }
+
+  function removeAttachment(index) {
+    setAttachments((current) => current.filter((_, i) => i !== index));
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (!canSubmit || status === 'submitting') return;
@@ -74,6 +166,7 @@ export default function PublicLeadForm({ formType = 'quote' }) {
     const payload = {
       ...form,
       ...source,
+      attachments,
     };
 
     try {
@@ -88,6 +181,8 @@ export default function PublicLeadForm({ formType = 'quote' }) {
       setRequestNumber(data.request_number || '');
       setServerMessage('تم استلام الطلب بنجاح. سنعود إليك قريبًا بإذن الله.');
       setForm(initialState);
+      setAttachments([]);
+      setAttachmentMessage('');
     } catch (error) {
       setStatus('error');
       setServerMessage(error?.message || 'تعذر إرسال الطلب الآن. حاول مرة أخرى.');
@@ -183,9 +278,37 @@ export default function PublicLeadForm({ formType = 'quote' }) {
               </div>
             )}
 
+            <div className="rounded-2xl border border-dashed border-[#D4AF37]/60 bg-[#FFF8E7] p-4">
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p className="text-sm font-black text-[#0F3F1A]">إرفاق صور</p>
+                  <p className="mt-1 text-xs font-bold leading-6 text-gray-600">اختياري — أضف صورًا للمكان، المقاسات، الخامة، أو المشكلة. الحد الأقصى {MAX_ATTACHMENTS} صور.</p>
+                </div>
+                <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-black text-[#0F3F1A] shadow-sm ring-1 ring-[#E6DCC8]">
+                  <ImagePlus className="h-5 w-5 text-[#B0912F]" />
+                  اختيار صور
+                  <input type="file" accept="image/*" multiple onChange={handleFiles} className="hidden" />
+                </label>
+              </div>
+              {attachmentMessage ? <p className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs font-black text-red-700">{attachmentMessage}</p> : null}
+              {attachments.length > 0 ? (
+                <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+                  {attachments.map((item, index) => (
+                    <div key={`${item.name}-${index}`} className="relative overflow-hidden rounded-2xl border border-[#E6DCC8] bg-white p-2">
+                      <img src={item.data_url} alt={item.name} className="h-24 w-full rounded-xl object-cover" />
+                      <button type="button" onClick={() => removeAttachment(index)} className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-white/95 text-[#0F3F1A] shadow">
+                        <X className="h-4 w-4" />
+                      </button>
+                      <p className="mt-2 truncate text-[11px] font-bold text-gray-600" title={item.name}>{item.name}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
             <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] p-4 text-sm font-bold leading-7 text-gray-700">
               <input type="checkbox" checked={form.accepted} onChange={(e) => patch('accepted', e.target.checked)} className="mt-1 h-5 w-5 accent-[#0F3F1A]" />
-              <span>أوافق على استخدام بياناتي للتواصل بخصوص هذا الطلب فقط، وفق سياسة الخصوصية في بيت الريف.</span>
+              <span>أوافق على استخدام بياناتي والصور المرفقة للتواصل بخصوص هذا الطلب فقط، وفق سياسة الخصوصية في بيت الريف.</span>
             </label>
 
             {status === 'error' ? <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-black text-red-700">{serverMessage}</div> : null}
