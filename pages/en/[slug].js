@@ -4,6 +4,8 @@ import EnglishLayout from '../../components/EnglishLayout';
 import { ENGLISH_STATIC_PAGES, ENGLISH_SEO_SERVICE_PAGES } from '../../data/englishPages';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
 
+const RESERVED_ENGLISH_ROUTES = new Set(['weyaak']);
+
 export default function EnglishStaticPage({ page, slug, service, isSeoService }) {
   const canonical = `https://bietalreef.ae/en/${slug}`;
   const arPath = isSeoService ? `/${slug}` : slug === 'legal' ? '/legal' : `/${slug}`;
@@ -105,7 +107,9 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   return {
     paths: [
-      ...Object.keys(ENGLISH_STATIC_PAGES).map((slug) => ({ params: { slug } })),
+      ...Object.keys(ENGLISH_STATIC_PAGES)
+        .filter((slug) => !RESERVED_ENGLISH_ROUTES.has(slug))
+        .map((slug) => ({ params: { slug } })),
       ...Object.keys(ENGLISH_SEO_SERVICE_PAGES).map((slug) => ({ params: { slug } }))
     ],
     fallback: 'blocking'
