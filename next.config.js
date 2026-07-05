@@ -29,6 +29,37 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
+      // Legacy navigation and old sitemap aliases found in Search Console
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/dashboard',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/categories',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/ar-sitemap',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+      {
+        source: '/en-sitemap',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
+      {
+        source: '/sitemap',
+        destination: '/sitemap.xml',
+        permanent: true,
+      },
       {
         source: '/services/construction-contracting',
         destination: '/categories/general-contracting',
