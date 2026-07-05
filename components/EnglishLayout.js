@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import {
   Home,
   MapPinned,
@@ -27,25 +28,31 @@ import {
 } from 'lucide-react';
 
 const primaryLinks = [
-  ['/en', 'Home', Home],
-  ['/en/uae', 'UAE Directory', MapPinned],
-  ['/en/providers', 'Service Providers', UsersRound],
-  ['/en/services', 'Services & Offers', Wrench],
-  ['/en/marketplace', 'Products & Stores', ShoppingBag],
+  { href: '/en', label: 'Home', icon: Home },
+  { href: '/en/uae', label: 'UAE Directory', icon: MapPinned },
+  { href: '/en/providers', label: 'Service Providers', icon: UsersRound },
+  { href: '/en/services', label: 'Services & Offers', icon: Wrench },
+  { href: '/en/marketplace', label: 'Products & Stores', icon: ShoppingBag },
 ];
 
 const platformLinks = [
-  ['/en/weyaak', 'Weyaak AI', Bot],
-  ['/en/tools', 'Smart Tools', BriefcaseBusiness],
+  { href: '/en/weyaak', label: 'Weyaak AI', icon: Bot },
+  { href: '/en/tools', label: 'Tools', icon: BriefcaseBusiness },
 ];
 
 const companyLinks = [
-  ['/en/about', 'About Biet Al Reef', Building2],
-  ['/en/why-biet-alreef', 'Why Biet Al Reef', Building2],
-  ['/en/how-it-works', 'How it works', Building2],
+  { href: '/en/about', label: 'About Biet Al Reef', icon: Building2 },
+  { href: '/en/why-biet-alreef', label: 'Why Biet Al Reef', icon: Building2 },
+  { href: '/en/how-it-works', label: 'How it works', icon: Building2 },
 ];
 
-const navLinks = [...primaryLinks, ...platformLinks];
+const desktopLinks = [
+  ...primaryLinks,
+  { href: '/en/tools', label: 'Tools', icon: BriefcaseBusiness },
+  { href: '/en/weyaak', label: 'Weyaak', icon: Bot },
+  { href: '/en/about', label: 'About us', icon: Building2 },
+  { href: '/en/contact', label: 'Contact us', icon: Building2 },
+];
 
 const socialLinks = [
   { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
@@ -86,7 +93,7 @@ const footerGroups = [
     icon: Handshake,
     links: [
       ['/en/partners', 'Become a partner'],
-      ['/en/providers/register', 'Register as provider'],
+      ['/en/providers/register', 'Provider app access'],
       ['/en/suppliers', 'Suppliers'],
       ['/en/factories', 'Factories'],
     ],
@@ -113,6 +120,13 @@ const footerGroups = [
     ],
   },
 ];
+
+function isActivePath(pathname, href) {
+  if (!href || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http')) return false;
+  const cleanHref = href.split('?')[0];
+  if (cleanHref === '/en') return pathname === '/en';
+  return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
+}
 
 function TikTokIcon(props) {
   return (
@@ -141,11 +155,11 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
   const Icon = section.icon;
   return (
     <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-left md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
         <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
         <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
       </button>
-      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pl-7 md:block md:pb-0 md:pl-0`}>
         <ul className="space-y-1">
           {section.links.map(([href, label]) => <li key={href}><FooterLink href={href}>{label}</FooterLink></li>)}
         </ul>
@@ -154,10 +168,10 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
   );
 }
 
-function DrawerLink({ href, label, icon: Icon, onClick, nested = false }) {
+function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
   return (
-    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold text-gray-800 transition hover:bg-primary/5 hover:text-primary ${nested ? 'mr-8' : ''}`}>
-      <Icon className="h-5 w-5 text-primary" />
+    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'ml-8' : ''}`}>
+      <Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} />
       <span>{label}</span>
     </Link>
   );
@@ -166,7 +180,7 @@ function DrawerLink({ href, label, icon: Icon, onClick, nested = false }) {
 function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   return (
     <div className="border-t border-gray-100 pt-3">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
         <span className="flex items-center gap-3">
           <Icon className="h-5 w-5 text-primary" />
           {title}
@@ -179,14 +193,16 @@ function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
 }
 
 export default function EnglishLayout({ children }) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
+  const closeMenu = () => setOpen(false);
 
   return (
-    <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+    <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
       <style jsx global>{`
         .english-readable main :where(h1, h2, h3, h4, p, li) {
           direction: ltr;
@@ -219,69 +235,83 @@ export default function EnglishLayout({ children }) {
           text-align: left;
         }
       `}</style>
-      <header className="sticky top-0 z-50 border-b border-[#E6DCC8] bg-white/95 shadow-sm backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
+      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5">
           <Link href="/en" className="flex flex-shrink-0 items-center gap-2">
-            <Image src="/logo.png" alt="Biet Al Reef" width={52} height={52} className="h-12 w-12 object-contain" priority />
+            <Image src="/logo.png" alt="Biet Al Reef" width={44} height={44} className="h-11 w-11 object-contain" priority />
             <div className="hidden flex-col sm:flex">
-              <span className="text-sm font-black text-primary">Biet Al Reef</span>
+              <span className="text-sm font-bold text-primary">Biet Al Reef</span>
               <span className="text-xs text-gray-500">Smart building platform</span>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 text-sm font-bold lg:flex">
-            {navLinks.map(([href, label]) => (
-              <Link key={href} href={href} className="whitespace-nowrap rounded px-3 py-2 text-gray-700 transition hover:text-primary">
-                {label}
+          <div className="hidden items-center gap-1 text-sm md:flex">
+            {desktopLinks.map((item) => (
+              <Link key={item.href} href={item.href} className={`whitespace-nowrap rounded px-3 py-2 transition ${isActivePath(router.pathname, item.href) ? 'font-bold text-primary' : 'text-gray-700 hover:text-primary'}`}>
+                {item.label}
               </Link>
             ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Link href="/" className="inline-flex min-h-[40px] items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white px-3 py-2 text-xs font-black text-primary shadow-sm" aria-label="Switch to Arabic">
+            <Link href="/" className="inline-flex min-h-[36px] items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white px-3 py-1.5 text-xs font-black text-primary shadow-sm transition hover:border-primary" aria-label="Arabic version">
               <span>AR</span>
               <span aria-hidden="true">🇦🇪</span>
             </Link>
-            <button type="button" onClick={() => setOpen(true)} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#E6DCC8] bg-white text-primary shadow-sm lg:hidden" aria-label="Open menu">
+            <Link href="/en/platform" className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap" title="Learn about the Biet Al Reef platform">
+              Learn about the platform
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/" className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white px-2.5 text-[11px] font-black text-primary shadow-sm transition hover:border-primary" aria-label="Arabic version">
+              <span>AR</span>
+              <span aria-hidden="true">🇦🇪</span>
+            </Link>
+            <button type="button" onClick={() => setOpen(true)} className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="Open menu">
               <Menu className="h-6 w-6" />
             </button>
           </div>
-        </div>
+        </nav>
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-[100] lg:hidden" dir="rtl">
-          <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
-          <aside className="absolute bottom-0 left-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-r-[28px] bg-white shadow-2xl">
+        <div className="fixed inset-0 z-[100] md:hidden">
+          <button type="button" aria-label="Close menu" onClick={closeMenu} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
+          <aside className="absolute bottom-0 right-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-l-[28px] bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
-              <button type="button" onClick={() => setOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label="Close menu">
+              <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
+              <button type="button" onClick={closeMenu} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label="Close menu">
                 <X className="h-6 w-6" />
               </button>
-              <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
-              <span className="h-10 w-10" />
             </div>
+
             <div className="flex-1 overflow-y-auto px-5 py-4">
               <div className="space-y-1">
-                {primaryLinks.map(([href, label, Icon]) => (
-                  <DrawerLink key={href} href={href} label={label} icon={Icon} onClick={() => setOpen(false)} />
+                {primaryLinks.map((item) => (
+                  <DrawerLink key={item.href} {...item} active={isActivePath(router.pathname, item.href)} onClick={closeMenu} />
                 ))}
               </div>
+
               <div className="mt-5 space-y-3">
                 <DrawerSection title="Platform" icon={Rocket} open={platformOpen} onToggle={() => setPlatformOpen((value) => !value)}>
-                  {platformLinks.map(([href, label, Icon]) => <DrawerLink key={href} href={href} label={label} icon={Icon} nested onClick={() => setOpen(false)} />)}
+                  {platformLinks.map((item) => (
+                    <DrawerLink key={item.href} {...item} nested active={isActivePath(router.pathname, item.href)} onClick={closeMenu} />
+                  ))}
                 </DrawerSection>
+
                 <DrawerSection title="Biet Al Reef" icon={Building2} open={companyOpen} onToggle={() => setCompanyOpen((value) => !value)}>
-                  {companyLinks.map(([href, label, Icon]) => <DrawerLink key={href} href={href} label={label} icon={Icon} nested onClick={() => setOpen(false)} />)}
+                  {companyLinks.map((item) => (
+                    <DrawerLink key={item.href} {...item} nested active={isActivePath(router.pathname, item.href)} onClick={closeMenu} />
+                  ))}
                 </DrawerSection>
               </div>
             </div>
+
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
               <div className="mb-3 grid grid-cols-2 gap-2">
                 <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">EN</span>
-                <Link href="/" onClick={() => setOpen(false)} className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AR 🇦🇪</Link>
+                <Link href="/" onClick={closeMenu} className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AR 🇦🇪</Link>
               </div>
-              <Link href="/en/about" onClick={() => setOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg">
-                Explore the platform
+              <Link href="/en/platform" onClick={closeMenu} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg">
+                Learn about the platform
                 <Rocket className="h-4 w-4" />
               </Link>
             </div>
@@ -291,13 +321,13 @@ export default function EnglishLayout({ children }) {
 
       <div className="english-readable">{children}</div>
 
-      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
+      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className="text-center md:text-right english-footer-text">
+            <div className="text-center md:text-left english-footer-text">
               <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
               <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
-                The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a professional experience.
+                The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a reliable and professional experience.
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
                 {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
