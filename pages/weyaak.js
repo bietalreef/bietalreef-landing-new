@@ -1,10 +1,12 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { Bot, Building2, CheckCircle2, FileText, MessageCircle, Sparkles } from 'lucide-react';
+import { Building2, CheckCircle2, FileText, MessageCircle, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 
 const SITE_URL = 'https://bietalreef.ae';
+const WEYAAK_LOGO = '/images/weyaak-new-logo.jpg';
 
 const actions = [
   { title: 'طلب عرض سعر', desc: 'أرسل احتياجك لفريق بيت الريف بشكل منظم.', href: '/request-quote?source=weyaak', icon: FileText },
@@ -47,6 +49,9 @@ export default function WeyaakPage() {
                   <Sparkles className="h-4 w-4" />
                   مجلس وياك الرسمي
                 </div>
+                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center overflow-hidden rounded-[1.8rem] border border-[#E6DCC8] bg-white shadow-inner md:mx-0">
+                  <Image src={WEYAAK_LOGO} alt="شعار وياك — مدخل البيت" width={86} height={86} className="h-20 w-20 object-contain" priority />
+                </div>
                 <h1 className="text-4xl font-black leading-tight md:text-6xl">
                   وياك
                   <span className="block text-[#B99420]">مساعد بيت الريف الذكي</span>
@@ -67,8 +72,8 @@ export default function WeyaakPage() {
               <div className="mx-auto w-full max-w-md rounded-[2rem] border border-[#E6DCC8] bg-white p-5 shadow-2xl shadow-[#1F3D2B]/10">
                 <div className="rounded-[1.5rem] bg-gradient-to-br from-[#102A1E] to-[#1F3D2B] p-5 text-white">
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#D4AF37] text-[#1F3D2B]">
-                      <Bot className="h-7 w-7" />
+                    <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-white shadow-inner">
+                      <Image src={WEYAAK_LOGO} alt="Weyaak AI" width={58} height={58} className="h-14 w-14 object-contain" />
                     </div>
                     <div>
                       <p className="text-sm font-black text-[#F7E6A0]">Weyaak AI</p>
