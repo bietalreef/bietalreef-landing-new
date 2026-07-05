@@ -29,6 +29,17 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
+      // English aliases that currently reuse the active Arabic public forms
+      {
+        source: '/en/request-quote',
+        destination: '/request-quote',
+        permanent: false,
+      },
+      {
+        source: '/en/inquiry',
+        destination: '/inquiry',
+        permanent: false,
+      },
       // Legacy navigation and old sitemap aliases found in Search Console
       {
         source: '/home',
