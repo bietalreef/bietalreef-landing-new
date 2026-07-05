@@ -155,11 +155,11 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
   const Icon = section.icon;
   return (
     <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-left md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
         <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
         <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
       </button>
-      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pl-7 md:block md:pb-0 md:pl-0`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
         <ul className="space-y-1">
           {section.links.map(([href, label]) => <li key={href}><FooterLink href={href}>{label}</FooterLink></li>)}
         </ul>
@@ -170,7 +170,7 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
 
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
   return (
-    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'ml-8' : ''}`}>
+    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'mr-8' : ''}`}>
       <Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} />
       <span>{label}</span>
     </Link>
@@ -180,7 +180,7 @@ function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }
 function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   return (
     <div className="border-t border-gray-100 pt-3">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
         <span className="flex items-center gap-3">
           <Icon className="h-5 w-5 text-primary" />
           {title}
@@ -202,43 +202,20 @@ export default function EnglishLayout({ children }) {
   const closeMenu = () => setOpen(false);
 
   return (
-    <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+    <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
       <style jsx global>{`
-        .english-readable main :where(h1, h2, h3, h4, p, li) {
-          direction: ltr;
-          unicode-bidi: plaintext;
-          text-align: left;
-        }
-        .english-readable main :where(span, a, button) {
-          unicode-bidi: plaintext;
-        }
-        .english-readable main :where(.text-center) {
-          text-align: left !important;
-        }
-        .english-readable main :where(.en-center),
-        .english-readable main :where(.en-center h1),
-        .english-readable main :where(.en-center h2),
-        .english-readable main :where(.en-center h3),
-        .english-readable main :where(.en-center p),
-        .english-readable main :where(.en-center span) {
-          direction: ltr;
-          unicode-bidi: plaintext;
-          text-align: center !important;
-        }
-        .english-readable main :where(.en-no-break) {
-          white-space: nowrap;
-        }
+        .english-readable main :where(h1, h2, h3, h4, p, li, span, a, button),
         .english-footer-text,
         .english-footer-text :where(p, a, li, h2, span) {
-          direction: ltr;
           unicode-bidi: plaintext;
-          text-align: left;
         }
       `}</style>
       <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
           <Link href="/en" className="flex flex-shrink-0 items-center gap-2">
-            <Image src="/logo.png" alt="Biet Al Reef" width={44} height={44} className="h-11 w-11 object-contain" priority />
+            <div className="relative h-11 w-11">
+              <Image src="/logo.png" alt="Biet Al Reef" width={44} height={44} className="h-full w-full object-contain" priority />
+            </div>
             <div className="hidden flex-col sm:flex">
               <span className="text-sm font-bold text-primary">Biet Al Reef</span>
               <span className="text-xs text-gray-500">Smart building platform</span>
@@ -273,14 +250,15 @@ export default function EnglishLayout({ children }) {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-[100] md:hidden">
+        <div className="fixed inset-0 z-[100] md:hidden" dir="rtl">
           <button type="button" aria-label="Close menu" onClick={closeMenu} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
-          <aside className="absolute bottom-0 right-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-l-[28px] bg-white shadow-2xl">
+          <aside className="absolute bottom-0 left-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-r-[28px] bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
-              <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
               <button type="button" onClick={closeMenu} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label="Close menu">
                 <X className="h-6 w-6" />
               </button>
+              <Image src="/logo.png" alt="Biet Al Reef" width={72} height={72} className="h-16 w-16 object-contain" priority />
+              <span className="h-10 w-10" />
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 py-4">
@@ -321,10 +299,10 @@ export default function EnglishLayout({ children }) {
 
       <div className="english-readable">{children}</div>
 
-      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" role="contentinfo">
+      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className="text-center md:text-left english-footer-text">
+            <div className="text-center md:text-right english-footer-text">
               <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
               <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
                 The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a reliable and professional experience.
