@@ -1,20 +1,20 @@
 User-agent: *
 Allow: /
-Allow: /providers/
-Allow: /categories/
 Allow: /uae/
+Allow: /providers/
 Allow: /services/
-Allow: /join-provider
+Allow: /marketplace
+Allow: /weyaak
+Allow: /request-quote
+Allow: /inquiry
 
 Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
-Disallow: /*.json$
 Disallow: /*?*sort=
 Disallow: /*?*filter=
 
 Sitemap: https://bietalreef.ae/sitemap.xml
-Sitemap: https://bietalreef.ae/sitemap-providers.xml
 
 User-agent: Googlebot
 Allow: /
