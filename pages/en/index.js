@@ -1,31 +1,68 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import EnglishLayout from '../../components/EnglishLayout';
-import { ArrowLeft, BadgeCheck, Bot, MapPinned, ShieldCheck, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
+import { ArrowLeft, Bot, Building2, CheckCircle, MapPinned, Search, ShieldCheck, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
 
-const gateways = [
-  { href: '/en/uae', title: 'UAE Directory', desc: 'Start from the place: emirate, city, area, then the right service for your project.', icon: MapPinned, label: 'Search by place' },
-  { href: '/en/providers', title: 'Service Providers', desc: 'Browse companies, workshops, suppliers and specialists by provider type and activity.', icon: UsersRound, label: 'Companies & suppliers' },
-  { href: '/en/services', title: 'Services & Offers', desc: 'Choose the required service and send your project details clearly.', icon: Wrench, label: 'Request service' },
-  { href: '/en/marketplace', title: 'Products & Stores', desc: 'Explore building materials, finishing products and supplier categories.', icon: ShoppingBag, label: 'Materials & products' },
+const heroSlides = [
+  { src: '/images/webp/bait-alreef-premiere-cover-smart-construction-platform.webp', alt: 'Biet Al Reef smart construction platform in the UAE', title: 'Biet Al Reef Smart Platform' },
+  { src: '/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp', alt: 'Biet Al Reef construction and service provider ecosystem in the UAE', title: 'Smart construction ecosystem' },
+  { src: '/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp', alt: 'A unified platform for design, build, project management and products in the UAE', title: 'Unified project platform' },
+  { src: '/images/webp/bait-alreef-why-biet-alreef-premium-comparison.webp', alt: 'Why customers choose Biet Al Reef for contracting and building services in the UAE', title: 'Why Biet Al Reef' },
 ];
 
-const trustSignals = [
-  { title: 'Trusted companies', icon: BadgeCheck },
-  { title: 'Integrated services', icon: Sparkles },
-  { title: 'Quality assured', icon: ShieldCheck },
+const introModels = [
+  { title: 'UAE Directory', desc: 'Start by place', image: '/images/webp/bait-alreef-uae-smart-network-coverage.webp' },
+  { title: 'Trusted Providers', desc: 'Companies & workshops', image: '/images/webp/bait-alreef-engineering-excellence-four-pillars.webp' },
+  { title: 'Services & Offers', desc: 'Request or compare', image: '/images/webp/bait-alreef-next-step-contractor-future.webp' },
+  { title: 'Products & Stores', desc: 'Materials & suppliers', image: '/images/webp/bait-alreef-smart-materials-calculator-investment-protection.webp' },
 ];
+
+const gatewayCards = [
+  { href: '/en/uae', title: 'UAE Directory', line: 'Start by place', desc: 'Choose the emirate, then the city or area, then the right service path for your project.', icon: MapPinned, label: 'Search by place' },
+  { href: '/en/providers', title: 'Service Providers', line: 'Build your presence', desc: 'For companies, workshops, factories and suppliers that need a clear professional profile.', icon: UsersRound, label: 'Digital presence' },
+  { href: '/en/services', title: 'Services & Offers', line: 'Request the work', desc: 'Choose the service type, describe your project and move through a clear request journey.', icon: Wrench, label: 'Service request' },
+  { href: '/en/marketplace', title: 'Products & Stores', line: 'Materials and products', desc: 'Explore building materials, finishing products, smart systems and supplier categories.', icon: ShoppingBag, label: 'Products' },
+];
+
+const clientJourneyCards = [
+  { title: 'Search directly', desc: 'Browse the right path yourself and move from category to page without confusion.', icon: Search },
+  { title: 'Ask Weyaak', desc: 'Let the assistant understand the need, ask for details and guide you to the right section.', icon: Bot },
+  { title: 'Structured request', desc: 'Turn the project need into a clear internal request path by service, area and specialty.', icon: UsersRound },
+];
+
+const providerPresenceCards = [
+  { title: 'Be found where clients search', desc: 'Not a temporary ad. A structured digital presence for Google, AI engines and Biet Al Reef.', icon: MapPinned },
+  { title: 'Operate from your phone', desc: 'A future-ready profile for requests, quotation flow, services and business follow-up.', icon: Building2 },
+  { title: 'Content built for discovery', desc: 'Your specialty becomes easier to understand, search, classify and recommend.', icon: Sparkles },
+];
+
+const trustBadges = [
+  { title: 'Trust', desc: 'Clearer providers', icon: ShieldCheck },
+  { title: 'Safe path', desc: 'Organized contact', icon: CheckCircle },
+  { title: 'Transparent', desc: 'No confusion', icon: Sparkles },
+];
+
+function VisualLine({ children, className = '' }) {
+  return <span className={`block ${className}`}>{children}</span>;
+}
 
 export default function EnglishHome() {
-  const description = 'Biet Al Reef is a UAE-focused smart construction, maintenance and building services platform. The English version keeps the Arabic-first interface direction while translating the content.';
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const description = 'Biet Al Reef is a UAE-focused smart construction and service discovery platform. The English content keeps the same Arabic-first interface, card structure and visual identity while presenting English as designed copy.';
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length), 6200);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>
       <Head>
-        <title>Biet Al Reef | UAE Construction, Maintenance and Building Services Guide</title>
+        <title>Biet Al Reef | Smart construction platform in the UAE</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <link rel="canonical" href={`${SITE_URL}/en`} />
@@ -43,80 +80,99 @@ export default function EnglishHome() {
       </Head>
 
       <EnglishLayout>
-        <main>
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
+        <main className="-mt-[1px]">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] pt-0">
             <div className="relative mx-auto max-w-7xl px-0 md:px-4">
-              <div className="relative min-h-[560px] overflow-hidden rounded-b-[2.5rem] border-b border-[#E6DCC8] bg-[#F7F1E8] shadow-xl shadow-[#0F3F1A]/8 md:min-h-[680px] md:rounded-[2.75rem] md:border">
-                <Image src="/images/home-premium-hero.svg" alt="Premium Biet Al Reef construction scene in the UAE" fill priority className="object-cover object-center" sizes="100vw" />
-                <div className="absolute inset-0 bg-gradient-to-b from-white/58 via-white/16 to-[#FDFBF7]/82" />
-                <div className="absolute inset-x-0 top-9 mx-auto max-w-4xl px-5 text-center md:top-14 en-center">
-                  <p className="text-xs font-black tracking-[0.22em] text-[#6F5400] md:text-sm">Smart building platform</p>
-                  <h1 className="mt-4 text-4xl font-black leading-[1.2] text-[#0F3F1A] drop-shadow-sm md:text-7xl">
-                    The future of building
-                    <span className="block bg-gradient-to-l from-[#0F3F1A] via-[#245D2C] to-[#B89200] bg-clip-text text-transparent">is in your hands</span>
-                  </h1>
-                  <p className="mx-auto mt-4 max-w-2xl text-base font-black leading-8 text-[#223025] md:text-2xl">Everything your project needs in one place</p>
-                  <div className="mx-auto mt-5 flex max-w-2xl flex-wrap items-center justify-center gap-2 md:gap-3">
-                    {trustSignals.map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <span key={item.title} className="inline-flex min-h-[42px] items-center gap-2 rounded-full border border-white/70 bg-white/75 px-4 py-2 text-xs font-black text-[#0F3F1A] shadow-sm backdrop-blur md:text-sm">
-                          <Icon className="h-4 w-4 text-[#8A6A00]" aria-hidden="true" />
-                          {item.title}
-                        </span>
-                      );
-                    })}
+              <div className="relative aspect-[16/10] overflow-hidden rounded-b-[2rem] border-b border-[#E6DCC8] bg-[#F7F1E8] shadow-xl shadow-[#0F3F1A]/8 md:aspect-[16/7] md:rounded-[2.75rem] md:border">
+                {heroSlides.map((slide, index) => (
+                  <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1600ms] ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+                    <Image src={slide.src} alt={slide.alt} title={slide.title} fill priority={index === 0} className="scale-105 object-cover object-center transition-transform duration-[6200ms] ease-linear" sizes="100vw" />
                   </div>
-                </div>
-                <div className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 text-[#0F3F1A]">
-                  <span className="h-6 w-px bg-[#0F3F1A]/35" />
-                  <span className="text-2xl leading-none">⌄</span>
+                ))}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-[#FDFBF7]/10" />
+              </div>
+            </div>
+          </section>
+
+          <section className="relative z-10 mx-auto -mt-7 max-w-5xl px-4 md:-mt-9">
+            <div className="relative overflow-hidden rounded-[2.25rem] border border-[#E6DCC8] bg-white/96 px-5 pb-5 pt-6 text-center shadow-2xl shadow-[#8A6A00]/8 backdrop-blur md:px-10 md:pb-8 md:pt-9">
+              <div className="pointer-events-none absolute inset-x-4 bottom-0 h-40 overflow-hidden rounded-b-[2rem] md:inset-x-8 md:h-52">
+                <Image src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp" alt="Soft visual background for the Biet Al Reef smart ecosystem" fill className="translate-y-1/3 scale-110 object-cover object-center opacity-[0.18] blur-[0.2px]" sizes="(max-width: 768px) 92vw, 900px" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-white/70 to-white/20" />
+              </div>
+              <div className="relative z-10">
+                <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">
+                  <VisualLine>Biet Al Reef</VisualLine>
+                  <VisualLine>Smart Platform</VisualLine>
+                </h1>
+                <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">
+                  <VisualLine>Everything your project needs</VisualLine>
+                  <VisualLine>in one clear place.</VisualLine>
+                </p>
+                <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
+                  <VisualLine>Search directly...</VisualLine>
+                  <VisualLine>or let Weyaak guide the way.</VisualLine>
+                </h2>
+                <div className="mt-6 grid grid-cols-4 gap-2 md:gap-4">
+                  {introModels.map((item) => (
+                    <div key={item.title} className="overflow-hidden rounded-2xl border border-[#EEE4D1] bg-white/86 px-2 py-3 shadow-sm backdrop-blur md:px-3 md:py-4">
+                      <div className="relative mx-auto h-12 w-12 overflow-hidden rounded-2xl bg-white shadow-inner ring-1 ring-[#E6DCC8] md:h-16 md:w-16">
+                        <Image src={item.image} alt={item.title} fill className="scale-125 object-cover object-center" sizes="64px" />
+                        <div className="absolute inset-0 bg-white/25" />
+                      </div>
+                      <p className="mt-2 text-[0.7rem] font-black leading-5 text-[#0F3F1A] md:text-sm">{item.title}</p>
+                      <p className="hidden text-xs font-semibold text-gray-500 md:block">{item.desc}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="relative z-10 mx-auto -mt-8 max-w-5xl px-4 md:-mt-12">
-            <div className="rounded-t-[2.5rem] border border-[#E6DCC8] bg-white/96 px-5 py-8 shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-12 en-center">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#FDFBF7] px-4 py-2 text-xs font-black text-[#6F5400] shadow-sm">
-                <Sparkles className="h-4 w-4" aria-hidden="true" />
-                Hi — Welcome to the house
-              </div>
-              <h2 className="mx-auto mt-5 max-w-full text-[2rem] font-black leading-tight text-[#0F3F1A] sm:text-4xl md:text-6xl en-no-break">Biet Al Reef Platform</h2>
-              <p className="mx-auto mt-4 max-w-3xl text-base font-semibold leading-8 text-gray-700 md:text-lg">
-                A smart platform that brings together the UAE Directory, service providers, services and offers, products and stores in one clear, fast and trusted experience.
-              </p>
-
-              <div className="mx-auto mt-8 max-w-3xl rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm en-center">
-                <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-[1.7rem] border border-[#E6DCC8] bg-white shadow-inner">
-                  <Image src="/images/weyaak-new-logo.jpg" alt="Weyaak AI" width={82} height={82} className="h-20 w-20 object-contain rounded-xl" />
+          <section className="relative z-10 mx-auto mt-4 max-w-5xl px-4 md:mt-5">
+            <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
+              <div className="mx-auto max-w-3xl">
+                <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-[1.7rem] border border-[#E6DCC8] bg-white shadow-inner">
+                  <Image src="/images/weyaak-new-logo.jpg" alt="Weyaak AI" width={82} height={82} className="h-20 w-20 rounded-xl object-contain" />
                 </div>
-                <h3 className="text-3xl font-black text-[#0F3F1A]">Weyaak</h3>
-                <p className="mx-auto mt-2 max-w-2xl text-base font-black text-[#0F3F1A] sm:text-lg md:text-xl en-no-break">Your smart agent in every building step</p>
-                <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-gray-600 md:text-base">Weyaak organizes the way inside Biet Al Reef, compares options, saves time and helps you choose the right section.</p>
+                <p className="text-xs font-black tracking-[0.24em] text-[#6F5400]">WEYAAK AI</p>
+                <h2 className="mt-3 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">
+                  <VisualLine>Your smart agent</VisualLine>
+                  <VisualLine>inside Biet Al Reef.</VisualLine>
+                </h2>
+                <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-8 text-gray-600 md:text-lg">
+                  <VisualLine>It understands the need.</VisualLine>
+                  <VisualLine>It organizes the path.</VisualLine>
+                  <VisualLine>It helps you choose the right section.</VisualLine>
+                </p>
               </div>
-
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <Link href="/en/weyaak" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">
-                  Start with Weyaak
-                  <ArrowLeft className="h-5 w-5" aria-hidden="true" />
-                </Link>
-                <Link href="/en/uae" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">
-                  Browse UAE Directory
-                  <ArrowLeft className="h-5 w-5" aria-hidden="true" />
-                </Link>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                <Link href="/en/weyaak" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">Start with Weyaak<ArrowLeft className="h-5 w-5" aria-hidden="true" /></Link>
+                <Link href="/en/providers" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">Start as a provider<ArrowLeft className="h-5 w-5" aria-hidden="true" /></Link>
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2 rounded-[1.5rem] border border-[#E6DCC8] bg-[#FDFBF7] p-2 md:gap-3 md:p-3">
+                {trustBadges.map((item) => {
+                  const Icon = item.icon;
+                  return <div key={item.title} className="rounded-2xl bg-white px-2 py-3 text-center shadow-sm"><Icon className="mx-auto mb-2 h-5 w-5 text-[#0F3F1A]" aria-hidden="true" /><p className="text-sm font-black text-[#0F3F1A]">{item.title}</p><p className="mt-1 hidden text-xs font-semibold text-gray-500 sm:block">{item.desc}</p></div>;
+                })}
               </div>
             </div>
           </section>
 
-          <section className="mx-auto max-w-7xl px-4 py-8 md:py-14">
-            <div className="mb-8 text-center md:text-right">
+          <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+            <div className="mb-6 text-center md:text-right">
               <span className="text-sm font-black text-[#6F5400]">Start here</span>
-              <h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">Choose the right Biet Al Reef gateway</h2>
-              <p className="mt-4 max-w-3xl text-base leading-8 text-gray-600 md:text-lg">Four gateways only, so the journey is clear from the first visit: place, provider, service or product.</p>
+              <h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">
+                <VisualLine>Choose the right</VisualLine>
+                <VisualLine>Biet Al Reef gateway</VisualLine>
+              </h2>
+              <p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">
+                <VisualLine>Every journey starts from the correct door:</VisualLine>
+                <VisualLine>place, provider, service or product.</VisualLine>
+              </p>
             </div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {gateways.map((card) => {
+              {gatewayCards.map((card) => {
                 const Icon = card.icon;
                 return (
                   <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
@@ -126,13 +182,47 @@ export default function EnglishHome() {
                         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div>
                         <span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span>
                       </div>
-                      <h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3>
-                      <p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p>
+                      <h3 className="text-2xl font-black leading-tight text-[#0F3F1A]">
+                        <VisualLine>{card.title}</VisualLine>
+                        <VisualLine className="text-base text-[#6F5400]">{card.line}</VisualLine>
+                      </h3>
+                      <p className="mt-3 min-h-[96px] text-sm leading-8 text-gray-600">{card.desc}</p>
                       <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">Open section<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
                     </div>
                   </Link>
                 );
               })}
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {clientJourneyCards.map((item) => {
+                const Icon = item.icon;
+                return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>;
+              })}
+            </div>
+          </section>
+
+          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
+            <div className="mx-auto max-w-7xl px-4">
+              <div className="mb-7 text-center md:mb-10">
+                <span className="text-sm font-black text-[#6F5400]">For providers</span>
+                <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">
+                  <VisualLine>Operate your business</VisualLine>
+                  <VisualLine>from your phone.</VisualLine>
+                </h2>
+                <p className="mx-auto mt-5 max-w-4xl text-base font-semibold leading-9 text-gray-600 md:text-lg">
+                  <VisualLine>We are not selling a temporary ad.</VisualLine>
+                  <VisualLine>We are building a discoverable digital presence.</VisualLine>
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                {providerPresenceCards.map((item) => {
+                  const Icon = item.icon;
+                  return <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>;
+                })}
+              </div>
             </div>
           </section>
         </main>
