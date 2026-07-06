@@ -75,8 +75,8 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
   const currentEmirate = emirate || UAE_EMIRATES[0];
   const currentArea = area || currentEmirate?.areas?.[0];
   const currentService = service || SERVICE_CATEGORIES[0];
-  const nearbyAreas = currentEmirate?.areas?.filter((item) => item.slug !== currentArea?.slug).slice(0, 8) || [];
-  const relatedServices = SERVICE_CATEGORIES.filter((item) => item.slug !== currentService?.slug).slice(0, 8);
+  const isEmirateService = pageType === 'emirateService';
+  const isAreaService = pageType === 'service';
 
   const baseTitle = isEn ? 'Explore more' : 'استكشف المزيد';
   const titleByType = {
@@ -84,6 +84,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
     emirate: isEn ? `Explore more in ${emirateName(currentEmirate, locale)}` : `استكشف المزيد في ${emirateName(currentEmirate, locale)}`,
     area: isEn ? `Explore more in ${areaName(currentArea, locale)}` : `استكشف المزيد في ${areaName(currentArea, locale)}`,
     service: isEn ? `Explore more about ${serviceName(currentService, locale)} in ${areaName(currentArea, locale)}` : `استكشف المزيد حول ${serviceName(currentService, locale)} في ${areaName(currentArea, locale)}`,
+    emirateService: isEn ? `Explore more about ${serviceName(currentService, locale)} in ${emirateName(currentEmirate, locale)}` : `استكشف المزيد حول ${serviceName(currentService, locale)} في ${emirateName(currentEmirate, locale)}`,
   };
 
   const emirateLinks = UAE_EMIRATES.map((item) => ({
@@ -91,25 +92,32 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
     href: getUrl(locale, `/uae/${item.slug}`),
   }));
 
-  const areaLinks = nearbyAreas.map((item) => ({
-    label: pageType === 'service'
+  const areaLinksSource = pageType === 'emirate' || isEmirateService
+    ? currentEmirate?.areas || []
+    : currentEmirate?.areas?.filter((item) => item.slug !== currentArea?.slug).slice(0, 8) || [];
+
+  const areaLinks = areaLinksSource.map((item) => ({
+    label: isAreaService || isEmirateService
       ? (isEn ? `${serviceName(currentService, locale)} in ${areaName(item, locale)}` : `${serviceName(currentService, locale)} في ${areaName(item, locale)}`)
       : areaName(item, locale),
-    href: pageType === 'service'
+    href: isAreaService || isEmirateService
       ? getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}/${currentService.slug}`)
       : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`),
   }));
 
-  const serviceLinks = (pageType === 'emirate' ? SERVICE_CATEGORIES.slice(0, 10) : relatedServices).map((item) => ({
+  const serviceLinksSource = pageType === 'emirate' ? SERVICE_CATEGORIES : SERVICE_CATEGORIES.filter((item) => item.slug !== currentService?.slug);
+  const serviceLinks = serviceLinksSource.slice(0, 10).map((item) => ({
     label: pageType === 'area'
       ? (isEn ? `${serviceName(item, locale)} in ${areaName(currentArea, locale)}` : `${serviceName(item, locale)} في ${areaName(currentArea, locale)}`)
       : serviceName(item, locale),
-    href: getUrl(locale, `/uae/${currentEmirate.slug}/${currentArea.slug}/${item.slug}`),
+    href: pageType === 'area' || isAreaService
+      ? getUrl(locale, `/uae/${currentEmirate.slug}/${currentArea.slug}/${item.slug}`)
+      : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`),
   }));
 
   const sameServiceOtherEmirates = UAE_EMIRATES.filter((item) => item.slug !== currentEmirate?.slug).slice(0, 6).map((item) => ({
     label: isEn ? `${serviceName(currentService, locale)} in ${emirateName(item, locale)}` : `${serviceName(currentService, locale)} في ${emirateName(item, locale)}`,
-    href: getUrl(locale, `/uae/${item.slug}/${item.areas[0].slug}/${currentService.slug}`),
+    href: getUrl(locale, `/uae/${item.slug}/${currentService.slug}`),
   }));
 
   const productLinks = marketplaceLinks.map((item) => ({ label: label(item, locale), href: getUrl(locale, item.href) }));
@@ -130,7 +138,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {pageType !== 'index' ? (
-            <Section locale={locale} defaultOpen title={isEn ? `Areas in ${emirateName(currentEmirate, locale)}` : `مناطق ${emirateName(currentEmirate, locale)}`} subtitle={isEn ? 'Move within the same emirate' : 'تنقل داخل نفس الإمارة'} icon="📍">
+            <Section locale={locale} defaultOpen title={isEmirateService || isAreaService ? (isEn ? `${serviceName(currentService, locale)} by area` : `${serviceName(currentService, locale)} حسب المناطق`) : (isEn ? `Areas in ${emirateName(currentEmirate, locale)}` : `مناطق ${emirateName(currentEmirate, locale)}`)} subtitle={isEn ? 'Existing area routes are kept' : 'روابط المناطق القديمة محفوظة'} icon="📍">
               <LinkList locale={locale} items={areaLinks} />
             </Section>
           ) : (
@@ -139,7 +147,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
             </Section>
           )}
 
-          <Section locale={locale} defaultOpen title={pageType === 'service' ? (isEn ? 'Related services' : 'خدمات مرتبطة') : (isEn ? 'Service categories' : 'الخدمات المتاحة')} subtitle={isEn ? 'Current route extensions stay active' : 'مع الحفاظ على الامتدادات الحالية'} icon="🛠️">
+          <Section locale={locale} defaultOpen title={isAreaService || isEmirateService ? (isEn ? 'Related services' : 'خدمات مرتبطة') : (isEn ? 'Service categories' : 'الخدمات المتاحة')} subtitle={isEn ? 'Service routes after emirate stay clean' : 'مسارات النشاط بعد الإمارة أصبحت أوضح'} icon="🛠️">
             <LinkList locale={locale} items={serviceLinks} />
           </Section>
 
@@ -151,7 +159,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
             <LinkList locale={locale} items={knowledgeLinks} />
           </Section>
 
-          {pageType === 'service' ? (
+          {(isAreaService || isEmirateService) ? (
             <Section locale={locale} title={isEn ? 'Same service in other emirates' : 'نفس الخدمة في إمارات أخرى'} subtitle={isEn ? 'Broader GEO discovery' : 'توسيع الربط الجغرافي'} icon="🏙️">
               <LinkList locale={locale} items={sameServiceOtherEmirates} />
             </Section>
