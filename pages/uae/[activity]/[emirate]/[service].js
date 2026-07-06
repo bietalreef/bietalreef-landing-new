@@ -4,6 +4,7 @@ import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
 import ClientRequestCard from '../../../../components/ClientRequestCard';
 import FAQ from '../../../../components/FAQ';
+import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 export default function AreaServicePage({ emirate, area, service, emirateSlug, areaSlug }) {
@@ -38,6 +39,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
             </div>
           </section>
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
+          <UaeSmartFooter locale="ar" pageType="service" emirate={emirate} area={area} service={service} />
         </main>
         <Footer />
       </div>
