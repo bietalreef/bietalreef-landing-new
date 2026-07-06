@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -25,7 +26,11 @@ import {
   ChevronUp,
   Rocket,
   Building2,
+  Search,
+  ArrowRight,
 } from 'lucide-react';
+import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
+import { UAE_ATLAS_IMAGES } from '../data/uaeAtlasImages';
 
 const primaryLinks = [
   { href: '/en', label: 'Home', icon: Home },
@@ -121,6 +126,18 @@ const footerGroups = [
   },
 ];
 
+const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
+
+const englishExperienceBySlug = {
+  'abu-dhabi': 'Construction, maintenance, design and building material services in Abu Dhabi, Al Ain and nearby areas.',
+  dubai: 'Contracting, finishing, maintenance and design services across Dubai residential and commercial districts.',
+  sharjah: 'Contractor, craftsman, building material and design services across Sharjah and its local areas.',
+  ajman: 'Building, maintenance, decor and construction material services across Ajman and its communities.',
+  'ras-al-khaimah': 'Contracting, maintenance, material supply and decor services across Ras Al Khaimah.',
+  fujairah: 'Construction, maintenance, design and building material services across Fujairah and the east coast.',
+  'umm-al-quwain': 'Contractor, maintenance, material and furniture services across Umm Al Quwain and nearby areas.',
+};
+
 function isActivePath(pathname, href) {
   if (!href || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http')) return false;
   const cleanHref = href.split('?')[0];
@@ -141,6 +158,102 @@ function SocialLink({ href, label, icon: Icon }) {
     <a href={href} aria-label={label} title={label} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark">
       {Icon === 'tiktok' ? <TikTokIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
     </a>
+  );
+}
+
+function EnglishUaeDirectoryPremium() {
+  const [openSlug, setOpenSlug] = useState(null);
+  const cards = UAE_EMIRATES.map((emirate) => ({
+    ...emirate,
+    atlasImage: atlasImageBySlug[emirate.slug]?.image,
+    atlasThumb: atlasImageBySlug[emirate.slug]?.thumb,
+    experience: englishExperienceBySlug[emirate.slug] || emirate.description,
+  }));
+
+  return (
+    <main dir="ltr" className="bg-[#FDFBF7] text-left">
+      <Head>
+        <title>UAE Directory for Construction, Design and Maintenance | Biet Al Reef</title>
+        <meta name="description" content="Biet Al Reef UAE Directory helps you start by emirate and service type for construction, maintenance, interior design, decor and building materials across the UAE." />
+      </Head>
+
+      <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-5 text-gray-900 md:pb-16 md:pt-7">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent" />
+
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-[1.55rem] bg-[#071A2F] md:rounded-[2.35rem]">
+              <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="Digital UAE directory map for Biet Al Reef services" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
+            </div>
+          </div>
+
+          <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-7 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-12 md:py-9">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]"><MapPinned size={15} /> Start by location</span>
+            <h1 className="mt-4 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">UAE Directory</h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">Start your journey to discover services and opportunities across the Emirates.</p>
+            <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">
+              Discover now <ChevronDown size={18} className="animate-bounce" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-14 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-9 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> Choose an emirate</span>
+            <h2 className="mx-auto mt-4 max-w-3xl text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">Explore Biet Al Reef services by emirate</h2>
+            <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">A location-first interface that helps you choose the emirate, define the service and move toward a clear request without confusion.</p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {cards.map((emirate, index) => {
+              const isOpen = openSlug === emirate.slug;
+              return (
+                <article key={emirate.slug} className="group overflow-hidden rounded-[2.15rem] border border-[#E4D6BA] bg-white/95 p-2 shadow-xl shadow-black/5 transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:shadow-2xl">
+                  <div className="relative overflow-hidden rounded-[1.65rem] border border-[#D4AF37]/30 bg-[#071A2F] p-1 shadow-inner">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem]">
+                      <Image src={emirate.atlasImage || emirate.atlasThumb} alt={`Biet Al Reef service directory image for ${emirate.nameEn}`} fill priority={index < 3} className="object-cover object-center transition duration-700 group-hover:scale-[1.035]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px" />
+                    </div>
+                  </div>
+
+                  <div className="px-3 pb-4 pt-4 md:px-4">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xs font-black text-[#B8922B]">Emirate</span>
+                        <h3 className="text-3xl font-black leading-none text-[#0F3F1A]">{emirate.nameEn}</h3>
+                      </div>
+                      <Link href={`/en/uae/${emirate.slug}`} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-label={`Discover ${emirate.nameEn} services`}>
+                        <Search size={15} /> Discover now <ArrowRight size={15} />
+                      </Link>
+                    </div>
+
+                    <div className="mt-4 flex items-start gap-3 border-t border-[#F0E7D6] pt-3">
+                      <p className={`flex-1 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? `${emirate.experience} ${emirate.description}` : emirate.experience}</p>
+                      <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E4D6BA] bg-[#FDFBF7] text-[#0F3F1A] shadow-sm transition hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-expanded={isOpen} aria-label={isOpen ? `Close ${emirate.nameEn} details` : `Open ${emirate.nameEn} details`}>
+                        {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#FDFBF7] px-4 pb-12">
+        <div className="mx-auto max-w-6xl rounded-[2rem] border border-[#E6DCC8] bg-white/88 p-5 shadow-sm md:p-7">
+          <h2 className="text-2xl font-black text-[#0F3F1A]">Popular services in the directory</h2>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {SERVICE_CATEGORIES.slice(0, 10).map((service) => (
+              <Link key={service.slug} href="/en/uae" className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-2 text-sm font-bold text-gray-700 transition hover:border-primary hover:text-primary">{service.nameEn || service.nameAr}</Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
@@ -200,6 +313,7 @@ export default function EnglishLayout({ children }) {
   const [companyOpen, setCompanyOpen] = useState(false);
   const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
   const closeMenu = () => setOpen(false);
+  const isEnglishUaePage = router.pathname === '/en/uae' || router.asPath?.split('?')[0] === '/en/uae';
 
   return (
     <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
@@ -297,7 +411,7 @@ export default function EnglishLayout({ children }) {
         </div>
       )}
 
-      <div className="english-readable">{children}</div>
+      {isEnglishUaePage ? <EnglishUaeDirectoryPremium /> : <div className="english-readable">{children}</div>}
 
       <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
