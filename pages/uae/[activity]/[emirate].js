@@ -6,6 +6,7 @@ import SecondaryHeader from '../../../components/SecondaryHeader';
 import ClientRequestCard from '../../../components/ClientRequestCard';
 import SeoContent from '../../../components/SeoContent';
 import FAQ from '../../../components/FAQ';
+import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea } from '../../../data/siteTaxonomy';
 
 export default function AreaPage({ emirate, area, emirateSlug, areaSlug }) {
@@ -18,7 +19,7 @@ export default function AreaPage({ emirate, area, emirateSlug, areaSlug }) {
 
   const faqItems = [
     [`ما الخدمات المتاحة في ${area.nameAr}؟`, `تستطيع تصفح خدمات المقاولات والصيانة والتشطيبات والنجارة والرخام والتصميم الداخلي وغيرها داخل ${area.nameAr}.`],
-    ['كيف أطلب عرض سعر؟', 'اختر الخدمة المطلوبة ثم استخدم زر طلب عرض السعر أو اسأل وياك لتوجيه طلبك.'],
+    ['كيف أطلب عرض سعر؟', 'اختر الخدمة المطلوبة ثم استخدم زر طلب العرض أو اسأل وياك لتوجيه طلبك.'],
   ];
 
   return (
@@ -65,6 +66,7 @@ export default function AreaPage({ emirate, area, emirateSlug, areaSlug }) {
           </SeoContent>
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول الخدمات في ${area.nameAr}`} />
+          <UaeSmartFooter locale="ar" pageType="area" emirate={emirate} area={area} />
         </main>
         <Footer />
       </div>
