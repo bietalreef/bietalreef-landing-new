@@ -16,6 +16,8 @@ const articleLinks = [
 ];
 
 function getUrl(locale, path) {
+  const publicOnlyPaths = ['/blog', '/request-quote'];
+  if (publicOnlyPaths.includes(path)) return path;
   if (locale === 'en') return `/en${path}`;
   return path;
 }
