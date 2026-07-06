@@ -14,13 +14,14 @@ export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
 
   const pageData = {
-    h1: `خدمات المقاولات والبناء في ${emirate.nameAr}`,
-    desc: `استكشف المدن والمناطق داخل ${emirate.nameAr} ثم اختر الخدمة المناسبة لمشروعك من المقاولات والصيانة والتصميم ومواد البناء.`,
+    h1: `خدمات بيت الريف في ${emirate.nameAr}`,
+    desc: `اختر النشاط أو التخصص المطلوب داخل ${emirate.nameAr}. المناطق والمدن ستبقى متاحة داخل الفوتر الذكي بدون تضخيم رحلة المستخدم.`,
   };
 
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار المدينة أو المنطقة داخل ${emirate.nameAr}، ثم اختر الخدمة التي تحتاجها مثل المقاولات أو النجارة أو الرخام.`],
-    ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر بعد تحديد المكان والخدمة، أو سؤال وياك لتوجيه الطلب.'],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار النشاط المطلوب مثل المقاولات أو التصميم الداخلي أو النجارة، ثم استخدم الفوتر الذكي لتحديد المنطقة داخل ${emirate.nameAr}.`],
+    ['هل تم حذف صفحات المناطق؟', 'لا، صفحات المناطق ما زالت موجودة وتعمل، لكنها لم تعد تظهر كخطوة رئيسية بعد اختيار الإمارة.'],
+    ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
 
   return (
@@ -48,19 +49,19 @@ export default function EmiratePage({ emirate, emirateSlug }) {
             </div>
           </section>
 
-          <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc={`حدد المدينة والخدمة المطلوبة داخل ${emirate.nameAr} وسنساعدك في توجيه طلبك عبر وياك.`} buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
+          <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc={`اختر النشاط المطلوب أولاً، ثم حدد المنطقة من الفوتر الذكي أو أرسل طلبك مباشرة عبر وياك.`} buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
 
           <section className="max-w-6xl mx-auto px-4 py-16">
-            <div className="mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر المدينة أو المنطقة في {emirate.nameAr}</h2>
-              <p className="mt-3 text-gray-600 leading-8">بعد اختيار المنطقة ستظهر الخدمات المتاحة مثل المقاولات، الصيانة، النجارة، الرخام، التصميم الداخلي وغيرها.</p>
+            <div className="mb-10 text-center md:text-right">
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر النشاط في {emirate.nameAr}</h2>
+              <p className="mt-3 text-gray-600 leading-8">هذه هي الخطوة الأساسية بعد اختيار الإمارة. المدن والمناطق محفوظة داخل الفوتر الذكي وروابطها القديمة ما زالت تعمل.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {emirate.areas.map((area) => (
-                <Link key={area.slug} href={`/uae/${emirate.slug}/${area.slug}`} className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-                  <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center mb-4"><span className="text-primary text-xl">📍</span></div>
-                  <h3 className="text-lg font-black text-gray-900 mb-2 group-hover:text-primary transition">{area.nameAr}</h3>
-                  <p className="text-sm text-gray-500 leading-7">استكشف خدمات البناء والصيانة في {area.nameAr}.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SERVICE_CATEGORIES.map((service) => (
+                <Link key={service.slug} href={`/uae/${emirate.slug}/${service.slug}`} className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+                  <div className="text-3xl mb-4">{service.icon}</div>
+                  <h3 className="text-lg font-black text-gray-900 group-hover:text-primary transition">{service.nameAr} في {emirate.nameAr}</h3>
+                  <p className="mt-3 text-sm text-gray-500 leading-7">{service.descAr}</p>
                 </Link>
               ))}
             </div>
@@ -68,19 +69,10 @@ export default function EmiratePage({ emirate, emirateSlug }) {
 
           <SeoContent title={`${emirate.nameAr} داخل دليل بيت الريف`}>
             <p>{emirate.description}</p>
-            <p className="mt-4">يعرض هذا القسم المناطق والمدن داخل {emirate.nameAr} حتى تكون رحلة البحث مبنية على الموقع أولًا، ثم الخدمة ثانيًا.</p>
+            <p className="mt-4">يعرض هذا القسم الأنشطة الرئيسية داخل {emirate.nameAr}. أما المدن والمناطق فتظهر داخل الفوتر الذكي كروابط داخلية منظمة للحفاظ على الامتدادات القديمة وقوة البحث الجغرافي.</p>
           </SeoContent>
 
-          <section className="max-w-6xl mx-auto px-4 py-12">
-            <h2 className="text-2xl font-black mb-6">خدمات شائعة في {emirate.nameAr}</h2>
-            <div className="flex flex-wrap gap-3">
-              {SERVICE_CATEGORIES.slice(0, 12).map((service) => (
-                <span key={service.slug} className="rounded-full bg-white border border-[#E6DCC8] px-4 py-2 text-sm font-bold text-gray-700">{service.icon} {service.nameAr}</span>
-              ))}
-            </div>
-          </section>
-
-          <FAQ items={faqItems} title={`أسئلة شائعة حول ${emirate.nameAr}`} />
+          <FAQ items={faqItems} title={`أسئلة شائعة حول خدمات ${emirate.nameAr}`} />
           <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} />
         </main>
         <Footer />
