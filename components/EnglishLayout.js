@@ -129,13 +129,23 @@ const footerGroups = [
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 
 const englishExperienceBySlug = {
-  'abu-dhabi': 'Construction, maintenance, design and building material services in Abu Dhabi, Al Ain and nearby areas.',
-  dubai: 'Contracting, finishing, maintenance and design services across Dubai residential and commercial districts.',
-  sharjah: 'Contractor, craftsman, building material and design services across Sharjah and its local areas.',
-  ajman: 'Building, maintenance, decor and construction material services across Ajman and its communities.',
+  'abu-dhabi': 'Building, maintenance, design and material services in Abu Dhabi, Al Ain and the emirate areas.',
+  dubai: 'Contracting, finishing, maintenance and design services across Dubai districts.',
+  sharjah: 'Contractor, craftsman, building material and design services across Sharjah areas.',
+  ajman: 'Building, maintenance, decor and construction material services across Ajman areas.',
   'ras-al-khaimah': 'Contracting, maintenance, material supply and decor services across Ras Al Khaimah.',
-  fujairah: 'Construction, maintenance, design and building material services across Fujairah and the east coast.',
-  'umm-al-quwain': 'Contractor, maintenance, material and furniture services across Umm Al Quwain and nearby areas.',
+  fujairah: 'Building, maintenance, design and material services across Fujairah and the east coast.',
+  'umm-al-quwain': 'Contractor, maintenance, material and furniture services across Umm Al Quwain areas.',
+};
+
+const englishDetailsBySlug = {
+  'abu-dhabi': 'Start from Abu Dhabi to organize your request for contracting, finishing, interior design, maintenance and building materials, then move toward the right service path with Biet Al Reef.',
+  dubai: 'Start from Dubai to define your project need, compare the right service categories and move toward a clear request for residential or commercial work.',
+  sharjah: 'Use the Sharjah directory path to organize requests for contractors, craftsmen, materials, maintenance, decor and interior design in one clear flow.',
+  ajman: 'For Ajman, begin with the service type, clarify the project details and let Biet Al Reef guide the next step without scattered messages.',
+  'ras-al-khaimah': 'Start from Ras Al Khaimah to connect project needs with contracting, supply, decor, maintenance and finishing categories in a structured way.',
+  fujairah: 'Use the Fujairah path to start requests for construction, maintenance, design, decor and building materials across the east coast.',
+  'umm-al-quwain': 'For Umm Al Quwain, begin with a simple request path for contractors, maintenance, materials, furniture and project support.',
 };
 
 function isActivePath(pathname, href) {
@@ -168,6 +178,7 @@ function EnglishUaeDirectoryPremium() {
     atlasImage: atlasImageBySlug[emirate.slug]?.image,
     atlasThumb: atlasImageBySlug[emirate.slug]?.thumb,
     experience: englishExperienceBySlug[emirate.slug] || emirate.description,
+    details: englishDetailsBySlug[emirate.slug] || englishExperienceBySlug[emirate.slug] || emirate.description,
   }));
 
   return (
@@ -219,18 +230,18 @@ function EnglishUaeDirectoryPremium() {
                   </div>
 
                   <div className="px-3 pb-4 pt-4 md:px-4">
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-xs font-black text-[#B8922B]">Emirate</span>
-                        <h3 className="text-3xl font-black leading-none text-[#0F3F1A]">{emirate.nameEn}</h3>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex min-w-0 items-baseline gap-2">
+                        <span className="shrink-0 text-xs font-black text-[#B8922B]">Emirate</span>
+                        <h3 className="truncate whitespace-nowrap text-[1.75rem] font-black leading-none text-[#0F3F1A] lg:text-3xl">{emirate.nameEn}</h3>
                       </div>
-                      <Link href={`/en/uae/${emirate.slug}`} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-label={`Discover ${emirate.nameEn} services`}>
+                      <Link href={`/en/uae/${emirate.slug}`} className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#0F3F1A] px-3.5 py-2.5 text-[11px] font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D] sm:text-xs" aria-label={`Discover ${emirate.nameEn} services`}>
                         <Search size={15} /> Discover now <ArrowRight size={15} />
                       </Link>
                     </div>
 
                     <div className="mt-4 flex items-start gap-3 border-t border-[#F0E7D6] pt-3">
-                      <p className={`flex-1 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? `${emirate.experience} ${emirate.description}` : emirate.experience}</p>
+                      <p className={`flex-1 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? emirate.details : emirate.experience}</p>
                       <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E4D6BA] bg-[#FDFBF7] text-[#0F3F1A] shadow-sm transition hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-expanded={isOpen} aria-label={isOpen ? `Close ${emirate.nameEn} details` : `Open ${emirate.nameEn} details`}>
                         {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
                       </button>
