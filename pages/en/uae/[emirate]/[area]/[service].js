@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../../components/EnglishLayout';
+import UaeSmartFooter from '../../../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
 
 export default function EnglishLocalServicePage({ emirate, area, service }) {
@@ -9,7 +10,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
     <>
       <Head>
         <title>{`${service.nameEn} in ${area.nameEn}, ${emirate.nameEn} | Biet Al Reef`}</title>
-        <meta name="description" content={`Find information about ${service.nameEn.toLowerCase()} in ${area.nameEn}, ${emirate.nameEn}. Biet Al Reef organizes UAE local service pages for clear search indexing.`} />
+        <meta name="description" content={`Find information about ${service.nameEn.toLowerCase()} in ${area.nameEn}, ${emirate.nameEn}.`} />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}/${service.slug}`} />
         <link rel="alternate" hrefLang="en" href={canonical} />
@@ -21,7 +22,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
             <div className="text-4xl">{service.icon}</div>
             <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameEn} in {area.nameEn}</h1>
           </div>
-          <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page organizes {service.nameEn.toLowerCase()} information for {area.nameEn}, {emirate.nameEn}. It supports local discovery, internal linking and future provider matching inside Biet Al Reef.</p>
+          <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page organizes {service.nameEn.toLowerCase()} information for {area.nameEn}, {emirate.nameEn}.</p>
           <section className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
             <div className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm">
               <h2 className="font-black text-[#0F3F1A] mb-2">Area</h2>
@@ -38,7 +39,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
           </section>
           <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
             <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">What this page covers</h2>
-            <p className="text-gray-600 leading-8 mb-5">Users looking for {service.nameEn.toLowerCase()} in {area.nameEn} can use this page to understand the category, move to the broader emirate page, or continue to related local service pages.</p>
+            <p className="text-gray-600 leading-8 mb-5">Users can understand the category, move to the broader emirate page, or continue to related local service pages.</p>
             <div className="flex flex-wrap gap-2">
               {SERVICE_CATEGORIES.filter((item) => item.slug !== service.slug).slice(0, 8).map((item) => (
                 <Link key={item.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${item.slug}`} className="text-xs border border-[#E6DCC8] rounded-full px-3 py-1 text-gray-600 hover:text-[#0F3F1A] hover:border-[#D4AF37]">
@@ -48,6 +49,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
             </div>
           </section>
         </main>
+        <UaeSmartFooter locale="en" pageType="service" emirate={emirate} area={area} service={service} />
       </EnglishLayout>
     </>
   );
