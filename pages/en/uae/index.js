@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
+import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import { UAE_EMIRATES } from '../../../data/siteTaxonomy';
 
 export default function EnglishUaeIndex() {
@@ -28,6 +29,7 @@ export default function EnglishUaeIndex() {
             ))}
           </div>
         </main>
+        <UaeSmartFooter locale="en" pageType="index" />
       </EnglishLayout>
     </>
   );
