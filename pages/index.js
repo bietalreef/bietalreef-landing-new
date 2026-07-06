@@ -17,7 +17,7 @@ const heroSlides = [
 ];
 
 const gatewayCards = [
-  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp', imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف' },
+  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp', imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف', featured: true },
   { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي' },
   { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
   { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
@@ -128,7 +128,47 @@ export default function Home() {
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="mb-6 text-center md:text-right"><span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {gatewayCards.map((card) => { const Icon = card.icon; return <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />{card.image ? <div className="relative h-24 overflow-hidden bg-[#F7F2E8] md:h-28"><Image src={card.image} alt={card.imageAlt || card.title} fill className="scale-105 object-cover object-center transition duration-700 group-hover:scale-110" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 25vw" /><div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-white/20" /></div> : null}<div className="relative p-7"><div className="mb-6 flex items-center justify-between"><div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span></div><h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3><p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p><span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span></div></Link>; })}
+              {gatewayCards.map((card) => {
+                const Icon = card.icon;
+
+                if (card.featured) {
+                  return (
+                    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl md:col-span-2 xl:col-span-4">
+                      <div className="flex flex-col md:flex-row">
+                        <div className="order-2 flex min-h-[250px] flex-1 flex-col justify-center p-7 text-right md:order-1 md:min-h-[260px] md:p-10">
+                          <div className="mb-6 flex items-center justify-between gap-4">
+                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15">
+                              <Icon className="h-7 w-7" aria-hidden="true" />
+                            </div>
+                            <span className="rounded-full bg-[#F7F2E8] px-4 py-2 text-xs font-black text-[#6F5400]">{card.label}</span>
+                          </div>
+                          <h3 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{card.title}</h3>
+                          <p className="mt-4 max-w-xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{card.desc}</p>
+                          <span className="mt-8 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
+                        </div>
+                        <div className="order-1 relative min-h-[190px] flex-1 overflow-hidden bg-white md:order-2 md:min-h-[260px]">
+                          <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-contain object-center p-4 md:p-6" sizes="(max-width: 768px) 92vw, 50vw" />
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                    <div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />
+                    <div className="relative p-7">
+                      <div className="mb-6 flex items-center justify-between">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div>
+                        <span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span>
+                      </div>
+                      <h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3>
+                      <p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p>
+                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </section>
 
