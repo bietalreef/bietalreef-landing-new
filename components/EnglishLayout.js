@@ -27,7 +27,7 @@ import {
   Rocket,
   Building2,
   Search,
-  ArrowRight,
+  ArrowLeft,
 } from 'lucide-react';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../data/uaeAtlasImages';
@@ -148,16 +148,6 @@ const englishDetailsBySlug = {
   'umm-al-quwain': 'For Umm Al Quwain, begin with a simple request path for contractors, maintenance, materials, furniture and project support.',
 };
 
-const englishServiceChipsBySlug = {
-  'abu-dhabi': ['Building Materials', 'Design', 'Maintenance', 'Contracting'],
-  dubai: ['Building Materials', 'Maintenance', 'Design', 'Construction'],
-  sharjah: ['Design', 'Building Materials', 'Craftsmen', 'Contractors'],
-  ajman: ['Building Materials', 'Decor', 'Maintenance', 'Building'],
-  'ras-al-khaimah': ['Contracting', 'Maintenance', 'Materials', 'Decor'],
-  fujairah: ['Building Materials', 'Design', 'Maintenance', 'Building'],
-  'umm-al-quwain': ['Furniture', 'Materials', 'Maintenance', 'Contractors'],
-};
-
 function isActivePath(pathname, href) {
   if (!href || href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('http')) return false;
   const cleanHref = href.split('?')[0];
@@ -189,7 +179,6 @@ function EnglishUaeDirectoryPremium() {
     atlasThumb: atlasImageBySlug[emirate.slug]?.thumb,
     experience: englishExperienceBySlug[emirate.slug] || emirate.description,
     details: englishDetailsBySlug[emirate.slug] || englishExperienceBySlug[emirate.slug] || emirate.description,
-    serviceChips: englishServiceChipsBySlug[emirate.slug] || ['Building Materials', 'Design', 'Maintenance', 'Contracting'],
   }));
 
   return (
@@ -229,38 +218,30 @@ function EnglishUaeDirectoryPremium() {
             <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">A location-first interface that helps you choose the emirate, define the service and move toward a clear request without confusion.</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div dir="rtl" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {cards.map((emirate, index) => {
               const isOpen = openSlug === emirate.slug;
               return (
-                <article key={emirate.slug} className="group overflow-hidden rounded-[2.15rem] border border-[#E4D6BA] bg-white/95 p-2 shadow-xl shadow-black/5 transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:shadow-2xl">
+                <article dir="ltr" key={emirate.slug} className="group overflow-hidden rounded-[2.15rem] border border-[#E4D6BA] bg-white/95 p-2 shadow-xl shadow-black/5 transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:shadow-2xl">
                   <div className="relative overflow-hidden rounded-[1.65rem] border border-[#D4AF37]/30 bg-[#071A2F] p-1 shadow-inner">
                     <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem]">
                       <Image src={emirate.atlasImage || emirate.atlasThumb} alt={`Biet Al Reef service directory image for ${emirate.nameEn}`} fill priority={index < 3} className="object-cover object-center transition duration-700 group-hover:scale-[1.035]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px" />
-                      <div className="pointer-events-none absolute inset-x-2 bottom-2 z-10 flex flex-wrap justify-end gap-1.5">
-                        {emirate.serviceChips.map((chip) => (
-                          <span key={chip} className="rounded-full border border-white/25 bg-[#071A2F]/70 px-2.5 py-1 text-[10px] font-black text-white shadow-lg shadow-black/20 backdrop-blur-md sm:text-[11px]">
-                            {chip}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#071A2F]/55 to-transparent" />
                     </div>
                   </div>
 
                   <div className="px-3 pb-4 pt-4 md:px-4">
-                    <div className="flex items-center justify-between gap-3" dir="ltr">
-                      <Link href={`/en/uae/${emirate.slug}`} className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#0F3F1A] px-3.5 py-2.5 text-[11px] font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D] sm:text-xs" aria-label={`Discover ${emirate.nameEn} services`}>
-                        <Search size={15} /> Discover now <ArrowRight size={15} />
-                      </Link>
-                      <div className="flex min-w-0 items-baseline justify-end gap-2 text-right">
+                    <div className="flex items-center justify-between gap-4" dir="rtl">
+                      <div dir="ltr" className="flex min-w-0 items-baseline justify-end gap-2 text-right">
                         <span className="shrink-0 text-xs font-black text-[#B8922B]">Emirate</span>
-                        <h3 className="whitespace-nowrap text-[1.45rem] font-black leading-none text-[#0F3F1A] sm:text-[1.65rem] lg:text-[1.85rem]">{emirate.nameEn}</h3>
+                        <h3 className="whitespace-nowrap text-2xl font-black leading-none text-[#0F3F1A] lg:text-3xl">{emirate.nameEn}</h3>
                       </div>
+                      <Link dir="ltr" href={`/en/uae/${emirate.slug}`} className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-label={`Discover ${emirate.nameEn} services`}>
+                        <Search size={15} /> Discover now <ArrowLeft size={15} />
+                      </Link>
                     </div>
 
-                    <div className="mt-4 flex items-start gap-3 border-t border-[#F0E7D6] pt-3" dir="ltr">
-                      <p className={`flex-1 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? emirate.details : emirate.experience}</p>
+                    <div className="mt-4 flex items-start gap-3 border-t border-[#F0E7D6] pt-3" dir="rtl">
+                      <p dir="ltr" className={`flex-1 text-right text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? emirate.details : emirate.experience}</p>
                       <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E4D6BA] bg-[#FDFBF7] text-[#0F3F1A] shadow-sm transition hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-expanded={isOpen} aria-label={isOpen ? `Close ${emirate.nameEn} details` : `Open ${emirate.nameEn} details`}>
                         {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
                       </button>
