@@ -14,13 +14,13 @@ import { ArrowLeft, ChevronDown, ChevronUp, MapPinned, Search } from 'lucide-rea
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 
 const experienceBySlug = {
-  'abu-dhabi': 'مسار منظم للمشاريع السكنية والتجارية في العاصمة، من الطلب الأول حتى اختيار الخدمة المناسبة.',
-  dubai: 'واجهة سريعة للبحث عن خدمات البناء والتشطيب في بيئة عمرانية نشطة ومتنوعة.',
-  sharjah: 'اختيار عملي للمشاريع التي تجمع بين البناء، الحرف، التشطيب والديكور بأسلوب واضح.',
-  ajman: 'مدخل واضح للخدمات السكنية والتجارية من الصيانة السريعة إلى أعمال الديكور والتجهيز.',
-  'ras-al-khaimah': 'رحلة بحث مناسبة للمشاريع المرتبطة بالمواد، المقاولات، الصيانة والديكور.',
-  fujairah: 'اكتشاف خدمات البناء والتصميم والصيانة في الساحل الشرقي بأسلوب مختصر ومباشر.',
-  'umm-al-quwain': 'تجربة بسيطة للمشاريع الصغيرة والمتوسطة التي تحتاج مقاولًا أو صيانة أو مواد أو أثاث.',
+  'abu-dhabi': 'خدمات البناء والصيانة والتصميم ومواد البناء في أبوظبي والعين ومناطق الإمارة.',
+  dubai: 'خدمات المقاولات والتشطيب والصيانة والتصميم في دبي ومناطقها السكنية والتجارية.',
+  sharjah: 'خدمات المقاولين والحرفيين ومواد البناء والتصميم في الشارقة ومدنها ومناطقها.',
+  ajman: 'خدمات البناء والصيانة والديكور ومواد البناء في عجمان ومناطقها.',
+  'ras-al-khaimah': 'خدمات المقاولات والصيانة والمواد والديكور في رأس الخيمة ومناطقها.',
+  fujairah: 'خدمات البناء والصيانة والتصميم ومواد البناء في الفجيرة ومناطق الساحل الشرقي.',
+  'umm-al-quwain': 'خدمات المقاولين والصيانة والمواد والأثاث في أم القيوين ومناطقها.',
 };
 
 export default function UAEDirectoryHome() {
@@ -57,31 +57,29 @@ export default function UAEDirectoryHome() {
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle="دليل الإمارات" />
         <main>
-          <section className="relative isolate overflow-hidden bg-[#21170F] px-4 pb-10 pt-4 text-white md:pb-16 md:pt-6">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#715436_0%,#21170F_45%,#070503_100%)]" />
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#D4AF37]/75 to-transparent" />
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-5 text-gray-900 md:pb-16 md:pt-7">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#D4AF37]/70 to-transparent" />
 
             <div className="relative z-10 mx-auto max-w-6xl">
-              <div className="mx-auto overflow-hidden rounded-[2.25rem] border border-[#D4AF37]/25 bg-black/20 p-2 shadow-2xl shadow-black/30 backdrop-blur md:rounded-[3rem] md:p-3">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.7rem] bg-[#071A2F] md:aspect-[16/7] md:rounded-[2.35rem]">
-                  <Image src={UAE_ATLAS_IMAGES.heroMobile} alt="دليل الإمارات من بيت الريف" fill priority className="object-cover object-center md:hidden" sizes="100vw" />
-                  <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="خريطة رقمية لدليل الإمارات وخدمات بيت الريف" fill priority className="hidden object-cover object-center md:block" sizes="(max-width: 1200px) 100vw, 1120px" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080604]/70 via-transparent to-transparent" />
+              <div className="mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
+                <div className="relative aspect-[16/9] overflow-hidden rounded-[1.55rem] bg-[#071A2F] md:rounded-[2.35rem]">
+                  <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="خريطة رقمية لدليل الإمارات وخدمات بيت الريف" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
                 </div>
               </div>
 
-              <div className="relative mx-auto -mt-6 max-w-4xl rounded-[2rem] border border-[#D4AF37]/25 bg-[#090806]/82 px-5 py-7 text-center shadow-2xl shadow-black/25 backdrop-blur-xl md:-mt-10 md:rounded-[2.5rem] md:px-12 md:py-9">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-4 py-1 text-xs font-bold text-[#D4AF37]"><MapPinned size={15} /> ابدأ من المكان</span>
-                <h1 className="mt-4 text-4xl font-black leading-tight md:text-6xl">{pageData.h1}</h1>
-                <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-white/86 md:text-xl">{pageData.desc}</p>
-                <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#21170F] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">
+              <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-7 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-12 md:py-9">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]"><MapPinned size={15} /> ابدأ من المكان</span>
+                <h1 className="mt-4 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{pageData.h1}</h1>
+                <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">{pageData.desc}</p>
+                <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">
                   استكشف الآن <ChevronDown size={18} className="animate-bounce" />
                 </a>
               </div>
             </div>
           </section>
 
-          <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-14 md:py-18">
+          <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-14 md:py-20">
             <div className="mx-auto max-w-6xl">
               <div className="mb-9 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> اختر الإمارة</span>
@@ -101,23 +99,20 @@ export default function UAEDirectoryHome() {
                       </div>
 
                       <div className="px-3 pb-4 pt-5 md:px-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <p className="text-xs font-black text-[#D4AF37]">إمارة</p>
-                            <h3 className="mt-1 text-3xl font-black text-[#0F3F1A]">{emirate.nameAr}</h3>
-                          </div>
-                          <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#E4D6BA] bg-[#FDFBF7] text-[#0F3F1A] shadow-sm transition hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#21170F]" aria-expanded={isOpen} aria-label={isOpen ? `إغلاق تفاصيل ${emirate.nameAr}` : `فتح تفاصيل ${emirate.nameAr}`}>
-                            {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                          </button>
+                        <div>
+                          <p className="text-xs font-black text-[#B8922B]">إمارة</p>
+                          <h3 className="mt-1 text-3xl font-black text-[#0F3F1A]">{emirate.nameAr}</h3>
                         </div>
 
-                        <p className={`mt-3 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? `${emirate.experience} ${emirate.description}` : emirate.experience}</p>
-
-                        <div className="mt-5 flex items-center justify-between gap-3 border-t border-[#F0E7D6] pt-4">
-                          <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="inline-flex items-center gap-2 text-xs font-black text-gray-500 transition hover:text-[#0F3F1A]">
-                            {isOpen ? 'إخفاء التفاصيل' : 'عرض التفاصيل'} {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                        <div className="mt-3 flex items-start gap-3">
+                          <button type="button" onClick={() => setOpenSlug(isOpen ? null : emirate.slug)} className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#E4D6BA] bg-[#FDFBF7] text-[#0F3F1A] shadow-sm transition hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-expanded={isOpen} aria-label={isOpen ? `إغلاق تفاصيل ${emirate.nameAr}` : `فتح تفاصيل ${emirate.nameAr}`}>
+                            {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
                           </button>
-                          <Link href={`/uae/${emirate.slug}`} className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#21170F]" aria-label={`اكتشف خدمات ${emirate.nameAr}`}>
+                          <p className={`flex-1 text-sm font-semibold leading-7 text-gray-600 transition-all duration-300 ${isOpen ? 'max-h-40' : 'max-h-7 overflow-hidden'}`}>{isOpen ? `${emirate.experience} ${emirate.description}` : emirate.experience}</p>
+                        </div>
+
+                        <div className="mt-5 flex items-center justify-end border-t border-[#F0E7D6] pt-4">
+                          <Link href={`/uae/${emirate.slug}`} className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A] px-5 py-2.5 text-xs font-black text-white shadow-lg shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]" aria-label={`اكتشف خدمات ${emirate.nameAr}`}>
                             <Search size={15} /> اكتشف الآن <ArrowLeft size={15} />
                           </Link>
                         </div>
