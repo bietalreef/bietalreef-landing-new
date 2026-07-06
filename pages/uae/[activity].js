@@ -7,6 +7,7 @@ import SecondaryHeader from '../../components/SecondaryHeader';
 import ClientRequestCard from '../../components/ClientRequestCard';
 import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
+import UaeSmartFooter from '../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate } from '../../data/siteTaxonomy';
 
 export default function EmiratePage({ emirate, emirateSlug }) {
@@ -80,6 +81,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
           </section>
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${emirate.nameAr}`} />
+          <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} />
         </main>
         <Footer />
       </div>
