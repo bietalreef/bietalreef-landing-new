@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../components/EnglishLayout';
+import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate } from '../../../../data/siteTaxonomy';
 
 export default function EnglishEmiratePage({ emirate }) {
@@ -39,6 +40,7 @@ export default function EnglishEmiratePage({ emirate }) {
             </div>
           </section>
         </main>
+        <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} />
       </EnglishLayout>
     </>
   );
