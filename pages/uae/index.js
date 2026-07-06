@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 import ClientRequestCard from '../../components/ClientRequestCard';
 import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
+import UaeSmartFooter from '../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
 import { ArrowLeft, ChevronDown, ChevronUp, MapPinned, Search } from 'lucide-react';
@@ -137,11 +138,11 @@ export default function UAEDirectoryHome() {
           <ClientRequestCard title="تبحث عن مزود خدمة في الإمارات؟" desc="اسأل وياك أو أرسل طلبك وسنرشدك إلى المسار الصحيح حسب الإمارة والمدينة ونوع الخدمة." buttonText="ابدأ طلبك الآن" />
 
           <SeoContent title="كيف يخدم دليل الإمارات أصحاب المشاريع؟">
-            <p>يعتمد دليل الإمارات في بيت الريف على ترتيب جغرافي واضح يبدأ من الإمارة ثم المدينة أو المنطقة ثم نوع الخدمة. هذا يساعد صاحب المشروع على الوصول إلى مزودي الخدمات الأقرب والأكثر صلة دون تشتيت.</p>
-            <p className="mt-4">بعد اختيار الإمارة يمكنك تصفح المناطق المتاحة، ثم اختيار تخصص مثل المقاولات العامة، النجارة، الرخام والسيراميك، التصميم الداخلي أو الصيانة العامة.</p>
+            <p>يعتمد دليل الإمارات في بيت الريف على ترتيب جغرافي واضح يبدأ من الإمارة ثم المدينة أو المنطقة ثم نوع الخدمة. هذا يجعل الوصول إلى الخدمات أوضح للعميل، ويمنح كل صفحة سياقًا محليًا يساعد محركات البحث ومحركات الإجابة على فهم المحتوى.</p>
           </SeoContent>
 
           <FAQ items={faqItems} title="أسئلة شائعة حول دليل الإمارات" />
+          <UaeSmartFooter locale="ar" pageType="index" />
         </main>
         <Footer />
       </div>
