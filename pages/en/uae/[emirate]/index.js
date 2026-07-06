@@ -47,7 +47,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   return {
-    paths: UAE_EMIRATES.map((emirate) => ({ params: { emirate: emirate.slug })),
+    paths: UAE_EMIRATES.map((emirate) => ({ params: { emirate: emirate.slug } })),
     fallback: 'blocking'
   };
 }
