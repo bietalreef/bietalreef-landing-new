@@ -10,4 +10,57 @@ export const UAE_ATLAS_IMAGES = {
     { slug: 'fujairah', name: 'الفجيرة', image: '/images/uae-atlas/fujairah.webp', thumb: '/images/uae-atlas/thumbs/fujairah.webp' },
     { slug: 'umm-al-quwain', name: 'أم القيوين', image: '/images/uae-atlas/umm-al-quwain.webp', thumb: '/images/uae-atlas/thumbs/umm-al-quwain.webp' },
   ],
+  atlasAssets: [
+    { 
+      id: 'uae-directory-card-cover', 
+      title: 'غلاف بطاقة دليل الإمارات - بيت الريف', 
+      image: '/images/uae-atlas/uae-directory-card-cover.webp', 
+      thumb: '/images/uae-atlas/uae-directory-card-cover-thumb.webp' 
+    },
+    { 
+      id: 'construction-platform-clear-path', 
+      title: 'منصة البناء الذكية - مسار واضح لكل مشروع', 
+      image: '/images/uae-atlas/construction-platform-clear-path.webp' 
+    },
+    { 
+      id: 'wayaak-ai-construction-agent', 
+      title: 'وياك - وكيل ذكي في كل خطوة بناء', 
+      image: '/images/uae-atlas/wayaak-ai-construction-agent.webp' 
+    },
+    { 
+      id: 'biet-alreef-portals-overview', 
+      title: 'البوابات الأربع داخل بيت الريف', 
+      image: '/images/uae-atlas/biet-alreef-portals-overview.webp' 
+    },
+    { 
+      id: 'emirates-directory-portal', 
+      title: 'البوابة الأولى - دليل الإمارات', 
+      image: '/images/uae-atlas/emirates-directory-portal.webp' 
+    },
+    { 
+      id: 'service-providers-portal', 
+      title: 'البوابة الثانية - مزودو الخدمات', 
+      image: '/images/uae-atlas/service-providers-portal.webp' 
+    },
+    { 
+      id: 'services-offers-portal', 
+      title: 'البوابة الثالثة - الخدمات والعروض', 
+      image: '/images/uae-atlas/services-offers-portal.webp' 
+    },
+    { 
+      id: 'products-store-portal', 
+      title: 'البوابة الرابعة - المنتجات والمتاجر', 
+      image: '/images/uae-atlas/products-store-portal.webp' 
+    },
+    { 
+      id: 'digital-presence-seo-engine', 
+      title: 'الحضور الرقمي الموثق لبيت الريف', 
+      image: '/images/uae-atlas/digital-presence-seo-engine.webp' 
+    },
+    { 
+      id: 'future-digital-construction-roadmap', 
+      title: 'خطوات قادمة نحو مستقبل البناء الذكي', 
+      image: '/images/uae-atlas/future-digital-construction-roadmap.webp' 
+    },
+  ]
 } as const;
