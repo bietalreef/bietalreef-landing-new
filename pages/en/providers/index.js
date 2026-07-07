@@ -10,6 +10,18 @@ function normalizeText(value) {
   return String(value || '').toLowerCase().trim();
 }
 
+function providerTypeLabel(provider) {
+  if (provider.slug === 'al-hoot-marble-granite-factory') return 'Marble & Granite Factory';
+  return provider.nameEn || 'Service provider';
+}
+
+function providerDescription(provider) {
+  if (provider.slug === 'al-hoot-marble-granite-factory') {
+    return 'White Whale Marble & Granite Factory specializes in supplying, fabricating and installing natural marble, granite and quartz for kitchens, façades, floors, washbasins and stairs across Al Ain, Abu Dhabi and the UAE.';
+  }
+  return provider.nameEn || provider.nameAr;
+}
+
 export default function ProvidersEnglishPage() {
   const [specialtySearch, setSpecialtySearch] = useState('');
   const query = normalizeText(specialtySearch);
@@ -53,9 +65,9 @@ export default function ProvidersEnglishPage() {
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {providers.map((provider) => (
                 <Link key={provider.slug} href={'/en/providers/' + provider.slug} className="group block rounded-3xl border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{provider.providerTypeAr}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">Verified</span>}</div>
+                  <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{providerTypeLabel(provider)}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">Verified</span>}</div>
                   <h3 className="text-xl font-black text-[#0F3F1A] group-hover:text-[#D4AF37]">{provider.nameEn || provider.nameAr}</h3>
-                  <p className="mt-3 text-sm leading-7 text-gray-600">{provider.descriptionEn || provider.descriptionAr}</p>
+                  <p className="mt-3 text-sm leading-7 text-gray-600">{providerDescription(provider)}</p>
                   <div className="mt-5 border-t border-gray-100 pt-4 text-sm font-black text-primary">Open provider profile</div>
                 </Link>
               ))}
