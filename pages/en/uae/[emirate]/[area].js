@@ -2,10 +2,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../components/EnglishLayout';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
+import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
+
+const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
 function EnglishEmirateServiceHub({ emirate, service }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${service.slug}`;
+  const showSeoProof = emirate.slug === 'abu-dhabi' && AL_HOOT_SERVICE_SLUGS.includes(service.slug);
+
   return (
     <>
       <Head>
@@ -16,14 +21,23 @@ function EnglishEmirateServiceHub({ emirate, service }) {
         <link rel="alternate" hrefLang="en" href={canonical} />
       </Head>
       <EnglishLayout>
-        <main className="max-w-7xl mx-auto px-4 py-14 md:py-20">
-          <p className="text-[#B8922B] font-black mb-3">Service hub</p>
-          <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-5">{service.nameEn} in {emirate.nameEn}</h1>
-          <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page keeps the clean route after choosing the emirate and service. Existing area pages remain linked in the smart footer.</p>
-          <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
-            <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">What this page covers</h2>
-            <p className="text-gray-600 leading-8">Use this page as the main service hub for {service.nameEn.toLowerCase()} across {emirate.nameEn}, then move by area using the smart footer.</p>
+        <main className="bg-[#FDFBF7] text-left">
+          <section className="max-w-7xl mx-auto px-4 py-14 md:py-20">
+            <p className="text-[#B8922B] font-black mb-3">Service hub</p>
+            <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-5">{service.nameEn} in {emirate.nameEn}</h1>
+            <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page keeps the clean route after choosing the emirate and service. Existing area pages remain linked in the smart footer.</p>
+            <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
+              <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">What this page covers</h2>
+              <p className="text-gray-600 leading-8">Use this page as the main service hub for {service.nameEn.toLowerCase()} across {emirate.nameEn}, then move by area using the smart footer.</p>
+            </section>
           </section>
+
+          {showSeoProof && (
+            <SeoProofCardsEn
+              title={`Real provider, service and product path for ${service.nameEn} in ${emirate.nameEn}`}
+              desc="This service hub is connected to a verified marble and granite provider profile, a requestable service path, material/product intent and a quotation step through White Whale Marble & Granite Factory."
+            />
+          )}
         </main>
         <UaeSmartFooter locale="en" pageType="emirateService" emirate={emirate} service={service} />
       </EnglishLayout>
