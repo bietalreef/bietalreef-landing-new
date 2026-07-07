@@ -7,20 +7,29 @@ import ClientRequestCard from '../../../components/ClientRequestCard';
 import SeoContent from '../../../components/SeoContent';
 import FAQ from '../../../components/FAQ';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
+import SeoProofCards from '../../../components/SeoProofCards';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
+
+const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
+
+function shouldShowAlHootPath(emirateSlug, serviceSlug) {
+  return emirateSlug === 'abu-dhabi' && AL_HOOT_SERVICE_SLUGS.includes(serviceSlug);
+}
 
 function EmirateServiceHub({ emirate, service, emirateSlug }) {
   const title = `${service.nameAr} في ${emirate.nameAr}`;
+  const showAlHootPath = shouldShowAlHootPath(emirateSlug, service.slug);
   const faqItems = [
     [`هل توجد ${service.nameAr} في مناطق ${emirate.nameAr}؟`, `نعم، روابط المناطق موجودة في الفوتر الذكي، ويمكنك الانتقال إلى ${service.nameAr} حسب كل منطقة داخل ${emirate.nameAr}.`],
     ['هل تم حذف صفحات المناطق القديمة؟', 'لا، صفحات المناطق القديمة ما زالت تعمل، لكنها أصبحت روابط داخلية مساندة وليست خطوة رئيسية في الصفحة.'],
+    ['هل توجد أمثلة حقيقية داخل الصفحة؟', showAlHootPath ? 'نعم، تم إضافة مسار واضح يربط صفحة النشاط بمزود خدمة فعلي ومنتج وخدمة وطلب معاينة.' : 'يتم إضافة المزودين والمنتجات تدريجياً بعد مراجعة البيانات.'],
   ];
 
   return (
     <>
       <Head>
         <title>{title} | بيت الريف</title>
-        <meta name="description" content={`صفحة ${title} داخل دليل الإمارات مع روابط المناطق والخدمات المرتبطة في الفوتر الذكي.`} />
+        <meta name="description" content={`صفحة ${title} داخل دليل الإمارات مع روابط المناطق والخدمات المرتبطة في الفوتر الذكي ومسارات طلب حقيقية عند توفر مزودين موثقين.`} />
         <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${service.slug}`} />
       </Head>
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
@@ -35,8 +44,15 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
             </div>
           </section>
           <ClientRequestCard title={`تحتاج ${service.nameAr} في ${emirate.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم توجيه الطلب حسب النشاط والمنطقة المناسبة." buttonText="اطلب عرض سعر الآن" />
+          {showAlHootPath && (
+            <SeoProofCards
+              title={`مسار حقيقي لخدمة ${service.nameAr} في ${emirate.nameAr}`}
+              desc="تم تثبيت مربع عملي داخل صفحة النشاط يوضح أن الصفحة مرتبطة بمزود خدمة حقيقي، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة/عرض سعر عبر ملف مصنع الحوت الأبيض للرخام والجرانيت."
+            />
+          )}
           <SeoContent title={`${title} داخل بيت الريف`}>
             <p>هذه صفحة نشاط على مستوى الإمارة. تم نقل المدن والمناطق إلى الفوتر الذكي حتى تبقى الروابط الجغرافية موجودة بدون تعقيد رحلة المستخدم.</p>
+            {showAlHootPath && <p className="mt-4">ولأن هذه الصفحة مرتبطة بمجال الرخام أو مواد البناء أو التشطيبات، تم دعمها بمسار فعلي يفتح ملف مزود خدمة داخل المنصة بدلاً من الاكتفاء بنص عام.</p>}
           </SeoContent>
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
           <UaeSmartFooter locale="ar" pageType="emirateService" emirate={emirate} service={service} />
