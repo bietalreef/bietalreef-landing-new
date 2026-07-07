@@ -4,7 +4,29 @@ import EnglishLayout from '../../components/EnglishLayout';
 import { ENGLISH_STATIC_PAGES, ENGLISH_SEO_SERVICE_PAGES } from '../../data/englishPages';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
 
-const RESERVED_ENGLISH_ROUTES = new Set(['weyaak']);
+const RESERVED_ENGLISH_ROUTES = new Set([
+  'weyaak',
+  'uae',
+  'services',
+  'providers',
+  'marketplace',
+  'tools',
+  'platform',
+  'about',
+  'why-biet-alreef',
+  'how-it-works',
+  'pricing',
+  'partners',
+  'suppliers',
+  'factories',
+  'contact',
+  'faq',
+  'support-policy',
+  'blog',
+  'legal',
+  'privacy',
+  'cookies',
+]);
 
 export default function EnglishStaticPage({ page, slug, service, isSeoService }) {
   const canonical = `https://bietalreef.ae/en/${slug}`;
