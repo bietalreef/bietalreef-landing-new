@@ -11,7 +11,7 @@ const WEYAAK_LOGO = '/images/weyaak-new-logo.jpg';
 const actions = [
   { title: 'طلب عرض سعر', desc: 'أرسل احتياجك لفريق بيت الريف بشكل منظم.', href: '/request-quote?source=weyaak', icon: FileText },
   { title: 'إرسال استفسار', desc: 'اسأل عن خدمة أو مزود أو طريقة البدء.', href: '/inquiry?source=weyaak', icon: MessageCircle },
-  { title: 'دخول مزود الخدمة', desc: 'افتح تطبيق مزودي الخدمة.', href: 'https://app.bietalreef.ae/login?source=weyaak-page', icon: Building2, external: true },
+  { title: 'دخول مزود الخدمة', desc: 'افهم مزايا الانضمام أولًا ثم افتح التطبيق من صفحة مزود الخدمة.', href: '/providers/register?source=weyaak-page', icon: Building2 },
 ];
 
 export default function WeyaakPage() {
@@ -104,16 +104,17 @@ export default function WeyaakPage() {
               <div className="grid gap-4 md:grid-cols-3">
                 {actions.map((item) => {
                   const Icon = item.icon;
-                  const card = (
-                    <div className="h-full rounded-[1.5rem] border border-[#E6DCC8] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F8F3E7] text-[#B99420]">
-                        <Icon className="h-6 w-6" />
+                  return (
+                    <Link key={item.title} href={item.href}>
+                      <div className="h-full rounded-[1.5rem] border border-[#E6DCC8] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F8F3E7] text-[#B99420]">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <h3 className="text-xl font-black text-[#1F3D2B]">{item.title}</h3>
+                        <p className="mt-3 text-sm font-bold leading-7 text-[#5F6F65]">{item.desc}</p>
                       </div>
-                      <h3 className="text-xl font-black text-[#1F3D2B]">{item.title}</h3>
-                      <p className="mt-3 text-sm font-bold leading-7 text-[#5F6F65]">{item.desc}</p>
-                    </div>
+                    </Link>
                   );
-                  return item.external ? <a key={item.title} href={item.href}>{card}</a> : <Link key={item.title} href={item.href}>{card}</Link>;
                 })}
               </div>
             </div>
