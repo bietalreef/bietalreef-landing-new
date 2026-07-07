@@ -46,13 +46,23 @@ export default function EnglishProviderSpecialtyPage({ specialty, matchingProvid
 
           <section className="mx-auto max-w-6xl px-4 pb-16">
             {matchingProviders.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-7">
                 {matchingProviders.map((provider) => (
-                  <Link key={provider.slug} href={`/en/providers/${provider.slug}`} className="group block rounded-3xl border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                    <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{providerTypeLabel(provider)}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">Verified</span>}</div>
-                    <h2 className="text-xl font-black text-[#0F3F1A] group-hover:text-[#D4AF37]">{provider.nameEn || provider.nameAr}</h2>
-                    <p className="mt-3 text-sm leading-7 text-gray-600">{providerDescription(provider)}</p>
-                    <div className="mt-5 border-t border-gray-100 pt-4 text-sm font-black text-primary">Open provider profile</div>
+                  <Link key={provider.slug} href={`/en/providers/${provider.slug}`} className="group block overflow-hidden rounded-[2rem] border border-[#D4AF37]/35 bg-white shadow-xl shadow-[#8A6A00]/10 transition hover:-translate-y-1 hover:shadow-2xl">
+                    <div className="grid lg:grid-cols-[0.9fr_1.4fr]">
+                      <div className="bg-[radial-gradient(circle_at_top,#3B2A10_0%,#101010_52%,#050505_100%)] p-7 text-white md:p-9">
+                        <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-3 py-1.5 text-xs font-black text-[#F3D46B]">Premium specialty</span>{provider.verified && <span className="rounded-full bg-emerald-400/15 px-3 py-1.5 text-xs font-black text-emerald-100">Verified</span>}</div>
+                        <h2 className="text-3xl font-black leading-tight">{provider.nameEn || provider.nameAr}</h2>
+                        <p className="mt-3 text-sm font-bold text-[#F3D46B]">{providerTypeLabel(provider)} · Al Ain · Abu Dhabi</p>
+                      </div>
+                      <div className="p-7 md:p-9">
+                        <p className="text-base font-semibold leading-8 text-gray-700">{providerDescription(provider)}</p>
+                        <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                          {['Natural marble', 'Granite & quartz', 'Supply & installation'].map((item) => <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>)}
+                        </div>
+                        <div className="mt-7 border-t border-[#EFE5D2] pt-5 text-sm font-black text-primary">Open provider profile</div>
+                      </div>
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -78,8 +88,5 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  return {
-    paths: SERVICE_CATEGORIES.map((specialty) => ({ params: { slug: specialty.slug } })),
-    fallback: 'blocking',
-  };
+  return { paths: SERVICE_CATEGORIES.map((specialty) => ({ params: { slug: specialty.slug } })), fallback: 'blocking' };
 }
