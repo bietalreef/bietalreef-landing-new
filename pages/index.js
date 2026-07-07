@@ -17,10 +17,43 @@ const heroSlides = [
 ];
 
 const gatewayCards = [
-  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp', imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف', featured: true },
-  { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي' },
-  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
-  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
+  {
+    title: 'دليل الإمارات',
+    desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.',
+    href: '/uae',
+    icon: MapPinned,
+    label: 'بحث حسب المكان',
+    image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp',
+    imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف',
+    featured: true,
+  },
+  {
+    title: 'مزودو الخدمات',
+    desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.',
+    href: '/providers',
+    icon: UsersRound,
+    label: 'حضور رقمي',
+    image: '/images/gateway/provider-services-card-visual.svg',
+    imageAlt: 'واجهة بصرية لمزودي الخدمات داخل بيت الريف بدون نص',
+  },
+  {
+    title: 'الخدمات والعروض',
+    desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.',
+    href: '/services',
+    icon: Wrench,
+    label: 'طلب خدمة',
+    image: '/images/webp/bait-alreef-next-step-contractor-future.webp',
+    imageAlt: 'خدمات وعروض بيت الريف',
+  },
+  {
+    title: 'المنتجات والمتاجر',
+    desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.',
+    href: '/marketplace',
+    icon: ShoppingBag,
+    label: 'مواد ومنتجات',
+    image: '/images/webp/bait-alreef-smart-materials-calculator-investment-protection.webp',
+    imageAlt: 'مواد ومنتجات ومتاجر بيت الريف',
+  },
 ];
 
 const introModels = [
@@ -54,6 +87,21 @@ const trustBadges = [
   { title: 'أمان', desc: 'تواصل منظم', icon: CheckCircle },
   { title: 'بدون عمولة', desc: 'شفافية في التواصل', icon: Sparkles },
 ];
+
+function GatewayImage({ card, featured = false }) {
+  return (
+    <div className={`relative overflow-hidden bg-[#F7F2E8] ${featured ? 'min-h-[220px] sm:min-h-[260px] md:min-h-[300px]' : 'aspect-[16/9] w-full'}`}>
+      <Image
+        src={card.image}
+        alt={card.imageAlt || card.title}
+        fill
+        className="object-cover object-center transition duration-500 group-hover:scale-105"
+        sizes={featured ? '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 52vw' : '(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 32vw'}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/18 via-transparent to-white/10" />
+    </div>
+  );
+}
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -127,22 +175,18 @@ export default function Home() {
 
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="mb-6 text-center md:text-right"><span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.</p></div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
               {gatewayCards.map((card) => {
                 const Icon = card.icon;
 
                 if (card.featured) {
                   return (
-                    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl md:col-span-2 xl:col-span-4">
-                      <div className="flex min-h-[210px] flex-row items-stretch [direction:ltr] md:min-h-[260px]">
-                        <div className="relative w-[48%] overflow-hidden bg-[#F7F2E8] md:w-[52%]">
-                          <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center" sizes="(max-width: 768px) 48vw, 52vw" />
-                        </div>
-                        <div className="flex w-[52%] flex-col justify-center p-5 text-right [direction:rtl] md:w-[48%] md:p-10">
+                    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl md:col-span-2 lg:col-span-3">
+                      <div className="flex min-h-[auto] flex-col items-stretch sm:flex-row sm:min-h-[240px] [direction:ltr] lg:min-h-[280px]">
+                        <div className="relative w-full sm:w-[48%] lg:w-[52%]"><GatewayImage card={card} featured /></div>
+                        <div className="flex w-full flex-col justify-center p-5 text-right [direction:rtl] sm:w-[52%] md:p-8 lg:w-[48%] lg:p-10">
                           <div className="mb-5 flex items-center justify-between gap-3 md:mb-6">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 md:h-14 md:w-14">
-                              <Icon className="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
-                            </div>
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 md:h-14 md:w-14"><Icon className="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" /></div>
                             <span className="rounded-full bg-[#F7F2E8] px-3 py-2 text-[0.7rem] font-black text-[#6F5400] md:px-4 md:text-xs">{card.label}</span>
                           </div>
                           <h3 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{card.title}</h3>
@@ -155,15 +199,15 @@ export default function Home() {
                 }
 
                 return (
-                  <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                    <div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />
-                    <div className="relative p-7">
-                      <div className="mb-6 flex items-center justify-between">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div>
+                  <Link key={card.href} href={card.href} className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                    <GatewayImage card={card} />
+                    <div className="relative flex flex-1 flex-col p-6 md:p-7">
+                      <div className="mb-5 flex items-center justify-between gap-3">
+                        <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-[#0F3F1A] p-3 text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-6 w-6" aria-hidden="true" /></div>
                         <span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span>
                       </div>
                       <h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3>
-                      <p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p>
+                      <p className="mt-3 flex-1 text-sm leading-8 text-gray-600">{card.desc}</p>
                       <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
                     </div>
                   </Link>
@@ -176,7 +220,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
 
-          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
+          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-20">
             <div className="mx-auto max-w-7xl px-4">
               <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">لمزود الخدمة</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">أدر نشاطك التجاري من هاتفك</h2><p className="mx-auto mt-5 max-w-4xl text-base font-semibold leading-9 text-gray-600 md:text-lg">هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.</p></div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -185,7 +229,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">لا نبيع لك إعلاناً مؤقتاً</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 text-center shadow-sm"><div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
+          <section className="bg-white py-12 md:py-20"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">لا نبيع لك إعلاناً مؤقتاً</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 text-center shadow-sm"><div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
         </main>
         <Footer />
       </div>
