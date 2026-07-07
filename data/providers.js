@@ -13,6 +13,7 @@ export const providers = [
     categorySlugs: ['carpentry', 'interior-design', 'furniture-decor', 'finishing-works'],
     providerTypeAr: 'ورشة نجارة وتصميم داخلي',
     verified: true,
+    isHidden: true,
     logo: '/images/providers/arkleen-logo.png',
     cover: '/images/providers/arkleen-cover.jpg',
     descriptionAr: 'أركلين هي ورشة متخصصة في أعمال النجارة والتصميم الداخلي في مدينة العين، نقدم حلولاً متكاملة لتفصيل الأثاث والمطابخ والديكورات الخشبية بأعلى معايير الجودة.',
@@ -89,7 +90,7 @@ export const providers = [
 ];
 
 export function getProvidersByCategory(categorySlug) {
-  return providers.filter((provider) => provider.categorySlugs?.includes(categorySlug));
+  return providers.filter((provider) => !provider.isHidden && provider.categorySlugs?.includes(categorySlug));
 }
 
 export function getProvidersByAreaAndCategory(emirateSlug, areaSlug, categorySlug) {
@@ -97,6 +98,6 @@ export function getProvidersByAreaAndCategory(emirateSlug, areaSlug, categorySlu
     const matchesEmirate = provider.emirate === emirateSlug;
     const matchesArea = provider.city === areaSlug || provider.area === areaSlug || provider.serviceAreas?.includes(areaSlug);
     const matchesCategory = provider.categorySlugs?.includes(categorySlug);
-    return matchesEmirate && matchesArea && matchesCategory;
+    return !provider.isHidden && matchesEmirate && matchesArea && matchesCategory;
   });
 }
