@@ -137,6 +137,30 @@ header {
   padding-bottom: max(env(safe-area-inset-bottom), 16px);
 }
 
+/* Homepage gateway cards: premium petrol glass frame */
+a[href="/uae"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/providers"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/services"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/marketplace"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/en/uae"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/en/providers"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/en/services"] div[class*="bg-[#0F3F1A]/95"],
+a[href="/en/marketplace"] div[class*="bg-[#0F3F1A]/95"] {
+  background-color: rgba(14, 52, 64, 0.95) !important;
+  box-shadow: 0 18px 40px rgba(14, 52, 64, 0.30) !important;
+}
+
+a[href="/uae"] span[class*="bg-[#143D1F]/90"],
+a[href="/providers"] span[class*="bg-[#143D1F]/90"],
+a[href="/services"] span[class*="bg-[#143D1F]/90"],
+a[href="/marketplace"] span[class*="bg-[#143D1F]/90"],
+a[href="/en/uae"] span[class*="bg-[#143D1F]/90"],
+a[href="/en/providers"] span[class*="bg-[#143D1F]/90"],
+a[href="/en/services"] span[class*="bg-[#143D1F]/90"],
+a[href="/en/marketplace"] span[class*="bg-[#143D1F]/90"] {
+  background-color: rgba(18, 58, 70, 0.92) !important;
+}
+
 @media (max-width: 768px) {
   html,
   body,
@@ -157,7 +181,7 @@ header {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation-iteration-count: 1;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
