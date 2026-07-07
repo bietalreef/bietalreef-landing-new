@@ -1,37 +1,105 @@
-import EnglishGenericPage from '../../../components/EnglishGenericPage';
+import { useState } from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import EnglishLayout from '../../../components/EnglishLayout';
+import { Users, Search } from 'lucide-react';
+import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../../data/siteTaxonomy';
+import { providers } from '../../../data/providers';
+
+function normalizeText(value) {
+  return String(value || '').toLowerCase().trim();
+}
 
 export default function ProvidersEnglishPage() {
+  const [specialtySearch, setSpecialtySearch] = useState('');
+  const query = normalizeText(specialtySearch);
+  const filteredCategories = SERVICE_CATEGORIES.filter((service) => {
+    if (!query) return true;
+    return [service.nameEn, service.nameAr, service.slug].some((field) => normalizeText(field).includes(query));
+  });
+
   return (
-    <EnglishGenericPage
-      badge="Service providers section"
-      title="Service Providers inside Biet Al Reef"
-      description="This section is dedicated to contractors, companies, workshops, factories, suppliers and specialized offices. Search by emirate and city starts from the UAE Directory."
-      intent="This page explains the independent provider path inside Biet Al Reef. The customer can browse providers by type and specialty, while geographic discovery remains separate inside the UAE Directory."
-      path="/en/providers"
-      arabicPath="/providers"
-      ctaHref="/en/providers/register"
-      ctaLabel="Register your company now"
-      secondaryHref="https://wa.me/971567856001"
-      secondaryLabel="Talk to onboarding"
-      points={[
-        'Available providers are presented as reviewed profiles inside Biet Al Reef.',
-        'Specialties are browsed inside the providers path, not inside the UAE Directory or Services & Offers.',
-        'Geographic coverage is separate: use the UAE Directory when the search starts from a city or emirate.',
-      ]}
-      steps={[
-        'Create your profile',
-        'Document your work',
-        'Receive client requests',
-      ]}
-      related={[
-        { href: '/en/providers/register', label: 'Register provider interest' },
-        { href: '/en/uae', label: 'UAE Directory' },
-        { href: '/en/services', label: 'Services & Offers' },
-      ]}
-      faqs={[
-        ['Who is this section for?', 'It is for contractors, companies, workshops, factories, suppliers, craftsmen and specialized service offices.'],
-        ['Is location search part of this page?', 'No. If the customer wants a provider by city or emirate, the correct path is the UAE Directory.'],
-      ]}
-    />
+    <>
+      <Head>
+        <title>Service Providers | Biet Al Reef</title>
+        <meta name="description" content="Browse Biet Al Reef service providers by specialty or register your business to appear inside the platform." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://bietalreef.ae/en/providers" />
+        <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers" />
+        <link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/providers" />
+      </Head>
+
+      <EnglishLayout>
+        <main dir="ltr" className="bg-[#FDFBF7] text-left">
+          <section className="relative overflow-hidden bg-gradient-to-br from-[#0F3F1A] via-[#1a5c28] to-[#0F3F1A] py-20 text-white md:py-32">
+            <div className="mx-auto max-w-6xl px-4">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-emerald-400">
+                <Users className="h-4 w-4" /> Service providers section
+              </div>
+              <h1 className="mb-6 text-4xl font-black leading-tight md:text-6xl">Service Providers <br /><span className="text-emerald-400">inside Biet Al Reef</span></h1>
+              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-emerald-50/80">This section is dedicated to contractors, companies, workshops, factories, suppliers and specialized offices. Search by emirate and city starts from the UAE Directory.</p>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/en/providers/register" className="rounded-2xl bg-[#D4AF37] px-10 py-4 font-black text-[#0F3F1A] shadow-lg transition hover:bg-[#b8922b]">Register your company now</Link>
+                <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl border border-white/20 bg-white/10 px-10 py-4 font-bold text-white transition hover:bg-white/20">Talk to onboarding</a>
+              </div>
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-6xl px-4 py-16">
+            <div className="mb-10 text-center md:text-left">
+              <h2 className="mb-3 text-3xl font-black text-[#0F3F1A]">Available providers now</h2>
+              <p className="leading-8 text-gray-500">These are the first real service provider profiles inside Biet Al Reef, and the directory will expand after reviewing and approving more providers.</p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {providers.map((provider) => (
+                <Link key={provider.slug} href={'/en/providers/' + provider.slug} className="group block rounded-3xl border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                  <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{provider.providerTypeAr}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">Verified</span>}</div>
+                  <h3 className="text-xl font-black text-[#0F3F1A] group-hover:text-[#D4AF37]">{provider.nameEn || provider.nameAr}</h3>
+                  <p className="mt-3 text-sm leading-7 text-gray-600">{provider.descriptionEn || provider.descriptionAr}</p>
+                  <div className="mt-5 border-t border-gray-100 pt-4 text-sm font-black text-primary">Open provider profile</div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-6xl px-4 py-20">
+            <div className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row">
+              <div><h2 className="mb-2 text-3xl font-black text-[#0F3F1A]">Browse service providers by specialty</h2><p className="text-gray-500">Each specialty opens inside the providers path, not inside the UAE Directory or Services & Offers.</p></div>
+              <div className="relative w-full md:w-auto"><Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input type="text" value={specialtySearch} onChange={(event) => setSpecialtySearch(event.target.value)} placeholder="Search specialty..." className="w-full rounded-xl border border-[#E6DCC8] bg-white py-2 pl-10 pr-4 text-sm focus:border-emerald-500 focus:outline-none md:w-72" /></div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredCategories.map((service) => (
+                <Link key={service.slug} href={'/en/providers/specialty/' + service.slug} className="group rounded-3xl border border-[#E6DCC8] bg-white p-8 transition hover:shadow-xl">
+                  <div className="mb-6 text-4xl transition-transform group-hover:scale-110">{service.icon}</div>
+                  <h3 className="mb-3 text-xl font-black text-[#0F3F1A]">{service.nameEn || service.nameAr} Providers</h3>
+                  <p className="mb-6 text-sm leading-relaxed text-gray-500">{service.descEn || service.descAr}</p>
+                  <div className="border-t border-gray-50 pt-6 text-xs font-bold text-emerald-600">Browse providers in this specialty</div>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="border-y border-[#E6DCC8] bg-white py-20">
+            <div className="mx-auto max-w-6xl px-4 text-center">
+              <h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">How do you join the Biet Al Reef network?</h2>
+              <p className="mb-12 text-gray-500">Simple steps to start your digital growth journey with us</p>
+              <div className="grid gap-12 md:grid-cols-3">
+                <div><div className="mb-3 text-5xl font-black text-gray-100">01</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Create your profile</h3><p className="text-sm leading-7 text-gray-500">Register your company details, specialties and work coverage in the UAE.</p></div>
+                <div><div className="mb-3 text-5xl font-black text-gray-100">02</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Document your work</h3><p className="text-sm leading-7 text-gray-500">Add previous project photos and experience proof to build client confidence.</p></div>
+                <div><div className="mb-3 text-5xl font-black text-gray-100">03</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Receive requests</h3><p className="text-sm leading-7 text-gray-500">Start receiving direct quotation requests from targeted customers.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-6xl px-4 py-20">
+            <div className="rounded-[40px] border border-[#E6DCC8] bg-[#FDFBF7] p-8 md:p-12">
+              <h2 className="mb-6 text-3xl font-black text-[#0F3F1A]">Geographic coverage is separate from the providers section</h2>
+              <p className="mb-8 leading-relaxed text-gray-600">If you want a service provider by city or emirate, go to the UAE Directory. Here, browsing is by provider type and specialty.</p>
+              <div className="flex flex-wrap gap-2">{UAE_EMIRATES.map((emirate) => <Link key={emirate.slug} href={'/en/uae/' + emirate.slug} className="rounded-full border border-[#E6DCC8] bg-white px-4 py-2 text-xs font-bold text-gray-600 hover:border-emerald-500 hover:text-emerald-600">{emirate.nameEn}</Link>)}</div>
+            </div>
+          </section>
+        </main>
+      </EnglishLayout>
+    </>
   );
 }
