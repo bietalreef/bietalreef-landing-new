@@ -5,22 +5,47 @@ import EnglishLayout from '../../../components/EnglishLayout';
 import { Users, Search } from 'lucide-react';
 import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../../data/siteTaxonomy';
 import { providers } from '../../../data/providers';
+import { ProviderCard } from '../../../components/cards/SmartEntityCard';
 
 function normalizeText(value) {
   return String(value || '').toLowerCase().trim();
 }
 
-function providerTypeLabel(provider) {
-  if (provider.slug === 'al-hoot-marble-granite-factory') return 'Marble & Granite Factory';
-  return provider.nameEn || 'Service provider';
+function toProviderCardItem(provider) {
+  return {
+    id: provider.slug,
+    entityType: 'provider',
+    premium: provider.slug === 'al-hoot-marble-granite-factory',
+    name: provider.nameEn || provider.nameAr,
+    nameEn: provider.nameEn,
+    providerType: provider.providerTypeEn || provider.providerTypeAr,
+    emirate: provider.emirate,
+    city: provider.city === 'al-ain' ? 'Al Ain' : provider.city,
+    area: provider.area === 'mazid-company-camp' ? 'Mazid - Company Camp' : provider.area,
+    specialties: (provider.services || []).map((service) => serviceLabels[service] || service),
+    verified: provider.verified,
+    coverImage: provider.cover || provider.logo,
+    logoText: provider.nameEn?.slice(0, 1) || 'W',
+    href: '/en/providers/' + provider.slug,
+    whatsapp: provider.whatsapp ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}` : undefined,
+    summary: provider.descriptionEn || provider.descriptionAr,
+  };
 }
 
-function providerDescription(provider) {
-  if (provider.slug === 'al-hoot-marble-granite-factory') {
-    return 'White Whale Marble & Granite Factory specializes in supplying, fabricating and installing natural marble, granite and quartz for kitchens, façades, floors, washbasins and stairs across Al Ain, Abu Dhabi and the UAE.';
-  }
-  return provider.nameEn || provider.nameAr;
-}
+const serviceLabels = {
+  'رخام طبيعي': 'Natural Marble',
+  'جرانيت': 'Granite',
+  'كوارتز': 'Quartz',
+  'حجر صناعي': 'Engineered Stone',
+  'تصنيع حسب الطلب': 'Custom Fabrication',
+  'توريد': 'Supply',
+  'تركيب': 'Installation',
+  'مطابخ': 'Kitchens',
+  'مغاسل': 'Washbasins',
+  'واجهات': 'Façades',
+  'أرضيات': 'Floors',
+  'سلالم': 'Stairs',
+};
 
 export default function ProvidersEnglishPage() {
   const [specialtySearch, setSpecialtySearch] = useState('');
@@ -59,18 +84,12 @@ export default function ProvidersEnglishPage() {
 
           <section className="mx-auto max-w-6xl px-4 py-16">
             <div className="mb-10 text-center md:text-left">
-              <h2 className="mb-3 text-3xl font-black text-[#0F3F1A]">Available providers now</h2>
-              <p className="leading-8 text-gray-500">These are the first real service provider profiles inside Biet Al Reef, and the directory will expand after reviewing and approving more providers.</p>
+              <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00]">Real providers inside the platform</span>
+              <h2 className="mt-4 mb-3 text-3xl font-black text-[#0F3F1A]">Available providers now</h2>
+              <p className="leading-8 text-gray-500">These are the first real service provider profiles inside Biet Al Reef. Each card opens a real provider profile and a contact or quotation path.</p>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {providers.map((provider) => (
-                <Link key={provider.slug} href={'/en/providers/' + provider.slug} className="group block rounded-3xl border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                  <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{providerTypeLabel(provider)}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">Verified</span>}</div>
-                  <h3 className="text-xl font-black text-[#0F3F1A] group-hover:text-[#D4AF37]">{provider.nameEn || provider.nameAr}</h3>
-                  <p className="mt-3 text-sm leading-7 text-gray-600">{providerDescription(provider)}</p>
-                  <div className="mt-5 border-t border-gray-100 pt-4 text-sm font-black text-primary">Open provider profile</div>
-                </Link>
-              ))}
+              {providers.map((provider) => <ProviderCard key={provider.slug} item={toProviderCardItem(provider)} />)}
             </div>
           </section>
 
