@@ -93,41 +93,41 @@ export default function EnglishProviderProfilePage({ provider }) {
 
       <EnglishLayout>
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,#3B2A10_0%,#101010_42%,#050505_100%)] text-white">
-            <div className="absolute inset-0 opacity-20 bg-[linear-gradient(225deg,transparent_0%,#D4AF37_48%,transparent_72%)]" />
-            {provider.cover && <div className="absolute inset-0"><Image src={provider.cover} alt={provider.nameEn} fill className="object-cover opacity-15" priority /></div>}
-            <div className="relative mx-auto max-w-6xl px-4 py-16 md:py-24">
-              <Link href="/en/providers" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-black text-white/90 hover:bg-white/20 transition"><ArrowRight className="h-4 w-4" />Back to service providers</Link>
+          <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,#FFF8EA_0%,#EFE3CC_42%,#CDBB98_100%)] text-[#102515]">
+            <div className="absolute inset-0 bg-[linear-gradient(225deg,rgba(255,255,255,0.72)_0%,rgba(247,241,228,0.82)_42%,rgba(205,187,152,0.56)_100%)]" />
+            {provider.cover && <div className="absolute inset-0"><Image src={provider.cover} alt={provider.nameEn} fill className="object-cover opacity-18 mix-blend-multiply" priority /></div>}
+            <div className="relative mx-auto max-w-6xl px-4 pt-7 pb-12 md:pt-9 md:pb-16">
+              <Link href="/en/providers" className="inline-flex items-center gap-2 rounded-full border border-[#B8922B]/35 bg-white/55 px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-sm backdrop-blur hover:bg-white transition"><ArrowRight className="h-4 w-4" />Back to service providers</Link>
 
-              <div className="mt-10 grid gap-10 lg:grid-cols-[1.35fr_0.85fr] lg:items-center">
+              <div className="mt-8 grid gap-10 lg:grid-cols-[1.35fr_0.85fr] lg:items-center">
                 <div>
                   <div className="mb-5 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-1.5 text-xs font-black text-[#F3D46B]"><Gem className="h-3.5 w-3.5" /> Premium Specialty</span>
-                    {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-400/15 px-4 py-1.5 text-xs font-black text-emerald-100"><ShieldCheck className="h-3.5 w-3.5" /> Verified Provider</span>}
-                    <span className="rounded-full bg-white/10 px-4 py-1.5 text-xs font-black text-white/80">{provider.providerTypeEn || 'Marble & Granite Factory'}</span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B8922B]/40 bg-[#FFF8E5]/80 px-4 py-1.5 text-xs font-black text-[#8A6A00]"><Gem className="h-3.5 w-3.5" /> Premium Specialty</span>
+                    {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-black text-emerald-700"><ShieldCheck className="h-3.5 w-3.5" /> Verified Provider</span>}
+                    <span className="rounded-full bg-white/65 px-4 py-1.5 text-xs font-black text-[#0F3F1A]">{provider.providerTypeEn || 'Marble & Granite Factory'}</span>
                   </div>
 
-                  <h1 className="text-4xl font-black leading-tight md:text-6xl">{provider.nameEn || provider.nameAr}</h1>
-                  <p className="mt-4 text-base font-bold text-[#F3D46B] md:text-lg">Marble · Granite · Quartz · Al Ain · Abu Dhabi</p>
-                  <p className="mt-6 max-w-3xl text-lg leading-9 text-white/82">{description}</p>
+                  <h1 className="text-4xl font-black leading-tight md:text-6xl text-[#0F3F1A]">{provider.nameEn || provider.nameAr}</h1>
+                  <p className="mt-4 text-base font-black text-[#8A6A00] md:text-lg">Marble · Granite · Quartz · Al Ain · Abu Dhabi</p>
+                  <p className="mt-6 max-w-3xl text-lg leading-9 text-[#243528]">{description}</p>
 
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                    {whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> Contact on WhatsApp</a>}
-                    <a href={`tel:${provider.phone}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-black text-white transition hover:bg-white/20"><Phone className="h-5 w-5" /> Call Factory</a>
-                    <Link href="/en/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#D4AF37]/40 px-8 py-4 font-black text-[#F3D46B] transition hover:bg-[#D4AF37] hover:text-[#12110B]">Request Quotation</Link>
+                    {whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] shadow-lg shadow-[#8A6A00]/10 transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> Contact on WhatsApp</a>}
+                    <a href={`tel:${provider.phone}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#B8922B]/35 bg-white/55 px-8 py-4 font-black text-[#0F3F1A] backdrop-blur transition hover:bg-white"><Phone className="h-5 w-5" /> Call Factory</a>
+                    <Link href="/en/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#B8922B]/35 bg-white/35 px-8 py-4 font-black text-[#8A6A00] transition hover:bg-white">Request Quotation</Link>
                   </div>
                 </div>
 
-                <div className="rounded-[2rem] border border-[#D4AF37]/30 bg-white/8 p-6 shadow-2xl backdrop-blur">
-                  <div className="rounded-[1.5rem] bg-gradient-to-br from-white/15 via-[#D4AF37]/10 to-black/20 p-6">
-                    <p className="text-sm font-black text-[#F3D46B]">Factory Trust Card</p>
+                <div className="rounded-[2rem] border border-[#B8922B]/30 bg-white/45 p-6 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur">
+                  <div className="rounded-[1.5rem] bg-gradient-to-br from-white/85 via-[#FFF8E5]/75 to-[#E6D8BD]/70 p-6">
+                    <p className="text-sm font-black text-[#8A6A00]">Factory Trust Card</p>
                     <div className="mt-5 grid grid-cols-2 gap-3">
-                      <div className="rounded-2xl bg-black/25 p-4 text-center"><div className="text-3xl font-black text-[#F3D46B]">Marble</div><div className="mt-1 text-xs text-white/70">Natural stones</div></div>
-                      <div className="rounded-2xl bg-black/25 p-4 text-center"><div className="text-3xl font-black text-[#F3D46B]">Granite</div><div className="mt-1 text-xs text-white/70">Durable solutions</div></div>
-                      <div className="rounded-2xl bg-black/25 p-4 text-center"><div className="text-3xl font-black text-[#F3D46B]">Quartz</div><div className="mt-1 text-xs text-white/70">Kitchen tops</div></div>
-                      <div className="rounded-2xl bg-black/25 p-4 text-center"><div className="text-3xl font-black text-[#F3D46B]">UAE</div><div className="mt-1 text-xs text-white/70">By request</div></div>
+                      <TrustItem title="Marble" sub="Natural stones" />
+                      <TrustItem title="Granite" sub="Durable solutions" />
+                      <TrustItem title="Quartz" sub="Kitchen tops" />
+                      <TrustItem title="UAE" sub="By request" />
                     </div>
-                    <div className="mt-4 flex items-center gap-2 rounded-xl bg-black/20 px-4 py-3"><CheckCircle2 className="h-4 w-4 text-emerald-400" /><span className="text-xs text-white/80">Service provider profile inside Biet Al Reef</span></div>
+                    <div className="mt-4 flex items-center gap-2 rounded-xl bg-white/70 px-4 py-3"><CheckCircle2 className="h-4 w-4 text-emerald-600" /><span className="text-xs font-bold text-[#0F3F1A]">Service provider profile inside Biet Al Reef</span></div>
                   </div>
                 </div>
               </div>
@@ -148,20 +148,16 @@ export default function EnglishProviderProfilePage({ provider }) {
 
           {provider.faq?.length > 0 && <section className="mx-auto max-w-4xl px-4 pb-16"><p className="text-center font-black text-[#B8922B]">Frequently Asked Questions</p><h2 className="mt-2 mb-8 text-center text-3xl font-black text-[#0F3F1A]">Direct answers to common questions</h2><div className="space-y-4">{provider.faq.map((item, idx) => <details key={idx} className="group rounded-2xl border border-[#E6DCC8] bg-white shadow-sm"><summary className="cursor-pointer list-none p-6 font-black text-[#0F3F1A] flex items-center justify-between gap-4">{item.questionEn}<ChevronDown className="h-5 w-5 shrink-0 text-[#B8922B] transition group-open:rotate-180" /></summary><div className="px-6 pb-6 leading-8 text-gray-600">{item.answerEn}</div></details>)}</div></section>}
 
-          <section className="mx-auto max-w-6xl px-4 pb-20"><div className="rounded-[2rem] bg-gradient-to-br from-[#101010] via-[#1b160c] to-[#0F3F1A] p-8 text-white md:p-12"><h2 className="text-3xl font-black">Need marble, granite or quartz for your project?</h2><p className="mt-4 max-w-2xl text-white/75 leading-8">Send your project details, measurements and available photos to get directed to the right quotation path.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row">{whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] transition hover:bg-[#b8922b]">Contact via WhatsApp</a>}<Link href="/en/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-black text-white transition hover:bg-white/20">Request Official Quotation</Link></div></div></section>
+          <section className="mx-auto max-w-6xl px-4 pb-20"><div className="rounded-[2rem] bg-gradient-to-br from-[#FFF8EA] via-[#EFE3CC] to-[#CDBB98] border border-[#B8922B]/25 p-8 text-[#0F3F1A] md:p-12"><h2 className="text-3xl font-black">Need marble, granite or quartz for your project?</h2><p className="mt-4 max-w-2xl text-[#304333] leading-8">Send your project details, measurements and available photos to get directed to the right quotation path.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row">{whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] transition hover:bg-[#b8922b]">Contact via WhatsApp</a>}<Link href="/en/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#B8922B]/35 bg-white/50 px-8 py-4 font-black text-[#0F3F1A] transition hover:bg-white">Request Official Quotation</Link></div></div></section>
         </main>
       </EnglishLayout>
     </>
   );
 }
 
-function InfoItem({ icon, label, value, highlight = false }) {
-  return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>;
-}
-
-function FeatureCard({ icon, label }) {
-  return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>;
-}
+function TrustItem({ title, sub }) { return <div className="rounded-2xl bg-white/65 p-4 text-center shadow-sm"><div className="text-2xl font-black text-[#8A6A00]">{title}</div><div className="mt-1 text-xs font-bold text-[#304333]">{sub}</div></div>; }
+function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
+function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
 export async function getStaticProps({ params }) {
   const provider = providers.find((item) => item.slug === params.slug);
@@ -169,6 +165,4 @@ export async function getStaticProps({ params }) {
   return { props: { provider }, revalidate: 3600 };
 }
 
-export async function getStaticPaths() {
-  return { paths: providers.map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' };
-}
+export async function getStaticPaths() { return { paths: providers.map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }
