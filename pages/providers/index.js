@@ -6,6 +6,7 @@ import SEOHead from '../../components/SEOHead';
 import { Users, Search, ChevronLeft } from 'lucide-react';
 import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../data/siteTaxonomy';
 import { providers } from '../../data/providers';
+import { ProviderCard } from '../../components/cards/SmartEntityCard';
 
 const steps = [
   { t: 'أنشئ ملفك الشخصي', d: 'سجل بيانات شركتك، تخصصاتك، ونطاق عملك الجغرافي في الإمارات.', i: '01' },
@@ -15,6 +16,27 @@ const steps = [
 
 function normalizeText(value) {
   return String(value || '').toLowerCase().trim();
+}
+
+function toProviderCardItem(provider) {
+  return {
+    id: provider.slug,
+    entityType: 'provider',
+    premium: provider.slug === 'al-hoot-marble-granite-factory',
+    name: provider.nameAr,
+    nameEn: provider.nameEn,
+    providerType: provider.providerTypeAr,
+    emirate: provider.emirate,
+    city: provider.city === 'al-ain' ? 'العين' : provider.city,
+    area: provider.area === 'mazid-company-camp' ? 'مزيد - معسكر الشركات' : provider.area,
+    specialties: provider.services || [],
+    verified: provider.verified,
+    coverImage: provider.cover || provider.logo,
+    logoText: provider.nameAr?.slice(0, 1) || 'م',
+    href: '/providers/' + provider.slug,
+    whatsapp: provider.whatsapp ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}` : undefined,
+    summary: provider.descriptionAr,
+  };
 }
 
 export default function ProvidersPage() {
@@ -65,19 +87,12 @@ export default function ProvidersPage() {
 
         <section className="max-w-6xl mx-auto px-4 py-16">
           <div className="mb-10 text-center md:text-right">
-            <h2 className="text-3xl font-black text-[#0F3F1A] mb-3">مزودون متاحون الآن</h2>
-            <p className="text-gray-500 leading-8">هذه أول ملفات مزودي خدمات حقيقية داخل بيت الريف، وسيتم توسيع الدليل بعد مراجعة واعتماد بيانات مزودين إضافيين.</p>
+            <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00]">مزودون فعليون داخل المنصة</span>
+            <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] mb-3">مزودون متاحون الآن</h2>
+            <p className="text-gray-500 leading-8">هذه أول ملفات مزودي خدمات حقيقية داخل بيت الريف. الكارت هنا ليس معاينة شكلية؛ كل كارت يفتح ملف مزود فعلي ومسار تواصل أو طلب سعر.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {providers.map((provider) => (
-              <Link key={provider.slug} href={'/providers/' + provider.slug} className="group block rounded-3xl border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="mb-4 flex flex-wrap gap-2"><span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">{provider.providerTypeAr}</span>{provider.verified && <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700">موثق</span>}</div>
-                <h3 className="text-xl font-black text-[#0F3F1A] group-hover:text-[#D4AF37]">{provider.nameAr}</h3>
-                <p className="mt-3 text-sm leading-7 text-gray-600">{provider.descriptionAr}</p>
-                <div className="mt-5 flex flex-wrap gap-2">{provider.categorySlugs?.slice(0, 3).map((slug) => { const item = SERVICE_CATEGORIES.find((service) => service.slug === slug); return item ? <span key={slug} className="rounded-full border border-[#E6DCC8] px-3 py-1 text-xs font-bold text-gray-600">{item.nameAr}</span> : null; })}</div>
-                <div className="mt-5 border-t border-gray-100 pt-4 text-sm font-black text-primary">افتح ملف المزود</div>
-              </Link>
-            ))}
+            {providers.map((provider) => <ProviderCard key={provider.slug} item={toProviderCardItem(provider)} />)}
           </div>
         </section>
 
