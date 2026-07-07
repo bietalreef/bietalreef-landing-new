@@ -17,10 +17,10 @@ const heroSlides = [
 ];
 
 const gatewayCards = [
-  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp', imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف', featured: true },
+  { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/gateway/uae-directory-gateway.webp', imageAlt: 'خريطة الإمارات ثلاثية الأبعاد لدليل الإمارات داخل بيت الريف' },
   { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي', image: '/images/gateway/providers-gateway.webp', imageAlt: 'مزودو خدمات البناء والمقاولات داخل بيت الريف' },
-  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
-  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
+  { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة', image: '/images/gateway/services-offers-gateway.webp', imageAlt: 'خدمات وعروض البناء والصيانة والتشطيبات في بيت الريف' },
+  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات', image: '/images/gateway/materials-products-gateway.webp', imageAlt: 'مواد البناء والمنتجات والمتاجر داخل بيت الريف' },
 ];
 
 const introModels = [
@@ -54,6 +54,39 @@ const trustBadges = [
   { title: 'أمان', desc: 'تواصل منظم', icon: CheckCircle },
   { title: 'بدون عمولة', desc: 'شفافية في التواصل', icon: Sparkles },
 ];
+
+function GatewayCard({ card }) {
+  const Icon = card.icon;
+
+  return (
+    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#F7F2E8]">
+        <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 25vw" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7]/25 via-transparent to-white/5" />
+        <div className="absolute right-4 top-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/55 bg-[#0F3F1A]/95 text-[#F7E7A0] shadow-[0_18px_34px_rgba(15,63,26,0.32)] backdrop-blur-xl transition group-hover:scale-105 md:h-16 md:w-16">
+          <Icon className="h-7 w-7 md:h-8 md:w-8" aria-hidden="true" />
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-4 -mt-7 rounded-[1.65rem] border border-[#D4AF37]/50 bg-[#0F3F1A]/95 p-2.5 shadow-[0_18px_40px_rgba(15,63,26,0.28)] backdrop-blur-xl md:mx-5 md:-mt-8">
+        <div className="grid grid-cols-2 items-center gap-2 md:gap-3">
+          <span className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/12 px-3 py-2 text-sm font-black text-white shadow-inner backdrop-blur-xl md:text-base">
+            <Icon className="h-5 w-5 text-[#D4AF37]" aria-hidden="true" />
+            {card.title}
+          </span>
+          <span className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-[#143D1F]/90 px-3 py-2 text-sm font-black text-white shadow-[0_0_24px_rgba(212,175,55,0.22)] backdrop-blur-xl md:text-base">
+            استكشف الآن
+            <Search className="h-5 w-5 text-[#F7E7A0]" aria-hidden="true" />
+          </span>
+        </div>
+      </div>
+
+      <div className="px-6 pb-6 pt-4">
+        <p className="text-sm font-semibold leading-7 text-gray-600">{card.desc}</p>
+      </div>
+    </Link>
+  );
+}
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -128,74 +161,7 @@ export default function Home() {
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="mb-6 text-center md:text-right"><span className="text-sm font-black text-[#6F5400]">ابدأ من هنا</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">اختر بوابة بيت الريف المناسبة</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {gatewayCards.map((card) => {
-                const Icon = card.icon;
-
-                if (card.featured) {
-                  return (
-                    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl md:col-span-2 xl:col-span-4">
-                      <div className="flex min-h-[210px] flex-row items-stretch [direction:ltr] md:min-h-[260px]">
-                        <div className="relative w-[48%] overflow-hidden bg-[#F7F2E8] md:w-[52%]">
-                          <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center" sizes="(max-width: 768px) 48vw, 52vw" />
-                        </div>
-                        <div className="flex w-[52%] flex-col justify-center p-5 text-right [direction:rtl] md:w-[48%] md:p-10">
-                          <div className="mb-5 flex items-center justify-between gap-3 md:mb-6">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 md:h-14 md:w-14"><Icon className="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" /></div>
-                            <span className="rounded-full bg-[#F7F2E8] px-3 py-2 text-[0.7rem] font-black text-[#6F5400] md:px-4 md:text-xs">{card.label}</span>
-                          </div>
-                          <h3 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{card.title}</h3>
-                          <p className="mt-3 text-sm font-semibold leading-7 text-gray-600 md:mt-4 md:text-base md:leading-8">{card.desc}</p>
-                          <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1 md:mt-8">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                }
-
-                return (
-                  <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                    {card.image ? (
-                      <>
-                        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#F7F2E8]">
-                          <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 25vw" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7]/20 via-transparent to-transparent" />
-                          <div className="absolute right-4 top-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/50 bg-[#0F3F1A]/90 text-[#F7E7A0] shadow-2xl shadow-[#0F3F1A]/30 backdrop-blur-xl transition group-hover:scale-105">
-                            <Icon className="h-7 w-7" aria-hidden="true" />
-                          </div>
-                        </div>
-                        <div className="border-t border-[#E6DCC8] bg-gradient-to-l from-[#FFF8EA] via-white to-[#EEF9FF] p-3">
-                          <div className="grid grid-cols-2 items-center gap-3 rounded-[1.45rem] border border-[#D4AF37]/45 bg-white/70 p-2 shadow-inner backdrop-blur-xl">
-                            <span className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl border border-white/70 bg-white/75 px-3 py-2 text-sm font-black text-[#0F3F1A] shadow-sm backdrop-blur-xl md:text-base">
-                              <Icon className="h-5 w-5 text-[#B8922B]" aria-hidden="true" />
-                              {card.title}
-                            </span>
-                            <span className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl border border-sky-200/80 bg-sky-100/65 px-3 py-2 text-sm font-black text-[#0F3F1A] shadow-[0_0_24px_rgba(125,211,252,0.35)] backdrop-blur-xl md:text-base">
-                              استكشف الآن
-                              <Sparkles className="h-5 w-5 text-sky-500" aria-hidden="true" />
-                            </span>
-                          </div>
-                        </div>
-                        <div className="px-6 pb-6 pt-4">
-                          <p className="text-sm leading-7 text-gray-600">{card.desc}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />
-                        <div className="relative p-7">
-                          <div className="mb-6 flex items-center justify-between">
-                            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div>
-                            <span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{card.label}</span>
-                          </div>
-                          <h3 className="text-2xl font-black text-[#0F3F1A]">{card.title}</h3>
-                          <p className="mt-3 min-h-[88px] text-sm leading-8 text-gray-600">{card.desc}</p>
-                          <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-[#6F5400] transition group-hover:-translate-x-1">افتح القسم<ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
-                        </div>
-                      </>
-                    )}
-                  </Link>
-                );
-              })}
+              {gatewayCards.map((card) => <GatewayCard key={card.href} card={card} />)}
             </div>
           </section>
 
