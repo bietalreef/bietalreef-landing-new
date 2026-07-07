@@ -171,7 +171,7 @@ export default function PlatformPage() {
               {heroCards.map((card) => {
                 const Icon = card.icon;
                 return (
-                  <div key={card.title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-[#FDFBF7] p-5 text-right">
+                  <div key={card.title} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] p-5 text-center">
                     <Icon className="mb-3 h-7 w-7 text-[#0F3F1A]" />
                     <h2 className="text-xl font-black text-[#0F3F1A]">{card.title}</h2>
                     <p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{card.desc}</p>
@@ -184,10 +184,10 @@ export default function PlatformPage() {
                 ابدأ كعميل
                 <ArrowLeft className="h-5 w-5" />
               </Link>
-              <a href="https://app.bietalreef.ae/onboarding" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-7 py-4 text-base font-black text-[#0F3F1A] transition hover:border-[#0F3F1A]">
+              <Link href="/providers/register?source=platform-hero" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-7 py-4 text-base font-black text-[#0F3F1A] transition hover:border-[#0F3F1A]">
                 ابدأ كمزود خدمة
                 <ArrowLeft className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -297,10 +297,10 @@ export default function PlatformPage() {
                 ابدأ كعميل
                 <ArrowLeft className="h-5 w-5" />
               </Link>
-              <a href="https://app.bietalreef.ae/onboarding" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-base font-black text-white transition hover:bg-white/15">
+              <Link href="/providers/register?source=platform-final" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-base font-black text-white transition hover:bg-white/15">
                 ابدأ كمزود خدمة
                 <ArrowLeft className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
         </section>
