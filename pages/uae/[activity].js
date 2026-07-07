@@ -9,9 +9,14 @@ import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
 import UaeSmartFooter from '../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate } from '../../data/siteTaxonomy';
+import { providers } from '../../data/providers';
 
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
+
+  const featuredProvider = emirateSlug === 'abu-dhabi'
+    ? providers.find((provider) => provider.slug === 'al-hoot-marble-granite-factory')
+    : null;
 
   const pageData = {
     h1: `خدمات بيت الريف في ${emirate.nameAr}`,
@@ -50,6 +55,40 @@ export default function EmiratePage({ emirate, emirateSlug }) {
           </section>
 
           <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc={`اختر النشاط المطلوب أولاً، ثم حدد المنطقة من الفوتر الذكي أو أرسل طلبك مباشرة عبر وياك.`} buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
+
+          {featuredProvider && (
+            <section className="max-w-6xl mx-auto px-4 pt-14">
+              <div className="mb-6 text-center md:text-right">
+                <span className="inline-flex rounded-full bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00] border border-[#D4AF37]/30">مزود خدمة مميز في أبوظبي</span>
+                <h2 className="mt-4 text-2xl md:text-3xl font-black text-[#0F3F1A]">بطاقة خدمة موثوقة داخل دليل أبوظبي</h2>
+                <p className="mt-3 text-gray-600 leading-8">تم إبراز مصنع الحوت ضمن مسار أبوظبي لأنه يقدم خدمات الرخام والجرانيت والكوارتز للعين وأبوظبي والإمارات.</p>
+              </div>
+              <Link href={`/providers/${featuredProvider.slug}`} className="group block overflow-hidden rounded-[2rem] border border-[#D4AF37]/40 bg-white shadow-xl shadow-[#8A6A00]/10 transition hover:-translate-y-1 hover:shadow-2xl">
+                <div className="h-1.5 bg-gradient-to-l from-[#0F3F1A] via-[#D4AF37] to-[#0F3F1A]" />
+                <div className="grid lg:grid-cols-[0.9fr_1.4fr]">
+                  <div className="bg-gradient-to-br from-[#071A12] via-[#0F3F1A] to-[#1A5C28] p-7 text-white md:p-9">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="rounded-full bg-[#D4AF37]/15 px-3 py-1.5 text-xs font-black text-[#F3D46B]">تخصص فاخر</span>
+                      <span className="rounded-full bg-emerald-400/15 px-3 py-1.5 text-xs font-black text-emerald-100">موثق</span>
+                    </div>
+                    <h3 className="mt-5 text-3xl font-black leading-tight md:text-4xl">{featuredProvider.nameAr}</h3>
+                    <p className="mt-3 text-sm font-bold text-[#F3D46B]">{featuredProvider.providerTypeAr} · العين · أبوظبي</p>
+                  </div>
+                  <div className="p-7 md:p-9">
+                    <p className="text-base font-semibold leading-8 text-gray-700">{featuredProvider.descriptionAr}</p>
+                    <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                      {['رخام طبيعي وجرانيت', 'كوارتز ومطابخ', 'واجهات وأرضيات'].map((item) => (
+                        <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FFF8E5] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>
+                      ))}
+                    </div>
+                    <div className="mt-7 border-t border-[#EFE5D2] pt-5">
+                      <span className="inline-flex rounded-2xl bg-[#0F3F1A] px-6 py-3 text-sm font-black text-white transition group-hover:bg-[#D4AF37] group-hover:text-[#0F3F1A]">افتح ملف المصنع</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </section>
+          )}
 
           <section className="max-w-6xl mx-auto px-4 py-16">
             <div className="mb-10 text-center md:text-right">
