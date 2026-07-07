@@ -66,6 +66,49 @@ export default function MarketplacePage() {
           ))}
         </section>
 
+        <section className="mb-20" aria-label="منتج مميز من مصنع الحوت">
+          <div className="mb-6 text-center md:text-right">
+            <span className="inline-flex rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]">منتج مميز</span>
+            <h2 className="mt-4 text-2xl md:text-3xl font-black text-[#0F3F1A]">كارت منتج من مصنع الحوت</h2>
+            <p className="mt-3 text-gray-600 leading-8">عرض منتج قابل للتوريد والتصنيع حسب المقاس من مصنع الحوت الأبيض للرخام والجرانيت.</p>
+          </div>
+          <div className="overflow-hidden rounded-[2rem] border border-[#D4AF37]/40 bg-white shadow-2xl shadow-[#8A6A00]/10">
+            <div className="grid lg:grid-cols-[0.9fr_1.35fr]">
+              <div className="relative min-h-[280px] bg-[radial-gradient(circle_at_top,#F7F1E8_0%,#E9DDC7_42%,#B8922B_100%)] p-8 md:p-10">
+                <div className="absolute inset-0 opacity-30 bg-[linear-gradient(135deg,transparent_0%,#ffffff_35%,transparent_72%)]" />
+                <div className="relative z-10 flex h-full flex-col justify-between">
+                  <div>
+                    <span className="inline-flex rounded-full bg-[#0F3F1A] px-4 py-1.5 text-xs font-black text-white">متوفر حسب الطلب</span>
+                    <h3 className="mt-5 text-3xl md:text-5xl font-black leading-tight text-[#0F3F1A]">كوارتز مطابخ فاخر</h3>
+                    <p className="mt-4 text-sm font-bold text-[#6F5400]">أسطح مطابخ · كونترات · جزر مطابخ</p>
+                  </div>
+                  <div className="mt-8 rounded-3xl border border-white/60 bg-white/45 p-5 shadow-inner">
+                    <div className="h-24 rounded-2xl bg-gradient-to-br from-white via-[#EFE7D8] to-[#CDBB98] border border-white/70" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-8 md:p-10">
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full bg-[#FFF8E5] px-3 py-1.5 text-xs font-black text-[#8A6A00]">كوارتز</span>
+                  <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">تشطيب فاخر</span>
+                  <span className="rounded-full bg-[#FDFBF7] px-3 py-1.5 text-xs font-black text-[#0F3F1A]">مصنع الحوت</span>
+                </div>
+                <h3 className="mt-5 text-2xl font-black text-[#0F3F1A]">كوارتز مطابخ فاخر حسب المقاس</h3>
+                <p className="mt-4 text-base font-semibold leading-8 text-gray-700">منتج مناسب لأسطح المطابخ والكونترات وجزر المطابخ، يتم توريده وتصنيعه وتركيبه حسب مقاسات المشروع واختيار اللون والتشطيب.</p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {['مقاوم وسهل التنظيف', 'تصنيع حسب الطلب', 'توريد وتركيب'].map((item) => (
+                    <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>
+                  ))}
+                </div>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <Link href="/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">عرض المنتج</Link>
+                  <a href="https://wa.me/971506623518" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">طلب سعر واتساب</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-white rounded-[40px] border border-[#E6DCC8] p-8 md:p-16 mb-20">
           <div className="grid md:grid-cols-3 gap-12">
             <div className="text-center"><div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mx-auto mb-6"><Search className="w-8 h-8" /></div><h3 className="font-black text-[#0F3F1A] mb-3">بحث ومقارنة</h3><p className="text-gray-500 text-sm">تصفح فئات المنتجات بشكل مستقل ومنظم.</p></div>
