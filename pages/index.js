@@ -18,7 +18,7 @@ const heroSlides = [
 
 const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/uae-atlas/uae-directory-card-cover-thumb.webp', imageAlt: 'أبراج الإمارات الرقمية - دليل الإمارات داخل بيت الريف', featured: true },
-  { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي' },
+  { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي', image: '/images/gateway/providers-gateway.webp', imageAlt: 'مزودو خدمات البناء والمقاولات داخل بيت الريف' },
   { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة' },
   { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات' },
 ];
@@ -140,9 +140,7 @@ export default function Home() {
                         </div>
                         <div className="flex w-[52%] flex-col justify-center p-5 text-right [direction:rtl] md:w-[48%] md:p-10">
                           <div className="mb-5 flex items-center justify-between gap-3 md:mb-6">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 md:h-14 md:w-14">
-                              <Icon className="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" />
-                            </div>
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15 md:h-14 md:w-14"><Icon className="h-6 w-6 md:h-7 md:w-7" aria-hidden="true" /></div>
                             <span className="rounded-full bg-[#F7F2E8] px-3 py-2 text-[0.7rem] font-black text-[#6F5400] md:px-4 md:text-xs">{card.label}</span>
                           </div>
                           <h3 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{card.title}</h3>
@@ -156,7 +154,14 @@ export default function Home() {
 
                 return (
                   <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
-                    <div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />
+                    {card.image ? (
+                      <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#F7F2E8]">
+                        <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 25vw" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-transparent" />
+                      </div>
+                    ) : (
+                      <div className="absolute -left-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/10 transition group-hover:scale-125" />
+                    )}
                     <div className="relative p-7">
                       <div className="mb-6 flex items-center justify-between">
                         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div>
