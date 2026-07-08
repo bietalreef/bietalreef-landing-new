@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SEOHead from '../../components/SEOHead';
-import { Users, Search, ChevronLeft } from 'lucide-react';
+import { ArrowRight, Users, Search, ChevronLeft } from 'lucide-react';
 import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../data/siteTaxonomy';
 import { providers } from '../../data/providers';
 import { ProviderCard } from '../../components/cards/SmartEntityCard';
@@ -66,21 +67,45 @@ export default function ProvidersPage() {
       <Navbar pageTitle="مزودو الخدمات" />
       
       <main>
-        <section className="bg-gradient-to-br from-[#0F3F1A] via-[#1a5c28] to-[#0F3F1A] text-white py-20 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-[100px]" />
-          </div>
-          <div className="max-w-6xl mx-auto px-4 relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6 text-emerald-400 font-bold text-sm">
-              <Users className="w-4 h-4" />
-              قسم مزودي الخدمات
-            </div>
-            <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">مزودو الخدمات <br /><span className="text-emerald-400">داخل بيت الريف</span></h1>
-            <p className="text-emerald-50/80 text-lg max-w-2xl mb-10 leading-relaxed">هذا القسم مخصص للمقاولين، الشركات، الورش، المصانع، الموردين، والمكاتب المتخصصة. أما البحث حسب الإمارة والمدينة فيتم من دليل الإمارات.</p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/providers/register" className="px-10 py-4 bg-[#D4AF37] text-[#0F3F1A] rounded-2xl font-black shadow-lg hover:bg-[#b8922b] transition-all">سجل شركتك الآن</Link>
-              <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="px-10 py-4 bg-white/10 text-white rounded-2xl font-bold border border-white/20 hover:bg-white/20 transition-all">تحدث مع فريق الانضمام</a>
+        <section className="relative isolate -mt-[1px] overflow-hidden bg-[#FDFBF7]">
+          <div className="relative min-h-[560px] overflow-hidden md:min-h-[640px] lg:min-h-[720px]">
+            <Image
+              src="/images/providers-hero.webp"
+              alt="مزودو خدمات البناء والمقاولات والصيانة داخل بيت الريف"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-[#FDFBF7]/92 via-[#FDFBF7]/58 to-[#FDFBF7]/18 md:from-[#FDFBF7]/88 md:via-[#FDFBF7]/45 md:to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-transparent to-white/10" />
+
+            <div className="relative z-10 mx-auto flex min-h-[560px] max-w-6xl flex-col justify-center px-4 py-10 md:min-h-[640px] lg:min-h-[720px]">
+              <Link href="/" className="mb-8 inline-flex w-fit items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/72 px-4 py-3 text-sm font-black text-[#123A46] shadow-lg shadow-[#123A46]/10 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                العودة إلى الرئيسية
+              </Link>
+
+              <div className="max-w-2xl rounded-[2.25rem] border border-white/70 bg-white/70 p-5 shadow-2xl shadow-[#123A46]/10 backdrop-blur-xl md:p-8">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-sm font-black text-white shadow-lg shadow-[#123A46]/20">
+                  <Users className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
+                  بوابة مزودي الخدمات
+                </div>
+                <h1 className="text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">
+                  اجعل نشاطك حاضرًا<br />حيث يبحث العميل عن الخدمة
+                </h1>
+                <p className="mt-5 max-w-xl text-base font-semibold leading-9 text-gray-700 md:text-lg">
+                  بيت الريف لا يضعك في قائمة أسماء فقط؛ بل يبني لك حضورًا رقميًا واضحًا يربط نشاطك بالمكان، التخصص، الطلبات، والظهور داخل منصة موجهة لقطاع البناء والصيانة في الإمارات.
+                </p>
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <Link href="/providers/register" className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-[#D4AF37] px-8 py-4 text-base font-black text-[#0F3F1A] shadow-lg shadow-[#D4AF37]/25 transition hover:-translate-y-0.5 hover:bg-[#b8922b]">
+                    سجل شركتك الآن
+                  </Link>
+                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[52px] items-center justify-center rounded-2xl border border-[#123A46]/20 bg-white/80 px-8 py-4 text-base font-black text-[#123A46] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white">
+                    تحدث مع فريق الانضمام
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
