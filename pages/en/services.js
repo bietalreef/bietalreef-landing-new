@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
 import { getAllServices } from '../../lib/services-detailed';
+import { ArrowLeft, MessageCircle, Search, Wrench } from 'lucide-react';
 
 const serviceCopy = {
   'general-contracting': ['Construction Contracting', 'Certified contracting companies for villas, buildings and residential or commercial projects.'],
@@ -62,17 +63,61 @@ export default function ServicesEnglishPage({ services }) {
       </Head>
 
       <EnglishLayout>
-        <main dir="ltr" className="flex-1 bg-white text-left">
-          <section className="bg-gradient-to-b from-primary via-primary-dark to-primary-dark text-white py-12 md:py-20">
-            <div className="max-w-6xl mx-auto px-4 text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white bg-opacity-20 text-white text-xs mb-6"><span>⚒️</span><span>Independent services and offers section</span></div>
-              <h1 className="text-3xl md:text-5xl font-bold mb-4">Services & Offers</h1>
-              <p className="text-lg md:text-xl max-w-3xl mx-auto mb-2">Choose the service type first, then send your project details to receive suitable guidance or a quotation.</p>
-              <p className="text-base md:text-lg max-w-3xl mx-auto opacity-90">This section is separate from the UAE Directory. Search by location starts from the UAE Directory, while this path starts from the service type.</p>
+        <main dir="ltr" className="-mt-[1px] flex-1 bg-[#FDFBF7] text-left">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
+            <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
+              <Image
+                src="/images/services-offers-hero.webp"
+                alt="Construction, maintenance and finishing services and offers inside Biet Al Reef"
+                fill
+                priority
+                className="scale-[1.16] object-cover object-[52%_36%] -translate-y-[6%] md:scale-110 md:object-center md:-translate-y-[4%]"
+                sizes="100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/18 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/50 via-[#FDFBF7]/8 to-transparent" />
+
+              <Link href="/en" className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/76 px-3 py-2 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/16 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white md:left-8 md:top-8 md:px-4 md:py-3 md:text-sm">
+                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner">
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                </span>
+                Back to home
+              </Link>
+
+              <div className="relative z-10 mx-auto flex min-h-[600px] max-w-6xl flex-col justify-end px-4 pb-8 pt-20 md:min-h-[680px] md:pb-12 lg:min-h-[740px]">
+                <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/22 backdrop-blur-xl md:text-sm">
+                  <Wrench className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
+                  Services & Offers gateway
+                </div>
+
+                <h1 className="max-w-4xl text-4xl font-black leading-tight text-[#0F3F1A] drop-shadow-[0_2px_12px_rgba(255,255,255,0.85)] md:text-6xl">
+                  Choose the service you need<br />and turn your request into a clear path
+                </h1>
+
+                <div className="mt-5 max-w-4xl rounded-[2.1rem] border border-white/70 bg-white/64 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-6">
+                  <p className="max-w-3xl text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
+                    This section starts from the type of work: contracting, maintenance, finishing, carpentry, cleaning or equipment rental. Choose what you need, then send your project details for guidance or a suitable quotation path.
+                  </p>
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <Link href="#services-list" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl bg-[#D4AF37] px-5 py-4 text-base font-black text-[#0F3F1A] shadow-[0_12px_0_rgba(138,106,0,0.22),0_22px_38px_rgba(212,175,55,0.25)] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <Search className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      Browse services now
+                    </Link>
+                    <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      Ask the team
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section className="max-w-6xl mx-auto px-4 py-16 md:py-24">
+          <section id="services-list" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service) => {
                 const categorySlug = getCategorySlug(service.id);
