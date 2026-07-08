@@ -28,21 +28,10 @@ function getUrl(locale, path) {
   return locale === 'en' ? `/en${path}` : path;
 }
 
-function t(item, locale) {
-  return locale === 'en' ? item.en : item.ar;
-}
-
-function serviceName(service, locale) {
-  return locale === 'en' ? service.nameEn : service.nameAr;
-}
-
-function areaName(area, locale) {
-  return locale === 'en' ? area.nameEn : area.nameAr;
-}
-
-function emirateName(emirate, locale) {
-  return locale === 'en' ? emirate.nameEn : emirate.nameAr;
-}
+function t(item, locale) { return locale === 'en' ? item.en : item.ar; }
+function serviceName(service, locale) { return locale === 'en' ? service.nameEn : service.nameAr; }
+function areaName(area, locale) { return locale === 'en' ? area.nameEn : area.nameAr; }
+function emirateName(emirate, locale) { return locale === 'en' ? emirate.nameEn : emirate.nameAr; }
 
 function LinkList({ items, locale }) {
   return (
@@ -98,11 +87,12 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
   const isEmirateService = pageType === 'emirateService';
   const isAreaService = pageType === 'service';
   const isServiceContext = isEmirateService || isAreaService;
-  const isPlatformIndex = pageType === 'index' || pageType === 'providers';
+  const isPlatformIndex = pageType === 'index' || pageType === 'providers' || pageType === 'services';
 
   const titleByType = {
     index: isEn ? 'Use the Biet Al Reef UAE platform' : 'استخدم منصة بيت الريف داخل دليل الإمارات',
     providers: isEn ? 'Smart footer for service providers' : 'فوتر ذكي لمزودي الخدمات',
+    services: isEn ? 'Smart footer for Services & Offers' : 'فوتر ذكي للخدمات والعروض',
     emirate: isEn ? `Start from ${emirateName(currentEmirate, locale)}` : `ابدأ من ${emirateName(currentEmirate, locale)}`,
     area: isEn ? `Continue from ${areaName(currentArea, locale)}` : `تابع من ${areaName(currentArea, locale)}`,
     service: isEn ? `Continue ${serviceName(currentService, locale)} in ${areaName(currentArea, locale)}` : `تابع ${serviceName(currentService, locale)} في ${areaName(currentArea, locale)}`,
@@ -112,6 +102,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
   const introByType = {
     index: isEn ? 'A premium gateway for requests, providers, services, products and useful content.' : 'بوابة بريميوم للطلبات والمزودين والخدمات والمنتجات والمحتوى المفيد.',
     providers: isEn ? 'Organized links for registration, providers, specialties, emirates, products and useful content — without crowding the main provider page.' : 'روابط منظمة للتسجيل والمزودين والتخصصات والإمارات والمنتجات والمحتوى المفيد بدون ازدحام الصفحة الرئيسية للمزودين.',
+    services: isEn ? 'Organized links for requests, provider paths, service categories, marketplace and useful content — without crowding the Services & Offers page.' : 'روابط منظمة للطلبات ومسارات المزودين وفئات الخدمات والمنتجات والمحتوى المفيد بدون ازدحام صفحة الخدمات والعروض.',
     emirate: isEn ? 'Choose the platform action first, while area links remain available for GEO navigation.' : 'اختر إجراء المنصة أولاً، مع بقاء روابط المناطق للتنقل الجغرافي.',
     area: isEn ? 'This area page remains active and directs users to the right platform action.' : 'صفحة المنطقة ما زالت تعمل وتوجه المستخدم إلى الإجراء المناسب داخل المنصة.',
     service: isEn ? 'Move from service discovery to a request, provider registration, products or related content.' : 'انتقل من اكتشاف الخدمة إلى طلب سعر أو تسجيل مزود أو منتجات أو محتوى مرتبط.',
@@ -119,27 +110,11 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
   };
 
   const emirateLinks = UAE_EMIRATES.map((item) => ({ label: emirateName(item, locale), href: getUrl(locale, `/uae/${item.slug}`) }));
-
-  const areaSource = pageType === 'emirate' || isEmirateService
-    ? currentEmirate?.areas || []
-    : currentEmirate?.areas?.filter((item) => item.slug !== currentArea?.slug).slice(0, 8) || [];
-
-  const areaLinks = areaSource.map((item) => ({
-    label: isServiceContext ? (isEn ? `${serviceName(currentService, locale)} in ${areaName(item, locale)}` : `${serviceName(currentService, locale)} في ${areaName(item, locale)}`) : areaName(item, locale),
-    href: isServiceContext ? getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}/${currentService.slug}`) : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`),
-  }));
-
+  const areaSource = pageType === 'emirate' || isEmirateService ? currentEmirate?.areas || [] : currentEmirate?.areas?.filter((item) => item.slug !== currentArea?.slug).slice(0, 8) || [];
+  const areaLinks = areaSource.map((item) => ({ label: isServiceContext ? (isEn ? `${serviceName(currentService, locale)} in ${areaName(item, locale)}` : `${serviceName(currentService, locale)} في ${areaName(item, locale)}`) : areaName(item, locale), href: isServiceContext ? getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}/${currentService.slug}`) : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`) }));
   const serviceSource = pageType === 'emirate' ? SERVICE_CATEGORIES : SERVICE_CATEGORIES.filter((item) => item.slug !== currentService?.slug);
-  const serviceLinks = serviceSource.slice(0, 12).map((item) => ({
-    label: pageType === 'area' ? (isEn ? `${serviceName(item, locale)} in ${areaName(currentArea, locale)}` : `${serviceName(item, locale)} في ${areaName(currentArea, locale)}`) : serviceName(item, locale),
-    href: pageType === 'area' || isAreaService ? getUrl(locale, `/uae/${currentEmirate.slug}/${currentArea.slug}/${item.slug}`) : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`),
-  }));
-
-  const sameServiceOtherEmirates = UAE_EMIRATES.filter((item) => item.slug !== currentEmirate?.slug).slice(0, 6).map((item) => ({
-    label: isEn ? `${serviceName(currentService, locale)} in ${emirateName(item, locale)}` : `${serviceName(currentService, locale)} في ${emirateName(item, locale)}`,
-    href: getUrl(locale, `/uae/${item.slug}/${currentService.slug}`),
-  }));
-
+  const serviceLinks = serviceSource.slice(0, 12).map((item) => ({ label: pageType === 'area' ? (isEn ? `${serviceName(item, locale)} in ${areaName(currentArea, locale)}` : `${serviceName(item, locale)} في ${areaName(currentArea, locale)}`) : serviceName(item, locale), href: pageType === 'area' || isAreaService ? getUrl(locale, `/uae/${currentEmirate.slug}/${currentArea.slug}/${item.slug}`) : getUrl(locale, `/uae/${currentEmirate.slug}/${item.slug}`) }));
+  const sameServiceOtherEmirates = UAE_EMIRATES.filter((item) => item.slug !== currentEmirate?.slug).slice(0, 6).map((item) => ({ label: isEn ? `${serviceName(currentService, locale)} in ${emirateName(item, locale)}` : `${serviceName(currentService, locale)} في ${emirateName(item, locale)}`, href: getUrl(locale, `/uae/${item.slug}/${currentService.slug}`) }));
   const productLinks = marketplaceLinks.map((item) => ({ label: t(item, locale), href: getUrl(locale, item.href) }));
   const knowledgeList = knowledgeLinks.map((item) => ({ label: t(item, locale), href: getUrl(locale, item.href) }));
 
@@ -151,47 +126,21 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
           <h2 className="mt-2 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{titleByType[pageType] || titleByType.index}</h2>
           <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600 md:text-base">{introByType[pageType] || introByType.index}</p>
         </div>
-
         <PlatformActions locale={locale} />
-
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {!isPlatformIndex ? (
-            <Section defaultOpen title={isServiceContext ? (isEn ? `${serviceName(currentService, locale)} by area` : `${serviceName(currentService, locale)} حسب المناطق`) : (isEn ? `Areas in ${emirateName(currentEmirate, locale)}` : `مناطق ${emirateName(currentEmirate, locale)}`)} subtitle={isEn ? 'GEO links without heavy routing' : 'روابط جغرافية بدون تضخيم المسار'} icon="📍">
-              <LinkList locale={locale} items={areaLinks} />
-            </Section>
+            <Section defaultOpen title={isServiceContext ? (isEn ? `${serviceName(currentService, locale)} by area` : `${serviceName(currentService, locale)} حسب المناطق`) : (isEn ? `Areas in ${emirateName(currentEmirate, locale)}` : `مناطق ${emirateName(currentEmirate, locale)}`)} subtitle={isEn ? 'GEO links without heavy routing' : 'روابط جغرافية بدون تضخيم المسار'} icon="📍"><LinkList locale={locale} items={areaLinks} /></Section>
           ) : (
-            <Section defaultOpen title={isEn ? 'UAE emirates' : 'إمارات الدولة'} subtitle={isEn ? 'Start by location' : 'ابدأ حسب المكان'} icon="🇦🇪">
-              <LinkList locale={locale} items={emirateLinks} />
-            </Section>
+            <Section defaultOpen title={isEn ? 'UAE emirates' : 'إمارات الدولة'} subtitle={isEn ? 'Start by location' : 'ابدأ حسب المكان'} icon="🇦🇪"><LinkList locale={locale} items={emirateLinks} /></Section>
           )}
-
-          <Section defaultOpen title={isServiceContext ? (isEn ? 'Related services' : 'خدمات مرتبطة') : (isEn ? 'Service categories' : 'الخدمات المتاحة')} subtitle={isEn ? 'Feeds search and AI answers' : 'تخدم البحث وإجابات الذكاء الاصطناعي'} icon="🛠️">
-            <LinkList locale={locale} items={serviceLinks} />
-          </Section>
-
-          <Section title={isEn ? 'Products and marketplace' : 'المنتجات والمتاجر'} subtitle={isEn ? 'Move to marketplace' : 'انتقل إلى أقسام المنتجات'} icon="📦">
-            <LinkList locale={locale} items={productLinks} />
-          </Section>
-
-          <Section title={isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد'} subtitle={isEn ? 'Helpful content for users and AI search' : 'محتوى مفيد للمستخدم ومحركات الذكاء الاصطناعي'} icon="📚">
-            <LinkList locale={locale} items={knowledgeList} />
-          </Section>
-
-          {isServiceContext ? (
-            <Section title={isEn ? 'Same service in other emirates' : 'نفس الخدمة في إمارات أخرى'} subtitle={isEn ? 'Broader GEO discovery' : 'توسيع الربط الجغرافي'} icon="🏙️">
-              <LinkList locale={locale} items={sameServiceOtherEmirates} />
-            </Section>
-          ) : null}
+          <Section defaultOpen title={isServiceContext ? (isEn ? 'Related services' : 'خدمات مرتبطة') : (isEn ? 'Service categories' : 'الخدمات المتاحة')} subtitle={isEn ? 'Feeds search and AI answers' : 'تخدم البحث وإجابات الذكاء الاصطناعي'} icon="🛠️"><LinkList locale={locale} items={serviceLinks} /></Section>
+          <Section title={isEn ? 'Products and marketplace' : 'المنتجات والمتاجر'} subtitle={isEn ? 'Move to marketplace' : 'انتقل إلى أقسام المنتجات'} icon="📦"><LinkList locale={locale} items={productLinks} /></Section>
+          <Section title={isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد'} subtitle={isEn ? 'Helpful content for users and AI search' : 'محتوى مفيد للمستخدم ومحركات الذكاء الاصطناعي'} icon="📚"><LinkList locale={locale} items={knowledgeList} /></Section>
+          {isServiceContext ? <Section title={isEn ? 'Same service in other emirates' : 'نفس الخدمة في إمارات أخرى'} subtitle={isEn ? 'Broader GEO discovery' : 'توسيع الربط الجغرافي'} icon="🏙️"><LinkList locale={locale} items={sameServiceOtherEmirates} /></Section> : null}
         </div>
-
         <div className="mt-8 rounded-[2rem] border border-[#E6DCC8] bg-white p-5 shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:flex md:items-center md:justify-between md:gap-6">
-          <div>
-            <h3 className="text-xl font-black text-[#0F3F1A]">{isEn ? 'Ready to use Biet Al Reef?' : 'جاهز تستخدم منصة بيت الريف؟'}</h3>
-            <p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{isEn ? 'Send a request or register your business so the platform can connect location, service and provider data.' : 'أرسل طلبك أو سجل نشاطك حتى تربط المنصة بين المكان والخدمة والمزود المناسب.'}</p>
-          </div>
-          <Link href={getUrl(locale, '/request-quote')} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#1F170D] md:mt-0 md:w-auto">
-            {isEn ? 'Start now' : 'ابدأ الآن'}
-          </Link>
+          <div><h3 className="text-xl font-black text-[#0F3F1A]">{isEn ? 'Ready to use Biet Al Reef?' : 'جاهز تستخدم منصة بيت الريف؟'}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{isEn ? 'Send a request or register your business so the platform can connect location, service and provider data.' : 'أرسل طلبك أو سجل نشاطك حتى تربط المنصة بين المكان والخدمة والمزود المناسب.'}</p></div>
+          <Link href={getUrl(locale, '/request-quote')} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#1F170D] md:mt-0 md:w-auto">{isEn ? 'Start now' : 'ابدأ الآن'}</Link>
         </div>
       </div>
     </section>
