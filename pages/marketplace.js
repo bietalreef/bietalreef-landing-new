@@ -48,11 +48,11 @@ export default function MarketplacePage() {
               alt="مواد البناء والمنتجات والمتاجر داخل بيت الريف"
               fill
               priority
-              className="scale-[1.16] object-cover object-[52%_36%] -translate-y-[6%] md:scale-110 md:object-center md:-translate-y-[4%]"
+              className="scale-[1.08] object-cover object-[70%_42%] -translate-y-[3%] md:scale-105 md:object-[70%_45%] md:-translate-y-[2%]"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/18 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-l from-[#FDFBF7]/48 via-[#FDFBF7]/8 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/16 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/82 via-[#FDFBF7]/38 to-transparent md:from-[#FDFBF7]/78 md:via-[#FDFBF7]/26" />
 
             <Link href="/" className="absolute right-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/76 px-3 py-2 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/16 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white md:right-8 md:top-8 md:px-4 md:py-3 md:text-sm">
               <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner">
@@ -62,32 +62,34 @@ export default function MarketplacePage() {
             </Link>
 
             <div className="relative z-10 mx-auto flex min-h-[600px] max-w-6xl flex-col justify-end px-4 pb-8 pt-20 md:min-h-[680px] md:pb-12 lg:min-h-[740px]">
-              <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/22 backdrop-blur-xl md:text-sm">
-                <ShoppingBag className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
-                بوابة المنتجات والمتاجر
-              </div>
+              <div className="w-full max-w-[600px] md:ml-0 md:mr-auto">
+                <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/22 backdrop-blur-xl md:text-sm">
+                  <ShoppingBag className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
+                  بوابة المنتجات والمتاجر
+                </div>
 
-              <h1 className="max-w-3xl text-4xl font-black leading-tight text-[#0F3F1A] drop-shadow-[0_2px_12px_rgba(255,255,255,0.85)] md:text-6xl">
-                مواد ومنتجات لمشروعك<br />من موردين ومتاجر أوضح
-              </h1>
+                <h1 className="max-w-[560px] text-4xl font-black leading-tight text-[#0F3F1A] drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)] md:text-6xl">
+                  مواد ومنتجات لمشروعك<br />من موردين ومتاجر أوضح
+                </h1>
 
-              <div className="mt-5 max-w-3xl rounded-[2.1rem] border border-white/70 bg-white/64 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-6">
-                <p className="max-w-2xl text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
-                  هذا القسم مخصص للمواد والمنتجات والمتاجر والموردين. ابدأ من نوع المنتج أو المادة، ثم اطلب سعرًا حسب الكمية، المواصفات، وموقع المشروع.
-                </p>
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <Link href="#marketplace-categories" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl bg-[#D4AF37] px-5 py-4 text-base font-black text-[#0F3F1A] shadow-[0_12px_0_rgba(138,106,0,0.22),0_22px_38px_rgba(212,175,55,0.25)] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
-                      <Search className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    تصفح المنتجات الآن
-                  </Link>
-                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
-                      <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    اطلب مساعدة في التوريد
-                  </a>
+                <div className="mt-5 rounded-[2.1rem] border border-white/70 bg-white/66 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-6">
+                  <p className="text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
+                    هذا القسم مخصص للمواد والمنتجات والمتاجر والموردين. ابدأ من نوع المنتج أو المادة، ثم اطلب سعرًا حسب الكمية، المواصفات، وموقع المشروع.
+                  </p>
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <Link href="#marketplace-categories" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl bg-[#D4AF37] px-5 py-4 text-base font-black text-[#0F3F1A] shadow-[0_12px_0_rgba(138,106,0,0.22),0_22px_38px_rgba(212,175,55,0.25)] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <Search className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      تصفح المنتجات الآن
+                    </Link>
+                    <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      اطلب مساعدة في التوريد
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
