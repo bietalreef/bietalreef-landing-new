@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
 import { getAllServices } from '../../lib/services-detailed';
-import { ArrowLeft, MessageCircle, Search, Wrench } from 'lucide-react';
+import { getSectorCardImage } from '../../lib/sectorCards';
+import { ArrowLeft, MessageCircle, Search, Wrench, ChevronRight } from 'lucide-react';
 
 const serviceCopy = {
   'general-contracting': ['Construction Contracting', 'Certified contracting companies for villas, buildings and residential or commercial projects.'],
@@ -78,9 +79,7 @@ export default function ServicesEnglishPage({ services }) {
               <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/50 via-[#FDFBF7]/8 to-transparent" />
 
               <Link href="/en" className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/76 px-3 py-2 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/16 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white md:left-8 md:top-8 md:px-4 md:py-3 md:text-sm">
-                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner">
-                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner"><ArrowLeft className="h-4 w-4" aria-hidden="true" /></span>
                 Back to home
               </Link>
 
@@ -100,15 +99,11 @@ export default function ServicesEnglishPage({ services }) {
                   </p>
                   <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <Link href="#services-list" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl bg-[#D4AF37] px-5 py-4 text-base font-black text-[#0F3F1A] shadow-[0_12px_0_rgba(138,106,0,0.22),0_22px_38px_rgba(212,175,55,0.25)] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
-                        <Search className="h-5 w-5" aria-hidden="true" />
-                      </span>
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105"><Search className="h-5 w-5" aria-hidden="true" /></span>
                       Browse services now
                     </Link>
                     <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
-                        <MessageCircle className="h-5 w-5" aria-hidden="true" />
-                      </span>
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105"><MessageCircle className="h-5 w-5" aria-hidden="true" /></span>
                       Ask the team
                     </a>
                   </div>
@@ -117,28 +112,46 @@ export default function ServicesEnglishPage({ services }) {
             </div>
           </section>
 
-          <section id="services-list" className="max-w-6xl mx-auto px-4 py-16 md:py-24">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <section id="services-list" className="max-w-6xl mx-auto px-4 py-14 md:py-20">
+            <div className="mb-8 text-center md:text-left">
+              <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">Service sectors</span>
+              <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">Choose the service type</h2>
+              <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">Mobile-first cards: clear image, focused content and a direct path to open each service.</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
               {services.map((service) => {
                 const categorySlug = getCategorySlug(service.id);
                 const copy = serviceCopy[categorySlug] || [service.titleEn || service.title, service.shortDesc];
                 const benefits = benefitCopy[categorySlug] || ['Service path based on project details', 'Clear request before quotation'];
                 return (
                   <Link key={service.id} href={categorySlug === 'workshops' ? '/services/workshops' : `/en/categories/${categorySlug}`}>
-                    <div className="group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer h-full border border-gray-100 hover:border-primary">
-                      <div className="h-40 bg-gradient-to-br from-blue-50 via-green-50 to-blue-50 flex items-center justify-center overflow-hidden relative border-b-2 border-gray-100">
-                        <div className="relative w-32 h-32"><Image src={service.icon} alt={copy[0]} fill className="object-contain p-2 group-hover:scale-125 transition-transform duration-500 drop-shadow-lg" /></div>
-                        <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                    <article className="group h-full overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
+                      <div className="relative h-52 overflow-hidden bg-[#F5EFE4] sm:h-56 lg:h-52">
+                        <Image src={getSectorCardImage(categorySlug)} alt={copy[0]} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/78 via-[#0F3F1A]/16 to-transparent" />
+                        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
+                          <span className="rounded-2xl bg-white/92 px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{copy[0]}</span>
+                          <span className="rounded-2xl bg-[#123A46] px-3 py-2 text-xs font-black text-[#F7E7A0] shadow-lg ring-1 ring-[#D4AF37]/40">Service</span>
+                        </div>
                       </div>
-                      <div className="p-5">
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">{copy[0]}</h3>
-                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{copy[1]}</p>
-                        <div className="flex items-center gap-2 mb-4"><span className="text-yellow-400 text-lg">⭐</span><span className="font-bold text-gray-900">Available</span><span className="text-gray-500 text-xs">on request</span></div>
-                        <div className="mb-4 pb-4 border-b border-gray-200"><p className="text-xs text-gray-600 mb-1">Pricing method:</p><p className="text-base font-bold text-primary bg-primary bg-opacity-10 px-3 py-2 rounded-lg inline-block">Based on project details</p></div>
-                        <div className="mb-4"><ul className="space-y-1.5">{benefits.map((benefit) => (<li key={benefit} className="text-xs text-gray-700 flex items-start gap-2"><span className="text-primary font-bold flex-shrink-0 mt-0.5">✓</span><span>{benefit}</span></li>))}</ul></div>
-                        <button className="w-full py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary-dark transition-all duration-300 text-sm group-hover:shadow-lg">Service details →</button>
+                      <div className="p-5 md:p-6">
+                        <h3 className="mb-3 text-xl font-black leading-8 text-[#0F3F1A] group-hover:text-[#B8922B]">{copy[0]}</h3>
+                        <p className="mb-5 text-sm font-semibold leading-7 text-gray-600">{copy[1]}</p>
+                        <div className="mb-5 rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3">
+                          <p className="text-xs font-black text-gray-500">Pricing method</p>
+                          <p className="mt-1 text-sm font-black text-[#0F3F1A]">Based on project details</p>
+                        </div>
+                        <div className="mb-5 space-y-2">
+                          {benefits.map((benefit) => (
+                            <div key={benefit} className="flex items-start gap-2 text-xs font-bold leading-6 text-gray-700"><span className="mt-1 text-[#B8922B]">✓</span><span>{benefit}</span></div>
+                          ))}
+                        </div>
+                        <span className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition group-hover:bg-[#D4AF37] group-hover:text-[#0F3F1A]">
+                          Service details <ChevronRight className="h-4 w-4" />
+                        </span>
                       </div>
-                    </div>
+                    </article>
                   </Link>
                 );
               })}
