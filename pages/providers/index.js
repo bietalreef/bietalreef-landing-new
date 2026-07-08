@@ -3,8 +3,8 @@ import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SEOHead from '../../components/SEOHead';
-import { ArrowRight, Building2, MessageCircle, Users, ChevronLeft, MapPin, Sparkles } from 'lucide-react';
-import { UAE_EMIRATES } from '../../data/siteTaxonomy';
+import UaeSmartFooter from '../../components/UaeSmartFooter';
+import { ArrowRight, Building2, MessageCircle, Users, ChevronLeft, Sparkles } from 'lucide-react';
 import { providers } from '../../data/providers';
 import { ProviderCard } from '../../components/cards/SmartEntityCard';
 
@@ -65,21 +65,6 @@ const providerSectorCards = [
     image: '/images/sector-cards/factories-suppliers-workshops-card.webp',
     tags: ['مصانع', 'ورش', 'توريد']
   }
-];
-
-const extraSpecialties = [
-  { name: 'تصميم داخلي', href: '/providers/specialty/interior-design' },
-  { name: 'تشطيبات', href: '/providers/specialty/finishing-works' },
-  { name: 'نجارة', href: '/providers/specialty/carpentry' },
-  { name: 'كهرباء', href: '/providers/specialty/electrical' },
-  { name: 'سباكة', href: '/providers/specialty/plumbing' },
-  { name: 'تكييف وتبريد', href: '/providers/specialty/ac-technicians' },
-  { name: 'رخام وسيراميك', href: '/providers/specialty/marble-ceramic' },
-  { name: 'أنظمة ذكية وكاميرات', href: '/providers/specialty/smart-systems' },
-  { name: 'تنسيق حدائق', href: '/providers/specialty/landscaping' },
-  { name: 'تأجير معدات', href: '/providers/specialty/equipment-rental' },
-  { name: 'نقل وشحن', href: '/providers/specialty/transport-logistics' },
-  { name: 'أثاث وفرش وديكور', href: '/providers/specialty/furniture-decor' }
 ];
 
 const steps = [
@@ -229,33 +214,7 @@ export default function ProvidersPage() {
 
         <section className="bg-white py-20 border-y border-[#E6DCC8]"><div className="max-w-6xl mx-auto px-4"><div className="text-center mb-16"><h2 className="text-3xl font-black text-[#0F3F1A] mb-4">كيف تنضم لشبكة بيت الريف؟</h2><p className="text-gray-500">خطوات بسيطة لتبدأ رحلة نجاحك الرقمي معنا</p></div><div className="grid md:grid-cols-3 gap-12">{steps.map((step, i) => <div key={i} className="text-center relative"><div className="text-8xl font-black text-gray-50 absolute -top-10 left-1/2 -translate-x-1/2 z-0">{step.i}</div><div className="relative z-10"><h3 className="text-xl font-black text-[#0F3F1A] mb-4">{step.t}</h3><p className="text-gray-500 text-sm leading-relaxed">{step.d}</p></div></div>)}</div></div></section>
 
-        <section id="provider-smart-footer" className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-[#D4AF37]/30 bg-[#0F3F1A] p-5 text-white shadow-[0_28px_70px_rgba(15,63,26,0.22)] md:p-8">
-            <div className="absolute -right-24 -top-24 h-52 w-52 rounded-full bg-[#D4AF37]/20 blur-3xl" />
-            <div className="absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
-            <div className="relative grid gap-6 lg:grid-cols-[0.9fr_1.4fr] lg:items-start">
-              <div className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-xl">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#D4AF37] px-4 py-2 text-xs font-black text-[#0F3F1A]"><MapPin className="h-4 w-4" />فوتر ذكي</span>
-                <h2 className="mt-5 text-3xl font-black leading-tight md:text-4xl">روابط ذكية لمزودي الخدمات</h2>
-                <p className="mt-4 text-sm font-semibold leading-8 text-white/74">التخصصات الإضافية والبحث حسب الإمارة موجودة هنا بشكل منظم، حتى تبقى الصفحة الرئيسية نظيفة وفخمة وسهلة على الموبايل.</p>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-[2rem] border border-white/10 bg-white p-5 text-[#0F3F1A] shadow-2xl shadow-black/10">
-                  <h3 className="mb-4 text-lg font-black">تخصصات إضافية</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {extraSpecialties.map((item) => <Link key={item.name} href={item.href} className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-3 py-2 text-xs font-black text-gray-700 transition hover:border-[#D4AF37] hover:text-[#0F3F1A]">{item.name}</Link>)}
-                  </div>
-                </div>
-                <div className="rounded-[2rem] border border-white/10 bg-white p-5 text-[#0F3F1A] shadow-2xl shadow-black/10">
-                  <h3 className="mb-4 text-lg font-black">البحث حسب الإمارة</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {UAE_EMIRATES.map((emirate) => <Link key={emirate.slug} href={'/uae/' + emirate.slug} className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-3 py-2 text-xs font-black text-gray-700 transition hover:border-[#D4AF37] hover:text-[#0F3F1A]">{emirate.nameAr}</Link>)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <UaeSmartFooter locale="ar" pageType="providers" />
       </main>
       <Footer />
     </div>
