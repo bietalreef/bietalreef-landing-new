@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -11,7 +10,6 @@ import UaeSmartFooter from '../../components/UaeSmartFooter';
 import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
-import { ArrowRight, Home } from 'lucide-react';
 
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
@@ -43,10 +41,6 @@ export default function EmiratePage({ emirate, emirateSlug }) {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-[#0F3F1A]/72 to-[#0F3F1A]/20" />
             </div>
             <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 w-full text-center md:text-right">
-              <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-between">
-                <Link href="/uae" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/12 px-4 py-3 text-xs font-black text-white shadow-xl backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white hover:text-[#0F3F1A]"><span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#D4AF37] text-[#0F3F1A]"><ArrowRight size={16} /></span>العودة إلى دليل الإمارات</Link>
-                <Link href="/" className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-xs font-black text-white shadow-xl backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white hover:text-[#0F3F1A]"><Home size={16} /> الرئيسية</Link>
-              </div>
               <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6">إمارة {emirate.nameAr}</span>
               <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight">{pageData.h1}</h1>
               <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed mx-auto md:mx-0">{pageData.desc}</p>
