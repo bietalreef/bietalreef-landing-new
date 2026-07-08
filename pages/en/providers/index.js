@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import EnglishLayout from '../../../components/EnglishLayout';
-import { Users, Search } from 'lucide-react';
+import { ArrowLeft, Building2, MessageCircle, Users, Search } from 'lucide-react';
 import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../../data/siteTaxonomy';
 import { providers } from '../../../data/providers';
 import { ProviderCard } from '../../../components/cards/SmartEntityCard';
@@ -10,6 +11,21 @@ import { ProviderCard } from '../../../components/cards/SmartEntityCard';
 function normalizeText(value) {
   return String(value || '').toLowerCase().trim();
 }
+
+const serviceLabels = {
+  'رخام طبيعي': 'Natural Marble',
+  'جرانيت': 'Granite',
+  'كوارتز': 'Quartz',
+  'حجر صناعي': 'Engineered Stone',
+  'تصنيع حسب الطلب': 'Custom Fabrication',
+  'توريد': 'Supply',
+  'تركيب': 'Installation',
+  'مطابخ': 'Kitchens',
+  'مغاسل': 'Washbasins',
+  'واجهات': 'Façades',
+  'أرضيات': 'Floors',
+  'سلالم': 'Stairs',
+};
 
 function toProviderCardItem(provider) {
   return {
@@ -32,21 +48,6 @@ function toProviderCardItem(provider) {
   };
 }
 
-const serviceLabels = {
-  'رخام طبيعي': 'Natural Marble',
-  'جرانيت': 'Granite',
-  'كوارتز': 'Quartz',
-  'حجر صناعي': 'Engineered Stone',
-  'تصنيع حسب الطلب': 'Custom Fabrication',
-  'توريد': 'Supply',
-  'تركيب': 'Installation',
-  'مطابخ': 'Kitchens',
-  'مغاسل': 'Washbasins',
-  'واجهات': 'Façades',
-  'أرضيات': 'Floors',
-  'سلالم': 'Stairs',
-};
-
 export default function ProvidersEnglishPage() {
   const [specialtySearch, setSpecialtySearch] = useState('');
   const query = normalizeText(specialtySearch);
@@ -67,17 +68,54 @@ export default function ProvidersEnglishPage() {
       </Head>
 
       <EnglishLayout>
-        <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <section className="relative overflow-hidden bg-gradient-to-br from-[#0F3F1A] via-[#1a5c28] to-[#0F3F1A] py-20 text-white md:py-32">
-            <div className="mx-auto max-w-6xl px-4">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-emerald-400">
-                <Users className="h-4 w-4" /> Service providers section
-              </div>
-              <h1 className="mb-6 text-4xl font-black leading-tight md:text-6xl">Service Providers <br /><span className="text-emerald-400">inside Biet Al Reef</span></h1>
-              <p className="mb-10 max-w-2xl text-lg leading-relaxed text-emerald-50/80">This section is dedicated to contractors, companies, workshops, factories, suppliers and specialized offices. Search by emirate and city starts from the UAE Directory.</p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/en/providers/register" className="rounded-2xl bg-[#D4AF37] px-10 py-4 font-black text-[#0F3F1A] shadow-lg transition hover:bg-[#b8922b]">Register your company now</Link>
-                <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl border border-white/20 bg-white/10 px-10 py-4 font-bold text-white transition hover:bg-white/20">Talk to onboarding</a>
+        <main dir="ltr" className="-mt-[1px] bg-[#FDFBF7] text-left">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
+            <div className="relative min-h-[610px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
+              <Image
+                src="/images/providers-hero.webp"
+                alt="Building, contracting and maintenance service providers inside Biet Al Reef"
+                fill
+                priority
+                className="object-cover object-[52%_28%] md:object-center"
+                sizes="100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/30 to-white/5" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/72 via-[#FDFBF7]/22 to-transparent md:from-[#FDFBF7]/58 md:via-[#FDFBF7]/12" />
+
+              <Link href="/en" className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-[#123A46]/92 px-3 py-2 text-xs font-black text-white shadow-xl shadow-[#123A46]/20 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-[#0E3440] md:left-8 md:top-8 md:px-4 md:py-3 md:text-sm">
+                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#D4AF37] text-[#123A46] shadow-inner">
+                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                </span>
+                Back to home
+              </Link>
+
+              <div className="relative z-10 mx-auto flex min-h-[610px] max-w-6xl flex-col justify-end px-4 pb-8 pt-28 md:min-h-[680px] md:pb-12 lg:min-h-[740px]">
+                <div className="max-w-3xl rounded-[2.1rem] border border-white/70 bg-white/62 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-7">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/20 md:text-sm">
+                    <Users className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
+                    Service providers gateway
+                  </div>
+                  <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">
+                    Make your business visible<br />where customers search for service
+                  </h1>
+                  <p className="mt-4 max-w-2xl text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
+                    Biet Al Reef does not place you in a simple name list. It builds a clear digital presence that connects your activity with location, specialty, requests and visibility inside a UAE construction and maintenance platform.
+                  </p>
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <Link href="/en/providers/register" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl bg-[#D4AF37] px-5 py-4 text-base font-black text-[#0F3F1A] shadow-[0_12px_0_rgba(138,106,0,0.22),0_22px_38px_rgba(212,175,55,0.25)] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <Building2 className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      Register your company
+                    </Link>
+                    <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner transition group-hover:scale-105">
+                        <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      Talk to onboarding
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
