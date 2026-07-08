@@ -10,7 +10,7 @@ import FAQ from '../../components/FAQ';
 import UaeSmartFooter from '../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
-import { ArrowLeft, ArrowRight, Building2, ChevronDown, ChevronUp, Home, MapPinned, Search } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Home, MapPinned, Search } from 'lucide-react';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 
@@ -54,21 +54,15 @@ export default function UAEDirectoryHome() {
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle="دليل الإمارات" />
         <main>
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-5 text-gray-900 md:pb-16 md:pt-7">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-0 text-gray-900 md:pb-16">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#D4AF37]/70 to-transparent" />
             <div className="relative z-10 mx-auto max-w-6xl">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <Link href="/" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/78 px-4 py-3 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/10 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
+              <div className="relative mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
+                <Link href="/" className="absolute right-5 top-5 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/78 px-4 py-3 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/10 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
                   <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0]"><Home size={16} /></span>
                   العودة إلى الرئيسية
                 </Link>
-                <Link href="/providers/register" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/50 bg-[#0F3F1A] px-4 py-3 text-xs font-black text-white shadow-xl shadow-[#123A46]/16 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#0F3F1A]">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/14 text-[#F7E7A0]"><Building2 size={16} /></span>
-                  سجل كمزود خدمة
-                </Link>
-              </div>
-              <div className="mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[1.55rem] bg-[#071A2F] md:rounded-[2.35rem]">
                   <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="خريطة رقمية لدليل الإمارات وخدمات بيت الريف" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
                 </div>
@@ -77,10 +71,7 @@ export default function UAEDirectoryHome() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]"><MapPinned size={15} /> ابدأ من المكان</span>
                 <h1 className="mt-4 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{pageData.h1}</h1>
                 <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">{pageData.desc}</p>
-                <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-                  <a href="#uae-emirates" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">استكشف الآن <ChevronDown size={18} className="animate-bounce" /></a>
-                  <Link href="/providers/register" className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0F3F1A]/20 bg-white px-7 py-3 text-sm font-black text-[#0F3F1A] shadow-lg transition hover:-translate-y-0.5 hover:bg-[#0F3F1A] hover:text-white"><Building2 size={18} /> سجل كمزود خدمة</Link>
-                </div>
+                <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">استكشف الآن <ChevronDown size={18} className="animate-bounce" /></a>
               </div>
             </div>
           </section>
