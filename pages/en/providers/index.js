@@ -70,35 +70,37 @@ export default function ProvidersEnglishPage() {
       <EnglishLayout>
         <main dir="ltr" className="-mt-[1px] bg-[#FDFBF7] text-left">
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
-            <div className="relative min-h-[610px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
+            <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
               <Image
                 src="/images/providers-hero.webp"
                 alt="Building, contracting and maintenance service providers inside Biet Al Reef"
                 fill
                 priority
-                className="object-cover object-[52%_28%] md:object-center"
+                className="scale-[1.16] object-cover object-[52%_36%] -translate-y-[6%] md:scale-110 md:object-center md:-translate-y-[4%]"
                 sizes="100vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/30 to-white/5" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/72 via-[#FDFBF7]/22 to-transparent md:from-[#FDFBF7]/58 md:via-[#FDFBF7]/12" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/18 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#FDFBF7]/50 via-[#FDFBF7]/8 to-transparent" />
 
-              <Link href="/en" className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-[#123A46]/92 px-3 py-2 text-xs font-black text-white shadow-xl shadow-[#123A46]/20 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-[#0E3440] md:left-8 md:top-8 md:px-4 md:py-3 md:text-sm">
-                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#D4AF37] text-[#123A46] shadow-inner">
+              <Link href="/en" className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/76 px-3 py-2 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/16 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white md:left-8 md:top-8 md:px-4 md:py-3 md:text-sm">
+                <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0] shadow-inner">
                   <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 </span>
                 Back to home
               </Link>
 
-              <div className="relative z-10 mx-auto flex min-h-[610px] max-w-6xl flex-col justify-end px-4 pb-8 pt-28 md:min-h-[680px] md:pb-12 lg:min-h-[740px]">
-                <div className="max-w-3xl rounded-[2.1rem] border border-white/70 bg-white/62 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-7">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/20 md:text-sm">
-                    <Users className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
-                    Service providers gateway
-                  </div>
-                  <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">
-                    Make your business visible<br />where customers search for service
-                  </h1>
-                  <p className="mt-4 max-w-2xl text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
+              <div className="relative z-10 mx-auto flex min-h-[600px] max-w-6xl flex-col justify-end px-4 pb-8 pt-20 md:min-h-[680px] md:pb-12 lg:min-h-[740px]">
+                <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#123A46]/95 px-4 py-2 text-xs font-black text-white shadow-lg shadow-[#123A46]/22 backdrop-blur-xl md:text-sm">
+                  <Users className="h-4 w-4 text-[#F7E7A0]" aria-hidden="true" />
+                  Service providers gateway
+                </div>
+
+                <h1 className="max-w-4xl text-4xl font-black leading-tight text-[#0F3F1A] drop-shadow-[0_2px_12px_rgba(255,255,255,0.85)] md:text-6xl">
+                  Make your business visible<br />where customers search for service
+                </h1>
+
+                <div className="mt-5 max-w-4xl rounded-[2.1rem] border border-white/70 bg-white/64 p-4 shadow-2xl shadow-[#123A46]/14 backdrop-blur-2xl md:p-6">
+                  <p className="max-w-3xl text-sm font-bold leading-8 text-gray-700 md:text-lg md:leading-9">
                     Biet Al Reef does not place you in a simple name list. It builds a clear digital presence that connects your activity with location, specialty, requests and visibility inside a UAE construction and maintenance platform.
                   </p>
                   <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
