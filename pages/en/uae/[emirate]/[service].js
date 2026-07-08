@@ -33,7 +33,7 @@ export default function EnglishEmirateServicePage({ emirate, service }) {
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8">
               <h2 className="text-2xl font-black text-[#0F3F1A]">A clean service path for {emirate.nameEn}</h2>
               <p className="mt-4 leading-8 text-gray-600">This page keeps the service route active while the smart footer organizes areas, related services, marketplace links and useful content without crowding the page.</p>
-              <Link href="/request-quote" className="mt-6 inline-flex rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">Request a quotation</Link>
+              <Link href="/en/request-quote" className="mt-6 inline-flex rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">Request a quotation</Link>
             </div>
           </section>
         </main>
