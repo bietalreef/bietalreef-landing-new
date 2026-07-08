@@ -23,7 +23,9 @@ const knowledgeLinks = [
 ];
 
 function getUrl(locale, path) {
-  const sharedPaths = ['/request-quote', '/providers/register', '/platform'];
+  if (locale === 'en' && path === '/request-quote') return '/en/request-quote';
+  if (locale === 'en' && path === '/service-inquiry') return '/en/service-inquiry';
+  const sharedPaths = ['/providers/register', '/platform'];
   if (sharedPaths.includes(path) || path.startsWith('/blog/')) return path;
   return locale === 'en' ? `/en${path}` : path;
 }
