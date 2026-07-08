@@ -23,7 +23,7 @@ const knowledgeLinks = [
 ];
 
 function getUrl(locale, path) {
-  const sharedPaths = ['/request-quote', '/providers', '/providers/register', '/marketplace', '/platform'];
+  const sharedPaths = ['/request-quote', '/providers/register', '/platform'];
   if (sharedPaths.includes(path) || path.startsWith('/blog/')) return path;
   return locale === 'en' ? `/en${path}` : path;
 }
@@ -59,10 +59,10 @@ function LinkList({ items, locale }) {
 
 function Section({ title, subtitle, icon, children, defaultOpen = false }) {
   return (
-    <details open={defaultOpen} className="group rounded-[1.75rem] border border-[#E6DCC8] bg-white/95 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#D4AF37]/80 hover:shadow-xl">
+    <details open={defaultOpen} className="group rounded-[1.75rem] border border-[#E6DCC8] bg-white/95 p-5 shadow-[0_18px_45px_rgba(18,58,70,0.07)] transition hover:-translate-y-0.5 hover:border-[#D4AF37]/80 hover:shadow-2xl hover:shadow-[#123A46]/10">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
         <span className="flex min-w-0 items-center gap-3">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FDFBF7] text-xl ring-1 ring-[#E6DCC8]">{icon}</span>
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FDFBF7] text-xl ring-1 ring-[#E6DCC8] shadow-inner">{icon}</span>
           <span className="min-w-0">
             <span className="block text-base font-black leading-6 text-[#0F3F1A]">{title}</span>
             {subtitle ? <span className="mt-1 block text-xs font-semibold leading-5 text-gray-500">{subtitle}</span> : null}
@@ -79,8 +79,8 @@ function PlatformActions({ locale }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {platformActions.map((item) => (
-        <Link key={item.href} href={item.href} className="group rounded-[1.6rem] border border-[#E6DCC8] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-xl">
-          <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FDFBF7] text-xl ring-1 ring-[#E6DCC8]">{item.icon}</div>
+        <Link key={item.href} href={getUrl(locale, item.href)} className="group rounded-[1.6rem] border border-[#E6DCC8] bg-white p-4 shadow-[0_16px_36px_rgba(18,58,70,0.06)] transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-2xl hover:shadow-[#123A46]/10">
+          <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FDFBF7] text-xl ring-1 ring-[#E6DCC8] shadow-inner">{item.icon}</div>
           <h3 className="text-base font-black leading-7 text-[#0F3F1A]">{t(item, locale)}</h3>
           <p className="mt-2 text-xs font-semibold leading-6 text-gray-500">{locale === 'en' ? 'Go directly to the right platform action.' : 'انتقل مباشرة إلى الإجراء المناسب داخل منصة بيت الريف.'}</p>
         </Link>
@@ -98,9 +98,11 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
   const isEmirateService = pageType === 'emirateService';
   const isAreaService = pageType === 'service';
   const isServiceContext = isEmirateService || isAreaService;
+  const isPlatformIndex = pageType === 'index' || pageType === 'providers';
 
   const titleByType = {
     index: isEn ? 'Use the Biet Al Reef UAE platform' : 'استخدم منصة بيت الريف داخل دليل الإمارات',
+    providers: isEn ? 'Smart footer for service providers' : 'فوتر ذكي لمزودي الخدمات',
     emirate: isEn ? `Start from ${emirateName(currentEmirate, locale)}` : `ابدأ من ${emirateName(currentEmirate, locale)}`,
     area: isEn ? `Continue from ${areaName(currentArea, locale)}` : `تابع من ${areaName(currentArea, locale)}`,
     service: isEn ? `Continue ${serviceName(currentService, locale)} in ${areaName(currentArea, locale)}` : `تابع ${serviceName(currentService, locale)} في ${areaName(currentArea, locale)}`,
@@ -109,6 +111,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
 
   const introByType = {
     index: isEn ? 'A premium gateway for requests, providers, services, products and useful content.' : 'بوابة بريميوم للطلبات والمزودين والخدمات والمنتجات والمحتوى المفيد.',
+    providers: isEn ? 'Organized links for registration, providers, specialties, emirates, products and useful content — without crowding the main provider page.' : 'روابط منظمة للتسجيل والمزودين والتخصصات والإمارات والمنتجات والمحتوى المفيد بدون ازدحام الصفحة الرئيسية للمزودين.',
     emirate: isEn ? 'Choose the platform action first, while area links remain available for GEO navigation.' : 'اختر إجراء المنصة أولاً، مع بقاء روابط المناطق للتنقل الجغرافي.',
     area: isEn ? 'This area page remains active and directs users to the right platform action.' : 'صفحة المنطقة ما زالت تعمل وتوجه المستخدم إلى الإجراء المناسب داخل المنصة.',
     service: isEn ? 'Move from service discovery to a request, provider registration, products or related content.' : 'انتقل من اكتشاف الخدمة إلى طلب سعر أو تسجيل مزود أو منتجات أو محتوى مرتبط.',
@@ -152,7 +155,7 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
         <PlatformActions locale={locale} />
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {pageType !== 'index' ? (
+          {!isPlatformIndex ? (
             <Section defaultOpen title={isServiceContext ? (isEn ? `${serviceName(currentService, locale)} by area` : `${serviceName(currentService, locale)} حسب المناطق`) : (isEn ? `Areas in ${emirateName(currentEmirate, locale)}` : `مناطق ${emirateName(currentEmirate, locale)}`)} subtitle={isEn ? 'GEO links without heavy routing' : 'روابط جغرافية بدون تضخيم المسار'} icon="📍">
               <LinkList locale={locale} items={areaLinks} />
             </Section>
@@ -181,12 +184,12 @@ export default function UaeSmartFooter({ locale = 'ar', pageType = 'index', emir
           ) : null}
         </div>
 
-        <div className="mt-8 rounded-[2rem] border border-[#E6DCC8] bg-white p-5 shadow-sm md:flex md:items-center md:justify-between md:gap-6">
+        <div className="mt-8 rounded-[2rem] border border-[#E6DCC8] bg-white p-5 shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:flex md:items-center md:justify-between md:gap-6">
           <div>
             <h3 className="text-xl font-black text-[#0F3F1A]">{isEn ? 'Ready to use Biet Al Reef?' : 'جاهز تستخدم منصة بيت الريف؟'}</h3>
             <p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{isEn ? 'Send a request or register your business so the platform can connect location, service and provider data.' : 'أرسل طلبك أو سجل نشاطك حتى تربط المنصة بين المكان والخدمة والمزود المناسب.'}</p>
           </div>
-          <Link href="/request-quote" className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#1F170D] md:mt-0 md:w-auto">
+          <Link href={getUrl(locale, '/request-quote')} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#1F170D] md:mt-0 md:w-auto">
             {isEn ? 'Start now' : 'ابدأ الآن'}
           </Link>
         </div>
