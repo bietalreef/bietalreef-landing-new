@@ -1,16 +1,91 @@
-import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import EnglishLayout from '../../../components/EnglishLayout';
-import { ArrowLeft, Building2, MessageCircle, Users, Search } from 'lucide-react';
-import { SERVICE_CATEGORIES, UAE_EMIRATES } from '../../../data/siteTaxonomy';
+import { ArrowLeft, Building2, MessageCircle, Users, ChevronRight, MapPin, Sparkles } from 'lucide-react';
+import { UAE_EMIRATES } from '../../../data/siteTaxonomy';
 import { providers } from '../../../data/providers';
 import { ProviderCard } from '../../../components/cards/SmartEntityCard';
 
-function normalizeText(value) {
-  return String(value || '').toLowerCase().trim();
-}
+const providerSectorCards = [
+  {
+    title: 'General Contracting, Construction & Building',
+    eyebrow: 'Construction sector',
+    desc: 'Contracting companies and providers for villas, extensions, majlis, residential and commercial projects.',
+    href: '/en/providers/specialty/general-contracting',
+    image: '/images/sector-cards/general-contracting-construction-card.webp',
+    tags: ['Contracting', 'Construction', 'Building']
+  },
+  {
+    title: 'Engineering Offices, Consultancy & Design',
+    eyebrow: 'Design sector',
+    desc: 'Engineering offices for architectural, structural and MEP design, approvals and supervision.',
+    href: '/en/providers/specialty/engineering-consultants',
+    image: '/images/sector-cards/engineering-consultants-design-card.webp',
+    tags: ['Design', 'Consultancy', 'Supervision']
+  },
+  {
+    title: 'Building Materials, Stores & Showrooms',
+    eyebrow: 'Supply sector',
+    desc: 'Building and finishing material sources, stores and suppliers connected to projects and contractors.',
+    href: '/en/providers/specialty/building-materials',
+    image: '/images/sector-cards/building-materials-stores-card.webp',
+    tags: ['Materials', 'Stores', 'Supply']
+  },
+  {
+    title: 'Maintenance, Finishing, AC, Plumbing & Electrical',
+    eyebrow: 'Maintenance sector',
+    desc: 'Providers for general maintenance, finishing works, AC, plumbing, electrical and repair services.',
+    href: '/en/providers/specialty/general-maintenance',
+    image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp',
+    tags: ['Maintenance', 'Finishing', 'MEP']
+  },
+  {
+    title: 'Aluminium, Glass & Wood Works',
+    eyebrow: 'Façade and wood sector',
+    desc: 'Aluminium, glass, doors, windows, cabinets, kitchens and custom woodwork providers.',
+    href: '/en/providers/specialty/aluminium-glass',
+    image: '/images/sector-cards/aluminium-glass-wood-card.webp',
+    tags: ['Aluminium', 'Glass', 'Wood']
+  },
+  {
+    title: 'Cleaning Services & Equipment Rental',
+    eyebrow: 'Operations sector',
+    desc: 'Cleaning, post-construction cleaning, site equipment rental, scaffolding and construction tools.',
+    href: '/en/providers/specialty/cleaning-services',
+    image: '/images/sector-cards/cleaning-equipment-rental-card.webp',
+    tags: ['Cleaning', 'Equipment', 'Operations']
+  },
+  {
+    title: 'Factories, Suppliers & Workshops',
+    eyebrow: 'Manufacturing and supply sector',
+    desc: 'Factories, workshops and supply companies serving construction, finishing and custom material needs.',
+    href: '/en/providers/specialty/building-materials',
+    image: '/images/sector-cards/factories-suppliers-workshops-card.webp',
+    tags: ['Factories', 'Workshops', 'Supply']
+  }
+];
+
+const extraSpecialties = [
+  { name: 'Interior Design', href: '/en/providers/specialty/interior-design' },
+  { name: 'Finishing Works', href: '/en/providers/specialty/finishing-works' },
+  { name: 'Carpentry', href: '/en/providers/specialty/carpentry' },
+  { name: 'Electrical', href: '/en/providers/specialty/electrical' },
+  { name: 'Plumbing', href: '/en/providers/specialty/plumbing' },
+  { name: 'AC Technicians', href: '/en/providers/specialty/ac-technicians' },
+  { name: 'Marble & Ceramic', href: '/en/providers/specialty/marble-ceramic' },
+  { name: 'Smart Systems & CCTV', href: '/en/providers/specialty/smart-systems' },
+  { name: 'Landscaping', href: '/en/providers/specialty/landscaping' },
+  { name: 'Equipment Rental', href: '/en/providers/specialty/equipment-rental' },
+  { name: 'Transport & Logistics', href: '/en/providers/specialty/transport-logistics' },
+  { name: 'Furniture & Decor', href: '/en/providers/specialty/furniture-decor' }
+];
+
+const steps = [
+  { title: 'Create your profile', desc: 'Register your company details, specialties and work coverage in the UAE.', number: '01' },
+  { title: 'Document your work', desc: 'Add previous project photos and experience proof to build client confidence.', number: '02' },
+  { title: 'Receive requests', desc: 'Start receiving direct quotation requests from targeted customers.', number: '03' }
+];
 
 const serviceLabels = {
   'رخام طبيعي': 'Natural Marble',
@@ -28,34 +103,29 @@ const serviceLabels = {
 };
 
 function toProviderCardItem(provider) {
+  const mappedSpecialties = (provider.services || []).map((service) => serviceLabels[service]).filter(Boolean);
+
   return {
     id: provider.slug,
     entityType: 'provider',
     premium: provider.slug === 'al-hoot-marble-granite-factory',
-    name: provider.nameEn || provider.nameAr,
-    nameEn: provider.nameEn,
-    providerType: provider.providerTypeEn || provider.providerTypeAr,
+    name: provider.nameEn || 'Verified Service Provider',
+    nameEn: provider.nameEn || 'Verified Service Provider',
+    providerType: provider.providerTypeEn || 'Service Provider',
     emirate: provider.emirate,
     city: provider.city === 'al-ain' ? 'Al Ain' : provider.city,
-    area: provider.area === 'mazid-company-camp' ? 'Mazid - Company Camp' : provider.area,
-    specialties: (provider.services || []).map((service) => serviceLabels[service] || service),
+    area: provider.area === 'mazid-company-camp' ? 'Mazyad - Company Camp' : provider.area,
+    specialties: mappedSpecialties.length ? mappedSpecialties : ['Verified profile'],
     verified: provider.verified,
     coverImage: provider.cover || provider.logo,
-    logoText: provider.nameEn?.slice(0, 1) || 'W',
+    logoText: provider.nameEn?.slice(0, 1) || 'P',
     href: '/en/providers/' + provider.slug,
     whatsapp: provider.whatsapp ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}` : undefined,
-    summary: provider.descriptionEn || provider.descriptionAr,
+    summary: provider.descriptionEn || 'A verified provider profile inside Biet Al Reef. Contact the provider or request details through the platform.',
   };
 }
 
 export default function ProvidersEnglishPage() {
-  const [specialtySearch, setSpecialtySearch] = useState('');
-  const query = normalizeText(specialtySearch);
-  const filteredCategories = SERVICE_CATEGORIES.filter((service) => {
-    if (!query) return true;
-    return [service.nameEn, service.nameAr, service.slug].some((field) => normalizeText(field).includes(query));
-  });
-
   return (
     <>
       <Head>
@@ -122,7 +192,41 @@ export default function ProvidersEnglishPage() {
             </div>
           </section>
 
-          <section className="mx-auto max-w-6xl px-4 py-16">
+          <section id="provider-sectors" className="mx-auto max-w-6xl px-4 py-14 md:py-18">
+            <div className="mb-8 text-center md:text-left">
+              <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">7 main sectors</span>
+              <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">Choose the sector closest to your business</h2>
+              <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">We keep only seven visual sector cards for a clean identity. Additional specialties are organized in the smart footer below.</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {providerSectorCards.map((card) => (
+                <article key={card.title} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
+                  <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
+                    <Image src={card.image} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/70 via-[#0F3F1A]/18 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
+                      <span className="rounded-full border border-[#D4AF37]/45 bg-white/84 px-3 py-1.5 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{card.eyebrow}</span>
+                      <Sparkles className="h-5 w-5 text-[#F7E7A0] drop-shadow" aria-hidden="true" />
+                    </div>
+                  </div>
+                  <div className="p-5 md:p-6">
+                    <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">{card.title}</h3>
+                    <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.desc}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {card.tags.map((tag) => <span key={tag} className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">{tag}</span>)}
+                    </div>
+                    <Link href={card.href} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">
+                      Open sector
+                      <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="mx-auto max-w-6xl px-4 py-14">
             <div className="mb-10 text-center md:text-left">
               <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00]">Real providers inside the platform</span>
               <h2 className="mt-4 mb-3 text-3xl font-black text-[#0F3F1A]">Available providers now</h2>
@@ -133,40 +237,46 @@ export default function ProvidersEnglishPage() {
             </div>
           </section>
 
-          <section className="mx-auto max-w-6xl px-4 py-20">
-            <div className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row">
-              <div><h2 className="mb-2 text-3xl font-black text-[#0F3F1A]">Browse service providers by specialty</h2><p className="text-gray-500">Each specialty opens inside the providers path, not inside the UAE Directory or Services & Offers.</p></div>
-              <div className="relative w-full md:w-auto"><Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /><input type="text" value={specialtySearch} onChange={(event) => setSpecialtySearch(event.target.value)} placeholder="Search specialty..." className="w-full rounded-xl border border-[#E6DCC8] bg-white py-2 pl-10 pr-4 text-sm focus:border-emerald-500 focus:outline-none md:w-72" /></div>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredCategories.map((service) => (
-                <Link key={service.slug} href={'/en/providers/specialty/' + service.slug} className="group rounded-3xl border border-[#E6DCC8] bg-white p-8 transition hover:shadow-xl">
-                  <div className="mb-6 text-4xl transition-transform group-hover:scale-110">{service.icon}</div>
-                  <h3 className="mb-3 text-xl font-black text-[#0F3F1A]">{service.nameEn || service.nameAr} Providers</h3>
-                  <p className="mb-6 text-sm leading-relaxed text-gray-500">{service.descEn || service.descAr}</p>
-                  <div className="border-t border-gray-50 pt-6 text-xs font-bold text-emerald-600">Browse providers in this specialty</div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
           <section className="border-y border-[#E6DCC8] bg-white py-20">
             <div className="mx-auto max-w-6xl px-4 text-center">
               <h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">How do you join the Biet Al Reef network?</h2>
               <p className="mb-12 text-gray-500">Simple steps to start your digital growth journey with us</p>
               <div className="grid gap-12 md:grid-cols-3">
-                <div><div className="mb-3 text-5xl font-black text-gray-100">01</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Create your profile</h3><p className="text-sm leading-7 text-gray-500">Register your company details, specialties and work coverage in the UAE.</p></div>
-                <div><div className="mb-3 text-5xl font-black text-gray-100">02</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Document your work</h3><p className="text-sm leading-7 text-gray-500">Add previous project photos and experience proof to build client confidence.</p></div>
-                <div><div className="mb-3 text-5xl font-black text-gray-100">03</div><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">Receive requests</h3><p className="text-sm leading-7 text-gray-500">Start receiving direct quotation requests from targeted customers.</p></div>
+                {steps.map((step) => (
+                  <div key={step.number} className="relative text-center">
+                    <div className="absolute -top-10 left-1/2 z-0 -translate-x-1/2 text-8xl font-black text-gray-50">{step.number}</div>
+                    <div className="relative z-10"><h3 className="mb-3 text-xl font-black text-[#0F3F1A]">{step.title}</h3><p className="text-sm leading-7 text-gray-500">{step.desc}</p></div>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
-          <section className="mx-auto max-w-6xl px-4 py-20">
-            <div className="rounded-[40px] border border-[#E6DCC8] bg-[#FDFBF7] p-8 md:p-12">
-              <h2 className="mb-6 text-3xl font-black text-[#0F3F1A]">Geographic coverage is separate from the providers section</h2>
-              <p className="mb-8 leading-relaxed text-gray-600">If you want a service provider by city or emirate, go to the UAE Directory. Here, browsing is by provider type and specialty.</p>
-              <div className="flex flex-wrap gap-2">{UAE_EMIRATES.map((emirate) => <Link key={emirate.slug} href={'/en/uae/' + emirate.slug} className="rounded-full border border-[#E6DCC8] bg-white px-4 py-2 text-xs font-bold text-gray-600 hover:border-emerald-500 hover:text-emerald-600">{emirate.nameEn}</Link>)}</div>
+          <section id="provider-smart-footer" className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-[#D4AF37]/30 bg-[#0F3F1A] p-5 text-white shadow-[0_28px_70px_rgba(15,63,26,0.22)] md:p-8">
+              <div className="absolute -left-24 -top-24 h-52 w-52 rounded-full bg-[#D4AF37]/20 blur-3xl" />
+              <div className="absolute -bottom-24 -right-24 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+              <div className="relative grid gap-6 lg:grid-cols-[0.9fr_1.4fr] lg:items-start">
+                <div className="rounded-[2rem] border border-white/10 bg-white/8 p-6 backdrop-blur-xl">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-[#D4AF37] px-4 py-2 text-xs font-black text-[#0F3F1A]"><MapPin className="h-4 w-4" />Smart footer</span>
+                  <h2 className="mt-5 text-3xl font-black leading-tight md:text-4xl">Smart links for service providers</h2>
+                  <p className="mt-4 text-sm font-semibold leading-8 text-white/74">Additional specialties and emirate search are organized here, keeping the main page clean, premium and mobile-first.</p>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="rounded-[2rem] border border-white/10 bg-white p-5 text-[#0F3F1A] shadow-2xl shadow-black/10">
+                    <h3 className="mb-4 text-lg font-black">Additional specialties</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {extraSpecialties.map((item) => <Link key={item.name} href={item.href} className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-3 py-2 text-xs font-black text-gray-700 transition hover:border-[#D4AF37] hover:text-[#0F3F1A]">{item.name}</Link>)}
+                    </div>
+                  </div>
+                  <div className="rounded-[2rem] border border-white/10 bg-white p-5 text-[#0F3F1A] shadow-2xl shadow-black/10">
+                    <h3 className="mb-4 text-lg font-black">Browse by emirate</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {UAE_EMIRATES.map((emirate) => <Link key={emirate.slug} href={'/en/uae/' + emirate.slug} className="rounded-full border border-[#E6DCC8] bg-[#FDFBF7] px-3 py-2 text-xs font-black text-gray-700 transition hover:border-[#D4AF37] hover:text-[#0F3F1A]">{emirate.nameEn}</Link>)}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </main>
