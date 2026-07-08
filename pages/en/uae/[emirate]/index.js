@@ -1,12 +1,10 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
 import EnglishLayout from '../../../../components/EnglishLayout';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
-import { ArrowLeft, Home } from 'lucide-react';
 
 export default function EnglishEmiratePage({ emirate }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
@@ -29,10 +27,6 @@ export default function EnglishEmiratePage({ emirate }) {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-[#0F3F1A]/72 to-[#0F3F1A]/20" />
             </div>
             <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 w-full text-center md:text-left">
-              <div className="mb-6 flex flex-wrap items-center justify-center gap-3 md:justify-between">
-                <Link href="/en/uae" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/12 px-4 py-3 text-xs font-black text-white shadow-xl backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white hover:text-[#0F3F1A]"><span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#D4AF37] text-[#0F3F1A]"><ArrowLeft size={16} /></span>Back to UAE Directory</Link>
-                <Link href="/en" className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-xs font-black text-white shadow-xl backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white hover:text-[#0F3F1A]"><Home size={16} /> Home</Link>
-              </div>
               <p className="text-[#D4AF37] font-black mb-3">UAE emirate</p>
               <h1 className="text-3xl md:text-5xl font-black mb-5">Services in {emirate.nameEn}</h1>
               <p className="text-white/90 leading-8 max-w-3xl mx-auto md:mx-0">Choose one of the seven approved sectors first. City, area and extra specialty pages still exist and are organized inside the smart footer links.</p>
