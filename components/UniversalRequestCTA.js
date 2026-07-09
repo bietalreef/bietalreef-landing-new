@@ -9,6 +9,8 @@ const copy = {
     request: 'إرسال طلبك الآن',
     weyaak: 'تحدث مع وياك',
     support: 'تواصل مع الدعم',
+    freeLabel: 'اعرف لماذا خدمة العميل مجانية',
+    freeHref: '/customer-service',
     note: 'لا تخرج بدون مسار واضح — إذا لم تجد ما تبحث عنه، نحن نساعدك في تجهيزه.',
     requestHref: '/request-quote',
     weyaakHref: '/weyaak',
@@ -23,6 +25,8 @@ const copy = {
     request: 'Send your request now',
     weyaak: 'Talk to Weyaak',
     support: 'Contact support',
+    freeLabel: 'See why customer service is free',
+    freeHref: '/en/customer-service',
     note: 'Do not leave without a clear path — if you cannot find it, we help you prepare the request.',
     requestHref: '/en/request-quote',
     weyaakHref: '/en/weyaak',
@@ -57,7 +61,15 @@ export default function UniversalRequestCTA({ locale = 'ar', variant = 'default'
               </span>
               <h2 className="mt-4 text-2xl font-black leading-tight md:text-4xl">{current.title}</h2>
               <p className="mt-4 max-w-3xl text-sm font-semibold leading-8 text-white/86 md:text-base md:leading-9">{current.desc}</p>
-              {!compact && <p className="mt-3 text-xs font-bold leading-6 text-[#F7E7A0]/90 md:text-sm">{current.note}</p>}
+              {!compact && (
+                <div className="mt-3 flex flex-col gap-2 text-xs font-bold leading-6 text-[#F7E7A0]/90 md:text-sm">
+                  <p>{current.note}</p>
+                  <Link href={current.freeHref} className="inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-white/8 px-4 py-2 text-[#F7E7A0] transition hover:bg-white/14">
+                    {current.freeLabel}
+                    <Arrow className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
+              )}
             </div>
 
             <div className="grid gap-3">
