@@ -46,6 +46,7 @@ const footerSections = [
       { href: '/providers', label: 'مزودو الخدمات' },
       { href: '/services', label: 'الخدمات والعروض' },
       { href: '/marketplace', label: 'المنتجات والمتاجر' },
+      { href: '/customer-service', label: 'خدمة العميل مجانية' },
       { href: '/pricing', label: 'الأسعار' },
       { href: '/blog', label: 'المدونة' }
     ]
@@ -66,6 +67,7 @@ const footerSections = [
     title: 'الدعم',
     icon: Headphones,
     links: [
+      { href: '/customer-service', label: 'خدمة العميل مجانية' },
       { href: '/contact', label: 'تواصل معنا' },
       { href: '/faq', label: 'الأسئلة الشائعة' },
       { href: '/support-policy', label: 'سياسة الدعم' },
@@ -117,7 +119,7 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
       </button>
       <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
         <ul className="space-y-1">
-          {section.links.map((link) => <li key={link.href}><FooterLink href={link.href}>{link.label}</FooterLink></li>)}
+          {section.links.map((link) => <li key={`${section.id}-${link.href}-${link.label}`}><FooterLink href={link.href}>{link.label}</FooterLink></li>)}
         </ul>
       </div>
     </nav>
