@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import UniversalRequestCTA from './UniversalRequestCTA';
 import {
   Home,
   Layers3,
@@ -130,22 +131,25 @@ export default function Footer() {
   const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
 
   return (
-    <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-          <div className="text-center md:text-right">
-            <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
-            <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.</p>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
-              {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
+    <>
+      <UniversalRequestCTA locale="ar" />
+      <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir="rtl" role="contentinfo">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
+            <div className="text-center md:text-right">
+              <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
+              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.</p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
+                {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
+              </div>
+            </div>
+            <div className="md:contents">
+              {footerSections.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
             </div>
           </div>
-          <div className="md:contents">
-            {footerSections.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
-          </div>
         </div>
-      </div>
-      <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">جميع الحقوق محفوظة © 2026 بيت الريف</div>
-    </footer>
+        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">جميع الحقوق محفوظة © 2026 بيت الريف</div>
+      </footer>
+    </>
   );
 }
