@@ -42,11 +42,11 @@ const footerSections = [
     title: 'المنصة',
     icon: Layers3,
     links: [
+      { href: '/platform', label: 'تعرف على المنصة' },
       { href: '/uae', label: 'دليل الإمارات' },
       { href: '/providers', label: 'مزودو الخدمات' },
       { href: '/services', label: 'الخدمات والعروض' },
       { href: '/marketplace', label: 'المنتجات والمتاجر' },
-      { href: '/customer-service', label: 'خدمة العميل مجانية' },
       { href: '/pricing', label: 'الأسعار' },
       { href: '/blog', label: 'المدونة' }
     ]
@@ -57,9 +57,9 @@ const footerSections = [
     icon: Handshake,
     links: [
       { href: '/partners', label: 'كن شريكًا' },
-      { href: '/providers/register', label: 'سجل كمزود خدمة' },
+      { href: '/providers/register', label: 'انضم كمزود خدمة' },
       { href: '/suppliers', label: 'الموردون' },
-      { href: '/factories', label: 'المصانع' }
+      { href: '/factories', label: 'المصانع والورش' }
     ]
   },
   {
@@ -140,7 +140,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
             <div className="text-center md:text-right">
               <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
-              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة البناء والصيانة الذكية في الإمارات تربط أصحاب المشاريع مع أفضل الموردين لتقدم لك تجربة موثوقة واحترافية.</p>
+              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي خدمات البناء المناسبين، وتمكّن الشركات والموردين والورش والحرفيين من تقديم خبراتهم بصورة واضحة ومنظمة.</p>
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
                 {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
               </div>
