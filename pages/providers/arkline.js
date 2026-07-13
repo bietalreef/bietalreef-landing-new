@@ -8,14 +8,17 @@ import {
   BadgeCheck,
   Bot,
   BriefcaseBusiness,
+  Building2,
   CalendarDays,
   ChevronDown,
   Clock3,
   ExternalLink,
-  FileCheck2,
   Hammer,
+  History,
   Home,
   Images,
+  Layers3,
+  ListChecks,
   MapPin,
   MessageCircle,
   Package,
@@ -32,14 +35,12 @@ const provider = {
   type: 'منجرة وتصميم داخلي',
   location: 'العين – مزيد – معسكر الشركات',
   joinedAt: 'يوليو 2026',
+  establishedAt: '2015',
   phone: '+971 56 779 7828',
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
   hero: 'arkline-hero-exterior.webp',
   logo: 'logo.png',
-  logoFallback: 'logo.webp',
-  licenseLabel: 'بيانات الرخصة التجارية محفوظة لدى بيت الريف',
-  licenseStatus: 'قيد مراجعة مطابقة النشاط',
 };
 
 const services = [
@@ -121,6 +122,7 @@ export default function ArklinePage() {
       name: provider.name,
       url: canonical,
       telephone: provider.phone,
+      foundingDate: provider.establishedAt,
       image: gallery.map(([src]) => `https://bietalreef.ae${provider.base}${src}`),
       address: {
         '@type': 'PostalAddress',
@@ -259,61 +261,76 @@ export default function ArklinePage() {
             </div>
           </nav>
 
-          <section id="overview" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-14">
+          <section id="overview" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-12 md:py-14">
             <SectionHeading eyebrow="معلومات النشاط" title="نبذة عن نشاط أركلين" />
-            <p className="mt-4 max-w-4xl text-base leading-9 text-[#625A50]">
-              أركلين مزود خدمة في مدينة العين متخصص في أعمال النجارة والتصميم الداخلي، وينفذ المطابخ والخزائن والأبواب والديكورات الخشبية والأثاث حسب المقاسات واحتياج المشروع. يبدأ العمل بمراجعة الصور والمقاسات ونوع الخامة والتشطيب المطلوب قبل تحديد العرض وخطوات التنفيذ.
+            <p className="mt-4 max-w-4xl text-base leading-9 text-[#625A50] md:text-lg">
+              أركلين ورشة نجارة وتصميم داخلي في مدينة العين، تأسست عام 2015 وتقدم حلولاً مخصصة للمنازل والفلل والملاحق والمكاتب. يشمل نطاق العمل تصميم وتصنيع وتركيب المطابخ والخزائن والأبواب والكسوات والديكورات الخشبية والأثاث حسب المقاس. تبدأ كل مهمة بمراجعة صور الموقع والمقاسات ونوع الخامة والتشطيب، ثم تحديد نطاق العمل والمدة التقديرية وعرض السعر قبل التنفيذ.
             </p>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+            <div className="mt-7 grid gap-3 md:grid-cols-3">
               <TrustBadge icon={BadgeCheck} title="مزود مسجل لدى بيت الريف" />
               <TrustBadge icon={ShieldCheck} title="بيانات التواصل معتمدة" />
-              <TrustBadge icon={FileCheck2} title="بيانات النشاط قيد المراجعة" />
+              <TrustBadge icon={History} title="تأسيس النشاط 2015" />
             </div>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <InfoCard icon={CalendarDays} title="تاريخ الانضمام" value={provider.joinedAt} />
-              <InfoCard icon={Hammer} title="نوع النشاط" value="ورشة نجارة وتصميم داخلي" />
-              <InfoCard icon={Clock3} title="موعد الزيارة" value="بتنسيق مسبق مع الورشة" />
-              <InfoCard icon={FileCheck2} title="حالة الترخيص" value={provider.licenseStatus} />
+            <div className="mt-6 grid gap-3 lg:grid-cols-3">
+              <ActivityDetail
+                icon={Building2}
+                title="النشاط الرئيسي"
+                value="أعمال النجارة والتصميم الداخلي"
+              />
+              <ActivityDetail
+                icon={Layers3}
+                title="التخصص"
+                value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس"
+              />
+              <ActivityDetail
+                icon={ListChecks}
+                title="الخدمات"
+                value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية"
+              />
             </div>
 
-            <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_1.15fr]">
-              <article className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-[0_16px_44px_rgba(67,45,17,.08)]">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF2CF] text-[#0F3F1A]">
-                  <ShieldCheck className="h-6 w-6" />
-                </span>
-                <p className="mt-5 text-xs font-black text-[#A66B19]">بيانات النشاط</p>
-                <h3 className="mt-2 text-xl font-black text-[#0F3F1A]">{provider.licenseLabel}</h3>
-                <p className="mt-3 leading-8 text-[#625A50]">
-                  لا تُعرض أرقام الرخص أو المستندات التجارية للعامة. يظهر وصف «رخصة تجارية سارية المفعول» فقط بعد اكتمال التحقق من الصلاحية ومطابقة النشاط.
-                </p>
-              </article>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <CompactInfo icon={CalendarDays} title="تاريخ الانضمام" value={provider.joinedAt} />
+              <CompactInfo icon={Clock3} title="موعد الزيارة" value="بتنسيق مسبق مع الورشة" />
+              <CompactInfo icon={MapPin} title="نطاق الخدمة" value="العين وأبوظبي حسب المشروع" />
+            </div>
 
-              <a
-                href={mapUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-[2rem] border border-[#D9C8A9] bg-gradient-to-br from-[#1A4A27] via-[#0F3F1A] to-[#082D13] p-6 text-white shadow-[0_20px_55px_rgba(15,63,26,.20)]"
-              >
-                <div className="absolute -left-16 -top-20 h-52 w-52 rounded-full border border-white/10" />
-                <div className="absolute -left-5 -top-8 h-36 w-36 rounded-full border border-white/10" />
-                <div className="relative flex h-full flex-col justify-between gap-8">
+            <a
+              href={mapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative mt-6 block min-h-[300px] overflow-hidden rounded-[2rem] border border-[#D9C8A9] bg-[#EEE7D8] shadow-[0_20px_55px_rgba(77,53,20,.13)]"
+            >
+              <div className="absolute inset-0 opacity-95">
+                <div className="absolute -left-10 top-10 h-16 w-[72%] rotate-[13deg] rounded-full border-[12px] border-white/90 shadow-sm" />
+                <div className="absolute -right-16 top-32 h-14 w-[76%] -rotate-[18deg] rounded-full border-[10px] border-[#FFFDF8] shadow-sm" />
+                <div className="absolute left-[32%] top-0 h-[125%] w-14 rotate-[27deg] rounded-full border-[8px] border-white/85" />
+                <div className="absolute right-[12%] top-[18%] h-20 w-28 rounded-xl border border-[#CFC4AE] bg-[#DED4C1]/80" />
+                <div className="absolute left-[8%] top-[58%] h-16 w-24 rounded-xl border border-[#CFC4AE] bg-[#D8CEBB]/80" />
+                <div className="absolute right-[40%] top-[67%] h-14 w-20 rounded-xl border border-[#CFC4AE] bg-[#E4DAC8]/85" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,255,255,.8),transparent_30%),linear-gradient(135deg,rgba(255,255,255,.22),transparent_60%)]" />
+              </div>
+
+              <div className="relative z-10 flex min-h-[300px] flex-col justify-between p-6 md:p-8">
+                <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-[#F4CA61] shadow-xl backdrop-blur-xl">
-                      <MapPin className="h-7 w-7" />
-                    </span>
-                    <p className="mt-5 text-sm font-black text-[#F4CA61]">موقع النشاط</p>
-                    <h3 className="mt-2 text-2xl font-black">العين – مزيد – معسكر الشركات</h3>
-                    <p className="mt-3 leading-8 text-white/75">اضغط لفتح الموقع مباشرة في خرائط Google.</p>
+                    <p className="text-sm font-black text-[#A66B19]">موقع النشاط</p>
+                    <h3 className="mt-2 text-2xl font-black leading-tight text-[#0F3F1A] md:text-3xl">العين – مزيد – معسكر الشركات</h3>
+                    <p className="mt-3 max-w-xl leading-8 text-[#5F584F]">اضغط على البطاقة لفتح الموقع مباشرة في خرائط Google.</p>
                   </div>
-                  <span className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-5 py-3 font-black text-[#102617] shadow-lg transition group-hover:-translate-y-0.5">
-                    فتح خرائط Google
-                    <ExternalLink className="h-4 w-4" />
+                  <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[1.4rem] border border-white/80 bg-white/88 text-[#A66B19] shadow-[0_8px_0_rgba(128,89,23,.10),0_18px_30px_rgba(77,53,20,.14)] backdrop-blur-xl">
+                    <MapPin className="h-8 w-8" />
                   </span>
                 </div>
-              </a>
-            </div>
+
+                <span className="mt-8 inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-2xl bg-white/92 px-5 py-3 font-black text-[#0F3F1A] shadow-[0_8px_0_rgba(91,62,18,.10),0_18px_32px_rgba(77,53,20,.13)] backdrop-blur-xl transition group-hover:-translate-y-0.5 md:w-auto md:min-w-[230px]">
+                  فتح خرائط Google
+                  <ExternalLink className="h-4 w-4 text-[#A66B19]" />
+                </span>
+              </div>
+            </a>
           </section>
 
           <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-14">
@@ -399,39 +416,60 @@ export default function ArklinePage() {
 }
 
 function ProviderLogo() {
-  const logoPath = `${provider.base}${provider.logo}`;
-  const fallbackPath = `${provider.base}${provider.logoFallback}`;
-
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
-      <span className="absolute inset-0 flex items-center justify-center text-4xl font-black text-[#A66B19]" aria-hidden="true">
-        أ
-      </span>
-      <picture className="absolute inset-0 block h-full w-full">
-        <source srcSet={logoPath} type="image/png" />
-        <img
-          src={fallbackPath}
-          alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
-          className="relative z-10 h-full w-full object-contain p-1.5"
-          loading="eager"
-          decoding="async"
-          onError={(event) => {
-            event.currentTarget.style.display = 'none';
-          }}
-        />
-      </picture>
+      <img
+        src={`${provider.base}${provider.logo}?v=93a1491`}
+        alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
+        className="h-full w-full object-contain p-1"
+        loading="eager"
+        decoding="async"
+      />
     </div>
   );
 }
 
 function TrustBadge({ icon: Icon, title }) {
   return (
-    <span className="flex min-h-[74px] w-full items-center gap-3 rounded-[1.45rem] border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-4 py-3 text-sm font-black text-[#0F3F1A] shadow-[0_7px_0_rgba(85,58,16,.08),0_14px_26px_rgba(85,58,16,.10)]">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F7D87B] to-[#A86F14] text-[#17351E] shadow-inner">
-        <Icon className="h-5 w-5" />
-      </span>
+    <span className="flex min-h-[76px] w-full items-center gap-3 rounded-[1.45rem] border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-4 py-3 text-sm font-black text-[#0F3F1A] shadow-[0_7px_0_rgba(85,58,16,.08),0_14px_26px_rgba(85,58,16,.10)]">
+      <ThreeDIcon icon={Icon} />
       {title}
     </span>
+  );
+}
+
+function ThreeDIcon({ icon: Icon }) {
+  return (
+    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#F6D979] bg-gradient-to-br from-[#FFECA8] via-[#E1B33B] to-[#A86F14] text-[#17351E] shadow-[inset_0_2px_2px_rgba(255,255,255,.75),0_6px_0_rgba(123,78,10,.18),0_12px_20px_rgba(123,78,10,.18)]">
+      <span className="absolute inset-1 rounded-full border border-white/35" />
+      <Icon className="relative h-5 w-5" />
+    </span>
+  );
+}
+
+function ActivityDetail({ icon: Icon, title, value }) {
+  return (
+    <article className="flex min-h-[96px] items-center gap-4 rounded-[1.6rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_8px_0_rgba(85,58,16,.07),0_15px_28px_rgba(85,58,16,.09)]">
+      <ThreeDIcon icon={Icon} />
+      <div className="min-w-0">
+        <p className="text-xs font-black text-[#A66B19]">{title}</p>
+        <p className="mt-1 text-sm font-black leading-6 text-[#0F3F1A] md:text-base">{value}</p>
+      </div>
+    </article>
+  );
+}
+
+function CompactInfo({ icon: Icon, title, value }) {
+  return (
+    <article className="flex min-h-[78px] items-center gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/90 px-4 py-3 shadow-[0_10px_24px_rgba(67,45,17,.07)]">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
+        <Icon className="h-5 w-5" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-[11px] font-black text-[#A66B19]">{title}</p>
+        <p className="mt-1 text-sm font-black leading-6 text-[#0F3F1A]">{value}</p>
+      </div>
+    </article>
   );
 }
 
@@ -457,18 +495,6 @@ function SectionHeading({ eyebrow, title, center }) {
       <span className="text-sm font-black text-[#A66B19]">{eyebrow}</span>
       <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{title}</h2>
     </div>
-  );
-}
-
-function InfoCard({ icon: Icon, title, value }) {
-  return (
-    <article className="rounded-[1.7rem] border border-[#E6DCC8] bg-white p-5 shadow-[0_14px_38px_rgba(67,45,17,.08)]">
-      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF2CF] text-[#0F3F1A]">
-        <Icon className="h-5 w-5" />
-      </span>
-      <p className="mt-4 text-xs font-black text-[#A66B19]">{title}</p>
-      <p className="mt-1 font-black leading-7 text-[#0F3F1A]">{value}</p>
-    </article>
   );
 }
 
