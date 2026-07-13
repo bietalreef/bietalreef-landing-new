@@ -1,63 +1,65 @@
-const CACHE_NAME = 'bietalreef-v1';
-const urlsToCache = [
-  '/',
-  '/services',
-  '/platform',
-  '/about',
-  '/legal',
-  '/blog'
-];
+const CACHE_NAME = 'bietalreef-shell-v3';
+const LEGACY_CACHE_NAMES = ['bietalreef-v1'];
+const OFFLINE_URL = '/offline.html';
 
-// Install event
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
-    })
+    Promise.all([
+      caches.open(CACHE_NAME).then((cache) => cache.add(new Request(OFFLINE_URL, { cache: 'reload' }))),
+      caches.keys().then((names) => {
+        const hasLegacyCache = names.some((name) => LEGACY_CACHE_NAMES.includes(name));
+        if (hasLegacyCache || !self.registration.active) {
+          return self.skipWaiting();
+        }
+        return undefined;
+      }),
+    ])
   );
 });
 
-// Activate event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    Promise.all([
+      caches.keys().then((names) => Promise.all(names.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name)))),
+      self.clients.claim(),
+    ])
   );
 });
 
-// Fetch event - Network first, fallback to cache
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') {
+  const request = event.request;
+
+  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+
+  const url = new URL(request.url);
+
+  if (url.pathname.startsWith('/_next/')) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith(fetch(request, { cache: 'no-store' }).catch(() => caches.match(OFFLINE_URL)));
     return;
   }
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Clone the response
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-        return response;
+  if (request.destination === 'image' || request.destination === 'font') {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        const network = fetch(request)
+          .then((response) => {
+            if (response.ok) {
+              const copy = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || network;
       })
-      .catch(() => {
-        return caches.match(event.request).then((response) => {
-          return response || new Response('Offline - Page not cached', {
-            status: 503,
-            statusText: 'Service Unavailable',
-            headers: new Headers({
-              'Content-Type': 'text/plain'
-            })
-          });
-        });
-      })
-  );
+    );
+  }
 });
