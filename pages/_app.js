@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import InstallPrompt from "../components/InstallPrompt";
 import AppLifecycleManager from "../components/AppLifecycleManager";
 import ClientSafetyBoundary from "../components/ClientSafetyBoundary";
+import ProtectedContentGuard from "../components/ProtectedContentGuard";
 import WeyakChat from "../components/WeyakChat";
 import UniversalRequestCTA from "../components/UniversalRequestCTA";
 
@@ -14,6 +15,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ClientSafetyBoundary>
       <AppLifecycleManager />
+      <ProtectedContentGuard />
       <InstallPrompt />
       <WeyakChat />
       <Component {...pageProps} />
