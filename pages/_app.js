@@ -9,6 +9,7 @@ import ProtectedContentGuard from "../components/ProtectedContentGuard";
 import WeyakChat from "../components/WeyakChat";
 import UniversalRequestCTA from "../components/UniversalRequestCTA";
 import ProviderProductInteraction from "../components/provider/ProviderProductInteraction";
+import ArklineProfileEnhancements from "../components/provider/ArklineProfileEnhancements";
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function MyApp({ Component, pageProps }) {
       <WeyakChat />
       <Component {...pageProps} />
       <ProviderProductInteraction currentPath={router.asPath || ''} />
+      <ArklineProfileEnhancements currentPath={router.asPath || ''} />
       {isEnglishPage ? <UniversalRequestCTA locale="en" /> : null}
     </ClientSafetyBoundary>
   );
