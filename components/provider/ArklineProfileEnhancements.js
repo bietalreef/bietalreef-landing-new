@@ -74,9 +74,6 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
       const main = faqSection?.parentElement;
 
       if (faqSection && main) {
-        faqSection.style.display = 'none';
-        faqSection.setAttribute('aria-hidden', 'true');
-
         let reviewsHost = document.querySelector('[data-arkline-reviews-host="true"]');
         if (!reviewsHost) {
           reviewsHost = document.createElement('section');
@@ -102,15 +99,8 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
     return () => {
       cancelAnimationFrame(animationFrame);
       observer?.disconnect();
-
       document.querySelector('[data-arkline-working-hours-slot="true"]')?.remove();
       document.querySelector('[data-arkline-reviews-host="true"]')?.remove();
-
-      const faqSection = document.getElementById('faq');
-      if (faqSection) {
-        faqSection.style.display = '';
-        faqSection.removeAttribute('aria-hidden');
-      }
     };
   }, [isArklinePage]);
 
