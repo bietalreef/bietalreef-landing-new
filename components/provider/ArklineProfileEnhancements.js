@@ -11,6 +11,7 @@ import {
 const BIET_AL_REEF_WHATSAPP = '971567856001';
 const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_NAME = 'أركلين لأعمال النجارة والتصميم الداخلي';
+const PREVIEW_LOGO = '/images/providers/arkleen-logo.png?v=5701b2c';
 
 function buildSupportMessage(type) {
   const isReview = type === 'review';
@@ -41,6 +42,15 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
     let animationFrame;
 
     const ensureEnhancements = () => {
+      document
+        .querySelectorAll('img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"]')
+        .forEach((logoImage) => {
+          if (logoImage.getAttribute('src') !== PREVIEW_LOGO) {
+            logoImage.setAttribute('src', PREVIEW_LOGO);
+            logoImage.setAttribute('data-arkline-logo-preview', 'white-brand-logo');
+          }
+        });
+
       const tabLink = document.querySelector('nav a[href="#faq"], nav a[data-arkline-reviews-tab="true"]');
       if (tabLink) {
         tabLink.href = '#reviews';
