@@ -36,7 +36,8 @@ const provider = {
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
   hero: 'arkline-hero-exterior.webp',
-  logo: 'logo-white.svg',
+  logo: 'logo.png',
+  logoFallback: 'logo.webp',
   licenseLabel: 'بيانات الرخصة التجارية محفوظة لدى بيت الريف',
   licenseStatus: 'قيد مراجعة مطابقة النشاط',
 };
@@ -186,9 +187,7 @@ export default function ArklinePage() {
             </div>
 
             <div className="relative z-20 mx-auto -mt-14 flex h-28 w-28 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:hidden">
-              <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
-                <img src={`${provider.base}${provider.logo}`} alt="شعار أركلين" className="h-full w-full object-cover" />
-              </div>
+              <ProviderLogo />
               <span className="absolute -bottom-1 -left-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4C95D] shadow-lg">
                 <BadgeCheck className="h-5 w-5" />
               </span>
@@ -199,9 +198,7 @@ export default function ArklinePage() {
 
               <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-right md:gap-6">
                 <div className="relative hidden h-28 w-28 shrink-0 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:flex lg:h-32 lg:w-32">
-                  <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
-                    <img src={`${provider.base}${provider.logo}`} alt="شعار أركلين" className="h-full w-full object-cover" />
-                  </div>
+                  <ProviderLogo />
                   <span className="absolute -bottom-1 -left-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4C95D] shadow-lg">
                     <BadgeCheck className="h-5 w-5" />
                   </span>
@@ -398,6 +395,32 @@ export default function ArklinePage() {
         <Footer />
       </div>
     </>
+  );
+}
+
+function ProviderLogo() {
+  const logoPath = `${provider.base}${provider.logo}`;
+  const fallbackPath = `${provider.base}${provider.logoFallback}`;
+
+  return (
+    <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
+      <span className="absolute inset-0 flex items-center justify-center text-4xl font-black text-[#A66B19]" aria-hidden="true">
+        أ
+      </span>
+      <picture className="absolute inset-0 block h-full w-full">
+        <source srcSet={logoPath} type="image/png" />
+        <img
+          src={fallbackPath}
+          alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
+          className="relative z-10 h-full w-full object-contain p-1.5"
+          loading="eager"
+          decoding="async"
+          onError={(event) => {
+            event.currentTarget.style.display = 'none';
+          }}
+        />
+      </picture>
+    </div>
   );
 }
 
