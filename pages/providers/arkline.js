@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ import {
   BriefcaseBusiness,
   Building2,
   CalendarDays,
+  CheckCircle2,
   ChevronDown,
   Clock3,
   ExternalLink,
@@ -20,6 +22,7 @@ import {
   Layers3,
   ListChecks,
   MapPin,
+  Maximize2,
   MessageCircle,
   Package,
   Phone,
@@ -27,6 +30,7 @@ import {
   ShieldCheck,
   Sparkles,
   Store,
+  X,
 } from 'lucide-react';
 
 const provider = {
@@ -110,10 +114,28 @@ const faqs = [
 ];
 
 export default function ArklinePage() {
+  const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/providers/arkline';
   const description = 'أركلين لأعمال النجارة والتصميم الداخلي في العين: مطابخ، خزائن، أبواب، ديكورات خشبية وأعمال حسب المقاس مع طلب عرض سعر وتواصل مباشر.';
   const message = encodeURIComponent('مرحباً، أرغب في الاستفسار عن خدمات أركلين عبر منصة بيت الريف.');
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('أركلين أعمال النجارة والتصميم الداخلي مزيد معسكر الشركات العين')}`;
+
+  useEffect(() => {
+    if (!selectedService) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setSelectedService(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [selectedService]);
 
   const schemas = [
     {
@@ -274,21 +296,9 @@ export default function ArklinePage() {
             </div>
 
             <div className="mt-6 grid gap-3 lg:grid-cols-3">
-              <ActivityDetail
-                icon={Building2}
-                title="النشاط الرئيسي"
-                value="أعمال النجارة والتصميم الداخلي"
-              />
-              <ActivityDetail
-                icon={Layers3}
-                title="التخصص"
-                value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس"
-              />
-              <ActivityDetail
-                icon={ListChecks}
-                title="الخدمات"
-                value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية"
-              />
+              <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="أعمال النجارة والتصميم الداخلي" />
+              <ActivityDetail icon={Layers3} title="التخصص" value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس" />
+              <ActivityDetail icon={ListChecks} title="الخدمات" value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية" />
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -333,16 +343,21 @@ export default function ArklinePage() {
             </a>
           </section>
 
-          <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-14">
+          <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-12 md:py-14">
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="الخدمات والعروض" title="خدمات أركلين القابلة لطلب عرض سعر" />
               <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-                كل بطاقة تمثل خدمة فعلية يمكن ربطها لاحقاً بصفحة مستقلة، نموذج طلب، صور مشاريع وأسئلة خاصة بالخدمة.
+                تظهر الخدمات في بطاقات مختصرة وسريعة التصفح. اضغط «التفاصيل» لفتح البطاقة الموسعة داخل الصفحة دون الانتقال إلى صفحة أو تغيير الرابط.
               </p>
 
-              <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {services.map((service) => (
-                  <ServiceCard key={service.title} service={service} whatsapp={provider.whatsapp} />
+                  <ServiceCard
+                    key={service.title}
+                    service={service}
+                    whatsapp={provider.whatsapp}
+                    onDetails={setSelectedService}
+                  />
                 ))}
               </div>
             </div>
@@ -408,6 +423,14 @@ export default function ArklinePage() {
             </div>
           </section>
         </main>
+
+        {selectedService && (
+          <ServiceDetailsModal
+            service={selectedService}
+            whatsapp={provider.whatsapp}
+            onClose={() => setSelectedService(null)}
+          />
+        )}
 
         <Footer />
       </div>
@@ -498,51 +521,167 @@ function SectionHeading({ eyebrow, title, center }) {
   );
 }
 
-function ServiceCard({ service, whatsapp }) {
+function ServiceCard({ service, whatsapp, onDetails }) {
   const Icon = service.icon;
   const whatsappText = encodeURIComponent(`مرحباً، أرغب في الاستفسار عن خدمة ${service.title} لدى أركلين عبر منصة بيت الريف.`);
 
   return (
-    <article className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(67,45,17,.15)]">
-      <div className="relative h-56 overflow-hidden">
-        <Image src={`${provider.base}${service.image}`} alt={service.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:768px)100vw,50vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
-        <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
-          <span className="rounded-full border border-white/50 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">خدمة أركلين</span>
-          <span className="rounded-full border border-white/30 bg-[#0F3F1A]/88 px-3 py-2 text-[11px] font-black text-white shadow-lg backdrop-blur-xl">متوفر حسب الطلب</span>
+    <article className="group overflow-hidden rounded-[1.55rem] border border-[#E6DCC8] bg-white shadow-[0_12px_32px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(67,45,17,.14)] md:rounded-[2rem]">
+      <div className="relative h-36 overflow-hidden sm:h-40 md:h-56">
+        <Image
+          src={`${provider.base}${service.image}`}
+          alt={service.title}
+          fill
+          className="object-cover transition duration-700 group-hover:scale-105"
+          sizes="(max-width:767px) 100vw,50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+        <div className="absolute inset-x-3 top-3 flex items-center justify-between gap-2 md:inset-x-4 md:top-4 md:gap-3">
+          <span className="rounded-full border border-white/50 bg-white/88 px-2.5 py-1.5 text-[9px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl md:px-3 md:py-2 md:text-[11px]">خدمة أركلين</span>
+          <span className="rounded-full border border-white/30 bg-[#0F3F1A]/88 px-2.5 py-1.5 text-[9px] font-black text-white shadow-lg backdrop-blur-xl md:px-3 md:py-2 md:text-[11px]">متوفر حسب الطلب</span>
         </div>
-        <span className="absolute bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/55 bg-white/90 text-[#0F3F1A] shadow-xl backdrop-blur-xl">
-          <Icon className="h-6 w-6" />
+        <span className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/55 bg-white/90 text-[#0F3F1A] shadow-xl backdrop-blur-xl md:bottom-4 md:right-4 md:h-12 md:w-12 md:rounded-2xl">
+          <Icon className="h-5 w-5 md:h-6 md:w-6" />
         </span>
       </div>
 
-      <div className="p-5 md:p-6">
-        <h3 className="text-xl font-black text-[#0F3F1A]">{service.title}</h3>
-        <p className="mt-3 min-h-[64px] leading-8 text-[#625A50]">{service.description}</p>
+      <div className="p-4 md:p-6">
+        <h3 className="text-lg font-black leading-tight text-[#0F3F1A] md:text-xl">{service.title}</h3>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#625A50] md:mt-3 md:min-h-[64px] md:text-base md:leading-8">{service.description}</p>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 hidden flex-wrap gap-2 md:flex">
           {service.tags.map((tag) => (
             <span key={tag} className="rounded-full border border-[#E3D5BD] bg-[#FBF7EF] px-3 py-1.5 text-[11px] font-bold text-[#66583F]">{tag}</span>
           ))}
         </div>
 
-        <div className="mt-5 flex items-center justify-between rounded-2xl border border-[#E8DDC9] bg-[#FCFAF6] px-4 py-3 text-sm">
+        <div className="mt-5 hidden items-center justify-between rounded-2xl border border-[#E8DDC9] bg-[#FCFAF6] px-4 py-3 text-sm md:flex">
           <span className="flex items-center gap-2 font-bold text-[#625A50]"><MapPin className="h-4 w-4 text-[#A66B19]" />العين وأبوظبي</span>
           <span className="font-black text-[#0F3F1A]">السعر بعد المعاينة</span>
         </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <Link href={`/request-quote?provider=arkline&service=${encodeURIComponent(service.title)}`} className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white shadow-[0_7px_0_rgba(5,37,13,.16)]">
-            طلب عرض سعر
-            <ArrowLeft className="h-4 w-4" />
-          </Link>
-          <a href={`https://wa.me/${whatsapp}?text=${whatsappText}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]">
+        <div className="mt-3 grid grid-cols-2 gap-2.5 md:mt-5 md:gap-3">
+          <button
+            type="button"
+            onClick={() => onDetails(service)}
+            aria-haspopup="dialog"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#0F3F1A] px-3 py-2.5 text-xs font-black text-white shadow-[0_6px_0_rgba(5,37,13,.16)] md:min-h-[50px] md:rounded-2xl md:px-4 md:py-3 md:text-sm"
+          >
+            التفاصيل
+            <Maximize2 className="h-4 w-4" />
+          </button>
+          <a
+            href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-[#D8C8AA] bg-white px-3 py-2.5 text-xs font-black text-[#0F3F1A] md:min-h-[50px] md:rounded-2xl md:px-4 md:py-3 md:text-sm"
+          >
             <MessageCircle className="h-4 w-4 text-[#159447]" />
             واتساب
           </a>
         </div>
       </div>
     </article>
+  );
+}
+
+function ServiceDetailsModal({ service, whatsapp, onClose }) {
+  const Icon = service.icon;
+  const whatsappText = encodeURIComponent(`مرحباً، أرغب في الاستفسار عن خدمة ${service.title} لدى أركلين عبر منصة بيت الريف.`);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-end justify-center md:items-center md:p-6" role="dialog" aria-modal="true" aria-labelledby="arkline-service-dialog-title">
+      <button type="button" aria-label="إغلاق تفاصيل الخدمة" className="absolute inset-0 bg-[#07150C]/70 backdrop-blur-sm" onClick={onClose} />
+
+      <article className="relative z-10 max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[90dvh] md:rounded-[2rem]">
+        <div className="relative h-56 overflow-hidden md:h-80">
+          <Image src={`${provider.base}${service.image}`} alt={service.title} fill className="object-cover" sizes="(max-width:768px) 100vw,896px" priority />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="إغلاق"
+            className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/92 text-[#0F3F1A] shadow-xl backdrop-blur-xl"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 md:inset-x-7 md:bottom-7">
+            <div>
+              <span className="inline-flex rounded-full border border-white/45 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">تفاصيل خدمة أركلين</span>
+              <h3 id="arkline-service-dialog-title" className="mt-3 text-2xl font-black text-white md:text-4xl">{service.title}</h3>
+            </div>
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/50 bg-white/90 text-[#0F3F1A] shadow-2xl backdrop-blur-xl">
+              <Icon className="h-7 w-7" />
+            </span>
+          </div>
+        </div>
+
+        <div className="p-5 md:p-8">
+          <p className="text-base leading-8 text-[#625A50] md:text-lg">{service.description}</p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+            {service.tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-[#E3D5BD] bg-[#FBF7EF] px-3 py-2 text-xs font-bold text-[#66583F]">{tag}</span>
+            ))}
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <ModalInfo icon={MapPin} title="نطاق التنفيذ" value="العين وأبوظبي" />
+            <ModalInfo icon={Ruler} title="المقاسات" value="حسب الموقع والمشروع" />
+            <ModalInfo icon={BriefcaseBusiness} title="التسعير" value="بعد المعاينة والتفاصيل" />
+          </div>
+
+          <div className="mt-6 rounded-[1.6rem] border border-[#E6DCC8] bg-[#FBF7EF] p-5">
+            <h4 className="text-lg font-black text-[#0F3F1A]">خطوات طلب الخدمة</h4>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {[
+                'إرسال صور الموقع والمقاسات المتوفرة.',
+                'مراجعة الخامة والتشطيب ونطاق التنفيذ.',
+                'تحديد المعاينة وعرض السعر قبل البدء.',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2 rounded-2xl bg-white p-3 text-sm font-bold leading-6 text-[#4F4A42] shadow-sm">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#0F3F1A]" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <Link
+              href={`/request-quote?provider=arkline&service=${encodeURIComponent(service.title)}`}
+              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white shadow-[0_7px_0_rgba(5,37,13,.16)]"
+            >
+              طلب عرض سعر
+              <ArrowLeft className="h-4 w-4" />
+            </Link>
+            <a
+              href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]"
+            >
+              <MessageCircle className="h-4 w-4 text-[#159447]" />
+              واتساب
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function ModalInfo({ icon: Icon, title, value }) {
+  return (
+    <div className="flex items-center gap-3 rounded-[1.4rem] border border-[#E6DCC8] bg-white p-4 shadow-sm">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF2CF] text-[#0F3F1A]">
+        <Icon className="h-5 w-5" />
+      </span>
+      <div>
+        <p className="text-[11px] font-black text-[#A66B19]">{title}</p>
+        <p className="mt-1 text-sm font-black leading-6 text-[#0F3F1A]">{value}</p>
+      </div>
+    </div>
   );
 }
 
