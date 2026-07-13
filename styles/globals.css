@@ -161,6 +161,73 @@ a[href="/en/marketplace"] span[class*="bg-[#143D1F]/90"] {
   background-color: rgba(18, 58, 70, 0.92) !important;
 }
 
+/* Selective protection for strategic and legal content pages. */
+html.biet-protected-page,
+body.biet-protected-page,
+body.biet-protected-page #__next {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+body.biet-protected-page img,
+body.biet-protected-page video,
+body.biet-protected-page canvas {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+body.biet-protected-page input,
+body.biet-protected-page textarea,
+body.biet-protected-page select,
+body.biet-protected-page [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+body.biet-protected-page::after {
+  content: attr(data-protection-watermark);
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 90;
+  max-width: calc(100vw - 36px);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: rgba(15, 63, 26, 0.42);
+  padding: 7px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media print {
+  body.biet-protected-page * {
+    visibility: hidden !important;
+  }
+
+  body.biet-protected-page::before {
+    content: "هذا المحتوى محمي ولا تتوفر طباعته من منصة بيت الريف.";
+    visibility: visible !important;
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    background: #ffffff;
+    color: #0F3F1A;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   html,
   body,
@@ -173,6 +240,12 @@ a[href="/en/marketplace"] span[class*="bg-[#143D1F]/90"] {
   .biet-float {
     animation: none;
     transform: none !important;
+  }
+
+  body.biet-protected-page::after {
+    left: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    font-size: 9px;
   }
 }
 
