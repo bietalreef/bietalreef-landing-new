@@ -45,44 +45,6 @@ export const providers = [
       { questionAr: 'ما هي مناطق الخدمة؟', questionEn: 'What areas are served?', answerAr: 'الخدمة الأساسية في العين وأبوظبي، ويمكن دراسة الطلبات في باقي إمارات الدولة حسب تفاصيل وحجم المشروع.', answerEn: 'The main service coverage is Al Ain and Abu Dhabi. Requests in other UAE emirates can be reviewed depending on project details and size.' },
       { questionAr: 'كيف يتم تحديد السعر؟', questionEn: 'How is pricing determined?', answerAr: 'يعتمد السعر على نوع الخامة، المقاسات، تفاصيل التصنيع، موقع المشروع، وطريقة التركيب المطلوبة.', answerEn: 'Pricing depends on material type, measurements, fabrication details, project location and required installation method.' }
     ]
-  },
-  {
-    slug: 'arkline',
-    nameAr: 'أركلين لأعمال النجارة والتصميم الداخلي',
-    nameEn: 'Arkline Carpentry & Interior Design',
-    phone: '+971 56 779 7828',
-    whatsapp: '+971567797828',
-    city: 'al-ain',
-    area: 'mazid-company-camp',
-    emirate: 'abu-dhabi',
-    accountType: 'factory-workshop',
-    mainSpecialty: 'carpentry-interior-design',
-    categorySlugs: ['carpentry-woodwork', 'interior-design', 'finishing-works'],
-    providerTypeAr: 'منجرة وتصميم داخلي',
-    providerTypeEn: 'Carpentry & Interior Design Workshop',
-    verified: false,
-    logo: '/images/providers/arkline/logo.webp',
-    cover: '/images/providers/arkline/arkline-hero-exterior.webp',
-    workingHours: 'يرجى التواصل لتأكيد موعد الزيارة',
-    workingHoursEn: 'Please contact the workshop to confirm visiting hours',
-    descriptionAr: 'أركلين لأعمال النجارة والتصميم الداخلي مزود خدمة في مدينة العين متخصص في تنفيذ المطابخ والخزائن والأبواب والديكورات الخشبية والأعمال الداخلية حسب المقاسات واحتياج المشروع. يعرض هذا الملف طرق التواصل والخدمات وصور الورشة لتمكين العميل من فهم النشاط وطلب عرض سعر بصورة مباشرة.',
-    descriptionEn: 'Arkline Carpentry & Interior Design is an Al Ain service provider specializing in kitchens, wardrobes, doors, wooden décor and custom interior woodwork based on project measurements and requirements.',
-    aboutAr: 'يقدم ملف أركلين الرقمي داخل منصة بيت الريف صورة واضحة عن نشاط الورشة وخدماتها وموقعها وطرق التواصل معها. يتم تحديد تفاصيل التنفيذ والسعر بعد مراجعة نوع العمل والمقاسات والخامات والتشطيب وموقع المشروع.',
-    aboutEn: 'Arkline’s digital profile on Biet Al Reef presents the workshop activity, services, location and contact options. Execution details and pricing are determined after reviewing the work type, measurements, materials, finish and project location.',
-    services: ['تصميم داخلي', 'مطابخ خشبية', 'خزائن ودواليب', 'أبواب خشبية', 'ديكورات خشبية', 'أثاث حسب الطلب', 'تصنيع حسب المقاس', 'تركيب وتشطيب'],
-    serviceAreas: ['al-ain', 'abu-dhabi'],
-    gallery: [
-      { src: '/images/providers/arkline/arkline-hero-exterior.webp', altAr: 'واجهة أركلين لأعمال النجارة والتصميم الداخلي في العين', altEn: 'Arkline carpentry and interior design exterior in Al Ain', category: 'exterior' },
-      { src: '/images/providers/arkline/arkline-workshop.webp', altAr: 'ورشة أركلين لأعمال النجارة والتصنيع الخشبي', altEn: 'Arkline carpentry and wood fabrication workshop', category: 'workshop' },
-      { src: '/images/providers/arkline/arkline-showroom.webp', altAr: 'مساحة عرض وتشطيبات أركلين للتصميم الداخلي', altEn: 'Arkline interior design and finishes showroom', category: 'showroom' },
-      { src: '/images/providers/arkline/arkline-production.webp', altAr: 'معدات إنتاج النجارة داخل ورشة أركلين', altEn: 'Carpentry production equipment inside Arkline workshop', category: 'production' }
-    ],
-    faq: [
-      { questionAr: 'ما الخدمات التي تقدمها أركلين؟', questionEn: 'What services does Arkline provide?', answerAr: 'تقدم أركلين أعمال النجارة والتصميم الداخلي، بما يشمل المطابخ والخزائن والأبواب والديكورات الخشبية والأثاث حسب الطلب.', answerEn: 'Arkline provides carpentry and interior design services including kitchens, wardrobes, doors, wooden décor and custom furniture.' },
-      { questionAr: 'هل يتم التصنيع حسب المقاسات؟', questionEn: 'Is the work made to measure?', answerAr: 'نعم، تتم مراجعة المقاسات ونوع الخامة والتشطيب المطلوب قبل إعداد عرض السعر وبدء التصنيع.', answerEn: 'Yes. Measurements, material type and requested finish are reviewed before quotation and fabrication.' },
-      { questionAr: 'كيف أطلب عرض سعر؟', questionEn: 'How can I request a quotation?', answerAr: 'يمكن إرسال صور الموقع والمقاسات ونوع العمل وموقع المشروع عبر واتساب أو من خلال نموذج طلب عرض السعر في بيت الريف.', answerEn: 'You can send site photos, measurements, work type and project location through WhatsApp or the Biet Al Reef quotation form.' },
-      { questionAr: 'أين يقع نشاط أركلين؟', questionEn: 'Where is Arkline located?', answerAr: 'يقع النشاط في مدينة العين، منطقة مزيد، معسكر الشركات. يفضل التواصل قبل الزيارة لتأكيد الموعد.', answerEn: 'Arkline is located in Al Ain, Mezied, Company Camp. Contact the workshop before visiting to confirm the appointment.' }
-    ]
   }
 ];
 
