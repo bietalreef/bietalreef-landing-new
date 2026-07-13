@@ -66,7 +66,7 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
             infoGrid.appendChild(hoursSlot);
           }
 
-          if (workingHoursTarget !== hoursSlot) setWorkingHoursTarget(hoursSlot);
+          setWorkingHoursTarget((current) => (current === hoursSlot ? current : hoursSlot));
         }
       }
 
@@ -86,7 +86,7 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
           main.insertBefore(reviewsHost, faqSection);
         }
 
-        if (reviewsTarget !== reviewsHost) setReviewsTarget(reviewsHost);
+        setReviewsTarget((current) => (current === reviewsHost ? current : reviewsHost));
       }
     };
 
@@ -112,7 +112,7 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
         faqSection.removeAttribute('aria-hidden');
       }
     };
-  }, [isArklinePage, reviewsTarget, workingHoursTarget]);
+  }, [isArklinePage]);
 
   if (!isArklinePage) return null;
 
