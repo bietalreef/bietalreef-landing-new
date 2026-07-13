@@ -9,13 +9,36 @@ const nextConfig = {
   },
   compress: true,
   async headers() {
+    const securityHeaders = [
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      { key: 'Permissions-Policy', value: 'camera=(), geolocation=(self), microphone=(self)' },
+      { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
+    ];
+
     return [
       {
-        source: '/images/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+        source: '/:path*',
+        headers: securityHeaders,
       },
       {
-        source: '/public/:path*',
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+          { key: 'Service-Worker-Allowed', value: '/' },
+        ],
+      },
+      {
+        source: '/manifest.json',
+        headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }],
+      },
+      {
+        source: '/offline.html',
+        headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }],
+      },
+      {
+        source: '/images/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ];
@@ -29,109 +52,26 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
-      // English aliases that currently reuse the active Arabic public forms
-      {
-        source: '/en/request-quote',
-        destination: '/request-quote',
-        permanent: false,
-      },
-      {
-        source: '/en/inquiry',
-        destination: '/inquiry',
-        permanent: false,
-      },
-      // Legacy navigation and old sitemap aliases found in Search Console
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/dashboard',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/categories',
-        destination: '/services',
-        permanent: true,
-      },
-      {
-        source: '/ar-sitemap',
-        destination: '/sitemap.xml',
-        permanent: true,
-      },
-      {
-        source: '/en-sitemap',
-        destination: '/sitemap.xml',
-        permanent: true,
-      },
-      {
-        source: '/sitemap',
-        destination: '/sitemap.xml',
-        permanent: true,
-      },
-      {
-        source: '/services/construction-contracting',
-        destination: '/categories/general-contracting',
-        permanent: true,
-      },
-      {
-        source: '/categories/engineering-consultation',
-        destination: '/categories/engineering-consultants',
-        permanent: true,
-      },
-      {
-        source: '/services/engineering-consultation',
-        destination: '/categories/engineering-consultants',
-        permanent: true,
-      },
-      {
-        source: '/services/maintenance-companies',
-        destination: '/categories/general-maintenance',
-        permanent: true,
-      },
-      {
-        source: '/services/craftsmen',
-        destination: '/categories/carpentry',
-        permanent: true,
-      },
-      {
-        source: '/services/workshops',
-        destination: '/categories/carpentry',
-        permanent: true,
-      },
-      {
-        source: '/services/building-materials',
-        destination: '/building-materials-uae',
-        permanent: true,
-      },
-      {
-        source: '/services/furniture-stores',
-        destination: '/categories/furniture-decor',
-        permanent: true,
-      },
-      // Redirect old city-specific service links to general category pages
-      {
-        source: '/services/construction-contracting/dubai',
-        destination: '/categories/general-contracting',
-        permanent: true,
-      },
-      {
-        source: '/services/maintenance-companies/dubai',
-        destination: '/categories/general-maintenance',
-        permanent: true,
-      },
-      {
-        source: '/services/construction-contracting/abu-dhabi',
-        destination: '/categories/general-contracting',
-        permanent: true,
-      },
-      {
-        source: '/services/construction-contracting/al-ain',
-        destination: '/categories/general-contracting',
-        permanent: true,
-      },
+      { source: '/en/request-quote', destination: '/request-quote', permanent: false },
+      { source: '/en/inquiry', destination: '/inquiry', permanent: false },
+      { source: '/home', destination: '/', permanent: true },
+      { source: '/dashboard', destination: '/', permanent: true },
+      { source: '/categories', destination: '/services', permanent: true },
+      { source: '/ar-sitemap', destination: '/sitemap.xml', permanent: true },
+      { source: '/en-sitemap', destination: '/sitemap.xml', permanent: true },
+      { source: '/sitemap', destination: '/sitemap.xml', permanent: true },
+      { source: '/services/construction-contracting', destination: '/categories/general-contracting', permanent: true },
+      { source: '/categories/engineering-consultation', destination: '/categories/engineering-consultants', permanent: true },
+      { source: '/services/engineering-consultation', destination: '/categories/engineering-consultants', permanent: true },
+      { source: '/services/maintenance-companies', destination: '/categories/general-maintenance', permanent: true },
+      { source: '/services/craftsmen', destination: '/categories/carpentry', permanent: true },
+      { source: '/services/workshops', destination: '/categories/carpentry', permanent: true },
+      { source: '/services/building-materials', destination: '/building-materials-uae', permanent: true },
+      { source: '/services/furniture-stores', destination: '/categories/furniture-decor', permanent: true },
+      { source: '/services/construction-contracting/dubai', destination: '/categories/general-contracting', permanent: true },
+      { source: '/services/maintenance-companies/dubai', destination: '/categories/general-maintenance', permanent: true },
+      { source: '/services/construction-contracting/abu-dhabi', destination: '/categories/general-contracting', permanent: true },
+      { source: '/services/construction-contracting/al-ain', destination: '/categories/general-contracting', permanent: true },
     ];
   },
 };
