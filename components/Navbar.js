@@ -31,7 +31,7 @@ const primaryLinks = [
 ];
 
 const platformLinks = [
-  { href: '/platform', label: 'تعرف على المنصة', icon: Rocket },
+  { href: '/how-it-works', label: 'تعرّف على المنصة', icon: Rocket },
   { href: '/weyaak', label: 'وياك AI', icon: Bot },
   { href: '/tools', label: 'الأدوات', icon: BriefcaseBusiness }
 ];
@@ -39,7 +39,7 @@ const platformLinks = [
 const companyLinks = [
   { href: '/about', label: 'عن بيت الريف', icon: Building2 },
   { href: '/why-biet-alreef', label: 'لماذا بيت الريف', icon: Building2 },
-  { href: '/how-it-works', label: 'كيف يعمل', icon: Building2 }
+  { href: '/how-it-works', label: 'كيف تعمل المنصة', icon: Building2 }
 ];
 
 const desktopLinks = [
@@ -143,7 +143,7 @@ export default function Navbar() {
             ))}
             <LanguageSwitch />
             <SmartAppLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
-              تعرف على المنصة
+              تعرّف على المنصة
             </SmartAppLink>
           </div>
 
@@ -197,7 +197,7 @@ export default function Navbar() {
                 <LanguageSwitch mobile onClick={closeMenu} />
               </div>
               <SmartAppLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
-                تعرف على المنصة
+                تعرّف على المنصة
                 <Rocket className="h-4 w-4" />
               </SmartAppLink>
             </div>
