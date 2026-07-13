@@ -31,6 +31,7 @@ const primaryLinks = [
 ];
 
 const platformLinks = [
+  { href: '/platform', label: 'تعرف على المنصة', icon: Rocket },
   { href: '/weyaak', label: 'وياك AI', icon: Bot },
   { href: '/tools', label: 'الأدوات', icon: BriefcaseBusiness }
 ];
@@ -78,6 +79,7 @@ function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
         type="button"
         onClick={onToggle}
         className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5"
+        aria-expanded={open}
       >
         <span className="flex items-center gap-3">
           <Icon className="h-5 w-5 text-primary" />
