@@ -2,12 +2,19 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import { ArrowRight, FileText, Home, Mail, Scale, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ChevronDown, FileText, Home, Mail, Scale, ShieldCheck } from 'lucide-react';
 
 const LEGAL_LINKS = [
   { href: '/privacy', label: 'سياسة الخصوصية' },
   { href: '/legal', label: 'شروط الاستخدام' },
   { href: '/cookies', label: 'سياسة ملفات الارتباط' },
+];
+
+const UAE_FRAMEWORK = [
+  'قانون حماية البيانات الشخصية في دولة الإمارات',
+  'قانون المعاملات الإلكترونية وخدمات الثقة',
+  'قانون حماية المستهلك والتجارة القائمة على وسائل التقنية الحديثة',
+  'تشريعات مكافحة الجرائم الإلكترونية والاحتيال والوصول غير المصرح به',
 ];
 
 export default function PlatformLegalPage({
@@ -39,8 +46,9 @@ export default function PlatformLegalPage({
       <Head>
         <title>{title} | بيت الريف</title>
         <meta name="description" content={description} />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="ar-AE" href={canonical} />
         <meta property="og:title" content={`${title} | بيت الريف`} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
@@ -90,31 +98,53 @@ export default function PlatformLegalPage({
           </section>
 
           <section className="mx-auto max-w-5xl px-4 pb-16">
-            <div className="space-y-5">
+            <div className="rounded-[2rem] border border-[#BEE8CE] bg-[#EDFFF4] p-6 shadow-sm md:p-8">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-[#0F3F1A] shadow-sm">
+                  <Scale className="h-6 w-6" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-black text-[#0F3F1A]">المرجعية النظامية</h2>
+                  <p className="mt-3 text-sm leading-8 text-gray-700 md:text-base">تم إعداد هذه الوثيقة لتعمل ضمن الإطار القانوني المعمول به في دولة الإمارات، بما يشمل — حيثما ينطبق — ما يلي:</p>
+                  <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                    {UAE_FRAMEWORK.map((item) => (
+                      <li key={item} className="flex items-start gap-3 rounded-2xl border border-[#CFEEDA] bg-white/75 p-4 text-sm leading-7 text-gray-700">
+                        <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-[#0F3F1A]" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 space-y-4">
               {sections.map((section, index) => (
-                <article key={section.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-9">
-                  <div className="flex items-start gap-4">
+                <details key={section.title} open={index < 3} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm">
+                  <summary className="flex cursor-pointer list-none items-center gap-4 p-6 md:p-8 [&::-webkit-details-marker]:hidden">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF3CC] text-[#0F3F1A]">
                       {index % 2 === 0 ? <ShieldCheck className="h-6 w-6" /> : <FileText className="h-6 w-6" />}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h2 className="text-xl font-black text-[#0F3F1A] md:text-2xl">{section.title}</h2>
-                      {section.paragraphs?.map((paragraph) => (
-                        <p key={paragraph} className="mt-4 text-sm leading-8 text-gray-700 md:text-base">{paragraph}</p>
-                      ))}
-                      {section.items?.length ? (
-                        <ul className="mt-5 space-y-3">
-                          {section.items.map((item) => (
-                            <li key={item} className="flex items-start gap-3 text-sm leading-8 text-gray-700 md:text-base">
-                              <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#D4AF37]" />
-                              <span>{item}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </div>
+                    <h2 className="min-w-0 flex-1 text-lg font-black text-[#0F3F1A] md:text-2xl">{section.title}</h2>
+                    <ChevronDown className="h-5 w-5 shrink-0 text-[#9A7600] transition-transform duration-300 group-open:rotate-180" />
+                  </summary>
+
+                  <div className="border-t border-[#EFE7D8] px-6 pb-7 pt-2 md:px-8 md:pb-9">
+                    {section.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className="mt-4 text-sm leading-8 text-gray-700 md:text-base">{paragraph}</p>
+                    ))}
+                    {section.items?.length ? (
+                      <ul className="mt-5 space-y-3">
+                        {section.items.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm leading-8 text-gray-700 md:text-base">
+                            <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#D4AF37]" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
-                </article>
+                </details>
               ))}
             </div>
 
@@ -132,10 +162,6 @@ export default function PlatformLegalPage({
                 </Link>
               </div>
             </aside>
-
-            <div className="mt-8 rounded-3xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-900">
-              هذه الصفحات تنظّم استخدام منصة بيت الريف، ولا تُعد بديلاً عن الاستشارة القانونية المتخصصة. يجب اعتماد الصياغة النهائية من مستشار قانوني مرخص في دولة الإمارات قبل الإطلاق التجاري الكامل أو معالجة المدفوعات والعقود الملزمة.
-            </div>
           </section>
         </main>
 
