@@ -34,7 +34,7 @@ const footerSections = [
     links: [
       { href: '/about', label: 'عن بيت الريف' },
       { href: '/why-biet-alreef', label: 'لماذا بيت الريف' },
-      { href: '/how-it-works', label: 'كيف يعمل' }
+      { href: '/how-it-works', label: 'كيف تعمل المنصة' }
     ]
   },
   {
@@ -42,7 +42,7 @@ const footerSections = [
     title: 'المنصة',
     icon: Layers3,
     links: [
-      { href: '/platform', label: 'تعرف على المنصة' },
+      { href: '/how-it-works', label: 'تعرّف على المنصة' },
       { href: '/uae', label: 'دليل الإمارات' },
       { href: '/providers', label: 'مزودو الخدمات' },
       { href: '/services', label: 'الخدمات والعروض' },
