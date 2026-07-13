@@ -37,11 +37,11 @@ export default function EnglishGenericPage({
   const canonical = `${SITE_URL}${path}`;
   const arabicCanonical = `${SITE_URL}${arabicPath}`;
   const pagePoints = points || [
-    'The English page keeps the same Biet Al Reef visual identity used across the Arabic website.',
-    'The content is organized for a clear visitor journey without visual breaks or scattered text.',
-    'Each page keeps a simple next action that matches the platform structure.',
+    'The page presents the information clearly and keeps the visitor journey easy to follow.',
+    'The content is organised around the customer need, the service and the location.',
+    'Each page offers a clear next step that matches the Biet Al Reef platform structure.',
   ];
-  const pageSteps = steps || ['Read the page', 'Understand the path', 'Move to the next step'];
+  const pageSteps = steps || ['Review the information', 'Choose the relevant path', 'Move to the next step'];
   const pageRelated = related || [
     { href: '/en/about', label: 'About Biet Al Reef' },
     { href: '/en/uae', label: 'UAE Directory' },
@@ -49,7 +49,7 @@ export default function EnglishGenericPage({
   ];
   const faqItems = faqs || [
     [`What is ${title}?`, description],
-    ['How can I use this page?', 'Read the explanation, review the key points, then use the related links or the main action to continue.'],
+    ['How can I use this page?', 'Review the information, then use the related links or the main action to continue through the most suitable path.'],
   ];
 
   const jsonLd = {
@@ -74,12 +74,16 @@ export default function EnglishGenericPage({
     })),
   };
 
+  const journeyGridClass = pageSteps.length > 3
+    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+    : 'grid-cols-1 md:grid-cols-3';
+
   return (
     <>
       <Head>
         <title>{title} | Biet Al Reef</title>
         <meta name="description" content={description} />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href={arabicCanonical} />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
@@ -102,7 +106,7 @@ export default function EnglishGenericPage({
                 {badge}
               </span>
               <h1 className="mt-6 max-w-4xl text-3xl font-black leading-tight md:text-6xl">{title}</h1>
-              <p className="mt-6 max-w-3xl text-lg leading-9 text-white/90 md:text-xl">{description}</p>
+              <p className="mt-6 max-w-4xl text-lg leading-9 text-white/90 md:text-xl">{description}</p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center md:justify-start">
                 <SmartLink href={ctaHref} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#0F3F1A] shadow-lg transition hover:scale-[1.02]">
                   {ctaLabel}
@@ -122,7 +126,7 @@ export default function EnglishGenericPage({
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                   <FileText className="h-6 w-6" />
                 </div>
-                <h2 className="text-2xl font-black text-gray-900 md:text-3xl">What does this page mean?</h2>
+                <h2 className="text-2xl font-black text-gray-900 md:text-3xl">What you need to know</h2>
                 <p className="mt-5 text-base leading-9 text-gray-600">{intent || description}</p>
               </article>
 
@@ -130,8 +134,8 @@ export default function EnglishGenericPage({
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4AF37]/25 text-primary">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
-                <h2 className="text-xl font-black text-gray-900">Biet Al Reef rule</h2>
-                <p className="mt-4 leading-8 text-gray-700">We write content to be clear for customers, indexable for search, and understandable for AI answer systems without exaggeration or unverified promises.</p>
+                <h2 className="text-xl font-black text-gray-900">Our commitment</h2>
+                <p className="mt-4 leading-8 text-gray-700">We present information clearly, review business data before publication and avoid unverified promises about prices, quality or contracting results.</p>
               </aside>
             </div>
           </section>
@@ -139,7 +143,7 @@ export default function EnglishGenericPage({
           <section className="mx-auto max-w-6xl px-4 py-6">
             <div className="mb-8 text-center md:text-left">
               <h2 className="text-2xl font-black md:text-3xl">Key points</h2>
-              <p className="mt-3 leading-8 text-gray-600">A direct summary for users, search engines and answer systems.</p>
+              <p className="mt-3 leading-8 text-gray-600">Clear information to help you choose the most suitable next step.</p>
             </div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {pagePoints.map((point) => (
@@ -153,11 +157,11 @@ export default function EnglishGenericPage({
 
           <section className="mx-auto max-w-6xl px-4 py-14">
             <div className="rounded-[2rem] bg-[#0F3F1A] p-7 text-white md:p-10">
-              <h2 className="text-2xl font-black md:text-3xl">Suggested journey</h2>
-              <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+              <h2 className="text-2xl font-black md:text-3xl">Steps</h2>
+              <div className={`mt-8 grid gap-4 ${journeyGridClass}`}>
                 {pageSteps.map((step, index) => (
                   <div key={step} className="rounded-3xl border border-white/10 bg-white/10 p-5">
-                    <span className="text-sm font-black text-[#D4AF37]">0{index + 1}</span>
+                    <span className="text-sm font-black text-[#D4AF37]">{String(index + 1).padStart(2, '0')}</span>
                     <h3 className="mt-3 text-lg font-black">{step}</h3>
                   </div>
                 ))}
@@ -167,7 +171,7 @@ export default function EnglishGenericPage({
 
           <section className="mx-auto max-w-6xl px-4 py-6">
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm md:p-10">
-              <h2 className="text-2xl font-black text-gray-900">Related links</h2>
+              <h2 className="text-2xl font-black text-gray-900">Continue to the relevant section</h2>
               <div className="mt-6 flex flex-wrap gap-3">
                 {pageRelated.map((item) => (
                   <Link key={item.href} href={item.href} className="rounded-full border border-[#E6DCC8] px-5 py-3 text-sm font-black text-gray-700 transition hover:border-primary hover:text-primary">
@@ -178,7 +182,7 @@ export default function EnglishGenericPage({
             </div>
           </section>
 
-          <FAQ items={faqItems} title={`FAQ about ${title}`} />
+          <FAQ items={faqItems} title={`Frequently asked questions about ${title}`} />
           {children ? <section className="mx-auto max-w-6xl px-4 py-12">{children}</section> : null}
         </main>
       </EnglishLayout>
