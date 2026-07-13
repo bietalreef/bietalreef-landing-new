@@ -28,7 +28,22 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-wooden-kitchen',
     title: 'مطبخ خشبي حسب الطلب',
     category: 'مطابخ',
-    image: 'arkline-showroom.webp',
+    cardImage: 'arkline-showroom.webp',
+    cardImagePosition: 'center 52%',
+    gallery: [
+      {
+        src: 'arkline-showroom.webp',
+        alt: 'صورة كاملة لمساحة عرض وتشطيبات أركلين المناسبة لأعمال المطابخ الخشبية',
+      },
+      {
+        src: 'arkline-workshop.webp',
+        alt: 'صورة كاملة لورشة أركلين وأعمال التصنيع والتجهيز الخشبي',
+      },
+      {
+        src: 'arkline-production.webp',
+        alt: 'صورة كاملة لمعدات الإنتاج والتصنيع داخل ورشة أركلين',
+      },
+    ],
     icon: Home,
     description: 'مطبخ خشبي يُصمم ويُصنع حسب مساحة الموقع، وتوزيع الاستخدام، ونوع الخامة والتشطيب والملحقات المطلوبة.',
     specifications: ['تصنيع حسب المقاس', 'خيارات خامات وتشطيبات', 'ملحقات داخلية حسب الطلب'],
@@ -46,7 +61,22 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-wardrobe',
     title: 'خزانة ملابس حسب المقاس',
     category: 'خزائن',
-    image: 'arkline-workshop.webp',
+    cardImage: 'arkline-workshop.webp',
+    cardImagePosition: 'center 48%',
+    gallery: [
+      {
+        src: 'arkline-workshop.webp',
+        alt: 'صورة كاملة لورشة أركلين وتجهيز أعمال الخزائن والدواليب',
+      },
+      {
+        src: 'arkline-showroom.webp',
+        alt: 'صورة كاملة لمساحة عرض التشطيبات والخامات داخل أركلين',
+      },
+      {
+        src: 'arkline-production.webp',
+        alt: 'صورة كاملة لمعدات تصنيع وتجهيز الخزائن داخل ورشة أركلين',
+      },
+    ],
     icon: Package,
     description: 'خزانة ملابس بتقسيم داخلي مخصص، تُصنع حسب عرض وارتفاع وعمق المساحة مع خيارات متعددة للأبواب والخامات والتشطيبات.',
     specifications: ['تقسيم داخلي مخصص', 'أبواب سحاب أو مفصلية', 'تشطيبات متعددة'],
@@ -64,7 +94,22 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-interior-door',
     title: 'باب داخلي خشبي',
     category: 'أبواب',
-    image: 'arkline-production.webp',
+    cardImage: 'arkline-production.webp',
+    cardImagePosition: 'center 56%',
+    gallery: [
+      {
+        src: 'arkline-production.webp',
+        alt: 'صورة كاملة لورشة تصنيع الأبواب والأعمال الخشبية لدى أركلين',
+      },
+      {
+        src: 'arkline-workshop.webp',
+        alt: 'صورة كاملة لمنطقة العمل والتجهيز داخل ورشة أركلين',
+      },
+      {
+        src: 'arkline-hero-exterior.webp',
+        alt: 'صورة كاملة لواجهة ورشة أركلين لأعمال النجارة والتصميم الداخلي في العين',
+      },
+    ],
     icon: Store,
     description: 'باب داخلي خشبي يُصنع حسب فتحة الباب والتصميم المطلوب، مع اختيار نوع الخشب أو القشرة واللون والإكسسوارات وطريقة التركيب.',
     specifications: ['تصنيع حسب فتحة الباب', 'خيارات خشب وقشرة', 'توريد وتركيب'],
@@ -111,7 +156,7 @@ function buildProductWeyaakHref(product) {
   return `/weyaak?${query.toString()}`;
 }
 
-function emitProductAction(product, action) {
+function emitProductAction(product, action, extra = {}) {
   if (typeof window === 'undefined') return;
 
   window.dispatchEvent(
@@ -124,6 +169,7 @@ function emitProductAction(product, action) {
         productTitle: product.title,
         action,
         occurredAt: new Date().toISOString(),
+        ...extra,
       },
     })
   );
@@ -140,11 +186,25 @@ export default function ProviderProductInteraction({ currentPath = '' }) {
 
     const cards = Array.from(document.querySelectorAll('[data-product-id]'));
     const enhancedTriggers = [];
+    const enhancedVisuals = [];
 
     cards.forEach((card) => {
       const productId = card.getAttribute('data-product-id');
       const product = products[productId];
       if (!product) return;
+
+      const visual = card.firstElementChild;
+      if (visual && product.cardImage) {
+        const cardImageUrl = `${ARKLINE_PROVIDER.base}${product.cardImage}`;
+        visual.style.setProperty(
+          'background-image',
+          `linear-gradient(180deg, rgba(7, 24, 12, 0.04), rgba(7, 24, 12, 0.52)), url("${cardImageUrl}")`,
+          'important'
+        );
+        visual.style.setProperty('background-position', product.cardImagePosition || 'center', 'important');
+        visual.dataset.productCardImage = cardImageUrl;
+        enhancedVisuals.push(visual);
+      }
 
       const trigger = card.querySelector('a[href*="productId="]');
       if (!trigger) return;
@@ -182,6 +242,11 @@ export default function ProviderProductInteraction({ currentPath = '' }) {
         trigger.removeAttribute('role');
         trigger.removeAttribute('aria-haspopup');
       });
+      enhancedVisuals.forEach((visual) => {
+        visual.style.removeProperty('background-image');
+        visual.style.removeProperty('background-position');
+        delete visual.dataset.productCardImage;
+      });
     };
   }, [isArklinePage, products]);
 
@@ -216,6 +281,23 @@ function ProductDetailsModal({ product, onClose }) {
   const Icon = product.icon;
   const whatsappText = buildProductWhatsappMessage(product);
   const wayaakHref = buildProductWeyaakHref(product);
+  const gallery = product.gallery?.length
+    ? product.gallery
+    : [{ src: product.cardImage, alt: product.title }];
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const activeImage = gallery[activeImageIndex] || gallery[0];
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [product.id]);
+
+  const selectImage = (index) => {
+    setActiveImageIndex(index);
+    emitProductAction(product, 'gallery_image_view', {
+      imageIndex: index,
+      imageSrc: gallery[index]?.src,
+    });
+  };
 
   return (
     <div
@@ -234,51 +316,87 @@ function ProductDetailsModal({ product, onClose }) {
       <article
         data-provider-id={ARKLINE_PROVIDER.id}
         data-product-id={product.id}
-        className="relative z-10 max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[90dvh] md:rounded-[2rem]"
+        className="relative z-10 max-h-[95dvh] w-full max-w-5xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[92dvh] md:rounded-[2rem]"
       >
-        <div className="relative h-56 overflow-hidden md:h-80">
-          <Image
-            src={`${ARKLINE_PROVIDER.base}${product.image}`}
-            alt={product.title}
-            fill
-            className="object-cover"
-            sizes="(max-width:768px) 100vw,896px"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="relative border-b border-[#E6DCC8] bg-[#F3EDE3]">
+          <div className="relative h-[42dvh] min-h-[280px] max-h-[540px] overflow-hidden md:h-[54dvh]">
+            <Image
+              src={`${ARKLINE_PROVIDER.base}${activeImage.src}`}
+              alt={activeImage.alt}
+              fill
+              className="object-contain p-2 md:p-5"
+              sizes="(max-width:768px) 100vw,1024px"
+              priority
+            />
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="إغلاق"
-            className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-white/92 text-[#0F3F1A] shadow-xl backdrop-blur-xl"
-          >
-            <X className="h-5 w-5" />
-          </button>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="إغلاق"
+              className="absolute left-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/94 text-[#0F3F1A] shadow-xl backdrop-blur-xl"
+            >
+              <X className="h-5 w-5" />
+            </button>
 
-          <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 md:inset-x-7 md:bottom-7">
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex rounded-full border border-white/45 bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">
-                  منتج أركلين
-                </span>
-                <span dir="ltr" className="inline-flex rounded-full border border-white/35 bg-black/35 px-3 py-2 text-[10px] font-black tracking-wide text-white backdrop-blur-xl">
-                  {product.id}
-                </span>
-              </div>
-              <h3 id="arkline-product-dialog-title" className="mt-3 text-2xl font-black text-white md:text-4xl">
-                {product.title}
-              </h3>
+            <div className="absolute right-4 top-4 z-20 flex flex-wrap gap-2">
+              <span className="inline-flex rounded-full border border-white/65 bg-white/92 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
+                {product.category}
+              </span>
+              <span dir="ltr" className="inline-flex rounded-full border border-white/55 bg-[#0F3F1A]/86 px-3 py-2 text-[10px] font-black tracking-wide text-white shadow-lg backdrop-blur-xl">
+                {product.id}
+              </span>
             </div>
 
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/50 bg-white/90 text-[#0F3F1A] shadow-2xl backdrop-blur-xl">
+            <span className="absolute bottom-4 right-4 z-20 flex h-13 w-13 items-center justify-center rounded-2xl border border-white/70 bg-white/94 p-3 text-[#0F3F1A] shadow-2xl backdrop-blur-xl">
               <Icon className="h-7 w-7" />
             </span>
           </div>
+
+          {gallery.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:justify-center md:px-6 md:py-4">
+              {gallery.map((image, index) => {
+                const isActive = index === activeImageIndex;
+                return (
+                  <button
+                    key={`${image.src}-${index}`}
+                    type="button"
+                    onClick={() => selectImage(index)}
+                    aria-label={`عرض الصورة ${index + 1} من صور ${product.title}`}
+                    aria-pressed={isActive}
+                    className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border-2 bg-white shadow-sm transition md:h-20 md:w-28 ${
+                      isActive
+                        ? 'border-[#C9952A] ring-2 ring-[#C9952A]/25'
+                        : 'border-white hover:border-[#D8C8AA]'
+                    }`}
+                  >
+                    <Image
+                      src={`${ARKLINE_PROVIDER.base}${image.src}`}
+                      alt=""
+                      fill
+                      className="object-cover"
+                      sizes="112px"
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className="p-5 md:p-8">
-          <p className="text-base leading-8 text-[#625A50] md:text-lg">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <span className="text-xs font-black text-[#A66B19]">تفاصيل المنتج</span>
+              <h3 id="arkline-product-dialog-title" className="mt-2 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
+                {product.title}
+              </h3>
+            </div>
+            <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[#E6DCC8] bg-[#FFF8E7] text-[#0F3F1A] shadow-sm md:flex">
+              <Icon className="h-7 w-7" />
+            </span>
+          </div>
+
+          <p className="mt-4 text-base leading-8 text-[#625A50] md:text-lg">
             {product.description}
           </p>
 
