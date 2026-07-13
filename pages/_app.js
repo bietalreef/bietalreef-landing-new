@@ -7,6 +7,7 @@ import ClientSafetyBoundary from "../components/ClientSafetyBoundary";
 import ProtectedContentGuard from "../components/ProtectedContentGuard";
 import WeyakChat from "../components/WeyakChat";
 import UniversalRequestCTA from "../components/UniversalRequestCTA";
+import ProviderProductInteraction from "../components/provider/ProviderProductInteraction";
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function MyApp({ Component, pageProps }) {
       <InstallPrompt />
       <WeyakChat />
       <Component {...pageProps} />
+      <ProviderProductInteraction currentPath={router.asPath || ''} />
       {isEnglishPage ? <UniversalRequestCTA locale="en" /> : null}
     </ClientSafetyBoundary>
   );
