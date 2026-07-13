@@ -1,14 +1,20 @@
 const CACHE_NAME = 'bietalreef-shell-v3';
+const LEGACY_CACHE_NAMES = ['bietalreef-v1'];
 const OFFLINE_URL = '/offline.html';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.add(new Request(OFFLINE_URL, { cache: 'reload' })))
+    Promise.all([
+      caches.open(CACHE_NAME).then((cache) => cache.add(new Request(OFFLINE_URL, { cache: 'reload' }))),
+      caches.keys().then((names) => {
+        const hasLegacyCache = names.some((name) => LEGACY_CACHE_NAMES.includes(name));
+        if (hasLegacyCache || !self.registration.active) {
+          return self.skipWaiting();
+        }
+        return undefined;
+      }),
+    ])
   );
-
-  if (!self.registration.active) {
-    self.skipWaiting();
-  }
 });
 
 self.addEventListener('activate', (event) => {
