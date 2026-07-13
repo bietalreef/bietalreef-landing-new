@@ -47,8 +47,16 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
         .forEach((logoImage) => {
           if (logoImage.getAttribute('src') !== PREVIEW_LOGO) {
             logoImage.setAttribute('src', PREVIEW_LOGO);
-            logoImage.setAttribute('data-arkline-logo-preview', 'white-brand-logo');
           }
+
+          if (logoImage.hasAttribute('srcset')) {
+            logoImage.removeAttribute('srcset');
+          }
+
+          logoImage.setAttribute('data-arkline-logo-preview', 'white-brand-logo');
+          logoImage.style.backgroundColor = '#ffffff';
+          logoImage.style.objectFit = 'contain';
+          logoImage.style.padding = '0.35rem';
         });
 
       const tabLink = document.querySelector('nav a[href="#faq"], nav a[data-arkline-reviews-tab="true"]');
@@ -104,7 +112,12 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
 
     ensureEnhancements();
     observer = new MutationObserver(scheduleEnsure);
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['src', 'srcset'],
+    });
 
     return () => {
       cancelAnimationFrame(animationFrame);
