@@ -36,7 +36,7 @@ const provider = {
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
   hero: 'arkline-hero-exterior.webp',
-  logo: 'logo.webp',
+  logo: 'logo-white.svg',
   licenseLabel: 'بيانات الرخصة التجارية محفوظة لدى بيت الريف',
   licenseStatus: 'قيد مراجعة مطابقة النشاط',
 };
@@ -181,23 +181,26 @@ export default function ArklinePage() {
                   className="object-cover"
                   sizes="(max-width:768px) 100vw,1152px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-transparent to-black/5" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/24 via-transparent to-black/5" />
               </div>
             </div>
 
-            <div className="relative z-10 mx-2 -mt-16 overflow-hidden rounded-[2.2rem] border border-white bg-white/96 p-5 shadow-[0_26px_70px_rgba(77,53,20,.18)] backdrop-blur-xl md:mx-6 md:-mt-20 md:p-8">
+            <div className="relative z-20 mx-auto -mt-14 flex h-28 w-28 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:hidden">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
+                <img src={`${provider.base}${provider.logo}`} alt="شعار أركلين" className="h-full w-full object-cover" />
+              </div>
+              <span className="absolute -bottom-1 -left-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4C95D] shadow-lg">
+                <BadgeCheck className="h-5 w-5" />
+              </span>
+            </div>
+
+            <div className="relative z-10 mx-2 -mt-7 overflow-hidden rounded-[2.2rem] border border-white bg-white/96 p-5 pt-12 shadow-[0_26px_70px_rgba(77,53,20,.18)] backdrop-blur-xl md:mx-6 md:-mt-10 md:p-7 lg:-mt-12 lg:p-8">
               <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-l from-[#0F3F1A] via-[#C9952A] to-[#0F3F1A]" />
 
-              <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-right md:gap-7">
-                <div className="relative flex h-28 w-28 shrink-0 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:h-36 md:w-36">
+              <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-right md:gap-6">
+                <div className="relative hidden h-28 w-28 shrink-0 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:flex lg:h-32 lg:w-32">
                   <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
-                    <Image
-                      src={`${provider.base}${provider.logo}`}
-                      alt="شعار أركلين"
-                      fill
-                      className="scale-[1.32] object-contain"
-                      sizes="144px"
-                    />
+                    <img src={`${provider.base}${provider.logo}`} alt="شعار أركلين" className="h-full w-full object-cover" />
                   </div>
                   <span className="absolute -bottom-1 -left-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4C95D] shadow-lg">
                     <BadgeCheck className="h-5 w-5" />
@@ -209,7 +212,7 @@ export default function ArklinePage() {
                     <Tag>منجرة وتصميم داخلي</Tag>
                     <Tag green>يقبل طلبات الأسعار</Tag>
                   </div>
-                  <h1 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{provider.name}</h1>
+                  <h1 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl lg:text-5xl">{provider.name}</h1>
                   <p className="mt-3 flex items-center justify-center gap-2 text-sm font-bold text-[#6D5A41] sm:justify-start">
                     <MapPin className="h-4 w-4 text-[#A66B19]" />
                     {provider.location}
@@ -217,7 +220,7 @@ export default function ArklinePage() {
                 </div>
               </div>
 
-              <div className="mt-7">
+              <div className="mt-6">
                 <Link
                   href="/request-quote?provider=arkline"
                   className="inline-flex min-h-[62px] w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-[#0F3F1A] to-[#082D13] px-5 py-4 text-base font-black text-white shadow-[0_9px_0_rgba(5,37,13,.20),0_18px_35px_rgba(15,63,26,.22)] transition hover:-translate-y-0.5"
