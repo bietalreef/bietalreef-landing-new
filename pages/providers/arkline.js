@@ -9,7 +9,6 @@ import {
   Bot,
   BriefcaseBusiness,
   CalendarDays,
-  CheckCircle2,
   ChevronDown,
   Clock3,
   ExternalLink,
@@ -25,7 +24,6 @@ import {
   ShieldCheck,
   Sparkles,
   Store,
-  Wrench,
 } from 'lucide-react';
 
 const provider = {
@@ -190,16 +188,16 @@ export default function ArklinePage() {
             <div className="relative z-10 mx-2 -mt-16 overflow-hidden rounded-[2.2rem] border border-white bg-white/96 p-5 shadow-[0_26px_70px_rgba(77,53,20,.18)] backdrop-blur-xl md:mx-6 md:-mt-20 md:p-8">
               <div className="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-l from-[#0F3F1A] via-[#C9952A] to-[#0F3F1A]" />
 
-              <div className="mb-6 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <TrustBadge icon={BadgeCheck} title="مزود مسجل لدى بيت الريف" />
-                <TrustBadge icon={ShieldCheck} title="بيانات التواصل معتمدة" />
-                <TrustBadge icon={FileCheck2} title="بيانات النشاط قيد المراجعة" />
-              </div>
-
               <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-right md:gap-7">
-                <div className="relative flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#E3B64C] via-[#8A5A12] to-[#2A1604] p-[4px] shadow-[0_14px_0_rgba(82,49,6,.16),0_24px_45px_rgba(82,49,6,.28)] md:h-36 md:w-36">
-                  <div className="relative h-full w-full overflow-hidden rounded-full border-[5px] border-white bg-black shadow-inner">
-                    <Image src={`${provider.base}${provider.logo}`} alt="شعار أركلين" fill className="object-contain p-2" sizes="144px" />
+                <div className="relative flex h-28 w-28 shrink-0 items-center justify-center rounded-full border-[4px] border-[#C9952A] bg-white shadow-[0_14px_0_rgba(82,49,6,.12),0_24px_45px_rgba(82,49,6,.20)] md:h-36 md:w-36">
+                  <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
+                    <Image
+                      src={`${provider.base}${provider.logo}`}
+                      alt="شعار أركلين"
+                      fill
+                      className="scale-[1.32] object-contain"
+                      sizes="144px"
+                    />
                   </div>
                   <span className="absolute -bottom-1 -left-1 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4C95D] shadow-lg">
                     <BadgeCheck className="h-5 w-5" />
@@ -267,7 +265,13 @@ export default function ArklinePage() {
               أركلين مزود خدمة في مدينة العين متخصص في أعمال النجارة والتصميم الداخلي، وينفذ المطابخ والخزائن والأبواب والديكورات الخشبية والأثاث حسب المقاسات واحتياج المشروع. يبدأ العمل بمراجعة الصور والمقاسات ونوع الخامة والتشطيب المطلوب قبل تحديد العرض وخطوات التنفيذ.
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-7 grid gap-3 sm:grid-cols-3">
+              <TrustBadge icon={BadgeCheck} title="مزود مسجل لدى بيت الريف" />
+              <TrustBadge icon={ShieldCheck} title="بيانات التواصل معتمدة" />
+              <TrustBadge icon={FileCheck2} title="بيانات النشاط قيد المراجعة" />
+            </div>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <InfoCard icon={CalendarDays} title="تاريخ الانضمام" value={provider.joinedAt} />
               <InfoCard icon={Hammer} title="نوع النشاط" value="ورشة نجارة وتصميم داخلي" />
               <InfoCard icon={Clock3} title="موعد الزيارة" value="بتنسيق مسبق مع الورشة" />
@@ -396,9 +400,9 @@ export default function ArklinePage() {
 
 function TrustBadge({ icon: Icon, title }) {
   return (
-    <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-[0_6px_0_rgba(85,58,16,.08),0_12px_22px_rgba(85,58,16,.10)]">
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#F7D87B] to-[#A86F14] text-[#17351E] shadow-inner">
-        <Icon className="h-4 w-4" />
+    <span className="flex min-h-[74px] w-full items-center gap-3 rounded-[1.45rem] border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-4 py-3 text-sm font-black text-[#0F3F1A] shadow-[0_7px_0_rgba(85,58,16,.08),0_14px_26px_rgba(85,58,16,.10)]">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#F7D87B] to-[#A86F14] text-[#17351E] shadow-inner">
+        <Icon className="h-5 w-5" />
       </span>
       {title}
     </span>
