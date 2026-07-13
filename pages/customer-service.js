@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -39,26 +40,37 @@ export default function CustomerServicePage() {
       <Navbar pageTitle="خدمة العميل مجانية" />
 
       <main className="-mt-[1px]">
-        <section className="relative overflow-hidden bg-[#0F3F1A] px-4 py-16 text-white md:py-24">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.28),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.12),transparent_32%)]" />
+        <section className="relative isolate overflow-hidden bg-[#0F3F1A] px-4 py-16 text-white md:py-24">
+          <Image
+            src="/images/platform/hero-biet-alreef-platform-4k.webp"
+            alt="منصة بيت الريف وخدمة العميل في الإمارات"
+            fill
+            priority
+            className="-z-20 object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-l from-[#071E11]/96 via-[#0F3F1A]/88 to-[#0F3F1A]/68" />
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.26),transparent_36%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.12),transparent_32%)]" />
+
           <div className="relative mx-auto max-w-6xl">
-            <Link href="/" className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-black text-white backdrop-blur transition hover:bg-white/16">
+            <Link href="/" className="inline-flex items-center gap-2 rounded-2xl border border-white/25 bg-white/12 px-4 py-3 text-sm font-black text-white shadow-lg backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/18">
               العودة إلى الرئيسية
               <ArrowLeft className="h-4 w-4" />
             </Link>
+
             <div className="mt-9 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
               <div>
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#D4AF37]/15 px-4 py-2 text-xs font-black text-[#F7E7A0]"><Sparkles className="h-4 w-4" /> للعميل أولًا</span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/45 bg-[#D4AF37]/15 px-4 py-2 text-xs font-black text-[#F7E7A0] backdrop-blur"><Sparkles className="h-4 w-4" /> للعميل أولًا</span>
                 <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight md:text-6xl">خدمة العميل في بيت الريف مجانية</h1>
-                <p className="mt-6 max-w-3xl text-base font-semibold leading-9 text-white/88 md:text-xl">إذا لم تجد الخدمة، المنتج، أو مزود الخدمة المناسب، لا تخرج من المنصة بدون حل. أرسل طلبك الآن، وسيساعدك فريق بيت الريف أو وكيل وياك في ترتيب المسار المناسب داخل الإمارات.</p>
+                <p className="mt-6 max-w-3xl text-base font-semibold leading-9 text-white/90 md:text-xl">إذا لم تجد الخدمة، المنتج، أو مزود الخدمة المناسب، لا تخرج من المنصة بدون حل. أرسل طلبك الآن، وسيساعدك فريق بيت الريف أو وكيل وياك في ترتيب المسار المناسب داخل الإمارات.</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/request-quote" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#102F18] shadow-lg transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">إرسال طلبك الآن<ArrowLeft className="h-5 w-5" /></Link>
-                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-base font-black text-white transition hover:bg-white/16"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />تواصل مع الدعم</a>
+                  <Link href="/request-quote" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#102F18] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">إرسال طلبك الآن<ArrowLeft className="h-5 w-5" /></Link>
+                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/12 px-7 py-4 text-base font-black text-white shadow-lg backdrop-blur-xl transition hover:bg-white/18"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />تواصل مع الدعم</a>
                 </div>
               </div>
 
-              <div className="rounded-[2.25rem] border border-white/14 bg-white/10 p-5 shadow-2xl backdrop-blur">
-                <div className="rounded-[1.75rem] bg-white p-6 text-[#0F3F1A]">
+              <div className="rounded-[2.25rem] border border-white/18 bg-white/10 p-5 shadow-2xl backdrop-blur-xl">
+                <div className="rounded-[1.75rem] bg-white/96 p-6 text-[#0F3F1A] shadow-xl">
                   <ShieldCheck className="mb-5 h-12 w-12 text-[#D4AF37]" />
                   <h2 className="text-2xl font-black">ماذا يعني أنها مجانية؟</h2>
                   <div className="mt-5 space-y-3">
