@@ -66,7 +66,6 @@ const footerSections = [
     title: 'الدعم',
     icon: Headphones,
     links: [
-      { href: '/customer-service', label: 'خدمة العميل مجانية' },
       { href: '/contact', label: 'تواصل معنا' },
       { href: '/faq', label: 'الأسئلة الشائعة' },
       { href: '/support-policy', label: 'سياسة الدعم' },
