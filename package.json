@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/prepare-route-manifest.js",
     "build": "next build",
     "start": "next start"
   },
