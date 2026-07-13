@@ -32,14 +32,12 @@ const primaryLinks = [
 
 const platformLinks = [
   { href: '/how-it-works', label: 'تعرّف على المنصة', icon: Rocket },
-  { href: '/weyaak', label: 'وياك AI', icon: Bot },
-  { href: '/tools', label: 'الأدوات', icon: BriefcaseBusiness }
+  { href: '/weyaak', label: 'وياك AI', icon: Bot }
 ];
 
 const companyLinks = [
   { href: '/about', label: 'عن بيت الريف', icon: Building2 },
-  { href: '/why-biet-alreef', label: 'لماذا بيت الريف', icon: Building2 },
-  { href: '/how-it-works', label: 'كيف تعمل المنصة', icon: Building2 }
+  { href: '/why-biet-alreef', label: 'لماذا بيت الريف', icon: Building2 }
 ];
 
 const desktopLinks = [
