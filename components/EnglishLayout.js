@@ -41,6 +41,7 @@ const primaryLinks = [
 ];
 
 const platformLinks = [
+  { href: '/en/platform', label: 'Explore the Platform', icon: Rocket },
   { href: '/en/weyaak', label: 'Weyaak AI', icon: Bot },
   { href: '/en/tools', label: 'Tools', icon: BriefcaseBusiness },
 ];
@@ -84,6 +85,7 @@ const footerGroups = [
     title: 'Platform',
     icon: Layers3,
     links: [
+      ['/en/platform', 'Explore the Platform'],
       ['/en/uae', 'UAE Directory'],
       ['/en/providers', 'Service Providers'],
       ['/en/services', 'Services & Offers'],
@@ -98,9 +100,9 @@ const footerGroups = [
     icon: Handshake,
     links: [
       ['/en/partners', 'Become a partner'],
-      ['/en/providers/register', 'Provider app access'],
+      ['/en/providers/register', 'Join as a service provider'],
       ['/en/suppliers', 'Suppliers'],
-      ['/en/factories', 'Factories'],
+      ['/en/factories', 'Factories & Workshops'],
     ],
   },
   {
@@ -285,7 +287,7 @@ function FooterAccordionSection({ section, isOpen, onToggle }) {
       </button>
       <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
         <ul className="space-y-1">
-          {section.links.map(([href, label]) => <li key={href}><FooterLink href={href}>{label}</FooterLink></li>)}
+          {section.links.map(([href, label]) => <li key={`${section.id}-${href}-${label}`}><FooterLink href={href}>{label}</FooterLink></li>)}
         </ul>
       </div>
     </nav>
@@ -430,7 +432,7 @@ export default function EnglishLayout({ children }) {
             <div className="text-center md:text-right english-footer-text">
               <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
               <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
-                The smart construction and maintenance platform in the UAE, connecting project owners with trusted providers for a reliable and professional experience.
+                A UAE digital platform helping project owners discover suitable construction providers while enabling companies, suppliers, factories, workshops and skilled professionals to present their expertise clearly.
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
                 {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
