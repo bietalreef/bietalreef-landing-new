@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import "../styles/provider_styles.css";
+import "../styles/provider_product_cards.css";
 import { useRouter } from "next/router";
 import InstallPrompt from "../components/InstallPrompt";
 import AppLifecycleManager from "../components/AppLifecycleManager";
