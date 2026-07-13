@@ -34,24 +34,32 @@ const platformGateways = [
     description: 'ابدأ من الإمارة والمدينة والمنطقة للوصول إلى الأنشطة والخدمات والمزودين المرتبطين بالموقع.',
     href: '/uae',
     icon: MapPinned,
+    image: '/images/gateway/uae-directory-gateway.webp',
+    imageAlt: 'دليل الإمارات لخدمات البناء والمقاولات عبر منصة بيت الريف',
   },
   {
     title: 'مزودو الخدمات',
     description: 'استعرض ملفات الشركات والمقاولين والمصانع والموردين والورش والحرفيين بعد اعتماد بياناتهم.',
     href: '/providers',
     icon: UsersRound,
+    image: '/images/gateway/providers-gateway.webp',
+    imageAlt: 'مزودو خدمات البناء والمقاولات في الإمارات',
   },
   {
     title: 'الخدمات والعروض',
     description: 'اكتشف خدمات البناء والمقاولات والتشطيبات والصيانة والتصميم بحسب التخصص والمكان.',
     href: '/services',
     icon: Wrench,
+    image: '/images/gateway/services-offers-gateway.webp',
+    imageAlt: 'خدمات وعروض البناء والتشطيبات والصيانة',
   },
   {
     title: 'المنتجات والمتاجر',
     description: 'ابحث عن مواد البناء والمنتجات والمتاجر والموردين المرتبطين باحتياج المشروع.',
     href: '/marketplace',
     icon: ShoppingBag,
+    image: '/images/gateway/materials-products-gateway.webp',
+    imageAlt: 'مواد البناء والمنتجات والمتاجر في منصة بيت الريف',
   },
 ];
 
@@ -315,23 +323,35 @@ export default function HowItWorksPage() {
             <SectionHeading
               eyebrow="بوابات المنصة"
               title="ابدأ من المسار الأقرب إلى احتياجك"
-              description="أربع بوابات رئيسية بحجم مدمج وواضح، ترتبط جميعها بنفس بيانات النشاط والخدمة والمنتج والموقع."
+              description="أربع بوابات رئيسية بصور واضحة وحجم أصغر من بطاقات الصفحة الرئيسية، ترتبط جميعها بنفس بيانات النشاط والخدمة والمنتج والموقع."
             />
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-4 lg:gap-5">
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
               {platformGateways.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="group flex min-h-[220px] flex-col rounded-[1.75rem] border border-[#E5D9C1] bg-white p-5 shadow-[0_16px_34px_rgba(15,63,26,0.08)] transition duration-300 hover:-translate-y-1.5 hover:border-[#D4AF37] hover:shadow-[0_24px_45px_rgba(15,63,26,0.14)]"
+                    className="group overflow-hidden rounded-[1.75rem] border border-[#E5D9C1] bg-white p-2 shadow-[0_16px_34px_rgba(15,63,26,0.08)] transition duration-300 hover:-translate-y-1.5 hover:border-[#D4AF37] hover:shadow-[0_24px_45px_rgba(15,63,26,0.14)]"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF6DE] text-[#A27E18] shadow-inner">
-                      <Icon className="h-5.5 w-5.5" />
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem] bg-[#F0E7D6]">
+                      <Image
+                        src={item.image}
+                        alt={item.imageAlt}
+                        fill
+                        className="object-cover object-center transition duration-500 group-hover:scale-[1.035]"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#071E11]/32 via-transparent to-transparent" />
+                      <div className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/65 bg-white/82 text-[#A27E18] shadow-lg backdrop-blur">
+                        <Icon className="h-5 w-5" />
+                      </div>
                     </div>
-                    <h3 className="mt-5 text-lg font-black text-[#0F3F1A]">{item.title}</h3>
-                    <p className="mt-3 line-clamp-3 text-sm leading-7 text-gray-600">{item.description}</p>
-                    <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black text-[#A27E18]">انتقل إلى القسم <ArrowLeft className="h-4 w-4" /></span>
+                    <div className="flex min-h-[185px] flex-col px-4 pb-4 pt-5">
+                      <h3 className="text-lg font-black text-[#0F3F1A]">{item.title}</h3>
+                      <p className="mt-3 line-clamp-3 text-sm leading-7 text-gray-600">{item.description}</p>
+                      <span className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-black text-[#A27E18]">انتقل إلى القسم <ArrowLeft className="h-4 w-4" /></span>
+                    </div>
                   </Link>
                 );
               })}
