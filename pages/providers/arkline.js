@@ -34,6 +34,7 @@ import {
 } from 'lucide-react';
 
 const provider = {
+  id: 'BR-PROV-ARK-001',
   name: 'أركلين لأعمال النجارة والتصميم الداخلي',
   shortName: 'أركلين',
   type: 'منجرة وتصميم داخلي',
@@ -49,49 +50,88 @@ const provider = {
 
 const services = [
   {
+    id: 'BR-SRV-ARK-001',
+    slug: 'custom-wooden-kitchens',
     title: 'مطابخ خشبية حسب المقاس',
     description: 'تصميم وتصنيع وتركيب المطابخ وفق مساحة الموقع والخامة والتشطيب وتوزيع الاستخدام المطلوب.',
     image: 'arkline-showroom.webp',
     icon: Ruler,
     tags: ['حسب المقاس', 'تصنيع وتركيب', 'خامات حسب الاختيار'],
+    requiredDetails: [
+      'المدينة والمنطقة وموقع المشروع',
+      'المقاسات التقريبية أو مخطط المطبخ',
+      'نوع الخامة أو اللون والتشطيب المطلوب',
+      'صور الموقع الحالية إن توفرت',
+    ],
+    wayaakPrompt: 'ساعدني في تجهيز طلب مطبخ خشبي حسب المقاس، وتحديد المعلومات والمقاسات والصور التي يجب إرسالها إلى أركلين قبل التواصل المباشر.',
   },
   {
+    id: 'BR-SRV-ARK-002',
+    slug: 'custom-wardrobes',
     title: 'خزائن ودواليب مخصصة',
     description: 'خزائن غرف وحلول تخزين داخلية مصنعة حسب المقاسات، مع تنظيم داخلي يناسب احتياج العميل.',
     image: 'arkline-workshop.webp',
     icon: Home,
     tags: ['تفصيل خاص', 'حلول تخزين', 'تشطيبات متعددة'],
+    requiredDetails: [
+      'المكان المخصص للخزانة والمدينة',
+      'العرض والارتفاع والعمق التقريبي',
+      'نوع الأبواب والتقسيم الداخلي المطلوب',
+      'صورة الجدار أو المساحة إن توفرت',
+    ],
+    wayaakPrompt: 'ساعدني في تجهيز طلب خزانة أو دولاب حسب المقاس، واختيار البيانات اللازمة عن الأبعاد والأبواب والتقسيم الداخلي قبل التواصل مع أركلين.',
   },
   {
+    id: 'BR-SRV-ARK-003',
+    slug: 'wooden-doors-and-decor',
     title: 'أبواب وديكورات خشبية',
     description: 'أبواب داخلية وفواصل وكسوات وديكورات خشبية مع مراجعة المقاسات والتفاصيل قبل التنفيذ.',
     image: 'arkline-production.webp',
     icon: Hammer,
     tags: ['أبواب داخلية', 'كسوات خشبية', 'توريد وتركيب'],
+    requiredDetails: [
+      'نوع العمل المطلوب: أبواب أو كسوات أو فواصل',
+      'عدد القطع والمقاسات التقريبية',
+      'التصميم أو اللون أو نوع الخشب المطلوب',
+      'صور الموقع أو النموذج المرجعي إن توفرت',
+    ],
+    wayaakPrompt: 'ساعدني في تجهيز طلب أبواب أو ديكورات خشبية، وتحديد المقاسات والخامة والصور المرجعية المطلوبة قبل التواصل مع أركلين.',
   },
   {
+    id: 'BR-SRV-ARK-004',
+    slug: 'interior-design-and-fitout',
     title: 'تصميم داخلي وتجهيز المساحات',
     description: 'تنسيق الأعمال الخشبية والديكورات داخل المساحة بما يحقق الوظيفة والشكل المطلوب للمشروع.',
     image: 'arkline-hero-exterior.webp',
     icon: Sparkles,
     tags: ['تصميم داخلي', 'تنسيق خامات', 'تنفيذ حسب المشروع'],
+    requiredDetails: [
+      'نوع ومساحة المشروع وموقعه',
+      'نطاق الأعمال المطلوب تنفيذه',
+      'الطراز أو الألوان المرغوبة',
+      'الصور والمخططات والميزانية التقريبية إن توفرت',
+    ],
+    wayaakPrompt: 'ساعدني في تجهيز طلب تصميم داخلي وتجهيز مساحة، وتنظيم نطاق العمل والصور والمخططات والميزانية المطلوبة قبل التواصل مع أركلين.',
   },
 ];
 
 const products = [
   {
+    id: 'BR-PRD-ARK-001',
     title: 'مطبخ خشبي حسب الطلب',
     category: 'مطابخ',
     description: 'ينفذ حسب المقاسات ونوع الخامة والتشطيب والملحقات المطلوبة.',
     icon: Home,
   },
   {
+    id: 'BR-PRD-ARK-002',
     title: 'خزانة ملابس حسب المقاس',
     category: 'خزائن',
     description: 'تقسيم داخلي مخصص مع خيارات متعددة للأبواب والتشطيبات.',
     icon: Package,
   },
   {
+    id: 'BR-PRD-ARK-003',
     title: 'باب داخلي خشبي',
     category: 'أبواب',
     description: 'تصنيع حسب المقاس والتصميم ونوع الخشب أو القشرة المطلوبة.',
@@ -112,6 +152,36 @@ const faqs = [
   ['كيف أطلب عرض سعر؟', 'أرسل صور الموقع والمقاسات ونوع العمل والمنطقة عبر واتساب أو نموذج طلب عرض السعر في بيت الريف.'],
   ['أين تقع أركلين؟', 'في مدينة العين، مزيد، معسكر الشركات. يفضل التواصل قبل الزيارة لتأكيد الموعد.'],
 ];
+
+function buildServiceWhatsappMessage(service) {
+  const details = service.requiredDetails.map((item, index) => `${index + 1}. ${item}:`).join('\n');
+
+  return encodeURIComponent(
+    [
+      `مرحباً، أرغب في الاستفسار عن خدمة «${service.title}» لدى أركلين عبر منصة بيت الريف.`,
+      '',
+      `معرف المزود: ${provider.id}`,
+      `معرف الخدمة: ${service.id}`,
+      '',
+      'تفاصيل طلبي:',
+      details,
+      '',
+      'سأرفق الصور أو المخططات المتوفرة في الرسالة التالية.',
+    ].join('\n')
+  );
+}
+
+function buildWeyaakHref(service) {
+  const query = new URLSearchParams({
+    providerId: provider.id,
+    provider: 'arkline',
+    serviceId: service.id,
+    service: service.title,
+    prompt: service.wayaakPrompt,
+  });
+
+  return `/weyaak?${query.toString()}`;
+}
 
 export default function ArklinePage() {
   const [selectedService, setSelectedService] = useState(null);
@@ -141,6 +211,7 @@ export default function ArklinePage() {
     {
       '@context': 'https://schema.org',
       '@type': 'HomeAndConstructionBusiness',
+      identifier: provider.id,
       name: provider.name,
       url: canonical,
       telephone: provider.phone,
@@ -157,6 +228,26 @@ export default function ArklinePage() {
         { '@type': 'City', name: 'Al Ain' },
         { '@type': 'AdministrativeArea', name: 'Abu Dhabi' },
       ],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'خدمات أركلين',
+        itemListElement: services.map((service) => ({
+          '@type': 'Offer',
+          identifier: service.id,
+          itemOffered: {
+            '@type': 'Service',
+            identifier: service.id,
+            name: service.title,
+            description: service.description,
+            areaServed: ['العين', 'أبوظبي'],
+            provider: {
+              '@type': 'HomeAndConstructionBusiness',
+              identifier: provider.id,
+              name: provider.name,
+            },
+          },
+        })),
+      },
     },
     {
       '@context': 'https://schema.org',
@@ -353,7 +444,7 @@ export default function ArklinePage() {
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {services.map((service) => (
                   <ServiceCard
-                    key={service.title}
+                    key={service.id}
                     service={service}
                     whatsapp={provider.whatsapp}
                     onDetails={setSelectedService}
@@ -371,7 +462,7 @@ export default function ArklinePage() {
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
               {products.map((product) => (
-                <ProductCard key={product.title} product={product} />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </section>
@@ -523,10 +614,14 @@ function SectionHeading({ eyebrow, title, center }) {
 
 function ServiceCard({ service, whatsapp, onDetails }) {
   const Icon = service.icon;
-  const whatsappText = encodeURIComponent(`مرحباً، أرغب في الاستفسار عن خدمة ${service.title} لدى أركلين عبر منصة بيت الريف.`);
+  const whatsappText = buildServiceWhatsappMessage(service);
 
   return (
-    <article className="group overflow-hidden rounded-[1.55rem] border border-[#E6DCC8] bg-white shadow-[0_12px_32px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(67,45,17,.14)] md:rounded-[2rem]">
+    <article
+      data-provider-id={provider.id}
+      data-service-id={service.id}
+      className="group overflow-hidden rounded-[1.55rem] border border-[#E6DCC8] bg-white shadow-[0_12px_32px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(67,45,17,.14)] md:rounded-[2rem]"
+    >
       <div className="relative h-36 overflow-hidden sm:h-40 md:h-56">
         <Image
           src={`${provider.base}${service.image}`}
@@ -546,7 +641,10 @@ function ServiceCard({ service, whatsapp, onDetails }) {
       </div>
 
       <div className="p-4 md:p-6">
-        <h3 className="text-lg font-black leading-tight text-[#0F3F1A] md:text-xl">{service.title}</h3>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="text-lg font-black leading-tight text-[#0F3F1A] md:text-xl">{service.title}</h3>
+          <span dir="ltr" className="rounded-full bg-[#F6F0E5] px-2.5 py-1 text-[9px] font-black tracking-wide text-[#8A6A35] md:text-[10px]">{service.id}</span>
+        </div>
         <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#625A50] md:mt-3 md:min-h-[64px] md:text-base md:leading-8">{service.description}</p>
 
         <div className="mt-4 hidden flex-wrap gap-2 md:flex">
@@ -565,6 +663,7 @@ function ServiceCard({ service, whatsapp, onDetails }) {
             type="button"
             onClick={() => onDetails(service)}
             aria-haspopup="dialog"
+            aria-label={`عرض تفاصيل خدمة ${service.title}`}
             className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-[#0F3F1A] px-3 py-2.5 text-xs font-black text-white shadow-[0_6px_0_rgba(5,37,13,.16)] md:min-h-[50px] md:rounded-2xl md:px-4 md:py-3 md:text-sm"
           >
             التفاصيل
@@ -574,6 +673,7 @@ function ServiceCard({ service, whatsapp, onDetails }) {
             href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`التواصل عبر واتساب بشأن خدمة ${service.title}`}
             className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-[#D8C8AA] bg-white px-3 py-2.5 text-xs font-black text-[#0F3F1A] md:min-h-[50px] md:rounded-2xl md:px-4 md:py-3 md:text-sm"
           >
             <MessageCircle className="h-4 w-4 text-[#159447]" />
@@ -587,13 +687,18 @@ function ServiceCard({ service, whatsapp, onDetails }) {
 
 function ServiceDetailsModal({ service, whatsapp, onClose }) {
   const Icon = service.icon;
-  const whatsappText = encodeURIComponent(`مرحباً، أرغب في الاستفسار عن خدمة ${service.title} لدى أركلين عبر منصة بيت الريف.`);
+  const whatsappText = buildServiceWhatsappMessage(service);
+  const wayaakHref = buildWeyaakHref(service);
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end justify-center md:items-center md:p-6" role="dialog" aria-modal="true" aria-labelledby="arkline-service-dialog-title">
       <button type="button" aria-label="إغلاق تفاصيل الخدمة" className="absolute inset-0 bg-[#07150C]/70 backdrop-blur-sm" onClick={onClose} />
 
-      <article className="relative z-10 max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[90dvh] md:rounded-[2rem]">
+      <article
+        data-provider-id={provider.id}
+        data-service-id={service.id}
+        className="relative z-10 max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[90dvh] md:rounded-[2rem]"
+      >
         <div className="relative h-56 overflow-hidden md:h-80">
           <Image src={`${provider.base}${service.image}`} alt={service.title} fill className="object-cover" sizes="(max-width:768px) 100vw,896px" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
@@ -607,7 +712,10 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
           </button>
           <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 md:inset-x-7 md:bottom-7">
             <div>
-              <span className="inline-flex rounded-full border border-white/45 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">تفاصيل خدمة أركلين</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex rounded-full border border-white/45 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">تفاصيل خدمة أركلين</span>
+                <span dir="ltr" className="inline-flex rounded-full border border-white/35 bg-black/35 px-3 py-2 text-[10px] font-black tracking-wide text-white backdrop-blur-xl">{service.id}</span>
+              </div>
               <h3 id="arkline-service-dialog-title" className="mt-3 text-2xl font-black text-white md:text-4xl">{service.title}</h3>
             </div>
             <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/50 bg-white/90 text-[#0F3F1A] shadow-2xl backdrop-blur-xl">
@@ -632,13 +740,9 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
           </div>
 
           <div className="mt-6 rounded-[1.6rem] border border-[#E6DCC8] bg-[#FBF7EF] p-5">
-            <h4 className="text-lg font-black text-[#0F3F1A]">خطوات طلب الخدمة</h4>
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
-              {[
-                'إرسال صور الموقع والمقاسات المتوفرة.',
-                'مراجعة الخامة والتشطيب ونطاق التنفيذ.',
-                'تحديد المعاينة وعرض السعر قبل البدء.',
-              ].map((item) => (
+            <h4 className="text-lg font-black text-[#0F3F1A]">البيانات المطلوبة لهذه الخدمة</h4>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {service.requiredDetails.map((item) => (
                 <div key={item} className="flex items-start gap-2 rounded-2xl bg-white p-3 text-sm font-bold leading-6 text-[#4F4A42] shadow-sm">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#0F3F1A]" />
                   {item}
@@ -649,20 +753,21 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
 
           <div className="mt-6 grid grid-cols-2 gap-3">
             <Link
-              href={`/request-quote?provider=arkline&service=${encodeURIComponent(service.title)}`}
+              href={wayaakHref}
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white shadow-[0_7px_0_rgba(5,37,13,.16)]"
             >
-              طلب عرض سعر
-              <ArrowLeft className="h-4 w-4" />
+              <Bot className="h-5 w-5 text-[#F4CA61]" />
+              اسأل وياك
             </Link>
             <a
               href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`تواصل مباشر عبر واتساب بشأن خدمة ${service.title}`}
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]"
             >
-              <MessageCircle className="h-4 w-4 text-[#159447]" />
-              واتساب
+              <MessageCircle className="h-5 w-5 text-[#159447]" />
+              تواصل مباشر
             </a>
           </div>
         </div>
@@ -688,7 +793,7 @@ function ModalInfo({ icon: Icon, title, value }) {
 function ProductCard({ product }) {
   const Icon = product.icon;
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)]">
+    <article data-provider-id={provider.id} data-product-id={product.id} className="overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)]">
       <div className="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br from-[#FFF9ED] via-[#E8D5B4] to-[#B98937]">
         <div className="absolute inset-5 rounded-[1.6rem] border border-white/70 bg-white/30 shadow-inner backdrop-blur-sm" />
         <div className="relative flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-[0_12px_0_rgba(71,45,8,.14),0_20px_35px_rgba(71,45,8,.20)]">
@@ -697,13 +802,16 @@ function ProductCard({ product }) {
         <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
       </div>
       <div className="p-5">
-        <h3 className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
+          <span dir="ltr" className="rounded-full bg-[#F6F0E5] px-2.5 py-1 text-[9px] font-black tracking-wide text-[#8A6A35]">{product.id}</span>
+        </div>
         <p className="mt-3 leading-8 text-[#625A50]">{product.description}</p>
         <div className="mt-4 flex items-center justify-between rounded-2xl bg-[#FBF7EF] px-4 py-3 text-sm">
           <span className="font-bold text-[#6A5B43]">متوفر حسب الطلب</span>
           <span className="font-black text-[#0F3F1A]">السعر حسب المواصفات</span>
         </div>
-        <Link href={`/request-quote?provider=arkline&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
+        <Link href={`/request-quote?provider=arkline&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
           اطلب تفاصيل المنتج
           <ArrowLeft className="h-4 w-4" />
         </Link>
