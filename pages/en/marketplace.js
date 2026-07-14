@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
+import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
 import { ArrowLeft, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronRight, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -25,7 +26,8 @@ export default function MarketplaceEnglishPage() {
     <>
       <Head><title>Products & Stores | Building Materials, Finishing and Furniture in the UAE</title><meta name="description" content="Products & Stores in Biet Al Reef: building materials, finishing products, smart systems and furniture. A separate path from services and the UAE Directory." /><meta name="keywords" content="building products, building materials, finishing stores, suppliers, marble, ceramic, furniture" /><meta name="robots" content="index, follow" /><link rel="canonical" href="https://bietalreef.ae/en/marketplace" /><link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/marketplace" /><link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/marketplace" /><meta property="og:title" content="Products & Stores | Biet Al Reef" /><meta property="og:description" content="Building materials, finishing products, smart systems and furniture in a dedicated marketplace path." /><meta property="og:type" content="website" /><meta property="og:url" content="https://bietalreef.ae/en/marketplace" /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /></Head>
       <EnglishLayout>
-        <main dir="ltr" className="-mt-[1px] bg-[#FDFBF7] text-left [&>section:nth-of-type(2)>section:first-of-type]:hidden">
+        <main dir="ltr" className="-mt-[1px] bg-[#FDFBF7] text-left [&>section:nth-of-type(2)]:hidden [&>section:nth-of-type(3)>section:first-of-type]:hidden">
+          <DiscoveryDirectoryHero type="products" locale="en" />
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
             <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
               <Image src="/images/materials-products-hero.webp" alt="Building materials, products and stores inside Biet Al Reef" fill priority className="scale-[1.08] object-cover object-[70%_42%] -translate-y-[3%] md:scale-105 md:object-[70%_45%] md:-translate-y-[2%]" sizes="100vw" />
@@ -81,7 +83,7 @@ export default function MarketplaceEnglishPage() {
 
             <section className="mx-auto mb-20 max-w-3xl"><h2 className="mb-10 text-center text-2xl font-black text-[#0F3F1A]">FAQ about Products & Stores</h2><div className="space-y-4">{faq.map((item, i) => <div key={i} className="rounded-2xl border border-[#E6DCC8] bg-white p-6"><h3 className="mb-2 font-black text-[#0F3F1A]">{item.q}</h3><p className="text-sm leading-relaxed text-gray-600">{item.a}</p></div>)}</div></section>
 
-            <section className="rounded-[40px] bg-gradient-to-br from-[#0F3F1A] to-[#1a5c28] p-12 text-center text-white"><h2 className="mb-6 text-3xl font-black">Need a product or material for your project?</h2><p className="mx-auto mb-10 max-w-xl text-emerald-50/70">Send the product type, quantity and location to receive suitable guidance.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-block rounded-2xl bg-[#D4AF37] px-10 py-4 font-black text-[#0F3F1A] shadow-lg transition-all hover:bg-[#b8922b]">Contact Biet Al Reef</a></section>
+            <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">Need a product or material for your project?</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">Send the product type, quantity, specifications and supply location to receive suitable guidance.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">Contact Biet Al Reef</a></section>
           </section>
           <ProductsSmartFooter locale="en" />
         </main>
