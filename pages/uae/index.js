@@ -81,7 +81,7 @@ export default function UAEDirectoryHome() {
               <div className="mb-9 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> اختر الإمارة</span>
                 <h2 className="mx-auto mt-4 max-w-3xl text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">استكشف خدمات بيت الريف حسب الإمارة</h2>
-                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">واجهة مصممة لتبدأ من المكان، ثم تحدد القطاع من سبعة أقسام رئيسية، بينما تبقى التخصصات الإضافية داخل الفوتر الذكي.</p>
+                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">ابدأ من الإمارة، ثم اختر القطاع المناسب، وستجد المناطق والخدمات المرتبطة ضمن مسارات واضحة ومنظمة.</p>
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {emirateCards.map((emirate, index) => {
