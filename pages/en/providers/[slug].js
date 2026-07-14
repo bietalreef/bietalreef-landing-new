@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { providers } from '../../../data/providers';
-import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Award, Gem, ChevronDown, ExternalLink, CheckCircle2, Users, Hammer, Layers, ArrowRight } from 'lucide-react';
+import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Gem, ChevronDown, ExternalLink, Users, Hammer, Layers, ArrowRight, Factory, Navigation, BadgeCheck } from 'lucide-react';
 
 const serviceLabels = {
   'رخام طبيعي': 'Natural Marble',
@@ -100,37 +100,37 @@ export default function EnglishProviderProfilePage({ provider }) {
                 Back to service providers
               </Link>
 
-              <div className="relative min-h-[680px] overflow-hidden rounded-[2.5rem] border border-white/15 bg-[#071A24] shadow-[0_32px_90px_-35px_rgba(4,23,34,.75)]">
+              <div className="group relative min-h-[720px] overflow-hidden rounded-[2.5rem] border border-[#E8C968]/35 bg-[#071A24] shadow-[0_35px_100px_-35px_rgba(4,23,34,.9)]">
                 {provider.cover && <Image src={provider.cover} alt={provider.nameEn} fill className="object-cover object-center" priority />}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#03141F]/95 via-[#071A24]/84 to-[#071A24]/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#031019]/80 via-transparent to-black/15" />
-                <div className="relative grid min-h-[680px] items-center gap-8 p-6 md:p-10 lg:grid-cols-[1fr_240px] lg:p-12">
-                  <div className="max-w-3xl">
-                    <div className="mb-5 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-4 py-1.5 text-xs font-black text-sky-100"><Gem className="h-3.5 w-3.5" /> Professional Presence Profile</span>
-                      {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-black text-emerald-700"><ShieldCheck className="h-3.5 w-3.5" /> Verified Provider</span>}
-                      <span className="rounded-full border border-[#E6DCC8] bg-white px-4 py-1.5 text-xs font-black text-[#0F3F1A]">{provider.providerTypeEn || 'Marble & Granite Factory'}</span>
-                    </div>
-
-                    <h1 className="max-w-3xl text-4xl font-black leading-tight text-white md:text-6xl">{provider.nameEn || provider.nameAr}</h1>
-                    <p className="mt-4 text-base font-black text-[#F3D572] md:text-lg">Supply · Fabrication · Installation — Al Ain & Abu Dhabi</p>
-                    <p className="mt-6 max-w-2xl text-base font-semibold leading-9 text-white/78 md:text-lg">{description}</p>
-
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                      {whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] shadow-lg shadow-[#8A6A00]/10 transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> Contact on WhatsApp</a>}
-                      <a href={`tel:${provider.phone}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#B8922B]/35 bg-white px-8 py-4 font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]"><Phone className="h-5 w-5" /> Call Factory</a>
-                      <Link href="/en/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#B8922B]/35 bg-white/70 px-8 py-4 font-black text-[#8A6A00] transition hover:bg-white">Request Quotation</Link>
-                    </div>
-                  </div>
-
-                  <div className="self-start justify-self-end lg:self-center">
-                    <div className="relative overflow-hidden rounded-[2rem] border border-white/35 bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,.38)]">
-                      <Image src={provider.logo} alt={`${provider.nameEn} logo`} width={240} height={240} className="h-44 w-44 object-contain md:h-48 md:w-48" />
-                      <span className="absolute bottom-3 right-3 rounded-full bg-[#0755B5] px-3 py-1 text-[10px] font-black text-white">WHITE WHALE</span>
-                    </div>
-                    <div className="mt-4 rounded-2xl border border-white/15 bg-black/25 p-4 text-white backdrop-blur-md">
-                      <p className="text-xs font-black text-[#F3D572]">Professional profile scope</p>
-                      <p className="mt-2 text-sm font-bold leading-7 text-white/75">Services, materials, projects and FAQs in one structured profile.</p>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#020D14]/95 via-[#061B28]/76 to-[#071A24]/35" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020B11]/95 via-transparent to-black/20" />
+                <div className="absolute -left-16 top-12 h-56 w-56 rounded-full bg-[#D4AF37]/15 blur-3xl motion-safe:animate-pulse" />
+                <div className="relative flex min-h-[720px] items-end p-4 md:p-8 lg:p-10">
+                  <div className="w-full rounded-[2rem] border border-white/45 bg-[#FFFDF8]/95 p-5 shadow-[0_30px_80px_-24px_rgba(0,0,0,.8)] backdrop-blur-xl md:p-8">
+                    <div className="grid items-center gap-6 lg:grid-cols-[220px_1fr]">
+                      <div className="relative mx-auto lg:mx-0">
+                        <div className="relative flex h-44 w-44 items-center justify-center rounded-full border-[5px] border-[#D4AF37] bg-white p-3 shadow-[0_0_0_7px_rgba(255,255,255,.9),0_0_0_10px_rgba(212,175,55,.35),0_24px_50px_rgba(15,63,26,.25)] md:h-48 md:w-48">
+                          <Image src={provider.logo} alt={`${provider.nameEn} logo`} width={220} height={220} className="h-full w-full rounded-full object-contain" />
+                          {provider.verified && <span className="absolute bottom-0 right-0 flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-[#F4D76B] to-[#B8860B] text-[#0B3D23] shadow-[0_8px_20px_rgba(184,134,11,.4)]" aria-label="Verified provider"><BadgeCheck className="h-7 w-7" /></span>}
+                        </div>
+                      </div>
+                      <div className="min-w-0 text-center lg:text-left">
+                        <p className="text-xs font-black uppercase tracking-[.18em] text-[#B8922B]">Verified marble & granite factory</p>
+                        <h1 className="mt-2 font-serif text-3xl font-black leading-tight text-[#092C1C] md:text-5xl">{provider.nameEn || provider.nameAr}</h1>
+                        <p className="mt-2 font-black text-[#8A6A00]">Supply · Custom fabrication · Installation</p>
+                        <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
+                          {whatsappDigits && <ContactChannel href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} icon={<MessageCircle />} label="WhatsApp" external />}
+                          <ContactChannel href={`tel:${provider.phone}`} icon={<Phone />} label="Call" />
+                          {provider.googleMapsUrl && <ContactChannel href={provider.googleMapsUrl} icon={<Navigation />} label="Location" external />}
+                          <ContactChannel href="/en/contact" icon={<ExternalLink />} label="Quotation" />
+                        </div>
+                        <div className="mt-4 flex flex-wrap justify-center gap-2 lg:justify-start">
+                          <IdentityBadge icon={<Gem />} label="Professional presence" />
+                          <IdentityBadge icon={<ShieldCheck />} label="Verified data" />
+                          <IdentityBadge icon={<Factory />} label={provider.providerTypeEn || 'Marble & Granite Factory'} />
+                        </div>
+                        <p className="mt-5 max-w-3xl text-sm font-semibold leading-7 text-[#415248] md:text-base md:leading-8">{description}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ export default function EnglishProviderProfilePage({ provider }) {
             </div>
           </section>
 
-          <section className="border-b border-[#D4AF37]/20 bg-[#1b1d18] text-white"><div className="mx-auto max-w-6xl px-4 py-6"><p className="mb-4 text-sm font-black text-[#F4D978]">Expanded professional profile on Biet Al Reef</p><div className="grid grid-cols-2 gap-4 md:grid-cols-4"><ProfessionalStat value="10" label="Displayable services" /><ProfessionalStat value="10" label="Displayable products" /><ProfessionalStat value="10" label="Displayable projects" /><ProfessionalStat value="4" label="Annual content updates" /></div></div></section>
+          <section className="border-b border-[#D4AF37]/20 bg-[#111812] text-white"><div className="mx-auto max-w-6xl px-4 py-10"><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><BusinessInfo icon={<Factory />} label="Primary activity" value="Marble & granite fabrication and supply" /><BusinessInfo icon={<MapPin />} label="Location" value="Mazid, Al Ain – Abu Dhabi" /><BusinessInfo icon={<Navigation />} label="Service coverage" value="Al Ain, Abu Dhabi and by project" /><BusinessInfo icon={<Clock />} label="Working hours" value={provider.workingHoursEn} /></div></div></section>
 
           {provider.aboutEn && <section className="mx-auto max-w-6xl px-4 py-16"><div className="grid gap-10 lg:grid-cols-2 lg:items-center"><div><p className="font-black text-[#B8922B]">About the Factory</p><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] leading-tight">Specialized provider for marble, granite and quartz</h2><p className="mt-6 leading-9 text-gray-600">{provider.aboutEn}</p><div className="mt-8 grid grid-cols-3 gap-4"><FeatureCard icon={<Hammer className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Custom Fabrication" /><FeatureCard icon={<Layers className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Material Options" /><FeatureCard icon={<Users className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Direct Contact" /></div></div><div className="relative overflow-hidden rounded-[2rem]"><Image src="/images/providers/al-hoot/about-factory.jpg" alt="White Whale Marble & Granite Factory" width={1344} height={768} className="w-full h-auto rounded-[2rem] object-cover" /></div></div></section>}
 
@@ -160,7 +160,9 @@ export default function EnglishProviderProfilePage({ provider }) {
 }
 
 function TrustItem({ title, sub }) { return <div className="rounded-2xl bg-white/70 p-4 text-center shadow-sm"><div className="text-2xl font-black text-[#8A6A00]">{title}</div><div className="mt-1 text-xs font-bold text-[#304333]">{sub}</div></div>; }
-function ProfessionalStat({ value, label }) { return <div className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="text-2xl font-black text-[#F4D978]">{value}</div><div className="mt-1 text-xs font-bold text-white/70">{label}</div></div>; }
+function ContactChannel({ href, icon, label, external = false }) { return <a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="group inline-flex items-center gap-2 rounded-full border border-[#D9C791] bg-white px-3 py-2 text-xs font-black text-[#0F3F1A] shadow-[0_7px_16px_-8px_rgba(15,63,26,.55)] transition duration-300 hover:-translate-y-1 hover:border-[#B8922B] hover:shadow-lg"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#FFF8D8] to-[#D4AF37] text-[#0B3D23] [&>svg]:h-4 [&>svg]:w-4">{icon}</span>{label}</a>; }
+function IdentityBadge({ icon, label }) { return <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0B3D23]/[.07] px-3 py-1.5 text-[11px] font-black text-[#0B3D23] [&>svg]:h-3.5 [&>svg]:w-3.5 [&>svg]:text-[#B8922B]">{icon}{label}</span>; }
+function BusinessInfo({ icon, label, value }) { return <div className="group rounded-[1.4rem] border border-white/10 bg-gradient-to-br from-white/[.09] to-white/[.03] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.12)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/45"><div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#F5D96F] to-[#A97D12] text-[#102D20] shadow-[0_10px_25px_-10px_rgba(212,175,55,.7)] [&>svg]:h-5 [&>svg]:w-5">{icon}</div><p className="text-xs font-black text-[#E4C75D]">{label}</p><p className="mt-2 text-sm font-bold leading-7 text-white/85">{value}</p></div>; }
 function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
