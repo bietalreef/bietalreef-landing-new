@@ -43,13 +43,11 @@ const primaryLinks = [
 const platformLinks = [
   { href: '/en/platform', label: 'Explore the Platform', icon: Rocket },
   { href: '/en/weyaak', label: 'Weyaak AI', icon: Bot },
-  { href: '/en/tools', label: 'Tools', icon: BriefcaseBusiness },
 ];
 
 const companyLinks = [
   { href: '/en/about', label: 'About Biet Al Reef', icon: Building2 },
   { href: '/en/why-biet-alreef', label: 'Why Biet Al Reef', icon: Building2 },
-  { href: '/en/how-it-works', label: 'How it works', icon: Building2 },
 ];
 
 const desktopLinks = [
