@@ -32,7 +32,7 @@ export default function EnglishUaeIndex() {
         <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/uae" />
         <link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/uae" />
         <meta property="og:title" content="UAE Directory | Biet Al Reef" />
-        <meta property="og:description" content="Start by emirate, then sector, with extra specialties organized in the smart footer." />
+        <meta property="og:description" content="Start by emirate, then choose a sector and continue through clearly organized areas and related services." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bietalreef.ae/en/uae" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
@@ -66,7 +66,7 @@ export default function EnglishUaeIndex() {
               <div className="mb-9 text-center">
                 <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> Choose an emirate</span>
                 <h2 className="mx-auto mt-4 max-w-3xl text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">Explore Biet Al Reef services by emirate</h2>
-                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">Start from the location, then choose from seven main sectors. Extra specialties stay organized inside the UAE smart footer.</p>
+                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">Start with the emirate, choose the relevant sector, then continue through clearly organized areas and related services.</p>
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {UAE_EMIRATES.map((emirate, index) => (
@@ -80,7 +80,7 @@ export default function EnglishUaeIndex() {
           </section>
 
           <section className="px-4 pb-12"><div className="mx-auto max-w-6xl rounded-[2rem] border border-[#E6DCC8] bg-white/88 p-5 shadow-sm md:p-7"><h2 className="text-2xl font-black text-[#0F3F1A]">Popular services inside the directory</h2><div className="mt-5 flex flex-wrap gap-3">{SERVICE_CATEGORIES.map((service) => <Link key={service.slug} href="/en/uae" className="rounded-full bg-[#FDFBF7] border border-[#E6DCC8] px-4 py-2 text-sm font-bold text-gray-700 hover:text-primary hover:border-primary transition">{service.icon} {service.nameEn}</Link>)}</div></div></section>
-          <section className="px-4 pb-12"><div className="mx-auto max-w-6xl rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8"><h2 className="text-2xl font-black text-[#0F3F1A]">How does the UAE Directory serve project owners?</h2><p className="mt-4 leading-8 text-gray-600">The directory uses a clear geographic order that starts from the emirate, then the sector. Extra specialties remain organized in the smart footer to keep the page clean and useful.</p></div></section>
+          <section className="px-4 pb-12"><div className="mx-auto max-w-6xl rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8"><h2 className="text-2xl font-black text-[#0F3F1A]">How does the UAE Directory serve project owners?</h2><p className="mt-4 leading-8 text-gray-600">The directory uses a clear geographic order: choose the emirate, select the sector, then use the related area and service links to continue.</p></div></section>
           <UaeSmartFooter locale="en" pageType="index" />
         </main>
       </EnglishLayout>

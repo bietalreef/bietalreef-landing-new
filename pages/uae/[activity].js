@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SecondaryHeader from '../../components/SecondaryHeader';
@@ -9,6 +8,7 @@ import FAQ from '../../components/FAQ';
 import UaeSmartFooter from '../../components/UaeSmartFooter';
 import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
+import UaeDirectoryHero from '../../components/UaeDirectoryHero';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 
 export default function EmiratePage({ emirate, emirateSlug }) {
@@ -16,11 +16,11 @@ export default function EmiratePage({ emirate, emirateSlug }) {
   const showAlHootSeoPath = emirateSlug === 'abu-dhabi';
   const pageData = {
     h1: `خدمات بيت الريف في ${emirate.nameAr}`,
-    desc: `اختر واحداً من القطاعات السبعة الرئيسية داخل ${emirate.nameAr}. التخصصات الإضافية والمدن والمناطق تبقى متاحة داخل الفوتر الذكي بدون تضخيم رحلة المستخدم.`,
+    desc: `اختر واحداً من القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، ثم انتقل إلى مزودي الخدمة والخيارات المرتبطة بالموقع والنشاط.`,
   };
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، ثم استخدم الفوتر الذكي للتخصصات والمناطق الإضافية.`],
-    ['هل تم حذف صفحات المناطق أو التخصصات القديمة؟', 'لا، الصفحات القديمة ما زالت موجودة وتعمل، لكن الأقسام الزائدة أصبحت منظمة داخل الفوتر الذكي.'],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.`],
+    ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
     ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
 
@@ -35,19 +35,9 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <Navbar pageTitle={emirate.nameAr} />
         <SecondaryHeader backUrl="/uae" backLabel="العودة إلى دليل الإمارات" />
         <main>
-          <section className="relative min-h-[420px] flex items-center bg-[#0F3F1A] text-white overflow-hidden">
-            <div className="absolute inset-0 z-0">
-              <Image src={`/images/seo/emirates/${emirateSlug}.webp`} alt={pageData.h1} fill className="object-cover opacity-35" priority />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A] via-[#0F3F1A]/72 to-[#0F3F1A]/20" />
-            </div>
-            <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 w-full text-center md:text-right">
-              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6">إمارة {emirate.nameAr}</span>
-              <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight">{pageData.h1}</h1>
-              <p className="text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed mx-auto md:mx-0">{pageData.desc}</p>
-            </div>
-          </section>
+          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} />
 
-          <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc={`اختر القطاع المطلوب أولاً، ثم استخدم الفوتر الذكي للتخصصات والمناطق أو أرسل طلبك مباشرة عبر وياك.`} buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
+          <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
 
           {showAlHootSeoPath && <SeoProofCards title="مسار حقيقي داخل صفحة أبوظبي" desc="هذه الصفحة لا تكتفي بنص SEO عام. يوجد داخلها مثال واضح لمسار العميل: مزود موثق للرخام والجرانيت، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة أو عرض سعر مرتبطة بملف مصنع الحوت." />}
 
@@ -55,7 +45,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
 
           <SeoContent title={`${emirate.nameAr} داخل دليل بيت الريف`}>
             <p>{emirate.description}</p>
-            <p className="mt-4">يعرض هذا القسم القطاعات السبعة الرئيسية داخل {emirate.nameAr}. أما المدن والمناطق وباقي التخصصات فتظهر داخل الفوتر الذكي كروابط داخلية منظمة للحفاظ على الامتدادات القديمة وقوة البحث الجغرافي.</p>
+            <p className="mt-4">يعرض هذا القسم القطاعات السبعة الرئيسية داخل {emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.</p>
             {showAlHootSeoPath && <p className="mt-4">تم دعم صفحة أبوظبي بمسار داخلي واضح يربط بين محتوى البحث الجغرافي ومزود خدمة فعلي داخل المنصة، مثل مصنع الحوت الأبيض للرخام والجرانيت.</p>}
           </SeoContent>
 
