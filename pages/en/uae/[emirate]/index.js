@@ -8,7 +8,7 @@ import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
 
 export default function EnglishEmiratePage({ emirate }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
-  const showSeoProof = emirate.slug === 'abu-dhabi';
+  const showSeoProof = false;
 
   return (
     <>
