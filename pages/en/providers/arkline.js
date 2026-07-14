@@ -34,14 +34,15 @@ import {
 
 const provider = {
   id: 'BR-PROV-ARK-001',
-  name: 'Arkline Carpentry & Interior Design',
-  shortName: 'Arkline',
+  name: 'ARKLEEN Carpentry & Interior Design',
+  shortName: 'ARKLEEN',
   type: 'Carpentry & Interior Design Workshop',
   location: 'Al Ain – Mazid – Company Camp',
   joinedAt: 'July 2026',
   establishedAt: '2015',
   phone: '+971 56 779 7828',
   whatsapp: '971567797828',
+  website: 'https://www.arkleen.ae',
   base: '/images/providers/arkline/',
   hero: 'arkline-hero-exterior.webp',
   logo: 'logo.png',
@@ -62,7 +63,7 @@ const services = [
       'Preferred material, colour and finish',
       'Current site photos, when available',
     ],
-    wayaakPrompt: 'Help me prepare a request for a custom wooden kitchen and organise the information, measurements and photos I should send to Arkline before direct contact.',
+    wayaakPrompt: 'Help me prepare a request for a custom wooden kitchen and organise the information, measurements and photos I should send to ARKLEEN before direct contact.',
   },
   {
     id: 'BR-SRV-ARK-002',
@@ -78,7 +79,7 @@ const services = [
       'Preferred door style and internal layout',
       'Photo of the wall or space, when available',
     ],
-    wayaakPrompt: 'Help me prepare a made-to-measure wardrobe request and organise the required dimensions, door style and internal layout before contacting Arkline.',
+    wayaakPrompt: 'Help me prepare a made-to-measure wardrobe request and organise the required dimensions, door style and internal layout before contacting ARKLEEN.',
   },
   {
     id: 'BR-SRV-ARK-003',
@@ -94,7 +95,7 @@ const services = [
       'Preferred design, colour or wood type',
       'Site photos or reference design, when available',
     ],
-    wayaakPrompt: 'Help me prepare a request for wooden doors or decorative woodwork and identify the dimensions, materials and reference photos required before contacting Arkline.',
+    wayaakPrompt: 'Help me prepare a request for wooden doors or decorative woodwork and identify the dimensions, materials and reference photos required before contacting ARKLEEN.',
   },
   {
     id: 'BR-SRV-ARK-004',
@@ -110,7 +111,7 @@ const services = [
       'Preferred style and colours',
       'Photos, drawings and approximate budget, when available',
     ],
-    wayaakPrompt: 'Help me prepare an interior design and fit-out request and organise the scope, photos, drawings and estimated budget before contacting Arkline.',
+    wayaakPrompt: 'Help me prepare an interior design and fit-out request and organise the scope, photos, drawings and estimated budget before contacting ARKLEEN.',
   },
 ];
 
@@ -139,17 +140,17 @@ const products = [
 ];
 
 const gallery = [
-  ['arkline-hero-exterior.webp', 'Arkline workshop exterior in Al Ain'],
+  ['arkline-hero-exterior.webp', 'ARKLEEN workshop exterior in Al Ain'],
   ['arkline-workshop.webp', 'Carpentry workshop and fabrication area'],
   ['arkline-showroom.webp', 'Interior design and finishing samples'],
   ['arkline-production.webp', 'Production equipment inside the workshop'],
 ];
 
 const faqs = [
-  ['What services does Arkline provide?', 'Arkline provides carpentry and interior design services, including kitchens, wardrobes, doors, decorative woodwork, cladding and made-to-measure furniture.'],
-  ['Does Arkline manufacture to custom dimensions?', 'Yes. Dimensions, photos, materials, finishes and the project location are reviewed before the quotation and fabrication stage.'],
+  ['What services does ARKLEEN provide?', 'ARKLEEN provides carpentry and interior design services, including kitchens, wardrobes, doors, decorative woodwork, cladding and made-to-measure furniture.'],
+  ['Does ARKLEEN manufacture to custom dimensions?', 'Yes. Dimensions, photos, materials, finishes and the project location are reviewed before the quotation and fabrication stage.'],
   ['How can I request a quotation?', 'Send the project photos, measurements, required work and location through WhatsApp or the Biet Al Reef quotation request form.'],
-  ['Where is Arkline located?', 'Arkline is located in Al Ain, Mazid, Company Camp. Contact the workshop before visiting to confirm the appointment.'],
+  ['Where is ARKLEEN located?', 'ARKLEEN is located in Al Ain, Mazid, Company Camp. Contact the workshop before visiting to confirm the appointment.'],
 ];
 
 function buildServiceWhatsappMessage(service) {
@@ -157,7 +158,7 @@ function buildServiceWhatsappMessage(service) {
 
   return encodeURIComponent(
     [
-      `Hello, I would like to enquire about “${service.title}” from Arkline through Biet Al Reef.`,
+      `Hello, I would like to enquire about “${service.title}” from ARKLEEN through Biet Al Reef.`,
       '',
       `Provider ID: ${provider.id}`,
       `Service ID: ${service.id}`,
@@ -173,7 +174,7 @@ function buildServiceWhatsappMessage(service) {
 function buildWeyaakHref(service) {
   const query = new URLSearchParams({
     providerId: provider.id,
-    provider: 'arkline',
+    provider: 'arkleen',
     serviceId: service.id,
     service: service.title,
     prompt: service.wayaakPrompt,
@@ -185,10 +186,10 @@ function buildWeyaakHref(service) {
 
 export default function ArklineEnglishPage() {
   const [selectedService, setSelectedService] = useState(null);
-  const canonical = 'https://bietalreef.ae/en/providers/arkline';
-  const description = 'Arkline Carpentry & Interior Design in Al Ain provides custom kitchens, wardrobes, wooden doors, decorative woodwork and made-to-measure interior solutions.';
-  const message = encodeURIComponent('Hello, I would like to enquire about Arkline services through Biet Al Reef.');
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Arkline Carpentry Interior Design Mazid Company Camp Al Ain')}`;
+  const canonical = 'https://bietalreef.ae/en/providers/arkleen';
+  const description = 'ARKLEEN Carpentry & Interior Design in Al Ain provides custom kitchens, wardrobes, wooden doors, decorative woodwork and made-to-measure interior solutions.';
+  const message = encodeURIComponent('Hello, I would like to enquire about ARKLEEN services through Biet Al Reef.');
+  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('ARKLEEN Carpentry Interior Design Mazid Company Camp Al Ain')}`;
 
   useEffect(() => {
     if (!selectedService) return undefined;
@@ -214,6 +215,7 @@ export default function ArklineEnglishPage() {
       identifier: provider.id,
       name: provider.name,
       url: canonical,
+      sameAs: [provider.website],
       telephone: provider.phone,
       foundingDate: provider.establishedAt,
       image: gallery.map(([src]) => `https://bietalreef.ae${provider.base}${src}`),
@@ -230,7 +232,7 @@ export default function ArklineEnglishPage() {
       ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Arkline Services',
+        name: 'ARKLEEN Services',
         itemListElement: services.map((service) => ({
           '@type': 'Offer',
           identifier: service.id,
@@ -263,14 +265,14 @@ export default function ArklineEnglishPage() {
   return (
     <>
       <Head>
-        <title>Arkline Carpentry & Interior Design in Al Ain | Biet Al Reef</title>
+        <title>ARKLEEN Carpentry & Interior Design in Al Ain | Biet Al Reef</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers/arkline" />
+        <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers/arkleen" />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
-        <link rel="alternate" hrefLang="x-default" href="https://bietalreef.ae/providers/arkline" />
-        <meta property="og:title" content="Arkline Carpentry & Interior Design in Al Ain" />
+        <link rel="alternate" hrefLang="x-default" href="https://bietalreef.ae/providers/arkleen" />
+        <meta property="og:title" content="ARKLEEN Carpentry & Interior Design in Al Ain" />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={`https://bietalreef.ae${provider.base}${provider.hero}`} />
         <meta property="og:locale" content="en_AE" />
@@ -288,7 +290,7 @@ export default function ArklineEnglishPage() {
                 <ArrowLeft className="h-4 w-4" />
                 Back to service providers
               </Link>
-              <Link href="/providers/arkline" className="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-[#D8C8AA] bg-white px-4 py-2 text-xs font-black text-[#0F3F1A] shadow-sm">
+              <Link href="/providers/arkleen" className="inline-flex min-h-[44px] items-center justify-center rounded-2xl border border-[#D8C8AA] bg-white px-4 py-2 text-xs font-black text-[#0F3F1A] shadow-sm">
                 AR
               </Link>
             </div>
@@ -297,7 +299,7 @@ export default function ArklineEnglishPage() {
               <div className="relative aspect-[16/10] min-h-[310px] sm:aspect-[16/8] md:min-h-[520px]">
                 <Image
                   src={`${provider.base}${provider.hero}`}
-                  alt="Arkline carpentry and interior design workshop exterior in Al Ain"
+                  alt="ARKLEEN carpentry and interior design workshop exterior in Al Ain"
                   fill
                   priority
                   className="object-cover"
@@ -340,11 +342,11 @@ export default function ArklineEnglishPage() {
 
               <div className="mt-6">
                 <Link
-                  href="/request-quote?provider=arkline&lang=en"
+                  href="/request-quote?provider=arkleen&lang=en"
                   className="inline-flex min-h-[62px] w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#0F3F1A] to-[#082D13] px-5 py-4 text-base font-black text-white shadow-[0_9px_0_rgba(5,37,13,.20),0_18px_35px_rgba(15,63,26,.22)] transition hover:-translate-y-0.5"
                 >
                   <BriefcaseBusiness className="h-6 w-6 text-[#F4CA61]" />
-                  Request a quotation from Arkline
+                  Request a quotation from ARKLEEN
                 </Link>
 
                 <div className="mt-4 grid grid-cols-3 gap-3">
@@ -381,9 +383,9 @@ export default function ArklineEnglishPage() {
           </nav>
 
           <section id="overview" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-12 md:py-14">
-            <SectionHeading eyebrow="Business Information" title="About Arkline" />
+            <SectionHeading eyebrow="Business Information" title="About ARKLEEN" />
             <p className="mt-4 max-w-4xl text-base leading-9 text-[#625A50] md:text-lg">
-              Arkline is a carpentry and interior design workshop in Al Ain, established in 2015 and providing custom solutions for homes, villas, external extensions, offices and other interior spaces. Its work includes the design, fabrication and installation of kitchens, wardrobes, doors, wall cladding, decorative woodwork and made-to-measure furniture. Each request begins with a review of the site photos, measurements, selected material and required finish, followed by confirmation of the work scope, estimated timeframe and quotation before execution.
+              ARKLEEN is a carpentry and interior design workshop in Al Ain, established in 2015 and providing custom solutions for homes, villas, external extensions, offices and other interior spaces. Its work includes the design, fabrication and installation of kitchens, wardrobes, doors, wall cladding, decorative woodwork and made-to-measure furniture. Each request begins with a review of the site photos, measurements, selected material and required finish, followed by confirmation of the work scope, estimated timeframe and quotation before execution.
             </p>
 
             <div className="mt-7 grid gap-3 md:grid-cols-3">
@@ -442,7 +444,7 @@ export default function ArklineEnglishPage() {
 
           <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-12 md:py-14">
             <div className="mx-auto max-w-6xl px-4">
-              <SectionHeading eyebrow="Services & Offers" title="Arkline services available for quotation requests" />
+              <SectionHeading eyebrow="Services & Offers" title="ARKLEEN services available for quotation requests" />
               <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
                 Services are presented in concise cards for quick browsing. Select “Details” to open the expanded card inside the same page without changing the route.
               </p>
@@ -475,7 +477,7 @@ export default function ArklineEnglishPage() {
 
           <section id="gallery" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-14">
             <div className="mx-auto max-w-6xl px-4">
-              <SectionHeading eyebrow="Photo Gallery" title="Arkline photo gallery" />
+              <SectionHeading eyebrow="Photo Gallery" title="ARKLEEN photo gallery" />
               <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
                 These are the current approved images in the provider file. New project and workshop images can be added later without changing the gallery structure.
               </p>
@@ -506,7 +508,7 @@ export default function ArklineEnglishPage() {
           </section>
 
           <section id="faq" className="scroll-mt-28 mx-auto max-w-4xl px-4 py-14">
-            <SectionHeading eyebrow="Frequently Asked Questions" title="Common questions about Arkline services" center />
+            <SectionHeading eyebrow="Frequently Asked Questions" title="Common questions about ARKLEEN services" center />
             <div className="mt-8 space-y-4">
               {faqs.map(([question, answer], index) => (
                 <details key={question} open={index === 0} className="group rounded-[1.7rem] border border-[#E6DCC8] bg-white p-5 shadow-sm">
@@ -538,7 +540,7 @@ function ProviderLogo() {
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
         src={`${provider.base}${provider.logo}?v=93a1491`}
-        alt="Arkline Carpentry & Interior Design logo"
+        alt="ARKLEEN Carpentry & Interior Design logo"
         className="h-full w-full object-contain p-1"
         loading="eager"
         decoding="async"
@@ -636,7 +638,7 @@ function ServiceCard({ service, whatsapp, onDetails }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
         <div className="absolute inset-x-3 top-3 flex items-center justify-between gap-2 md:inset-x-4 md:top-4 md:gap-3">
-          <span className="rounded-full border border-white/50 bg-white/88 px-2.5 py-1.5 text-[9px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl md:px-3 md:py-2 md:text-[11px]">Arkline service</span>
+          <span className="rounded-full border border-white/50 bg-white/88 px-2.5 py-1.5 text-[9px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl md:px-3 md:py-2 md:text-[11px]">ARKLEEN service</span>
           <span className="rounded-full border border-white/30 bg-[#0F3F1A]/88 px-2.5 py-1.5 text-[9px] font-black text-white shadow-lg backdrop-blur-xl md:px-3 md:py-2 md:text-[11px]">Available on request</span>
         </div>
         <span className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl border border-white/55 bg-white/90 text-[#0F3F1A] shadow-xl backdrop-blur-xl md:bottom-4 md:left-4 md:h-12 md:w-12 md:rounded-2xl">
@@ -677,7 +679,7 @@ function ServiceCard({ service, whatsapp, onDetails }) {
             href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`Contact Arkline on WhatsApp about ${service.title}`}
+            aria-label={`Contact ARKLEEN on WhatsApp about ${service.title}`}
             className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-[#D8C8AA] bg-white px-3 py-2.5 text-xs font-black text-[#0F3F1A] md:min-h-[50px] md:rounded-2xl md:px-4 md:py-3 md:text-sm"
           >
             <MessageCircle className="h-4 w-4 text-[#159447]" />
@@ -717,7 +719,7 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
           <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 md:inset-x-7 md:bottom-7">
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex rounded-full border border-white/45 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">Arkline service details</span>
+                <span className="inline-flex rounded-full border border-white/45 bg-white/88 px-3 py-2 text-[11px] font-black text-[#0F3F1A] backdrop-blur-xl">ARKLEEN service details</span>
                 <span dir="ltr" className="inline-flex rounded-full border border-white/35 bg-black/35 px-3 py-2 text-[10px] font-black tracking-wide text-white backdrop-blur-xl">{service.id}</span>
               </div>
               <h3 id="arkline-service-dialog-title-en" className="mt-3 text-2xl font-black text-white md:text-4xl">{service.title}</h3>
@@ -767,7 +769,7 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
               href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Contact Arkline directly on WhatsApp about ${service.title}`}
+              aria-label={`Contact ARKLEEN directly on WhatsApp about ${service.title}`}
               className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]"
             >
               <MessageCircle className="h-5 w-5 text-[#159447]" />
@@ -815,7 +817,7 @@ function ProductCard({ product }) {
           <span className="font-bold text-[#6A5B43]">Available on request</span>
           <span className="font-black text-[#0F3F1A]">Price based on specifications</span>
         </div>
-        <Link href={`/request-quote?provider=arkline&lang=en&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
+        <Link href={`/request-quote?provider=arkleen&lang=en&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
           Request product details
           <ArrowLeft className="h-4 w-4 rotate-180" />
         </Link>

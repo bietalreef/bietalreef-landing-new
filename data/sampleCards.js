@@ -1,6 +1,10 @@
+import { localizeArkleen } from './providerTemplates/arkleen';
+
+const arkleen = localizeArkleen('ar');
+
 export const sampleProviders = [
   {
-    id: 'arkleen-carpentry-al-ain',
+    id: arkleen.id,
     entityType: 'provider',
     name: 'أركلين للتصميم الداخلي والنجارة',
     nameEn: 'Arkleen Interior Design & Carpentry',
@@ -10,10 +14,11 @@ export const sampleProviders = [
     area: 'مزيد - معسكر الشركات',
     specialties: ['أبواب خشب', 'مطابخ', 'خزائن', 'ديكورات داخلية'],
     verified: true,
-    coverImage: '/images/webp/bait-alreef-join-elite-smart-future.webp',
+    coverImage: arkleen.media.cover,
+    logoImage: arkleen.media.logo,
     logoText: 'أ',
-    href: '/providers/arkleen-carpentry-al-ain',
-    whatsapp: 'https://wa.me/971567856001',
+    href: '/providers/arkleen',
+    whatsapp: `https://wa.me/${arkleen.contact.whatsapp.replace(/\D/g, '')}`,
     summary: 'تنفيذ أعمال النجارة الداخلية، الأبواب، الخزائن، المطابخ والديكورات الخشبية حسب الطلب.',
   },
   {
@@ -38,18 +43,18 @@ export const sampleProviders = [
 
 export const sampleServices = [
   {
-    id: 'arkleen-wooden-doors',
+    id: arkleen.services[0].id,
     entityType: 'service',
-    title: 'تصنيع وتركيب أبواب خشب',
+    title: arkleen.services[0].titleText,
     category: 'أعمال النجارة',
     providerName: 'أركلين للتصميم الداخلي والنجارة',
     emirate: 'أبوظبي',
     city: 'العين',
-    shortDescription: 'أبواب داخلية وخارجية بتصاميم متعددة مع قياس وتصنيع وتركيب حسب المقاس.',
-    image: '/images/webp/bait-alreef-next-step-contractor-future.webp',
-    tags: ['أبواب', 'نجارة', 'تفصيل'],
+    shortDescription: arkleen.services[0].summaryText,
+    image: arkleen.services[0].image,
+    tags: ['مطابخ', 'نجارة', 'حسب الطلب'],
     priceType: 'عرض سعر حسب المقاس',
-    href: '/services/wooden-doors',
+    href: '/providers/arkleen#services',
   },
   {
     id: 'al-hoot-marble-installation',
@@ -70,16 +75,16 @@ export const sampleServices = [
 
 export const sampleProducts = [
   {
-    id: 'wpc-door-arkleen',
+    id: arkleen.products[0].id,
     entityType: 'product',
-    name: 'باب WPC داخلي',
-    category: 'أبواب داخلية',
+    name: arkleen.products[0].titleText,
+    category: 'مطابخ حسب الطلب',
     supplierName: 'أركلين للتصميم الداخلي والنجارة',
-    material: 'WPC / خشب مصنع',
+    material: 'خشب وملحقات حسب مواصفات المشروع',
     availableArea: 'العين وأبوظبي',
-    image: '/images/webp/bait-alreef-premier-integrated-business-system.webp',
+    image: arkleen.products[0].image,
     priceType: 'طلب سعر',
-    href: '/marketplace/wpc-door-arkleen',
+    href: '/providers/arkleen#products',
   },
   {
     id: 'travertine-marble-al-hoot',
@@ -98,15 +103,15 @@ export const sampleProducts = [
 
 export const sampleOffers = [
   {
-    id: 'arkleen-kitchen-package',
+    id: 'BR-OFR-ARK-001',
     entityType: 'offer',
     title: 'باقة تصميم وتنفيذ مطبخ',
     providerName: 'أركلين للتصميم الداخلي والنجارة',
     badge: 'عرض محدود',
     summary: 'تصميم مبدئي + قياس + عرض سعر تفصيلي لأعمال المطابخ والخزائن.',
-    image: '/images/webp/bait-alreef-weyaak-ai-growth-engine.webp',
+    image: arkleen.products[0].image,
     validUntil: 'لمدة محدودة',
-    href: '/offers/arkleen-kitchen-package',
+    href: '/providers/arkleen#services',
   },
   {
     id: 'al-hoot-majlis-marble-package',

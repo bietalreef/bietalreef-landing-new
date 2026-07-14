@@ -1,6 +1,8 @@
+import { arkleenTemplate } from './providerTemplates/arkleen';
+
 export const arklineProvider = {
-  slug: 'arkline',
-  providerId: 'BR-PROV-ARK-001',
+  slug: 'arkleen',
+  providerId: arkleenTemplate.id,
   nameAr: 'أركلين لأعمال النجارة والتصميم الداخلي',
   nameEn: 'ARKLEEN Carpentry & Interior Design',
   phone: '056 779 7828',
@@ -17,8 +19,8 @@ export const arklineProvider = {
   verified: true,
   acceptsQuotes: true,
   establishedAt: '2015',
-  logo: '/images/providers/arkleen-logo.png',
-  cover: '/images/providers/arkline/arkline-hero-exterior.webp',
+  logo: arkleenTemplate.media.logo,
+  cover: arkleenTemplate.media.cover,
   googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=%D8%A3%D8%B1%D9%83%D9%84%D9%8A%D9%86+%D8%A3%D8%B9%D9%85%D8%A7%D9%84+%D8%A7%D9%84%D9%86%D8%AC%D8%A7%D8%B1%D8%A9+%D9%85%D8%B2%D9%8A%D8%AF+%D9%85%D8%B9%D8%B3%D9%83%D8%B1+%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%AA+%D8%A7%D9%84%D8%B9%D9%8A%D9%86',
   workingHours: 'السبت - الخميس: بتنسيق مسبق، الجمعة حسب الموعد',
   workingHoursEn: 'Saturday - Thursday: By appointment, Friday: By arrangement',
