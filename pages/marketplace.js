@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import ProductsSmartFooter from '../components/ProductsSmartFooter';
+import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -68,7 +69,8 @@ export default function MarketplacePage() {
       />
       <Navbar pageTitle="المنتجات والمتاجر" />
 
-      <main className="-mt-[1px]">
+      <main className="-mt-[1px] [&>section:nth-of-type(2)]:hidden">
+        <DiscoveryDirectoryHero type="products" locale="ar" />
         <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
           <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
             <Image
@@ -185,7 +187,7 @@ export default function MarketplacePage() {
 
           <section className="mx-auto mb-20 max-w-3xl"><h2 className="mb-10 text-center text-2xl font-black text-[#0F3F1A]">الأسئلة الشائعة حول المنتجات والمتاجر</h2><div className="space-y-4">{faq.map((item, i) => <div key={i} className="rounded-2xl border border-[#E6DCC8] bg-white p-6"><h3 className="mb-2 font-black text-[#0F3F1A]">{item.q}</h3><p className="text-sm leading-relaxed text-gray-600">{item.a}</p></div>)}</div></section>
 
-          <section className="rounded-[40px] bg-gradient-to-br from-[#0F3F1A] to-[#1a5c28] p-12 text-center text-white"><h2 className="mb-6 text-3xl font-black">تحتاج منتجًا أو مادة لمشروعك؟</h2><p className="mx-auto mb-10 max-w-xl text-emerald-50/70">أرسل نوع المنتج والكمية والموقع للحصول على توجيه مناسب.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-block rounded-2xl bg-[#D4AF37] px-10 py-4 font-black text-[#0F3F1A] shadow-lg transition-all hover:bg-[#b8922b]">تواصل مع بيت الريف</a></section>
+          <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">تحتاج منتجًا أو مادة لمشروعك؟</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">أرسل نوع المنتج والكمية والمواصفات وموقع التوريد للحصول على توجيه مناسب.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">تواصل مع بيت الريف</a></section>
         </section>
         <ProductsSmartFooter locale="ar" />
       </main>
