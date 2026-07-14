@@ -16,7 +16,7 @@ import {
 
 const ARKLINE_PROVIDER = {
   id: 'BR-PROV-ARK-001',
-  slug: 'arkline',
+  slug: 'arkleen',
   name: 'أركلين',
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
@@ -177,7 +177,7 @@ function emitProductAction(product, action, extra = {}) {
 
 export default function ProviderProductInteraction({ currentPath = '' }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const isArklinePage = currentPath.split('?')[0] === '/providers/arkline';
+  const isArklinePage = ['/providers/arkline', '/providers/arkleen'].includes(currentPath.split('?')[0]);
 
   const products = useMemo(() => ARKLINE_PRODUCTS, []);
 
