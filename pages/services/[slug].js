@@ -85,7 +85,7 @@ export default function ServiceLandingPage({ service }) {
             </div>
           </section>
 
-          {isWorkshopsPage && (
+          {false && isWorkshopsPage && (
             <section className="max-w-6xl mx-auto px-4 py-10" aria-label="إعلان مصنع الحوت">
               <div className="overflow-hidden rounded-[2rem] border border-[#D4AF37]/40 bg-[#071A12] shadow-2xl shadow-[#8A6A00]/15">
                 <div className="grid lg:grid-cols-[1.05fr_1.35fr]">
