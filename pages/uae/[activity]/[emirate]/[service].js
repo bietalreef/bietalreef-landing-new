@@ -13,7 +13,7 @@ const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishin
 
 export default function AreaServicePage({ emirate, area, service, emirateSlug, areaSlug }) {
   const title = `${service.nameAr} في ${area.nameAr}`;
-  const showAlHootPath = emirateSlug === 'abu-dhabi' && AL_HOOT_SERVICE_SLUGS.includes(service.slug);
+  const showAlHootPath = false;
   const faqItems = [
     [`كيف أجد ${service.nameAr} في ${area.nameAr}؟`, 'حدد المكان والخدمة ثم أرسل طلبك ليتم توجيهه حسب تفاصيل المشروع.'],
     ['هل الأسعار ثابتة؟', 'لا نعرض أسعارًا غير معتمدة. السعر يعتمد على تفاصيل المشروع ونطاق العمل.'],

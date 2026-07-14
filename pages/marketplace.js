@@ -155,7 +155,7 @@ export default function MarketplacePage() {
             ))}
           </div>
 
-          <section className="mb-20" aria-label="منتج مميز من مصنع الحوت">
+          {false && <section className="mb-20" aria-label="منتج مميز من مصنع الحوت">
             <div className="mb-6 text-center md:text-right">
               <span className="inline-flex rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]">منتج مميز</span>
               <h2 className="mt-4 text-2xl font-black text-[#0F3F1A] md:text-3xl">كارت منتج من مصنع الحوت</h2>
@@ -179,7 +179,7 @@ export default function MarketplacePage() {
                 </div>
               </div>
             </div>
-          </section>
+          </section>}
 
           <section className="mb-20 rounded-[40px] border border-[#E6DCC8] bg-white p-8 md:p-16"><div className="grid gap-12 md:grid-cols-3"><div className="text-center"><div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600"><Search className="h-8 w-8" /></div><h3 className="mb-3 font-black text-[#0F3F1A]">بحث ومقارنة</h3><p className="text-sm text-gray-500">تصفح فئات المنتجات بشكل مستقل ومنظم.</p></div><div className="text-center"><div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-50 text-amber-600"><Star className="h-8 w-8" /></div><h3 className="mb-3 font-black text-[#0F3F1A]">موردون ومتاجر</h3><p className="text-sm text-gray-500">ربط المنتجات بالموردين والمتاجر عند اعتماد البيانات.</p></div><div className="text-center"><div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"><Zap className="h-8 w-8" /></div><h3 className="mb-3 font-black text-[#0F3F1A]">طلب عرض سعر</h3><p className="text-sm text-gray-500">اطلب سعرًا حسب الكمية والنوع وموقع المشروع.</p></div></div></section>
 

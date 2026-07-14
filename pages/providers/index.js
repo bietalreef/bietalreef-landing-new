@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { directoryProviders } from '../../data/providers';
 import { ProviderCard } from '../../components/cards/SmartEntityCard';
+import ProvidersDirectoryHero from '../../components/ProvidersDirectoryHero';
 
 const providerSectorCards = [
   {
@@ -146,7 +147,8 @@ export default function ProvidersPage() {
 
       <Navbar pageTitle="مزودو الخدمات" />
 
-      <main className="-mt-[1px]">
+      <main className="-mt-[1px] [&>section:nth-of-type(2)]:hidden">
+        <ProvidersDirectoryHero locale="ar" />
         <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
           <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
             <Image
@@ -222,7 +224,7 @@ export default function ProvidersPage() {
             </span>
             <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">اختر القطاع الأقرب لنشاطك</h2>
             <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">
-              اعتمدنا سبعة كروت للحفاظ على هوية بصرية واضحة، بينما تظهر باقي التخصصات داخل الفوتر الذكي الخاص بالمزودين.
+              اختر القطاع المناسب للوصول إلى مزودي الخدمة والتخصصات المرتبطة به ضمن رحلة تصفح واضحة ومتناسقة.
             </p>
           </div>
 

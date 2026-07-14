@@ -15,7 +15,7 @@ import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCatego
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
 function shouldShowAlHootPath(emirateSlug, serviceSlug) {
-  return emirateSlug === 'abu-dhabi' && AL_HOOT_SERVICE_SLUGS.includes(serviceSlug);
+  return false;
 }
 
 function EmirateServiceHub({ emirate, service, emirateSlug }) {

@@ -13,7 +13,7 @@ import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
-  const showAlHootSeoPath = emirateSlug === 'abu-dhabi';
+  const showAlHootSeoPath = false;
   const pageData = {
     h1: `خدمات بيت الريف في ${emirate.nameAr}`,
     desc: `اختر واحداً من القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، ثم انتقل إلى مزودي الخدمة والخيارات المرتبطة بالموقع والنشاط.`,

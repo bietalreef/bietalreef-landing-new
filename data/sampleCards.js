@@ -39,7 +39,7 @@ export const sampleProviders = [
     whatsapp: 'https://wa.me/971506623518',
     summary: 'توريد وتصنيع وتركيب الرخام والجرانيت والكوارتز للمطابخ والواجهات والأرضيات والمغاسل حسب تفاصيل المشروع.',
   },
-];
+].filter((item) => item.id !== 'al-hoot-marble-granite-factory');
 
 export const sampleServices = [
   {
@@ -71,7 +71,7 @@ export const sampleServices = [
     priceType: 'عرض سعر بعد مراجعة التفاصيل',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-];
+].filter((item) => item.id !== 'al-hoot-marble-installation');
 
 export const sampleProducts = [
   {
@@ -99,7 +99,7 @@ export const sampleProducts = [
     priceType: 'طلب سعر حسب المقاس والخامة',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-];
+].filter((item) => item.id !== 'travertine-marble-al-hoot');
 
 export const sampleOffers = [
   {
@@ -125,7 +125,7 @@ export const sampleOffers = [
     validUntil: 'حسب توفر الخامة والجدول',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-];
+].filter((item) => item.id !== 'al-hoot-majlis-marble-package');
 
 export const allSampleCards = [
   ...sampleProviders,

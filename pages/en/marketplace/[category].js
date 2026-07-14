@@ -70,7 +70,7 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
             </div>
           </section>
 
-          {slug === 'finishing-works' && (
+          {false && slug === 'finishing-works' && (
             <section className="mx-auto max-w-6xl px-4 pb-16" aria-label="Featured product from White Whale Marble and Granite Factory">
               <div className="overflow-hidden rounded-[2rem] border border-[#D4AF37]/40 bg-white shadow-2xl shadow-[#8A6A00]/10">
                 <div className="grid lg:grid-cols-[0.9fr_1.35fr]">
