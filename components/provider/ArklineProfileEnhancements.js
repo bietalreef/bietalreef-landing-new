@@ -13,8 +13,40 @@ const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_NAME = 'أركلين لأعمال النجارة والتصميم الداخلي';
 const PREVIEW_LOGO = '/images/providers/arkleen-logo.png?v=5701b2c';
 
-function buildSupportMessage(type) {
+const copy = {
+  ar: {
+    providerName: PROVIDER_NAME, tab: 'التقييمات والشكاوى', joined: 'تاريخ الانضمام', hours: 'مواعيد العمل',
+    hoursMain: 'السبت إلى الخميس — بتنسيق مسبق', hoursNote: 'الجمعة حسب الموعد', eyebrow: 'جودة التعامل وحماية العميل',
+    title: 'التقييمات والشكاوى', intro: 'شارك تجربتك بعد التعامل الفعلي مع أركلين، أو أرسل شكوى وملاحظة خاصة إلى فريق بيت الريف لمراجعتها ومتابعتها بسرية.',
+    reviewEyebrow: 'تجارب العملاء', reviewTitle: 'تقييم مزود الخدمة', emptyTitle: 'لا توجد تقييمات منشورة حتى الآن',
+    emptyBody: 'تُراجع التقييمات قبل نشرها للتأكد من ارتباطها بخدمة أو طلب فعلي وحماية الطرفين من التقييمات غير الموثوقة.',
+    addReview: 'إضافة تقييم موثق', complaintEyebrow: 'قناة خاصة وآمنة', complaintTitle: 'الشكاوى والملاحظات',
+    privateTitle: 'الشكاوى لا تُعرض للعامة', privateBody: 'تصل الشكوى مباشرة إلى فريق بيت الريف، وتُراجع مع بيانات الطلب والمرفقات قبل التواصل مع الأطراف المعنية.',
+    addComplaint: 'تقديم شكوى أو ملاحظة',
+  },
+  en: {
+    providerName: 'Arkline Carpentry & Interior Design', tab: 'Reviews & Complaints', joined: 'Joined', hours: 'Business hours',
+    hoursMain: 'Saturday to Thursday — by prior arrangement', hoursNote: 'Friday by appointment', eyebrow: 'Service quality & customer protection',
+    title: 'Reviews & Complaints', intro: 'Share your experience after a completed service, or send a private complaint or note to the Biet Al Reef team for confidential review and follow-up.',
+    reviewEyebrow: 'Customer experiences', reviewTitle: 'Rate this provider', emptyTitle: 'No published reviews yet',
+    emptyBody: 'Reviews are checked before publication to confirm that they relate to a genuine service or request and to protect both parties from unreliable feedback.',
+    addReview: 'Add a verified review', complaintEyebrow: 'Private & secure channel', complaintTitle: 'Complaints & notes',
+    privateTitle: 'Complaints are not shown publicly', privateBody: 'Your complaint goes directly to the Biet Al Reef team and is reviewed with the request details and attachments before the relevant parties are contacted.',
+    addComplaint: 'Submit a complaint or note',
+  },
+};
+
+function buildSupportMessage(type, locale) {
   const isReview = type === 'review';
+  const t = copy[locale];
+
+  if (locale === 'en') {
+    return encodeURIComponent([
+      `Hello, I would like to ${isReview ? 'add a review' : 'submit a complaint or note'} about “${t.providerName}” through Biet Al Reef.`,
+      '', `Provider ID: ${PROVIDER_ID}`, `Request type: ${isReview ? 'Provider review' : 'Private complaint or note'}`, '',
+      isReview ? 'I will provide the service received, transaction date and details of my experience.' : 'Please handle this complaint confidentially. I will provide the request details and any available documents or photos.',
+    ].join('\n'));
+  }
 
   return encodeURIComponent(
     [
@@ -33,7 +65,10 @@ function buildSupportMessage(type) {
 export default function ArklineProfileEnhancements({ currentPath = '' }) {
   const [workingHoursTarget, setWorkingHoursTarget] = useState(null);
   const [reviewsTarget, setReviewsTarget] = useState(null);
-  const isArklinePage = ['/providers/arkline', '/providers/arkleen'].includes(currentPath.split('?')[0]);
+  const cleanPath = currentPath.split('?')[0];
+  const locale = cleanPath.startsWith('/en/') ? 'en' : 'ar';
+  const t = copy[locale];
+  const isArklinePage = ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'].includes(cleanPath);
 
   useEffect(() => {
     if (!isArklinePage || typeof document === 'undefined') return undefined;
@@ -43,7 +78,7 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
 
     const ensureEnhancements = () => {
       document
-        .querySelectorAll('img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"]')
+        .querySelectorAll('img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"], img[alt="Arkline Carpentry & Interior Design logo"], img[alt="ARKLEEN Carpentry & Interior Design logo"]')
         .forEach((logoImage) => {
           if (logoImage.getAttribute('src') !== PREVIEW_LOGO) {
             logoImage.setAttribute('src', PREVIEW_LOGO);
@@ -62,14 +97,14 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
       const tabLink = document.querySelector('nav a[href="#faq"], nav a[data-arkline-reviews-tab="true"]');
       if (tabLink) {
         tabLink.href = '#reviews';
-        tabLink.textContent = 'التقييمات والشكاوى';
+        tabLink.textContent = t.tab;
         tabLink.dataset.arklineReviewsTab = 'true';
       }
 
       const overview = document.getElementById('overview');
       if (overview) {
         const joinedTitle = Array.from(overview.querySelectorAll('p')).find(
-          (node) => node.textContent?.trim() === 'تاريخ الانضمام'
+          (node) => node.textContent?.trim() === t.joined
         );
         const infoGrid = joinedTitle?.closest('article')?.parentElement;
 
@@ -125,23 +160,24 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
       document.querySelector('[data-arkline-working-hours-slot="true"]')?.remove();
       document.querySelector('[data-arkline-reviews-host="true"]')?.remove();
     };
-  }, [isArklinePage]);
+  }, [isArklinePage, t.joined, t.tab]);
 
   if (!isArklinePage) return null;
 
   return (
     <>
       {workingHoursTarget
-        ? createPortal(<WorkingHoursCard />, workingHoursTarget)
+        ? createPortal(<WorkingHoursCard locale={locale} />, workingHoursTarget)
         : null}
       {reviewsTarget
-        ? createPortal(<ReviewsAndComplaints />, reviewsTarget)
+        ? createPortal(<ReviewsAndComplaints locale={locale} />, reviewsTarget)
         : null}
     </>
   );
 }
 
-function WorkingHoursCard() {
+function WorkingHoursCard({ locale }) {
+  const t = copy[locale];
   return (
     <article
       data-provider-id={PROVIDER_ID}
@@ -152,31 +188,32 @@ function WorkingHoursCard() {
         <Clock3 className="h-5 w-5" />
       </span>
       <div className="min-w-0">
-        <p className="text-[11px] font-black text-[#A66B19]">مواعيد العمل</p>
+        <p className="text-[11px] font-black text-[#A66B19]">{t.hours}</p>
         <p className="mt-1 text-sm font-black leading-6 text-[#0F3F1A]">
-          السبت إلى الخميس — بتنسيق مسبق
+          {t.hoursMain}
         </p>
         <p className="text-[11px] font-bold leading-5 text-[#6A6258]">
-          الجمعة حسب الموعد
+          {t.hoursNote}
         </p>
       </div>
     </article>
   );
 }
 
-function ReviewsAndComplaints() {
-  const reviewMessage = buildSupportMessage('review');
-  const complaintMessage = buildSupportMessage('complaint');
+function ReviewsAndComplaints({ locale }) {
+  const t = copy[locale];
+  const reviewMessage = buildSupportMessage('review', locale);
+  const complaintMessage = buildSupportMessage('complaint', locale);
 
   return (
     <div data-provider-id={PROVIDER_ID}>
       <div className="text-center">
-        <span className="text-sm font-black text-[#A66B19]">جودة التعامل وحماية العميل</span>
+        <span className="text-sm font-black text-[#A66B19]">{t.eyebrow}</span>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
-          التقييمات والشكاوى
+          {t.title}
         </h2>
         <p className="mx-auto mt-4 max-w-3xl leading-8 text-[#625A50]">
-          شارك تجربتك بعد التعامل الفعلي مع أركلين، أو أرسل شكوى وملاحظة خاصة إلى فريق بيت الريف لمراجعتها ومتابعتها بسرية.
+          {t.intro}
         </p>
       </div>
 
@@ -187,15 +224,15 @@ function ReviewsAndComplaints() {
               <Star className="h-7 w-7" />
             </span>
             <div>
-              <p className="text-xs font-black text-[#A66B19]">تجارب العملاء</p>
-              <h3 className="mt-1 text-xl font-black text-[#0F3F1A]">تقييم مزود الخدمة</h3>
+              <p className="text-xs font-black text-[#A66B19]">{t.reviewEyebrow}</p>
+              <h3 className="mt-1 text-xl font-black text-[#0F3F1A]">{t.reviewTitle}</h3>
             </div>
           </div>
 
           <div className="mt-5 rounded-2xl border border-[#EDE3D2] bg-[#FBF8F2] p-4">
-            <p className="font-black text-[#0F3F1A]">لا توجد تقييمات منشورة حتى الآن</p>
+            <p className="font-black text-[#0F3F1A]">{t.emptyTitle}</p>
             <p className="mt-2 text-sm leading-7 text-[#625A50]">
-              تُراجع التقييمات قبل نشرها للتأكد من ارتباطها بخدمة أو طلب فعلي وحماية الطرفين من التقييمات غير الموثوقة.
+              {t.emptyBody}
             </p>
           </div>
 
@@ -207,7 +244,7 @@ function ReviewsAndComplaints() {
             className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white shadow-[0_7px_0_rgba(5,37,13,.16)]"
           >
             <BadgeCheck className="h-5 w-5 text-[#F4CA61]" />
-            إضافة تقييم موثق
+            {t.addReview}
           </a>
         </article>
 
@@ -217,15 +254,15 @@ function ReviewsAndComplaints() {
               <ShieldAlert className="h-7 w-7" />
             </span>
             <div>
-              <p className="text-xs font-black text-[#A66B19]">قناة خاصة وآمنة</p>
-              <h3 className="mt-1 text-xl font-black text-[#0F3F1A]">الشكاوى والملاحظات</h3>
+              <p className="text-xs font-black text-[#A66B19]">{t.complaintEyebrow}</p>
+              <h3 className="mt-1 text-xl font-black text-[#0F3F1A]">{t.complaintTitle}</h3>
             </div>
           </div>
 
           <div className="mt-5 rounded-2xl border border-[#EDE3D2] bg-[#FBF8F2] p-4">
-            <p className="font-black text-[#0F3F1A]">الشكاوى لا تُعرض للعامة</p>
+            <p className="font-black text-[#0F3F1A]">{t.privateTitle}</p>
             <p className="mt-2 text-sm leading-7 text-[#625A50]">
-              تصل الشكوى مباشرة إلى فريق بيت الريف، وتُراجع مع بيانات الطلب والمرفقات قبل التواصل مع الأطراف المعنية.
+              {t.privateBody}
             </p>
           </div>
 
@@ -237,7 +274,7 @@ function ReviewsAndComplaints() {
             className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]"
           >
             <MessageCircle className="h-5 w-5 text-[#159447]" />
-            تقديم شكوى أو ملاحظة
+            {t.addComplaint}
           </a>
         </article>
       </div>
