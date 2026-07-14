@@ -11,7 +11,7 @@ const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishin
 
 function EnglishEmirateServiceHub({ emirate, service }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${service.slug}`;
-  const showSeoProof = emirate.slug === 'abu-dhabi' && AL_HOOT_SERVICE_SLUGS.includes(service.slug);
+  const showSeoProof = false;
 
   return (
     <>
