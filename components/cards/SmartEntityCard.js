@@ -5,6 +5,7 @@ import {
   BadgeCheck,
   Building2,
   Clock3,
+  Home,
   MapPin,
   MessageCircle,
   Package,
@@ -23,7 +24,13 @@ const cardTypeConfig = {
 };
 
 const isPremium = (item) => item?.premium || item?.id?.includes('al-hoot') || item?.providerName?.includes('الحوت') || item?.supplierName?.includes('الحوت');
-const isArkline = (item) => item?.id === 'arkline' || item?.href === '/providers/arkline' || item?.name?.includes('أركلين');
+const isArkline = (item) =>
+  item?.id === 'arkline' ||
+  item?.id === 'arkleen' ||
+  item?.href === '/providers/arkline' ||
+  item?.href === '/providers/arkleen' ||
+  item?.name?.includes('أركلين') ||
+  item?.name?.includes('ARKLEEN');
 
 function CardShell({ children, href = '#', className = '' }) {
   return (
@@ -79,74 +86,92 @@ function MiniTrust({ label, value }) {
   );
 }
 
+function GoogleMapMark() {
+  return (
+    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white bg-white shadow-[0_7px_18px_rgba(37,73,48,.16)]" aria-hidden="true">
+      <span className="absolute left-0 top-0 h-1/2 w-1/2 bg-[#4285F4]" />
+      <span className="absolute right-0 top-0 h-1/2 w-1/2 bg-[#EA4335]" />
+      <span className="absolute bottom-0 left-0 h-1/2 w-1/2 bg-[#34A853]" />
+      <span className="absolute bottom-0 right-0 h-1/2 w-1/2 bg-[#FBBC05]" />
+      <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#0F3F1A] shadow-inner">
+        <MapPin className="h-4 w-4" />
+      </span>
+    </span>
+  );
+}
+
 function ModernArklineProviderCard({ item }) {
+  const services = [
+    { label: 'مطابخ', Icon: Home },
+    { label: 'خزائن', Icon: Package },
+    { label: 'أبواب', Icon: Store },
+  ];
+  const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name || 'أركلين'} ${item.city || 'العين'} ${item.area || 'مزيد معسكر الشركات'}`)}`;
+
   return (
     <CardShell
       href={item.href}
-      className="border-[#D7C7A7] bg-gradient-to-br from-white via-[#FBF8F1] to-[#EEE6D8] shadow-[0_22px_60px_rgba(41,63,45,.13)]"
+      className="border-[#D7C7A7] bg-white shadow-[0_18px_48px_rgba(41,63,45,.12)]"
     >
-      <div className="relative h-52 overflow-hidden bg-[#EFE7D8] sm:h-56">
+      <div className="relative h-48 overflow-hidden bg-[#EFE7D8] sm:h-52">
         <Image
           src={item.coverImage || '/images/providers/arkline/arkline-hero-exterior.webp'}
           alt={item.name}
           fill
-          className="object-cover object-center transition duration-700 group-hover:scale-105"
+          className="object-cover object-center transition duration-700 group-hover:scale-[1.025]"
           sizes="(max-width: 768px) 92vw, 540px"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#102F1A]/55 via-transparent to-black/5" />
-        <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/55 bg-white/88 px-3 py-1.5 text-xs font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
-            <Building2 className="h-3.5 w-3.5 text-[#A66B19]" />
-            ورشة نجارة وتصميم داخلي
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E8C65A]/45 bg-[#0F3F1A]/92 px-3 py-1.5 text-xs font-black text-white shadow-lg backdrop-blur-xl">
-            <BadgeCheck className="h-3.5 w-3.5 text-[#F4CA61]" />
-            مسجل لدى بيت الريف
-          </span>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#102F1A]/24 via-transparent to-transparent" />
       </div>
 
       <div className="relative px-5 pb-5 pt-14 md:px-6">
-        <div className="absolute -top-12 right-5 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.10),0_20px_38px_rgba(52,47,35,.22)]">
-          <Image
-            src="/images/providers/arkleen-logo.png"
-            alt="شعار أركلين"
-            fill
-            className="object-contain p-1.5"
-            sizes="96px"
-          />
-          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md">
+        <div className="absolute -top-12 right-5 flex h-24 w-24 items-center justify-center rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.08),0_20px_38px_rgba(52,47,35,.20)]">
+          <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
+            <Image
+              src={item.logoImage || '/images/providers/arkleen-logo.png'}
+              alt="شعار أركلين الأبيض"
+              fill
+              className="object-contain p-1.5"
+              sizes="96px"
+            />
+          </div>
+          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md" aria-label="مزود موثق">
             <BadgeCheck className="h-4 w-4" />
           </span>
         </div>
 
-        <div className="mr-28 min-h-[48px]">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-[#FFF2CF] px-3 py-1 text-[11px] font-black text-[#8A5C0B]">تأسيس 2015</span>
-            <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-black text-emerald-700">يقبل طلبات الأسعار</span>
-          </div>
-        </div>
+        <div className="mr-28 min-h-[40px]" />
 
-        <h3 className="mt-4 text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
-        <p className="mt-3 line-clamp-3 min-h-[78px] text-sm font-semibold leading-7 text-[#4F5D52]">{item.summary}</p>
+        <h3 className="text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
+        <p className="mt-2 flex items-center gap-2 text-sm font-black text-[#8A611B]">
+          <Building2 className="h-4 w-4" />
+          {item.providerType || 'ورشة نجارة وتصميم داخلي'}
+        </p>
 
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          <MiniTrust label="مطابخ" value="حسب المقاس" />
-          <MiniTrust label="خزائن" value="تفصيل خاص" />
-          <MiniTrust label="أبواب" value="توريد وتركيب" />
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full border border-[#E6DCC8] bg-white/88 px-3 py-1 text-xs font-bold text-[#304333]">
-            <MapPin className="h-3.5 w-3.5 text-[#A66B19]" />
-            {item.city} - {item.area}
-          </span>
-          {item.specialties?.slice(0, 3).map((tag) => (
-            <span key={tag} className="rounded-full border border-[#E6DCC8] bg-white/88 px-3 py-1 text-xs font-bold text-[#0F3F1A]">{tag}</span>
+        <div className="mt-4 grid grid-cols-3 gap-2" aria-label="الخدمات الرئيسية">
+          {services.map(({ label, Icon }) => (
+            <div key={label} className="flex min-h-[64px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-[#E8DDCA] bg-[#FBF8F1] text-[#0F3F1A] shadow-[0_5px_0_rgba(81,58,23,.05)]">
+              <Icon className="h-5 w-5 text-[#A66B19]" />
+              <span className="text-xs font-black">{label}</span>
+            </div>
           ))}
         </div>
 
-        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="فتح الملف الحديث" secondary="واتساب" />
+        <a
+          href={mapHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto mt-4 flex min-h-[62px] items-center gap-3 rounded-2xl border border-[#E3D5BD] bg-white px-3 py-2.5 text-right shadow-[0_8px_22px_rgba(52,47,35,.07)] transition hover:-translate-y-0.5 hover:border-[#C9952A]"
+          aria-label={`فتح موقع ${item.name} في خرائط Google`}
+        >
+          <GoogleMapMark />
+          <span className="min-w-0">
+            <span className="block text-[11px] font-black text-[#A66B19]">الموقع على خرائط Google</span>
+            <span className="mt-0.5 block text-sm font-black leading-6 text-[#0F3F1A]">{item.city} – {item.area}</span>
+          </span>
+        </a>
+
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="فتح الملف" secondary="واتساب" />
       </div>
     </CardShell>
   );
