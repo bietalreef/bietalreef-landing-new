@@ -21,7 +21,7 @@ import {
 
 const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_BASE = '/images/providers/arkline/';
-const WEBSITE_URL = 'https://bietalreef.ae/providers/arkline';
+const WEBSITE_URL = 'https://bietalreef.ae/providers/arkleen';
 
 const projects = [
   {
