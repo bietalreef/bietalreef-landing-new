@@ -33,9 +33,10 @@ const isArkline = (item) =>
   item?.name?.includes('ARKLEEN');
 
 function CardShell({ children, href = '#', className = '' }) {
+  const isEnglish = href.startsWith('/en/');
   return (
     <article className={`group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#0F3F1A]/10 ${className}`}>
-      <Link href={href} className="absolute inset-0 z-10" aria-label="فتح التفاصيل" />
+      <Link href={href} className="absolute inset-0 z-10" aria-label={isEnglish ? 'Open details' : 'فتح التفاصيل'} />
       <div className="relative z-20 pointer-events-none">{children}</div>
     </article>
   );
@@ -101,12 +102,16 @@ function GoogleMapMark() {
 }
 
 function ModernArklineProviderCard({ item }) {
+  const isEnglish = item.href?.startsWith('/en/');
+  const copy = isEnglish
+    ? { fallbackName: 'ARKLEEN', fallbackCity: 'Al Ain', fallbackArea: 'Mazid - Company Camp', fallbackType: 'Carpentry & Interior Design Workshop', servicesLabel: 'Main services', map: 'Location on Google Maps', open: 'Open profile', whatsapp: 'WhatsApp', verified: 'Verified provider' }
+    : { fallbackName: 'أركلين', fallbackCity: 'العين', fallbackArea: 'مزيد معسكر الشركات', fallbackType: 'ورشة نجارة وتصميم داخلي', servicesLabel: 'الخدمات الرئيسية', map: 'الموقع على خرائط Google', open: 'فتح الملف', whatsapp: 'واتساب', verified: 'مزود موثق' };
   const services = [
-    { label: 'مطابخ', Icon: Home },
-    { label: 'خزائن', Icon: Package },
-    { label: 'أبواب', Icon: Store },
+    { label: isEnglish ? 'Kitchens' : 'مطابخ', Icon: Home },
+    { label: isEnglish ? 'Wardrobes' : 'خزائن', Icon: Package },
+    { label: isEnglish ? 'Doors' : 'أبواب', Icon: Store },
   ];
-  const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name || 'أركلين'} ${item.city || 'العين'} ${item.area || 'مزيد معسكر الشركات'}`)}`;
+  const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name || copy.fallbackName} ${item.city || copy.fallbackCity} ${item.area || copy.fallbackArea}`)}`;
 
   return (
     <CardShell
@@ -135,7 +140,7 @@ function ModernArklineProviderCard({ item }) {
               sizes="96px"
             />
           </div>
-          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md" aria-label="مزود موثق">
+          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md" aria-label={copy.verified}>
             <BadgeCheck className="h-4 w-4" />
           </span>
         </div>
@@ -145,10 +150,10 @@ function ModernArklineProviderCard({ item }) {
         <h3 className="text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
         <p className="mt-2 flex items-center gap-2 text-sm font-black text-[#8A611B]">
           <Building2 className="h-4 w-4" />
-          {item.providerType || 'ورشة نجارة وتصميم داخلي'}
+          {item.providerType || copy.fallbackType}
         </p>
 
-        <div className="mt-4 grid grid-cols-3 gap-2" aria-label="الخدمات الرئيسية">
+        <div className="mt-4 grid grid-cols-3 gap-2" aria-label={copy.servicesLabel}>
           {services.map(({ label, Icon }) => (
             <div key={label} className="flex min-h-[64px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-[#E8DDCA] bg-[#FBF8F1] text-[#0F3F1A] shadow-[0_5px_0_rgba(81,58,23,.05)]">
               <Icon className="h-5 w-5 text-[#A66B19]" />
@@ -161,17 +166,17 @@ function ModernArklineProviderCard({ item }) {
           href={mapHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="pointer-events-auto mt-4 flex min-h-[62px] items-center gap-3 rounded-2xl border border-[#E3D5BD] bg-white px-3 py-2.5 text-right shadow-[0_8px_22px_rgba(52,47,35,.07)] transition hover:-translate-y-0.5 hover:border-[#C9952A]"
-          aria-label={`فتح موقع ${item.name} في خرائط Google`}
+          className={`pointer-events-auto mt-4 flex min-h-[62px] items-center gap-3 rounded-2xl border border-[#E3D5BD] bg-white px-3 py-2.5 shadow-[0_8px_22px_rgba(52,47,35,.07)] transition hover:-translate-y-0.5 hover:border-[#C9952A] ${isEnglish ? 'text-left' : 'text-right'}`}
+          aria-label={isEnglish ? `Open ${item.name} on Google Maps` : `فتح موقع ${item.name} في خرائط Google`}
         >
           <GoogleMapMark />
           <span className="min-w-0">
-            <span className="block text-[11px] font-black text-[#A66B19]">الموقع على خرائط Google</span>
+            <span className="block text-[11px] font-black text-[#A66B19]">{copy.map}</span>
             <span className="mt-0.5 block text-sm font-black leading-6 text-[#0F3F1A]">{item.city} – {item.area}</span>
           </span>
         </a>
 
-        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="فتح الملف" secondary="واتساب" />
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary={copy.open} secondary={copy.whatsapp} />
       </div>
     </CardShell>
   );
