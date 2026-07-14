@@ -2,6 +2,8 @@ import { arkleenTemplate } from './providerTemplates/arkleen';
 
 export const arklineProvider = {
   slug: 'arkleen',
+  planCode: 'digital-presence',
+  planMonthlyPrice: 300,
   providerId: arkleenTemplate.id,
   nameAr: 'أركلين لأعمال النجارة والتصميم الداخلي',
   nameEn: 'ARKLEEN Carpentry & Interior Design',
@@ -51,6 +53,8 @@ export const arklineProvider = {
 export const providers = [
   {
     slug: 'al-hoot-marble-granite-factory',
+    planCode: 'professional-presence',
+    planMonthlyPrice: 500,
     nameAr: 'مصنع الحوت الأبيض للرخام والجرانيت',
     nameEn: 'White Whale Marble & Granite Factory',
     phone: '050 662 3518',
