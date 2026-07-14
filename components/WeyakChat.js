@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Mic, X, MessageCircle, Loader2 } from 'lucide-react';
 
-export default function WeyakChat() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function WeyakChat({ embedded = false }) {
+  const [isOpen, setIsOpen] = useState(embedded);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
@@ -58,7 +58,7 @@ export default function WeyakChat() {
   return (
     <>
       {/* Floating Button */}
-      <button
+      {!embedded && <button
         type="button"
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 ${
@@ -74,11 +74,11 @@ export default function WeyakChat() {
             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
           </span>
         </div>
-      </button>
+      </button>}
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-6 right-6 z-50 w-[90vw] sm:w-[400px] h-[600px] max-h-[80vh] bg-white rounded-2xl shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden border border-gray-100 ${
+        className={`${embedded ? 'relative h-[620px] w-full' : 'fixed bottom-6 right-6 z-50 h-[600px] max-h-[80vh] w-[90vw] sm:w-[400px]'} bg-white rounded-2xl shadow-2xl transition-all duration-300 transform origin-bottom-right flex flex-col overflow-hidden border border-gray-100 ${
           isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-10 pointer-events-none'
         }`}
         role="dialog"
@@ -98,7 +98,7 @@ export default function WeyakChat() {
               <p className="text-xs text-green-100 opacity-90">مستشارك الذكي من بيت الريف</p>
             </div>
           </div>
-          <button
+          {!embedded && <button
             type="button"
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-white/10 rounded-full transition-colors"
@@ -106,7 +106,7 @@ export default function WeyakChat() {
             title="إغلاق المحادثة"
           >
             <X className="w-5 h-5" aria-hidden="true" />
-          </button>
+          </button>}
         </div>
 
         {/* Messages Area */}
