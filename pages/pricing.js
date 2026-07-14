@@ -58,8 +58,10 @@ const plans = [
     name: 'الحضور الرقمي',
     audience: 'للورش والحرفيين والشركات الصغيرة التي تريد صفحة عامة منظمة وظهورًا واضحًا داخل المنصة.',
     monthly: '300 درهم',
+    monthlyNote: 'رسوم تجهيز إلزامية 750 درهم مرة واحدة',
     annual: '2,700 درهم',
-    saving: 'وفر 900 درهم سنويًا',
+    annualNote: 'يشمل تجهيز الملف دون رسوم تجهيز',
+    saving: 'خيار سنوي أوضح للاستقرار واستمرار الظهور',
     badge: 'مناسب للبداية',
     icon: Store,
     features: [
@@ -77,8 +79,10 @@ const plans = [
     name: 'الحضور الاحترافي',
     audience: 'للشركات والمصانع ومزودي الخدمات الذين يريدون محتوى أوسع وتقارير أفضل وحضورًا أقوى.',
     monthly: '500 درهم',
+    monthlyNote: 'رسوم تجهيز إلزامية 1,500 درهم مرة واحدة',
     annual: '4,500 درهم',
-    saving: 'وفر 1,500 درهم سنويًا',
+    annualNote: 'يشمل تجهيز الملف دون رسوم تجهيز',
+    saving: 'مناسب للحضور الأوسع والتحديثات المنتظمة',
     badge: 'الأكثر تكاملًا',
     featured: true,
     icon: BadgeCheck,
@@ -137,6 +141,7 @@ const faqItems = [
   ['هل تضمن الباقة ظهورًا أولًا أو عددًا محددًا من الطلبات؟', 'لا. الظهور والمطابقة يعتمدان على اكتمال البيانات وجودتها وتوافق النشاط والخدمة والموقع مع بحث العميل، ولا تبيع بيت الريف توصيات مضللة أو ضمانات غير واقعية.'],
   ['ما الفرق بين القائمة الداخلية والحضور الرقمي؟', 'القائمة الداخلية مجانية ولا تتضمن صفحة عامة منشورة. أما الحضور الرقمي فيتضمن ملفًا عامًا منظمًا وظهورًا داخل الدليل وصفحات التخصص والموقع وفق حدود الباقة.'],
   ['هل يمكن التحويل من الشهري إلى السنوي؟', 'نعم، ويمكن اختيار الدورة الأنسب عند التفعيل أو التجديد وفق سياسة الاشتراك المتاحة وقتها.'],
+  ['كيف تُحسب رسوم التجهيز؟', 'تُطبق رسوم التجهيز مرة واحدة عند بدء الاشتراك الشهري: 750 درهم للحضور الرقمي و1,500 درهم للحضور الاحترافي. أما الاشتراك السنوي فيشمل تجهيز الملف دون رسوم تجهيز إضافية.'],
   ['هل الأسعار تشمل ضريبة القيمة المضافة؟', 'يتم توضيح الضريبة وأي تفاصيل مالية نهائية في الفاتورة أو عرض الاشتراك قبل الدفع وفق المتطلبات المعمول بها.'],
 ];
 
@@ -256,9 +261,11 @@ export default function PricingPage() {
                     <div className={`mt-6 rounded-[1.6rem] border p-5 ${plan.featured ? 'border-white/12 bg-white/8' : 'border-[#E8DFC9] bg-white/75'}`}>
                       <p className={`text-xs font-bold ${plan.featured ? 'text-white/65' : 'text-gray-500'}`}>شهريًا</p>
                       <p className={`mt-1 text-3xl font-black ${plan.featured ? 'text-[#F6D96F]' : 'text-[#102F18]'}`}>{plan.monthly}</p>
+                      {plan.monthlyNote ? <p className={`mt-2 text-xs font-bold leading-6 ${plan.featured ? 'text-white/70' : 'text-gray-600'}`}>{plan.monthlyNote}</p> : null}
                       <div className={`my-4 h-px ${plan.featured ? 'bg-white/12' : 'bg-[#E8DFC9]'}`} />
                       <p className={`text-xs font-bold ${plan.featured ? 'text-white/65' : 'text-gray-500'}`}>سنويًا</p>
                       <p className={`mt-1 text-2xl font-black ${plan.featured ? 'text-white' : 'text-[#102F18]'}`}>{plan.annual}</p>
+                      {plan.annualNote ? <p className={`mt-2 text-xs font-bold leading-6 ${plan.featured ? 'text-[#F6D96F]' : 'text-[#8B6A10]'}`}>{plan.annualNote}</p> : null}
                       {plan.saving ? <p className={`mt-2 text-xs font-black ${plan.featured ? 'text-[#F6D96F]' : 'text-[#A27E18]'}`}>{plan.saving}</p> : null}
                     </div>
                     <ul className="mt-6 space-y-3">
