@@ -98,7 +98,9 @@ export const providers = [
   }
 ];
 
-export const directoryProviders = [arklineProvider, ...providers];
+// Providers excluded from discovery remain available through their direct profile route.
+const hiddenFromDiscovery = new Set(['al-hoot-marble-granite-factory']);
+export const directoryProviders = [arklineProvider, ...providers].filter((provider) => !hiddenFromDiscovery.has(provider.slug));
 
 export function getProvidersByCategory(categorySlug) {
   return directoryProviders.filter((provider) => provider.categorySlugs?.includes(categorySlug));
