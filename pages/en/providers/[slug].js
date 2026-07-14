@@ -100,18 +100,21 @@ export default function EnglishProviderProfilePage({ provider }) {
                 Back to service providers
               </Link>
 
-              <div className="overflow-hidden rounded-[2.25rem] border border-[#D4AF37]/40 bg-gradient-to-br from-[#171914] via-[#252820] to-[#3a3b32] shadow-2xl shadow-black/25">
-                <div className="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
-                  <div className="p-6 md:p-10 lg:p-12">
+              <div className="relative min-h-[680px] overflow-hidden rounded-[2.5rem] border border-white/15 bg-[#071A24] shadow-[0_32px_90px_-35px_rgba(4,23,34,.75)]">
+                {provider.cover && <Image src={provider.cover} alt={provider.nameEn} fill className="object-cover object-center" priority />}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#03141F]/95 via-[#071A24]/84 to-[#071A24]/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#031019]/80 via-transparent to-black/15" />
+                <div className="relative grid min-h-[680px] items-center gap-8 p-6 md:p-10 lg:grid-cols-[1fr_240px] lg:p-12">
+                  <div className="max-w-3xl">
                     <div className="mb-5 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-1.5 text-xs font-black text-[#F4D978]"><Gem className="h-3.5 w-3.5" /> Professional Presence</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/30 bg-sky-300/10 px-4 py-1.5 text-xs font-black text-sky-100"><Gem className="h-3.5 w-3.5" /> Professional Presence Profile</span>
                       {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-black text-emerald-700"><ShieldCheck className="h-3.5 w-3.5" /> Verified Provider</span>}
                       <span className="rounded-full border border-[#E6DCC8] bg-white px-4 py-1.5 text-xs font-black text-[#0F3F1A]">{provider.providerTypeEn || 'Marble & Granite Factory'}</span>
                     </div>
 
                     <h1 className="max-w-3xl text-4xl font-black leading-tight text-white md:text-6xl">{provider.nameEn || provider.nameAr}</h1>
-                    <p className="mt-4 text-base font-black text-[#F4D978] md:text-lg">Marble · Granite · Quartz · Al Ain · Abu Dhabi</p>
-                    <p className="mt-6 max-w-3xl text-lg leading-9 text-white/80">{description}</p>
+                    <p className="mt-4 text-base font-black text-[#F3D572] md:text-lg">Supply · Fabrication · Installation — Al Ain & Abu Dhabi</p>
+                    <p className="mt-6 max-w-2xl text-base font-semibold leading-9 text-white/78 md:text-lg">{description}</p>
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                       {whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] shadow-lg shadow-[#8A6A00]/10 transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> Contact on WhatsApp</a>}
@@ -120,18 +123,14 @@ export default function EnglishProviderProfilePage({ provider }) {
                     </div>
                   </div>
 
-                  <div className="relative min-h-[360px] bg-[#EFE3CC] lg:min-h-full">
-                    {provider.cover && <Image src={provider.cover} alt={provider.nameEn} fill className="object-cover" priority />}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/50 via-transparent to-transparent" />
-                    <div className="absolute inset-x-4 bottom-4 rounded-[1.5rem] border border-white/35 bg-white/85 p-4 shadow-xl backdrop-blur md:inset-x-6 md:bottom-6 md:p-6">
-                      <p className="text-sm font-black text-[#8A6A00]">Factory Trust Card</p>
-                      <div className="mt-4 grid grid-cols-2 gap-3">
-                        <TrustItem title="Marble" sub="Natural stones" />
-                        <TrustItem title="Granite" sub="Durable solutions" />
-                        <TrustItem title="Quartz" sub="Kitchen tops" />
-                        <TrustItem title="UAE" sub="By request" />
-                      </div>
-                      <div className="mt-4 flex items-center gap-2 rounded-xl bg-white px-4 py-3"><CheckCircle2 className="h-4 w-4 text-emerald-600" /><span className="text-xs font-bold text-[#0F3F1A]">Service provider profile inside Biet Al Reef</span></div>
+                  <div className="self-start justify-self-end lg:self-center">
+                    <div className="relative overflow-hidden rounded-[2rem] border border-white/35 bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,.38)]">
+                      <Image src={provider.logo} alt={`${provider.nameEn} logo`} width={240} height={240} className="h-44 w-44 object-contain md:h-48 md:w-48" />
+                      <span className="absolute bottom-3 right-3 rounded-full bg-[#0755B5] px-3 py-1 text-[10px] font-black text-white">WHITE WHALE</span>
+                    </div>
+                    <div className="mt-4 rounded-2xl border border-white/15 bg-black/25 p-4 text-white backdrop-blur-md">
+                      <p className="text-xs font-black text-[#F3D572]">Professional profile scope</p>
+                      <p className="mt-2 text-sm font-bold leading-7 text-white/75">Services, materials, projects and FAQs in one structured profile.</p>
                     </div>
                   </div>
                 </div>
