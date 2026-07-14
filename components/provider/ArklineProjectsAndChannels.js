@@ -23,6 +23,21 @@ const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_BASE = '/images/providers/arkline/';
 const WEBSITE_URL = 'https://bietalreef.ae/providers/arkleen';
 
+const copy = {
+  ar: {
+    projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال أركلين',
+    intro: 'كل مشروع له بطاقة مستقلة ومعرف خاص وصور وتفاصيل يمكن فتحها داخل الصفحة دون الانتقال إلى رابط أو مسار جديد.',
+    details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع أركلين',
+    unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع',
+  },
+  en: {
+    projectsTab: 'Projects', eyebrow: 'Projects', title: 'Arkline Projects & Work',
+    intro: 'Each project has its own card, reference ID, images and details that open within the page without changing the route.',
+    details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Arkline',
+    unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects',
+  },
+};
+
 const projects = [
   {
     id: 'BR-PRJ-ARK-001',
@@ -34,6 +49,7 @@ const projects = [
     images: ['arkline-hero-exterior.webp', 'arkline-workshop.webp'],
     description: 'تجهيز واجهة الورشة وإظهار الهوية البصرية للنشاط بصورة واضحة ومتناسقة مع مجال النجارة والتصميم الداخلي.',
     scope: ['تصميم الواجهة', 'تنظيم لوحة النشاط', 'إظهار بيانات التواصل', 'توحيد الهوية البصرية'],
+    en: { title: 'Arkline Workshop Façade & Identity', category: 'Façade Fit-Out', location: 'Al Ain – Mazid', description: 'Workshop façade preparation and clear presentation of the business identity in a style aligned with carpentry and interior design.', scope: ['Façade design', 'Signage organisation', 'Contact information display', 'Visual identity consistency'] },
   },
   {
     id: 'BR-PRJ-ARK-002',
@@ -45,6 +61,7 @@ const projects = [
     images: ['arkline-workshop.webp', 'arkline-production.webp'],
     description: 'تنظيم مساحة الورشة ومناطق العمل والمعدات بما يخدم مراحل القص والتجميع والتشطيب للأعمال الخشبية.',
     scope: ['تنظيم مناطق العمل', 'توزيع المعدات', 'مسارات الإنتاج', 'تجهيز مساحة التصنيع'],
+    en: { title: 'Carpentry Workshop & Production Fit-Out', category: 'Workshop Fit-Out', location: 'Al Ain – Mazid', description: 'Organisation of the workshop, work zones and equipment to support cutting, assembly and finishing stages for woodwork.', scope: ['Work-zone organisation', 'Equipment layout', 'Production flow', 'Manufacturing-area preparation'] },
   },
   {
     id: 'BR-PRJ-ARK-003',
@@ -56,6 +73,7 @@ const projects = [
     images: ['arkline-showroom.webp', 'arkline-hero-exterior.webp'],
     description: 'مساحة مخصصة لمراجعة الخامات والألوان والتفاصيل الداخلية قبل اعتماد الأعمال الخشبية والتنفيذ.',
     scope: ['مراجعة الخامات', 'اختيار التشطيبات', 'تنسيق الألوان', 'تجهيز نماذج التنفيذ'],
+    en: { title: 'Interior Design & Finishes Area', category: 'Interior Design', location: 'Al Ain', description: 'A dedicated area for reviewing materials, colours and interior details before approving woodwork and execution.', scope: ['Material review', 'Finish selection', 'Colour coordination', 'Execution sample preparation'] },
   },
   {
     id: 'BR-PRJ-ARK-004',
@@ -67,6 +85,7 @@ const projects = [
     images: ['arkline-production.webp', 'arkline-workshop.webp'],
     description: 'عرض منطقة الإنتاج والمعدات المستخدمة في تجهيز وتصنيع المطابخ والخزائن والأبواب والأعمال الخشبية حسب المقاس.',
     scope: ['قص وتجهيز الخشب', 'تصنيع حسب المقاس', 'تجميع القطع', 'التشطيب قبل التركيب'],
+    en: { title: 'Woodwork Manufacturing Line', category: 'Production & Manufacturing', location: 'Al Ain – Mazid', description: 'A view of the production area and equipment used to manufacture made-to-measure kitchens, wardrobes, doors and woodwork.', scope: ['Wood cutting and preparation', 'Made-to-measure manufacturing', 'Component assembly', 'Pre-installation finishing'] },
   },
 ];
 
@@ -114,7 +133,10 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
   const [projectsTarget, setProjectsTarget] = useState(null);
   const [channelsTarget, setChannelsTarget] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
-  const isArklinePage = ['/providers/arkline', '/providers/arkleen'].includes(currentPath.split('?')[0]);
+  const cleanPath = currentPath.split('?')[0];
+  const locale = cleanPath.startsWith('/en/') ? 'en' : 'ar';
+  const isArklinePage = ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'].includes(cleanPath);
+  const t = copy[locale];
 
   useEffect(() => {
     if (!isArklinePage || typeof document === 'undefined') return undefined;
@@ -126,7 +148,7 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
       const projectsTab = document.querySelector('nav a[href="#gallery"], nav a[href="#projects"], nav a[data-arkline-projects-tab="true"]');
       if (projectsTab) {
         projectsTab.href = '#projects';
-        projectsTab.textContent = 'المشاريع';
+        projectsTab.textContent = t.projectsTab;
         projectsTab.dataset.arklineProjectsTab = 'true';
       }
 
@@ -187,7 +209,7 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
         delete originalGallery.dataset.arklineOriginalGallery;
       }
     };
-  }, [isArklinePage]);
+  }, [isArklinePage, t.projectsTab]);
 
   useEffect(() => {
     if (!selectedProject || typeof document === 'undefined') return undefined;
@@ -212,16 +234,17 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
     <>
       {projectsTarget
         ? createPortal(
-            <ProjectsSection onDetails={setSelectedProject} />,
+            <ProjectsSection locale={locale} onDetails={setSelectedProject} />,
             projectsTarget
           )
         : null}
       {channelsTarget
-        ? createPortal(<DigitalChannels />, channelsTarget)
+        ? createPortal(<DigitalChannels locale={locale} />, channelsTarget)
         : null}
       {selectedProject ? (
         <ProjectDetailsModal
           project={selectedProject}
+          locale={locale}
           onClose={() => setSelectedProject(null)}
         />
       ) : null}
@@ -229,33 +252,39 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
   );
 }
 
-function ProjectsSection({ onDetails }) {
+function ProjectsSection({ locale, onDetails }) {
+  const t = copy[locale];
   return (
     <div className="mx-auto max-w-6xl px-4" data-provider-id={PROVIDER_ID}>
       <div>
-        <span className="text-sm font-black text-[#A66B19]">المشاريع</span>
+        <span className="text-sm font-black text-[#A66B19]">{t.eyebrow}</span>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
-          مشاريع وأعمال أركلين
+          {t.title}
         </h2>
         <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-          كل مشروع له بطاقة مستقلة ومعرف خاص وصور وتفاصيل يمكن فتحها داخل الصفحة دون الانتقال إلى رابط أو مسار جديد.
+          {t.intro}
         </p>
       </div>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
-        {projects.map((project) => (
+        {projects.map((project) => {
+          const localizedProject = locale === 'en' ? { ...project, ...project.en } : project;
+          return (
           <ProjectCard
             key={project.id}
-            project={project}
+            project={localizedProject}
+            locale={locale}
             onDetails={onDetails}
           />
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
-function ProjectCard({ project, onDetails }) {
+function ProjectCard({ project, locale, onDetails }) {
+  const t = copy[locale];
   return (
     <article
       data-project-id={project.id}
@@ -308,15 +337,16 @@ function ProjectCard({ project, onDetails }) {
           onClick={() => onDetails(project)}
           className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl border border-[#CDA63B] bg-[#FFFDF8] px-5 py-3 font-black text-[#0F3F1A] transition hover:-translate-y-0.5 hover:bg-[#FFF7DB]"
         >
-          التفاصيل
-          <ArrowLeft className="h-5 w-5" />
+          {t.details}
+          <ArrowLeft className={`h-5 w-5 ${locale === 'en' ? 'rotate-180' : ''}`} />
         </button>
       </div>
     </article>
   );
 }
 
-function DigitalChannels() {
+function DigitalChannels({ locale }) {
+  const t = copy[locale];
   const channelStyles = {
     'BR-CH-ARK-WEB': 'from-[#0F3F1A] to-[#1F6A35] text-white',
     'BR-CH-ARK-EMAIL': 'from-[#8F2638] to-[#C54B62] text-white',
@@ -333,9 +363,9 @@ function DigitalChannels() {
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-[10px] font-black text-[#A66B19]">الحضور الرقمي</p>
+          <p className="text-[10px] font-black text-[#A66B19]">{t.digitalEyebrow}</p>
           <h3 id="arkline-digital-channels-title" className="mt-0.5 text-sm font-black text-[#0F3F1A] md:text-base">
-            تواصل مع أركلين
+            {t.digitalTitle}
           </h3>
         </div>
 
@@ -366,8 +396,8 @@ function DigitalChannels() {
             ) : (
               <span
                 key={channel.id}
-                title={`${channel.label} — غير مضاف بعد`}
-                aria-label={`${channel.label} غير مضاف بعد`}
+                title={`${channel.label} — ${t.unavailable}`}
+                aria-label={`${channel.label} — ${t.unavailable}`}
                 aria-disabled="true"
                 className="group opacity-45 grayscale-[30%]"
               >
@@ -381,12 +411,13 @@ function DigitalChannels() {
   );
 }
 
-function ProjectDetailsModal({ project, onClose }) {
+function ProjectDetailsModal({ project, locale, onClose }) {
+  const t = copy[locale];
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`تفاصيل ${project.title}`}
+      aria-label={`${t.details}: ${project.title}`}
       className="fixed inset-0 z-[1000] flex items-end justify-center bg-black/55 p-0 backdrop-blur-sm md:items-center md:p-6"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) onClose();
@@ -403,7 +434,7 @@ function ProjectDetailsModal({ project, onClose }) {
           <button
             type="button"
             onClick={onClose}
-            aria-label="إغلاق تفاصيل المشروع"
+            aria-label={t.close}
             className="flex h-11 w-11 items-center justify-center rounded-full border border-[#DCCBAE] bg-white text-[#0F3F1A] shadow-sm"
           >
             <X className="h-5 w-5" />
@@ -419,14 +450,14 @@ function ProjectDetailsModal({ project, onClose }) {
               >
                 <Image
                   src={`${PROVIDER_BASE}${image}`}
-                  alt={`${project.title} — صورة ${index + 1}`}
+                  alt={`${project.title} — ${t.image} ${index + 1}`}
                   fill
                   className="object-cover"
                   sizes={index === 0 ? '100vw' : '(max-width:768px)100vw,50vw'}
                 />
                 <span className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
                   <Images className="h-4 w-4 text-[#A66B19]" />
-                  صورة {index + 1}
+                  {t.image} {index + 1}
                 </span>
               </figure>
             ))}
@@ -449,7 +480,7 @@ function ProjectDetailsModal({ project, onClose }) {
 
             <h4 className="mt-6 flex items-center gap-2 font-black text-[#0F3F1A]">
               <Ruler className="h-5 w-5 text-[#A66B19]" />
-              نطاق المشروع
+              {t.scope}
             </h4>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {project.scope.map((item) => (
@@ -469,7 +500,7 @@ function ProjectDetailsModal({ project, onClose }) {
             onClick={onClose}
             className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-5 py-3 font-black text-white"
           >
-            العودة إلى المشاريع
+            {t.back}
           </button>
         </div>
       </div>
