@@ -380,19 +380,19 @@ export default function ArklinePage() {
               أركلين ورشة نجارة وتصميم داخلي في مدينة العين، تأسست عام 2015 وتقدم حلولاً مخصصة للمنازل والفلل والملاحق والمكاتب. يشمل نطاق العمل تصميم وتصنيع وتركيب المطابخ والخزائن والأبواب والكسوات والديكورات الخشبية والأثاث حسب المقاس. تبدأ كل مهمة بمراجعة صور الموقع والمقاسات ونوع الخامة والتشطيب، ثم تحديد نطاق العمل والمدة التقديرية وعرض السعر قبل التنفيذ.
             </p>
 
-            <div className="mt-7 grid gap-3 md:grid-cols-3">
+            <div className="mt-7 grid grid-cols-3 gap-2.5 md:gap-4">
               <TrustBadge icon={BadgeCheck} title="مزود مسجل لدى بيت الريف" />
               <TrustBadge icon={ShieldCheck} title="بيانات التواصل معتمدة" />
               <TrustBadge icon={History} title="تأسيس النشاط 2015" />
             </div>
 
-            <div className="mt-6 grid gap-3 lg:grid-cols-3">
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="أعمال النجارة والتصميم الداخلي" />
               <ActivityDetail icon={Layers3} title="التخصص" value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس" />
               <ActivityDetail icon={ListChecks} title="الخدمات" value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية" />
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
               <CompactInfo icon={CalendarDays} title="تاريخ الانضمام" value={provider.joinedAt} />
               <CompactInfo icon={Clock3} title="موعد الزيارة" value="بتنسيق مسبق مع الورشة" />
               <CompactInfo icon={MapPin} title="نطاق الخدمة" value="العين وأبوظبي حسب المشروع" />
@@ -545,7 +545,7 @@ function ProviderLogo() {
 
 function TrustBadge({ icon: Icon, title }) {
   return (
-    <span className="flex min-h-[76px] w-full items-center gap-3 rounded-[1.45rem] border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-4 py-3 text-sm font-black text-[#0F3F1A] shadow-[0_7px_0_rgba(85,58,16,.08),0_14px_26px_rgba(85,58,16,.10)]">
+    <span className="flex min-h-[88px] w-full flex-col items-center justify-center gap-2 rounded-[1.35rem] border border-[#DDCBAA] bg-gradient-to-b from-white to-[#F8F1E5] px-2 py-3 text-center text-[11px] font-black leading-5 text-[#0F3F1A] shadow-[0_6px_0_rgba(85,58,16,.07),0_12px_24px_rgba(85,58,16,.09)] sm:min-h-[82px] sm:flex-row sm:justify-start sm:px-4 sm:text-right sm:text-sm">
       <ThreeDIcon icon={Icon} />
       {title}
     </span>
@@ -563,7 +563,7 @@ function ThreeDIcon({ icon: Icon }) {
 
 function ActivityDetail({ icon: Icon, title, value }) {
   return (
-    <article className="flex min-h-[96px] items-center gap-4 rounded-[1.6rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_8px_0_rgba(85,58,16,.07),0_15px_28px_rgba(85,58,16,.09)]">
+    <article className="flex min-h-[104px] items-start gap-3 rounded-[1.45rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_7px_0_rgba(85,58,16,.06),0_14px_26px_rgba(85,58,16,.08)] sm:min-h-[118px] sm:flex-col">
       <ThreeDIcon icon={Icon} />
       <div className="min-w-0">
         <p className="text-xs font-black text-[#A66B19]">{title}</p>
@@ -575,7 +575,7 @@ function ActivityDetail({ icon: Icon, title, value }) {
 
 function CompactInfo({ icon: Icon, title, value }) {
   return (
-    <article className="flex min-h-[78px] items-center gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/90 px-4 py-3 shadow-[0_10px_24px_rgba(67,45,17,.07)]">
+    <article className="flex min-h-[96px] items-start gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/95 px-3 py-3.5 shadow-[0_8px_22px_rgba(67,45,17,.07)] sm:min-h-[88px] sm:items-center sm:px-4">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
         <Icon className="h-5 w-5" />
       </span>
