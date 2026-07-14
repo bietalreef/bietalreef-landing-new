@@ -344,7 +344,7 @@ function DigitalChannels() {
             const Icon = channel.icon;
             const icon = (
               <>
-                <span className={`flex h-11 w-11 items-center justify-center rounded-[1rem] bg-gradient-to-br ${channelStyles[channel.id]} shadow-[inset_0_1px_1px_rgba(255,255,255,.35),0_6px_0_rgba(44,31,12,.13),0_10px_18px_rgba(44,31,12,.14)] transition group-hover:-translate-y-0.5 group-hover:scale-105`}>
+                <span className={`flex h-10 w-10 items-center justify-center rounded-[.9rem] md:h-11 md:w-11 md:rounded-[1rem] bg-gradient-to-br ${channelStyles[channel.id]} shadow-[inset_0_1px_1px_rgba(255,255,255,.35),0_6px_0_rgba(44,31,12,.13),0_10px_18px_rgba(44,31,12,.14)] transition group-hover:-translate-y-0.5 group-hover:scale-105`}>
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="sr-only">{channel.label}</span>
