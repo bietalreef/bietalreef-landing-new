@@ -174,7 +174,7 @@ function buildServiceWhatsappMessage(service) {
 function buildWeyaakHref(service) {
   const query = new URLSearchParams({
     providerId: provider.id,
-    provider: 'arkline',
+    provider: 'arkleen',
     serviceId: service.id,
     service: service.title,
     prompt: service.wayaakPrompt,
@@ -185,7 +185,7 @@ function buildWeyaakHref(service) {
 
 export default function ArklinePage() {
   const [selectedService, setSelectedService] = useState(null);
-  const canonical = 'https://bietalreef.ae/providers/arkline';
+  const canonical = 'https://bietalreef.ae/providers/arkleen';
   const description = 'أركلين لأعمال النجارة والتصميم الداخلي في العين: مطابخ، خزائن، أبواب، ديكورات خشبية وأعمال حسب المقاس مع طلب عرض سعر وتواصل مباشر.';
   const message = encodeURIComponent('مرحباً، أرغب في الاستفسار عن خدمات أركلين عبر منصة بيت الريف.');
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('أركلين أعمال النجارة والتصميم الداخلي مزيد معسكر الشركات العين')}`;
@@ -334,7 +334,7 @@ export default function ArklinePage() {
 
               <div className="mt-6">
                 <Link
-                  href="/request-quote?provider=arkline"
+                  href="/request-quote?provider=arkleen"
                   className="inline-flex min-h-[62px] w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-l from-[#0F3F1A] to-[#082D13] px-5 py-4 text-base font-black text-white shadow-[0_9px_0_rgba(5,37,13,.20),0_18px_35px_rgba(15,63,26,.22)] transition hover:-translate-y-0.5"
                 >
                   <BriefcaseBusiness className="h-6 w-6 text-[#F4CA61]" />
@@ -811,7 +811,7 @@ function ProductCard({ product }) {
           <span className="font-bold text-[#6A5B43]">متوفر حسب الطلب</span>
           <span className="font-black text-[#0F3F1A]">السعر حسب المواصفات</span>
         </div>
-        <Link href={`/request-quote?provider=arkline&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
+        <Link href={`/request-quote?provider=arkleen&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
           اطلب تفاصيل المنتج
           <ArrowLeft className="h-4 w-4" />
         </Link>
