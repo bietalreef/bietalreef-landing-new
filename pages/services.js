@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SEOHead from "../components/SEOHead";
 import ServicesSmartFooter from "../components/ServicesSmartFooter";
+import DiscoveryDirectoryHero from "../components/DiscoveryDirectoryHero";
 import { getAllServices } from "../lib/services-detailed";
 import { getSectorCardImage } from "../lib/sectorCards";
 import { ArrowRight, MessageCircle, Search, Wrench, ChevronLeft } from "lucide-react";
@@ -63,7 +64,8 @@ export default function Services({ services }) {
 
       <div dir="rtl" className="min-h-screen flex flex-col bg-[#FDFBF7]">
         <Navbar pageTitle="الخدمات والعروض" />
-        <main className="flex-1 -mt-[1px]">
+        <main className="flex-1 -mt-[1px] [&>section:nth-of-type(2)]:hidden">
+          <DiscoveryDirectoryHero type="services" locale="ar" />
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
             <div className="relative min-h-[600px] overflow-hidden md:min-h-[680px] lg:min-h-[740px]">
               <Image src="/images/services-offers-hero.webp" alt="خدمات وعروض البناء والصيانة والتشطيبات في بيت الريف" fill priority className="scale-[1.16] object-cover object-[52%_36%] -translate-y-[6%] md:scale-110 md:object-center md:-translate-y-[4%]" sizes="100vw" />
@@ -82,7 +84,7 @@ export default function Services({ services }) {
           </section>
 
           <section id="services-list" className="max-w-6xl mx-auto px-4 py-14 md:py-20">
-            <div className="mb-8 text-center md:text-right"><span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">قطاعات الخدمات</span><h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">اختر نوع الخدمة</h2><p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">الكروت مصممة Mobile First: صورة واضحة، محتوى مختصر، ومسار مباشر لفتح الخدمة.</p></div>
+            <div className="mb-8 text-center md:text-right"><span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">قطاعات الخدمات</span><h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">اختر نوع الخدمة</h2><p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">اختر بطاقة الخدمة المناسبة، ثم أضف تفاصيل المشروع للانتقال إلى طلب واضح قابل للتوجيه والتسعير.</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
               {services.map((service) => {
                 const categorySlug = getCategorySlug(service.id);
