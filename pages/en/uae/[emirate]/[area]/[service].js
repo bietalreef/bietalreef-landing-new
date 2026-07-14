@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../../components/EnglishLayout';
 import UaeSmartFooter from '../../../../../components/UaeSmartFooter';
+import UaeDirectoryHero from '../../../../../components/UaeDirectoryHero';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
 
 export default function EnglishLocalServicePage({ emirate, area, service }) {
@@ -16,13 +17,9 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
         <link rel="alternate" hrefLang="en" href={canonical} />
       </Head>
       <EnglishLayout>
-        <main className="max-w-7xl mx-auto px-4 py-14 md:py-20">
-          <p className="text-[#B8922B] font-black mb-3">Local service page</p>
-          <div className="flex items-center gap-4 mb-5">
-            <div className="text-4xl">{service.icon}</div>
-            <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameEn} in {area.nameEn}</h1>
-          </div>
-          <p className="text-gray-600 leading-8 max-w-3xl mb-10">This page organizes {service.nameEn.toLowerCase()} information for {area.nameEn}, {emirate.nameEn}.</p>
+        <main className="bg-[#FDFBF7] text-left">
+          <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${area.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} information and provider paths for ${area.nameEn}, ${emirate.nameEn}.`} emirate={emirate} area={area} service={service} />
+          <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
           <section className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
             <div className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm">
               <h2 className="font-black text-[#0F3F1A] mb-2">Area</h2>
@@ -36,7 +33,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
               <h2 className="font-black text-[#0F3F1A] mb-2">Category</h2>
               <Link href={`/en/categories/${service.slug}`} className="text-[#B8922B] font-bold">{service.nameEn}</Link>
             </div>
-          </section>
+          </section></div>
           <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
             <h2 className="text-2xl font-black text-[#0F3F1A] mb-4">What this page covers</h2>
             <p className="text-gray-600 leading-8 mb-5">Users can understand the category, move to the broader emirate page, or continue to related local service pages.</p>
