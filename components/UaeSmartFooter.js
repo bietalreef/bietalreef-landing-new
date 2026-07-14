@@ -40,7 +40,7 @@ function areaName(area, locale) { return locale === 'en' ? area.nameEn : area.na
 function emirateName(emirate, locale) { return locale === 'en' ? emirate.nameEn : emirate.nameAr; }
 
 function LinkList({ items, locale }) {
-  return <div className="space-y-2">{items.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="flex items-center justify-between gap-3 rounded-2xl border border-[#F1E7D5] bg-[#FDFBF7] px-4 py-3 text-sm font-bold leading-6 text-gray-700 transition hover:border-[#D4AF37] hover:bg-white hover:text-[#0F3F1A]"><span>{item.label}</span><span className="text-[#B8922B]">{locale === 'en' ? '→' : '←'}</span></Link>)}</div>;
+  return <div className="space-y-2">{items.map((item) => <Link key={`${item.href}-${item.label}`} href={item.href} className="flex min-h-[48px] items-center justify-between gap-3 rounded-2xl border border-[#F1E7D5] bg-[#FDFBF7] px-4 py-3 text-sm font-bold leading-6 text-gray-700 transition hover:border-[#D4AF37] hover:bg-white hover:text-[#0F3F1A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/30"><span>{item.label}</span><span aria-hidden="true" className="text-[#B8922B]">{locale === 'en' ? '→' : '←'}</span></Link>)}</div>;
 }
 
 function Section({ title, subtitle, icon, children, defaultOpen = false }) {
