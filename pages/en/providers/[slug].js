@@ -93,25 +93,25 @@ export default function EnglishProviderProfilePage({ provider }) {
 
       <EnglishLayout>
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <section className="bg-[#FDFBF7] px-4 pt-3 pb-8 md:pt-5 md:pb-12">
+          <section className="bg-gradient-to-b from-[#151713] via-[#22251f] to-[#FDFBF7] px-4 pt-3 pb-8 md:pt-5 md:pb-12">
             <div className="mx-auto max-w-6xl">
               <Link href="/en/providers" className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#B8922B]/30 bg-white px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-sm transition hover:bg-[#FFF8E5]">
                 <ArrowRight className="h-4 w-4" />
                 Back to service providers
               </Link>
 
-              <div className="overflow-hidden rounded-[2.25rem] border border-[#E6DCC8] bg-gradient-to-br from-white via-[#FFF8EA] to-[#EFE3CC] shadow-xl shadow-[#8A6A00]/10">
+              <div className="overflow-hidden rounded-[2.25rem] border border-[#D4AF37]/40 bg-gradient-to-br from-[#171914] via-[#252820] to-[#3a3b32] shadow-2xl shadow-black/25">
                 <div className="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
                   <div className="p-6 md:p-10 lg:p-12">
                     <div className="mb-5 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B8922B]/35 bg-[#FFF8E5] px-4 py-1.5 text-xs font-black text-[#8A6A00]"><Gem className="h-3.5 w-3.5" /> Premium Specialty</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-1.5 text-xs font-black text-[#F4D978]"><Gem className="h-3.5 w-3.5" /> Professional Presence</span>
                       {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-black text-emerald-700"><ShieldCheck className="h-3.5 w-3.5" /> Verified Provider</span>}
                       <span className="rounded-full border border-[#E6DCC8] bg-white px-4 py-1.5 text-xs font-black text-[#0F3F1A]">{provider.providerTypeEn || 'Marble & Granite Factory'}</span>
                     </div>
 
-                    <h1 className="max-w-3xl text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{provider.nameEn || provider.nameAr}</h1>
-                    <p className="mt-4 text-base font-black text-[#8A6A00] md:text-lg">Marble · Granite · Quartz · Al Ain · Abu Dhabi</p>
-                    <p className="mt-6 max-w-3xl text-lg leading-9 text-[#243528]">{description}</p>
+                    <h1 className="max-w-3xl text-4xl font-black leading-tight text-white md:text-6xl">{provider.nameEn || provider.nameAr}</h1>
+                    <p className="mt-4 text-base font-black text-[#F4D978] md:text-lg">Marble · Granite · Quartz · Al Ain · Abu Dhabi</p>
+                    <p className="mt-6 max-w-3xl text-lg leading-9 text-white/80">{description}</p>
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                       {whatsappDigits && <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('Hello, I would like to inquire about White Whale Factory services via Biet Al Reef')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] shadow-lg shadow-[#8A6A00]/10 transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> Contact on WhatsApp</a>}
@@ -139,7 +139,7 @@ export default function EnglishProviderProfilePage({ provider }) {
             </div>
           </section>
 
-          <section className="border-b border-[#E6DCC8] bg-white"><div className="mx-auto max-w-6xl px-4 py-5"><div className="grid grid-cols-2 gap-4 md:grid-cols-4"><InfoItem icon={<MapPin className="h-5 w-5 text-[#0F3F1A]" />} label="Location" value="Al Ain, Abu Dhabi" /><InfoItem icon={<Clock className="h-5 w-5 text-[#0F3F1A]" />} label="Working Hours" value="Sat - Thu" /><InfoItem icon={<Phone className="h-5 w-5 text-[#0F3F1A]" />} label="Phone" value={provider.phone} /><InfoItem icon={<Award className="h-5 w-5 text-[#0F3F1A]" />} label="Status" value="Verified" highlight /></div></div></section>
+          <section className="border-b border-[#D4AF37]/20 bg-[#1b1d18] text-white"><div className="mx-auto max-w-6xl px-4 py-6"><p className="mb-4 text-sm font-black text-[#F4D978]">Expanded professional profile on Biet Al Reef</p><div className="grid grid-cols-2 gap-4 md:grid-cols-4"><ProfessionalStat value="10" label="Displayable services" /><ProfessionalStat value="10" label="Displayable products" /><ProfessionalStat value="10" label="Displayable projects" /><ProfessionalStat value="4" label="Annual content updates" /></div></div></section>
 
           {provider.aboutEn && <section className="mx-auto max-w-6xl px-4 py-16"><div className="grid gap-10 lg:grid-cols-2 lg:items-center"><div><p className="font-black text-[#B8922B]">About the Factory</p><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] leading-tight">Specialized provider for marble, granite and quartz</h2><p className="mt-6 leading-9 text-gray-600">{provider.aboutEn}</p><div className="mt-8 grid grid-cols-3 gap-4"><FeatureCard icon={<Hammer className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Custom Fabrication" /><FeatureCard icon={<Layers className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Material Options" /><FeatureCard icon={<Users className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="Direct Contact" /></div></div><div className="relative overflow-hidden rounded-[2rem]"><Image src="/images/providers/al-hoot/about-factory.jpg" alt="White Whale Marble & Granite Factory" width={1344} height={768} className="w-full h-auto rounded-[2rem] object-cover" /></div></div></section>}
 
@@ -161,6 +161,7 @@ export default function EnglishProviderProfilePage({ provider }) {
 }
 
 function TrustItem({ title, sub }) { return <div className="rounded-2xl bg-white/70 p-4 text-center shadow-sm"><div className="text-2xl font-black text-[#8A6A00]">{title}</div><div className="mt-1 text-xs font-bold text-[#304333]">{sub}</div></div>; }
+function ProfessionalStat({ value, label }) { return <div className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="text-2xl font-black text-[#F4D978]">{value}</div><div className="mt-1 text-xs font-bold text-white/70">{label}</div></div>; }
 function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
