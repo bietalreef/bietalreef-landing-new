@@ -317,64 +317,65 @@ function ProjectCard({ project, onDetails }) {
 }
 
 function DigitalChannels() {
+  const channelStyles = {
+    'BR-CH-ARK-WEB': 'from-[#0F3F1A] to-[#1F6A35] text-white',
+    'BR-CH-ARK-EMAIL': 'from-[#8F2638] to-[#C54B62] text-white',
+    'BR-CH-ARK-IG': 'from-[#7C3AED] via-[#DB2777] to-[#F59E0B] text-white',
+    'BR-CH-ARK-FB': 'from-[#1877F2] to-[#0D55B5] text-white',
+    'BR-CH-ARK-TT': 'from-[#101010] to-[#2F2F2F] text-white',
+  };
+
   return (
-    <section data-provider-id={PROVIDER_ID} aria-labelledby="arkline-digital-channels-title">
-      <div className="mb-4 flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
-          <Globe2 className="h-5 w-5" />
-        </span>
-        <div>
-          <p className="text-xs font-black text-[#A66B19]">الحضور الرقمي</p>
-          <h3 id="arkline-digital-channels-title" className="text-xl font-black text-[#0F3F1A]">
-            قنوات أركلين الإلكترونية
+    <section
+      data-provider-id={PROVIDER_ID}
+      aria-labelledby="arkline-digital-channels-title"
+      className="rounded-[1.6rem] border border-[#DFD1B8] bg-white/96 p-3 shadow-[0_12px_34px_rgba(67,45,17,.09)] md:p-4"
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[10px] font-black text-[#A66B19]">الحضور الرقمي</p>
+          <h3 id="arkline-digital-channels-title" className="mt-0.5 text-sm font-black text-[#0F3F1A] md:text-base">
+            تواصل مع أركلين
           </h3>
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-        {digitalChannels.map((channel) => {
-          const Icon = channel.icon;
-          const content = (
-            <>
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
-                <Icon className="h-5 w-5" />
-              </span>
-              <span className="mt-3 block text-sm font-black text-[#0F3F1A]">
-                {channel.label}
-              </span>
-              <span className="mt-1 block text-[11px] font-bold leading-5 text-[#756A5C]">
-                {channel.value}
-              </span>
-              {channel.active ? (
-                <ExternalLink className="absolute left-3 top-3 h-4 w-4 text-[#A66B19]" />
-              ) : null}
-            </>
-          );
-
-          if (!channel.active) {
-            return (
-              <div
-                key={channel.id}
-                aria-disabled="true"
-                className="relative min-h-[132px] rounded-[1.5rem] border border-[#E7DCC8] bg-white/65 p-4 opacity-75 shadow-[0_10px_25px_rgba(67,45,17,.06)]"
-              >
-                {content}
-              </div>
+        <div className="flex shrink-0 items-center gap-2">
+          {digitalChannels.map((channel) => {
+            const Icon = channel.icon;
+            const icon = (
+              <>
+                <span className={`flex h-11 w-11 items-center justify-center rounded-[1rem] bg-gradient-to-br ${channelStyles[channel.id]} shadow-[inset_0_1px_1px_rgba(255,255,255,.35),0_6px_0_rgba(44,31,12,.13),0_10px_18px_rgba(44,31,12,.14)] transition group-hover:-translate-y-0.5 group-hover:scale-105`}>
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="sr-only">{channel.label}</span>
+              </>
             );
-          }
 
-          return (
-            <a
-              key={channel.id}
-              href={channel.href}
-              target={channel.external ? '_blank' : undefined}
-              rel={channel.external ? 'noopener noreferrer' : undefined}
-              className="group relative min-h-[132px] rounded-[1.5rem] border border-[#DCCBAE] bg-white p-4 shadow-[0_10px_25px_rgba(67,45,17,.08)] transition hover:-translate-y-1 hover:shadow-[0_16px_34px_rgba(67,45,17,.12)]"
-            >
-              {content}
-            </a>
-          );
-        })}
+            return channel.active ? (
+              <a
+                key={channel.id}
+                href={channel.href}
+                target={channel.external ? '_blank' : undefined}
+                rel={channel.external ? 'noopener noreferrer' : undefined}
+                title={channel.label}
+                aria-label={channel.label}
+                className="group rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#C9952A] focus:ring-offset-2"
+              >
+                {icon}
+              </a>
+            ) : (
+              <span
+                key={channel.id}
+                title={`${channel.label} — غير مضاف بعد`}
+                aria-label={`${channel.label} غير مضاف بعد`}
+                aria-disabled="true"
+                className="group opacity-45 grayscale-[30%]"
+              >
+                {icon}
+              </span>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
