@@ -9,6 +9,7 @@ import FAQ from '../../../components/FAQ';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../components/SeoProofCards';
 import UaeDirectoryHero from '../../../components/UaeDirectoryHero';
+import UaeActivityProviders from '../../../components/UaeActivityProviders';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -39,6 +40,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
         <main>
           <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} />
           <ClientRequestCard title={`تحتاج ${service.nameAr} في ${emirate.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم توجيه الطلب حسب النشاط والمنطقة المناسبة." buttonText="اطلب عرض سعر الآن" />
+          <UaeActivityProviders locale="ar" emirate={emirate} service={service} />
           {showAlHootPath && (
             <SeoProofCards
               title={`مسار حقيقي لخدمة ${service.nameAr} في ${emirate.nameAr}`}
