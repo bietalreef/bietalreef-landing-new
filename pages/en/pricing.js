@@ -3,18 +3,18 @@ import EnglishGenericPage from '../../components/EnglishGenericPage';
 export default function PricingEnglishPage() {
   return (
     <EnglishGenericPage
-      badge="Pricing policy"
-      title="Pricing"
-      description="Biet Al Reef does not publish random or unapproved prices. The correct price depends on location, measurements, materials, scope of work and execution details."
-      intent="This page explains why requesting a quotation is better than relying on a general number that does not fit every project."
+      badge="Provider plans"
+      title="Plans & Pricing"
+      description="Choose a structured digital presence plan for your business, with clear monthly, annual and one-time setup terms."
+      intent="Digital Presence is AED 300 monthly plus a one-time AED 750 setup fee, or AED 2,700 annually with setup included. Professional Presence is AED 500 monthly plus a one-time AED 1,500 setup fee, or AED 4,500 annually with setup included."
       path="/en/pricing"
       arabicPath="/pricing"
       ctaHref="/en/contact"
       ctaLabel="Request a quotation"
       points={[
-        'The price changes according to the city, service type and project details.',
-        'We do not publish unconfirmed prices that could mislead the customer or provider.',
-        'The best way to get a realistic number is to send the project details and request a quotation.',
+        'Digital Presence: AED 300 monthly + AED 750 one-time setup, or AED 2,700 annually with setup included.',
+        'Professional Presence: AED 500 monthly + AED 1,500 one-time setup, or AED 4,500 annually with setup included.',
+        'Visibility depends on the selected plan, complete data, service relevance and location; no ranking or lead volume is guaranteed.',
       ]}
       steps={[
         'Send the project description',
@@ -27,8 +27,8 @@ export default function PricingEnglishPage() {
         { href: '/en/faq', label: 'FAQ' },
       ]}
       faqs={[
-        ['Why are there no fixed prices?', 'Because construction and maintenance work changes according to location, quantity, material quality, execution difficulty and working time.'],
-        ['How can I get a price estimate?', 'Send the project details, available photos or measurements and the execution location so you can be guided to the most suitable path.'],
+        ['Is setup charged on annual plans?', 'No. Setup is included in the annual Digital Presence and Professional Presence plans.'],
+        ['Does a paid plan guarantee first ranking or a fixed number of leads?', 'No. Discovery depends on plan level, data quality, relevance, location and platform matching.'],
       ]}
     />
   );

@@ -4,6 +4,7 @@ import { Building2, CheckCircle2, FileText, MessageCircle, Sparkles } from 'luci
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
+import WeyakChat from '../components/WeyakChat';
 
 const SITE_URL = 'https://bietalreef.ae';
 const WEYAAK_LOGO = '/images/weyaak-new-logo.jpg';
@@ -84,13 +85,7 @@ export default function WeyaakPage() {
                     أساعدك في صياغة الطلب، اختيار نوع الخدمة، وتجهيز البيانات قبل التواصل مع فريق بيت الريف.
                   </p>
                 </div>
-                <div id="weyaak-live-chat" className="mt-5 rounded-[1.5rem] border border-dashed border-[#D4AF37]/60 bg-[#FFF8E7] p-5 text-center">
-                  <MessageCircle className="mx-auto h-8 w-8 text-[#B99420]" />
-                  <h3 className="mt-3 text-lg font-black text-[#1F3D2B]">مكان ربط وياك الأصلي</h3>
-                  <p className="mt-2 text-sm font-bold leading-7 text-[#5F6F65]">
-                    الموضع جاهز لتركيب الدردشة الحقيقية لاحقًا.
-                  </p>
-                </div>
+                <div id="weyaak-live-chat" className="mt-5"><WeyakChat embedded /></div>
               </div>
             </div>
           </section>

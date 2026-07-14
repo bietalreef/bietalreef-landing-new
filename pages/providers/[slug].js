@@ -85,25 +85,25 @@ export default function ProviderPage({ provider, emirate, area }) {
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar />
         <main>
-          <section className="bg-[#FDFBF7] px-4 pt-3 pb-8 md:pt-5 md:pb-12">
+          <section className="bg-gradient-to-b from-[#151713] via-[#22251f] to-[#FDFBF7] px-4 pt-3 pb-8 md:pt-5 md:pb-12">
             <div className="mx-auto max-w-6xl">
               <Link href="/providers" className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#B8922B]/30 bg-white px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-sm transition hover:bg-[#FFF8E5]">
                 <ChevronDown className="h-4 w-4 rotate-90" />
                 العودة إلى مزودي الخدمات
               </Link>
 
-              <div className="overflow-hidden rounded-[2.25rem] border border-[#E6DCC8] bg-gradient-to-br from-white via-[#FFF8EA] to-[#EFE3CC] shadow-xl shadow-[#8A6A00]/10">
+              <div className="overflow-hidden rounded-[2.25rem] border border-[#D4AF37]/40 bg-gradient-to-br from-[#171914] via-[#252820] to-[#3a3b32] shadow-2xl shadow-black/25">
                 <div className="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
                   <div className="p-6 md:p-10 lg:p-12">
                     <div className="mb-5 flex flex-wrap gap-2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B8922B]/35 bg-[#FFF8E5] px-4 py-1.5 text-xs font-black text-[#8A6A00]"><Gem className="h-3.5 w-3.5" /> تخصص فاخر</span>
-                      {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-4 py-1.5 text-xs font-black text-emerald-700"><ShieldCheck className="h-3.5 w-3.5" /> مزود موثق</span>}
-                      <span className="rounded-full border border-[#E6DCC8] bg-white px-4 py-1.5 text-xs font-black text-[#0F3F1A]">{provider.providerTypeAr}</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-1.5 text-xs font-black text-[#F4D978]"><Gem className="h-3.5 w-3.5" /> الحضور الاحترافي</span>
+                      {provider.verified && <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-black text-emerald-200"><ShieldCheck className="h-3.5 w-3.5" /> مزود موثق</span>}
+                      <span className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-black text-white">{provider.providerTypeAr}</span>
                     </div>
 
-                    <h1 className="max-w-3xl text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{provider.nameAr}</h1>
-                    <p className="mt-4 text-base font-black text-[#8A6A00] md:text-lg">رخام · جرانيت · كوارتز · العين · أبوظبي</p>
-                    <p className="mt-6 max-w-3xl text-lg leading-9 text-[#243528]">{provider.descriptionAr}</p>
+                    <h1 className="max-w-3xl text-4xl font-black leading-tight text-white md:text-6xl">{provider.nameAr}</h1>
+                    <p className="mt-4 text-base font-black text-[#F4D978] md:text-lg">رخام · جرانيت · كوارتز · العين · أبوظبي</p>
+                    <p className="mt-6 max-w-3xl text-lg leading-9 text-white/80">{provider.descriptionAr}</p>
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                       <a href="/request-quote" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#12110B] shadow-lg shadow-[#8A6A00]/10 transition hover:bg-[#b8922b]"><MessageCircle className="h-5 w-5" /> اطلب عرض سعر</a>
@@ -131,7 +131,7 @@ export default function ProviderPage({ provider, emirate, area }) {
             </div>
           </section>
 
-          <section className="border-b border-[#E6DCC8] bg-white"><div className="mx-auto max-w-6xl px-4 py-5"><div className="grid grid-cols-2 gap-4 md:grid-cols-4"><InfoItem icon={<MapPin className="h-5 w-5 text-[#0F3F1A]" />} label="الموقع" value="العين، أبوظبي" /><InfoItem icon={<Clock className="h-5 w-5 text-[#0F3F1A]" />} label="ساعات العمل" value="سبت - خميس" /><InfoItem icon={<Phone className="h-5 w-5 text-[#0F3F1A]" />} label="الهاتف" value={provider.phone} /><InfoItem icon={<Award className="h-5 w-5 text-[#0F3F1A]" />} label="الحالة" value="متحقق وموثق" highlight /></div></div></section>
+          <section className="border-b border-[#D4AF37]/20 bg-[#1b1d18] text-white"><div className="mx-auto max-w-6xl px-4 py-6"><p className="mb-4 text-sm font-black text-[#F4D978]">ملف احترافي موسّع داخل بيت الريف</p><div className="grid grid-cols-2 gap-4 md:grid-cols-4"><ProfessionalStat value="10" label="خدمات قابلة للعرض" /><ProfessionalStat value="10" label="منتجات قابلة للعرض" /><ProfessionalStat value="10" label="مشاريع قابلة للعرض" /><ProfessionalStat value="4" label="تحديثات محتوى سنوية" /></div></div></section>
 
           {provider.aboutAr && <section className="mx-auto max-w-6xl px-4 py-16"><div className="grid gap-10 lg:grid-cols-2 lg:items-center"><div className="relative overflow-hidden rounded-[2rem]"><Image src="/images/providers/al-hoot/about-factory.jpg" alt="مصنع الحوت الأبيض للرخام والجرانيت" width={1344} height={768} className="w-full h-auto rounded-[2rem] object-cover" /></div><div><p className="font-black text-[#B8922B]">تعرف على المصنع</p><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] leading-tight">مزود متخصص في الرخام والجرانيت والكوارتز</h2><p className="mt-6 leading-9 text-gray-600">{provider.aboutAr}</p><div className="mt-8 grid grid-cols-3 gap-4"><FeatureCard icon={<Hammer className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="تصنيع حسب الطلب" /><FeatureCard icon={<Layers className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="خامات متنوعة" /><FeatureCard icon={<Users className="mx-auto h-6 w-6 text-[#D4AF37]" />} label="تنسيق مباشر" /></div></div></div></section>}
 
@@ -154,6 +154,7 @@ export default function ProviderPage({ provider, emirate, area }) {
 }
 
 function TrustItem({ title, sub }) { return <div className="rounded-2xl bg-white/70 p-4 text-center shadow-sm"><div className="text-2xl font-black text-[#8A6A00]">{title}</div><div className="mt-1 text-xs font-bold text-[#304333]">{sub}</div></div>; }
+function ProfessionalStat({ value, label }) { return <div className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="text-2xl font-black text-[#F4D978]">{value}</div><div className="mt-1 text-xs font-bold text-white/70">{label}</div></div>; }
 function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
