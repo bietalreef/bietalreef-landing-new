@@ -6,6 +6,7 @@ import ClientRequestCard from '../../../../components/ClientRequestCard';
 import FAQ from '../../../../components/FAQ';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../../components/SeoProofCards';
+import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -29,13 +30,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}/${areaSlug}`} backLabel={`العودة إلى ${area.nameAr}`} />
         <main>
-          <section className="bg-[#0F3F1A] text-white">
-            <div className="max-w-6xl mx-auto px-4 py-16 text-center md:text-right">
-              <span className="inline-block bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] px-4 py-1 rounded-full text-xs font-bold mb-6">{emirate.nameAr} / {area.nameAr}</span>
-              <h1 className="text-3xl md:text-5xl font-black mb-6 leading-tight">{title}</h1>
-              <p className="text-lg text-white/90 max-w-3xl leading-relaxed mx-auto md:mx-0">{service.descAr}</p>
-            </div>
-          </section>
+          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} area={area} service={service} />
           <ClientRequestCard title={`تحتاج ${service.nameAr} في ${area.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم تجهيز الطلب حسب المكان والخدمة المطلوبة." buttonText="اطلب عرض سعر الآن" />
           <section className="max-w-6xl mx-auto px-4 py-12">
             <div className="rounded-3xl bg-white border border-[#E6DCC8] p-8 shadow-sm">
