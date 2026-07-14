@@ -29,7 +29,16 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
-      // English aliases that currently reuse the active Arabic public forms
+      {
+        source: '/providers/arkline',
+        destination: '/providers/arkleen',
+        permanent: true,
+      },
+      {
+        source: '/en/providers/arkline',
+        destination: '/en/providers/arkleen',
+        permanent: true,
+      },
       {
         source: '/en/request-quote',
         destination: '/request-quote',
@@ -40,7 +49,6 @@ module.exports = {
         destination: '/inquiry',
         permanent: false,
       },
-      // Legacy navigation and old sitemap aliases found in Search Console
       {
         source: '/home',
         destination: '/',
@@ -111,7 +119,6 @@ module.exports = {
         destination: '/categories/furniture-decor',
         permanent: true,
       },
-      // Redirect old city-specific service links to general category pages
       {
         source: '/services/construction-contracting/dubai',
         destination: '/categories/general-contracting',
