@@ -33,7 +33,7 @@ function buildSupportMessage(type) {
 export default function ArklineProfileEnhancements({ currentPath = '' }) {
   const [workingHoursTarget, setWorkingHoursTarget] = useState(null);
   const [reviewsTarget, setReviewsTarget] = useState(null);
-  const isArklinePage = currentPath.split('?')[0] === '/providers/arkline';
+  const isArklinePage = ['/providers/arkline', '/providers/arkleen'].includes(currentPath.split('?')[0]);
 
   useEffect(() => {
     if (!isArklinePage || typeof document === 'undefined') return undefined;
