@@ -2,9 +2,10 @@ export const arklineProvider = {
   slug: 'arkline',
   providerId: 'BR-PROV-ARK-001',
   nameAr: 'أركلين لأعمال النجارة والتصميم الداخلي',
-  nameEn: 'Arkline Carpentry & Interior Design',
+  nameEn: 'ARKLEEN Carpentry & Interior Design',
   phone: '056 779 7828',
   whatsapp: '+971567797828',
+  website: 'https://www.arkleen.ae',
   city: 'al-ain',
   area: 'mazid-company-camp',
   emirate: 'abu-dhabi',
@@ -22,14 +23,14 @@ export const arklineProvider = {
   workingHours: 'السبت - الخميس: بتنسيق مسبق، الجمعة حسب الموعد',
   workingHoursEn: 'Saturday - Thursday: By appointment, Friday: By arrangement',
   descriptionAr: 'أركلين ورشة نجارة وتصميم داخلي في مدينة العين، متخصصة في تصميم وتصنيع وتركيب المطابخ والخزائن والأبواب والكسوات والديكورات الخشبية والأثاث حسب المقاسات واحتياج المشروع. تستقبل طلبات الأسعار بعد مراجعة الصور والمقاسات والخامة والتشطيب المطلوب.',
-  descriptionEn: 'Arkline is a carpentry and interior design workshop in Al Ain specializing in custom kitchens, wardrobes, doors, wood cladding, decorative woodwork and made-to-measure furniture. Quotation requests are reviewed based on photos, measurements, materials and required finishes.',
+  descriptionEn: 'ARKLEEN is a carpentry and interior design workshop in Al Ain specializing in custom kitchens, wardrobes, doors, wood cladding, decorative woodwork and made-to-measure furniture. Quotation requests are reviewed based on photos, measurements, materials and required finishes.',
   aboutAr: 'يعرض هذا الملف الرقمي خدمات أركلين ومشاريعها ومنتجاتها وطرق التواصل المباشر داخل منصة بيت الريف، مع بطاقات مستقلة لكل خدمة ومنتج ومشروع ومعرفات جاهزة للربط مع وياك وSupabase.',
-  aboutEn: 'This digital profile presents Arkline services, projects, products and direct contact channels inside Biet Al Reef, with independent identifiers ready for Wayaak and Supabase integration.',
+  aboutEn: 'This digital profile presents ARKLEEN services, projects, products and direct contact channels inside Biet Al Reef, with independent identifiers ready for Wayaak and Supabase integration.',
   services: ['مطابخ حسب المقاس', 'خزائن ودواليب', 'أبواب خشبية', 'ديكورات وكسوات', 'تصميم داخلي', 'تصنيع حسب الطلب', 'توريد وتركيب'],
   serviceAreas: ['al-ain', 'abu-dhabi'],
   gallery: [
-    { src: '/images/providers/arkline/arkline-hero-exterior.webp', altAr: 'واجهة ورشة أركلين في العين', altEn: 'Arkline workshop exterior in Al Ain', category: 'exterior' },
-    { src: '/images/providers/arkline/arkline-workshop.webp', altAr: 'ورشة أركلين لأعمال النجارة', altEn: 'Arkline carpentry workshop', category: 'workshop' },
+    { src: '/images/providers/arkline/arkline-hero-exterior.webp', altAr: 'واجهة ورشة أركلين في العين', altEn: 'ARKLEEN workshop exterior in Al Ain', category: 'exterior' },
+    { src: '/images/providers/arkline/arkline-workshop.webp', altAr: 'ورشة أركلين لأعمال النجارة', altEn: 'ARKLEEN carpentry workshop', category: 'workshop' },
     { src: '/images/providers/arkline/arkline-showroom.webp', altAr: 'نماذج التصميم الداخلي والتشطيبات', altEn: 'Interior design and finishing samples', category: 'interior' },
     { src: '/images/providers/arkline/arkline-production.webp', altAr: 'معدات الإنتاج والتصنيع داخل الورشة', altEn: 'Production and fabrication equipment', category: 'production' }
   ],
@@ -39,9 +40,9 @@ export const arklineProvider = {
     { nameAr: 'ألواح MDF وبدائل الخشب', nameEn: 'MDF & Wood Alternatives', descAr: 'للمطابخ والخزائن والكسوات والتشطيبات الداخلية', descEn: 'For kitchens, wardrobes, cladding and interiors' }
   ],
   faq: [
-    { questionAr: 'هل تنفذ أركلين الأعمال حسب المقاس؟', questionEn: 'Does Arkline provide made-to-measure work?', answerAr: 'نعم، تتم مراجعة المقاسات والصور والخامة والتشطيب قبل إعداد عرض السعر وبدء التصنيع.', answerEn: 'Yes. Measurements, photos, materials and finishes are reviewed before quotation and fabrication.' },
+    { questionAr: 'هل تنفذ أركلين الأعمال حسب المقاس؟', questionEn: 'Does ARKLEEN provide made-to-measure work?', answerAr: 'نعم، تتم مراجعة المقاسات والصور والخامة والتشطيب قبل إعداد عرض السعر وبدء التصنيع.', answerEn: 'Yes. Measurements, photos, materials and finishes are reviewed before quotation and fabrication.' },
     { questionAr: 'ما الخدمات الرئيسية؟', questionEn: 'What are the main services?', answerAr: 'المطابخ والخزائن والأبواب والديكورات الخشبية والكسوات والتصميم الداخلي والأثاث حسب الطلب.', answerEn: 'Kitchens, wardrobes, doors, decorative woodwork, cladding, interior design and custom furniture.' },
-    { questionAr: 'كيف أطلب عرض سعر؟', questionEn: 'How can I request a quotation?', answerAr: 'يمكن فتح ملف أركلين وإرسال تفاصيل الخدمة أو المنتج مع الصور والمقاسات عبر واتساب أو وياك.', answerEn: 'Open the Arkline profile and send the service or product details, photos and measurements through WhatsApp or Wayaak.' }
+    { questionAr: 'كيف أطلب عرض سعر؟', questionEn: 'How can I request a quotation?', answerAr: 'يمكن فتح ملف أركلين وإرسال تفاصيل الخدمة أو المنتج مع الصور والمقاسات عبر واتساب أو وياك.', answerEn: 'Open the ARKLEEN profile and send the service or product details, photos and measurements through WhatsApp or Wayaak.' }
   ]
 };
 
