@@ -135,6 +135,14 @@ export default function Footer() {
       <UniversalRequestCTA locale="ar" />
       <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir="rtl" role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#FFF9E8] p-6 shadow-[0_16px_40px_rgba(15,63,26,0.08)] md:flex md:items-center md:justify-between md:gap-8">
+            <div>
+              <p className="text-sm font-black text-[#A27E18]">حضور رقمي يناسب مرحلة نشاطك</p>
+              <h2 className="mt-2 text-2xl font-black leading-tight text-[#102F18]">نظّم خدماتك وأعمالك في ملف واضح يسهل اكتشافه وفهمه</h2>
+              <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600">تساعدك خطط بيت الريف على تقديم بيانات نشاطك بصورة منظمة داخل المسارات المناسبة. مستوى الظهور يعتمد على الخطة واكتمال البيانات وتوافق النشاط والموقع، دون ضمان ترتيب أو عدد محدد من الطلبات.</p>
+            </div>
+            <Link href="/pricing" className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">استعرض الخطط والأسعار</Link>
+          </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
             <div className="text-center md:text-right">
               <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
