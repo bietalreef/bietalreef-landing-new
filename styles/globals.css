@@ -259,3 +259,17 @@ body.biet-protected-page::after {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Arkline provider profile: render the real repository PNG directly.
+   The cache token prevents stale blank logo responses in preview browsers. */
+img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"] {
+  content: url("/images/providers/arkline/logo.png?v=93a1491") !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 4px !important;
+  object-fit: contain !important;
+  background: #ffffff !important;
+}

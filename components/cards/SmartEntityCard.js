@@ -23,6 +23,7 @@ const cardTypeConfig = {
 };
 
 const isPremium = (item) => item?.premium || item?.id?.includes('al-hoot') || item?.providerName?.includes('الحوت') || item?.supplierName?.includes('الحوت');
+const isArkline = (item) => item?.id === 'arkline' || item?.href === '/providers/arkline' || item?.name?.includes('أركلين');
 
 function CardShell({ children, href = '#', className = '' }) {
   return (
@@ -75,6 +76,79 @@ function MiniTrust({ label, value }) {
       <div className="text-sm font-black text-[#8A6A00]">{label}</div>
       <div className="mt-1 text-[11px] font-bold text-[#304333]">{value}</div>
     </div>
+  );
+}
+
+function ModernArklineProviderCard({ item }) {
+  return (
+    <CardShell
+      href={item.href}
+      className="border-[#D7C7A7] bg-gradient-to-br from-white via-[#FBF8F1] to-[#EEE6D8] shadow-[0_22px_60px_rgba(41,63,45,.13)]"
+    >
+      <div className="relative h-52 overflow-hidden bg-[#EFE7D8] sm:h-56">
+        <Image
+          src={item.coverImage || '/images/providers/arkline/arkline-hero-exterior.webp'}
+          alt={item.name}
+          fill
+          className="object-cover object-center transition duration-700 group-hover:scale-105"
+          sizes="(max-width: 768px) 92vw, 540px"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#102F1A]/55 via-transparent to-black/5" />
+        <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/55 bg-white/88 px-3 py-1.5 text-xs font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
+            <Building2 className="h-3.5 w-3.5 text-[#A66B19]" />
+            ورشة نجارة وتصميم داخلي
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E8C65A]/45 bg-[#0F3F1A]/92 px-3 py-1.5 text-xs font-black text-white shadow-lg backdrop-blur-xl">
+            <BadgeCheck className="h-3.5 w-3.5 text-[#F4CA61]" />
+            مسجل لدى بيت الريف
+          </span>
+        </div>
+      </div>
+
+      <div className="relative px-5 pb-5 pt-14 md:px-6">
+        <div className="absolute -top-12 right-5 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.10),0_20px_38px_rgba(52,47,35,.22)]">
+          <Image
+            src="/images/providers/arkleen-logo.png"
+            alt="شعار أركلين"
+            fill
+            className="object-contain p-1.5"
+            sizes="96px"
+          />
+          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md">
+            <BadgeCheck className="h-4 w-4" />
+          </span>
+        </div>
+
+        <div className="mr-28 min-h-[48px]">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[#FFF2CF] px-3 py-1 text-[11px] font-black text-[#8A5C0B]">تأسيس 2015</span>
+            <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-black text-emerald-700">يقبل طلبات الأسعار</span>
+          </div>
+        </div>
+
+        <h3 className="mt-4 text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
+        <p className="mt-3 line-clamp-3 min-h-[78px] text-sm font-semibold leading-7 text-[#4F5D52]">{item.summary}</p>
+
+        <div className="mt-4 grid grid-cols-3 gap-2">
+          <MiniTrust label="مطابخ" value="حسب المقاس" />
+          <MiniTrust label="خزائن" value="تفصيل خاص" />
+          <MiniTrust label="أبواب" value="توريد وتركيب" />
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          <span className="inline-flex items-center gap-1 rounded-full border border-[#E6DCC8] bg-white/88 px-3 py-1 text-xs font-bold text-[#304333]">
+            <MapPin className="h-3.5 w-3.5 text-[#A66B19]" />
+            {item.city} - {item.area}
+          </span>
+          {item.specialties?.slice(0, 3).map((tag) => (
+            <span key={tag} className="rounded-full border border-[#E6DCC8] bg-white/88 px-3 py-1 text-xs font-bold text-[#0F3F1A]">{tag}</span>
+          ))}
+        </div>
+
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="فتح الملف الحديث" secondary="واتساب" />
+      </div>
+    </CardShell>
   );
 }
 
@@ -161,6 +235,7 @@ function PremiumEntityCard({ item }) {
 }
 
 export function ProviderCard({ item }) {
+  if (isArkline(item)) return <ModernArklineProviderCard item={item} />;
   if (isPremium(item)) return <PremiumAlHootProviderCard item={item} />;
 
   return (

@@ -1,0 +1,228 @@
+/*
+ * Provider product cards
+ * Compact, reusable presentation for product cards inside provider profiles.
+ * The content, IDs and interaction layer remain unchanged.
+ */
+
+#products {
+  --product-green: #0f3f1a;
+  --product-gold: #c9952a;
+  --product-border: #e4d7c1;
+  --product-muted: #625a50;
+}
+
+#products > .mt-8.grid {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 1rem !important;
+}
+
+#products article[data-product-id] {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--product-border) !important;
+  border-radius: 1.55rem !important;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(67, 45, 17, 0.09) !important;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+#products article[data-product-id]:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 149, 42, 0.48) !important;
+  box-shadow: 0 22px 52px rgba(67, 45, 17, 0.14) !important;
+}
+
+/* Compact visual area — mirrors the service-card proportions. */
+#products article[data-product-id] > div:first-child {
+  position: relative;
+  height: 8.75rem !important;
+  min-height: 0 !important;
+  isolation: isolate;
+  align-items: initial !important;
+  justify-content: initial !important;
+  background-color: #d9c39c !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+#products article[data-product-id='BR-PRD-ARK-001'] > div:first-child {
+  background-image: linear-gradient(180deg, rgba(7, 24, 12, 0.04), rgba(7, 24, 12, 0.52)), url('/images/providers/arkline/arkline-showroom.webp') !important;
+}
+
+#products article[data-product-id='BR-PRD-ARK-002'] > div:first-child {
+  background-image: linear-gradient(180deg, rgba(7, 24, 12, 0.04), rgba(7, 24, 12, 0.52)), url('/images/providers/arkline/arkline-workshop.webp') !important;
+}
+
+#products article[data-product-id='BR-PRD-ARK-003'] > div:first-child {
+  background-image: linear-gradient(180deg, rgba(7, 24, 12, 0.04), rgba(7, 24, 12, 0.52)), url('/images/providers/arkline/arkline-production.webp') !important;
+}
+
+/* Remove the former large decorative empty frame. */
+#products article[data-product-id] > div:first-child > div:first-child {
+  display: none !important;
+}
+
+/* Small floating product icon. */
+#products article[data-product-id] > div:first-child > div:nth-child(2) {
+  position: absolute !important;
+  z-index: 3;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  width: 2.8rem !important;
+  height: 2.8rem !important;
+  border-width: 2px !important;
+  border-radius: 0.9rem !important;
+  box-shadow: 0 7px 0 rgba(71, 45, 8, 0.12), 0 13px 25px rgba(20, 44, 25, 0.2) !important;
+}
+
+#products article[data-product-id] > div:first-child > div:nth-child(2) svg {
+  width: 1.35rem !important;
+  height: 1.35rem !important;
+}
+
+/* Category label. */
+#products article[data-product-id] > div:first-child > span {
+  z-index: 3;
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  padding: 0.42rem 0.72rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  font-size: 0.68rem !important;
+  line-height: 1;
+  backdrop-filter: blur(12px);
+}
+
+/* Secondary visual label, without adding markup. */
+#products article[data-product-id] > div:first-child::before {
+  content: 'منتج أركلين';
+  position: absolute;
+  z-index: 3;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(15, 63, 26, 0.86);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+/* Content is intentionally dense and easy to scan. */
+#products article[data-product-id] > div:nth-child(2) {
+  padding: 1rem !important;
+}
+
+#products article[data-product-id] > div:nth-child(2) > div:first-child {
+  align-items: flex-start;
+  gap: 0.55rem !important;
+}
+
+#products article[data-product-id] h3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 1.05rem !important;
+  line-height: 1.55 !important;
+}
+
+#products article[data-product-id] h3 + span {
+  flex: 0 0 auto;
+  padding: 0.28rem 0.5rem !important;
+  font-size: 0.55rem !important;
+}
+
+#products article[data-product-id] > div:nth-child(2) > p {
+  display: -webkit-box;
+  min-height: 2.75rem;
+  margin-top: 0.45rem !important;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: var(--product-muted);
+  font-size: 0.84rem;
+  line-height: 1.65 !important;
+}
+
+#products article[data-product-id] > div:nth-child(2) > div:nth-of-type(2) {
+  min-height: 0;
+  margin-top: 0.7rem !important;
+  padding: 0.62rem 0.75rem !important;
+  gap: 0.55rem;
+  border: 1px solid #eee4d3;
+  border-radius: 0.9rem !important;
+  background: #fcfaf6 !important;
+  font-size: 0.72rem !important;
+  line-height: 1.35;
+}
+
+#products article[data-product-id] > div:nth-child(2) > a[href*='productId='] {
+  min-height: 2.75rem !important;
+  margin-top: 0.75rem !important;
+  padding: 0.65rem 0.9rem !important;
+  border-color: rgba(201, 149, 42, 0.62) !important;
+  border-radius: 0.9rem !important;
+  background: linear-gradient(180deg, #fffdf7, #fff8e7) !important;
+  font-size: 0.8rem !important;
+  box-shadow: 0 5px 0 rgba(136, 93, 18, 0.08);
+  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+#products article[data-product-id] > div:nth-child(2) > a[href*='productId=']:hover,
+#products article[data-product-id] > div:nth-child(2) > a[href*='productId=']:focus-visible {
+  transform: translateY(-2px);
+  background: #fff4d5 !important;
+  box-shadow: 0 8px 0 rgba(136, 93, 18, 0.1);
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  #products article[data-product-id] > div:first-child {
+    height: 9.5rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #products > .mt-8.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+
+  #products article[data-product-id] {
+    border-radius: 2rem !important;
+  }
+
+  #products article[data-product-id] > div:first-child {
+    height: 10.75rem !important;
+  }
+
+  #products article[data-product-id] > div:nth-child(2) {
+    padding: 1.15rem !important;
+  }
+
+  #products article[data-product-id] h3 {
+    font-size: 1.12rem !important;
+  }
+
+  #products article[data-product-id] > div:nth-child(2) > p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1180px) {
+  #products > .mt-8.grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #products article[data-product-id],
+  #products article[data-product-id] > div:nth-child(2) > a[href*='productId='] {
+    transition: none !important;
+  }
+}
