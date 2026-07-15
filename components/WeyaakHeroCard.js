@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function WeyaakHeroCard() {
   const capabilities = [
     'يقارن لك الخيارات',
@@ -11,7 +13,7 @@ export default function WeyaakHeroCard() {
       <div className="flex flex-col items-center gap-4">
         <p className="text-base font-black text-[#8A6A00] md:text-lg">منصة البناء الذكية</p>
         <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-[2rem] bg-[#FDFBF7] p-2 shadow-inner ring-1 ring-[#E6DCC8]">
-          <img src="/images/weyaak-new-logo.jpg" alt="شعار وياك" className="h-24 w-24 object-contain rounded-xl" />
+          <Image src="/images/weyaak-new-logo.jpg" alt="شعار وياك" width={96} height={96} sizes="96px" className="h-24 w-24 rounded-xl object-contain" />
         </div>
         <div className="w-full text-center">
           <p className="text-2xl font-black text-[#8A6A00]">وياك</p>
