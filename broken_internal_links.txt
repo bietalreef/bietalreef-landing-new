@@ -1,5 +1,0 @@
-/en/sitemap
-/logo.png
-/manifest.json
-/providers
-https://bietalreef.ae/en/sitemap

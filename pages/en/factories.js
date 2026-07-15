@@ -6,8 +6,9 @@ export default function FactoriesEnglishPage() {
       title="Factories"
       description="A future directory path for factories and manufacturers that support construction, finishing, furniture, interior work and building material supply in the UAE."
       path="/en/factories"
+      arabicPath="/factories"
       ctaHref="/en/providers/register"
-      ctaLabel="Register factory interest"
+      ctaLabel="Request a factory profile"
     />
   );
 }

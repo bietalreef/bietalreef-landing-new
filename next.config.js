@@ -30,6 +30,31 @@ module.exports = {
   async redirects() {
     return [
       {
+        source: '/join-provider',
+        destination: '/providers/register',
+        permanent: true,
+      },
+      {
+        source: '/provider/:slug',
+        destination: '/providers/:slug',
+        permanent: true,
+      },
+      {
+        source: '/en/provider/:slug',
+        destination: '/en/providers/:slug',
+        permanent: true,
+      },
+      {
+        source: '/cards-preview',
+        destination: '/providers',
+        permanent: true,
+      },
+      {
+        source: '/test-small-page',
+        destination: '/',
+        permanent: true,
+      },
+      {
         source: '/providers/arkline',
         destination: '/providers/arkleen',
         permanent: true,
@@ -40,14 +65,14 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/en/request-quote',
-        destination: '/request-quote',
+        source: '/en/inquiry',
+        destination: '/en/service-inquiry',
         permanent: false,
       },
       {
-        source: '/en/inquiry',
-        destination: '/inquiry',
-        permanent: false,
+        source: '/en/platform',
+        destination: '/en/how-it-works',
+        permanent: true,
       },
       {
         source: '/home',
@@ -62,6 +87,11 @@ module.exports = {
       {
         source: '/categories',
         destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/en/categories',
+        destination: '/en/services',
         permanent: true,
       },
       {

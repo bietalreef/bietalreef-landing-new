@@ -83,15 +83,15 @@ const copy = {
     essentialTitle: 'ملفات الارتباط والتخزين الأساسي',
     essentialText:
       'هذه العناصر ضرورية لتشغيل الموقع بأمان، وتذكر اللغة، وقرار الخصوصية، وحالة الواجهة. لا يمكن إيقافها من داخل المنصة لأنها لا تستخدم للتحليلات أو الإعلانات ولا تخزن بيانات تعريف شخصية.',
-    analyticsTitle: 'تحليلات الأداء الخاصة ببيت الريف (الطرف الأول)',
+    analyticsTitle: 'تحليلات الأداء: بيت الريف وVercel Speed Insights',
     analyticsText:
-      'تسمح لنا بفهم استخدام المنصة بصورة مجمعة ومجهولة: مسار الصفحة دون معاملات الرابط، مدة الاستخدام، نوع الجهاز، مصدر الزيارة، المنطقة التقريبية، الزر المستخدم، ومشاهدات صفحات مزودي الخدمة. لا تشمل بيانات النماذج أو محتوى محادثات وياك.',
+      'تسمح لنا بفهم استخدام الموقع بصورة مجمعة ومجهولة: مسار الصفحة دون معاملات الرابط، مدة الاستخدام، نوع الجهاز، مصدر الزيارة، المنطقة التقريبية، الزر المستخدم، ومشاهدات صفحات مزودي الخدمة. كما يقيس Vercel مؤشرات سرعة وتجربة الصفحات دون إنشاء ملف تعريفي للزائر. لا تشمل التحليلات بيانات النماذج أو محتوى محادثات وياك، ولا تعمل قبل موافقتك.',
     weyaakTitle: 'التخزين الوظيفي لوكيل وياك',
     weyaakText:
       'ضروري لعمل واجهة وياك وحماية الجلسة أثناء الاستخدام. لا ترسل أسئلة المستخدم أو إجابات وياك إلى جداول تحليلات السلوك، ولا نستخدمها لإنشاء ملف إعلاني للمستخدم.',
-    externalTitle: 'تحليلات الأداء من جهات خارجية',
+    externalTitle: 'أدوات الإعلانات والتتبع التسويقي',
     externalText:
-      'لا تستخدم بيت الريف حالياً أدوات تحليلات إعلانية أو أدوات أداء خارجية لتتبع زوار المنصة. عند إضافة أي جهة مستقبلاً سنوضح اسمها والغرض منها ونطلب موافقة مستقلة قبل تشغيلها.',
+      'لا تستخدم بيت الريف حالياً أدوات إعلانية أو ملفات تتبع تسويقية لبناء ملفات شخصية للزوار. عند إضافة أي جهة من هذا النوع مستقبلاً سنوضح اسمها والغرض منها ونطلب موافقة مستقلة قبل تشغيلها.',
     save: 'تأكيد اختياراتي',
     reject: 'رفض التحليلات',
     privacy: 'الخصوصية',
@@ -116,15 +116,15 @@ const copy = {
     essentialTitle: 'Essential cookies and local storage',
     essentialText:
       'Required to operate the website safely and remember language, privacy choice and interface state. They cannot be disabled inside the platform because they are not used for analytics or advertising and do not store personally identifying information.',
-    analyticsTitle: 'Biet Alreef performance analytics (first party)',
+    analyticsTitle: 'Performance analytics: Biet Al Reef and Vercel Speed Insights',
     analyticsText:
-      'Helps us understand platform usage in aggregate and anonymously: page path without query parameters, duration, device type, visit source, approximate region, clicked control and provider page views. Form data and Weyaak conversations are excluded.',
+      'Helps us understand website usage in aggregate and anonymously: page path without query parameters, duration, device type, visit source, approximate region, clicked control and provider page views. Vercel also measures page speed and experience metrics without building a visitor profile. Form data and Weyaak conversations are excluded, and analytics stays off until you consent.',
     weyaakTitle: 'Weyaak functional storage',
     weyaakText:
       'Required for the Weyaak interface and session safety. User questions and Weyaak answers are not sent to behavior analytics tables and are not used to build advertising profiles.',
-    externalTitle: 'Third-party performance analytics',
+    externalTitle: 'Advertising and marketing trackers',
     externalText:
-      'Biet Alreef does not currently use external advertising or performance trackers. If one is introduced, its name and purpose will be disclosed and separate consent requested before activation.',
+      'Biet Al Reef does not currently use advertising or marketing trackers to build visitor profiles. If one is introduced, its name and purpose will be disclosed and separate consent requested before activation.',
     save: 'Confirm my choices',
     reject: 'Reject analytics',
     privacy: 'Privacy',

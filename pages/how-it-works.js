@@ -253,7 +253,7 @@ export default function HowItWorksPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE_URL}/how-it-works`} />
         <meta property="og:locale" content="ar_AE" />
-        <meta property="og:image" content={`${SITE_URL}/images/platform/hero-biet-alreef-platform-4k.webp`} />
+        <meta property="og:image" content={`${SITE_URL}/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
 
@@ -363,7 +363,7 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.75rem] border border-[#D9CBAF] bg-[#0F3F1A] shadow-[0_32px_80px_rgba(15,63,26,0.2)]">
             <div className="relative min-h-[520px] md:min-h-[620px]">
               <Image
-                src="/images/platform/hero-biet-alreef-platform-4k.webp"
+                src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp"
                 alt="منصة بيت الريف الرقمية لقطاع البناء والمقاولات في الإمارات"
                 fill
                 className="object-cover object-center"

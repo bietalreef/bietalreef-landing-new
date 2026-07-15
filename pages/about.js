@@ -323,7 +323,7 @@ export default function About() {
               {[
                 ["/why-biet-alreef", "لماذا بيت الريف؟", "المشكلة التي عشناها وما الذي يميز الحل."],
                 ["/how-it-works", "كيف يعمل؟", "رحلة العميل ومزود الخدمة ودور وياك."],
-                ["/platform", "المنصة", "مكونات المنظومة والبيانات والبحث والطلبات."],
+                ["/how-it-works", "طريقة عمل المنصة", "مكونات المنظومة والبيانات والبحث والطلبات."],
                 ["/partners", "الشركاء", "طرق الانضمام والتعاون وبناء الحضور الرقمي."]
               ].map(([href, title, text]) => (
                 <Link key={href} href={href} className="rounded-2xl border border-[#E6DCC8] p-5 transition hover:border-primary hover:shadow-md">

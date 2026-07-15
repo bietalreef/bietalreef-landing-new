@@ -4,14 +4,14 @@ const sections = [
   {
     title: '1. Scope and responsible entity',
     paragraphs: [
-      'This policy explains how Biet Al Reef collects, uses, discloses, retains and protects personal data when users access the website, platform, applications and related services. Biet Al Reef acts as controller where it determines the purposes and means of processing and may act as processor under a separate agreement in limited cases.',
+      'This policy explains how Biet Al Reef collects, uses, discloses, retains and protects personal data when users access the website, platform and related digital services. Biet Al Reef acts as controller where it determines the purposes and means of processing and may act as processor under a separate agreement in limited cases.',
     ],
   },
   {
     title: '2. Data we may collect',
     items: [
       'Identity and contact data, including name, telephone number, email address, language and city.',
-      'Account and verification data, including login details, user type, licences, professional documents and verification status.',
+      'Business verification data, including the requester role, licences, professional documents and verification status.',
       'Business-profile data, including legal and trading names, services, products, projects, service areas, indicative prices and working hours.',
       'Project and request data, including descriptions, locations, measurements, images, budgets, schedules, quotations, responses and communications.',
       'Payment and billing data for paid services; full card data may be processed directly by an approved payment provider and not stored by Biet Al Reef.',
@@ -24,7 +24,7 @@ const sections = [
     title: '3. Sources of data',
     items: [
       'Information provided directly through registration, forms, communications and service requests.',
-      'Information generated through use of the platform, application and Weyaak tools.',
+      'Information generated through use of the website and Weyaak tools.',
       'Information supplied by an authorised customer, provider or partner within a project or request.',
       'Lawfully available public or commercial sources, including official websites, licences and business directories.',
       'Technical providers supporting hosting, analytics, payments, messaging, verification and security.',
@@ -33,7 +33,7 @@ const sections = [
   {
     title: '4. Purposes of processing',
     items: [
-      'Creating and managing accounts and verifying identities, businesses and documents.',
+      'Reviewing business-profile requests and verifying business identities, activities and documents.',
       'Publishing approved provider profiles, products, services and projects.',
       'Matching customer requests with relevant providers according to specialisation, location and available data.',
       'Managing quotation requests, internal tenders, communications and customer support.',
@@ -151,7 +151,7 @@ const sections = [
   {
     title: '16. Cookies and similar technologies',
     items: [
-      'Necessary cookies may be used for login, security, settings and core platform operation.',
+      'Necessary storage may be used for security, language, privacy choices, forms and core website operation.',
       'Analytics, performance or marketing cookies may be used when activated in accordance with applicable consent requirements.',
       'Further details and control options are provided in the Cookie Policy.',
     ],

@@ -11,17 +11,8 @@ import {
   ShoppingBag,
   Bot,
   BriefcaseBusiness,
-  ShieldCheck,
   Menu,
   X,
-  Layers3,
-  Handshake,
-  Headphones,
-  Instagram,
-  Facebook,
-  Youtube,
-  Linkedin,
-  MessageCircle,
   ChevronDown,
   ChevronUp,
   Rocket,
@@ -31,6 +22,7 @@ import {
 } from 'lucide-react';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../data/uaeAtlasImages';
+import Footer from './Footer';
 
 const primaryLinks = [
   { href: '/en', label: 'Home', icon: Home },
@@ -41,7 +33,7 @@ const primaryLinks = [
 ];
 
 const platformLinks = [
-  { href: '/en/platform', label: 'Explore the Platform', icon: Rocket },
+  { href: '/en/how-it-works', label: 'Explore the Platform', icon: Rocket },
   { href: '/en/weyaak', label: 'Weyaak AI', icon: Bot },
 ];
 
@@ -56,74 +48,6 @@ const desktopLinks = [
   { href: '/en/weyaak', label: 'Weyaak', icon: Bot },
   { href: '/en/about', label: 'About us', icon: Building2 },
   { href: '/en/contact', label: 'Contact us', icon: Building2 },
-];
-
-const socialLinks = [
-  { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
-  { href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn', label: 'Instagram', icon: Instagram },
-  { href: 'https://www.facebook.com/share/14fy6hGM7SJ/', label: 'Facebook', icon: Facebook },
-  { href: 'https://youtube.com/@bietalreef?si=z78hlji5r9YheMGj', label: 'YouTube', icon: Youtube },
-  { href: 'https://www.tiktok.com/@bietalreef0?_r=1&_t=ZS-97iuKMbktCn', label: 'TikTok', icon: 'tiktok' },
-  { href: 'https://www.linkedin.com/in/bietalreef', label: 'LinkedIn', icon: Linkedin },
-];
-
-const footerGroups = [
-  {
-    id: 'biet-alreef',
-    title: 'Biet Al Reef',
-    icon: Home,
-    links: [
-      ['/en/about', 'About Biet Al Reef'],
-      ['/en/why-biet-alreef', 'Why Biet Al Reef'],
-      ['/en/how-it-works', 'How it works'],
-    ],
-  },
-  {
-    id: 'platform',
-    title: 'Platform',
-    icon: Layers3,
-    links: [
-      ['/en/platform', 'Explore the Platform'],
-      ['/en/uae', 'UAE Directory'],
-      ['/en/providers', 'Service Providers'],
-      ['/en/services', 'Services & Offers'],
-      ['/en/marketplace', 'Products & Stores'],
-      ['/en/pricing', 'Pricing'],
-      ['/en/blog', 'Blog'],
-    ],
-  },
-  {
-    id: 'partners',
-    title: 'Partners',
-    icon: Handshake,
-    links: [
-      ['/en/partners', 'Become a partner'],
-      ['/en/providers/register', 'Join as a service provider'],
-      ['/en/suppliers', 'Suppliers'],
-      ['/en/factories', 'Factories & Workshops'],
-    ],
-  },
-  {
-    id: 'support',
-    title: 'Support',
-    icon: Headphones,
-    links: [
-      ['/en/contact', 'Contact us'],
-      ['/en/faq', 'FAQ'],
-      ['/en/support-policy', 'Support policy'],
-      ['tel:+971567856001', 'Call us'],
-    ],
-  },
-  {
-    id: 'legal',
-    title: 'Legal',
-    icon: ShieldCheck,
-    links: [
-      ['/en/privacy', 'Privacy Policy'],
-      ['/en/legal', 'Terms & Conditions'],
-      ['/en/cookies', 'Cookie Policy'],
-    ],
-  },
 ];
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
@@ -153,22 +77,6 @@ function isActivePath(pathname, href) {
   const cleanHref = href.split('?')[0];
   if (cleanHref === '/en') return pathname === '/en';
   return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
-}
-
-function TikTokIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M16.6 5.82c1.04.75 2.31 1.19 3.68 1.19v3.18c-1.34 0-2.6-.29-3.68-.82v5.87c0 3.58-2.9 6.48-6.48 6.48S3.64 18.82 3.64 15.24s2.9-6.48 6.48-6.48c.4 0 .79.04 1.17.11v3.33a3.14 3.14 0 1 0 2.14 2.98V2.28h3.17c.14 1.43.88 2.68 2 3.54Z" />
-    </svg>
-  );
-}
-
-function SocialLink({ href, label, icon: Icon }) {
-  return (
-    <a href={href} aria-label={label} title={label} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark">
-      {Icon === 'tiktok' ? <TikTokIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
-    </a>
-  );
 }
 
 function EnglishUaeDirectoryPremium() {
@@ -268,33 +176,9 @@ function EnglishUaeDirectoryPremium() {
   );
 }
 
-function FooterLink({ href, children }) {
-  if (href?.startsWith('tel:') || href?.startsWith('mailto:') || href?.startsWith('http')) {
-    return <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</a>;
-  }
-  return <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</Link>;
-}
-
-function FooterAccordionSection({ section, isOpen, onToggle }) {
-  const Icon = section.icon;
-  return (
-    <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
-        <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
-        <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
-      </button>
-      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
-        <ul className="space-y-1">
-          {section.links.map(([href, label]) => <li key={`${section.id}-${href}-${label}`}><FooterLink href={href}>{label}</FooterLink></li>)}
-        </ul>
-      </div>
-    </nav>
-  );
-}
-
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
   return (
-    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'mr-8' : ''}`}>
+    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'ml-8' : ''}`}>
       <Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} />
       <span>{label}</span>
     </Link>
@@ -304,7 +188,7 @@ function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }
 function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   return (
     <div className="border-t border-gray-100 pt-3">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
         <span className="flex items-center gap-3">
           <Icon className="h-5 w-5 text-primary" />
           {title}
@@ -319,15 +203,13 @@ function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
 export default function EnglishLayout({ children }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [openSection, setOpenSection] = useState(null);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
-  const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
   const closeMenu = () => setOpen(false);
   const isEnglishUaePage = router.pathname === '/en/uae' || router.asPath?.split('?')[0] === '/en/uae';
 
   return (
-    <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+    <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
       <style jsx global>{`
         .english-readable main :where(h1, h2, h3, h4, p, li, span, a, button),
         .english-footer-text,
@@ -335,8 +217,8 @@ export default function EnglishLayout({ children }) {
           unicode-bidi: plaintext;
         }
       `}</style>
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="ltr">
           <Link href="/en" className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
               <Image src="/logo.png" alt="Biet Al Reef" width={44} height={44} className="h-full w-full object-contain" priority />
@@ -357,7 +239,7 @@ export default function EnglishLayout({ children }) {
               <span>AR</span>
               <span aria-hidden="true">🇦🇪</span>
             </Link>
-            <Link href="/en/platform" className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap" title="Learn about the Biet Al Reef platform">
+            <Link href="/en/how-it-works" className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap" title="Learn about the Biet Al Reef platform">
               Learn about the platform
             </Link>
           </div>
@@ -373,6 +255,7 @@ export default function EnglishLayout({ children }) {
           </div>
         </nav>
       </header>
+      <div className="h-[65px] w-full" aria-hidden="true" />
 
       {open && (
         <div className="fixed inset-0 z-[100] md:hidden" dir="rtl">
@@ -413,7 +296,7 @@ export default function EnglishLayout({ children }) {
                 <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">EN</span>
                 <Link href="/" onClick={closeMenu} className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AR 🇦🇪</Link>
               </div>
-              <Link href="/en/platform" onClick={closeMenu} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg">
+              <Link href="/en/how-it-works" onClick={closeMenu} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg">
                 Learn about the platform
                 <Rocket className="h-4 w-4" />
               </Link>
@@ -424,25 +307,7 @@ export default function EnglishLayout({ children }) {
 
       {isEnglishUaePage ? <EnglishUaeDirectoryPremium /> : <div className="english-readable">{children}</div>}
 
-      <footer className="mt-16 border-t border-[#E6DCC8] bg-white text-gray-900 md:mt-24" dir="rtl" role="contentinfo">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className="text-center md:text-right english-footer-text">
-              <Image src="/logo.png" alt="Biet Al Reef" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
-              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">
-                A UAE digital platform helping project owners discover suitable construction providers while enabling companies, suppliers, factories, workshops and skilled professionals to present their expertise clearly.
-              </p>
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
-                {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
-              </div>
-            </div>
-            <div className="md:contents english-footer-text">
-              {footerGroups.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
-            </div>
-          </div>
-        </div>
-        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">All rights reserved © 2026 Biet Al Reef</div>
-      </footer>
+      <Footer locale="en" />
     </div>
   );
 }

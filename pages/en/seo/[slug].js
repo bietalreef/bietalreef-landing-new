@@ -47,7 +47,7 @@ export default function EnglishSeoFeaturePage({ page, slug }) {
           <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A] mb-5">{page.heading}</h1>
           <p className="text-gray-600 leading-8 max-w-3xl mb-10">{page.description}</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
-            <Link href="/en/platform" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Platform</Link>
+            <Link href="/en/how-it-works" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">How it works</Link>
             <Link href="/en/marketplace" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Marketplace</Link>
             <Link href="/en/tools" className="bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:border-[#D4AF37]">Tools</Link>
           </div>

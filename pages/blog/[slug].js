@@ -128,7 +128,7 @@ export default function BlogPost({ post, relatedPosts }) {
           <section className="bg-gradient-to-r from-emerald-700 to-emerald-600 text-white py-12 mt-12">
             <div className="max-w-4xl mx-auto px-4 text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">هل تريد تحويل مشروعك إلى واقع؟</h2>
-              <p className="text-lg text-emerald-100 mb-6">ابدأ من صفحة مزود الخدمة أو التواصل المنظم قبل الانتقال إلى التطبيق.</p>
+              <p className="text-lg text-emerald-100 mb-6">ابدأ من صفحة مزود الخدمة أو أرسل طلبًا منظمًا عبر بيت الريف.</p>
               <Link href="/providers/register?source=blog-cta">
                 <a className="inline-block px-8 py-3 bg-white text-emerald-600 font-bold rounded-lg hover:bg-emerald-50 transition-colors">ابدأ الآن</a>
               </Link>

@@ -283,7 +283,7 @@ export default function AboutEnglishPage() {
               {[
                 ['/en/why-biet-alreef', 'Why Biet Al Reef?', 'The market problem we experienced and what makes the solution different.'],
                 ['/en/how-it-works', 'How it works', 'The customer and provider journeys and the role of Weyaak.'],
-                ['/en/platform', 'The Platform', 'The ecosystem, discovery paths, requests and managed internal tenders.'],
+                ['/en/how-it-works', 'How the platform works', 'The ecosystem, discovery paths, requests and managed internal tenders.'],
                 ['/en/partners', 'Partners', 'How providers, suppliers, factories and workshops can join.'],
               ].map(([href, title, text]) => (
                 <Link key={href} href={href} className="rounded-2xl border border-[#E6DCC8] p-5 transition hover:border-primary hover:shadow-md">

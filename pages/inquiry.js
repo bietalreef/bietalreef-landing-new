@@ -13,6 +13,7 @@ export default function InquiryPage() {
         description={description}
         keywords="استفسار بيت الريف, تواصل بيت الريف, خدمات البناء الإمارات, مزودو الخدمات"
         canonicalPath="/inquiry"
+        alternatePath="/en/service-inquiry"
       />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar />

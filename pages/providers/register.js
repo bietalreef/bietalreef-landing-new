@@ -2,13 +2,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { ArrowLeft, BadgeCheck, BarChart3, Building2, FileText, MapPinned, MessageCircle, ShieldCheck, Smartphone, Sparkles, UsersRound } from 'lucide-react';
+import { ArrowLeft, BadgeCheck, BarChart3, Building2, FileText, MapPinned, ShieldCheck, Layers3, Sparkles } from 'lucide-react';
 
 const features = [
   { title: 'ملف مهني منظم', desc: 'اعرض نشاطك، تخصصاتك، مناطق خدمتك، صور الأعمال، وبيانات التواصل في صفحة واضحة.', icon: Building2 },
   { title: 'ظهور حسب الإمارة والخدمة', desc: 'نربط حضورك بدليل الإمارات ومسارات البحث حسب المكان والتخصص بدل الظهور العشوائي.', icon: MapPinned },
   { title: 'استقبال طلبات مؤهلة', desc: 'بدل رسائل ناقصة، يصل إليك طلب أوضح يحتوي نوع الخدمة، الموقع، الصور والتفاصيل الأساسية.', icon: FileText },
-  { title: 'إدارة من الهاتف', desc: 'التطبيق هو مركز التشغيل لمتابعة الطلبات، العروض، بيانات النشاط والتواصل مع العملاء.', icon: Smartphone },
+  { title: 'إدارة مركزية موثوقة', desc: 'يتولى فريق بيت الريف إنشاء الصفحة وتحديث البيانات والصور والخدمات بعد المراجعة والاعتماد.', icon: Layers3 },
   { title: 'ثقة وهوية رقمية', desc: 'وجودك داخل بيت الريف يساعد العميل على فهم نشاطك قبل التواصل، ويمنح عملك صورة أكثر احترافية.', icon: ShieldCheck },
   { title: 'نمو بدون عمولة مباشرة', desc: 'هدفنا بناء حضور رقمي مستدام لنشاطك، وليس مجرد إعلان مؤقت ينتهي بانتهاء الميزانية.', icon: BarChart3 },
 ];
@@ -16,12 +16,12 @@ const features = [
 const steps = [
   'راجع فكرة الانضمام والمميزات داخل هذه الصفحة.',
   'جهّز بيانات نشاطك: الاسم التجاري، التخصصات، المناطق، الصور ووسائل التواصل.',
-  'افتح التطبيق من آخر الصفحة لإكمال التسجيل أو الوصول إلى حساب مزود الخدمة.',
+  'أرسل طلب إضافة النشاط، ثم يتولى فريق بيت الريف المراجعة والإنشاء والنشر والتحديث.',
 ];
 
 export default function ProviderRegisterPage() {
   const title = 'انضم كمزود خدمة إلى بيت الريف';
-  const desc = 'صفحة هبوط تشرح لمزود الخدمة كيف يساعده بيت الريف على بناء حضور رقمي منظم، استقبال طلبات أوضح، وإدارة نشاطه من تطبيق بيت الريف.';
+  const desc = 'صفحة تشرح لمزود الخدمة كيف يساعده بيت الريف على بناء حضور رقمي منظم واستقبال طلبات أوضح عبر صفحة منشورة يديرها فريق المنصة.';
 
   return (
     <>
@@ -41,15 +41,15 @@ export default function ProviderRegisterPage() {
                 <h1 className="mt-6 max-w-4xl text-4xl font-black leading-tight md:text-6xl">اجعل نشاطك حاضرًا حيث يبحث العميل عن الخدمة</h1>
                 <p className="mt-6 max-w-3xl text-base font-semibold leading-9 text-white/88 md:text-xl">بيت الريف لا يضعك في قائمة أسماء فقط؛ بل يبني لك مسارًا رقميًا واضحًا يربط نشاطك بالمكان، التخصص، الطلبات، والظهور داخل منصة موجهة لقطاع البناء والصيانة في الإمارات.</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a href="#provider-app" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5">افتح التطبيق بعد الشرح<ArrowLeft className="h-5 w-5" /></a>
+                  <a href="#provider-request" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5">اطلب إضافة نشاطك<ArrowLeft className="h-5 w-5" /></a>
                   <Link href="/contact" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/8 px-7 py-4 text-base font-black text-white transition hover:bg-white/14">تواصل مع الفريق</Link>
                 </div>
               </div>
               <div className="rounded-[2rem] border border-white/14 bg-white/10 p-5 shadow-2xl backdrop-blur">
                 <div className="rounded-[1.5rem] bg-white p-6 text-[#0F3F1A]">
-                  <Smartphone className="mb-5 h-12 w-12 text-[#D4AF37]" />
-                  <h2 className="text-2xl font-black">ما الذي يقدمه التطبيق؟</h2>
-                  <p className="mt-3 text-sm font-semibold leading-8 text-gray-600">التطبيق هو مركز تشغيل مزود الخدمة: بيانات النشاط، الطلبات، التواصل، عروض السعر، ومتابعة حضورك الرقمي في مكان واحد.</p>
+                  <Layers3 className="mb-5 h-12 w-12 text-[#D4AF37]" />
+                  <h2 className="text-2xl font-black">ما الذي ينشره بيت الريف؟</h2>
+                  <p className="mt-3 text-sm font-semibold leading-8 text-gray-600">صفحة نشاط واضحة تضم الملف المهني والخدمات والمنتجات والمشاريع ومناطق الخدمة ووسائل التواصل بعد مراجعتها واعتمادها.</p>
                   <div className="mt-5 grid grid-cols-2 gap-3 text-center text-xs font-black">
                     <span className="rounded-2xl bg-[#F7F2E8] px-3 py-3">طلبات منظمة</span>
                     <span className="rounded-2xl bg-[#F7F2E8] px-3 py-3">ملف مهني</span>
@@ -80,9 +80,9 @@ export default function ProviderRegisterPage() {
           <section className="bg-white px-4 py-14 md:py-20">
             <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.9fr_1.1fr]">
               <div>
-                <span className="text-sm font-black text-[#6F5400]">قبل فتح التطبيق</span>
+                <span className="text-sm font-black text-[#6F5400]">قبل طلب الإضافة</span>
                 <h2 className="mt-3 text-3xl font-black text-[#0F3F1A] md:text-5xl">مسار الانضمام واضح</h2>
-                <p className="mt-5 text-base font-semibold leading-9 text-gray-600">هذه الصفحة هي نقطة الشرح الأولى. بعدها فقط ينتقل مزود الخدمة إلى التطبيق لإكمال التسجيل أو الدخول.</p>
+                <p className="mt-5 text-base font-semibold leading-9 text-gray-600">تواصل مع فريق بيت الريف وأرسل البيانات الأساسية. ينشئ الفريق مسودة برقم مزود، يراجع المحتوى والصور معك، ثم ينشر الصفحة بعد الاعتماد.</p>
               </div>
               <div className="space-y-4">
                 {steps.map((step, index) => (
@@ -95,12 +95,12 @@ export default function ProviderRegisterPage() {
             </div>
           </section>
 
-          <section id="provider-app" className="mx-auto max-w-5xl px-4 py-14 text-center md:py-20">
+          <section id="provider-request" className="mx-auto max-w-5xl px-4 py-14 text-center md:py-20">
             <div className="rounded-[2.5rem] border border-[#E6DCC8] bg-white p-8 shadow-xl md:p-12">
               <Sparkles className="mx-auto mb-5 h-12 w-12 text-[#D4AF37]" />
-              <h2 className="text-3xl font-black text-[#0F3F1A] md:text-5xl">جاهز للدخول إلى تطبيق بيت الريف؟</h2>
-              <p className="mx-auto mt-5 max-w-3xl text-base font-semibold leading-9 text-gray-600">بعد معرفة المميزات والهدف من الانضمام، يمكنك الآن فتح التطبيق لإكمال التسجيل أو الدخول كمزود خدمة.</p>
-              <a href="https://app.bietalreef.ae" className="mt-8 inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg transition hover:bg-[#143D1F]">فتح تطبيق بيت الريف<ArrowLeft className="h-5 w-5" /></a>
+              <h2 className="text-3xl font-black text-[#0F3F1A] md:text-5xl">جاهز لطلب إضافة نشاطك؟</h2>
+              <p className="mx-auto mt-5 max-w-3xl text-base font-semibold leading-9 text-gray-600">تواصل مع فريق بيت الريف لاختيار الخطة المناسبة وتجهيز صفحة نشاطك وكروت الخدمات والمنتجات والمشاريع بطريقة منظمة.</p>
+              <Link href="/contact?source=provider-request" className="mt-8 inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg transition hover:bg-[#143D1F]">تواصل مع فريق بيت الريف<ArrowLeft className="h-5 w-5" /></Link>
             </div>
           </section>
         </main>

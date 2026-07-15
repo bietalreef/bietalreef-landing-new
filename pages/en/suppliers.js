@@ -6,8 +6,9 @@ export default function SuppliersEnglishPage() {
       title="Suppliers"
       description="A future path for suppliers of building materials, finishing products and project essentials to be discovered within the Biet Al Reef ecosystem."
       path="/en/suppliers"
+      arabicPath="/suppliers"
       ctaHref="/en/providers/register"
-      ctaLabel="Register supplier interest"
+      ctaLabel="Request a supplier profile"
     />
   );
 }

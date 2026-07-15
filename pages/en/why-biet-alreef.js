@@ -24,7 +24,7 @@ export default function WhyBietAlReefEnglishPage() {
       related={[
         { href: '/en/about', label: 'About Biet Al Reef' },
         { href: '/en/how-it-works', label: 'How it works' },
-        { href: '/en/platform', label: 'Explore the platform' },
+        { href: '/en/how-it-works', label: 'See how it works' },
       ]}
       faqs={[
         ['What makes Biet Al Reef different from a normal business directory?', 'Biet Al Reef does more than list names and phone numbers. It organises providers by activity, specialty, service, product and service area, then connects that structure to customer requests and quotation paths.'],

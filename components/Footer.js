@@ -14,7 +14,7 @@ import {
   Linkedin,
   MessageCircle,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
 } from 'lucide-react';
 
 const socialLinks = [
@@ -26,63 +26,44 @@ const socialLinks = [
   { href: 'https://www.linkedin.com/in/bietalreef', label: 'LinkedIn', icon: Linkedin },
 ];
 
-const footerSections = [
-  {
-    id: 'biet-alreef',
-    title: 'بيت الريف',
-    icon: Home,
-    links: [
-      { href: '/about', label: 'عن بيت الريف' },
-      { href: '/why-biet-alreef', label: 'لماذا بيت الريف' }
-    ]
+const copy = {
+  ar: {
+    dir: 'rtl',
+    home: '/',
+    prefix: '',
+    promoEyebrow: 'حضور رقمي يناسب مرحلة نشاطك',
+    promoTitle: 'نظّم خدماتك وأعمالك في ملف واضح يسهل اكتشافه وفهمه',
+    promoText: 'تساعدك خطط بيت الريف على تقديم بيانات نشاطك بصورة منظمة داخل المسارات المناسبة. مستوى الظهور يعتمد على الخطة واكتمال البيانات وتوافق النشاط والموقع، دون ضمان ترتيب أو عدد محدد من الطلبات.',
+    promoAction: 'استعرض الخطط والأسعار',
+    description: 'منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي خدمات البناء المناسبين، وتمكّن الشركات والموردين والورش والحرفيين من تقديم خبراتهم بصورة واضحة ومنظمة.',
+    rights: 'جميع الحقوق محفوظة © 2026 بيت الريف',
+    sections: [
+      { id: 'biet-alreef', title: 'بيت الريف', icon: Home, links: [['/about', 'عن بيت الريف'], ['/why-biet-alreef', 'لماذا بيت الريف']] },
+      { id: 'platform', title: 'المنصة', icon: Layers3, links: [['/how-it-works', 'تعرّف على المنصة وكيف تعمل'], ['/uae', 'دليل الإمارات'], ['/providers', 'مزودو الخدمات'], ['/services', 'الخدمات والعروض'], ['/marketplace', 'المنتجات والمتاجر'], ['/pricing', 'الخطط والأسعار'], ['/blog', 'المدونة']] },
+      { id: 'partners', title: 'الشركاء', icon: Handshake, links: [['/partners', 'كن شريكًا'], ['/providers/register', 'اطلب إضافة نشاطك'], ['/suppliers', 'الموردون'], ['/factories', 'المصانع والورش']] },
+      { id: 'support', title: 'الدعم', icon: Headphones, links: [['/contact', 'تواصل معنا'], ['/faq', 'الأسئلة الشائعة'], ['/support-policy', 'سياسة الدعم'], ['tel:+971567856001', 'اتصل بنا']] },
+      { id: 'legal', title: 'القانونية', icon: ShieldCheck, links: [['/privacy', 'الخصوصية'], ['/legal', 'الشروط والأحكام'], ['/cookies', 'سياسة ملفات الارتباط']] },
+    ],
   },
-  {
-    id: 'platform',
-    title: 'المنصة',
-    icon: Layers3,
-    links: [
-      { href: '/how-it-works', label: 'تعرّف على المنصة وكيف تعمل' },
-      { href: '/uae', label: 'دليل الإمارات' },
-      { href: '/providers', label: 'مزودو الخدمات' },
-      { href: '/services', label: 'الخدمات والعروض' },
-      { href: '/marketplace', label: 'المنتجات والمتاجر' },
-      { href: '/pricing', label: 'الخطط والأسعار' },
-      { href: '/blog', label: 'المدونة' }
-    ]
+  en: {
+    dir: 'ltr',
+    home: '/en',
+    prefix: '/en',
+    promoEyebrow: 'A digital presence that fits your business stage',
+    promoTitle: 'Organise your services and work in a profile that is easy to discover and understand',
+    promoText: 'Biet Al Reef plans help present your business information clearly across the relevant paths. Visibility depends on the plan, data completeness and the match between activity and location, without guaranteeing ranking or a fixed number of requests.',
+    promoAction: 'View plans and pricing',
+    description: 'A UAE digital platform that helps project owners discover suitable construction providers and enables companies, suppliers, workshops and skilled professionals to present their expertise clearly.',
+    rights: 'All rights reserved © 2026 Biet Al Reef',
+    sections: [
+      { id: 'biet-alreef', title: 'Biet Al Reef', icon: Home, links: [['/en/about', 'About Biet Al Reef'], ['/en/why-biet-alreef', 'Why Biet Al Reef']] },
+      { id: 'platform', title: 'Platform', icon: Layers3, links: [['/en/how-it-works', 'Learn how the platform works'], ['/en/uae', 'UAE Directory'], ['/en/providers', 'Service Providers'], ['/en/services', 'Services & Offers'], ['/en/marketplace', 'Products & Stores'], ['/en/pricing', 'Plans & Pricing'], ['/en/blog', 'Blog']] },
+      { id: 'partners', title: 'Partners', icon: Handshake, links: [['/en/partners', 'Become a partner'], ['/en/providers/register', 'Request a business profile'], ['/en/suppliers', 'Suppliers'], ['/en/factories', 'Factories & Workshops']] },
+      { id: 'support', title: 'Support', icon: Headphones, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['/en/support-policy', 'Support policy'], ['tel:+971567856001', 'Call us']] },
+      { id: 'legal', title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/legal', 'Terms & Conditions'], ['/en/cookies', 'Cookie Policy']] },
+    ],
   },
-  {
-    id: 'partners',
-    title: 'الشركاء',
-    icon: Handshake,
-    links: [
-      { href: '/partners', label: 'كن شريكًا' },
-      { href: '/providers/register', label: 'انضم كمزود خدمة' },
-      { href: '/suppliers', label: 'الموردون' },
-      { href: '/factories', label: 'المصانع والورش' }
-    ]
-  },
-  {
-    id: 'support',
-    title: 'الدعم',
-    icon: Headphones,
-    links: [
-      { href: '/contact', label: 'تواصل معنا' },
-      { href: '/faq', label: 'الأسئلة الشائعة' },
-      { href: '/support-policy', label: 'سياسة الدعم' },
-      { href: 'tel:+971567856001', label: 'اتصل بنا' }
-    ]
-  },
-  {
-    id: 'legal',
-    title: 'القانونية',
-    icon: ShieldCheck,
-    links: [
-      { href: '/privacy', label: 'الخصوصية' },
-      { href: '/legal', label: 'الشروط والأحكام' },
-      { href: '/cookies', label: 'سياسة ملفات الارتباط' }
-    ]
-  }
-];
+};
 
 function TikTokIcon(props) {
   return (
@@ -101,62 +82,63 @@ function SocialLink({ href, label, icon: Icon }) {
 }
 
 function FooterLink({ href, children }) {
-  if (href?.startsWith('tel:') || href?.startsWith('mailto:')) {
-    return <a href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</a>;
-  }
-  return <Link href={href} className="block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary">{children}</Link>;
+  const className = 'block py-1.5 text-sm font-medium leading-6 text-gray-600 transition [overflow-wrap:anywhere] hover:text-primary';
+  if (href?.startsWith('tel:') || href?.startsWith('mailto:')) return <a href={href} className={className}>{children}</a>;
+  return <Link href={href} className={className}>{children}</Link>;
 }
 
-function FooterAccordionSection({ section, isOpen, onToggle }) {
+function FooterAccordionSection({ section, isOpen, onToggle, textAlign }) {
   const Icon = section.icon;
   return (
-    <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-5 text-right md:pointer-events-none md:cursor-default md:py-0" aria-expanded={isOpen}>
-        <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
-        <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
+    <nav aria-label={section.title} className="min-w-0 border-b border-[#E6DCC8] lg:border-b-0">
+      <button type="button" onClick={onToggle} className={`flex w-full items-center justify-between py-5 ${textAlign} lg:pointer-events-none lg:cursor-default lg:py-0`} aria-expanded={isOpen}>
+        <h2 className="flex min-w-0 items-center gap-2 text-base font-black leading-6 text-primary"><Icon className="h-5 w-5 shrink-0" /><span>{section.title}</span></h2>
+        <span className="shrink-0 text-primary lg:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
       </button>
-      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 pr-7 md:block md:pb-0 md:pr-0`}>
-        <ul className="space-y-1">
-          {section.links.map((link) => <li key={`${section.id}-${link.href}-${link.label}`}><FooterLink href={link.href}>{link.label}</FooterLink></li>)}
-        </ul>
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 lg:block lg:pb-0`}>
+        <ul className="space-y-1">{section.links.map(([href, label]) => <li key={`${section.id}-${href}`}><FooterLink href={href}>{label}</FooterLink></li>)}</ul>
       </div>
     </nav>
   );
 }
 
-export { footerSections, socialLinks };
+export { socialLinks };
 
-export default function Footer() {
+export default function Footer({ locale = 'ar' }) {
+  const language = locale === 'en' ? 'en' : 'ar';
+  const t = copy[language];
   const [openSection, setOpenSection] = useState(null);
-  const toggleSection = (sectionId) => setOpenSection((current) => (current === sectionId ? null : sectionId));
+  const textAlign = language === 'en' ? 'text-left' : 'text-right';
+  const desktopAlign = language === 'en' ? 'md:text-left' : 'md:text-right';
+  const desktopSocial = language === 'en' ? 'md:justify-start' : 'md:justify-end';
 
   return (
     <>
-      <UniversalRequestCTA locale="ar" />
-      <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir="rtl" role="contentinfo">
+      <UniversalRequestCTA locale={language} />
+      <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir={t.dir} role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#FFF9E8] p-6 shadow-[0_16px_40px_rgba(15,63,26,0.08)] md:flex md:items-center md:justify-between md:gap-8">
+          <div className={`mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#FFF9E8] p-6 shadow-[0_16px_40px_rgba(15,63,26,0.08)] md:flex md:items-center md:justify-between md:gap-8 ${textAlign}`}>
             <div>
-              <p className="text-sm font-black text-[#A27E18]">حضور رقمي يناسب مرحلة نشاطك</p>
-              <h2 className="mt-2 text-2xl font-black leading-tight text-[#102F18]">نظّم خدماتك وأعمالك في ملف واضح يسهل اكتشافه وفهمه</h2>
-              <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600">تساعدك خطط بيت الريف على تقديم بيانات نشاطك بصورة منظمة داخل المسارات المناسبة. مستوى الظهور يعتمد على الخطة واكتمال البيانات وتوافق النشاط والموقع، دون ضمان ترتيب أو عدد محدد من الطلبات.</p>
+              <p className="text-sm font-black text-[#A27E18]">{t.promoEyebrow}</p>
+              <h2 className="mt-2 text-2xl font-black leading-tight text-[#102F18]">{t.promoTitle}</h2>
+              <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600">{t.promoText}</p>
             </div>
-            <Link href="/pricing" className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">استعرض الخطط والأسعار</Link>
+            <Link href={`${t.prefix}/pricing`} className="mt-5 inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">{t.promoAction}</Link>
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className="text-center md:text-right">
-              <Image src="/logo.png" alt="بيت الريف" width={110} height={110} className="mx-auto h-24 w-24 object-contain md:mx-0" />
-              <p className="mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 md:mx-0">منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي خدمات البناء المناسبين، وتمكّن الشركات والموردين والورش والحرفيين من تقديم خبراتهم بصورة واضحة ومنظمة.</p>
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 md:justify-start" dir="ltr">
-                {socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}
-              </div>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-0 lg:grid-cols-2 lg:gap-y-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
+            <div className={`text-center lg:col-span-2 xl:col-span-1 ${desktopAlign}`}>
+              <Link href={t.home} aria-label={language === 'en' ? 'Biet Al Reef home' : 'الرئيسية'}>
+                <Image src="/logo.png" alt={language === 'en' ? 'Biet Al Reef' : 'بيت الريف'} width={110} height={110} className={`mx-auto h-24 w-24 object-contain ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`} />
+              </Link>
+              <p className={`mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`}>{t.description}</p>
+              <div className={`mt-5 flex flex-wrap items-center justify-center gap-3 ${desktopSocial}`} dir="ltr">{socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}</div>
             </div>
-            <div className="md:contents">
-              {footerSections.map((section) => <FooterAccordionSection key={section.id} section={section} isOpen={openSection === section.id} onToggle={() => toggleSection(section.id)} />)}
+            <div className="lg:contents">
+              {t.sections.map((section) => <FooterAccordionSection key={section.id} section={section} textAlign={textAlign} isOpen={openSection === section.id} onToggle={() => setOpenSection((current) => current === section.id ? null : section.id)} />)}
             </div>
           </div>
         </div>
-        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">جميع الحقوق محفوظة © 2026 بيت الريف</div>
+        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-white">{t.rights}</div>
       </footer>
     </>
   );

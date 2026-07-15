@@ -1,0 +1,22 @@
+{
+  "id": "/",
+  "name": "بيت الريف | Biet Al Reef",
+  "short_name": "بيت الريف",
+  "description": "منصة بيت الريف لخدمات البناء والتصميم والصيانة في الإمارات",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "any",
+  "theme_color": "#0F3F1A",
+  "background_color": "#FDFBF7",
+  "icons": [{ "src": "/logo.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any maskable" }],
+  "shortcuts": [
+    { "name": "دليل الإمارات", "short_name": "الدليل", "url": "/uae?source=pwa-shortcut" },
+    { "name": "مزودو الخدمات", "short_name": "المزودون", "url": "/providers?source=pwa-shortcut" },
+    { "name": "الخدمات والعروض", "short_name": "الخدمات", "url": "/services?source=pwa-shortcut" },
+    { "name": "وياك", "short_name": "وياك", "url": "/weyaak?source=pwa-shortcut" }
+  ]
+}

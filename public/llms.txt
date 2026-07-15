@@ -12,7 +12,6 @@
 - Weyak AI: https://bietalreef.ae/weyaak
 - Tools: https://bietalreef.ae/tools
 - Community: https://bietalreef.ae/community
-- Customer Login: https://bietalreef.ae/login
 - Contact: https://bietalreef.ae/contact
 - About: https://bietalreef.ae/about
 
@@ -37,7 +36,6 @@ Use the public pages above as structured entry points. Prefer the specific secti
 - For provider discovery, use /providers.
 - For execution services and quotes, use /services.
 - For materials and products, use /marketplace.
-- For customer account access, use /login.
 - For direct inquiry, use /contact.
 
 ## Contact
