@@ -55,6 +55,21 @@ function isActivePath(pathname, href) {
   return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
 }
 
+function getEnglishPath(asPath = '/') {
+  const [pathAndQuery = '/', hash = ''] = asPath.split('#');
+  const [pathname = '/', query = ''] = pathAndQuery.split('?');
+  const normalizedPath = pathname.startsWith('/en/')
+    ? pathname.slice(3)
+    : pathname === '/en'
+      ? '/'
+      : pathname;
+  const englishPath = normalizedPath === '/'
+    ? '/en'
+    : `/en${normalizedPath.startsWith('/') ? normalizedPath : `/${normalizedPath}`}`;
+
+  return `${englishPath}${query ? `?${query}` : ''}${hash ? `#${hash}` : ''}`;
+}
+
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
   return (
     <Link
@@ -90,10 +105,10 @@ function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   );
 }
 
-function LanguageSwitch({ mobile = false, onClick }) {
+function LanguageSwitch({ href, mobile = false, onClick }) {
   return (
     <Link
-      href="/en"
+      href={href}
       onClick={onClick}
       className={`${mobile ? 'h-10 px-2.5 text-[11px]' : 'min-h-[36px] px-3 py-1.5 text-xs'} inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E6DCC8] bg-white font-black text-primary shadow-sm transition hover:border-primary`}
       aria-label="English version"
@@ -109,6 +124,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
+  const englishHref = getEnglishPath(router.asPath);
 
   const closeMenu = () => setIsOpen(false);
   const openMenu = () => setIsOpen(true);
@@ -139,14 +155,14 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <LanguageSwitch />
+            <LanguageSwitch href={englishHref} />
             <PlatformOverviewLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
               تعرّف على المنصة
             </PlatformOverviewLink>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            <LanguageSwitch mobile />
+            <LanguageSwitch href={englishHref} mobile />
             <button onClick={openMenu} className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-primary shadow-sm" aria-label="فتح القائمة">
               <Menu className="h-6 w-6" />
             </button>
@@ -193,7 +209,7 @@ export default function Navbar() {
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
               <div className="mb-3 grid grid-cols-2 gap-2">
                 <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AE عربي</span>
-                <LanguageSwitch mobile onClick={closeMenu} />
+                <LanguageSwitch href={englishHref} mobile onClick={closeMenu} />
               </div>
               <PlatformOverviewLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
                 تعرّف على المنصة
