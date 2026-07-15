@@ -7,6 +7,7 @@ import PrivacyConsentCenter from "../components/PrivacyConsentCenter";
 import ConsentAwareSpeedInsights from "../components/ConsentAwareSpeedInsights";
 import PwaLifecycleManager from "../components/PwaLifecycleManager";
 import PwaInstallPrompt from "../components/PwaInstallPrompt";
+import WeyaakChatLauncher from "../components/WeyaakChatLauncher";
 import { initPublicAnalytics } from "../lib/publicAnalytics";
 import { useEffect } from "react";
 
@@ -49,6 +50,7 @@ export default function MyApp({ Component, pageProps }) {
           <ArklineProjectsAndChannels currentPath={router.asPath || ''} />
         </>
       ) : null}
+      <WeyaakChatLauncher locale={isEnglishPage ? "en" : "ar"} />
       <PrivacyConsentCenter locale={isEnglishPage ? "en" : "ar"} />
       <ConsentAwareSpeedInsights />
       <PwaInstallPrompt locale={isEnglishPage ? "en" : "ar"} />
