@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import EnglishLayout from '../../components/EnglishLayout';\nimport PlatformStoryVideo from '../../components/PlatformStoryVideo';
+import EnglishLayout from '../../components/EnglishLayout';
+import PlatformStoryVideo from '../../components/PlatformStoryVideo';
 import { ArrowLeft, Bot, Building2, CheckCircle, MapPinned, Search, ShieldCheck, ShoppingBag, Sparkles, UsersRound, Wrench } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
@@ -180,7 +181,9 @@ export default function EnglishHome() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
 
-          <PlatformStoryVideo locale="en" />\n\n          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
+          <PlatformStoryVideo locale="en" />
+
+          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
               <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">For providers</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl"><VisualLine>Operate your business</VisualLine><VisualLine>from your phone.</VisualLine></h2><p className="mx-auto mt-5 max-w-4xl text-base font-semibold leading-9 text-gray-600 md:text-lg"><VisualLine>We are not selling a temporary ad.</VisualLine><VisualLine>We are building a discoverable digital presence.</VisualLine></p></div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
