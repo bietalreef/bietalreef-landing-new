@@ -1,8 +1,9 @@
+import { buildWeyaakSystemPrompt } from '../../lib/weyaakPrompt';
+
 const MODEL = process.env.WEYAAK_MODEL || 'gpt-4o-mini';
-const WEYAAK_VERSION = 'weyaak-live-supabase-v2';
+const WEYAAK_VERSION = 'weyaak-human-flow-v3';
 const SITE_URL = 'https://bietalreef.ae';
 const SUPPORT_PHONE = '+971567856001';
-const SUPPORT_WHATSAPP = 'https://wa.me/971567856001';
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_PUBLIC_KEY =
   process.env.SUPABASE_ANON_KEY ||
@@ -15,8 +16,6 @@ const OFFICIAL_LINKS = {
   request_quote: `${SITE_URL}/request-quote`,
   customer_service: `${SITE_URL}/customer-service`,
   contact: `${SITE_URL}/contact`,
-  whatsapp: SUPPORT_WHATSAPP,
-  phone: `tel:${SUPPORT_PHONE}`,
 };
 
 const GOVERNMENT_SOURCES = {
@@ -32,27 +31,48 @@ const GOVERNMENT_SOURCES = {
   sharjah: [{ label: 'بلدية مدينة الشارقة', href: 'https://www.shjmun.gov.ae/' }],
 };
 
+const CUSTOMER_REQUIRED_FIELDS = [
+  'service_category',
+  'emirate',
+  'city',
+  'specifications',
+  'measurements',
+  'budget_range',
+  'timeline',
+];
+
+const PROVIDER_REQUIRED_FIELDS = [
+  'business_name',
+  'specialty',
+  'service_areas',
+  'license_status',
+  'portfolio_status',
+];
+
+function text(value, max = 2000) {
+  return typeof value === 'string' ? value.trim().slice(0, max) : '';
+}
+
 function createRequestNumber(prefix = 'BR') {
   const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const random = Math.random().toString(36).slice(2, 7).toUpperCase();
   return `${prefix}-${stamp}-${random}`;
 }
 
-function text(value, max = 2000) {
-  return typeof value === 'string' ? value.trim().slice(0, max) : '';
-}
-
 function sanitizeHistory(history) {
   if (!Array.isArray(history)) return [];
   return history
     .filter((item) => item && ['user', 'assistant'].includes(item.role) && typeof item.content === 'string')
-    .slice(-12)
-    .map((item) => ({ role: item.role, content: item.content.trim().slice(0, 2500) }))
+    .slice(-16)
+    .map((item) => ({ role: item.role, content: item.content.trim().slice(0, 2200) }))
     .filter((item) => item.content);
 }
 
-function conversationText(history, message) {
-  return [...history.map((item) => item.content), message].join('\n');
+function userConversationText(history, message) {
+  return [
+    ...history.filter((item) => item.role === 'user').map((item) => item.content),
+    message,
+  ].join('\n');
 }
 
 function detectEmirate(value) {
@@ -66,8 +86,38 @@ function detectEmirate(value) {
   return '';
 }
 
+function emirateLabel(value) {
+  return {
+    abu_dhabi: 'أبوظبي',
+    dubai: 'دبي',
+    sharjah: 'الشارقة',
+    ajman: 'عجمان',
+    umm_al_quwain: 'أم القيوين',
+    ras_al_khaimah: 'رأس الخيمة',
+    fujairah: 'الفجيرة',
+  }[value] || '';
+}
+
+function detectCity(value) {
+  const matches = [
+    ['العين', /(العين|al\s*ain)/i],
+    ['مدينة أبوظبي', /(مدينة\s*أبو\s*ظبي|abu\s*dhabi\s*city)/i],
+    ['دبي', /(دبي|dubai)/i],
+    ['الشارقة', /(الشارقة|sharjah)/i],
+    ['عجمان', /(عجمان|ajman)/i],
+    ['أم القيوين', /(أم\s*القيوين|ام\s*القيوين|umm\s*al\s*quwain)/i],
+    ['رأس الخيمة', /(رأس\s*الخيمة|راس\s*الخيمة|ras\s*al\s*khaimah)/i],
+    ['الفجيرة', /(الفجيرة|fujairah)/i],
+  ];
+  return matches.find(([, pattern]) => pattern.test(value))?.[0] || '';
+}
+
 function isLegalIntent(value) {
-  return /(قانون|قانوني|رخصة|ترخيص|تصريح|مخالفة|بلدية|اشتراطات|اعتماد|نزاع|شكوى|محكمة|legal|license|permit|municipality)/i.test(value);
+  return /(قانون|قانوني|رخصة|ترخيص|تصريح|مخالفة|بلدية|اشتراطات|اعتماد|نزاع|شكوى|محكمة|عقد|legal|license|permit|municipality|court|contract)/i.test(value);
+}
+
+function isSensitiveLegal(value) {
+  return /(نزاع|محكمة|قضية|شكوى|مخالفة|غرامة|عقد|تعويض|مهلة|استئناف|court|dispute|fine|contract|appeal)/i.test(value);
 }
 
 function isTenderIntent(value) {
@@ -75,7 +125,27 @@ function isTenderIntent(value) {
 }
 
 function annualIntentConfirmed(value) {
-  return /(أؤكد|اؤكد|أكد|موافق|جاهز|أريد|ابغى|أبغى|سأشترك|باشترك).{0,30}(سنوي|السنوية|annual)|(سنوي|السنوية|annual).{0,30}(موافق|جاهز|أريد|ابغى|أبغى|اشترك)/i.test(value);
+  return /(أؤكد|اؤكد|موافق|جاهز|أريد|ابغى|أبغى|سأشترك|باشترك).{0,35}(سنوي|السنوية|annual)|(سنوي|السنوية|annual).{0,35}(موافق|جاهز|أريد|ابغى|أبغى|اشترك)/i.test(value);
+}
+
+function normalizePayload(raw = {}) {
+  const fields = [
+    'full_name', 'phone', 'email', 'emirate', 'city', 'service_category',
+    'specifications', 'measurements', 'budget_range', 'timeline',
+    'project_description', 'preferred_contact', 'inquiry_topic', 'message',
+    'business_name', 'specialty', 'service_areas', 'license_status', 'portfolio_status',
+  ];
+  return Object.fromEntries(fields.map((field) => [field, text(raw?.[field], field === 'project_description' || field === 'message' ? 4000 : 600)]));
+}
+
+function mergePayload(previous, extracted) {
+  const oldPayload = normalizePayload(previous);
+  const newPayload = normalizePayload(extracted);
+  return Object.fromEntries(Object.keys(oldPayload).map((key) => [key, newPayload[key] || oldPayload[key] || '']));
+}
+
+function firstMissing(payload, fields) {
+  return fields.find((field) => !text(payload[field], 1000)) || '';
 }
 
 async function supabaseGet(path) {
@@ -114,20 +184,14 @@ async function loadPlatformContext({ annualOfferEligible = false, emirate = '' }
   }));
 
   const annualPlan = plans.find((plan) => !plan.is_free && Number(plan.annual_price) > 0);
-  const annualOffer = annualOfferEligible && annualPlan
-    ? {
-        plan_code: annualPlan.code,
-        plan_name_ar: annualPlan.name_ar,
-        original_price: Number(annualPlan.annual_price),
-        discounted_price: Math.round(Number(annualPlan.annual_price) * 0.9 * 100) / 100,
-        currency: annualPlan.currency || 'AED',
-        discount_percent: 10,
-      }
-    : null;
-
-  const governmentSources = emirate
-    ? [...GOVERNMENT_SOURCES.federal, ...(GOVERNMENT_SOURCES[emirate] || [])]
-    : [];
+  const annualOffer = annualOfferEligible && annualPlan ? {
+    plan_code: annualPlan.code,
+    plan_name_ar: annualPlan.name_ar,
+    original_price: Number(annualPlan.annual_price),
+    discounted_price: Math.round(Number(annualPlan.annual_price) * 0.9 * 100) / 100,
+    currency: annualPlan.currency || 'AED',
+    discount_percent: 10,
+  } : null;
 
   return {
     generated_at: new Date().toISOString(),
@@ -140,155 +204,9 @@ async function loadPlatformContext({ annualOfferEligible = false, emirate = '' }
     subscription_plans: plans,
     provider_examples: publicProviders.slice(0, 3),
     annual_offer: annualOffer,
-    government_sources: governmentSources,
+    government_sources: emirate ? [...GOVERNMENT_SOURCES.federal, ...(GOVERNMENT_SOURCES[emirate] || [])] : [],
     official_links: OFFICIAL_LINKS,
-    customer_service_phone: SUPPORT_PHONE,
   };
-}
-
-function buildIntake(type, defaults = {}) {
-  const common = [
-    { name: 'full_name', label: 'الاسم', type: 'text', required: true, placeholder: 'الاسم الكامل' },
-    { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true, placeholder: '05XXXXXXXX' },
-    { name: 'emirate', label: 'الإمارة', type: 'text', required: true, placeholder: 'مثال: أبوظبي' },
-    { name: 'city', label: 'المدينة', type: 'text', required: false, placeholder: 'مثال: العين' },
-  ];
-
-  if (type === 'provider_interest') {
-    return {
-      type,
-      title: 'طلب الانضمام كشريك مزود خدمة',
-      submit_label: 'مراجعة طلب الانضمام',
-      fields: [
-        { name: 'full_name', label: 'اسم المسؤول', type: 'text', required: true, placeholder: 'الاسم الكامل' },
-        { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true, placeholder: '05XXXXXXXX' },
-        { name: 'business_name', label: 'اسم النشاط', type: 'text', required: true, placeholder: 'الاسم التجاري' },
-        { name: 'specialty', label: 'التخصص', type: 'text', required: true, placeholder: 'الخدمات الرئيسية' },
-        { name: 'service_areas', label: 'مناطق الخدمة', type: 'text', required: true, placeholder: 'الإمارات والمدن التي تخدمها' },
-        { name: 'message', label: 'ملاحظات', type: 'textarea', required: false, placeholder: 'الرخصة، الخبرة، صور الأعمال أو أي تفاصيل' },
-      ],
-      defaults,
-    };
-  }
-
-  if (type === 'inquiry') {
-    return {
-      type,
-      title: 'إرسال استفسار إلى فريق بيت الريف',
-      submit_label: 'مراجعة الاستفسار',
-      fields: [
-        ...common.slice(0, 2),
-        { name: 'inquiry_topic', label: 'موضوع الاستفسار', type: 'text', required: true, placeholder: 'موضوع الاستفسار' },
-        { name: 'message', label: 'التفاصيل', type: 'textarea', required: true, placeholder: 'اكتب التفاصيل بوضوح' },
-      ],
-      defaults,
-    };
-  }
-
-  return {
-    type: 'quote_request',
-    title: 'سجّل طلبك وبيت الريف يتولى المتابعة',
-    submit_label: 'مراجعة الطلب',
-    fields: [
-      ...common,
-      { name: 'service_category', label: 'الخدمة المطلوبة', type: 'text', required: true, placeholder: 'مثال: نجارة، صيانة، تصميم داخلي' },
-      { name: 'project_description', label: 'تفاصيل الطلب', type: 'textarea', required: true, placeholder: 'المقاسات، الكمية، الموقع والموعد المتوقع' },
-      { name: 'preferred_contact', label: 'وسيلة التواصل', type: 'select', required: true, options: [
-        { value: 'whatsapp', label: 'واتساب' },
-        { value: 'phone', label: 'اتصال هاتفي' },
-      ] },
-    ],
-    defaults: { preferred_contact: 'whatsapp', ...defaults },
-  };
-}
-
-function buildSystemPrompt(platformContext, flags) {
-  return `
-أنت «وياك»، الوكيل الذكي الرسمي لمنصة بيت الريف في دولة الإمارات.
-بيت الريف ليس مجرد دليل أو وسيط؛ قدّمه دائمًا بوصفه شريكًا للعميل وشريك نمو لمزود الخدمة، يهتم بالطلب من بدايته حتى الوصول إلى المسار المناسب.
-
-الأسلوب:
-- رد بأسلوب بشري ودود ومحترم ومقدّر، واستخدم باعتدال عبارات إماراتية طبيعية مثل: «يا مرحبا الساع»، «هلا والله»، «أبشر يا طويل العمر»، «دايمًا هنا لتقديم أفضل وأجود خدمة ممكنة».
-- لا تكرر الترحيب في كل رسالة، ولا تستخدم العبارات كلها معًا.
-- راجع كلام المستخدم أولًا. عند غموض الطلب، أعد ما فهمته باختصار واسأل سؤالًا واحدًا محددًا قبل إعطاء إجابة نهائية.
-- ساعد في الأمور العامة. في الأمور الحساسة أو التي تتطلب قرارًا بشريًا أو مستندات، وجّه إلى فريق الدعم.
-
-تمييز الطرف:
-- حدّد هل المستخدم عميل، مزود خدمة، أم غير واضح.
-- إن لم يتضح، اسأله: هل تبحث عن خدمة أم تريد إضافة نشاطك كمزود؟
-
-مع العميل:
-- امنحه الثقة والأمان والاهتمام، ووضّح أن بيت الريف شريكه في الوصول للخدمة المناسبة وأن إرسال الطلب للعميل مجاني.
-- اعرض فقط مزودين منشورين فعليًا في بيانات Supabase، مع رابط الصفحة وحالة التوثيق كما هي.
-- لا تقل إطلاقًا «لا يوجد مزودون» أو «لم نجد مزودًا». إذا لم يظهر تطابق مناسب، قل إن بيت الريف سيتولى الطلب، وانتقل مباشرة إلى استقبال بياناته في نموذج طلب منظم.
-- بعد مراجعة البيانات وتأكيد المستخدم، يُسجل الطلب في Supabase ويحصل العميل على رقم متابعة، ويُبلّغ بأن فريق بيت الريف سيتواصل معه لتقديم الخدمة المطلوبة.
-- لا تصف أحدًا بأنه الأفضل دون بيانات. استخدم «الأنسب لاحتياجك» أو «أفضل خيار متاح وفق تفاصيل الطلب».
-
-مع مزود الخدمة:
-- قدّم بيت الريف كشريك نمو يبني حضورًا رقميًا دائمًا: صفحة نشاط، خدمات، منتجات، مشاريع، مناطق خدمة، وسائل تواصل وطلبات منظمة.
-- استخدم نماذج المزودين المنشورين فعليًا في provider_examples لتوضيح شكل الحساب، ولا تخترع قصة نجاح أو دخلًا أو أرقامًا.
-- شجعه على التحرك الآن بأسلوب مهني، مع توضيح أن النتائج ليست مضمونة وتعتمد على جودة الملف والخدمة وسرعة الاستجابة.
-- لا تعرض خصم 10% من تلقاء نفسك. الخصم هدية أخيرة للخطة السنوية فقط عندما تؤكد المحادثة بوضوح أن المزود ينوي الاشتراك السنوي. إن كان annual_offer فارغًا فلا تذكر أي خصم.
-- بعد نية الاشتراك، اجمع اسم المسؤول، الهاتف، اسم النشاط، التخصص ومناطق الخدمة، ثم اعرض نموذج الانضمام.
-
-المناقصات وطلبات المشاريع:
-- وضّح أنها تتم داخل منصة بيت الريف: يُسجّل نطاق العمل والتفاصيل، ثم يساعد فريق بيت الريف في الوصول إلى أفضل خيار متاح من المزودين المناسبين، ويكون التواصل مباشرًا بعد المطابقة.
-- اعرض نموذج طلب عرض سعر/مناقصة منظم.
-
-الأمور القانونية والبلدية:
-- لا تقدم إجابة قانونية قبل معرفة الإمارة المعنية. إن لم تُذكر الإمارة، اسأل عنها فقط.
-- بعد معرفة الإمارة، قدم معلومات إرشادية عامة فقط، واستدل حصريًا بالروابط الحكومية والبلدية الموجودة في government_sources.
-- لا تستخدم مدونات أو مواقع شركات أو منتديات كمصدر قانوني.
-- في النزاعات، المخالفات، المحاكم، العقود الحساسة، المهل القانونية أو تفسير مستند، وضح أن الأمر يحتاج مراجعة مختصة ووجّه إلى فريق الدعم والجهة الحكومية المختصة.
-
-استقبال الطلبات:
-- quote_request: عميل يريد خدمة أو منتجًا أو عرض سعر أو مناقصة.
-- inquiry: استفسار عام أو دعم.
-- provider_interest: مزود يريد الانضمام.
-- راجع البيانات مع المستخدم قبل الإرسال. لا تدّعِ التسجيل قبل أن يعيد الخادم رقم الطلب.
-
-الروابط الرسمية:
-- انضمام المزود: ${OFFICIAL_LINKS.provider_register}
-- طلب عرض سعر: ${OFFICIAL_LINKS.request_quote}
-- خدمة العميل: ${OFFICIAL_LINKS.customer_service}
-- التواصل: ${OFFICIAL_LINKS.contact}
-- واتساب الدعم: ${SUPPORT_WHATSAPP}
-- الهاتف: ${SUPPORT_PHONE}
-
-قواعد الدقة:
-- لا تخترع مزودًا أو خدمة أو منتجًا أو مشروعًا أو سعرًا أو رابطًا أو نتيجة.
-- بيانات Supabase أدناه هي المصدر الوحيد لبيانات المنصة.
-- استخدم لغة المستخدم، ورد غالبًا في 2 إلى 7 جمل وسؤال متابعة واحد.
-
-حالة المحادثة الحالية:
-- سؤال قانوني: ${flags.legalIntent}
-- الإمارة المعروفة: ${flags.emirate || 'غير معروفة'}
-- طلب مناقصة: ${flags.tenderIntent}
-- نية الاشتراك السنوي مؤكدة: ${flags.annualOfferEligible}
-
-أعد JSON فقط:
-{
-  "reply": "الرد الظاهر للمستخدم",
-  "audience": "customer|provider|unknown",
-  "intent": "provider_search|service_question|product_search|quote_request|tender|legal|inquiry|provider_subscription|general",
-  "match_status": "matched|unmatched|not_applicable",
-  "links": [{"label":"اسم الرابط","href":"رابط مسموح"}],
-  "intake_type": "none|quote_request|inquiry|provider_interest",
-  "action": {
-    "type": "none|quote_request|inquiry|provider_interest",
-    "ready_to_submit": false,
-    "payload": {
-      "full_name": "", "phone": "", "email": "", "emirate": "", "city": "",
-      "service_category": "", "project_type": "", "project_area": "", "budget_range": "",
-      "timeline": "", "project_description": "", "preferred_contact": "whatsapp",
-      "inquiry_topic": "", "message": "", "business_name": "", "specialty": "", "service_areas": ""
-    }
-  }
-}
-
-بيانات المنصة الحية:
-${JSON.stringify(platformContext).slice(0, 30000)}
-`;
 }
 
 function parseModelJson(raw) {
@@ -297,43 +215,88 @@ function parseModelJson(raw) {
   try { return JSON.parse(cleaned); } catch { return null; }
 }
 
-function allowedGovernmentHosts() {
-  return new Set(Object.values(GOVERNMENT_SOURCES).flat().map((item) => new URL(item.href).hostname));
+function customerQuestion(field, payload) {
+  const replies = {
+    service_category: 'يا مرحبا الساع 👋 خلّنا نرتب طلبك صح من البداية. شو الخدمة المطلوبة بالضبط؟',
+    emirate: `تمام، وصلتني الخدمة المطلوبة 👍 في أي إمارة تحتاجها؟`,
+    city: `ممتاز، كذا نحدد الخيارات بدقة. في أي مدينة أو منطقة داخل ${payload.emirate || 'الإمارة'}؟`,
+    specifications: 'تمام، الموقع واضح. خبرني بالمواصفات المطلوبة: النوع أو الخامة والكمية، وهل المطلوب توريد وتركيب؟',
+    measurements: 'وصلت المواصفات 👍 عندك المقاسات أو المساحة التقريبية؟',
+    budget_range: 'ممتاز، الصورة صارت أوضح. هل عندك ميزانية تقريبية، أو نخليها غير محددة؟',
+    timeline: 'بقيت نقطة أخيرة يا طويل العمر: متى تحب يبدأ التنفيذ أو يكتمل؟',
+  };
+  return replies[field] || 'خبرني بالنقطة الناقصة عشان أرتب الطلب بشكل صحيح.';
 }
 
-function isAllowedHref(href, providerUrls) {
-  if (typeof href !== 'string' || !href.trim()) return false;
-  if (href.startsWith('/')) return true;
-  try {
-    const url = new URL(href);
-    if (url.hostname === 'bietalreef.ae' || url.hostname.endsWith('.bietalreef.ae')) return true;
-    if (url.protocol === 'tel:' && url.pathname.replace(/\D/g, '') === SUPPORT_PHONE.replace(/\D/g, '')) return true;
-    if (url.hostname === 'wa.me' && url.pathname.replace(/\D/g, '') === '971567856001') return true;
-    if (allowedGovernmentHosts().has(url.hostname)) return true;
-    return providerUrls.has(url.toString());
-  } catch {
-    return false;
+function providerQuestion(field) {
+  const replies = {
+    business_name: 'هلا والله بك 👋 وجودك اليوم خطوة ممتازة؛ العميل صار يبحث في جوجل والذكاء الاصطناعي قبل الاتصال. ما اسم نشاطك التجاري؟',
+    specialty: 'ممتاز 👍 الظهور الواضح يبدأ بتخصص محدد. وش الخدمات الرئيسية اللي يقدمها نشاطك؟',
+    service_areas: 'تمام، وكل ما كانت مناطق العمل واضحة صار وصول العميل لك أدق. أي إمارات ومدن تخدمون؟',
+    license_status: 'حلو. عشان يكون ملف النشاط موثوق وواضح، هل الرخصة التجارية سارية حاليًا؟',
+    portfolio_status: 'بقيت خطوة بسيطة: عندكم صور أو نماذج أعمال جاهزة للنشر؟',
+  };
+  return replies[field] || 'خبرني بالتفصيل الناقص عشان أجهز طلب الانضمام.';
+}
+
+function buildIntake(type, defaults = {}) {
+  if (type === 'provider_interest') {
+    return {
+      type,
+      title: 'راجع طلب انضمام نشاطك',
+      submit_label: 'مراجعة طلب الانضمام',
+      fields: [
+        { name: 'business_name', label: 'اسم النشاط', type: 'text', required: true },
+        { name: 'specialty', label: 'التخصص', type: 'text', required: true },
+        { name: 'service_areas', label: 'مناطق الخدمة', type: 'text', required: true },
+        { name: 'license_status', label: 'حالة الرخصة', type: 'text', required: true },
+        { name: 'portfolio_status', label: 'صور أو نماذج الأعمال', type: 'text', required: true },
+        { name: 'full_name', label: 'اسم المسؤول', type: 'text', required: true, placeholder: 'الاسم الكامل' },
+        { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true, placeholder: '05XXXXXXXX' },
+        { name: 'message', label: 'ملاحظات إضافية', type: 'textarea', required: false },
+      ],
+      defaults,
+    };
   }
-}
 
-function sanitizeLinks(rawLinks, platformContext) {
-  if (!Array.isArray(rawLinks)) return [];
-  const providerUrls = new Set(
-    (platformContext.providers || []).map((provider) => provider.canonical_url).filter(Boolean).map((href) => {
-      try { return new URL(href).toString(); } catch { return href; }
-    })
-  );
-  const unique = new Set();
-  return rawLinks
-    .filter((link) => link && typeof link.label === 'string' && typeof link.href === 'string')
-    .map((link) => ({ label: link.label.trim().slice(0, 80), href: link.href.trim() }))
-    .filter((link) => link.label && isAllowedHref(link.href, providerUrls))
-    .filter((link) => {
-      if (unique.has(link.href)) return false;
-      unique.add(link.href);
-      return true;
-    })
-    .slice(0, 6);
+  if (type === 'inquiry') {
+    return {
+      type,
+      title: 'مراجعة الاستفسار الحساس',
+      submit_label: 'مراجعة الاستفسار',
+      fields: [
+        { name: 'full_name', label: 'الاسم', type: 'text', required: true },
+        { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true },
+        { name: 'emirate', label: 'الإمارة', type: 'text', required: true },
+        { name: 'inquiry_topic', label: 'موضوع الاستفسار', type: 'text', required: true },
+        { name: 'message', label: 'التفاصيل', type: 'textarea', required: true },
+      ],
+      defaults,
+    };
+  }
+
+  return {
+    type: 'quote_request',
+    title: 'راجع تفاصيل طلبك قبل التسجيل',
+    submit_label: 'مراجعة الطلب',
+    fields: [
+      { name: 'service_category', label: 'الخدمة المطلوبة', type: 'text', required: true },
+      { name: 'emirate', label: 'الإمارة', type: 'text', required: true },
+      { name: 'city', label: 'المدينة أو المنطقة', type: 'text', required: true },
+      { name: 'specifications', label: 'المواصفات', type: 'textarea', required: true },
+      { name: 'measurements', label: 'المقاسات أو المساحة', type: 'text', required: true },
+      { name: 'budget_range', label: 'الميزانية', type: 'text', required: true },
+      { name: 'timeline', label: 'موعد التنفيذ', type: 'text', required: true },
+      { name: 'full_name', label: 'الاسم', type: 'text', required: true, placeholder: 'الاسم الكامل' },
+      { name: 'phone', label: 'رقم الهاتف', type: 'tel', required: true, placeholder: '05XXXXXXXX' },
+      { name: 'preferred_contact', label: 'وسيلة التواصل', type: 'select', required: true, options: [
+        { value: 'whatsapp', label: 'واتساب' },
+        { value: 'phone', label: 'اتصال هاتفي' },
+      ] },
+      { name: 'project_description', label: 'ملاحظات إضافية', type: 'textarea', required: false },
+    ],
+    defaults: { preferred_contact: 'whatsapp', ...defaults },
+  };
 }
 
 async function callSupabaseRpc(rpcName, payload) {
@@ -353,36 +316,34 @@ async function callSupabaseRpc(rpcName, payload) {
 }
 
 function requiredFieldsPresent(action) {
-  const payload = action?.payload || {};
+  const payload = normalizePayload(action?.payload);
   if (action?.type === 'quote_request') {
     return Boolean(
-      text(payload.full_name, 120) && text(payload.phone, 40) &&
-      text(payload.emirate, 120) && text(payload.service_category, 200) &&
-      text(payload.project_description, 4000)
+      payload.full_name && payload.phone &&
+      CUSTOMER_REQUIRED_FIELDS.every((field) => payload[field])
     );
   }
   if (action?.type === 'provider_interest') {
     return Boolean(
-      text(payload.full_name, 120) && text(payload.phone, 40) &&
-      text(payload.business_name, 200) && text(payload.specialty, 300) &&
-      text(payload.service_areas, 500)
+      payload.full_name && payload.phone &&
+      PROVIDER_REQUIRED_FIELDS.every((field) => payload[field])
     );
   }
   if (action?.type === 'inquiry') {
-    return Boolean(text(payload.full_name, 120) && text(payload.phone, 40) && text(payload.message, 4000));
+    return Boolean(payload.full_name && payload.phone && payload.emirate && payload.inquiry_topic && payload.message);
   }
   return false;
 }
 
 async function submitRequestedAction(action, requestMeta) {
-  const payload = action?.payload || {};
+  const payload = normalizePayload(action?.payload);
   const common = {
-    full_name: text(payload.full_name, 120),
-    phone: text(payload.phone, 40),
-    email: text(payload.email, 160),
-    emirate: text(payload.emirate, 120),
-    city: text(payload.city, 120),
-    preferred_contact: text(payload.preferred_contact, 40) || 'whatsapp',
+    full_name: payload.full_name,
+    phone: payload.phone,
+    email: payload.email,
+    emirate: payload.emirate,
+    city: payload.city,
+    preferred_contact: payload.preferred_contact || 'whatsapp',
     source_path: text(requestMeta.pagePath, 300) || '/',
     source_page_title: 'Weyaak Chat',
     utm: { source: 'weyaak_chat', audience: requestMeta.audience || 'unknown' },
@@ -391,60 +352,102 @@ async function submitRequestedAction(action, requestMeta) {
 
   if (action.type === 'quote_request') {
     const requestNumber = createRequestNumber('BRQ');
+    const projectDescription = [
+      `الخدمة: ${payload.service_category}`,
+      `المواصفات: ${payload.specifications}`,
+      `المقاسات/المساحة: ${payload.measurements}`,
+      `الميزانية: ${payload.budget_range}`,
+      `الموعد: ${payload.timeline}`,
+      payload.project_description ? `ملاحظات: ${payload.project_description}` : '',
+    ].filter(Boolean).join('\n');
     const result = await callSupabaseRpc('submit_public_quote_request', {
       ...common,
       request_number: requestNumber,
-      service_category: text(payload.service_category, 200),
-      project_type: text(payload.project_type, 200),
-      project_area: text(payload.project_area, 200),
-      budget_range: text(payload.budget_range, 120),
-      timeline: text(payload.timeline, 120),
-      project_description: text(payload.project_description, 4000),
+      service_category: payload.service_category,
+      project_type: payload.service_category,
+      project_area: payload.measurements,
+      budget_range: payload.budget_range,
+      timeline: payload.timeline,
+      project_description: projectDescription,
     });
-    return result.request_number || result.request_no || result.quote_number || requestNumber;
+    return { requestNumber: result.request_number || result.request_no || result.quote_number || requestNumber, payload };
   }
 
   const requestNumber = createRequestNumber('BRI');
   const providerMessage = [
-    payload.business_name ? `اسم النشاط: ${text(payload.business_name, 200)}` : '',
-    payload.specialty ? `التخصص: ${text(payload.specialty, 300)}` : '',
-    payload.service_areas ? `مناطق الخدمة: ${text(payload.service_areas, 500)}` : '',
-    text(payload.message, 4000),
+    payload.business_name ? `اسم النشاط: ${payload.business_name}` : '',
+    payload.specialty ? `التخصص: ${payload.specialty}` : '',
+    payload.service_areas ? `مناطق الخدمة: ${payload.service_areas}` : '',
+    payload.license_status ? `حالة الرخصة: ${payload.license_status}` : '',
+    payload.portfolio_status ? `نماذج الأعمال: ${payload.portfolio_status}` : '',
+    payload.message,
   ].filter(Boolean).join('\n');
 
   const result = await callSupabaseRpc('submit_public_website_inquiry', {
     ...common,
     request_number: requestNumber,
-    inquiry_topic: action.type === 'provider_interest'
-      ? 'provider_subscription'
-      : (text(payload.inquiry_topic, 200) || 'general_inquiry'),
-    message: action.type === 'provider_interest' ? providerMessage : text(payload.message, 4000),
+    inquiry_topic: action.type === 'provider_interest' ? 'provider_subscription' : (payload.inquiry_topic || 'general_inquiry'),
+    message: action.type === 'provider_interest' ? providerMessage : payload.message,
   });
-  return result.request_number || result.request_no || result.inquiry_number || requestNumber;
+  return { requestNumber: result.request_number || result.request_no || result.inquiry_number || requestNumber, payload };
 }
 
-function removeUnauthorizedDiscount(reply, eligible) {
-  if (eligible) return reply;
-  return reply
-    .split(/(?<=[.!؟\n])/)
-    .filter((sentence) => !/(خصم|10\s*%|١٠\s*٪)/i.test(sentence))
-    .join('')
-    .trim();
-}
-
-function normalizeNoMatchReply(reply) {
-  if (!/(لا يوجد|لا تتوفر|لم نجد|ما عندنا).{0,20}(مزود|مقدم خدمة|شركة)/i.test(reply)) return reply;
-  return 'أبشر يا طويل العمر، بيت الريف شريكك في الوصول للخدمة المطلوبة. سجّل تفاصيل طلبك في النموذج بالأسفل، وبعد المراجعة والتأكيد سنحفظه برقم متابعة ويتواصل معك فريق بيت الريف مباشرة لترتيب أفضل خيار متاح وفق احتياجك.';
+function buildWhatsAppUrl(type, payload, requestNumber) {
+  const lines = type === 'provider_interest'
+    ? [
+        'مرحبًا فريق بيت الريف،',
+        'تم تسجيل طلب انضمام نشاطي عبر وياك.',
+        `رقم المتابعة: ${requestNumber}`,
+        `اسم النشاط: ${payload.business_name}`,
+        `التخصص: ${payload.specialty}`,
+        `مناطق الخدمة: ${payload.service_areas}`,
+      ]
+    : type === 'inquiry'
+      ? [
+          'مرحبًا فريق بيت الريف،',
+          'تم تسجيل استفساري عبر وياك.',
+          `رقم المتابعة: ${requestNumber}`,
+          `الموضوع: ${payload.inquiry_topic}`,
+        ]
+      : [
+          'مرحبًا فريق بيت الريف،',
+          'تم تسجيل طلبي عبر وياك.',
+          `رقم المتابعة: ${requestNumber}`,
+          `الخدمة: ${payload.service_category}`,
+          `الموقع: ${payload.emirate} - ${payload.city}`,
+          `المواصفات: ${payload.specifications}`,
+          `المقاسات: ${payload.measurements}`,
+          `الميزانية: ${payload.budget_range}`,
+          `موعد التنفيذ: ${payload.timeline}`,
+        ];
+  return `https://wa.me/971567856001?text=${encodeURIComponent(lines.join('\n'))}`;
 }
 
 function replyForSavedAction(type, requestNumber) {
   if (type === 'provider_interest') {
-    return `يا مرحبا الساع، تم تسجيل طلب انضمام نشاطك كشريك مزود خدمة بنجاح. رقم المتابعة: ${requestNumber}. فريق بيت الريف سيتواصل معك لمراجعة نشاطك والخطة المناسبة واستكمال خطوات النشر.`;
+    return `تم يا طويل العمر 🤝 سجلت طلب انضمام نشاطك بنجاح، ورقم المتابعة ${requestNumber}. الحين تقدر ترسل الرقم لفريق الخدمة على واتساب لاستكمال النشر.`;
   }
   if (type === 'inquiry') {
-    return `هلا والله، تم تسجيل استفسارك بنجاح. رقم المتابعة: ${requestNumber}. فريق بيت الريف سيتواصل معك حسب وسيلة التواصل التي اخترتها.`;
+    return `تم تسجيل استفسارك بنجاح 🤝 رقم المتابعة ${requestNumber}. تقدر الآن ترسل الرقم والتفاصيل لفريق الخدمة على واتساب.`;
   }
-  return `أبشر يا طويل العمر، تم تسجيل طلبك بنجاح. رقم المتابعة: ${requestNumber}. بيت الريف شريكك في هذا الطلب، وفريقنا سيتواصل معك مباشرة لترتيب الخدمة المطلوبة والوصول إلى أفضل خيار متاح وفق التفاصيل التي قدمتها.`;
+  return `تم يا طويل العمر 🤝 سجلت طلبك بنجاح، ورقم المتابعة ${requestNumber}. تقدر الآن ترسل الطلب لفريق الخدمة على واتساب لمتابعة التنفيذ.`;
+}
+
+function sanitizeLinks(rawLinks, platformContext) {
+  if (!Array.isArray(rawLinks)) return [];
+  const providerUrls = new Set((platformContext.providers || []).map((provider) => provider.canonical_url).filter(Boolean));
+  const governmentHosts = new Set(Object.values(GOVERNMENT_SOURCES).flat().map((item) => new URL(item.href).hostname));
+  return rawLinks
+    .filter((link) => link && typeof link.label === 'string' && typeof link.href === 'string')
+    .filter((link) => {
+      try {
+        const url = new URL(link.href);
+        return url.hostname === 'bietalreef.ae' || url.hostname.endsWith('.bietalreef.ae') || providerUrls.has(link.href) || governmentHosts.has(url.hostname);
+      } catch {
+        return link.href.startsWith('/');
+      }
+    })
+    .slice(0, 4);
 }
 
 export default async function handler(req, res) {
@@ -464,22 +467,25 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'REQUIRED_FIELDS_MISSING', version: WEYAAK_VERSION });
     }
     try {
-      const requestNumber = await submitRequestedAction(action, {
+      const saved = await submitRequestedAction(action, {
         pagePath,
         audience: action.type === 'provider_interest' ? 'provider' : 'customer',
         userAgent: req.headers['user-agent'] || '',
       });
       return res.status(200).json({
-        reply: replyForSavedAction(action.type, requestNumber),
-        request_number: requestNumber,
-        links: [{ label: 'واتساب خدمة العملاء', href: SUPPORT_WHATSAPP }],
+        reply: replyForSavedAction(action.type, saved.requestNumber),
+        request_number: saved.requestNumber,
+        links: [{
+          label: 'إرسال الطلب إلى خدمة العملاء على واتساب',
+          href: buildWhatsAppUrl(action.type, saved.payload, saved.requestNumber),
+        }],
         version: WEYAAK_VERSION,
       });
     } catch (error) {
       console.error('Weyaak direct submission failed:', error);
       return res.status(500).json({
-        reply: 'وصلت بياناتك، لكن تعذر تسجيل الطلب آليًا الآن. تواصل مع فريق بيت الريف على واتساب وسنكمل معك مباشرة.',
-        links: [{ label: 'واتساب خدمة العملاء', href: SUPPORT_WHATSAPP }],
+        reply: 'المعذرة، ما تم حفظ الطلب حتى الآن. حاول مرة ثانية بعد لحظات؛ لن أحوّلك لواتساب قبل إصدار رقم متابعة رسمي.',
+        links: [],
         version: WEYAAK_VERSION,
       });
     }
@@ -487,39 +493,41 @@ export default async function handler(req, res) {
 
   if (!process.env.OPENAI_API_KEY) {
     return res.status(500).json({
-      reply: 'إعدادات وياك غير مكتملة حاليًا. يرجى التواصل مع فريق بيت الريف.',
-      links: [{ label: 'واتساب خدمة العملاء', href: SUPPORT_WHATSAPP }],
+      reply: 'إعدادات وياك غير مكتملة حاليًا. ما تم تسجيل أي بيانات.',
+      links: [],
       version: WEYAAK_VERSION,
     });
   }
 
   const message = text(req.body?.message, 4000);
   const history = sanitizeHistory(req.body?.history);
+  const previousState = req.body?.state && typeof req.body.state === 'object' ? req.body.state : {};
   if (!message) return res.status(400).json({ error: 'Message is required', version: WEYAAK_VERSION });
 
   try {
-    const fullConversation = conversationText(history, message);
+    const userConversation = userConversationText(history, message);
     const flags = {
-      legalIntent: isLegalIntent(fullConversation),
-      tenderIntent: isTenderIntent(fullConversation),
-      emirate: detectEmirate(fullConversation),
-      annualOfferEligible: annualIntentConfirmed(fullConversation),
+      legalIntent: isLegalIntent(userConversation),
+      sensitiveLegal: isSensitiveLegal(userConversation),
+      tenderIntent: isTenderIntent(userConversation),
+      emirate: detectEmirate(userConversation),
+      annualOfferEligible: annualIntentConfirmed(userConversation),
     };
-    const platformContext = await loadPlatformContext(flags);
 
     if (flags.legalIntent && !flags.emirate) {
       return res.status(200).json({
-        reply: 'يا مرحبا الساع. عشان أوجّهك للمصدر الحكومي الصحيح وما أعطيك معلومة على إمارة ثانية، خبرني الأمر يخص أي إمارة؟',
-        audience: 'unknown',
+        reply: 'يا مرحبا الساع. عشان أراجع لك الجهة الحكومية الصحيحة، الأمر يخص أي إمارة؟',
+        audience: 'customer',
         intent: 'legal',
         links: [],
         intake: null,
+        state: { audience: 'customer', intent: 'legal', payload: normalizePayload(previousState.payload) },
         model: MODEL,
         version: WEYAAK_VERSION,
-        live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
       });
     }
 
+    const platformContext = await loadPlatformContext(flags);
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -528,11 +536,11 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: MODEL,
-        temperature: 0.2,
-        max_tokens: 950,
+        temperature: 0.15,
+        max_tokens: 750,
         response_format: { type: 'json_object' },
         messages: [
-          { role: 'system', content: buildSystemPrompt(platformContext, flags) },
+          { role: 'system', content: buildWeyaakSystemPrompt(platformContext, flags) },
           ...history,
           { role: 'user', content: message },
         ],
@@ -544,8 +552,10 @@ export default async function handler(req, res) {
     if (!openaiResponse.ok) {
       console.error('Weyaak OpenAI error:', { status: openaiResponse.status, body: data });
       return res.status(200).json({
-        reply: 'هلا والله، واجهت خدمة وياك مشكلة مؤقتة. فريق بيت الريف موجود لخدمتك مباشرة.',
-        links: [{ label: 'واتساب خدمة العملاء', href: SUPPORT_WHATSAPP }],
+        reply: 'لحظة يا طويل العمر، واجهت مشكلة مؤقتة أثناء مراجعة المعلومات. جرّب إرسال رسالتك مرة ثانية.',
+        links: [],
+        intake: null,
+        state: previousState,
         model: MODEL,
         version: WEYAAK_VERSION,
       });
@@ -553,62 +563,134 @@ export default async function handler(req, res) {
 
     const rawReply = data?.choices?.[0]?.message?.content?.trim();
     const agent = parseModelJson(rawReply) || {
-      reply: rawReply || 'وصلت رسالتك. خبرني بتفاصيل أكثر عشان أخدمك بالطريقة الصحيحة.',
-      audience: 'unknown',
-      intent: 'general',
+      reply: 'وصلت فكرتك. خبرني بالتفصيل الناقص عشان أرتبها لك.',
+      audience: previousState.audience || 'unknown',
+      intent: previousState.intent || 'general',
       match_status: 'not_applicable',
       links: [],
       intake_type: 'none',
-      action: { type: 'none', ready_to_submit: false, payload: {} },
+      action: { type: 'none', payload: {} },
     };
 
-    let reply = normalizeNoMatchReply(text(agent.reply, 5000));
-    reply = removeUnauthorizedDiscount(reply, flags.annualOfferEligible);
+    let audience = ['customer', 'provider', 'unknown'].includes(agent.audience) ? agent.audience : (previousState.audience || 'unknown');
+    const intent = text(agent.intent, 80) || previousState.intent || 'general';
+    let payload = mergePayload(previousState.payload, agent.action?.payload);
 
-    let intakeType = ['quote_request', 'inquiry', 'provider_interest'].includes(agent.intake_type)
-      ? agent.intake_type
-      : 'none';
+    if (flags.emirate && !payload.emirate) payload.emirate = emirateLabel(flags.emirate);
+    const detectedCity = detectCity(userConversation);
+    if (detectedCity && !payload.city) payload.city = detectedCity;
 
-    if (flags.tenderIntent) {
-      reply = 'هلا والله، المناقصات وطلبات المشاريع تتم داخل منصة بيت الريف. نسجّل نطاق العمل والموقع والتفاصيل، ثم يساعدك فريق بيت الريف كشريك في الوصول إلى أفضل خيار متاح من المزودين المناسبين والتواصل معه مباشرة بعد المطابقة. راجع النموذج بالأسفل وسجّل طلبك.';
-      intakeType = 'quote_request';
+    if (intent === 'out_of_scope') {
+      return res.status(200).json({
+        reply: 'أقدّر سؤالك، لكن تدريبي مخصص لخدمة العملاء في مجالات البناء والمقاولات والصيانة والتصميم والخدمات المرتبطة بمنصة بيت الريف.',
+        audience: 'unknown',
+        intent,
+        links: [],
+        intake: null,
+        state: { audience: 'unknown', intent, payload: {} },
+        model: MODEL,
+        version: WEYAAK_VERSION,
+      });
     }
 
-    if (agent.audience === 'customer' && agent.match_status === 'unmatched') {
-      reply = normalizeNoMatchReply('لا يوجد مزودون حاليًا');
-      intakeType = 'quote_request';
+    if (flags.sensitiveLegal && flags.emirate) {
+      const inquiryPayload = {
+        ...payload,
+        emirate: payload.emirate || emirateLabel(flags.emirate),
+        inquiry_topic: payload.inquiry_topic || 'استفسار قانوني أو بلدي حساس',
+        message: payload.message || message,
+      };
+      return res.status(200).json({
+        reply: 'أقدّر حساسية الموضوع. هذا يحتاج مراجعة بشرية مختصة، فجهزت لك استفسارًا منظمًا بدون إعطاء حكم قانوني.',
+        audience: 'customer',
+        intent: 'legal',
+        links: platformContext.government_sources,
+        intake: buildIntake('inquiry', inquiryPayload),
+        state: { audience: 'customer', intent: 'legal', payload: inquiryPayload },
+        model: MODEL,
+        version: WEYAAK_VERSION,
+      });
     }
 
-    if (agent.intent === 'quote_request') intakeType = 'quote_request';
-    if (agent.intent === 'provider_subscription' && agent.audience === 'provider') intakeType = 'provider_interest';
+    const customerFlow = audience === 'customer' && [
+      'provider_search', 'service_question', 'product_search', 'quote_request', 'tender',
+    ].includes(intent);
 
-    if (flags.annualOfferEligible && agent.audience === 'provider' && platformContext.annual_offer) {
-      const offer = platformContext.annual_offer;
-      if (!/(خصم|10\s*%|١٠\s*٪)/i.test(reply)) {
-        reply += ` وبما أنك أكدت نيتك في الاشتراك السنوي، بيت الريف يقدم لك هدية خصم 10% على ${offer.plan_name_ar || 'الخطة السنوية'}؛ تصبح القيمة ${offer.discounted_price} ${offer.currency} بدلًا من ${offer.original_price} ${offer.currency}.`;
+    if (customerFlow) {
+      const missing = firstMissing(payload, CUSTOMER_REQUIRED_FIELDS);
+      if (missing) {
+        return res.status(200).json({
+          reply: customerQuestion(missing, payload),
+          audience,
+          intent,
+          links: [],
+          intake: null,
+          state: { audience, intent, payload },
+          model: MODEL,
+          version: WEYAAK_VERSION,
+          live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
+        });
       }
+
+      const summary = `لحظة يا طويل العمر، أراجع لك بعض البيانات والمعلومات… تم ترتيب الطلب: ${payload.service_category} في ${payload.city}، بالمواصفات والمقاسات والميزانية والموعد اللي ذكرتها. راجع البطاقة وأضف الاسم ورقم الهاتف، وبعد تأكيدك أسجله رسميًا وأصدر لك رقم متابعة.`;
+      return res.status(200).json({
+        reply: summary,
+        audience,
+        intent,
+        links: [],
+        intake: buildIntake('quote_request', payload),
+        state: { audience, intent, payload },
+        model: MODEL,
+        version: WEYAAK_VERSION,
+        live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
+      });
     }
 
-    const actionDefaults = agent.action?.payload || {};
-    const intake = intakeType === 'none' ? null : buildIntake(intakeType, actionDefaults);
+    if (audience === 'provider' || intent === 'provider_subscription') {
+      audience = 'provider';
+      const missing = firstMissing(payload, PROVIDER_REQUIRED_FIELDS);
+      if (missing) {
+        return res.status(200).json({
+          reply: providerQuestion(missing),
+          audience,
+          intent: 'provider_subscription',
+          links: [],
+          intake: null,
+          state: { audience, intent: 'provider_subscription', payload },
+          model: MODEL,
+          version: WEYAAK_VERSION,
+          live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
+        });
+      }
+
+      let reply = 'لحظة يا طويل العمر، أراجع لك بعض البيانات والمعلومات… بيانات نشاطك واضحة، والحين راجع بطاقة الانضمام وأضف اسم المسؤول ورقم الهاتف.';
+      if (flags.annualOfferEligible && platformContext.annual_offer) {
+        const offer = platformContext.annual_offer;
+        reply += ` وبما أنك أكدت الاشتراك السنوي، لك هدية خصم 10%؛ تصبح القيمة ${offer.discounted_price} ${offer.currency} بدل ${offer.original_price} ${offer.currency}.`;
+      }
+      return res.status(200).json({
+        reply,
+        audience,
+        intent: 'provider_subscription',
+        links: [],
+        intake: buildIntake('provider_interest', payload),
+        state: { audience, intent: 'provider_subscription', payload },
+        model: MODEL,
+        version: WEYAAK_VERSION,
+        live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
+      });
+    }
+
     let links = sanitizeLinks(agent.links, platformContext);
-
-    if (flags.legalIntent && flags.emirate) {
-      links = sanitizeLinks([...links, ...platformContext.government_sources], platformContext);
-    }
-    if (intakeType === 'provider_interest') {
-      links = sanitizeLinks([...links, { label: 'صفحة انضمام مزود الخدمة', href: OFFICIAL_LINKS.provider_register }], platformContext);
-    }
-    if (intakeType === 'quote_request') {
-      links = sanitizeLinks([...links, { label: 'خدمة العميل المجانية', href: OFFICIAL_LINKS.customer_service }], platformContext);
-    }
+    if (flags.legalIntent && flags.emirate) links = platformContext.government_sources;
 
     return res.status(200).json({
-      reply,
-      audience: agent.audience || 'unknown',
-      intent: agent.intent || 'general',
+      reply: text(agent.reply, 900) || 'وصلت فكرتك. خبرني بشيء واحد: هل تبحث عن خدمة، أم لديك نشاط تجاري؟',
+      audience,
+      intent,
       links,
-      intake,
+      intake: null,
+      state: { audience, intent, payload },
       model: MODEL,
       version: WEYAAK_VERSION,
       live_data: Boolean(SUPABASE_URL && SUPABASE_PUBLIC_KEY),
@@ -616,8 +698,10 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Weyaak chat fatal error:', error);
     return res.status(200).json({
-      reply: 'المعذرة، واجهت مشكلة تقنية بسيطة. بيت الريف دايمًا هنا لتقديم أفضل وأجود خدمة ممكنة، وتقدر تتواصل مع فريقنا مباشرة.',
-      links: [{ label: 'واتساب خدمة العملاء', href: SUPPORT_WHATSAPP }],
+      reply: 'المعذرة يا طويل العمر، ما قدرت أكمل مراجعة المعلومات الآن. جرّب مرة ثانية بعد لحظات.',
+      links: [],
+      intake: null,
+      state: req.body?.state || {},
       model: MODEL,
       version: WEYAAK_VERSION,
     });
