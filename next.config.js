@@ -90,6 +90,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/en/categories',
+        destination: '/en/services',
+        permanent: true,
+      },
+      {
         source: '/ar-sitemap',
         destination: '/sitemap.xml',
         permanent: true,

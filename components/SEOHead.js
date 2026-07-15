@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 const SITE_DOMAIN = 'https://bietalreef.ae';
 const SITE_NAME = 'بيت الريف';
 const DEFAULT_OG_IMAGE = 'https://bietalreef.ae/og-weyaak.jpg';
-const GOOGLE_VERIFICATION = 'HIY1XgYFRFCLwaTob54Dtx0InJae_SFmyX1bNslZDRg';
 const MIRRORED_ENGLISH_ROUTES = new Set([
   '/', '/about', '/why-biet-alreef', '/how-it-works', '/pricing',
   '/contact', '/services', '/marketplace', '/tools', '/weyaak', '/providers',
@@ -146,14 +145,6 @@ export default function SEOHead({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-
-      {/* ═══ Google Search Console ═══ */}
-      <meta name="google-site-verification" content={GOOGLE_VERIFICATION} />
-
-      {/* ═══ Additional SEO Meta Tags ═══ */}
-      <meta name="format-detection" content="telephone=+971567856001" />
-      <meta name="revisit-after" content="7 days" />
-      <meta name="rating" content="general" />
 
       <meta name="theme-color" content="#0F3F1A" />
 

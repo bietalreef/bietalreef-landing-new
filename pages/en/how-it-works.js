@@ -251,7 +251,7 @@ export default function HowItWorksEnglishPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${SITE_URL}/en/how-it-works`} />
         <meta property="og:locale" content="en_AE" />
-        <meta property="og:image" content={`${SITE_URL}/images/platform/hero-biet-alreef-platform-4k.webp`} />
+        <meta property="og:image" content={`${SITE_URL}/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
 
@@ -321,7 +321,7 @@ export default function HowItWorksEnglishPage() {
         <section className="bg-[#F8F4EC] px-4 py-12 md:py-20">
           <div className="mx-auto max-w-7xl overflow-hidden rounded-[2.75rem] border border-[#D9CBAF] bg-[#0F3F1A] shadow-[0_32px_80px_rgba(15,63,26,0.2)]">
             <div className="relative min-h-[520px] md:min-h-[620px]">
-              <Image src="/images/platform/hero-biet-alreef-platform-4k.webp" alt="Biet Al Reef digital platform for the UAE construction and contracting sector" fill className="object-cover object-center" sizes="100vw" />
+              <Image src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp" alt="Biet Al Reef digital platform for the UAE construction and contracting sector" fill className="object-cover object-center" sizes="100vw" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#071E11]/96 via-[#0F3F1A]/80 to-[#0F3F1A]/28" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(212,175,55,0.2),transparent_36%)]" />
               <div className="relative z-10 flex min-h-[520px] items-center p-7 md:min-h-[620px] md:p-12 lg:p-16">

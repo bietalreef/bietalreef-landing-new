@@ -81,15 +81,29 @@ if (fs.existsSync(manifestPath)) {
   if (!manifest.icons?.length) errors.push('PWA manifest must contain an install icon.');
 }
 
-const sitemapPath = path.join(root, 'public', 'sitemap.xml');
-if (fs.existsSync(sitemapPath)) {
-  const sitemap = fs.readFileSync(sitemapPath, 'utf8');
-  const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  const duplicates = urls.filter((url, index) => urls.indexOf(url) !== index);
-  if (duplicates.length) errors.push(`Duplicate sitemap URLs: ${[...new Set(duplicates)].join(', ')}`);
-  if (urls.some((url) => !url.startsWith('https://bietalreef.ae'))) errors.push('Sitemap contains a URL outside bietalreef.ae.');
+const staticSitemapPath = path.join(root, 'public', 'sitemap.xml');
+const dynamicSitemapPath = path.join(root, 'pages', 'sitemap.xml.js');
+const searchIndexPath = path.join(root, 'lib', 'searchIndexRoutes.js');
+if (fs.existsSync(staticSitemapPath)) errors.push('Static public/sitemap.xml must not coexist with the dynamic sitemap route.');
+if (!fs.existsSync(dynamicSitemapPath)) errors.push('Missing pages/sitemap.xml.js.');
+if (!fs.existsSync(searchIndexPath)) {
+  errors.push('Missing lib/searchIndexRoutes.js.');
 } else {
-  errors.push('Missing public/sitemap.xml.');
+  const { buildSearchIndexEntries } = require(searchIndexPath);
+  const entries = buildSearchIndexEntries();
+  const urls = entries.map((entry) => entry.loc);
+  const duplicates = urls.filter((url, index) => urls.indexOf(url) !== index);
+  if (entries.length < 100) errors.push(`Search sitemap contains too few curated URLs: ${entries.length}.`);
+  if (duplicates.length) errors.push(`Duplicate sitemap URLs: ${[...new Set(duplicates)].join(', ')}`);
+  if (urls.some((url) => !url.startsWith('https://bietalreef.ae/'))) errors.push('Sitemap contains a URL outside bietalreef.ae.');
+  if (entries.some((entry) => !entry.lastmod || !entry.changefreq || !entry.priority)) errors.push('Sitemap entry is missing lastmod, changefreq or priority.');
+  if (entries.some((entry) => !entry.alternates?.ar || !entry.alternates?.en || !entry.alternates?.default)) errors.push('Bilingual sitemap entry is missing an alternate language URL.');
+  for (const entry of entries) {
+    for (const imageUrl of entry.images || []) {
+      const imagePath = new URL(imageUrl).pathname.replace(/^\//, '');
+      if (!fs.existsSync(path.join(root, 'public', imagePath))) errors.push(`Sitemap image does not exist: ${imageUrl}`);
+    }
+  }
 }
 
 const seoHead = fs.readFileSync(path.join(root, 'components', 'SEOHead.js'), 'utf8');
@@ -97,10 +111,18 @@ for (const marker of ['canonical', 'hreflang', 'application/ld+json', 'geo.regio
   if (!seoHead.includes(marker)) errors.push(`SEOHead is missing required SEO/AEO/GEO marker: ${marker}`);
 }
 
+const documentSource = fs.readFileSync(path.join(root, 'pages', '_document.js'), 'utf8');
+for (const marker of ['google-site-verification', 'Organization', 'documentLanguage', 'en-AE', 'ar-AE']) {
+  if (!documentSource.includes(marker)) errors.push(`_document.js is missing global search marker: ${marker}`);
+}
+
+const allSource = sourceRoots.flatMap((directory) => walk(path.join(root, directory))).map((file) => fs.readFileSync(file, 'utf8')).join('\n');
+if (allSource.includes('+971-XXXXXXXXX')) errors.push('Public source still contains a placeholder telephone number.');
+
 if (errors.length) {
   console.error(`Site structure audit failed with ${errors.length} issue(s):`);
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log(`Site structure audit passed: ${mirroredPages.length} bilingual pairs, PWA scope, SEO/AEO/GEO markers and sitemap integrity.`);
+console.log(`Site structure audit passed: ${mirroredPages.length} bilingual pairs, PWA scope, SEO/AEO/GEO markers and dynamic sitemap integrity.`);
