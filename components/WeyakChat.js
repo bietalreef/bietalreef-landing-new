@@ -3,14 +3,15 @@ import {
   Send, Mic, X, MessageCircle, Loader2, ExternalLink, ShieldCheck,
   ClipboardCheck, ChevronLeft, AlertCircle,
 } from 'lucide-react';
+import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState';
 
 const QUICK_ACTIONS = [
+  { label: 'أحتاج خدمة', message: 'أنا عميل وأحتاج خدمة.' },
   { label: 'أبحث عن مزود', message: 'أنا عميل وأبحث عن مزود خدمة مناسب.' },
-  { label: 'طلب عرض سعر', message: 'أريد تقديم طلب عرض سعر.' },
-  { label: 'مناقصة أو مشروع', message: 'أريد تسجيل مناقصة أو طلب مشروع داخل بيت الريف.' },
-  { label: 'أنا مزود خدمة', message: 'أنا مزود خدمة وأريد معرفة مميزات الاشتراك والانضمام.' },
+  { label: 'طلب عرض سعر', message: 'أريد تجهيز طلب عرض سعر.' },
+  { label: 'مناقصة أو مشروع', message: 'أريد تسجيل مناقصة أو مشروع.' },
+  { label: 'لدي نشاط تجاري', message: 'لدي شركة أو نشاط تجاري وأريد الانضمام.' },
   { label: 'استفسار بلدي', message: 'لدي استفسار قانوني أو بلدي يتعلق بأعمال البناء.' },
-  { label: 'خدمة العملاء', message: 'أريد التواصل مع خدمة عملاء بيت الريف.' },
 ];
 
 function IntakeCard({ intake, disabled, onSubmitted }) {
@@ -63,7 +64,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
       onSubmitted(data);
     } catch (submissionError) {
       console.error('Weyaak intake submission error:', submissionError);
-      setError('تعذر تسجيل الطلب الآن. تقدر المحاولة مرة ثانية أو التواصل مع خدمة العملاء.');
+      setError('ما تم حفظ الطلب حتى الآن. حاول مرة ثانية بعد لحظات عشان يصدر رقم متابعة رسمي.');
     } finally {
       setSubmitting(false);
     }
@@ -79,7 +80,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
       {!reviewing ? (
         <div className="space-y-3 p-3">
           <p className="text-[11px] leading-6 text-gray-600">
-            راجع طلبك مع وياك، ثم نعرض لك ملخصًا قبل التسجيل. لا يتم الحفظ إلا بعد تأكيدك.
+            راجع البيانات براحتك. لا يتم الحفظ أو إرسالها لخدمة العملاء إلا بعد تأكيدك.
           </p>
 
           {intake.fields.map((field) => (
@@ -141,7 +142,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
         </div>
       ) : (
         <div className="p-3">
-          <p className="mb-3 text-[11px] font-black text-[#1B4D3E]">راجع البيانات قبل التأكيد</p>
+          <p className="mb-3 text-[11px] font-black text-[#1B4D3E]">هذا ملخص البيانات قبل التسجيل</p>
           <div className="overflow-hidden rounded-xl border border-[#DCE6DF] bg-white">
             {visibleReview.map((field, index) => (
               <div
@@ -155,7 +156,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
           </div>
 
           <div className="mt-3 rounded-xl bg-[#FFF8E5] px-3 py-2 text-[10px] font-bold leading-5 text-[#745700]">
-            بالضغط على «تأكيد وإرسال» سيُحفظ الطلب في Supabase ويصدر لك رقم متابعة رسمي.
+            بالضغط على «تأكيد وتسجيل» يُنشأ الطلب أولًا في Supabase ويصدر رقم متابعة. بعدها فقط يظهر واتساب خدمة العملاء برسالة جاهزة.
           </div>
 
           {error && (
@@ -181,7 +182,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
               className="flex items-center justify-center gap-2 rounded-xl bg-[#D4AF37] px-3 py-3 text-xs font-black text-[#183622] disabled:opacity-50"
             >
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
-              تأكيد وإرسال
+              تأكيد وتسجيل
             </button>
           </div>
         </div>
@@ -195,9 +196,10 @@ export default function WeyakChat({ embedded = false }) {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'يا مرحبا الساع، حيّاك في بيت الريف. أنا «وياك»، شريكك للوصول إلى الخدمة المناسبة، وشريك نمو لمزودي الخدمات. هل تبحث عن خدمة، أم تريد إضافة نشاطك إلى المنصة؟',
+      content: 'يا مرحبا الساع 👋 أنا وياك. أرتب طلبك خطوة بخطوة، وأراجع التفاصيل معك قبل أي تسجيل. قل لي وين نبدأ؟',
     },
   ]);
+  const [sessionState, setSessionState] = useState({ audience: 'unknown', intent: 'general', payload: {} });
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -213,11 +215,13 @@ export default function WeyakChat({ embedded = false }) {
     if (!userMessage || isLoading) return;
 
     const history = messages
-      .slice(-12)
+      .slice(-16)
       .map(({ role, content }) => ({ role, content }))
       .filter((item) => item.content);
+    const preparedState = applyAnswerToWeyaakState(sessionState, userMessage);
 
     setInput('');
+    setSessionState(preparedState);
     setMessages((current) => [...current, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
@@ -228,15 +232,17 @@ export default function WeyakChat({ embedded = false }) {
         body: JSON.stringify({
           message: userMessage,
           history,
+          state: preparedState,
           pagePath: typeof window !== 'undefined' ? window.location.pathname : '/',
         }),
       });
       if (!response.ok) throw new Error('Failed to fetch response');
 
       const data = await response.json();
+      if (data.state) setSessionState(data.state);
       setMessages((current) => [...current, {
         role: 'assistant',
-        content: data.reply || data.message || 'وصلت رسالتك، لكن لم أتمكن من تجهيز رد مناسب الآن.',
+        content: data.reply || data.message || 'وصلت رسالتك، لكن ما قدرت أرتب الرد الآن.',
         links: Array.isArray(data.links) ? data.links : [],
         requestNumber: data.request_number || null,
         intake: data.intake || null,
@@ -245,8 +251,8 @@ export default function WeyakChat({ embedded = false }) {
       console.error('Chat error:', error);
       setMessages((current) => [...current, {
         role: 'assistant',
-        content: 'المعذرة، واجهت مشكلة تقنية بسيطة. بيت الريف موجود لخدمتك مباشرة على 0567856001.',
-        links: [{ label: 'واتساب خدمة العملاء', href: 'https://wa.me/971567856001' }],
+        content: 'المعذرة يا طويل العمر، ما قدرت أكمل مراجعة المعلومات الآن. جرّب مرة ثانية بعد لحظات.',
+        links: [],
       }]);
     } finally {
       setIsLoading(false);
@@ -313,7 +319,7 @@ export default function WeyakChat({ embedded = false }) {
             </div>
             <div>
               <h3 className="text-lg font-bold">وياك</h3>
-              <p className="text-xs text-green-100 opacity-90">شريك العميل وشريك نمو مزود الخدمة</p>
+              <p className="text-xs text-green-100 opacity-90">وكيل خدمة العملاء ومزودي الخدمات</p>
             </div>
           </div>
           {!embedded && (
@@ -334,7 +340,7 @@ export default function WeyakChat({ embedded = false }) {
             <div className="rounded-2xl border border-[#DDE8E1] bg-[#F4F8F5] p-3">
               <div className="mb-3 flex items-center gap-2 text-xs font-bold text-[#1B4D3E]">
                 <ShieldCheck className="h-4 w-4" />
-                اختر المسار المناسب، وبيت الريف يكمل معك خطوة بخطوة
+                اختر البداية المناسبة، ووياك يرتب الباقي معك خطوة بخطوة
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {QUICK_ACTIONS.map((action) => (
@@ -402,7 +408,7 @@ export default function WeyakChat({ embedded = false }) {
             <div className="flex justify-start">
               <div className="flex items-center gap-2 rounded-2xl rounded-bl-none border border-gray-100 bg-white p-4 shadow-sm">
                 <Loader2 className="h-4 w-4 animate-spin text-[#1B4D3E]" aria-hidden="true" />
-                <span className="text-xs text-gray-500">وياك يراجع طلبك وبيانات المنصة...</span>
+                <span className="text-xs text-gray-500">لحظة يا طويل العمر، أراجع لك بعض البيانات والمعلومات…</span>
               </div>
             </div>
           )}
@@ -444,12 +450,12 @@ export default function WeyakChat({ embedded = false }) {
               aria-label="إرسال الرسالة"
               title="إرسال الرسالة"
             >
-              <Send className={`h-5 w-5 ${typeof document !== 'undefined' && document.dir === 'rtl' ? 'rotate-180' : ''}`} aria-hidden="true" />
+              <Send className="h-5 w-5 rotate-180" aria-hidden="true" />
             </button>
           </form>
           <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-gray-400">
             <ShieldCheck className="h-3 w-3" />
-            بيت الريف يراجع طلبك ولا يسجله إلا بعد تأكيدك ويصدر رقم متابعة
+            لا يتم تسجيل البيانات إلا بعد مراجعتك وتأكيدك، ثم يصدر رقم متابعة
           </div>
         </div>
       </div>

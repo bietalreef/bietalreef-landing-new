@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
+import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState.js';
 
 const isPreview = process.env.VERCEL_ENV === 'preview';
 
@@ -58,11 +59,11 @@ async function waitForServer() {
   throw new Error('[Weyaak smoke] timed out waiting for Next server.');
 }
 
-async function chat(message, history = []) {
+async function chat(message, history = [], state = {}) {
   const response = await fetch(`${baseUrl}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, history, pagePath: '/weyaak' }),
+    body: JSON.stringify({ message, history, state, pagePath: '/weyaak' }),
   });
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -74,55 +75,88 @@ async function chat(message, history = []) {
   return body;
 }
 
+function createFlow() {
+  return { history: [], state: {} };
+}
+
+async function step(flow, message) {
+  const preparedState = applyAnswerToWeyaakState(flow.state, message);
+  const body = await chat(message, flow.history, preparedState);
+  flow.history.push({ role: 'user', content: message });
+  flow.history.push({ role: 'assistant', content: body.reply });
+  flow.state = body.state || preparedState;
+  return body;
+}
+
 function assert(condition, message, body) {
   if (!condition) {
-    throw new Error(`[Weyaak smoke] ${message}\nResponse: ${JSON.stringify(body, null, 2).slice(0, 4000)}`);
+    throw new Error(`[Weyaak smoke] ${message}\nResponse: ${JSON.stringify(body, null, 2).slice(0, 5000)}`);
   }
 }
 
-function hasForbiddenNoProvider(reply) {
-  return /(لا يوجد|لا تتوفر|لم نجد|ما عندنا).{0,30}(مزود|مقدم خدمة|شركة)/i.test(reply || '');
+function hasWhatsApp(body) {
+  return (body.links || []).some((link) => /wa\.me/i.test(link.href || ''));
 }
 
 try {
   await waitForServer();
-
   const tests = [];
 
-  const legal = await chat('عندي سؤال قانوني عن تصريح بناء');
+  const legal = await chat('عندي سؤال عن مخالفة بناء');
   assert(legal.intent === 'legal', 'legal question must use legal intent', legal);
-  assert(/إمارة/i.test(legal.reply), 'legal question without an emirate must ask for the emirate', legal);
-  assert(!Array.isArray(legal.links) || legal.links.length === 0, 'legal question without emirate must not return sources', legal);
+  assert(/إمارة/i.test(legal.reply), 'legal question must ask for the emirate first', legal);
+  assert(!legal.intake && !hasWhatsApp(legal), 'legal gate must not open an intake or WhatsApp', legal);
   tests.push('legal-emirate-gate');
 
-  const tender = await chat('عندي مناقصة تشطيب في دبي وأريد تسجيلها داخل بيت الريف');
-  assert(tender.intake?.type === 'quote_request', 'tender must open a quote/tender intake', tender);
-  assert(/مناقص|طلبات المشاريع/i.test(tender.reply) && /بيت الريف/i.test(tender.reply), 'tender reply must explain Biet Al Reef flow', tender);
-  tests.push('tender-intake');
+  const outside = await chat('من فاز في مباراة كرة القدم أمس؟');
+  assert(outside.intent === 'out_of_scope', 'unrelated question must be classified out of scope', outside);
+  assert(/تدريبي مخصص/i.test(outside.reply), 'out-of-scope reply must politely state the specialization', outside);
+  assert(!outside.intake && (outside.links || []).length === 0, 'out-of-scope reply must not suggest links or forms', outside);
+  tests.push('out-of-scope-boundary');
 
-  const unmatched = await chat('أحتاج صيانة مصاعد في أم القيوين ولا أرى مزوداً مناسباً');
-  assert(unmatched.intake?.type === 'quote_request', 'unmatched service must open a structured request intake', unmatched);
-  assert(!hasForbiddenNoProvider(unmatched.reply), 'unmatched service must not tell the client there are no providers', unmatched);
-  assert(/بيت الريف|فريق/i.test(unmatched.reply), 'unmatched service must present Biet Al Reef as the partner', unmatched);
-  tests.push('unmatched-service-partner-flow');
+  const customer = createFlow();
+  const c1 = await step(customer, 'أحتاج رخام وجرانيت للمطبخ');
+  assert(c1.audience === 'customer', 'service request must be classified as customer', c1);
+  assert(!c1.intake && !hasWhatsApp(c1), 'customer intake must not open before details are complete', c1);
+  assert(/إمارة/i.test(c1.reply), 'after the service Weyaak should ask for the emirate', c1);
 
-  const provider = await chat('أنا مزود خدمات صيانة وأريد أعرف مميزات الانضمام إلى المنصة');
-  assert(provider.audience === 'provider', 'provider inquiry must be classified as provider', provider);
-  assert(!/(خصم|10\s*%|١٠\s*٪)/i.test(provider.reply), '10% annual discount must stay hidden before explicit annual intent', provider);
-  assert(provider.intake?.type === 'provider_interest', 'provider inquiry must offer provider-interest intake', provider);
-  tests.push('provider-conversion-no-early-discount');
+  const c2 = await step(customer, 'في العين');
+  assert(!c2.intake && /مواصفات|خامة|النوع/i.test(c2.reply), 'after location Weyaak should ask for specifications', c2);
 
-  const annual = await chat('أنا مزود خدمة وأؤكد أني جاهز للاشتراك السنوي وأريد تسجيل نشاطي الآن');
-  assert(annual.audience === 'provider', 'annual subscription intent must be classified as provider', annual);
-  assert(annual.intake?.type === 'provider_interest', 'annual subscription intent must open provider intake', annual);
-  assert(/خصم\s*10\s*%|10\s*%|١٠\s*٪/i.test(annual.reply), 'explicit annual intent must receive the approved 10% gift', annual);
-  tests.push('provider-annual-discount-gate');
+  const c3 = await step(customer, 'جرانيت أسود، توريد وتركيب لسطح المطبخ');
+  assert(!c3.intake && /مقاس|مساحة/i.test(c3.reply), 'after specifications Weyaak should ask for measurements', c3);
 
-  const knownProvider = await chat('أنا عميل وأبحث عن مزود مطابخ خشبية في العين');
-  assert(knownProvider.audience === 'customer', 'client provider search must be classified as customer', knownProvider);
-  assert(knownProvider.live_data === true, 'client provider search must confirm live Supabase configuration', knownProvider);
-  assert(!hasForbiddenNoProvider(knownProvider.reply), 'client provider search must not use the forbidden no-provider phrase', knownProvider);
-  tests.push('live-provider-search');
+  const c4 = await step(customer, 'حوالي أربعة متر طولي');
+  assert(!c4.intake && /ميزانية/i.test(c4.reply), 'after measurements Weyaak should ask for budget', c4);
+
+  const c5 = await step(customer, 'الميزانية غير محددة');
+  assert(!c5.intake && /متى|موعد|التنفيذ/i.test(c5.reply), 'after budget Weyaak should ask for timing', c5);
+
+  const c6 = await step(customer, 'خلال أسبوعين');
+  assert(c6.intake?.type === 'quote_request', 'complete customer details must open the review card', c6);
+  assert(!hasWhatsApp(c6), 'WhatsApp must stay hidden before Supabase registration', c6);
+  assert(/أراجع لك بعض البيانات/i.test(c6.reply), 'completed request should show the human review phrase', c6);
+  tests.push('guided-customer-intake');
+
+  const provider = createFlow();
+  const p1 = await step(provider, 'أنا صاحب شركة وأريد أن يظهر نشاطي في المنصة');
+  assert(p1.audience === 'provider', 'business owner must be classified as provider', p1);
+  assert(!p1.intake && !/(خصم|10\s*%|١٠\s*٪)/i.test(p1.reply), 'provider must get a brief greeting without an early discount', p1);
+  assert(p1.reply.length < 420, 'provider greeting must stay brief', p1);
+
+  await step(provider, 'اسم النشاط أركلين');
+  await step(provider, 'نقدم المطابخ والأبواب والتصميم الداخلي');
+  await step(provider, 'نخدم أبوظبي والعين ودبي');
+  await step(provider, 'الرخصة سارية');
+  const p6 = await step(provider, 'عندنا صور مشاريع جاهزة للنشر');
+  assert(p6.intake?.type === 'provider_interest', 'complete provider details must open the provider review card', p6);
+  assert(!hasWhatsApp(p6), 'provider WhatsApp must stay hidden before Supabase registration', p6);
+  assert(!/(خصم|10\s*%|١٠\s*٪)/i.test(p6.reply), 'discount must remain hidden without annual confirmation', p6);
+
+  const annual = await step(provider, 'أؤكد أني أريد الاشتراك السنوي');
+  assert(annual.intake?.type === 'provider_interest', 'annual confirmation must keep provider intake ready', annual);
+  assert(/خصم\s*10\s*%|10\s*%|١٠\s*٪/i.test(annual.reply), 'annual confirmation must receive the approved 10% gift', annual);
+  tests.push('brief-provider-conversion');
 
   console.log(`[Weyaak smoke] PASS: ${tests.join(', ')}`);
 } finally {
