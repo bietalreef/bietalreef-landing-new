@@ -8,7 +8,7 @@
     "audit:site": "node scripts/audit-site-structure.js",
     "prebuild": "node scripts/audit-site-structure.js",
     "build": "next build",
-    "postbuild": "node scripts/weyaak-preview-smoke.mjs",
+    "postbuild": "node scripts/weyaak-preview-smoke.mjs && node scripts/weyaak-provider-search-smoke.mjs",
     "start": "next start"
   },
   "dependencies": {
