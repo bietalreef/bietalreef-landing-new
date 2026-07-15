@@ -95,6 +95,16 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/uae/:emirate/sectors/:service',
+        destination: '/uae/:emirate/:service',
+        permanent: true,
+      },
+      {
+        source: '/en/uae/:emirate/sectors/:service',
+        destination: '/en/uae/:emirate/:service',
+        permanent: true,
+      },
+      {
         source: '/ar-sitemap',
         destination: '/sitemap.xml',
         permanent: true,
