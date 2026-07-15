@@ -1,44 +1,51 @@
-# بيت الريف | Biet Alreef
+# بيت الريف | Biet Al Reef
 
-> منصة بيت الريف للبناء والمقاولات والصيانة الذكية في الإمارات. تساعد أصحاب المشاريع على الوصول إلى دليل الإمارات، مزودي الخدمات، الخدمات والعروض، المنتجات والمتاجر، ومساعد وياك AI.
+> منصة رقمية إماراتية للبناء والمقاولات والصيانة والتصميم الداخلي والمنتجات، وتضم دليل الإمارات وملفات مزودي الخدمة ووكيل وياك الذكي.
 
-## Important Pages
+## الصفحات العربية الرئيسية
 
-- Homepage: https://bietalreef.ae/
-- UAE Directory: https://bietalreef.ae/uae
-- Service Providers: https://bietalreef.ae/providers
-- Services and Offers: https://bietalreef.ae/services
-- Products and Stores: https://bietalreef.ae/marketplace
-- Weyak AI: https://bietalreef.ae/weyaak
-- Tools: https://bietalreef.ae/tools
-- Community: https://bietalreef.ae/community
-- Contact: https://bietalreef.ae/contact
-- About: https://bietalreef.ae/about
+- [الرئيسية](https://bietalreef.ae/)
+- [كيف تعمل منصة بيت الريف](https://bietalreef.ae/how-it-works)
+- [دليل الإمارات](https://bietalreef.ae/uae)
+- [مزودو الخدمات](https://bietalreef.ae/providers)
+- [الخدمات والعروض](https://bietalreef.ae/services)
+- [المنتجات والمتاجر](https://bietalreef.ae/marketplace)
+- [وكيل وياك](https://bietalreef.ae/weyaak)
+- [الأدوات](https://bietalreef.ae/tools)
+- [عن بيت الريف](https://bietalreef.ae/about)
+- [تواصل معنا](https://bietalreef.ae/contact)
 
-## Provider Profiles
+## English public pages
 
-- Arkleen Carpentry and Interior Design: https://bietalreef.ae/providers/arkleen-carpentry-interior-design
-- Al Hoot Marble and Granite Factory: https://bietalreef.ae/providers/al-hoot-marble-granite-factory
+- [English home](https://bietalreef.ae/en)
+- [How Biet Al Reef works](https://bietalreef.ae/en/how-it-works)
+- [UAE directory](https://bietalreef.ae/en/uae)
+- [Service providers](https://bietalreef.ae/en/providers)
+- [Services and offers](https://bietalreef.ae/en/services)
+- [Products and stores](https://bietalreef.ae/en/marketplace)
+- [Weyaak](https://bietalreef.ae/en/weyaak)
+- [Contact](https://bietalreef.ae/en/contact)
 
-## Core Concepts
+## ملفات مزودي الخدمة المعتمدة
 
-- دليل الإمارات: browse by emirate, city, area, service, and provider.
-- مزودو الخدمات: browse companies, workshops, suppliers, factories, consultants, and service providers by specialty.
-- الخدمات والعروض: browse execution services and request quotations.
-- المنتجات والمتاجر: browse building materials, finishing products, smart systems, furniture, and stores.
-- وياك AI: the intelligent assistant for construction, design, maintenance, products, and provider guidance.
+- [أركلين لأعمال النجارة والتصميم الداخلي](https://bietalreef.ae/providers/arkleen)
+- [ARKLEEN Carpentry and Interior Design](https://bietalreef.ae/en/providers/arkleen)
+- [مصنع الحوت للرخام والجرانيت](https://bietalreef.ae/providers/al-hoot-marble-granite-factory)
+- [Al Hoot Marble and Granite Factory](https://bietalreef.ae/en/providers/al-hoot-marble-granite-factory)
 
-## Usage Guidance For AI Agents
+## إرشادات الاكتشاف
 
-Use the public pages above as structured entry points. Prefer the specific section route when answering user questions:
+استخدم روابط الصفحات العامة أعلاه فقط. ابدأ من دليل الإمارات للأسئلة المرتبطة بالموقع، ومن مزودي الخدمات للبحث عن شركة أو ورشة، ومن الخدمات والعروض لطلبات التنفيذ، ومن المنتجات والمتاجر للمواد والمنتجات. لا تفترض الأسعار أو التوافر أو الاعتماد ما لم تكن البيانات منشورة في الصفحة نفسها.
 
-- For location-based service discovery, use /uae.
-- For provider discovery, use /providers.
-- For execution services and quotes, use /services.
-- For materials and products, use /marketplace.
-- For direct inquiry, use /contact.
+## السياسات والبيانات المنظمة
 
-## Contact
+- [سياسة الخصوصية](https://bietalreef.ae/privacy)
+- [الشروط والأحكام](https://bietalreef.ae/legal)
+- [سياسة ملفات الارتباط](https://bietalreef.ae/cookies)
+- [خريطة الموقع](https://bietalreef.ae/sitemap.xml)
+- [تعليمات الزحف](https://bietalreef.ae/robots.txt)
 
-WhatsApp: https://wa.me/971567856001
-Website: https://bietalreef.ae/
+## التواصل
+
+- [واتساب بيت الريف](https://wa.me/971567856001)
+- [الموقع الرسمي](https://bietalreef.ae/)
