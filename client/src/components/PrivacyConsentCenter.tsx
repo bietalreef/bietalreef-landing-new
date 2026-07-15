@@ -75,11 +75,11 @@ export function PrivacyConsentCenter() {
               </button>
               {details === 'essential' && <p className="border-t bg-[#FAFAFB] p-4 text-sm leading-7 text-[#666]">{ar ? 'ضروري لتشغيل الواجهة بأمان وتذكر اللغة وقرار الخصوصية. لا يُستخدم لقياس السلوك أو الإعلانات.' : 'Required to operate the interface safely and remember language and privacy choices. It is not used for behavior measurement or advertising.'}</p>}
 
-              <button onClick={() => setDetails(details === 'analytics' ? null : 'analytics')} className="flex w-full items-center gap-3 border-t p-4 text-start">
+              <div role="button" tabIndex={0} onClick={() => setDetails(details === 'analytics' ? null : 'analytics')} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') setDetails(details === 'analytics' ? null : 'analytics'); }} className="flex w-full cursor-pointer items-center gap-3 border-t p-4 text-start">
                 <BarChart3 size={20} className="text-[#B18D16]"/><span className="flex-1 font-bold text-[#1D1D1F]">{ar ? 'تحليلات الأداء المجهولة' : 'Anonymous performance analytics'}</span>
                 <button role="switch" aria-checked={performance} onClick={event => { event.stopPropagation(); setPerformance(!performance); }} className={`relative h-7 w-12 rounded-full transition ${performance ? 'bg-[#2F6F4E]' : 'bg-[#D1D1D6]'}`}><span className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition ${performance ? (ar ? 'right-6' : 'left-6') : (ar ? 'right-1' : 'left-1')}`}/></button>
                 {details === 'analytics' ? <ChevronUp size={17}/> : <ChevronDown size={17}/>}
-              </button>
+              </div>
               {details === 'analytics' && <div className="border-t bg-[#FAFAFB] p-4 text-sm leading-7 text-[#666]"><p>{ar ? 'تقيس بصورة مجهولة: مسار الصفحة دون معاملات الرابط، نوع الجهاز، مدة الصفحة، الزر المستخدم، مصدر الزيارة، وأحداث صفحات مزودي الخدمة.' : 'Anonymously measures: page path without query parameters, device type, page duration, clicked button, visit source and provider-page events.'}</p><p className="mt-2 font-semibold text-[#2F6F4E]">{ar ? 'لا تشمل محتوى وياك أو بيانات نماذج العملاء.' : 'Weyaak content and customer form data are excluded.'}</p></div>}
             </div>
 
