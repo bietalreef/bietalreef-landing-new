@@ -92,9 +92,10 @@ try {
   tests.push('platform-knowledge-links');
 
   const legal = await chat('عندي سؤال عن اشتراطات بناء');
-  assert(legal.intent === 'legal', 'legal question must use legal intent', legal);
-  assert(/إمارة|امارة|وين|أين/i.test(legal.reply), 'legal question must ask for the emirate first', legal);
-  assert(!legal.intake && !hasWhatsApp(legal), 'legal gate must not open an intake or WhatsApp', legal);
+  assert(['legal', 'inquiry'].includes(legal.intent), 'municipal question must enter a legal or inquiry flow', legal);
+  assert(/إمارة|امارة|وين|أين/i.test(legal.reply), 'municipal question must ask for the emirate first', legal);
+  assert(hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i), 'municipal answer must use an official government source', legal);
+  assert(!legal.intake && !hasWhatsApp(legal), 'municipal gate must not open an intake or WhatsApp', legal);
   tests.push('legal-emirate-gate');
 
   const outside = await chat('من فاز في مباراة كرة القدم أمس؟');
