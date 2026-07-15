@@ -115,7 +115,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+      <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
           <Link href="/" className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
@@ -153,6 +153,7 @@ export default function Navbar() {
           </div>
         </nav>
       </header>
+      <div className="h-[65px] w-full" aria-hidden="true" />
 
       {isOpen && (
         <div className="fixed inset-0 z-[100] md:hidden" dir="rtl">

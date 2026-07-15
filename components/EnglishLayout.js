@@ -178,7 +178,7 @@ function EnglishUaeDirectoryPremium() {
 
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }) {
   return (
-    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'mr-8' : ''}`}>
+    <Link href={href} onClick={onClick} className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'} ${nested ? 'ml-8' : ''}`}>
       <Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} />
       <span>{label}</span>
     </Link>
@@ -188,7 +188,7 @@ function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false }
 function DrawerSection({ title, icon: Icon, open, onToggle, children }) {
   return (
     <div className="border-t border-gray-100 pt-3">
-      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-right text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left text-[15px] font-bold text-gray-800 hover:bg-primary/5" aria-expanded={open}>
         <span className="flex items-center gap-3">
           <Icon className="h-5 w-5 text-primary" />
           {title}
@@ -209,7 +209,7 @@ export default function EnglishLayout({ children }) {
   const isEnglishUaePage = router.pathname === '/en/uae' || router.asPath?.split('?')[0] === '/en/uae';
 
   return (
-    <div dir="rtl" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+    <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
       <style jsx global>{`
         .english-readable main :where(h1, h2, h3, h4, p, li, span, a, button),
         .english-footer-text,
@@ -217,8 +217,8 @@ export default function EnglishLayout({ children }) {
           unicode-bidi: plaintext;
         }
       `}</style>
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="ltr">
           <Link href="/en" className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
               <Image src="/logo.png" alt="Biet Al Reef" width={44} height={44} className="h-full w-full object-contain" priority />
@@ -255,6 +255,7 @@ export default function EnglishLayout({ children }) {
           </div>
         </nav>
       </header>
+      <div className="h-[65px] w-full" aria-hidden="true" />
 
       {open && (
         <div className="fixed inset-0 z-[100] md:hidden" dir="rtl">

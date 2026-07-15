@@ -82,7 +82,7 @@ function SocialLink({ href, label, icon: Icon }) {
 }
 
 function FooterLink({ href, children }) {
-  const className = 'block py-1.5 text-sm font-medium leading-7 text-gray-600 transition hover:text-primary';
+  const className = 'block py-1.5 text-sm font-medium leading-6 text-gray-600 transition [overflow-wrap:anywhere] hover:text-primary';
   if (href?.startsWith('tel:') || href?.startsWith('mailto:')) return <a href={href} className={className}>{children}</a>;
   return <Link href={href} className={className}>{children}</Link>;
 }
@@ -90,12 +90,12 @@ function FooterLink({ href, children }) {
 function FooterAccordionSection({ section, isOpen, onToggle, textAlign }) {
   const Icon = section.icon;
   return (
-    <nav aria-label={section.title} className="border-b border-[#E6DCC8] md:border-b-0">
-      <button type="button" onClick={onToggle} className={`flex w-full items-center justify-between py-5 ${textAlign} md:pointer-events-none md:cursor-default md:py-0`} aria-expanded={isOpen}>
-        <h2 className="flex items-center gap-2 text-base font-black text-primary"><Icon className="h-5 w-5" />{section.title}</h2>
-        <span className="text-primary md:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
+    <nav aria-label={section.title} className="min-w-0 border-b border-[#E6DCC8] lg:border-b-0">
+      <button type="button" onClick={onToggle} className={`flex w-full items-center justify-between py-5 ${textAlign} lg:pointer-events-none lg:cursor-default lg:py-0`} aria-expanded={isOpen}>
+        <h2 className="flex min-w-0 items-center gap-2 text-base font-black leading-6 text-primary"><Icon className="h-5 w-5 shrink-0" /><span>{section.title}</span></h2>
+        <span className="shrink-0 text-primary lg:hidden">{isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}</span>
       </button>
-      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 md:block md:pb-0`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} pb-5 lg:block lg:pb-0`}>
         <ul className="space-y-1">{section.links.map(([href, label]) => <li key={`${section.id}-${href}`}><FooterLink href={href}>{label}</FooterLink></li>)}</ul>
       </div>
     </nav>
@@ -125,15 +125,15 @@ export default function Footer({ locale = 'ar' }) {
             </div>
             <Link href={`${t.prefix}/pricing`} className="mt-5 inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">{t.promoAction}</Link>
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_repeat(5,1fr)]">
-            <div className={`text-center ${desktopAlign}`}>
+          <div className="grid grid-cols-1 gap-x-8 gap-y-0 lg:grid-cols-2 lg:gap-y-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
+            <div className={`text-center lg:col-span-2 xl:col-span-1 ${desktopAlign}`}>
               <Link href={t.home} aria-label={language === 'en' ? 'Biet Al Reef home' : 'الرئيسية'}>
                 <Image src="/logo.png" alt={language === 'en' ? 'Biet Al Reef' : 'بيت الريف'} width={110} height={110} className={`mx-auto h-24 w-24 object-contain ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`} />
               </Link>
               <p className={`mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`}>{t.description}</p>
               <div className={`mt-5 flex flex-wrap items-center justify-center gap-3 ${desktopSocial}`} dir="ltr">{socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}</div>
             </div>
-            <div className="md:contents">
+            <div className="lg:contents">
               {t.sections.map((section) => <FooterAccordionSection key={section.id} section={section} textAlign={textAlign} isOpen={openSection === section.id} onToggle={() => setOpenSection((current) => current === section.id ? null : section.id)} />)}
             </div>
           </div>
