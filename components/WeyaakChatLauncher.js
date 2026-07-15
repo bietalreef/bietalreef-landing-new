@@ -10,8 +10,8 @@ export default function WeyaakChatLauncher({ locale = 'ar' }) {
   const [chatLocale, setChatLocale] = useState(locale === 'en' ? 'en' : 'ar');
 
   useEffect(() => {
-    setChatLocale(locale === 'en' ? 'en' : 'ar');
-  }, [locale]);
+    if (!isOpen) setChatLocale(locale === 'en' ? 'en' : 'ar');
+  }, [isOpen, locale]);
 
   useEffect(() => {
     const openWeyaak = (requestedLocale) => {
@@ -22,7 +22,8 @@ export default function WeyaakChatLauncher({ locale = 'ar' }) {
     const handleClick = (event) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-      const trigger = event.target.closest('[data-weyaak-launch], a[href]');
+      const eventTarget = event.target instanceof Element ? event.target : event.target?.parentElement;
+      const trigger = eventTarget?.closest('[data-weyaak-launch], a[href]');
       if (!trigger) return;
 
       if (trigger.matches('[data-weyaak-launch]')) {
@@ -57,5 +58,12 @@ export default function WeyaakChatLauncher({ locale = 'ar' }) {
     };
   }, [locale]);
 
-  return <WeyakChat open={isOpen} onClose={() => setIsOpen(false)} initialLocale={chatLocale} />;
+  return (
+    <WeyakChat
+      key={chatLocale}
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+      initialLocale={chatLocale}
+    />
+  );
 }
