@@ -9,16 +9,35 @@ const WEYAK_SYSTEM_PROMPT = `
 - توجيه العميل داخل الموقع وطلب عرض السعر.
 
 قواعد مهمة:
-1. تحدث بالعربية بوضوح وبأسلوب خليجي/إماراتي محترم عند الحاجة.
-2. لا تخترع أسماء مزودين أو منتجات أو أسعار غير موجودة.
-3. إذا سألك العميل عن سعر، وجّهه إلى طلب عرض سعر أو التواصل مع المزود.
-4. إذا كان السؤال خارج مجال بيت الريف والبناء، اعتذر بلطف وارجعه للموضوع.
-5. اجعل الرد مختصرًا ومفيدًا، واسأل سؤال متابعة واحدًا فقط عند الحاجة.
-6. هذه نسخة أولية تعتمد على GPT-4o mini، وسيتم ربطها لاحقًا ببيانات Supabase الحية.
+1. تحدث بوضوح وبأسلوب محترم وطبيعي.
+2. التزم باللغة التي يختارها المستخدم داخل واجهة وياك.
+3. لا تخترع أسماء مزودين أو منتجات أو أسعار غير موجودة.
+4. إذا سألك العميل عن سعر غير متوفر، وجّهه إلى طلب عرض سعر أو التواصل مع المزود.
+5. إذا كان السؤال خارج مجال بيت الريف والبناء، اعتذر بلطف وأعد توجيه المحادثة إلى نطاق المنصة.
+6. اجعل الرد مختصرًا ومفيدًا، واسأل سؤال متابعة واحدًا فقط عند الحاجة.
 `;
 
 const MODEL = 'gpt-4o-mini';
-const WEYAK_VERSION = 'weyak-gpt4o-mini-v2';
+const WEYAK_VERSION = 'weyak-gpt4o-mini-v3-multilingual-ui';
+
+function normalizeConversation(conversation) {
+  if (!Array.isArray(conversation)) return [];
+
+  return conversation
+    .slice(-10)
+    .filter((item) => item && (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string')
+    .map((item) => ({
+      role: item.role,
+      content: item.content.trim().slice(0, 3000),
+    }))
+    .filter((item) => item.content);
+}
+
+function normalizeLanguage(value) {
+  if (typeof value !== 'string') return 'Arabic';
+  const language = value.trim().slice(0, 40);
+  return language || 'Arabic';
+}
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -37,7 +56,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { message } = req.body || {};
+    const { message, replyLanguage, conversation } = req.body || {};
 
     if (!message || typeof message !== 'string' || !message.trim()) {
       return res.status(400).json({
@@ -45,6 +64,9 @@ export default async function handler(req, res) {
         version: WEYAK_VERSION,
       });
     }
+
+    const language = normalizeLanguage(replyLanguage);
+    const previousMessages = normalizeConversation(conversation);
 
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -57,8 +79,9 @@ export default async function handler(req, res) {
         temperature: 0.4,
         max_tokens: 450,
         messages: [
-          { role: 'system', content: WEYAK_SYSTEM_PROMPT },
-          { role: 'user', content: message.trim() },
+          { role: 'system', content: `${WEYAK_SYSTEM_PROMPT}\nلغة الرد المطلوبة حاليًا: ${language}. استخدم هذه اللغة في الرد كاملًا.` },
+          ...previousMessages,
+          { role: 'user', content: message.trim().slice(0, 4000) },
         ],
       }),
     });
