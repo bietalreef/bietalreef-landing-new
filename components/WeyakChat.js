@@ -3,6 +3,7 @@ import {
   Send, Mic, X, MessageCircle, Loader2, ExternalLink, ShieldCheck,
   ClipboardCheck, ChevronLeft, AlertCircle,
 } from 'lucide-react';
+import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState';
 
 const QUICK_ACTIONS = [
   { label: 'أحتاج خدمة', message: 'أنا عميل وأحتاج خدمة.' },
@@ -217,8 +218,10 @@ export default function WeyakChat({ embedded = false }) {
       .slice(-16)
       .map(({ role, content }) => ({ role, content }))
       .filter((item) => item.content);
+    const preparedState = applyAnswerToWeyaakState(sessionState, userMessage);
 
     setInput('');
+    setSessionState(preparedState);
     setMessages((current) => [...current, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
@@ -229,7 +232,7 @@ export default function WeyakChat({ embedded = false }) {
         body: JSON.stringify({
           message: userMessage,
           history,
-          state: sessionState,
+          state: preparedState,
           pagePath: typeof window !== 'undefined' ? window.location.pathname : '/',
         }),
       });
