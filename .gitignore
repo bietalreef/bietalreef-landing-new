@@ -1,6 +1,5 @@
 node_modules
 .next
-.next-build
 .org.chromium.Chromium.*
 out
 .env
