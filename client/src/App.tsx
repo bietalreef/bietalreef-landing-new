@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { useEffect } from "react";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { PrivacyConsentCenter } from "./components/PrivacyConsentCenter";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { initPublicAnalytics } from "./lib/analytics";
 import Home from "./pages/Home";
@@ -27,6 +28,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <PrivacyConsentCenter />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
