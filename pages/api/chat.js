@@ -40,6 +40,7 @@ const PROVIDER_REQUIRED_FIELDS = [
 
 const PROVIDER_SEARCH_WORDS = /(مزود|مزودين|شركة|مؤسسة|ورشة|محل|مقاول|نجار|نجارة|سباك|سباكة|كهربائي|كهرباء|فني|رخام|جرانيت|المنيوم|ألمنيوم|تنظيف|صيانة|تصميم|مطبخ|مطابخ|ابواب|أبواب|خزائن|حداد|تكييف)/i;
 const PROVIDER_REQUEST_WORDS = /(اعطني|أعطني|عطني|ابغى|أبغى|اريد|أريد|عايز|أبحث|ابحث|دور|دلني|وين|فيه|هل يوجد|هل في|موجود|مزودين ام لا|مزودين أم لا)/i;
+const PROVIDER_SELF_WORDS = /(أنا|انا|عندي|لدي|نحن|احنا|إحنا).{0,30}(صاحب|مالك|شركة|مؤسسة|نشاط|ورشة|محل|مصنع|مزود)|(نشاطي|شركتي|مؤسستي|ورشتنا|مصنعنا|أريد الانضمام|اريد الانضمام|أريد إضافة نشاطي|اريد اضافة نشاطي|أريد أن يظهر نشاطي|اريد ان يظهر نشاطي)/i;
 const COMPLAINT_WORDS = /^(انت مالك|أنت مالك|شو فيك|وش فيك|ايه ده|إيه ده|ده ايه|ده إيه|مش ده|مو هذا|فهمت غلط|ركز|يا وكيل|ياوكيل|ما هذا|شو هذا|هذا شو|تهريج)/i;
 
 function text(value, max = 2000) {
@@ -114,8 +115,12 @@ function annualIntentConfirmed(value) {
 function isComplaint(value) {
   return COMPLAINT_WORDS.test(text(value, 300));
 }
+function isProviderSelfIdentification(value) {
+  return PROVIDER_SELF_WORDS.test(text(value, 1000));
+}
 function isDirectProviderSearch(value) {
   const valueText = text(value, 1000);
+  if (isProviderSelfIdentification(valueText)) return false;
   return PROVIDER_SEARCH_WORDS.test(valueText) && (PROVIDER_REQUEST_WORDS.test(valueText) || /في\s+(العين|دبي|أبوظبي|الشارقة|عجمان|الفجيرة|رأس الخيمة)/i.test(valueText));
 }
 
