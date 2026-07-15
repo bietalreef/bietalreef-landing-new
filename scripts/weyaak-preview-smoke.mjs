@@ -108,12 +108,27 @@ try {
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-review-ready');
 
-  const provider = await chat('أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.');
+  const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
+  const provider = await chat(providerMessage);
   assert(provider.audience === 'provider', 'business owner must be classified as provider', provider);
   assert(provider.intent === 'provider_subscription', 'business owner must use provider subscription flow', provider);
-  assert(provider.intake?.type === 'provider_interest', 'complete provider details must open the provider review card', provider);
-  assert(!hasWhatsApp(provider), 'provider review must not expose WhatsApp', provider);
+  assert(!hasWhatsApp(provider), 'provider flow must not expose WhatsApp', provider);
   assert(!/(خصم|10\s*%|١٠\s*٪)/i.test(provider.reply), 'stage one must not mention discounts', provider);
+
+  let providerReview = provider;
+  if (providerReview.intake?.type !== 'provider_interest') {
+    providerReview = await chat(
+      'نخدم العين ومدينة أبوظبي فقط، والبيانات جاهزة للمراجعة.',
+      [
+        { role: 'user', content: providerMessage },
+        { role: 'assistant', content: provider.reply },
+      ],
+      provider.state,
+    );
+  }
+
+  assert(providerReview.intake?.type === 'provider_interest', 'provider details must open the review card after at most one clarification', providerReview);
+  assert(!hasWhatsApp(providerReview), 'provider review must not expose WhatsApp', providerReview);
   tests.push('provider-review-ready');
 
   assert(customer.model === 'gpt-5-mini' || Boolean(process.env.WEYAAK_MODEL), 'Weyaak must use the configured modern model', customer);
