@@ -126,7 +126,7 @@ export default function Hero() {
                 ابدأ الآن — وياك يساعدك
               </Link>
               <Link 
-                href="/platform" 
+                href="/how-it-works"
                 className="flex-1 min-w-[180px] px-8 py-4 bg-gray-800 text-white rounded-2xl font-black text-center shadow-lg shadow-gray-800/20 hover:bg-gray-900 transition-all"
               >
                 اكتشف المنصة

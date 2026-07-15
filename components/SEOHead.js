@@ -5,6 +5,29 @@ const SITE_DOMAIN = 'https://bietalreef.ae';
 const SITE_NAME = 'بيت الريف';
 const DEFAULT_OG_IMAGE = 'https://bietalreef.ae/og-weyaak.jpg';
 const GOOGLE_VERIFICATION = 'HIY1XgYFRFCLwaTob54Dtx0InJae_SFmyX1bNslZDRg';
+const MIRRORED_ENGLISH_ROUTES = new Set([
+  '/', '/about', '/why-biet-alreef', '/how-it-works', '/pricing',
+  '/contact', '/services', '/marketplace', '/tools', '/weyaak', '/providers',
+  '/categories', '/customer-service', '/privacy', '/legal', '/cookies',
+  '/partners', '/suppliers', '/factories', '/faq', '/support-policy', '/providers/register',
+]);
+
+function englishAlternateFor(path) {
+  if (path === '/') return '/en';
+  if (MIRRORED_ENGLISH_ROUTES.has(path) || path.startsWith('/providers/') || path.startsWith('/categories/')) {
+    return `/en${path}`;
+  }
+  return null;
+}
+
+function localePaths(path) {
+  const isEnglish = path === '/en' || path.startsWith('/en/');
+  if (isEnglish) {
+    const arabicPath = path === '/en' ? '/' : path.slice(3) || '/';
+    return { isEnglish, arabicPath, englishPath: path };
+  }
+  return { isEnglish, arabicPath: path, englishPath: englishAlternateFor(path) };
+}
 
 /**
  * SEOHead — مكوّن SEO موحّد لجميع صفحات bietalreef.ae (Next.js)
@@ -18,7 +41,6 @@ const GOOGLE_VERIFICATION = 'HIY1XgYFRFCLwaTob54Dtx0InJae_SFmyX1bNslZDRg';
  * @param {boolean} [noIndex] — منع المحركات من الفهرسة
  * @param {object|array} [structuredData] — بيانات JSON-LD المهيكلة
  * @param {Array<{name,item}>} [breadcrumbs] — مسار التنقل (بعد الرئيسية)
- * @param {boolean} [includePWA] — إدراج tags الـ PWA (افتراضي: true)
  * @param {string} [canonicalPath] — المسار اليدوي لـ canonical (اختياري)
  * @param {string} [alternatePath] — المسار اليدوي للنسخة الإنجليزية (اختياري)
  */
@@ -31,7 +53,6 @@ export default function SEOHead({
   noIndex = false,
   structuredData = null,
   breadcrumbs = null,
-  includePWA = true,
   canonicalPath,
   alternatePath,
 }) {
@@ -43,7 +64,11 @@ export default function SEOHead({
     ? SITE_DOMAIN
     : `${SITE_DOMAIN}${cleanPath}`;
 
-  const enPath = alternatePath || (cleanPath === '/' ? '/en' : `/en${cleanPath}`);
+  const paths = localePaths(cleanPath);
+  const enPath = alternatePath || paths.englishPath;
+  const arabicUrl = paths.arabicPath === '/' ? SITE_DOMAIN : `${SITE_DOMAIN}${paths.arabicPath}`;
+  const englishUrl = enPath ? `${SITE_DOMAIN}${enPath}` : null;
+  const pageLanguage = paths.isEnglish ? 'en-AE' : 'ar-AE';
 
   // بناء BreadcrumbList Schema
   const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0
@@ -87,21 +112,20 @@ export default function SEOHead({
       />
       <link rel="canonical" href={canonicalUrl} />
       <meta name="author" content={SITE_NAME} />
-      <meta name="application-name" content={SITE_NAME} />
 
       {/* ═══ Geo Tags (UAE) — مهم للـ Local SEO و GEO ═══ */}
       <meta name="geo.region" content="AE" />
-      <meta name="geo.placename" content="الإمارات العربية المتحدة" />
+      <meta name="geo.placename" content={paths.isEnglish ? 'United Arab Emirates' : 'الإمارات العربية المتحدة'} />
       <meta name="geo.position" content="25.2048;55.2708" />
       <meta name="ICBM" content="25.2048, 55.2708" />
 
       {/* ═══ Content Language ═══ */}
-      <meta name="content-language" content="ar, en" />
+      <meta httpEquiv="content-language" content={pageLanguage} />
 
       {/* ═══ hreflang — ثنائي اللغة ═══ */}
-      <link rel="alternate" hrefLang="ar-AE" href={canonicalUrl} />
-      <link rel="alternate" hrefLang="en-AE" href={`${SITE_DOMAIN}${enPath}`} />
-      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="ar-AE" href={arabicUrl} />
+      {englishUrl ? <link rel="alternate" hrefLang="en-AE" href={englishUrl} /> : null}
+      <link rel="alternate" hrefLang="x-default" href={arabicUrl} />
 
       {/* ═══ Open Graph / Facebook — مهم للـ Social Sharing و AEO ═══ */}
       <meta property="og:type" content={ogType} />
@@ -112,8 +136,8 @@ export default function SEOHead({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={title} />
-      <meta property="og:locale" content="ar_AE" />
-      <meta property="og:locale:alternate" content="en_AE" />
+      <meta property="og:locale" content={paths.isEnglish ? 'en_AE' : 'ar_AE'} />
+      <meta property="og:locale:alternate" content={paths.isEnglish ? 'ar_AE' : 'en_AE'} />
       <meta property="og:site_name" content={SITE_NAME} />
 
       {/* ═══ Twitter Card ═══ */}
@@ -131,25 +155,14 @@ export default function SEOHead({
       <meta name="revisit-after" content="7 days" />
       <meta name="rating" content="general" />
 
-      {/* ═══ PWA Meta Tags ═══ */}
-      {includePWA && (
-        <>
-          <link rel="manifest" href="/manifest.json" />
-          <meta name="theme-color" content="#0F3F1A" />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
-          <link rel="apple-touch-icon" href="/logo.png" />
-        </>
-      )}
+      <meta name="theme-color" content="#0F3F1A" />
 
       {/* ═══ JSON-LD Structured Data — مهم للـ AEO ═══ */}
       {schemas.map((schema, index) => (
         <script
           key={index}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
         />
       ))}
 

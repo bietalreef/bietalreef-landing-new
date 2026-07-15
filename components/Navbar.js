@@ -20,7 +20,7 @@ import {
   ChevronUp,
   Globe2
 } from 'lucide-react';
-import SmartAppLink from './SmartAppLink';
+import PlatformOverviewLink from './PlatformOverviewLink';
 
 const primaryLinks = [
   { href: '/', label: 'الرئيسية', icon: Home },
@@ -140,9 +140,9 @@ export default function Navbar() {
               </Link>
             ))}
             <LanguageSwitch />
-            <SmartAppLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
+            <PlatformOverviewLink className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-primary-dark whitespace-nowrap">
               تعرّف على المنصة
-            </SmartAppLink>
+            </PlatformOverviewLink>
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
@@ -194,10 +194,10 @@ export default function Navbar() {
                 <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">AE عربي</span>
                 <LanguageSwitch mobile onClick={closeMenu} />
               </div>
-              <SmartAppLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
+              <PlatformOverviewLink className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 text-center text-base font-black text-white shadow-lg" onClick={closeMenu}>
                 تعرّف على المنصة
                 <Rocket className="h-4 w-4" />
-              </SmartAppLink>
+              </PlatformOverviewLink>
             </div>
           </aside>
         </div>

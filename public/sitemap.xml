@@ -155,7 +155,18 @@
   </url>
 
   <!-- Utility pages -->
-  <url><loc>https://bietalreef.ae/join-provider</loc><lastmod>2026-07-07</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/providers/register</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/en/providers/register</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/partners</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/en/partners</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/suppliers</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bietalreef.ae/en/suppliers</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bietalreef.ae/factories</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bietalreef.ae/en/factories</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://bietalreef.ae/faq</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://bietalreef.ae/en/faq</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://bietalreef.ae/support-policy</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://bietalreef.ae/en/support-policy</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://bietalreef.ae/tools</loc><lastmod>2026-07-07</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://bietalreef.ae/platform</loc><lastmod>2026-07-07</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://bietalreef.ae/en/tools</loc><lastmod>2026-07-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
 </urlset>

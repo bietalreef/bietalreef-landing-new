@@ -96,7 +96,7 @@ export default function EnglishStaticPage({ page, slug, service, isSeoService })
             </div>
           )}
 
-          <Link href={slug === 'platform' ? '/en/platform' : '/en/uae'} className="inline-flex rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">{page.cta}</Link>
+          <Link href="/en/uae" className="inline-flex rounded-full bg-[#0F3F1A] text-white px-6 py-3 font-black">{page.cta}</Link>
         </main>
       </EnglishLayout>
     </>

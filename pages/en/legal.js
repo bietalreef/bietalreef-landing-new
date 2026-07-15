@@ -4,10 +4,10 @@ const sections = [
   {
     title: '1. Definitions and scope',
     paragraphs: [
-      'These terms govern the use of the Biet Al Reef website, platform and related digital services, including the UAE Directory, provider pages, services and products, quotation requests, managed internal tenders, Weyaak tools and the provider application.',
+      'These terms govern the use of the Biet Al Reef website, platform and related digital services, including the UAE Directory, provider pages, services and products, quotation requests, managed internal tenders and Weyaak tools.',
     ],
     items: [
-      'Platform means the Biet Al Reef website, applications, pages and related digital services.',
+      'Platform means the Biet Al Reef website, pages and related digital services.',
       'User means any visitor, customer, project owner, service provider, supplier, factory, workshop, craftsperson or technician using the platform.',
       'Service Provider means any company, establishment, office, factory, workshop, supplier, craftsperson or technician presenting business details, services or products.',
       'Content includes names, descriptions, images, logos, documents, services, products, offers, indicative prices, project images and other submitted or published information.',
@@ -24,19 +24,19 @@ const sections = [
     ],
   },
   {
-    title: '3. Eligibility and account creation',
+    title: '3. Eligibility and business-profile requests',
     items: [
       'Submitted information must be accurate, current, complete and not misleading.',
       'Commercial entities must hold all licences, permits and approvals required for the activities they offer under UAE law.',
       'An individual or technician must not claim to be a licensed commercial entity without a valid licence or authorisation.',
-      'Biet Al Reef may reject, suspend or restrict an account, profile or document that is incomplete, expired, misleading or not reasonably verifiable.',
-      'Users are responsible for protecting login credentials and promptly reporting suspected unauthorised access.',
+      'Biet Al Reef may reject, suspend or hide a profile or document that is incomplete, expired, misleading or not reasonably verifiable.',
+      'The requester is responsible for the accuracy of submitted data and documents and for having authority to provide them for publication.',
     ],
   },
   {
     title: '4. Registration, verification and public publication',
     items: [
-      'Creating an account or signing in does not automatically approve a provider for public publication.',
+      'Submitting a business-profile request does not automatically approve a provider for public publication.',
       'Profiles, licences, services, products, offers, portfolios and service areas may be reviewed before publication.',
       'Approved content may appear on public Biet Al Reef pages, search results, directory cards, city and service pages and AI-assisted recommendations.',
       'Biet Al Reef may improve formatting, correct language and organise classifications without changing material commercial claims.',

@@ -59,7 +59,6 @@ export default function Services({ services }) {
         ogImage="https://bietalreef.ae/og-weyaak.jpg"
         structuredData={servicesItemListSchema}
         breadcrumbs={[{ name: "الخدمات والعروض", item: "https://bietalreef.ae/services" }]}
-        includePWA={false}
       />
 
       <div dir="rtl" className="min-h-screen flex flex-col bg-[#FDFBF7]">

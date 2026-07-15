@@ -25,7 +25,7 @@ export default function PartnersEnglishPage() {
         { href: '/en/providers/register', label: 'Provider registration' },
         { href: '/en/suppliers', label: 'Suppliers' },
         { href: '/en/factories', label: 'Factories & Workshops' },
-        { href: '/en/platform', label: 'Explore the platform' },
+        { href: '/en/how-it-works', label: 'See how it works' },
       ]}
       faqs={[
         ['Who can join as a partner?', 'Companies, contractors, suppliers, factories, workshops, skilled professionals and service providers connected to construction, maintenance, finishing, materials and products may apply.'],

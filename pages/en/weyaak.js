@@ -60,7 +60,7 @@ export default function EnglishWeyaakPage() {
                   <span className="block text-[#B99420]">the smart assistant layer</span>
                 </h1>
                 <p className="mx-auto mt-5 max-w-2xl text-lg font-bold leading-9 text-[#5F6F65] md:mx-0">
-                  Weyaak helps visitors and providers turn a loose need into a clear path: quotation request, inquiry, provider app access, or the right Biet Al Reef section.
+                  Weyaak helps visitors and providers turn a loose need into a clear path: quotation request, inquiry, business-profile request, or the right Biet Al Reef section.
                 </p>
                 <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
                   <Link href="/en/request-quote?source=weyaak-hero" className="rounded-2xl bg-[#0F8A3B] px-7 py-4 text-base font-black text-white shadow-lg">

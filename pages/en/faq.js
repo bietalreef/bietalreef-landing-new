@@ -6,6 +6,7 @@ export default function FaqEnglishPage() {
       title="FAQ"
       description="Answers to common questions about Biet Al Reef, the UAE directory, provider onboarding, service requests and future platform features."
       path="/en/faq"
+      arabicPath="/faq"
       ctaHref="/en/contact"
       ctaLabel="Ask a question"
     />

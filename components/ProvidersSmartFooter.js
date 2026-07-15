@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { UAE_EMIRATES } from '../data/siteTaxonomy';
 
 const providerActions = [
-  { ar: 'سجل نشاطك كمزود خدمة', en: 'Register as a provider', hrefAr: '/providers/register', hrefEn: '/en/providers/register', icon: '🏢' },
+  { ar: 'اطلب إنشاء ملف نشاطك', en: 'Request a business profile', hrefAr: '/providers/register', hrefEn: '/en/providers/register', icon: '🏢' },
   { ar: 'تصفح المزودين المتاحين', en: 'Browse available providers', hrefAr: '#provider-sectors', hrefEn: '#provider-sectors', icon: '🤝' },
-  { ar: 'اطلب عرض سعر', en: 'Request a quotation', hrefAr: '/request-quote', hrefEn: '/request-quote', icon: '🔎' },
+  { ar: 'اطلب عرض سعر', en: 'Request a quotation', hrefAr: '/request-quote', hrefEn: '/en/request-quote', icon: '🔎' },
   { ar: 'تواصل مع فريق الانضمام', en: 'Talk to onboarding', hrefAr: 'https://wa.me/971567856001', hrefEn: 'https://wa.me/971567856001', icon: '💬' },
 ];
 
@@ -87,7 +87,7 @@ export default function ProvidersSmartFooter({ locale = 'ar' }) {
           <p className="text-sm font-black text-[#B8922B]">{isEn ? 'Providers gateway' : 'بوابة مزودي الخدمات'}</p>
           <h2 className="mt-2 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{isEn ? 'Smart footer for service providers' : 'فوتر ذكي خاص بمزودي الخدمات'}</h2>
           <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600 md:text-base">
-            {isEn ? 'A dedicated provider footer with registration actions, provider specialties, UAE coverage and useful provider content.' : 'فوتر مستقل لمزودي الخدمات يجمع التسجيل، التخصصات، الانتشار حسب الإمارات، والمحتوى المفيد للمزودين بدون ازدحام الصفحة.'}
+            {isEn ? 'A dedicated provider footer with business profile requests, provider specialties, UAE coverage and useful provider content.' : 'فوتر مستقل لمزودي الخدمات يجمع طلب إنشاء الملف، التخصصات، الانتشار حسب الإمارات، والمحتوى المفيد للمزودين بدون ازدحام الصفحة.'}
           </p>
         </div>
 
@@ -111,17 +111,17 @@ export default function ProvidersSmartFooter({ locale = 'ar' }) {
           </FooterCard>
 
           <FooterCard title={isEn ? 'Useful provider content' : 'محتوى مفيد للمزودين'} subtitle={isEn ? 'Registration and request guidance' : 'إرشاد للتسجيل والطلبات'} icon="📚">
-            <LinkList locale={locale} items={providerContent} resolver={(item) => (locale === 'en' && !item.href.startsWith('/en') && item.href.startsWith('/providers') ? `/en${item.href}` : item.href)} />
+            <LinkList locale={locale} items={providerContent} resolver={(item) => (locale === 'en' && !item.href.startsWith('/en') ? `/en${item.href}` : item.href)} />
           </FooterCard>
         </div>
 
         <div className="mt-8 rounded-[2rem] border border-[#E6DCC8] bg-white p-5 shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:flex md:items-center md:justify-between md:gap-6">
           <div>
-            <h3 className="text-xl font-black text-[#0F3F1A]">{isEn ? 'Ready to join as a service provider?' : 'جاهز تنضم كمزود خدمة؟'}</h3>
-            <p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{isEn ? 'Register your business so customers can find you by specialty, location and provider profile.' : 'سجل نشاطك حتى يجدك العميل حسب التخصص والمكان وملف المزود.'}</p>
+            <h3 className="text-xl font-black text-[#0F3F1A]">{isEn ? 'Ready to publish your business profile?' : 'جاهز تنشر ملف نشاطك؟'}</h3>
+            <p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{isEn ? 'Send the details to the Biet Al Reef team to prepare and review the profile before publication.' : 'أرسل البيانات إلى فريق بيت الريف لتجهيز الملف ومراجعته قبل النشر.'}</p>
           </div>
           <Link href={isEn ? '/en/providers/register' : '/providers/register'} className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#1F170D] md:mt-0 md:w-auto">
-            {isEn ? 'Register now' : 'سجل الآن'}
+            {isEn ? 'Request a profile' : 'اطلب إنشاء الملف'}
           </Link>
         </div>
       </div>

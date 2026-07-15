@@ -100,7 +100,7 @@ export default function ToolsPage() {
                 ))}
               </ul>
               <Link 
-                href="/platform" 
+                href="/how-it-works"
                 className="inline-flex items-center justify-center w-full py-4 bg-blue-600 text-white rounded-2xl font-black shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all"
               >
                 استخدم الأداة الآن <ChevronLeft className="w-5 h-5 mr-2" />
@@ -125,10 +125,10 @@ export default function ToolsPage() {
         {/* CTA */}
         <section className="text-center bg-blue-600 rounded-[40px] p-12 text-white shadow-2xl shadow-blue-200">
           <h2 className="text-3xl font-black mb-6">ابدأ باستخدام الأدوات مجاناً</h2>
-          <p className="text-blue-50/70 mb-10 max-w-xl mx-auto">سجل دخولك الآن للوصول إلى كافة الأدوات المتقدمة وحفظ بيانات مشاريعك بشكل آمن.</p>
+          <p className="text-blue-50/70 mb-10 max-w-xl mx-auto">ابدأ بطلبك أو تواصل مع فريق بيت الريف لاختيار الأداة والمسار المناسب لمشروعك.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/platform" className="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition-all">
-              دخول المنصة
+            <Link href="/contact" className="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition-all">
+              تواصل مع فريق بيت الريف
             </Link>
             <Link href="/weyaak" className="px-10 py-4 bg-blue-500 text-white rounded-2xl font-bold border border-blue-400 hover:bg-blue-400 transition-all">
               تحدث مع وياك AI

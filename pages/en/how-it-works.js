@@ -26,7 +26,7 @@ export default function HowItWorksEnglishPage() {
         { href: '/en/uae', label: 'UAE Directory' },
         { href: '/en/services', label: 'Services & Offers' },
         { href: '/en/marketplace', label: 'Products & Stores' },
-        { href: '/en/platform', label: 'Platform' },
+        { href: '/en/how-it-works', label: 'How it works' },
       ]}
       faqs={[
         ['When should I request a quotation and when should I request a tender?', 'Start with a quotation when the service is clear and can be directed to a suitable provider. Request an internal tender when the price or solution is not suitable, or when the request needs a wider comparison.'],

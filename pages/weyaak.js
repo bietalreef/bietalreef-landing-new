@@ -12,7 +12,7 @@ const WEYAAK_LOGO = '/images/weyaak-new-logo.jpg';
 const actions = [
   { title: 'طلب عرض سعر', desc: 'أرسل احتياجك لفريق بيت الريف بشكل منظم.', href: '/request-quote?source=weyaak', icon: FileText },
   { title: 'إرسال استفسار', desc: 'اسأل عن خدمة أو مزود أو طريقة البدء.', href: '/inquiry?source=weyaak', icon: MessageCircle },
-  { title: 'دخول مزود الخدمة', desc: 'افهم مزايا الانضمام أولًا ثم افتح التطبيق من صفحة مزود الخدمة.', href: '/providers/register?source=weyaak-page', icon: Building2 },
+  { title: 'إضافة نشاطك', desc: 'تعرف على مزايا الحضور الرقمي ثم اطلب من فريق بيت الريف إنشاء صفحة نشاطك.', href: '/providers/register?source=weyaak-page', icon: Building2 },
 ];
 
 export default function WeyaakPage() {

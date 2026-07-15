@@ -36,7 +36,7 @@ const clientJourneyCards = [
 
 const providerPresenceCards = [
   { title: 'Be found where clients search', desc: 'Not a temporary ad. A structured digital presence for Google, AI engines and Biet Al Reef.', icon: MapPinned },
-  { title: 'Operate from your phone', desc: 'A future-ready profile for requests, quotation flow, services and business follow-up.', icon: Building2 },
+  { title: 'A centrally managed profile', desc: 'A reviewed public profile for services, products, projects, coverage and clear contact.', icon: Building2 },
   { title: 'Content built for discovery', desc: 'Your specialty becomes easier to understand, search, classify and recommend.', icon: Sparkles },
 ];
 
