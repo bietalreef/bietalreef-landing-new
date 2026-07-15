@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
+import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState.js';
 
 const isPreview = process.env.VERCEL_ENV === 'preview';
 
@@ -79,10 +80,11 @@ function createFlow() {
 }
 
 async function step(flow, message) {
-  const body = await chat(message, flow.history, flow.state);
+  const preparedState = applyAnswerToWeyaakState(flow.state, message);
+  const body = await chat(message, flow.history, preparedState);
   flow.history.push({ role: 'user', content: message });
   flow.history.push({ role: 'assistant', content: body.reply });
-  flow.state = body.state || flow.state;
+  flow.state = body.state || preparedState;
   return body;
 }
 
