@@ -1,3 +1,5 @@
+import { analyticsConsent, CONSENT_EVENT } from '../components/PrivacyConsentCenter';
+
 type AnalyticsEvent =
   | 'page_view' | 'page_exit' | 'click' | 'cta_click' | 'provider_view'
   | 'service_view' | 'product_view' | 'project_view'
@@ -62,7 +64,7 @@ function safeReferrer() {
 }
 
 export async function trackPublicEvent(eventType: AnalyticsEvent, options: TrackOptions = {}) {
-  if (!endpoint || !publishableKey || navigator.doNotTrack === '1') return;
+  if (!endpoint || !publishableKey || navigator.doNotTrack === '1' || analyticsConsent() !== 'accepted') return;
 
   const slug = providerSlug();
   const payload = {
@@ -155,10 +157,15 @@ export function initPublicAnalytics() {
     }
   };
 
+  const onConsent = () => {
+    if (analyticsConsent() === 'accepted') recordPage();
+  };
+
   document.addEventListener('click', onClick, { capture: true });
   window.addEventListener('popstate', onPageChange);
   document.addEventListener('visibilitychange', onVisibility);
-  recordPage();
+  window.addEventListener(CONSENT_EVENT, onConsent);
+  if (analyticsConsent() === 'accepted') recordPage();
 
   return () => {
     history.pushState = originalPush;
@@ -166,5 +173,6 @@ export function initPublicAnalytics() {
     document.removeEventListener('click', onClick, { capture: true });
     window.removeEventListener('popstate', onPageChange);
     document.removeEventListener('visibilitychange', onVisibility);
+    window.removeEventListener(CONSENT_EVENT, onConsent);
   };
 }
