@@ -104,7 +104,7 @@ function FooterAccordionSection({ section, isOpen, onToggle, textAlign }) {
 
 export { socialLinks };
 
-export default function Footer({ locale = 'ar' }) {
+export default function Footer({ locale = 'ar', showRequestCTA = true }) {
   const language = locale === 'en' ? 'en' : 'ar';
   const t = copy[language];
   const [openSection, setOpenSection] = useState(null);
@@ -114,7 +114,7 @@ export default function Footer({ locale = 'ar' }) {
 
   return (
     <>
-      <UniversalRequestCTA locale={language} />
+      {showRequestCTA ? <UniversalRequestCTA locale={language} /> : null}
       <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir={t.dir} role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className={`mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#FFF9E8] p-6 shadow-[0_16px_40px_rgba(15,63,26,0.08)] md:flex md:items-center md:justify-between md:gap-8 ${textAlign}`}>
