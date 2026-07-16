@@ -169,4 +169,4 @@ export async function getStaticProps({ params }) {
   return { props: { provider, emirate: emirate || null, area: area || null }, revalidate: false };
 }
 
-export async function getStaticPaths() { return { paths: providers.map((provider) => ({ params: { slug: provider.slug } })), fallback: false }; }
+export async function getStaticPaths() { return { paths: providers.filter((provider) => provider.slug !== 'alrehab-cleaning-sanitizing').map((provider) => ({ params: { slug: provider.slug } })), fallback: false }; }
