@@ -19,6 +19,8 @@ export default function AlrehabProviderPage() {
       logo: `${SITE_URL}${provider.media.logo}`, image: `${SITE_URL}${provider.media.cover}`,
       areaServed: ['Al Ain', 'Abu Dhabi', 'Dubai'].map((name) => ({ '@type': 'AdministrativeArea', name })),
       serviceType: provider.services.map((service) => service.title.ar),
+      foundingDate: String(new Date().getFullYear() - provider.trust.yearsExperience),
+      knowsAbout: provider.trust.points.map((point) => point.ar),
       availableLanguage: ['Arabic', 'English'],
     },
     {
@@ -102,10 +104,10 @@ export default function AlrehabProviderPage() {
 
           <section className="-mt-8 px-4 pb-14">
             <div className="mx-auto grid max-w-6xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              <InfoCard icon={<MapPin />} title="نطاق الخدمة" value="العين · أبوظبي · دبي" />
-              <InfoCard icon={<Clock3 />} title="المواعيد" value="حسب الحجز المسبق" />
-              <InfoCard icon={<ShieldCheck />} title="المواد" value="تنظيف وتعقيم مناسب للخامة" />
-              <InfoCard icon={<Sparkles />} title="النتيجة" value="تقييم واضح قبل التنفيذ" />
+              <InfoCard icon={<Clock3 />} title="الخبرة" value="خبرة عملية 5 سنوات" />
+              <InfoCard icon={<ShieldCheck />} title="المواد" value="مواد آمنة ومعتمدة" />
+              <InfoCard icon={<Sparkles />} title="الجودة" value="خدمة بجودة واحترافية" />
+              <InfoCard icon={<CheckCircle2 />} title="الضمان" value="ضمان وفق نطاق العمل" />
             </div>
           </section>
 
@@ -147,6 +149,6 @@ export default function AlrehabProviderPage() {
 }
 
 function Section({ eyebrow, title, intro, children }) { return <section className="px-4 py-16"><div className="mx-auto max-w-6xl"><p className="font-black text-[#55A91C]">{eyebrow}</p><h2 className="mt-2 text-3xl font-black leading-tight text-[#073D7C] md:text-4xl">{title}</h2><p className="mt-4 max-w-3xl leading-8 text-slate-600">{intro}</p><div className="mt-9">{children}</div></div></section>; }
-function InfoCard({ icon, title, value }) { return <div className="rounded-3xl border border-[#DDEAF7] bg-white p-5 shadow-lg"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EAF6FF] text-[#0870C2] [&>svg]:h-5 [&>svg]:w-5">{icon}</div><p className="mt-4 text-xs font-black text-[#55A91C]">{title}</p><p className="mt-1 font-black text-[#073D7C]">{value}</p></div>; }
+function InfoCard({ icon, title, value }) { return <div className="rounded-3xl border border-white/80 bg-gradient-to-br from-white via-[#FBFDFF] to-[#EDF6FF] p-5 shadow-[0_16px_34px_-18px_rgba(7,61,124,.35),inset_0_1px_0_rgba(255,255,255,1)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_42px_-18px_rgba(7,61,124,.42),inset_0_1px_0_white]"><div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white bg-gradient-to-br from-white to-[#DDEFFF] text-[#0870C2] shadow-[0_9px_18px_-10px_rgba(8,112,194,.65),inset_0_1px_0_white] [&>svg]:h-5 [&>svg]:w-5">{icon}</div><p className="mt-4 text-xs font-black text-[#55A91C]">{title}</p><p className="mt-1 font-black text-[#073D7C]">{value}</p></div>; }
 function ContentCard({ item }) { const message = `مرحباً، أرغب في طلب خدمة من الرحاب عبر بيت الريف.\nمعرّف المزود: ${provider.id}\nمعرّف البطاقة: ${item.id}\nنوع الخدمة: ${item.title.ar}\nالتفاصيل: ${item.summary.ar}`; return <article id={item.id} className="overflow-hidden rounded-3xl border border-[#DDEAF7] bg-white shadow-sm"><div className="relative aspect-[4/3]"><Image src={item.image} alt={item.title.ar} fill className="object-cover" /></div><div className="p-5"><div className="flex items-center justify-between gap-2"><CheckCircle2 className="h-6 w-6 text-[#55B51B]" /><span className="text-xs font-black text-[#0B5EAE]" dir="ltr">{item.id}</span></div><h3 className="mt-3 text-xl font-black text-[#073D7C]">{item.title.ar}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.summary.ar}</p><a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#55B51B] px-4 text-sm font-black text-white"><MessageCircle className="h-4 w-4" />طلب الخدمة عبر واتساب</a></div></article>; }
 function OfferCard({ offer }) { const message = `مرحباً، أرغب في الاستفسار عن عرض الرحاب عبر بيت الريف.\nمعرّف المزود: ${provider.id}\nمعرّف البطاقة: ${offer.id}\nنوع العرض: ${offer.title.ar}\nالتفاصيل: ${offer.summary.ar}\nالسعر: بعد التقييم`; return <article id={offer.id} className="overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur"><div className="relative aspect-[4/3]"><Image src={offer.image} alt={offer.title.ar} fill className="object-cover" /><span className="absolute right-3 top-3 rounded-full bg-[#55B51B] px-3 py-1 text-xs font-black text-white">{offer.badge.ar}</span></div><div className="p-5"><p className="text-xs font-black text-[#89D13C]" dir="ltr">{offer.id}</p><h3 className="mt-2 text-xl font-black">{offer.title.ar}</h3><p className="mt-3 text-sm leading-7 text-white/70">{offer.summary.ar}</p><p className="mt-4 text-xs font-black text-[#89D13C]">السعر بعد التقييم</p><a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#55B51B] px-4 text-sm font-black text-white"><MessageCircle className="h-4 w-4" />استفسر عبر واتساب</a></div></article>; }
