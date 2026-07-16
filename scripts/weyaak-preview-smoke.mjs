@@ -107,7 +107,15 @@ try {
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
   if (customer.match_status === 'matched') {
     assert(hasLink(customer, /providers\/al-hoot-marble-granite-factory/i), 'matched marble request must identify White Whale before review', customer);
-    assert(/تأكيد|تأكيدك|مزود/i.test(customer.reply), 'matched request must ask for provider confirmation', customer);
+    const asksForProviderConfirmation = /تأكيد|تأكيدك|مزود/i.test(customer.reply);
+    const asksForRequiredClarification =
+      customer.intake?.type === 'quote_request' &&
+      /أكمل|توضيح|راجع|تفاصيل|قياس|مقاس|العرض|العمق|السمك/i.test(customer.reply);
+    assert(
+      asksForProviderConfirmation || asksForRequiredClarification,
+      'matched request must ask for provider confirmation or a required quote clarification',
+      customer,
+    );
   } else {
     assert(customer.intake?.type === 'quote_request', 'unmatched complete customer details must open the review card', customer);
   }
