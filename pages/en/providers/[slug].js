@@ -41,6 +41,7 @@ export default function EnglishProviderProfilePage({ provider }) {
     '@type': 'LocalBusiness',
     '@id': `${canonical}#business`,
     name: provider.nameEn,
+    identifier: provider.providerId,
     alternateName: provider.nameAr,
     description,
     url: canonical,
@@ -117,7 +118,10 @@ export default function EnglishProviderProfilePage({ provider }) {
                         </div>
                       </div>
                       <div className="min-w-0 text-center lg:text-left">
-                        <p className="text-xs font-black uppercase tracking-[.18em] text-[#E4C75D]">Verified marble & granite factory</p>
+                        <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+                          <p className="text-xs font-black uppercase tracking-[.18em] text-[#E4C75D]">Verified marble & granite factory</p>
+                          <span className="rounded-full border border-[#E8C968]/35 bg-white/10 px-3 py-1 text-[11px] font-black text-white">{provider.providerId}</span>
+                        </div>
                         <h1 className="mt-2 font-serif text-3xl font-black leading-tight text-white md:text-5xl">{provider.nameEn || provider.nameAr}</h1>
                         <p className="mt-2 font-black text-[#F4D76B]">Supply · Custom fabrication · Installation</p>
                         <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
