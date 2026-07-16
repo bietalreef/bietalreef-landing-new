@@ -6,7 +6,7 @@ import Footer from '../Footer';
 import SEOHead from '../SEOHead';
 import WeyaakHeroCard from '../WeyaakHeroCard';
 import PlatformStoryVideo from '../PlatformStoryVideo';
-import { ArrowLeft, ArrowRight, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Bot, Building2, Compass, Languages, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle, ShieldCheck } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -43,8 +43,8 @@ const providerPresenceCards = [
 
 const experienceCards = [
   { title: 'مسار واضح', desc: 'كل زائر يبدأ من بوابة مفهومة بدل التشتت بين الصفحات.', icon: Search },
-  { title: 'وياك حاضر', desc: 'المساعد الذكي يربط السؤال بالقسم المناسب داخل المنصة.', icon: Bot },
-  { title: 'هوية عربية', desc: 'تصميم يحافظ على اتجاه وتجربة بيت الريف حتى مع تعدد اللغات.', icon: Sparkles },
+  { title: 'وياك حاضر', desc: 'المساعد الذكي يربط السؤال بالقسم المناسب داخل المنصة.', icon: Compass },
+  { title: 'هوية عربية', desc: 'تصميم يحافظ على اتجاه وتجربة بيت الريف حتى مع تعدد اللغات.', icon: Languages },
   { title: 'قابل للنمو', desc: 'كل قسم مرتبط بمحتوى وبيانات منظمة قابلة للتوسع والتحديث.', icon: Building2 },
 ];
 
@@ -83,8 +83,8 @@ const englishCopy = {
   ],
   experienceCards: [
     { title: 'A clear path', desc: 'Every visitor starts from an understandable gateway instead of scattered pages.', icon: Search },
-    { title: 'Weyaak is available', desc: 'The smart assistant connects each question to the right section of the platform.', icon: Bot },
-    { title: 'One visual identity', desc: 'The English experience preserves the same trusted Biet Al Reef interface.', icon: Sparkles },
+    { title: 'Weyaak is available', desc: 'The smart assistant connects each question to the right section of the platform.', icon: Compass },
+    { title: 'One visual identity', desc: 'The English experience preserves the same trusted Biet Al Reef interface.', icon: Languages },
     { title: 'Built to grow', desc: 'Every section is connected to structured content that can expand and stay current.', icon: Building2 },
   ],
   trustBadges: [
@@ -119,25 +119,27 @@ const arabicCopy = {
 const pageText = {
   ar: {
     eyebrow: 'ابدأ من هنا', gatewayTitle: 'اختر بوابة بيت الريف المناسبة', gatewayText: 'كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.', explore: 'استكشف الآن',
-    providerEyebrow: 'لمزود الخدمة', providerTitle: 'ابنِ حضورًا رقميًا منظمًا لنشاطك', providerText: 'هدفنا ليس ربطك مع عميل فقط؛ هدفنا أن نبني لك حضوراً رقمياً يجعل عميلك يجدك في المكان الذي يبحث فيه، داخل بيت الريف، وفي Google، وفي محركات الذكاء الاصطناعي.',
+    providerEyebrow: 'لصاحب النشاط التجاري', providerTitle: 'هل تعمل في مجال المقاولات أو البناء؟', providerText: 'تغيّرت قواعد الظهور في السوق. لم يعد نشاطك بحاجة إلى إعلان مؤقت فقط، بل إلى حضور رقمي منظم يستطيع العملاء ومحركات البحث وأنظمة الذكاء الاصطناعي فهمه والوصول إليه في أي وقت. انضم إلى بيت الريف، وسنساعدك في تقديم خدماتك ومشاريعك ومناطق عملك داخل ملف مهني واضح، وبناء محتوى قابل للاكتشاف على المنصة وGoogle ومحركات الذكاء الاصطناعي. حضور رقمي مستدام لا يتوقف بانتهاء حملة إعلانية، وتتحسن فعاليته مع اكتمال بيانات نشاطك وجودة محتواه.',
+    providerPrimaryAction: 'ابدأ تجهيز ملف نشاطك', providerSecondaryAction: 'تعرّف على خطط الانضمام',
     experienceTitle: 'لا نبيع لك إعلاناً مؤقتاً', experienceText: 'الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.',
     h1: 'منصة بيت الريف الذكية', heroText: <>كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.</>, heroTitle: <>ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة</>,
     weyaakAction: 'تحدث مع وياك الآن', providerAction: 'ابدأ كمزود خدمة',
   },
   en: {
     eyebrow: 'Start here', gatewayTitle: 'Choose the right Biet Al Reef gateway', gatewayText: 'Every journey starts from the right section: place, provider, service or product.', explore: 'Explore now',
-    providerEyebrow: 'For service providers', providerTitle: 'Build a structured digital presence for your business', providerText: 'Our goal is not only to connect you with a customer. We build a lasting presence that helps customers find you on Biet Al Reef, Google and AI search engines.',
+    providerEyebrow: 'For business owners', providerTitle: 'Do you work in construction or contracting?', providerText: 'The rules of market visibility have changed. Your business needs more than a temporary advertisement; it needs a structured digital presence that customers, search engines and AI systems can understand and discover at any time. Join Biet Al Reef and we will help present your services, projects and coverage areas in a clear professional profile, with discoverable content across the platform, Google and AI search engines. It is a lasting presence that does not end with an advertising campaign and becomes more effective as your business information and content improve.',
+    providerPrimaryAction: 'Start building your business profile', providerSecondaryAction: 'Explore membership plans',
     experienceTitle: 'We do not sell temporary advertising', experienceText: 'Advertising stops when its budget ends. Biet Al Reef builds a lasting digital presence around your specialty, services, content, documents and professional reputation.',
     h1: 'Biet Al Reef Smart Platform', heroText: <>Everything your project needs in one place:<br />a provider, service, product or a clear path with Weyaak.</>, heroTitle: <>Search and contact directly...<br />or let Weyaak handle the journey</>,
     weyaakAction: 'Talk to Weyaak now', providerAction: 'Start as a service provider',
   },
 };
 
-function GatewayCard({ card, explore }) {
+function GatewayCard({ card, explore, isEnglish = false }) {
   const Icon = card.icon;
 
   return (
-    <Link key={card.href} href={card.href} className="group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+    <Link key={card.href} href={card.href} dir={isEnglish ? 'ltr' : 'rtl'} className={`group relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${isEnglish ? 'text-left' : 'text-right'}`}>
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#F7F2E8]">
         <Image src={card.image} alt={card.imageAlt || card.title} fill className="object-cover object-center transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 92vw, (max-width: 1280px) 45vw, 25vw" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7]/25 via-transparent to-white/5" />
@@ -159,7 +161,7 @@ function GatewayCard({ card, explore }) {
         </div>
       </div>
 
-      <div className="px-6 pb-6 pt-4">
+      <div className={`px-6 pb-6 pt-4 ${isEnglish ? 'text-left' : 'text-right'}`}>
         <p className="text-sm font-semibold leading-7 text-gray-600">{card.desc}</p>
       </div>
     </Link>
@@ -222,14 +224,14 @@ export default function HomePage({ locale = 'ar' }) {
                 {content.introModels.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.title} className={`grid min-w-0 overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur md:grid-cols-[42%_58%] md:rounded-[1.4rem] ${isEnglish ? 'text-left' : 'text-right'}`}>
+                    <div key={item.title} className={`grid min-h-[116px] min-w-0 grid-rows-[64px_1fr] overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur md:min-h-0 md:grid-cols-[42%_58%] md:grid-rows-1 md:rounded-[1.4rem] ${isEnglish ? 'text-left' : 'text-right'}`}>
                       <div className="relative h-16 overflow-hidden bg-[#F3EBDD] md:h-36">
                         <Image src={item.image} alt="" fill className="object-cover" sizes="(max-width: 768px) 25vw, 150px" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/20 to-transparent" />
                       </div>
-                      <div className={`flex min-w-0 flex-col items-center justify-center px-1.5 py-2 text-center md:items-start md:px-4 ${isEnglish ? 'md:text-left' : 'md:text-right'}`}>
+                      <div className={`flex min-w-0 flex-col items-center justify-center px-1 py-2 text-center md:items-start md:px-4 ${isEnglish ? 'md:text-left' : 'md:text-right'}`}>
                         <Icon className="mb-1 hidden h-6 w-6 text-[#0F3F1A] md:block" aria-hidden="true" />
-                        <p className="text-[0.68rem] font-black leading-5 text-[#0F3F1A] sm:text-xs md:text-base">{item.title}</p>
+                        <p className="text-[0.58rem] font-black leading-4 text-[#0F3F1A] min-[390px]:text-[0.65rem] sm:text-xs md:text-base md:leading-5">{item.title}</p>
                         <p className="hidden text-xs font-semibold leading-5 text-gray-500 md:block">{item.desc}</p>
                       </div>
                     </div>
@@ -255,28 +257,28 @@ export default function HomePage({ locale = 'ar' }) {
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className={`mb-6 text-center ${isEnglish ? 'md:text-left' : 'md:text-right'}`}><span className="text-sm font-black text-[#6F5400]">{t.eyebrow}</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">{t.gatewayTitle}</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">{t.gatewayText}</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {content.gatewayCards.map((card) => <GatewayCard key={card.href} card={card} explore={t.explore} />)}
+              {content.gatewayCards.map((card) => <GatewayCard key={card.href} card={card} explore={t.explore} isEnglish={isEnglish} />)}
             </div>
           </section>
 
           <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{content.clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm hover:shadow-md transition-shadow"><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{content.clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition-shadow hover:shadow-md ${isEnglish ? 'text-left' : 'text-right'}`}><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
 
           <PlatformStoryVideo locale={language} />
 
           <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
-              <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">{t.providerEyebrow}</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.providerTitle}</h2><p className="mx-auto mt-5 max-w-4xl text-base font-semibold leading-9 text-gray-600 md:text-lg">{t.providerText}</p></div>
+              <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">{t.providerEyebrow}</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.providerTitle}</h2><p className="mx-auto mt-5 max-w-5xl text-base font-semibold leading-9 text-gray-600 md:text-lg">{t.providerText}</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`${isEnglish ? '/en' : ''}/providers/register`} className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F4C4A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#17615E]">{t.providerPrimaryAction}</Link><Link href={`${isEnglish ? '/en' : ''}/pricing`} className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#D8C59F] bg-white px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#FFF9E8]">{t.providerSecondaryAction}</Link></div></div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                {content.providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 text-center shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className="relative mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}
+                {content.providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${isEnglish ? 'text-left' : 'text-right'}`}><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm ${isEnglish ? 'mr-auto' : 'ml-auto'}`}><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}
               </div>
             </div>
           </section>
 
-          <section className="bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{t.experienceTitle}</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">{t.experienceText}</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{content.experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 text-center shadow-sm"><div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
+          <section className="bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{t.experienceTitle}</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">{t.experienceText}</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{content.experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm ${isEnglish ? 'text-left' : 'text-right'}`}><div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F4EEDC] text-[#0F4C4A] ${isEnglish ? 'mr-auto' : 'ml-auto'}`}><Icon className="h-7 w-7" strokeWidth={1.7} aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
         </main>
-        <Footer locale={language} />
+        <Footer locale={language} showRequestCTA={false} />
       </div>
     </>
   );
