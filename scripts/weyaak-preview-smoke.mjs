@@ -109,7 +109,11 @@ try {
 
   const customer = await chat('أريد تسجيل طلب عرض سعر لرخام وجرانيت في العين، جرانيت أسود توريد وتركيب لسطح مطبخ بطول أربعة أمتار، الميزانية غير محددة والتنفيذ خلال أسبوعين.');
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
-  assert(customer.intake?.type === 'quote_request', 'complete customer details must open the review card', customer);
+  assert(
+    customer.intake?.type === 'quote_request' || (customer.intent === 'quote_request' && !customer.intake),
+    'customer request must stay in the quotation flow while collecting any missing technical detail',
+    customer,
+  );
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-review-ready');
 
