@@ -22,7 +22,9 @@ export const sampleProviders = [
     summary: 'تنفيذ أعمال النجارة الداخلية، الأبواب، الخزائن، المطابخ والديكورات الخشبية حسب الطلب.',
   },
   {
-    id: 'al-hoot-marble-granite-factory',
+    id: 'BR-PROV-HOT-001',
+    slug: 'al-hoot-marble-granite-factory',
+    providerUuid: '63191f77-0472-4944-84f3-0e5a87bcfc35',
     entityType: 'provider',
     premium: true,
     name: 'مصنع الحوت الأبيض للرخام والجرانيت',
@@ -39,7 +41,7 @@ export const sampleProviders = [
     whatsapp: 'https://wa.me/971506623518',
     summary: 'توريد وتصنيع وتركيب الرخام والجرانيت والكوارتز للمطابخ والواجهات والأرضيات والمغاسل حسب تفاصيل المشروع.',
   },
-].filter((item) => item.id !== 'al-hoot-marble-granite-factory');
+];
 
 export const sampleServices = [
   {
@@ -57,7 +59,9 @@ export const sampleServices = [
     href: '/providers/arkleen#services',
   },
   {
-    id: 'al-hoot-marble-installation',
+    id: 'BR-SRV-HOT-001',
+    cardUuid: '61f9b218-29d2-4266-8866-3911d188a970',
+    providerId: 'BR-PROV-HOT-001',
     entityType: 'service',
     premium: true,
     title: 'توريد وتصنيع وتركيب رخام وجرانيت',
@@ -71,7 +75,7 @@ export const sampleServices = [
     priceType: 'عرض سعر بعد مراجعة التفاصيل',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-].filter((item) => item.id !== 'al-hoot-marble-installation');
+];
 
 export const sampleProducts = [
   {
@@ -87,7 +91,9 @@ export const sampleProducts = [
     href: '/providers/arkleen#products',
   },
   {
-    id: 'travertine-marble-al-hoot',
+    id: 'BR-SRV-HOT-002',
+    cardUuid: '57c563c5-43c0-41c2-97df-0e2e34b65a3e',
+    providerId: 'BR-PROV-HOT-001',
     entityType: 'product',
     premium: true,
     name: 'رخام طبيعي وجرانيت حسب الطلب',
@@ -99,7 +105,7 @@ export const sampleProducts = [
     priceType: 'طلب سعر حسب المقاس والخامة',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-].filter((item) => item.id !== 'travertine-marble-al-hoot');
+];
 
 export const sampleOffers = [
   {
@@ -114,7 +120,9 @@ export const sampleOffers = [
     href: '/providers/arkleen#services',
   },
   {
-    id: 'al-hoot-majlis-marble-package',
+    id: 'BR-SRV-HOT-003',
+    cardUuid: '72cafd7b-575c-43e2-b4d7-ddcf12fa835f',
+    providerId: 'BR-PROV-HOT-001',
     entityType: 'offer',
     premium: true,
     title: 'معاينة رخام للمجلس أو المغاسل',
@@ -125,7 +133,7 @@ export const sampleOffers = [
     validUntil: 'حسب توفر الخامة والجدول',
     href: '/providers/al-hoot-marble-granite-factory',
   },
-].filter((item) => item.id !== 'al-hoot-majlis-marble-package');
+];
 
 export const allSampleCards = [
   ...sampleProviders,

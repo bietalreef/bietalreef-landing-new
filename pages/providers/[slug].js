@@ -32,6 +32,7 @@ export default function ProviderPage({ provider, emirate, area }) {
     '@type': 'LocalBusiness',
     '@id': `${providerUrl}#business`,
     name: provider.nameAr,
+    identifier: provider.providerId,
     alternateName: provider.nameEn,
     description: provider.descriptionAr,
     url: providerUrl,
@@ -109,7 +110,10 @@ export default function ProviderPage({ provider, emirate, area }) {
                         </div>
                       </div>
                       <div className="min-w-0 text-center lg:text-right">
-                        <p className="text-xs font-black tracking-[.18em] text-[#E4C75D]">مصنع رخام وجرانيت موثق</p>
+                        <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+                          <p className="text-xs font-black tracking-[.18em] text-[#E4C75D]">مصنع رخام وجرانيت موثق</p>
+                          <span className="rounded-full border border-[#E8C968]/35 bg-white/10 px-3 py-1 text-[11px] font-black text-white" dir="ltr">{provider.providerId}</span>
+                        </div>
                         <h1 className="mt-2 font-serif text-3xl font-black leading-[1.3] text-white md:text-5xl">{provider.nameAr}</h1>
                         <p className="mt-2 font-black text-[#F4D76B]">توريد · تصنيع حسب الطلب · تركيب</p>
                         <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
