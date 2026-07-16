@@ -169,9 +169,10 @@ function InfoItem({ icon, label, value, highlight = false }) { return <div class
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
 export async function getStaticProps({ params }) {
+  if (params.slug === 'alrehab-cleaning-sanitizing') return { notFound: true };
   const provider = providers.find((item) => item.slug === params.slug);
   if (!provider) return { notFound: true };
   return { props: { provider }, revalidate: 3600 };
 }
 
-export async function getStaticPaths() { return { paths: providers.map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }
+export async function getStaticPaths() { return { paths: providers.filter((provider) => provider.slug !== 'alrehab-cleaning-sanitizing').map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }

@@ -1,4 +1,5 @@
 import { arkleenTemplate } from './providerTemplates/arkleen';
+import { alrehabTemplate } from './providerTemplates/alrehab';
 
 export const arklineProvider = {
   slug: 'arkleen',
@@ -51,6 +52,40 @@ export const arklineProvider = {
 };
 
 export const providers = [
+  {
+    slug: alrehabTemplate.slug,
+    providerId: alrehabTemplate.id,
+    planCode: 'digital-presence',
+    planMonthlyPrice: 300,
+    nameAr: alrehabTemplate.identity.name.ar,
+    nameEn: alrehabTemplate.identity.name.en,
+    phone: '054 776 1290',
+    whatsapp: alrehabTemplate.contact.whatsapp,
+    city: 'al-ain',
+    area: 'al-ain',
+    emirate: 'abu-dhabi',
+    accountType: 'company',
+    mainSpecialty: 'cleaning-services',
+    categorySlugs: ['cleaning-services'],
+    providerTypeAr: alrehabTemplate.identity.providerType.ar,
+    providerTypeEn: alrehabTemplate.identity.providerType.en,
+    verified: true,
+    acceptsQuotes: true,
+    logo: alrehabTemplate.media.logo,
+    cover: alrehabTemplate.media.cover,
+    workingHours: 'يومياً حسب الحجز المسبق والمنطقة',
+    workingHoursEn: 'Daily by advance booking and location',
+    descriptionAr: alrehabTemplate.description.ar,
+    descriptionEn: alrehabTemplate.description.en,
+    aboutAr: alrehabTemplate.description.ar,
+    aboutEn: alrehabTemplate.description.en,
+    services: alrehabTemplate.services.map((service) => service.title.ar),
+    servicesEn: alrehabTemplate.services.map((service) => service.title.en),
+    yearsExperience: alrehabTemplate.trust.yearsExperience,
+    trustPoints: alrehabTemplate.trust.points,
+    serviceAreas: ['al-ain', 'abu-dhabi', 'dubai'],
+    faq: alrehabTemplate.faq,
+  },
   {
     slug: 'al-hoot-marble-granite-factory',
     planCode: 'professional-presence',

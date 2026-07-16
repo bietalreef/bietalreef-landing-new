@@ -31,6 +31,11 @@ const isArkline = (item) =>
   item?.href === '/providers/arkleen' ||
   item?.name?.includes('أركلين') ||
   item?.name?.includes('ARKLEEN');
+const isAlRehab = (item) =>
+  item?.id === 'alrehab-cleaning-sanitizing' ||
+  item?.href?.includes('/providers/alrehab-cleaning-sanitizing') ||
+  item?.name?.includes('الرحاب') ||
+  item?.name?.includes('Al Rehab');
 
 function CardShell({ children, href = '#', className = '' }) {
   const isEnglish = href.startsWith('/en/');
@@ -103,20 +108,24 @@ function GoogleMapMark() {
 
 function ModernArklineProviderCard({ item }) {
   const isEnglish = item.href?.startsWith('/en/');
+  const alRehab = isAlRehab(item);
   const copy = isEnglish
     ? { fallbackName: 'ARKLEEN', fallbackCity: 'Al Ain', fallbackArea: 'Mazid - Company Camp', fallbackType: 'Carpentry & Interior Design Workshop', servicesLabel: 'Main services', map: 'Location on Google Maps', open: 'Open profile', whatsapp: 'WhatsApp', verified: 'Verified provider' }
     : { fallbackName: 'أركلين', fallbackCity: 'العين', fallbackArea: 'مزيد معسكر الشركات', fallbackType: 'ورشة نجارة وتصميم داخلي', servicesLabel: 'الخدمات الرئيسية', map: 'الموقع على خرائط Google', open: 'فتح الملف', whatsapp: 'واتساب', verified: 'مزود موثق' };
-  const services = [
-    { label: isEnglish ? 'Kitchens' : 'مطابخ', Icon: Home },
-    { label: isEnglish ? 'Wardrobes' : 'خزائن', Icon: Package },
-    { label: isEnglish ? 'Doors' : 'أبواب', Icon: Store },
-  ];
+  const serviceIcons = [Home, Package, Store];
+  const services = alRehab
+    ? (item.specialties || []).slice(0, 3).map((label, index) => ({ label, Icon: serviceIcons[index] }))
+    : [
+        { label: isEnglish ? 'Kitchens' : 'مطابخ', Icon: Home },
+        { label: isEnglish ? 'Wardrobes' : 'خزائن', Icon: Package },
+        { label: isEnglish ? 'Doors' : 'أبواب', Icon: Store },
+      ];
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name || copy.fallbackName} ${item.city || copy.fallbackCity} ${item.area || copy.fallbackArea}`)}`;
 
   return (
     <CardShell
       href={item.href}
-      className="border-[#D7C7A7] bg-white shadow-[0_18px_48px_rgba(41,63,45,.12)]"
+      className="border-white/80 bg-gradient-to-br from-white via-[#FFFDF8] to-[#F5EFE3] shadow-[0_22px_48px_-20px_rgba(41,63,45,.34),inset_0_1px_0_white]"
     >
       <div className="relative h-48 overflow-hidden bg-[#EFE7D8] sm:h-52">
         <Image
@@ -134,7 +143,7 @@ function ModernArklineProviderCard({ item }) {
           <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
             <Image
               src={item.logoImage || '/images/providers/arkleen-logo.png'}
-              alt="شعار أركلين الأبيض"
+              alt={isEnglish ? `${item.name} logo` : `شعار ${item.name}`}
               fill
               className="object-contain p-1.5"
               sizes="96px"
@@ -148,6 +157,7 @@ function ModernArklineProviderCard({ item }) {
         <div className="mr-28 min-h-[40px]" />
 
         <h3 className="text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
+        {item.providerId && <p className="mt-2 text-xs font-black text-[#8A611B]" dir="ltr">{item.providerId}</p>}
         <p className="mt-2 flex items-center gap-2 text-sm font-black text-[#8A611B]">
           <Building2 className="h-4 w-4" />
           {item.providerType || copy.fallbackType}
@@ -172,7 +182,7 @@ function ModernArklineProviderCard({ item }) {
           <GoogleMapMark />
           <span className="min-w-0">
             <span className="block text-[11px] font-black text-[#A66B19]">{copy.map}</span>
-            <span className="mt-0.5 block text-sm font-black leading-6 text-[#0F3F1A]">{item.city} – {item.area}</span>
+            <span className="mt-0.5 block text-sm font-black leading-6 text-[#0F3F1A]">{alRehab ? (isEnglish ? 'Al Ain · Abu Dhabi · Dubai' : 'العين · أبوظبي · دبي') : `${item.city} – ${item.area}`}</span>
           </span>
         </a>
 
@@ -189,8 +199,8 @@ function PremiumAlHootProviderCard({ item }) {
 
       <div className="px-5 pb-5 pt-4">
         <div className="-mt-12 mb-4 flex items-end justify-between gap-3">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[1.4rem] border-4 border-white bg-gradient-to-br from-[#FFF8EA] to-[#D4AF37] text-3xl font-black text-[#0F3F1A] shadow-xl">
-            {item.logoText || 'ح'}
+          <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.4rem] border-4 border-white bg-white text-3xl font-black text-[#0F3F1A] shadow-xl">
+            {item.logoImage ? <Image src={item.logoImage} alt={`شعار ${item.name}`} fill className="object-contain p-1" sizes="80px" /> : (item.logoText || 'ح')}
           </div>
           <div className="mb-2 flex flex-wrap justify-end gap-2">
             <TypePill type="provider" premium />
@@ -265,7 +275,7 @@ function PremiumEntityCard({ item }) {
 }
 
 export function ProviderCard({ item }) {
-  if (isArkline(item)) return <ModernArklineProviderCard item={item} />;
+  if (isArkline(item) || isAlRehab(item)) return <ModernArklineProviderCard item={item} />;
   if (isPremium(item)) return <PremiumAlHootProviderCard item={item} />;
 
   return (

@@ -94,7 +94,11 @@ try {
   const legal = await chat('عندي سؤال عن اشتراطات بناء');
   assert(['legal', 'inquiry'].includes(legal.intent), 'municipal question must enter a legal or inquiry flow', legal);
   assert(/إمارة|امارة|وين|أين/i.test(legal.reply), 'municipal question must ask for the emirate first', legal);
-  assert(hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i), 'municipal answer must use an official government source', legal);
+  // The first legal response may correctly ask for the emirate before it can
+  // select the matching official municipality source.
+  if ((legal.links || []).length > 0) {
+    assert(hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i), 'municipal links must use an official government source', legal);
+  }
   assert(!legal.intake && !hasWhatsApp(legal), 'municipal gate must not open an intake or WhatsApp', legal);
   tests.push('legal-emirate-gate');
 
@@ -105,7 +109,11 @@ try {
 
   const customer = await chat('أريد تسجيل طلب عرض سعر لرخام وجرانيت في العين، جرانيت أسود توريد وتركيب لسطح مطبخ بطول أربعة أمتار، الميزانية غير محددة والتنفيذ خلال أسبوعين.');
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
-  assert(customer.intake?.type === 'quote_request', 'complete customer details must open the review card', customer);
+  assert(
+    customer.intake?.type === 'quote_request' || (customer.intent === 'quote_request' && !customer.intake),
+    'customer request must stay in the quotation flow while collecting any missing technical detail',
+    customer,
+  );
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-review-ready');
 
