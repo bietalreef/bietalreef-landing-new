@@ -125,6 +125,7 @@ const products = [
     category: 'مطابخ',
     description: 'ينفذ حسب المقاسات ونوع الخامة والتشطيب والملحقات المطلوبة.',
     image: '/images/providers/arkleen-premium/product-custom-kitchen.webp',
+    gallery: ['/images/providers/arkleen-premium/product-custom-kitchen.webp', '/images/providers/arkleen-premium/product-custom-kitchen-detail.webp', '/images/providers/arkleen-premium/product-custom-kitchen-storage.webp'],
     icon: Home,
   },
   {
@@ -134,6 +135,7 @@ const products = [
     category: 'خزائن',
     description: 'تقسيم داخلي مخصص مع خيارات متعددة للأبواب والتشطيبات.',
     image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp',
+    gallery: ['/images/providers/arkleen-premium/product-custom-wardrobe.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-detail.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-storage.webp'],
     icon: Package,
   },
   {
@@ -143,6 +145,7 @@ const products = [
     category: 'أبواب',
     description: 'تصنيع حسب المقاس والتصميم ونوع الخشب أو القشرة المطلوبة.',
     image: '/images/providers/arkleen-premium/product-custom-door.webp',
+    gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp', '/images/providers/arkleen-premium/product-custom-door-opposite.webp'],
     icon: Store,
   },
 ];
@@ -242,7 +245,7 @@ export default function ArklinePage() {
     name: product.title,
     description: product.description,
     url: `${canonical}#${product.id}`,
-    image: `https://bietalreef.ae${product.image}`,
+    image: product.gallery.map((src) => `https://bietalreef.ae${src}`),
     brand: { '@type': 'Brand', name: 'ARKLEEN' },
     category: product.category,
     areaServed: [{ '@type': 'City', name: 'العين' }, { '@type': 'AdministrativeArea', name: 'أبوظبي' }],
