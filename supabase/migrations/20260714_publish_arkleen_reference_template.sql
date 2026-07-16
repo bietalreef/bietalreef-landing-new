@@ -39,7 +39,7 @@ begin
     'نجارة وتصميم داخلي حسب المقاس', 'Made-to-measure carpentry and interiors',
     '+971567797828', '+971567797828', 'https://www.arkleen.ae',
     'https://www.google.com/maps/search/?api=1&query=ARKLEEN+Mazid+Company+Camp+Al+Ain',
-    '/images/providers/arkleen-logo.png', '/images/providers/arkline/arkline-hero-exterior.webp',
+    '/images/providers/arkleen-logo.png', '/images/providers/arkleen-premium/profile-cover.webp',
     'السبت إلى الخميس بتنسيق مسبق، والجمعة حسب الموعد',
     'Saturday to Thursday by appointment; Friday by arrangement', array['ar','en'],
     2015, greatest(extract(year from current_date)::int - 2015, 0), 'verified', 'published',
@@ -82,10 +82,10 @@ begin
   where not exists (select 1 from public.provider_service_locations where provider_id=v_provider and emirate_id=v_emirate and city_id=v_city and area_id=v_area);
 
   for v_service in select * from (values
-    ('custom-wooden-kitchens','مطابخ خشبية حسب الطلب','Custom Wooden Kitchens','تصميم وتصنيع وتركيب حسب المساحة والخامة والتشطيب.','Design, fabrication and installation tailored to the site, material and finish.','/images/providers/arkline/arkline-showroom.webp',1),
-    ('custom-wardrobes','خزائن ودواليب حسب المقاس','Made-to-measure Wardrobes','حلول تخزين داخلية بأبواب وتقسيمات وتشطيبات قابلة للتخصيص.','Custom internal storage, doors, layouts and finishes.','/images/providers/arkline/arkline-workshop.webp',2),
-    ('wooden-doors-and-decor','أبواب وديكورات خشبية','Wooden Doors & Decorative Woodwork','أبواب وكسوات وديكورات مصنّعة وفق المقاسات والتصميم.','Doors, cladding and decorative woodwork made to specification.','/images/providers/arkline/arkline-production.webp',3),
-    ('interior-design-fitout','تصميم داخلي وتشطيبات','Interior Design & Fit-out','تنسيق التصميم والأعمال الخشبية والتشطيبات الداخلية.','Coordinated interior design, joinery and fit-out.','/images/providers/arkline/arkline-hero-exterior.webp',4)
+    ('custom-wooden-kitchens','مطابخ خشبية حسب الطلب','Custom Wooden Kitchens','تصميم وتصنيع وتركيب حسب المساحة والخامة والتشطيب.','Design, fabrication and installation tailored to the site, material and finish.','/images/providers/arkleen-premium/service-custom-kitchens.webp',1),
+    ('custom-wardrobes','خزائن ودواليب حسب المقاس','Made-to-measure Wardrobes','حلول تخزين داخلية بأبواب وتقسيمات وتشطيبات قابلة للتخصيص.','Custom internal storage, doors, layouts and finishes.','/images/providers/arkleen-premium/service-custom-wardrobes.webp',2),
+    ('wooden-doors-and-decor','أبواب وديكورات خشبية','Wooden Doors & Decorative Woodwork','أبواب وكسوات وديكورات مصنّعة وفق المقاسات والتصميم.','Doors, cladding and decorative woodwork made to specification.','/images/providers/arkleen-premium/service-wooden-doors-decor.webp',3),
+    ('interior-design-fitout','تصميم داخلي وتشطيبات','Interior Design & Fit-out','تنسيق التصميم والأعمال الخشبية والتشطيبات الداخلية.','Coordinated interior design, joinery and fit-out.','/images/providers/arkleen-premium/service-interior-fitout.webp',4)
   ) s(slug,name_ar,name_en,description_ar,description_en,image_url,display_order)
   loop
     insert into public.platform_services(specialty_id,category_id,slug,name_ar,name_en,short_description_ar,short_description_en,display_order,is_active)
@@ -99,9 +99,9 @@ begin
 
   insert into public.provider_products(provider_id,category_id,slug,name_ar,name_en,description_ar,description_en,sku,specifications,price_visibility,stock_status,image_url,gallery,display_order,is_featured,is_published)
   values
-    (v_provider,v_carpentry,'custom-wooden-kitchen','مطبخ خشبي حسب الطلب','Custom Wooden Kitchen','مطبخ قابل لتخصيص المقاسات والخامة واللون والتقسيمات.','Configurable by dimensions, material, colour and layout.','BR-PRD-ARK-001','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkline/arkline-showroom.webp','["/images/providers/arkline/arkline-showroom.webp","/images/providers/arkline/arkline-workshop.webp","/images/providers/arkline/arkline-production.webp"]'::jsonb,1,true,true),
-    (v_provider,v_carpentry,'custom-wooden-wardrobe','خزانة خشبية حسب المقاس','Custom Wooden Wardrobe','خزانة مصنّعة حسب المساحة وخيارات الأبواب والتقسيم.','Made-to-measure with configurable doors and layout.','BR-PRD-ARK-002','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkline/arkline-workshop.webp','["/images/providers/arkline/arkline-workshop.webp","/images/providers/arkline/arkline-showroom.webp"]'::jsonb,2,false,true),
-    (v_provider,v_carpentry,'custom-wooden-door','باب خشبي حسب الطلب','Custom Wooden Door','باب وفق المقاس والتصميم ونوع الخشب والتشطيب.','Tailored by size, design, timber and finish.','BR-PRD-ARK-003','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkline/arkline-production.webp','["/images/providers/arkline/arkline-production.webp","/images/providers/arkline/arkline-workshop.webp"]'::jsonb,3,false,true)
+    (v_provider,v_carpentry,'custom-wooden-kitchen','مطبخ خشبي حسب الطلب','Custom Wooden Kitchen','مطبخ قابل لتخصيص المقاسات والخامة واللون والتقسيمات.','Configurable by dimensions, material, colour and layout.','BR-PRD-ARK-001','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkleen-premium/product-custom-kitchen.webp','["/images/providers/arkleen-premium/product-custom-kitchen.webp","/images/providers/arkleen-premium/service-custom-kitchens.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]'::jsonb,1,true,true),
+    (v_provider,v_carpentry,'custom-wooden-wardrobe','خزانة خشبية حسب المقاس','Custom Wooden Wardrobe','خزانة مصنّعة حسب المساحة وخيارات الأبواب والتقسيم.','Made-to-measure with configurable doors and layout.','BR-PRD-ARK-002','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkleen-premium/product-custom-wardrobe.webp','["/images/providers/arkleen-premium/product-custom-wardrobe.webp","/images/providers/arkleen-premium/service-custom-wardrobes.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]'::jsonb,2,false,true),
+    (v_provider,v_carpentry,'custom-wooden-door','باب خشبي حسب الطلب','Custom Wooden Door','باب وفق المقاس والتصميم ونوع الخشب والتشطيب.','Tailored by size, design, timber and finish.','BR-PRD-ARK-003','{"made_to_order":true}'::jsonb,'request_price','made_to_order','/images/providers/arkleen-premium/product-custom-door.webp','["/images/providers/arkleen-premium/product-custom-door.webp","/images/providers/arkleen-premium/service-wooden-doors-decor.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]'::jsonb,3,false,true)
   on conflict (provider_id,slug) do update set name_ar=excluded.name_ar,name_en=excluded.name_en,description_ar=excluded.description_ar,description_en=excluded.description_en,image_url=excluded.image_url,gallery=excluded.gallery,is_published=true,updated_at=now();
 
   insert into public.provider_public_projects(provider_id,slug,title_ar,title_en,description_ar,description_en,emirate_id,city_id,area_id,project_year,client_type,cover_image_url,gallery,display_order,is_featured,publication_status,published_at)

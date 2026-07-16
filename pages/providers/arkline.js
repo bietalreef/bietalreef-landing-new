@@ -44,9 +44,11 @@ const provider = {
   phone: '+971 56 779 7828',
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
-  hero: 'arkline-hero-exterior.webp',
-  logo: 'logo.png',
+  hero: '/images/providers/arkleen-premium/profile-cover.webp',
+  logo: '/images/providers/arkleen-logo.png',
 };
+
+const resolveProviderMedia = (src) => (src?.startsWith('/') ? src : `${provider.base}${src}`);
 
 const services = [
   {
@@ -54,7 +56,7 @@ const services = [
     slug: 'custom-wooden-kitchens',
     title: 'مطابخ خشبية حسب المقاس',
     description: 'تصميم وتصنيع وتركيب المطابخ وفق مساحة الموقع والخامة والتشطيب وتوزيع الاستخدام المطلوب.',
-    image: 'arkline-showroom.webp',
+    image: '/images/providers/arkleen-premium/service-custom-kitchens.webp',
     icon: Ruler,
     tags: ['حسب المقاس', 'تصنيع وتركيب', 'خامات حسب الاختيار'],
     requiredDetails: [
@@ -70,7 +72,7 @@ const services = [
     slug: 'custom-wardrobes',
     title: 'خزائن ودواليب مخصصة',
     description: 'خزائن غرف وحلول تخزين داخلية مصنعة حسب المقاسات، مع تنظيم داخلي يناسب احتياج العميل.',
-    image: 'arkline-workshop.webp',
+    image: '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
     icon: Home,
     tags: ['تفصيل خاص', 'حلول تخزين', 'تشطيبات متعددة'],
     requiredDetails: [
@@ -86,7 +88,7 @@ const services = [
     slug: 'wooden-doors-and-decor',
     title: 'أبواب وديكورات خشبية',
     description: 'أبواب داخلية وفواصل وكسوات وديكورات خشبية مع مراجعة المقاسات والتفاصيل قبل التنفيذ.',
-    image: 'arkline-production.webp',
+    image: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
     icon: Hammer,
     tags: ['أبواب داخلية', 'كسوات خشبية', 'توريد وتركيب'],
     requiredDetails: [
@@ -102,7 +104,7 @@ const services = [
     slug: 'interior-design-and-fitout',
     title: 'تصميم داخلي وتجهيز المساحات',
     description: 'تنسيق الأعمال الخشبية والديكورات داخل المساحة بما يحقق الوظيفة والشكل المطلوب للمشروع.',
-    image: 'arkline-hero-exterior.webp',
+    image: '/images/providers/arkleen-premium/service-interior-fitout.webp',
     icon: Sparkles,
     tags: ['تصميم داخلي', 'تنسيق خامات', 'تنفيذ حسب المشروع'],
     requiredDetails: [
@@ -118,32 +120,39 @@ const services = [
 const products = [
   {
     id: 'BR-PRD-ARK-001',
+    slug: 'custom-wooden-kitchen',
     title: 'مطبخ خشبي حسب الطلب',
     category: 'مطابخ',
     description: 'ينفذ حسب المقاسات ونوع الخامة والتشطيب والملحقات المطلوبة.',
+    image: '/images/providers/arkleen-premium/product-custom-kitchen.webp',
     icon: Home,
   },
   {
     id: 'BR-PRD-ARK-002',
+    slug: 'custom-wooden-wardrobe',
     title: 'خزانة ملابس حسب المقاس',
     category: 'خزائن',
     description: 'تقسيم داخلي مخصص مع خيارات متعددة للأبواب والتشطيبات.',
+    image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp',
     icon: Package,
   },
   {
     id: 'BR-PRD-ARK-003',
+    slug: 'custom-wooden-door',
     title: 'باب داخلي خشبي',
     category: 'أبواب',
     description: 'تصنيع حسب المقاس والتصميم ونوع الخشب أو القشرة المطلوبة.',
+    image: '/images/providers/arkleen-premium/product-custom-door.webp',
     icon: Store,
   },
 ];
 
 const gallery = [
-  ['arkline-hero-exterior.webp', 'واجهة أركلين في العين'],
-  ['arkline-workshop.webp', 'ورشة النجارة والتصنيع'],
-  ['arkline-showroom.webp', 'التشطيبات والتصميم الداخلي'],
-  ['arkline-production.webp', 'معدات الإنتاج داخل الورشة'],
+  ['/images/providers/arkleen-premium/profile-cover.webp', 'أعمال أركلين للنجارة والتصميم الداخلي'],
+  ['/images/providers/arkleen-premium/service-custom-kitchens.webp', 'مطابخ خشبية مصنعة حسب الطلب'],
+  ['/images/providers/arkleen-premium/service-custom-wardrobes.webp', 'خزائن ودواليب حسب المقاس'],
+  ['/images/providers/arkleen-premium/service-wooden-doors-decor.webp', 'أبواب وكسوات خشبية مخصصة'],
+  ['/images/providers/arkleen-premium/service-interior-fitout.webp', 'تصميم داخلي وتجهيز المساحات'],
 ];
 
 const faqs = [
@@ -207,16 +216,50 @@ export default function ArklinePage() {
     };
   }, [selectedService]);
 
+  const serviceSchemas = services.map((service) => ({
+    '@type': 'Service',
+    '@id': `${canonical}#${service.id}`,
+    identifier: service.id,
+    name: service.title,
+    description: service.description,
+    url: `${canonical}#${service.id}`,
+    image: {
+      '@type': 'ImageObject',
+      contentUrl: `https://bietalreef.ae${resolveProviderMedia(service.image)}`,
+      caption: `${service.title} من أركلين في العين وأبوظبي`,
+      inLanguage: 'ar-AE',
+    },
+    areaServed: [{ '@type': 'City', name: 'العين' }, { '@type': 'AdministrativeArea', name: 'أبوظبي' }],
+    provider: { '@id': `${canonical}#provider` },
+    additionalProperty: { '@type': 'PropertyValue', name: 'نظام التسعير', value: 'عرض سعر بعد مراجعة المقاسات والخامة وموقع المشروع' },
+  }));
+
+  const productSchemas = products.map((product) => ({
+    '@type': 'Product',
+    '@id': `${canonical}#${product.id}`,
+    identifier: product.id,
+    sku: product.id,
+    name: product.title,
+    description: product.description,
+    url: `${canonical}#${product.id}`,
+    image: `https://bietalreef.ae${product.image}`,
+    brand: { '@type': 'Brand', name: 'ARKLEEN' },
+    category: product.category,
+    areaServed: [{ '@type': 'City', name: 'العين' }, { '@type': 'AdministrativeArea', name: 'أبوظبي' }],
+    additionalProperty: { '@type': 'PropertyValue', name: 'التوفر والتسعير', value: 'مصنّع حسب الطلب؛ السعر حسب المقاسات والمواصفات' },
+  }));
+
   const schemas = [
     {
       '@context': 'https://schema.org',
       '@type': 'HomeAndConstructionBusiness',
+      '@id': `${canonical}#provider`,
       identifier: provider.id,
       name: provider.name,
       url: canonical,
       telephone: provider.phone,
       foundingDate: provider.establishedAt,
-      image: gallery.map(([src]) => `https://bietalreef.ae${provider.base}${src}`),
+      image: gallery.map(([src]) => `https://bietalreef.ae${resolveProviderMedia(src)}`),
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'مزيد – معسكر الشركات',
@@ -231,24 +274,15 @@ export default function ArklinePage() {
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'خدمات أركلين',
-        itemListElement: services.map((service) => ({
+        itemListElement: serviceSchemas.map((service) => ({
           '@type': 'Offer',
-          identifier: service.id,
-          itemOffered: {
-            '@type': 'Service',
-            identifier: service.id,
-            name: service.title,
-            description: service.description,
-            areaServed: ['العين', 'أبوظبي'],
-            provider: {
-              '@type': 'HomeAndConstructionBusiness',
-              identifier: provider.id,
-              name: provider.name,
-            },
-          },
+          identifier: service.identifier,
+          itemOffered: service,
         })),
       },
     },
+    { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${canonical}#services`, name: 'خدمات أركلين للنجارة والتصميم الداخلي', itemListElement: serviceSchemas.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })) },
+    { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${canonical}#products`, name: 'منتجات أركلين المصنّعة حسب الطلب', itemListElement: productSchemas.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })) },
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -269,7 +303,7 @@ export default function ArklinePage() {
         <link rel="canonical" href={canonical} />
         <meta property="og:title" content="أركلين للنجارة والتصميم الداخلي في العين" />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={`https://bietalreef.ae${provider.base}${provider.hero}`} />
+        <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
         <meta property="og:locale" content="ar_AE" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
       </Head>
@@ -290,7 +324,7 @@ export default function ArklinePage() {
             <div className="relative overflow-hidden rounded-[2.2rem] border border-[#E6DCC8] shadow-[0_24px_70px_rgba(66,45,17,.14)]">
               <div className="relative aspect-[16/10] min-h-[310px] sm:aspect-[16/8] md:min-h-[520px]">
                 <Image
-                  src={`${provider.base}${provider.hero}`}
+                  src={resolveProviderMedia(provider.hero)}
                   alt="واجهة أركلين للنجارة والتصميم الداخلي في العين"
                   fill
                   priority
@@ -482,7 +516,7 @@ export default function ArklinePage() {
                   >
                     <div className={`relative ${index === 0 ? 'aspect-[16/8]' : 'aspect-[4/3]'}`}>
                       <Image
-                        src={`${provider.base}${src}`}
+                        src={resolveProviderMedia(src)}
                         alt={title}
                         fill
                         className="object-cover"
@@ -533,7 +567,7 @@ function ProviderLogo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
-        src={`${provider.base}${provider.logo}?v=93a1491`}
+        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-premium`}
         alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
         className="h-full w-full object-contain p-1"
         loading="eager"
@@ -618,15 +652,19 @@ function ServiceCard({ service, whatsapp, onDetails }) {
 
   return (
     <article
+      id={service.id}
+      itemScope
+      itemType="https://schema.org/Service"
       data-provider-id={provider.id}
       data-service-id={service.id}
       className="group overflow-hidden rounded-[1.55rem] border border-[#E6DCC8] bg-white shadow-[0_12px_32px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(67,45,17,.14)] md:rounded-[2rem]"
     >
       <div className="relative h-36 overflow-hidden sm:h-40 md:h-56">
         <Image
-          src={`${provider.base}${service.image}`}
-          alt={service.title}
+          src={resolveProviderMedia(service.image)}
+          alt={`${service.title} من أركلين في العين وأبوظبي`}
           fill
+          itemProp="image"
           className="object-cover transition duration-700 group-hover:scale-105"
           sizes="(max-width:767px) 100vw,50vw"
         />
@@ -642,10 +680,10 @@ function ServiceCard({ service, whatsapp, onDetails }) {
 
       <div className="p-4 md:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-lg font-black leading-tight text-[#0F3F1A] md:text-xl">{service.title}</h3>
+          <h3 itemProp="name" className="text-lg font-black leading-tight text-[#0F3F1A] md:text-xl">{service.title}</h3>
           <span dir="ltr" className="rounded-full bg-[#F6F0E5] px-2.5 py-1 text-[9px] font-black tracking-wide text-[#8A6A35] md:text-[10px]">{service.id}</span>
         </div>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#625A50] md:mt-3 md:min-h-[64px] md:text-base md:leading-8">{service.description}</p>
+        <p itemProp="description" className="mt-2 line-clamp-2 text-sm leading-6 text-[#625A50] md:mt-3 md:min-h-[64px] md:text-base md:leading-8">{service.description}</p>
 
         <div className="mt-4 hidden flex-wrap gap-2 md:flex">
           {service.tags.map((tag) => (
@@ -700,7 +738,7 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
         className="relative z-10 max-h-[94dvh] w-full max-w-4xl overflow-y-auto rounded-t-[2rem] border border-white/70 bg-white shadow-[0_30px_100px_rgba(0,0,0,.32)] md:max-h-[90dvh] md:rounded-[2rem]"
       >
         <div className="relative h-56 overflow-hidden md:h-80">
-          <Image src={`${provider.base}${service.image}`} alt={service.title} fill className="object-cover" sizes="(max-width:768px) 100vw,896px" priority />
+          <Image src={resolveProviderMedia(service.image)} alt={service.title} fill className="object-cover" sizes="(max-width:768px) 100vw,896px" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
           <button
             type="button"
@@ -791,22 +829,21 @@ function ModalInfo({ icon: Icon, title, value }) {
 }
 
 function ProductCard({ product }) {
-  const Icon = product.icon;
   return (
-    <article data-provider-id={provider.id} data-product-id={product.id} className="overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)]">
-      <div className="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br from-[#FFF9ED] via-[#E8D5B4] to-[#B98937]">
-        <div className="absolute inset-5 rounded-[1.6rem] border border-white/70 bg-white/30 shadow-inner backdrop-blur-sm" />
-        <div className="relative flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-[0_12px_0_rgba(71,45,8,.14),0_20px_35px_rgba(71,45,8,.20)]">
-          <Icon className="h-11 w-11" />
-        </div>
+    <article id={product.id} itemScope itemType="https://schema.org/Product" data-provider-id={provider.id} data-product-id={product.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(67,45,17,.15)]">
+      <meta itemProp="sku" content={product.id} />
+      <meta itemProp="brand" content="ARKLEEN" />
+      <div className="relative h-56 overflow-hidden bg-[#E8D5B4]">
+        <Image src={product.image} alt={`${product.title} من أركلين للنجارة والتصميم الداخلي في العين`} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:767px) 100vw,33vw" itemProp="image" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
         <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
       </div>
       <div className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
+          <h3 itemProp="name" className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
           <span dir="ltr" className="rounded-full bg-[#F6F0E5] px-2.5 py-1 text-[9px] font-black tracking-wide text-[#8A6A35]">{product.id}</span>
         </div>
-        <p className="mt-3 leading-8 text-[#625A50]">{product.description}</p>
+        <p itemProp="description" className="mt-3 leading-8 text-[#625A50]">{product.description}</p>
         <div className="mt-4 flex items-center justify-between rounded-2xl bg-[#FBF7EF] px-4 py-3 text-sm">
           <span className="font-bold text-[#6A5B43]">متوفر حسب الطلب</span>
           <span className="font-black text-[#0F3F1A]">السعر حسب المواصفات</span>

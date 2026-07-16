@@ -33,10 +33,11 @@ export const arklineProvider = {
   services: ['مطابخ حسب المقاس', 'خزائن ودواليب', 'أبواب خشبية', 'ديكورات وكسوات', 'تصميم داخلي', 'تصنيع حسب الطلب', 'توريد وتركيب'],
   serviceAreas: ['al-ain', 'abu-dhabi'],
   gallery: [
-    { src: '/images/providers/arkline/arkline-hero-exterior.webp', altAr: 'واجهة ورشة أركلين في العين', altEn: 'ARKLEEN workshop exterior in Al Ain', category: 'exterior' },
-    { src: '/images/providers/arkline/arkline-workshop.webp', altAr: 'ورشة أركلين لأعمال النجارة', altEn: 'ARKLEEN carpentry workshop', category: 'workshop' },
-    { src: '/images/providers/arkline/arkline-showroom.webp', altAr: 'نماذج التصميم الداخلي والتشطيبات', altEn: 'Interior design and finishing samples', category: 'interior' },
-    { src: '/images/providers/arkline/arkline-production.webp', altAr: 'معدات الإنتاج والتصنيع داخل الورشة', altEn: 'Production and fabrication equipment', category: 'production' }
+    { src: '/images/providers/arkleen-premium/profile-cover.webp', altAr: 'أعمال أركلين للنجارة والتصميم الداخلي في العين', altEn: 'ARKLEEN carpentry and interior design in Al Ain', category: 'profile' },
+    { src: '/images/providers/arkleen-premium/service-custom-kitchens.webp', altAr: 'مطابخ خشبية حسب الطلب من أركلين', altEn: 'Custom wooden kitchens by ARKLEEN', category: 'kitchens' },
+    { src: '/images/providers/arkleen-premium/service-custom-wardrobes.webp', altAr: 'خزائن ودواليب حسب المقاس من أركلين', altEn: 'Made-to-measure wardrobes by ARKLEEN', category: 'wardrobes' },
+    { src: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp', altAr: 'أبواب وكسوات خشبية مخصصة من أركلين', altEn: 'Custom wooden doors and cladding by ARKLEEN', category: 'doors' },
+    { src: '/images/providers/arkleen-premium/service-interior-fitout.webp', altAr: 'تصميم داخلي وتجهيز مساحات من أركلين', altEn: 'Interior design and fit-out by ARKLEEN', category: 'interior' }
   ],
   materials: [
     { nameAr: 'خشب المرنتي', nameEn: 'Meranti Wood', descAr: 'للأبواب والفريمات والأعمال الخشبية حسب متطلبات المشروع', descEn: 'For doors, frames and custom woodwork' },
