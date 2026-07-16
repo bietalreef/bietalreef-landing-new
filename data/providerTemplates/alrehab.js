@@ -23,6 +23,15 @@ export const alrehabTemplate = {
     ar: 'الرحاب للتنظيف والتعقيم مزود خدمة متخصص في التنظيف العميق للكنب والسجاد والمجالس والمراتب للمنازل والمكاتب في العين وأبوظبي ودبي. يعتمد الفريق على معدات الاستخلاص بالبخار ومواد تنظيف وتعقيم آمنة لإزالة الأوساخ والبقع والروائح وتحسين نظافة الأقمشة، مع معاينة حالة القطعة وتحديد الطريقة المناسبة قبل التنفيذ.',
     en: 'Al Rehab Cleaning & Sanitizing provides deep cleaning for sofas, carpets, majlis seating and mattresses across Al Ain, Abu Dhabi and Dubai. The team uses professional steam-extraction equipment and safe cleaning products to remove dirt, stains and odours after assessing the fabric and selecting the appropriate treatment.',
   },
+  trust: {
+    yearsExperience: 5,
+    points: [
+      { ar: 'خبرة عملية 5 سنوات', en: '5 years of practical experience' },
+      { ar: 'استخدام مواد تنظيف وتعقيم آمنة ومعتمدة', en: 'Safe, approved cleaning and sanitizing products' },
+      { ar: 'تقديم الخدمة بجودة واحترافية', en: 'Quality-focused professional service' },
+      { ar: 'ضمان على الأعمال وفق نطاق الخدمة المتفق عليه', en: 'Workmanship guarantee according to the agreed service scope' },
+    ],
+  },
   services: [
     { id: 'BR-SRV-ALR-001', slug: 'sofa-cleaning', title: { ar: 'تنظيف الكنب بالبخار', en: 'Steam Sofa Cleaning' }, summary: { ar: 'تنظيف عميق للكنب والأقمشة لإزالة الأوساخ والبقع والروائح حسب نوع النسيج.', en: 'Deep fabric cleaning to remove dirt, stains and odours based on material type.' }, image: '/images/providers/alrehab/service-sofa.webp' },
     { id: 'BR-SRV-ALR-002', slug: 'carpet-cleaning', title: { ar: 'تنظيف السجاد والموكيت', en: 'Carpet & Rug Cleaning' }, summary: { ar: 'استخلاص عميق للأتربة والبقع مع تجفيف منظم يناسب السجاد والموكيت.', en: 'Deep extraction for dust and stains with controlled drying.' }, image: '/images/providers/alrehab/service-carpet.webp' },
