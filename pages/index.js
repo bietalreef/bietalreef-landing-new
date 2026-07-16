@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
@@ -10,13 +9,6 @@ import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, Us
 
 const SITE_URL = 'https://bietalreef.ae';
 
-const heroSlides = [
-  { src: '/images/webp/bait-alreef-premiere-cover-smart-construction-platform.webp', alt: 'منصة بيت الريف الذكية لإدارة مشاريع البناء والصيانة في الإمارات', title: 'منصة بيت الريف الذكية' },
-  { src: '/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp', alt: 'منظومة بيت الريف للبناء والمقاولات ومزودي الخدمات في الإمارات', title: 'منظومة البناء الذكية' },
-  { src: '/images/webp/bait-alreef-unified-platform-design-build-manage-market.webp', alt: 'منصة موحدة للتصميم والبناء وإدارة المشروع والمنتجات في الإمارات', title: 'منصة موحدة لمشروعك' },
-  { src: '/images/webp/bait-alreef-why-biet-alreef-premium-comparison.webp', alt: 'لماذا يختار العملاء منصة بيت الريف للمقاولات والبناء في الإمارات', title: 'لماذا بيت الريف' },
-];
-
 const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/gateway/uae-directory-gateway.webp', imageAlt: 'خريطة الإمارات ثلاثية الأبعاد لدليل الإمارات داخل بيت الريف' },
   { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي', image: '/images/gateway/providers-gateway.webp', imageAlt: 'مزودو خدمات البناء والمقاولات داخل بيت الريف' },
@@ -25,10 +17,10 @@ const gatewayCards = [
 ];
 
 const introModels = [
-  { title: 'دليل الإمارات', desc: 'ابدأ من المكان', image: '/images/webp/bait-alreef-uae-smart-network-coverage.webp' },
-  { title: 'مزودون موثوقون', desc: 'شركات وورش', image: '/images/webp/bait-alreef-engineering-excellence-four-pillars.webp' },
-  { title: 'خدمات وعروض', desc: 'طلب أو مقارنة', image: '/images/webp/bait-alreef-next-step-contractor-future.webp' },
-  { title: 'منتجات ومتاجر', desc: 'مواد وموردون', image: '/images/webp/bait-alreef-smart-materials-calculator-investment-protection.webp' },
+  { title: 'دليل الإمارات', desc: 'ابدأ من المكان', image: '/images/gateway/uae-directory-gateway.webp', href: '/uae', icon: MapPinned },
+  { title: 'مزودون موثوقون', desc: 'شركات وورش', image: '/images/gateway/providers-gateway.webp', href: '/providers', icon: UsersRound },
+  { title: 'خدمات وعروض', desc: 'طلب أو مقارنة', image: '/images/gateway/services-offers-gateway.webp', href: '/services', icon: Wrench },
+  { title: 'منتجات ومتاجر', desc: 'مواد وموردون', image: '/images/gateway/materials-products-gateway.webp', href: '/marketplace', icon: ShoppingBag },
 ];
 
 const clientJourneyCards = [
@@ -90,13 +82,6 @@ function GatewayCard({ card }) {
 }
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length), 6200);
-    return () => clearInterval(timer);
-  }, []);
-
   const description = 'بيت الريف محرك الأعمال الرقمي لقطاع المقاولات والبناء في الإمارات. يساعد العميل على البحث والتواصل أو تحويل احتياجه إلى مناقصة داخلية، ويساعد مزود الخدمة على بناء حضور رقمي منظم ومستدام.';
   const structuredData = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'بيت الريف', alternateName: 'Biet Alreef', url: SITE_URL, logo: `${SITE_URL}/logo.png`, description, areaServed: { '@type': 'Country', name: 'United Arab Emirates' } },
@@ -110,38 +95,42 @@ export default function Home() {
       <div dir="rtl" className="app-viewport-lock bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar />
         <main className="-mt-[1px]">
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7] pt-0">
-            <div className="relative mx-auto max-w-7xl px-0 md:px-4">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-b-[2rem] border-b border-[#E6DCC8] bg-[#F7F1E8] shadow-xl shadow-[#0F3F1A]/8 md:aspect-[16/7] md:rounded-[2.75rem] md:border">
-                {heroSlides.map((slide, index) => (
-                  <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1600ms] ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
-                    <Image src={slide.src} alt={slide.alt} title={slide.title} fill priority={index === 0} className="scale-105 object-cover object-center transition-transform duration-[6200ms] ease-linear" sizes="100vw" />
-                  </div>
-                ))}
-                <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-[#FDFBF7]/10" />
+          <section className="relative isolate overflow-hidden border-b border-[#E6DCC8] bg-[#FAF7F0]">
+            <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_78%_20%,rgba(212,175,55,.14),transparent_34%)]" />
+            <div className="relative mx-auto grid max-w-[1440px] md:min-h-[650px] md:grid-cols-[1fr_1fr] md:items-stretch">
+              <div className="relative order-1 min-h-[330px] overflow-hidden rounded-b-[2.2rem] border-b border-[#D4AF37]/45 md:order-2 md:min-h-0 md:rounded-bl-[45%] md:rounded-br-none md:border-b-0 md:border-l">
+                <Image src="/hero-villa-1.webp" alt="فيلا إماراتية معاصرة تعبّر عن هوية منصة بيت الريف الذكية" fill priority className="object-cover object-center" sizes="(max-width: 768px) 100vw, 50vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#073F3E]/24 via-transparent to-white/5" />
+              </div>
+
+              <div className="order-2 flex items-center px-4 pb-9 pt-7 text-center md:order-1 md:px-12 md:py-16 md:text-right lg:px-20">
+                <div className="mx-auto w-full max-w-xl md:mr-0">
+                  <div className="mb-5 hidden items-center gap-4 text-[#C79A45] md:flex"><span className="h-px flex-1 bg-[#C79A45]/55" /><span className="text-xl">✦</span><span className="h-px flex-1 bg-[#C79A45]/55" /></div>
+                  <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
+                  <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:mx-0 md:text-xl">كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
+                  <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:mt-8 md:text-4xl">ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة</h2>
+                </div>
               </div>
             </div>
-          </section>
 
-          <section className="relative z-10 mx-auto -mt-7 max-w-5xl px-4 md:-mt-9">
-            <div className="relative overflow-hidden rounded-[2.25rem] border border-[#E6DCC8] bg-white/96 px-5 pb-5 pt-6 text-center shadow-2xl shadow-[#8A6A00]/8 backdrop-blur md:px-10 md:pb-8 md:pt-9">
-              <div className="pointer-events-none absolute inset-x-4 bottom-0 h-40 overflow-hidden rounded-b-[2rem] md:inset-x-8 md:h-52">
-                <Image src="/images/webp/bait-alreef-smart-construction-ecosystem-cover.webp" alt="خلفية بصرية خفيفة لمنظومة بيت الريف الذكية" fill className="translate-y-1/3 scale-110 object-cover object-center opacity-[0.18] blur-[0.2px]" sizes="(max-width: 768px) 92vw, 900px" />
-                <div className="absolute inset-0 bg-gradient-to-b from-white via-white/70 to-white/20" />
-              </div>
-              <div className="relative z-10">
-                <h1 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">منصة بيت الريف الذكية</h1>
-                <p className="mx-auto mt-3 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.</p>
-                <h2 className="mt-5 text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة</h2>
-                <div className="mt-6 grid grid-cols-4 gap-2 md:gap-4">
-                  {introModels.map((item) => (
-                    <div key={item.title} className="overflow-hidden rounded-2xl border border-[#EEE4D1] bg-white/86 px-2 py-3 shadow-sm backdrop-blur md:px-3 md:py-4">
-                      <div className="relative mx-auto h-12 w-12 overflow-hidden rounded-2xl bg-white shadow-inner ring-1 ring-[#E6DCC8] md:h-16 md:w-16"><Image src={item.image} alt={item.title} fill className="scale-125 object-cover object-center" sizes="64px" /><div className="absolute inset-0 bg-white/25" /></div>
-                      <p className="mt-2 text-[0.7rem] font-black leading-5 text-[#0F3F1A] md:text-sm">{item.title}</p>
-                      <p className="hidden text-xs font-semibold text-gray-500 md:block">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
+            <div className="relative z-10 mx-auto -mt-1 max-w-[1440px] px-3 pb-5 md:-mt-28 md:px-8 md:pb-8">
+              <div className="grid grid-cols-4 gap-2 md:gap-4" dir="rtl">
+                {introModels.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.title} href={item.href} className="group grid min-w-0 overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 text-right shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur transition hover:-translate-y-1 hover:shadow-xl md:grid-cols-[42%_58%] md:rounded-[1.4rem]">
+                      <div className="relative h-16 overflow-hidden bg-[#F3EBDD] md:h-36">
+                        <Image src={item.image} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 25vw, 150px" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/20 to-transparent" />
+                      </div>
+                      <div className="flex min-w-0 flex-col items-center justify-center px-1.5 py-2 text-center md:items-start md:px-4 md:text-right">
+                        <Icon className="mb-1 hidden h-6 w-6 text-[#0F3F1A] md:block" aria-hidden="true" />
+                        <p className="text-[0.68rem] font-black leading-5 text-[#0F3F1A] sm:text-xs md:text-base">{item.title}</p>
+                        <p className="hidden text-xs font-semibold leading-5 text-gray-500 md:block">{item.desc}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </section>
