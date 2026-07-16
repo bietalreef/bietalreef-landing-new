@@ -49,50 +49,68 @@ async function chat(message, history = [], state = {}) {
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(`API ${response.status}: ${JSON.stringify(data)}`);
+  if (data.error_code) throw new Error(`Agent error: ${data.error_code}\n${JSON.stringify(data, null, 2)}`);
   return data;
 }
 
 function assert(condition, message, data) {
-  if (!condition) throw new Error(`${message}\n${JSON.stringify(data, null, 2).slice(0, 4000)}`);
+  if (!condition) throw new Error(`${message}\n${JSON.stringify(data, null, 2).slice(0, 5000)}`);
 }
 
 function hasArkleen(data) {
   return (data.links || []).some((link) => /providers\/arkleen/i.test(link.href || ''));
 }
 
+function providerTool(data) {
+  return (data.tool_calls || []).find((call) => call.name === 'search_providers');
+}
+
 try {
   await waitForServer();
 
-  const staleState = {
-    audience: 'customer',
-    intent: 'quote_request',
-    payload: {
-      service_category: 'نجار',
-      emirate: 'أبوظبي',
-      city: 'العين',
-      specifications: 'أعمال نجارة',
-    },
-  };
+  const carpenter = await chat('أعطيني مزود خدمة نجار في العين');
+  assert(carpenter.intent === 'provider_search', 'Carpenter request must use provider_search.', carpenter);
+  assert(providerTool(carpenter)?.status === 'matched', 'Carpenter search must call the Supabase provider tool and match.', carpenter);
+  assert(hasArkleen(carpenter), 'Carpenter request in Al Ain must return Arkleen from live Supabase data.', carpenter);
+  assert(!/ميزانية|مقاسات/i.test(carpenter.reply), 'Provider search must not start a quotation questionnaire.', carpenter);
 
-  const availability = await chat('فيه مزودين ام لا', [], staleState);
-  assert(availability.intent === 'provider_search', 'Availability question must interrupt the quotation flow.', availability);
-  assert(hasArkleen(availability), 'Availability search must return Arkleen from live Supabase data.', availability);
-  assert(!/ميزانية|مقاسات/i.test(availability.reply), 'Provider search must not continue quotation questions.', availability);
+  const marble = await chat('أعطيني مزود رخام وجرانيت في العين');
+  assert(marble.intent === 'provider_search', 'Marble request must use provider_search.', marble);
+  assert(providerTool(marble)?.status === 'unmatched', 'Marble search must call the tool and return unmatched with current live data.', marble);
+  assert(!hasArkleen(marble), 'A carpentry provider must never be returned for marble and granite.', marble);
+  assert((marble.links || []).length === 0, 'Unmatched provider search must not invent provider links.', marble);
 
-  const directMessage = 'اعطيني مزود خدمة نجار في العين';
-  const direct = await chat(directMessage, [], staleState);
-  assert(direct.intent === 'provider_search', 'Direct provider request must use provider_search.', direct);
-  assert(hasArkleen(direct), 'Direct carpenter request in Al Ain must return Arkleen.', direct);
+  const changed = await chat(
+    'لا، قصدي رخام وجرانيت في العين',
+    [
+      { role: 'user', content: 'أعطيني مزود خدمة نجار في العين' },
+      { role: 'assistant', content: carpenter.reply },
+    ],
+    carpenter.state,
+  );
+  assert(changed.intent === 'provider_search', 'Changing the requested trade must start a fresh provider search.', changed);
+  assert(providerTool(changed)?.status === 'unmatched', 'Changed request must search the new specialty.', changed);
+  assert(!hasArkleen(changed), 'The previous carpenter result must not leak into a marble search.', changed);
 
-  const complaint = await chat('انت مالك', [
-    { role: 'user', content: directMessage },
-    { role: 'assistant', content: 'هل عندك ميزانية؟' },
-  ], direct.state || staleState);
-  assert(complaint.intent !== 'out_of_scope', 'A user objection must never be classified out of scope.', complaint);
-  assert(hasArkleen(complaint), 'After an objection, Weyaak must recover the previous provider request.', complaint);
-  assert(/حقك علي/i.test(complaint.reply), 'Recovery reply must acknowledge the misunderstanding.', complaint);
+  const providerOwner = await chat('أنا صاحب شركة تنظيف وأريد أن يظهر نشاطي في المنصة');
+  assert(providerOwner.audience === 'provider', 'A business owner must enter the provider onboarding flow.', providerOwner);
+  assert(providerOwner.intent === 'provider_subscription', 'Business owner must not be treated as a customer provider search.', providerOwner);
+  assert(!providerTool(providerOwner), 'Provider onboarding must not search for another provider.', providerOwner);
 
-  console.log('[Weyaak provider smoke] PASS: availability-interrupt, direct-provider-search, complaint-recovery');
+  const objection = await chat(
+    'يا وكيل فهمتني غلط، أنا أبحث عن نجار في العين',
+    [
+      { role: 'user', content: 'أريد مزود' },
+      { role: 'assistant', content: 'وضح لي الخدمة' },
+    ],
+    {},
+  );
+  assert(objection.intent === 'provider_search', 'User correction must be understood as a new provider request.', objection);
+  assert(providerTool(objection)?.status === 'matched', 'Correction must trigger a fresh tool call.', objection);
+  assert(hasArkleen(objection), 'Correction to carpenter in Al Ain must return Arkleen.', objection);
+  assert(objection.intent !== 'out_of_scope', 'A user objection must never be classified out of scope.', objection);
+
+  console.log('[Weyaak provider smoke] PASS: tool-call, strict-specialty, intent-switch, provider-owner, correction-recovery');
 } finally {
   server.kill('SIGTERM');
   await Promise.race([new Promise((resolve) => server.once('exit', resolve)), sleep(3000)]);
