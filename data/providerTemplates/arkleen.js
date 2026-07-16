@@ -26,19 +26,19 @@ export const arkleenTemplate = {
   },
   media: {
     logo: '/images/providers/arkleen-logo.png',
-    cover: '/images/providers/arkline/arkline-hero-exterior.webp',
-    gallery: ['/images/providers/arkline/arkline-hero-exterior.webp', '/images/providers/arkline/arkline-workshop.webp', '/images/providers/arkline/arkline-showroom.webp', '/images/providers/arkline/arkline-production.webp'],
+    cover: '/images/providers/arkleen-premium/profile-cover.webp',
+    gallery: ['/images/providers/arkleen-premium/profile-cover.webp', '/images/providers/arkleen-premium/service-custom-kitchens.webp', '/images/providers/arkleen-premium/service-custom-wardrobes.webp', '/images/providers/arkleen-premium/service-wooden-doors-decor.webp', '/images/providers/arkleen-premium/service-interior-fitout.webp'],
   },
   services: [
-    { id: 'BR-SRV-ARK-001', slug: 'custom-wooden-kitchens', title: { ar: 'مطابخ خشبية حسب الطلب', en: 'Custom Wooden Kitchens' }, summary: { ar: 'تصميم وتصنيع وتركيب حسب مساحة الموقع والخامة والتشطيب المطلوب.', en: 'Design, fabrication and installation tailored to the site, material and finish.' }, image: '/images/providers/arkline/arkline-showroom.webp' },
-    { id: 'BR-SRV-ARK-002', slug: 'custom-wardrobes', title: { ar: 'خزائن ودواليب حسب المقاس', en: 'Made-to-measure Wardrobes' }, summary: { ar: 'حلول تخزين بأبواب وتقسيمات وتشطيبات قابلة للتخصيص.', en: 'Custom storage, doors, layouts and finishes.' }, image: '/images/providers/arkline/arkline-workshop.webp' },
-    { id: 'BR-SRV-ARK-003', slug: 'wooden-doors-and-decor', title: { ar: 'أبواب وديكورات خشبية', en: 'Wooden Doors & Decorative Woodwork' }, summary: { ar: 'أبواب وكسوات وديكورات مصنّعة وفق المقاسات والتصميم.', en: 'Doors, cladding and decorative woodwork made to specification.' }, image: '/images/providers/arkline/arkline-production.webp' },
-    { id: 'BR-SRV-ARK-004', slug: 'interior-design-fitout', title: { ar: 'تصميم داخلي وتشطيبات', en: 'Interior Design & Fit-out' }, summary: { ar: 'تنسيق التصميم والأعمال الخشبية والتشطيبات الداخلية.', en: 'Coordinated interior design, joinery and fit-out.' }, image: '/images/providers/arkline/arkline-hero-exterior.webp' },
+    { id: 'BR-SRV-ARK-001', slug: 'custom-wooden-kitchens', title: { ar: 'مطابخ خشبية حسب الطلب', en: 'Custom Wooden Kitchens' }, summary: { ar: 'تصميم وتصنيع وتركيب حسب مساحة الموقع والخامة والتشطيب المطلوب.', en: 'Design, fabrication and installation tailored to the site, material and finish.' }, image: '/images/providers/arkleen-premium/service-custom-kitchens.webp' },
+    { id: 'BR-SRV-ARK-002', slug: 'custom-wardrobes', title: { ar: 'خزائن ودواليب حسب المقاس', en: 'Made-to-measure Wardrobes' }, summary: { ar: 'حلول تخزين بأبواب وتقسيمات وتشطيبات قابلة للتخصيص.', en: 'Custom storage, doors, layouts and finishes.' }, image: '/images/providers/arkleen-premium/service-custom-wardrobes.webp' },
+    { id: 'BR-SRV-ARK-003', slug: 'wooden-doors-and-decor', title: { ar: 'أبواب وديكورات خشبية', en: 'Wooden Doors & Decorative Woodwork' }, summary: { ar: 'أبواب وكسوات وديكورات مصنّعة وفق المقاسات والتصميم.', en: 'Doors, cladding and decorative woodwork made to specification.' }, image: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp' },
+    { id: 'BR-SRV-ARK-004', slug: 'interior-design-fitout', title: { ar: 'تصميم داخلي وتشطيبات', en: 'Interior Design & Fit-out' }, summary: { ar: 'تنسيق التصميم والأعمال الخشبية والتشطيبات الداخلية.', en: 'Coordinated interior design, joinery and fit-out.' }, image: '/images/providers/arkleen-premium/service-interior-fitout.webp' },
   ],
   products: [
-    { id: 'BR-PRD-ARK-001', slug: 'custom-wooden-kitchen', title: { ar: 'مطبخ خشبي حسب الطلب', en: 'Custom Wooden Kitchen' }, summary: { ar: 'مطبخ قابل لتخصيص المقاسات والخامة واللون والتقسيمات.', en: 'A kitchen configurable by dimensions, material, colour and layout.' }, image: '/images/providers/arkline/arkline-showroom.webp' },
-    { id: 'BR-PRD-ARK-002', slug: 'custom-wooden-wardrobe', title: { ar: 'خزانة خشبية حسب المقاس', en: 'Custom Wooden Wardrobe' }, summary: { ar: 'خزانة مصنّعة حسب المساحة وخيارات الأبواب والتقسيم.', en: 'Made-to-measure wardrobe with configurable doors and layout.' }, image: '/images/providers/arkline/arkline-workshop.webp' },
-    { id: 'BR-PRD-ARK-003', slug: 'custom-wooden-door', title: { ar: 'باب خشبي حسب الطلب', en: 'Custom Wooden Door' }, summary: { ar: 'باب وفق المقاس والتصميم ونوع الخشب والتشطيب.', en: 'A wooden door tailored by size, design, timber and finish.' }, image: '/images/providers/arkline/arkline-production.webp' },
+    { id: 'BR-PRD-ARK-001', slug: 'custom-wooden-kitchen', title: { ar: 'مطبخ خشبي حسب الطلب', en: 'Custom Wooden Kitchen' }, summary: { ar: 'مطبخ قابل لتخصيص المقاسات والخامة واللون والتقسيمات.', en: 'A kitchen configurable by dimensions, material, colour and layout.' }, image: '/images/providers/arkleen-premium/product-custom-kitchen.webp' },
+    { id: 'BR-PRD-ARK-002', slug: 'custom-wooden-wardrobe', title: { ar: 'خزانة خشبية حسب المقاس', en: 'Custom Wooden Wardrobe' }, summary: { ar: 'خزانة مصنّعة حسب المساحة وخيارات الأبواب والتقسيم.', en: 'Made-to-measure wardrobe with configurable doors and layout.' }, image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp' },
+    { id: 'BR-PRD-ARK-003', slug: 'custom-wooden-door', title: { ar: 'باب خشبي حسب الطلب', en: 'Custom Wooden Door' }, summary: { ar: 'باب وفق المقاس والتصميم ونوع الخشب والتشطيب.', en: 'A wooden door tailored by size, design, timber and finish.' }, image: '/images/providers/arkleen-premium/product-custom-door.webp' },
   ],
 };
 
