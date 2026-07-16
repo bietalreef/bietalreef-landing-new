@@ -189,8 +189,8 @@ function PremiumAlHootProviderCard({ item }) {
 
       <div className="px-5 pb-5 pt-4">
         <div className="-mt-12 mb-4 flex items-end justify-between gap-3">
-          <div className="flex h-20 w-20 items-center justify-center rounded-[1.4rem] border-4 border-white bg-gradient-to-br from-[#FFF8EA] to-[#D4AF37] text-3xl font-black text-[#0F3F1A] shadow-xl">
-            {item.logoText || 'ح'}
+          <div className="relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-[1.4rem] border-4 border-white bg-white text-3xl font-black text-[#0F3F1A] shadow-xl">
+            {item.logoImage ? <Image src={item.logoImage} alt={`شعار ${item.name}`} fill className="object-contain p-1" sizes="80px" /> : (item.logoText || 'ح')}
           </div>
           <div className="mb-2 flex flex-wrap justify-end gap-2">
             <TypePill type="provider" premium />
