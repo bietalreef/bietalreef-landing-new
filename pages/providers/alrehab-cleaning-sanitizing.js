@@ -32,6 +32,17 @@ export default function AlrehabProviderPage() {
         { '@type': 'ListItem', position: 3, name: provider.identity.name.ar, item: PAGE_URL },
       ],
     },
+    {
+      '@context': 'https://schema.org', '@type': 'ItemList', name: 'خدمات وعروض الرحاب',
+      itemListElement: [...provider.services, ...provider.offers].map((item, index) => ({
+        '@type': 'ListItem', position: index + 1, url: `${PAGE_URL}#${item.id}`,
+        item: { '@type': item.id.includes('-OFR-') ? 'Offer' : 'Service', name: item.title.ar, description: item.summary.ar, image: `${SITE_URL}${item.image}`, areaServed: ['Al Ain', 'Abu Dhabi', 'Dubai'] },
+      })),
+    },
+    {
+      '@context': 'https://schema.org', '@type': 'ImageGallery', name: 'نماذج أعمال الرحاب للتنظيف والتعقيم',
+      associatedMedia: provider.gallery.map((item) => ({ '@type': 'ImageObject', '@id': `${PAGE_URL}#${item.id}`, name: item.title.ar, description: item.description.ar, contentUrl: `${SITE_URL}${item.image}`, contentLocation: item.location.ar })),
+    },
   ];
 
   return (
@@ -67,12 +78,12 @@ export default function AlrehabProviderPage() {
                 <div className="relative -mt-24 px-5 pb-8 md:px-10 md:pb-10">
                   <div className="relative rounded-[2.2rem] border border-white/70 bg-white/95 p-5 shadow-2xl backdrop-blur-xl md:p-8">
                     <div className="flex flex-col items-center gap-5 text-center">
-                      <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-[5px] border-[#58B51B] bg-white p-1 shadow-[0_0_0_6px_rgba(255,255,255,.9),0_20px_45px_rgba(3,55,112,.22)] md:h-44 md:w-44">
-                        <Image src={provider.media.logo} alt={`شعار ${provider.identity.name.ar}`} fill className="rounded-full object-contain" />
+                      <div className="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border-[5px] border-[#58B51B] bg-white shadow-[0_0_0_6px_rgba(255,255,255,.9),0_20px_45px_rgba(3,55,112,.22)] md:h-44 md:w-44">
+                        <Image src={provider.media.logo} alt={`شعار ${provider.identity.name.ar}`} fill className="scale-[1.18] rounded-full object-cover" />
                         <span className="absolute bottom-0 right-0 flex h-11 w-11 items-center justify-center rounded-full border-4 border-white bg-[#0B5EAE] text-white"><BadgeCheck className="h-6 w-6" /></span>
                       </div>
                       <div className="max-w-4xl">
-                        <p className="text-sm font-black text-[#55A91C]">مزود خدمة تنظيف وتعقيم موثق</p>
+                        <div className="flex flex-wrap items-center justify-center gap-2"><p className="text-sm font-black text-[#55A91C]">مزود خدمة تنظيف وتعقيم موثق</p><span className="inline-flex items-center gap-1 rounded-full bg-[#EAF6FF] px-3 py-1 text-xs font-black text-[#0B5EAE]" dir="ltr"><BadgeCheck className="h-4 w-4" />{provider.id}</span></div>
                         <h1 className="mt-2 text-3xl font-black leading-tight text-[#073D7C] md:text-5xl">{provider.identity.name.ar}</h1>
                         <p className="mt-3 text-lg font-black text-[#50A918]">{provider.identity.tagline.ar}</p>
                         <p className="mx-auto mt-5 max-w-3xl text-sm font-semibold leading-8 text-slate-600 md:text-base">{provider.description.ar}</p>
@@ -80,7 +91,7 @@ export default function AlrehabProviderPage() {
                       <div className="flex w-full flex-col justify-center gap-3 sm:flex-row">
                         <a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent('مرحباً، أرغب في الاستفسار عن خدمات الرحاب للتنظيف والتعقيم عبر بيت الريف')}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#55B51B] px-8 font-black text-white shadow-lg"><MessageCircle className="h-5 w-5" /> واتساب</a>
                         <a href={`tel:${provider.contact.phone}`} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#073D7C] px-8 font-black text-white"><Phone className="h-5 w-5" /> 054 776 1290</a>
-                        <Link href="/request-quote" className="inline-flex min-h-14 items-center justify-center rounded-2xl border border-[#0B5EAE]/20 bg-[#EDF6FF] px-8 font-black text-[#073D7C]">اطلب عرض سعر</Link>
+                        <Link href="/weyaak?message=أرغب%20في%20طلب%20خدمة%20تنظيف%20حسب%20احتياجي" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl border border-[#0B5EAE]/20 bg-[#EDF6FF] px-8 font-black text-[#073D7C]"><Sparkles className="h-5 w-5" />اطلب من وياك</Link>
                       </div>
                     </div>
                   </div>
@@ -104,6 +115,8 @@ export default function AlrehabProviderPage() {
             </div>
           </Section>
 
+          <section className="px-4 pb-16"><div className="mx-auto max-w-6xl rounded-[2rem] border border-[#DDEAF7] bg-white p-8 text-center shadow-sm"><h2 className="text-2xl font-black text-[#073D7C]">اطلب الخدمة حسب احتياجك</h2><p className="mx-auto mt-3 max-w-2xl leading-8 text-slate-600">أرسل للمنصة وصفًا مختصرًا لاحتياجك وسيبدأ وياك في تنظيم الطلب وتحديد المسار المناسب.</p><Link href="/weyaak?message=أرغب%20في%20طلب%20خدمة%20تنظيف%20حسب%20احتياجي" className="mt-6 inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-[#073D7C] px-8 font-black text-white"><Sparkles className="h-5 w-5" />اطلب من وياك</Link></div></section>
+
           <section className="bg-[#062E63] px-4 py-16 text-white">
             <div className="mx-auto max-w-6xl">
               <p className="font-black text-[#89D13C]">عروض مصممة حسب الاحتياج</p>
@@ -121,6 +134,10 @@ export default function AlrehabProviderPage() {
 
           <section className="bg-white px-4 py-16"><div className="mx-auto max-w-4xl"><p className="text-center font-black text-[#55A91C]">إجابات مباشرة</p><h2 className="mt-2 text-center text-3xl font-black text-[#073D7C]">أسئلة شائعة عن خدمات الرحاب</h2><div className="mt-8 space-y-4">{provider.faq.map((item) => <details key={item.questionAr} className="rounded-2xl border border-[#DDEAF7] bg-[#F8FBFF] p-6"><summary className="cursor-pointer font-black text-[#073D7C]">{item.questionAr}</summary><p className="mt-4 leading-8 text-slate-600">{item.answerAr}</p></details>)}</div></div></section>
 
+          <Section eyebrow="معرض الأعمال" title="نماذج لأعمال التنظيف السابقة" intro="نماذج مصورة تساعد على فهم نوع الخدمة والمعدات المستخدمة؛ النتيجة الفعلية تختلف حسب الخامة وحالة القطعة.">
+            <div className="grid gap-5 sm:grid-cols-2">{provider.gallery.map((item) => <article id={item.id} key={item.id} className="overflow-hidden rounded-3xl border border-[#DDEAF7] bg-white shadow-sm"><div className="relative aspect-[16/10]"><Image src={item.image} alt={item.title.ar} fill className="object-cover" /></div><div className="p-6"><div className="flex flex-wrap items-center justify-between gap-2"><span className="text-xs font-black text-[#0B5EAE]" dir="ltr">{item.id}</span><span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-black text-green-700"><MapPin className="h-3.5 w-3.5" />{item.location.ar}</span></div><h3 className="mt-3 text-xl font-black text-[#073D7C]">{item.title.ar}</h3><p className="mt-3 leading-7 text-slate-600">{item.description.ar}</p></div></article>)}</div>
+          </Section>
+
           <section className="px-4 py-16"><div className="mx-auto max-w-6xl rounded-[2.5rem] bg-[linear-gradient(135deg,#55B51B,#0870C2)] p-8 text-center text-white shadow-2xl md:p-12"><h2 className="text-3xl font-black">أرسل الصور والمقاسات وموقع الخدمة</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-white/85">يساعد ذلك على تقييم الخدمة واختيار المعدات والمواد المناسبة وتأكيد الموعد.</p><a href={`https://wa.me/${whatsappDigits}`} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-white px-9 font-black text-[#073D7C]"><MessageCircle className="h-5 w-5" /> تواصل مع الرحاب</a></div></section>
         </main>
         <Footer />
@@ -131,5 +148,5 @@ export default function AlrehabProviderPage() {
 
 function Section({ eyebrow, title, intro, children }) { return <section className="px-4 py-16"><div className="mx-auto max-w-6xl"><p className="font-black text-[#55A91C]">{eyebrow}</p><h2 className="mt-2 text-3xl font-black leading-tight text-[#073D7C] md:text-4xl">{title}</h2><p className="mt-4 max-w-3xl leading-8 text-slate-600">{intro}</p><div className="mt-9">{children}</div></div></section>; }
 function InfoCard({ icon, title, value }) { return <div className="rounded-3xl border border-[#DDEAF7] bg-white p-5 shadow-lg"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#EAF6FF] text-[#0870C2] [&>svg]:h-5 [&>svg]:w-5">{icon}</div><p className="mt-4 text-xs font-black text-[#55A91C]">{title}</p><p className="mt-1 font-black text-[#073D7C]">{value}</p></div>; }
-function ContentCard({ item }) { return <article className="overflow-hidden rounded-3xl border border-[#DDEAF7] bg-white shadow-sm"><div className="relative aspect-[4/3]"><Image src={item.image} alt={item.title.ar} fill className="object-cover" /></div><div className="p-5"><CheckCircle2 className="h-6 w-6 text-[#55B51B]" /><h3 className="mt-3 text-xl font-black text-[#073D7C]">{item.title.ar}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.summary.ar}</p></div></article>; }
-function OfferCard({ offer }) { return <article className="overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur"><div className="relative aspect-[4/3]"><Image src={offer.image} alt={offer.title.ar} fill className="object-cover" /><span className="absolute right-3 top-3 rounded-full bg-[#55B51B] px-3 py-1 text-xs font-black text-white">{offer.badge.ar}</span></div><div className="p-5"><h3 className="text-xl font-black">{offer.title.ar}</h3><p className="mt-3 text-sm leading-7 text-white/70">{offer.summary.ar}</p><p className="mt-4 text-xs font-black text-[#89D13C]">السعر بعد التقييم</p></div></article>; }
+function ContentCard({ item }) { const message = `مرحباً، أرغب في طلب خدمة من الرحاب عبر بيت الريف.\nمعرّف المزود: ${provider.id}\nمعرّف البطاقة: ${item.id}\nنوع الخدمة: ${item.title.ar}\nالتفاصيل: ${item.summary.ar}`; return <article id={item.id} className="overflow-hidden rounded-3xl border border-[#DDEAF7] bg-white shadow-sm"><div className="relative aspect-[4/3]"><Image src={item.image} alt={item.title.ar} fill className="object-cover" /></div><div className="p-5"><div className="flex items-center justify-between gap-2"><CheckCircle2 className="h-6 w-6 text-[#55B51B]" /><span className="text-xs font-black text-[#0B5EAE]" dir="ltr">{item.id}</span></div><h3 className="mt-3 text-xl font-black text-[#073D7C]">{item.title.ar}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{item.summary.ar}</p><a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#55B51B] px-4 text-sm font-black text-white"><MessageCircle className="h-4 w-4" />طلب الخدمة عبر واتساب</a></div></article>; }
+function OfferCard({ offer }) { const message = `مرحباً، أرغب في الاستفسار عن عرض الرحاب عبر بيت الريف.\nمعرّف المزود: ${provider.id}\nمعرّف البطاقة: ${offer.id}\nنوع العرض: ${offer.title.ar}\nالتفاصيل: ${offer.summary.ar}\nالسعر: بعد التقييم`; return <article id={offer.id} className="overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur"><div className="relative aspect-[4/3]"><Image src={offer.image} alt={offer.title.ar} fill className="object-cover" /><span className="absolute right-3 top-3 rounded-full bg-[#55B51B] px-3 py-1 text-xs font-black text-white">{offer.badge.ar}</span></div><div className="p-5"><p className="text-xs font-black text-[#89D13C]" dir="ltr">{offer.id}</p><h3 className="mt-2 text-xl font-black">{offer.title.ar}</h3><p className="mt-3 text-sm leading-7 text-white/70">{offer.summary.ar}</p><p className="mt-4 text-xs font-black text-[#89D13C]">السعر بعد التقييم</p><a href={`https://wa.me/${whatsappDigits}?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#55B51B] px-4 text-sm font-black text-white"><MessageCircle className="h-4 w-4" />استفسر عبر واتساب</a></div></article>; }
