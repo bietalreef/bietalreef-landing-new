@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
@@ -8,6 +9,11 @@ import PlatformStoryVideo from '../components/PlatformStoryVideo';
 import { ArrowLeft, Bot, Building2, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle, ShieldCheck } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
+
+const premiumHeroSlides = [
+  { src: '/images/bietalreef-option-one-villa.webp', alt: 'فيلا إماراتية فاخرة بهوية معمارية معاصرة' },
+  { src: '/hero-villa-1.webp', alt: 'فيلا حديثة ضمن تجربة منصة بيت الريف الذكية' },
+];
 
 const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/gateway/uae-directory-gateway.webp', imageAlt: 'خريطة الإمارات ثلاثية الأبعاد لدليل الإمارات داخل بيت الريف' },
@@ -82,6 +88,16 @@ function GatewayCard({ card }) {
 }
 
 export default function Home() {
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setHeroSlide((current) => (current + 1) % premiumHeroSlides.length);
+    }, 6500);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   const description = 'بيت الريف محرك الأعمال الرقمي لقطاع المقاولات والبناء في الإمارات. يساعد العميل على البحث والتواصل أو تحويل احتياجه إلى مناقصة داخلية، ويساعد مزود الخدمة على بناء حضور رقمي منظم ومستدام.';
   const structuredData = [
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'بيت الريف', alternateName: 'Biet Alreef', url: SITE_URL, logo: `${SITE_URL}/logo.png`, description, areaServed: { '@type': 'Country', name: 'United Arab Emirates' } },
@@ -99,8 +115,12 @@ export default function Home() {
             <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_78%_20%,rgba(212,175,55,.14),transparent_34%)]" />
             <div className="relative mx-auto grid max-w-[1440px] md:min-h-[650px] md:grid-cols-[1fr_1fr] md:items-stretch">
               <div className="relative order-1 min-h-[330px] overflow-hidden rounded-b-[2.2rem] border-b border-[#D4AF37]/45 md:order-2 md:min-h-0 md:rounded-bl-[45%] md:rounded-br-none md:border-b-0 md:border-l">
-                <Image src="/hero-villa-1.webp" alt="فيلا إماراتية معاصرة تعبّر عن هوية منصة بيت الريف الذكية" fill priority className="object-cover object-center" sizes="(max-width: 768px) 100vw, 50vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#073F3E]/24 via-transparent to-white/5" />
+                {premiumHeroSlides.map((slide, index) => (
+                  <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out motion-reduce:transition-none ${index === heroSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'}`}>
+                    <Image src={slide.src} alt={slide.alt} fill priority={index === 0} className={`object-cover object-center transition-transform duration-[6500ms] ease-linear motion-reduce:transition-none ${index === heroSlide ? 'scale-[1.045]' : 'scale-100'}`} sizes="(max-width: 767px) 100vw, 50vw" />
+                  </div>
+                ))}
+                <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-[#073F3E]/24 via-transparent to-white/5" />
               </div>
 
               <div className="order-2 flex items-center px-4 pb-9 pt-7 text-center md:order-1 md:px-12 md:py-16 md:text-right lg:px-20">
@@ -118,9 +138,9 @@ export default function Home() {
                 {introModels.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <Link key={item.title} href={item.href} className="group grid min-w-0 overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 text-right shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur transition hover:-translate-y-1 hover:shadow-xl md:grid-cols-[42%_58%] md:rounded-[1.4rem]">
+                    <div key={item.title} className="grid min-w-0 overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 text-right shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur md:grid-cols-[42%_58%] md:rounded-[1.4rem]">
                       <div className="relative h-16 overflow-hidden bg-[#F3EBDD] md:h-36">
-                        <Image src={item.image} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 25vw, 150px" />
+                        <Image src={item.image} alt="" fill className="object-cover" sizes="(max-width: 768px) 25vw, 150px" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/20 to-transparent" />
                       </div>
                       <div className="flex min-w-0 flex-col items-center justify-center px-1.5 py-2 text-center md:items-start md:px-4 md:text-right">
@@ -128,7 +148,7 @@ export default function Home() {
                         <p className="text-[0.68rem] font-black leading-5 text-[#0F3F1A] sm:text-xs md:text-base">{item.title}</p>
                         <p className="hidden text-xs font-semibold leading-5 text-gray-500 md:block">{item.desc}</p>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
