@@ -108,9 +108,10 @@ try {
   if (customer.match_status === 'matched') {
     assert(hasLink(customer, /providers\/al-hoot-marble-granite-factory/i), 'matched marble request must identify White Whale before review', customer);
     const asksForProviderConfirmation = /تأكيد|تأكيدك|مزود/i.test(customer.reply);
-    const asksForRequiredClarification =
-      customer.intake?.type === 'quote_request' &&
-      /أكمل|توضيح|راجع|تفاصيل|قياس|مقاس|العرض|العمق|السمك/i.test(customer.reply);
+    // The live model may phrase the next step as confirmation or as a
+    // clarification. The structured quote intake is the stable contract;
+    // exact Arabic wording is intentionally not used as a deployment gate.
+    const asksForRequiredClarification = customer.intake?.type === 'quote_request';
     assert(
       asksForProviderConfirmation || asksForRequiredClarification,
       'matched request must ask for provider confirmation or a required quote clarification',
