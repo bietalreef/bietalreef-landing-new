@@ -105,9 +105,14 @@ try {
 
   const customer = await chat('أريد تسجيل طلب عرض سعر لرخام وجرانيت في العين، جرانيت أسود توريد وتركيب لسطح مطبخ بطول أربعة أمتار، الميزانية غير محددة والتنفيذ خلال أسبوعين.');
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
-  assert(customer.intake?.type === 'quote_request', 'complete customer details must open the review card', customer);
+  if (customer.match_status === 'matched') {
+    assert(hasLink(customer, /providers\/al-hoot-marble-granite-factory/i), 'matched marble request must identify White Whale before review', customer);
+    assert(/تأكيد|تأكيدك|مزود/i.test(customer.reply), 'matched request must ask for provider confirmation', customer);
+  } else {
+    assert(customer.intake?.type === 'quote_request', 'unmatched complete customer details must open the review card', customer);
+  }
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
-  tests.push('customer-review-ready');
+  tests.push('customer-provider-match-or-review');
 
   const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
   const provider = await chat(providerMessage);
