@@ -61,6 +61,10 @@ function hasArkleen(data) {
   return (data.links || []).some((link) => /providers\/arkleen/i.test(link.href || ''));
 }
 
+function hasWhiteWhale(data) {
+  return (data.links || []).some((link) => /providers\/al-hoot-marble-granite-factory/i.test(link.href || ''));
+}
+
 function providerTool(data) {
   return (data.tool_calls || []).find((call) => call.name === 'search_providers');
 }
@@ -76,9 +80,9 @@ try {
 
   const marble = await chat('أعطيني مزود رخام وجرانيت في العين');
   assert(marble.intent === 'provider_search', 'Marble request must use provider_search.', marble);
-  assert(providerTool(marble)?.status === 'unmatched', 'Marble search must call the tool and return unmatched with current live data.', marble);
+  assert(providerTool(marble)?.status === 'matched', 'Marble search must call the Supabase provider tool and match.', marble);
+  assert(hasWhiteWhale(marble), 'Marble request in Al Ain must return White Whale from live Supabase data.', marble);
   assert(!hasArkleen(marble), 'A carpentry provider must never be returned for marble and granite.', marble);
-  assert((marble.links || []).length === 0, 'Unmatched provider search must not invent provider links.', marble);
 
   const changed = await chat(
     'لا، قصدي رخام وجرانيت في العين',
@@ -89,7 +93,8 @@ try {
     carpenter.state,
   );
   assert(changed.intent === 'provider_search', 'Changing the requested trade must start a fresh provider search.', changed);
-  assert(providerTool(changed)?.status === 'unmatched', 'Changed request must search the new specialty.', changed);
+  assert(providerTool(changed)?.status === 'matched', 'Changed request must search and match the new specialty.', changed);
+  assert(hasWhiteWhale(changed), 'Changed marble request must return White Whale.', changed);
   assert(!hasArkleen(changed), 'The previous carpenter result must not leak into a marble search.', changed);
 
   const providerOwner = await chat('أنا صاحب شركة تنظيف وأريد أن يظهر نشاطي في المنصة');
