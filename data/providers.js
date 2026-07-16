@@ -53,6 +53,8 @@ export const arklineProvider = {
 export const providers = [
   {
     slug: 'al-hoot-marble-granite-factory',
+    providerId: 'BR-PROV-HOT-001',
+    providerUuid: '63191f77-0472-4944-84f3-0e5a87bcfc35',
     planCode: 'professional-presence',
     planMonthlyPrice: 500,
     nameAr: 'مصنع الحوت الأبيض للرخام والجرانيت',
@@ -68,6 +70,8 @@ export const providers = [
     providerTypeAr: 'مصنع رخام وجرانيت',
     providerTypeEn: 'Marble & Granite Factory',
     verified: true,
+    acceptsQuotes: true,
+    yearsExperience: 10,
     logo: '/images/providers/al-hoot-logo.png',
     cover: '/images/providers/al-hoot/cover.jpg',
     googleMapsUrl: 'https://maps.app.goo.gl/tZ4vRF5Fty2EU3WR7',
@@ -102,8 +106,9 @@ export const providers = [
   }
 ];
 
-// Providers excluded from discovery remain available through their direct profile route.
-const hiddenFromDiscovery = new Set(['al-hoot-marble-granite-factory']);
+// Publishing is controlled by the provider record; keep the discovery list aligned
+// with the providers activated in Supabase.
+const hiddenFromDiscovery = new Set([]);
 export const directoryProviders = [arklineProvider, ...providers].filter((provider) => !hiddenFromDiscovery.has(provider.slug));
 
 export function getProvidersByCategory(categorySlug) {
