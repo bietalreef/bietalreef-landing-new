@@ -5,7 +5,6 @@ import {
   ChevronUp,
   Cookie,
   ShieldCheck,
-  SlidersHorizontal,
   X,
 } from 'lucide-react';
 
@@ -65,17 +64,16 @@ function saveConsent(value) {
 
 const copy = {
   ar: {
-    bannerTitle: 'خيارات الخصوصية في بيت الريف',
+    bannerTitle: 'تجربة أفضل على بيت الريف',
     bannerText:
-      'نستخدم التخزين الأساسي لتشغيل المنصة. وبموافقتك تساعدنا تحليلات أداء مجهولة في تحسين الصفحات، وتطوير وياك، ورفع جودة عرض مزودي الخدمة. لا نرسل الاسم أو الهاتف أو البريد أو نص محادثات وياك إلى التحليلات.',
-    allow: 'السماح للكل',
-    essentials: 'الأساسية فقط',
-    preferences: 'التفضيلات',
+      'بموافقتك نستخدم بيانات استخدام مجهولة لفهم الصفحات والخدمات الأكثر فائدة وتحسين تجربة بيت الريف. لا نبيع بياناتك ولا نستخدمها لإنشاء حساب شخصي. ولتجربة أسرع، يمكنك تثبيت منصة بيت الريف على جهازك.',
+    allow: 'موافق وتحسين التجربة',
+    preferences: 'إدارة الخصوصية',
     title: 'مركز تفضيلات الخصوصية',
     intro:
       'من أجل تزويدك بتجربة أفضل على منصة بيت الريف، نستخدم معلومات مجهولة عن تفاعلك مع صفحاتنا، مثل عدد مرات زيارة الصفحة، والوقت التقريبي فيها، ونوع الزر الذي تم الضغط عليه. تساعدنا هذه المعلومات على تحسين تصميم المنصة وأدائها، وتطوير وكيل وياك، وعرض خدمات مزودي الخدمة بطريقة أوضح.',
     control:
-      'أنت صاحب القرار. يمكنك تشغيل تحليلات الأداء أو إيقافها، وسيستمر الموقع ووياك في العمل عند الرفض. ويمكنك العودة إلى هذه النافذة في أي وقت من زر الخصوصية الظاهر في الواجهة.',
+      'أنت صاحب القرار. لن تبدأ بيانات تحسين التجربة قبل موافقتك، وستستمر المنصة ووياك في العمل بصورة طبيعية من دونها.',
     manage: 'إدارة تفضيلات الموافقة',
     always: 'نشط دائماً',
     optional: 'اختياري',
@@ -83,32 +81,29 @@ const copy = {
     essentialTitle: 'ملفات الارتباط والتخزين الأساسي',
     essentialText:
       'هذه العناصر ضرورية لتشغيل الموقع بأمان، وتذكر اللغة، وقرار الخصوصية، وحالة الواجهة. لا يمكن إيقافها من داخل المنصة لأنها لا تستخدم للتحليلات أو الإعلانات ولا تخزن بيانات تعريف شخصية.',
-    analyticsTitle: 'تحليلات الأداء: بيت الريف وVercel Speed Insights',
+    analyticsTitle: 'بيانات تحسين التجربة',
     analyticsText:
-      'تسمح لنا بفهم استخدام الموقع بصورة مجمعة ومجهولة: مسار الصفحة دون معاملات الرابط، مدة الاستخدام، نوع الجهاز، مصدر الزيارة، المنطقة التقريبية، الزر المستخدم، ومشاهدات صفحات مزودي الخدمة. كما يقيس Vercel مؤشرات سرعة وتجربة الصفحات دون إنشاء ملف تعريفي للزائر. لا تشمل التحليلات بيانات النماذج أو محتوى محادثات وياك، ولا تعمل قبل موافقتك.',
+      'تسمح لنا بفهم استخدام المنصة بصورة مجمعة ومجهولة، مثل الصفحة المستخدمة والوقت التقريبي فيها ونوع الجهاز والزر المستخدم. لا تشمل بيانات النماذج أو محتوى محادثات وياك، ولا تعمل قبل موافقتك.',
     weyaakTitle: 'التخزين الوظيفي لوكيل وياك',
     weyaakText:
       'ضروري لعمل واجهة وياك وحماية الجلسة أثناء الاستخدام. لا ترسل أسئلة المستخدم أو إجابات وياك إلى جداول تحليلات السلوك، ولا نستخدمها لإنشاء ملف إعلاني للمستخدم.',
     externalTitle: 'أدوات الإعلانات والتتبع التسويقي',
     externalText:
       'لا تستخدم بيت الريف حالياً أدوات إعلانية أو ملفات تتبع تسويقية لبناء ملفات شخصية للزوار. عند إضافة أي جهة من هذا النوع مستقبلاً سنوضح اسمها والغرض منها ونطلب موافقة مستقلة قبل تشغيلها.',
-    save: 'تأكيد اختياراتي',
-    reject: 'رفض التحليلات',
-    privacy: 'الخصوصية',
+    save: 'موافق وتحسين التجربة',
     close: 'إغلاق',
   },
   en: {
-    bannerTitle: 'Privacy choices at Biet Alreef',
+    bannerTitle: 'A better Biet Al Reef experience',
     bannerText:
-      'We use essential storage to operate the platform. With your permission, anonymous performance analytics help us improve pages, Weyaak and provider services. Names, phone numbers, emails and Weyaak conversations are never sent to analytics.',
-    allow: 'Allow all',
-    essentials: 'Essential only',
-    preferences: 'Preferences',
+      'With your permission, we use anonymous usage data to understand which pages and services are most useful and improve the Biet Al Reef experience. We do not sell your data or use it to create a personal account. For a faster experience, you can install Biet Al Reef on your device.',
+    allow: 'Allow and improve my experience',
+    preferences: 'Manage privacy',
     title: 'Privacy preference center',
     intro:
       'To provide a better Biet Alreef experience, we use anonymous information about interactions with our pages, such as page visits, approximate time and clicked controls. This helps improve platform design and performance, Weyaak and the presentation of provider services.',
     control:
-      'You stay in control. Performance analytics can be enabled or disabled, and the website and Weyaak continue to work when declined. Reopen this window at any time from the visible Privacy button.',
+      'You stay in control. Experience data will not start before you consent, and the platform and Weyaak continue to work normally without it.',
     manage: 'Manage consent preferences',
     always: 'Always active',
     optional: 'Optional',
@@ -116,18 +111,16 @@ const copy = {
     essentialTitle: 'Essential cookies and local storage',
     essentialText:
       'Required to operate the website safely and remember language, privacy choice and interface state. They cannot be disabled inside the platform because they are not used for analytics or advertising and do not store personally identifying information.',
-    analyticsTitle: 'Performance analytics: Biet Al Reef and Vercel Speed Insights',
+    analyticsTitle: 'Experience improvement data',
     analyticsText:
-      'Helps us understand website usage in aggregate and anonymously: page path without query parameters, duration, device type, visit source, approximate region, clicked control and provider page views. Vercel also measures page speed and experience metrics without building a visitor profile. Form data and Weyaak conversations are excluded, and analytics stays off until you consent.',
+      'Helps us understand platform usage in aggregate and anonymously, such as the page used, approximate time, device type and clicked control. Form data and Weyaak conversations are excluded, and this data stays off until you consent.',
     weyaakTitle: 'Weyaak functional storage',
     weyaakText:
       'Required for the Weyaak interface and session safety. User questions and Weyaak answers are not sent to behavior analytics tables and are not used to build advertising profiles.',
     externalTitle: 'Advertising and marketing trackers',
     externalText:
       'Biet Al Reef does not currently use advertising or marketing trackers to build visitor profiles. If one is introduced, its name and purpose will be disclosed and separate consent requested before activation.',
-    save: 'Confirm my choices',
-    reject: 'Reject analytics',
-    privacy: 'Privacy',
+    save: 'Allow and improve my experience',
     close: 'Close',
   },
 };
@@ -166,15 +159,15 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
 
   useEffect(() => {
     const stored = analyticsConsent();
-    setChoice(stored);
+    setChoice(stored === 'accepted' ? 'accepted' : null);
     setPerformance(stored === 'accepted');
     setReady(true);
   }, []);
 
-  const confirm = (value) => {
-    saveConsent(value);
-    setChoice(value);
-    setPerformance(value === 'accepted');
+  const confirm = () => {
+    saveConsent('accepted');
+    setChoice('accepted');
+    setPerformance(true);
     setOpen(false);
   };
 
@@ -216,7 +209,7 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
     <>
       {choice === null ? (
         <div
-          className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/10 bg-[#071C15]/95 px-4 py-4 text-white shadow-[0_-12px_40px_rgba(0,0,0,.24)] backdrop-blur-xl"
+          className="fixed inset-x-0 bottom-0 z-[100] border-t border-[#E1D5BD] bg-[#FFF9ED]/97 px-4 py-4 text-[#183B34] shadow-[0_-12px_40px_rgba(31,52,46,.14)] backdrop-blur-xl"
           dir={isArabic ? 'rtl' : 'ltr'}
           role="dialog"
           aria-label={t.bannerTitle}
@@ -224,35 +217,21 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
           <div className="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center">
             <div className="flex-1">
               <h2 className="flex items-center gap-2 text-base font-bold">
-                <Cookie size={19} className="text-[#E4BD2F]" />
+                <Cookie size={19} className="text-[#B68B1E]" />
                 {t.bannerTitle}
               </h2>
-              <p className="mt-1.5 max-w-4xl text-sm font-medium leading-7 text-white/75">{t.bannerText}</p>
+              <p className="mt-1.5 max-w-4xl text-sm font-medium leading-7 text-[#4F625D]">{t.bannerText}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <button type="button" onClick={() => confirm('accepted')} className="rounded-sm bg-[#E2BC28] px-6 py-3 text-sm font-bold text-[#17251E]">
+              <button type="button" onClick={confirm} className="rounded-2xl bg-[#0F4C4A] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#17615E]">
                 {t.allow}
               </button>
-              <button type="button" onClick={() => setOpen(true)} className="px-4 py-3 text-sm font-bold text-white underline underline-offset-4">
+              <button type="button" onClick={() => setOpen(true)} className="rounded-2xl border border-[#D8C59F] bg-white px-4 py-3 text-sm font-bold text-[#183B34] transition hover:border-[#C5A552] hover:bg-[#FFFCF5]">
                 {t.preferences}
-              </button>
-              <button type="button" onClick={() => confirm('rejected')} className="rounded-sm border border-white/30 px-4 py-3 text-sm font-bold text-white">
-                {t.essentials}
               </button>
             </div>
           </div>
         </div>
-      ) : null}
-
-      {choice !== null ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="fixed bottom-4 left-4 z-[90] flex items-center gap-2 rounded-full border border-black/10 bg-white/95 px-3.5 py-2.5 text-xs font-bold text-[#234936] shadow-lg backdrop-blur-xl"
-        >
-          <SlidersHorizontal size={15} />
-          {t.privacy}
-        </button>
       ) : null}
 
       {open ? (
@@ -264,11 +243,9 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
             aria-labelledby="privacy-title"
           >
             <div className="relative px-5 pb-5 pt-8 md:px-12 md:pb-7 md:pt-10">
-              {choice !== null ? (
-                <button type="button" onClick={() => setOpen(false)} className="absolute left-4 top-4 rounded-sm p-2 text-[#333] hover:bg-[#F2F2F2]" aria-label={t.close}>
-                  <X size={21} />
-                </button>
-              ) : null}
+              <button type="button" onClick={() => setOpen(false)} className="absolute left-4 top-4 rounded-full border border-[#E6DCC8] bg-white p-2 text-[#333] hover:bg-[#FFF9ED]" aria-label={t.close}>
+                <X size={21} />
+              </button>
               <div className="mx-auto max-w-2xl text-center">
                 <span className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-[#F6F0D9] text-[#9B7710]">
                   <ShieldCheck size={25} />
@@ -292,12 +269,9 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
               </div>
             </div>
             <div className="flex flex-col-reverse gap-2 border-t border-[#D8D8D8] bg-[#FAFAFA] px-5 py-5 sm:flex-row md:px-12">
-              <button type="button" onClick={() => confirm(performance ? 'accepted' : 'rejected')} className="flex items-center justify-center gap-2 bg-[#E5B900] px-7 py-3.5 text-base font-bold text-[#20291F]">
+              <button type="button" disabled={!performance} onClick={confirm} className="flex items-center justify-center gap-2 rounded-2xl bg-[#0F4C4A] px-7 py-3.5 text-base font-bold text-white transition hover:bg-[#17615E] disabled:cursor-not-allowed disabled:bg-[#D7DDD9] disabled:text-[#78837F]">
                 <Check size={19} />
                 {t.save}
-              </button>
-              <button type="button" onClick={() => confirm('rejected')} className="border border-[#B8B8B8] bg-white px-6 py-3.5 text-sm font-bold text-[#333]">
-                {t.reject}
               </button>
             </div>
           </section>
