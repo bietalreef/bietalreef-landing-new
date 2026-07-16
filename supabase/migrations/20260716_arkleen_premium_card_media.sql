@@ -32,9 +32,9 @@ begin
       gallery = media.gallery::jsonb,
       updated_at = now()
   from (values
-    ('custom-wooden-kitchen', '/images/providers/arkleen-premium/product-custom-kitchen.webp', '["/images/providers/arkleen-premium/product-custom-kitchen.webp","/images/providers/arkleen-premium/service-custom-kitchens.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]'),
-    ('custom-wooden-wardrobe', '/images/providers/arkleen-premium/product-custom-wardrobe.webp', '["/images/providers/arkleen-premium/product-custom-wardrobe.webp","/images/providers/arkleen-premium/service-custom-wardrobes.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]'),
-    ('custom-wooden-door', '/images/providers/arkleen-premium/product-custom-door.webp', '["/images/providers/arkleen-premium/product-custom-door.webp","/images/providers/arkleen-premium/service-wooden-doors-decor.webp","/images/providers/arkleen-premium/service-interior-fitout.webp"]')
+    ('custom-wooden-kitchen', '/images/providers/arkleen-premium/product-custom-kitchen.webp', '["/images/providers/arkleen-premium/product-custom-kitchen.webp","/images/providers/arkleen-premium/product-custom-kitchen-detail.webp","/images/providers/arkleen-premium/product-custom-kitchen-storage.webp"]'),
+    ('custom-wooden-wardrobe', '/images/providers/arkleen-premium/product-custom-wardrobe.webp', '["/images/providers/arkleen-premium/product-custom-wardrobe.webp","/images/providers/arkleen-premium/product-custom-wardrobe-detail.webp","/images/providers/arkleen-premium/product-custom-wardrobe-storage.webp"]'),
+    ('custom-wooden-door', '/images/providers/arkleen-premium/product-custom-door.webp', '["/images/providers/arkleen-premium/product-custom-door.webp","/images/providers/arkleen-premium/product-custom-door-detail.webp","/images/providers/arkleen-premium/product-custom-door-opposite.webp"]')
   ) media(slug, image_url, gallery)
   where product.provider_id = v_provider
     and product.slug = media.slug;
