@@ -2,17 +2,37 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 
-export default function UaeDirectoryHero({ locale = 'ar', title, description, emirate, area, service, image }) {
+export default function UaeDirectoryHero({ locale = 'ar', title, description, emirate, area, service, image, imageOnly = false }) {
   const isEn = locale === 'en';
   const dir = isEn ? 'ltr' : 'rtl';
   const Arrow = isEn ? ChevronRight : ChevronLeft;
   const root = isEn ? '/en/uae' : '/uae';
+  const imageSrc = image || `/images/seo/emirates/${emirate?.slug || 'abu-dhabi'}.webp`;
   const crumbs = [
     { label: isEn ? 'UAE Directory' : 'دليل الإمارات', href: root },
     emirate && { label: isEn ? emirate.nameEn : emirate.nameAr, href: `${root}/${emirate.slug}` },
     area && { label: isEn ? area.nameEn : area.nameAr, href: `${root}/${emirate.slug}/${area.slug}` },
     service && { label: isEn ? service.nameEn : service.nameAr },
   ].filter(Boolean);
+
+  if (imageOnly) {
+    return (
+      <section dir={dir} className="border-b border-[#E6DCC8] bg-[#F8F3E9] px-4 pb-6 md:pb-10">
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.25rem] border border-[#DDCFB5] bg-white p-2 shadow-[0_24px_70px_rgba(62,51,31,.09)] md:rounded-[3rem] md:p-3">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] bg-[#071A2F] md:aspect-[16/8] md:rounded-[2.35rem]">
+            <Image
+              src={imageSrc}
+              alt=""
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="(max-width: 1200px) 100vw, 1120px"
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section dir={dir} className="border-b border-[#E6DCC8] bg-[#F8F3E9] px-4 py-6 md:py-10">
@@ -32,7 +52,7 @@ export default function UaeDirectoryHero({ locale = 'ar', title, description, em
             <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">{description}</p>
           </div>
           <div className="relative min-h-[250px] overflow-hidden border-t border-[#E6DCC8] bg-[#EEE4D2] lg:min-h-[390px] lg:border-s lg:border-t-0">
-            <Image src={image || `/images/seo/emirates/${emirate?.slug || 'abu-dhabi'}.webp`} alt="" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 44vw" />
+            <Image src={imageSrc} alt="" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 44vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10" />
           </div>
         </div>
