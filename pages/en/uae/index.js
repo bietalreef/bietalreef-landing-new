@@ -7,7 +7,7 @@ import SecondaryHeader from '../../../components/SecondaryHeader';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../data/uaeAtlasImages';
-import { ArrowRight, MapPinned, Search } from 'lucide-react';
+import { ArrowLeft, MapPinned, Search } from 'lucide-react';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 const shareImage = 'https://bietalreef.ae/images/uae-atlas/hero-uae-digital-atlas.webp';
@@ -87,7 +87,7 @@ export default function EnglishUaeIndex() {
                 {UAE_EMIRATES.map((emirate, index) => (
                   <Link key={emirate.slug} href={`/en/uae/${emirate.slug}`} className="group block overflow-hidden rounded-[2.15rem] border border-[#E4D6BA] bg-white/95 p-2 shadow-xl shadow-black/5 transition hover:-translate-y-1 hover:border-[#D4AF37]/70">
                     <div className="relative overflow-hidden rounded-[1.65rem] border border-[#D4AF37]/30 bg-[#071A2F] p-1 shadow-inner"><div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem]"><Image src={atlasImageBySlug[emirate.slug]?.image || atlasImageBySlug[emirate.slug]?.thumb} alt={`${emirate.nameEn} UAE Directory`} fill priority={index < 3} className="object-cover object-center transition duration-700 group-hover:scale-[1.035]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px" /></div></div>
-                    <div className="px-3 pb-4 pt-4 md:px-4"><span className="text-xs font-black text-[#B8922B]">Emirate</span><h3 className="mt-2 text-3xl font-black text-[#0F3F1A]">{emirate.nameEn}</h3><p className="mt-4 text-sm font-semibold leading-7 text-gray-600">{experienceBySlug[emirate.slug] || emirate.description}</p><span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2.5 text-xs font-black text-white">Explore now <ArrowRight size={15} /></span></div>
+                    <div className="px-3 pb-4 pt-4 md:px-4"><span className="text-xs font-black text-[#B8922B]">Emirate</span><h3 className="mt-2 text-3xl font-black text-[#0F3F1A]">{emirate.nameEn}</h3><p className="mt-4 text-sm font-semibold leading-7 text-gray-600">{experienceBySlug[emirate.slug] || emirate.description}</p><span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#0F3F1A] px-4 py-2.5 text-xs font-black text-white">Explore now <ArrowLeft size={15} /></span></div>
                   </Link>
                 ))}
               </div>
