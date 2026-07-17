@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SecondaryHeader from '../../components/SecondaryHeader';
-import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import UaeDirectoryHomeContent from '../../components/UaeDirectoryHomeContent';
 import { UAE_EMIRATES } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
@@ -78,8 +77,6 @@ export default function UAEDirectoryHome() {
               </div>
             </div>
           </section>
-
-          <UaeDirectoryWeyaakCard locale="ar" />
 
           <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-10 md:py-14">
             <div className="mx-auto max-w-6xl">
