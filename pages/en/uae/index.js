@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import EnglishLayout from '../../../components/EnglishLayout';
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../data/uaeAtlasImages';
@@ -38,7 +39,8 @@ export default function EnglishUaeIndex() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
 
-      <EnglishLayout>
+      <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+        <Navbar locale="en" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left text-gray-900">
           <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-0 md:pb-16">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
@@ -83,7 +85,8 @@ export default function EnglishUaeIndex() {
           <section className="px-4 pb-12"><div className="mx-auto max-w-6xl rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8"><h2 className="text-2xl font-black text-[#0F3F1A]">How does the UAE Directory serve project owners?</h2><p className="mt-4 leading-8 text-gray-600">The directory uses a clear geographic order: choose the emirate, select the sector, then use the related area and service links to continue.</p></div></section>
           <UaeSmartFooter locale="en" pageType="index" />
         </main>
-      </EnglishLayout>
+        <Footer locale="en" />
+      </div>
     </>
   );
 }
