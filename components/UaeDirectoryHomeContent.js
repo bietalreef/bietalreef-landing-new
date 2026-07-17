@@ -17,14 +17,14 @@ const copy = {
   ar: {
     title: 'كيف يساعد دليل الإمارات أصحاب المشاريع؟',
     intro: 'يعتمد دليل الإمارات في بيت الريف على مسار جغرافي منظم يبدأ من الإمارة، ثم القطاع، ثم المدينة أو المنطقة، ثم نوع الخدمة. يساعد هذا الترتيب أصحاب الفلل والمباني والمشاريع التجارية على الوصول إلى المقاولين والموردين ومزودي الخدمات الأقرب إلى احتياج المشروع وموقعه.',
-    quick: [
-      { title: 'استكشف مزودي الخدمة', text: 'ابحث عن المزودين والمقاولين الأقرب إلى احتياج مشروعك.', href: '/providers', icon: icons.provider },
-      { title: 'تعرّف كيف تعمل المنصة', text: 'دليل سريع لفهم رحلة البحث والوصول داخل بيت الريف.', href: '/how-it-works', icon: icons.checklist },
-    ],
     trust: [
       { title: 'ابحث حسب الموقع', text: 'ابدأ من الإمارة والمنطقة للوصول إلى الخيارات الأقرب.', icon: icons.location },
       { title: 'قارن مع وياك', text: 'نظّم احتياجك وقارن المسارات والخيارات المناسبة لمشروعك.', icon: icons.search },
       { title: 'استكشف الخدمات والعروض مجانًا', text: 'اطّلع على الخدمات والعروض المتاحة داخل المنصة بسهولة.', icon: icons.tools },
+    ],
+    quick: [
+      { title: 'استكشف مزودي الخدمة', text: 'ابحث عن المزودين والمقاولين الأقرب إلى احتياج مشروعك.', href: '/providers', icon: icons.provider },
+      { title: 'تعرّف كيف تعمل المنصة', text: 'دليل سريع لفهم رحلة البحث والوصول داخل بيت الريف.', href: '/how-it-works', icon: icons.checklist },
     ],
     providerTitle: 'هل تقدم خدمات البناء أو الصيانة داخل الإمارات؟',
     providerText: 'انضم إلى دليل الإمارات في بيت الريف وابدأ ببناء حضور رقمي منظم لنشاطك. اعرض خدماتك ومناطق عملك وأعمالك السابقة أمام العملاء الباحثين عن تخصصك.',
@@ -48,14 +48,14 @@ const copy = {
   en: {
     title: 'How does the UAE Directory help project owners?',
     intro: 'Biet Al Reef UAE Directory follows a clear geographic journey: emirate, sector, city or area, then service type. This structure helps villa owners, building managers and commercial projects reach contractors, suppliers and service providers that match the project location and requirements.',
-    quick: [
-      { title: 'Explore service providers', text: 'Find providers and contractors closest to your project needs.', href: '/en/providers', icon: icons.provider },
-      { title: 'See how the platform works', text: 'A quick guide to discovery and navigation inside Biet Al Reef.', href: '/en/how-it-works', icon: icons.checklist },
-    ],
     trust: [
       { title: 'Search by location', text: 'Start with the emirate and area to reach nearby options.', icon: icons.location },
       { title: 'Compare with Weyaak', text: 'Organize your needs and compare suitable routes and options.', icon: icons.search },
       { title: 'Explore services and offers free', text: 'Browse available services and offers across the platform.', icon: icons.tools },
+    ],
+    quick: [
+      { title: 'Explore service providers', text: 'Find providers and contractors closest to your project needs.', href: '/en/providers', icon: icons.provider },
+      { title: 'See how the platform works', text: 'A quick guide to discovery and navigation inside Biet Al Reef.', href: '/en/how-it-works', icon: icons.checklist },
     ],
     providerTitle: 'Do you provide construction or maintenance services in the UAE?',
     providerText: 'Join the Biet Al Reef UAE Directory and build a structured digital presence for your business. Present your services, coverage areas and completed work to customers searching for your specialty.',
@@ -93,12 +93,12 @@ export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
           <p className="mx-auto mt-4 max-w-5xl text-base font-semibold leading-9 text-gray-650 md:text-lg">{t.intro}</p>
         </section>
 
-        <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[132px] items-center gap-4 rounded-[1.6rem] border border-[#E4D6BA] bg-white px-5 py-4 shadow-[0_14px_36px_rgba(18,58,70,.06)] transition hover:-translate-y-1 hover:border-[#D4AF37]"><Icon src={item.icon} alt="" size={76} /><span><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span></Link>)}
+        <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          {t.trust.map((item) => <article key={item.title} className="flex min-h-[158px] flex-col items-center justify-center rounded-[1.5rem] border border-[#E4D6BA] bg-white px-5 py-5 text-center shadow-[0_10px_28px_rgba(18,58,70,.04)]"><Icon src={item.icon} alt="" size={62} /><h3 className="mt-2 text-lg font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{item.text}</p></article>)}
         </section>
 
-        <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {t.trust.map((item) => <article key={item.title} className="flex min-h-[178px] flex-col items-center justify-center rounded-[1.6rem] border border-[#E4D6BA] bg-white px-5 py-5 text-center shadow-[0_14px_36px_rgba(18,58,70,.05)]"><Icon src={item.icon} alt="" size={70} /><h3 className="mt-3 text-lg font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{item.text}</p></article>)}
+        <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]">←</span></Link>)}
         </section>
 
         <section className="overflow-hidden rounded-[2rem] border border-[#D9B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] shadow-[0_20px_55px_rgba(138,106,0,.10)]">
