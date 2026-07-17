@@ -5,9 +5,10 @@ import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SecondaryHeader from '../../../components/SecondaryHeader';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
+import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../data/uaeAtlasImages';
-import { ArrowLeft, MapPinned, Search } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 const shareImage = 'https://bietalreef.ae/images/uae-atlas/hero-uae-digital-atlas.webp';
@@ -59,7 +60,7 @@ export default function EnglishUaeIndex() {
         <Navbar locale="en" />
         <SecondaryHeader backUrl="/en" backLabel="Back to home" locale="en" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left text-gray-900">
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-0 md:pb-16">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-7 pt-0 md:pb-9">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
             <div className="relative z-10 mx-auto max-w-6xl">
               <div className="relative mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
@@ -67,21 +68,20 @@ export default function EnglishUaeIndex() {
                   <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="UAE Directory digital atlas for Biet Al Reef services" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
                 </div>
               </div>
-              <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-9 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-12">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]"><MapPinned size={15} /> Start by location</span>
-                <h1 className="mt-4 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">UAE Directory</h1>
-                <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">Start your journey to discover services and opportunities across the Emirates.</p>
-                <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg transition hover:-translate-y-0.5">Explore now</a>
+              <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-5 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-10 md:py-6">
+                <h1 className="text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">UAE Directory</h1>
+                <p className="mx-auto mt-3 max-w-3xl text-base font-bold leading-8 text-gray-700 md:text-xl">Start your journey to discover the contractors, suppliers and products your project needs, and explore the best opportunities across the UAE.</p>
               </div>
             </div>
           </section>
 
-          <section id="uae-emirates" className="scroll-mt-24 px-4 py-14 md:py-20">
+          <UaeDirectoryWeyaakCard locale="en" />
+
+          <section id="uae-emirates" className="scroll-mt-24 px-4 py-10 md:py-14">
             <div className="mx-auto max-w-6xl">
-              <div className="mb-9 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> Choose an emirate</span>
-                <h2 className="mx-auto mt-4 max-w-3xl text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">Explore Biet Al Reef services by emirate</h2>
-                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">Start with the emirate, choose the relevant sector, then continue through clearly organized areas and related services.</p>
+              <div className="mb-8 text-center">
+                <h2 className="inline-flex rounded-full border border-[#D4AF37]/35 bg-[linear-gradient(135deg,#F8E5A8_0%,#D4AF37_52%,#F5D97C_100%)] px-7 py-2.5 text-2xl font-black leading-tight text-[#0F3F1A] shadow-lg shadow-[#D4AF37]/15 md:text-4xl">Start by choosing an emirate</h2>
+                <p className="mx-auto mt-4 max-w-3xl text-gray-600 leading-8">Choose the emirate, select the relevant sector, then continue through clearly organized areas and related services.</p>
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {UAE_EMIRATES.map((emirate, index) => (
