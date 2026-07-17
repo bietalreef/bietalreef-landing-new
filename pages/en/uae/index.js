@@ -88,7 +88,7 @@ export default function EnglishUaeIndex() {
 
           <UaeDirectoryHomeContent locale="en" />
         </main>
-        <Footer locale="en" />
+        <Footer locale="en" showRequestCTA={false} />
       </div>
     </>
   );
