@@ -9,6 +9,7 @@ import UaeSmartFooter from '../../components/UaeSmartFooter';
 import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../components/UaeDirectoryHero';
+import AbuDhabiDirectoryIntro from '../../components/AbuDhabiDirectoryIntro';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
 
@@ -16,6 +17,7 @@ const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item)
 
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
+  const isAbuDhabi = emirate.slug === 'abu-dhabi';
   const showAlHootSeoPath = false;
   const canonical = `https://bietalreef.ae/uae/${emirateSlug}`;
   const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
@@ -25,7 +27,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
   };
   const pageTitle = `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.`],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ باختيار أحد أقسام الخدمات أو المنتجات الأحد عشر، ثم انتقل إلى المدينة أو المنطقة والتخصص المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
     ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
     ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
@@ -58,14 +60,9 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <Navbar />
         <SecondaryHeader backUrl="/uae" backLabel="العودة إلى دليل الإمارات" />
         <main>
-          <UaeDirectoryHero
-            locale="ar"
-            emirate={emirate}
-            image={atlasImageBySlug[emirate.slug]}
-            imageOnly
-          />
+          <UaeDirectoryHero locale="ar" emirate={emirate} image={atlasImageBySlug[emirate.slug]} imageOnly />
 
-          <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
+          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="ar" /> : <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />}
 
           {showAlHootSeoPath && <SeoProofCards title="مسار حقيقي داخل صفحة أبوظبي" desc="هذه الصفحة لا تكتفي بنص SEO عام. يوجد داخلها مثال واضح لمسار العميل: مزود موثق للرخام والجرانيت، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة أو عرض سعر مرتبطة بملف مصنع الحوت." />}
 
@@ -73,7 +70,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
 
           <SeoContent title={`${emirate.nameAr} داخل دليل بيت الريف`}>
             <p>{emirate.description}</p>
-            <p className="mt-4">يعرض هذا القسم القطاعات السبعة الرئيسية داخل {emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.</p>
+            <p className="mt-4">{isAbuDhabi ? 'يعرض هذا القسم أحد عشر مسارًا رئيسيًا تجمع قطاعات الخدمات والمنتجات والمتاجر داخل أبوظبي، مع روابط منظمة للمدن والمناطق والتخصصات لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.' : `يعرض هذا القسم القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.`}</p>
             {showAlHootSeoPath && <p className="mt-4">تم دعم صفحة أبوظبي بمسار داخلي واضح يربط بين محتوى البحث الجغرافي ومزود خدمة فعلي داخل المنصة، مثل مصنع الحوت الأبيض للرخام والجرانيت.</p>}
           </SeoContent>
 
