@@ -17,10 +17,13 @@ const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item)
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
   const showAlHootSeoPath = false;
+  const canonical = `https://bietalreef.ae/uae/${emirateSlug}`;
+  const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
   const pageData = {
     h1: `خدمات بيت الريف في ${emirate.nameAr}`,
-    desc: `اختر واحداً من القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، ثم انتقل إلى مزودي الخدمة والخيارات المرتبطة بالموقع والنشاط.`,
+    desc: `استكشف قطاعات البناء والمقاولات والصيانة والتصميم ومواد البناء والموردين ومزودي الخدمات في ${emirate.nameAr} عبر دليل بيت الريف.`,
   };
+  const pageTitle = `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
   const faqItems = [
     [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, `ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.`],
     ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
@@ -30,9 +33,26 @@ export default function EmiratePage({ emirate, emirateSlug }) {
   return (
     <>
       <Head>
-        <title>{pageData.h1} | بيت الريف</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={pageData.desc} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}`} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="ar-AE" href={canonical} />
+        <link rel="alternate" hrefLang="en-AE" href={`https://bietalreef.ae/en/uae/${emirateSlug}`} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageData.desc} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="بيت الريف" />
+        <meta property="og:locale" content="ar_AE" />
+        <meta property="og:image" content={shareImage} />
+        <meta property="og:image:secure_url" content={shareImage} />
+        <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:alt" content={`دليل خدمات البناء والمقاولات في ${emirate.nameAr}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageData.desc} />
+        <meta name="twitter:image" content={shareImage} />
       </Head>
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar />
