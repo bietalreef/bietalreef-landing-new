@@ -6,12 +6,14 @@ import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
+import AbuDhabiDirectoryIntro from '../../../../components/AbuDhabiDirectoryIntro';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../../data/uaeAtlasImages';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
 export default function EnglishEmiratePage({ emirate }) {
+  const isAbuDhabi = emirate.slug === 'abu-dhabi';
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
   const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
   const title = `${emirate.nameEn} Construction, Services and Suppliers Directory | Biet Al Reef`;
@@ -44,16 +46,11 @@ export default function EnglishEmiratePage({ emirate }) {
       </Head>
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
-        <div dir="rtl">
-          <SecondaryHeader backUrl="/en/uae" backLabel="Back to UAE Directory" />
-        </div>
+        <div dir="rtl"><SecondaryHeader backUrl="/en/uae" backLabel="Back to UAE Directory" /></div>
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero
-            locale="en"
-            emirate={emirate}
-            image={atlasImageBySlug[emirate.slug]}
-            imageOnly
-          />
+          <UaeDirectoryHero locale="en" emirate={emirate} image={atlasImageBySlug[emirate.slug]} imageOnly />
+
+          {isAbuDhabi && <AbuDhabiDirectoryIntro locale="en" />}
 
           {showSeoProof && <SeoProofCardsEn title="Real service path inside Abu Dhabi Directory" desc="The Abu Dhabi page now connects SEO traffic to a verified marble and granite provider, a service path, a product intent and a quotation step instead of staying as generic directory content." />}
 
@@ -62,7 +59,7 @@ export default function EnglishEmiratePage({ emirate }) {
           <section className="mx-auto max-w-6xl px-4 pb-14">
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8">
               <h2 className="text-2xl font-black text-[#0F3F1A]">{emirate.nameEn} inside Biet Al Reef UAE Directory</h2>
-              <p className="mt-4 leading-8 text-gray-600">This page presents the seven main sectors first, followed by clearly organized links to areas and related services for a simpler journey and consistent geographic discovery.</p>
+              <p className="mt-4 leading-8 text-gray-600">{isAbuDhabi ? 'This page presents eleven service, product and store sections, followed by organised links to areas and related specialties for a clear geographic journey across Abu Dhabi and Al Ain.' : 'This page presents the seven main sectors first, followed by clearly organized links to areas and related services for a simpler journey and consistent geographic discovery.'}</p>
             </div>
           </section>
           <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} />
