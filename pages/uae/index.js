@@ -98,7 +98,7 @@ export default function UAEDirectoryHome() {
 
           <UaeDirectoryHomeContent locale="ar" />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
