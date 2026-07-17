@@ -10,6 +10,9 @@ import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../components/UaeDirectoryHero';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
+import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
+
+const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
 export default function EmiratePage({ emirate, emirateSlug }) {
   if (!emirate) return null;
@@ -32,10 +35,15 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}`} />
       </Head>
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
-        <Navbar pageTitle={emirate.nameAr} />
+        <Navbar />
         <SecondaryHeader backUrl="/uae" backLabel="العودة إلى دليل الإمارات" />
         <main>
-          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} />
+          <UaeDirectoryHero
+            locale="ar"
+            emirate={emirate}
+            image={atlasImageBySlug[emirate.slug]}
+            imageOnly
+          />
 
           <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />
 
