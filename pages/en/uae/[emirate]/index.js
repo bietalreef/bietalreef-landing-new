@@ -13,16 +13,34 @@ const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item)
 
 export default function EnglishEmiratePage({ emirate }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
+  const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
+  const title = `${emirate.nameEn} Construction, Services and Suppliers Directory | Biet Al Reef`;
+  const description = `Explore construction, contracting, maintenance, design, building materials, suppliers and service providers across ${emirate.nameEn} through Biet Al Reef.`;
   const showSeoProof = false;
 
   return (
     <>
       <Head>
-        <title>{`${emirate.nameEn} Services | Biet Al Reef`}</title>
-        <meta name="description" content={`Choose one of the seven main sectors in ${emirate.nameEn}, then continue to relevant providers, services and locations.`} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href={`https://bietalreef.ae/uae/${emirate.slug}`} />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="Biet Al Reef" />
+        <meta property="og:locale" content="en_AE" />
+        <meta property="og:image" content={shareImage} />
+        <meta property="og:image:secure_url" content={shareImage} />
+        <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:alt" content={`${emirate.nameEn} construction and services directory`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={shareImage} />
       </Head>
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
