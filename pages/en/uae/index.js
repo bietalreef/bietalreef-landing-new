@@ -3,12 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import SecondaryHeader from '../../../components/SecondaryHeader';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../data/uaeAtlasImages';
-import { ArrowRight, Home, MapPinned, Search } from 'lucide-react';
+import { ArrowRight, MapPinned, Search } from 'lucide-react';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
+const shareImage = 'https://bietalreef.ae/images/uae-atlas/hero-uae-digital-atlas.webp';
 
 const experienceBySlug = {
   'abu-dhabi': 'Construction, maintenance, design and building material services in Abu Dhabi, Al Ain and the emirate areas.',
@@ -21,35 +23,46 @@ const experienceBySlug = {
 };
 
 export default function EnglishUaeIndex() {
-  const structuredData = { '@context': 'https://schema.org', '@type': 'WebPage', name: 'UAE Directory', description: 'Biet Al Reef UAE Directory helps customers start requests by emirate, then city, then service type.', url: 'https://bietalreef.ae/en/uae', inLanguage: 'en-AE' };
+  const title = 'UAE Construction, Services and Suppliers Directory | Biet Al Reef';
+  const description = 'Explore construction, contracting, maintenance, design, building materials, suppliers and service providers across all seven UAE emirates through Biet Al Reef.';
+  const structuredData = { '@context': 'https://schema.org', '@type': 'WebPage', name: 'UAE Directory', description, url: 'https://bietalreef.ae/en/uae', inLanguage: 'en-AE', primaryImageOfPage: { '@type': 'ImageObject', contentUrl: shareImage } };
 
   return (
     <>
       <Head>
-        <title>UAE Directory for Construction, Design and Maintenance | Biet Al Reef</title>
-        <meta name="description" content="Biet Al Reef UAE Directory helps you start your request by emirate and service type for contracting, maintenance, interior design, décor and building materials across the UAE." />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://bietalreef.ae/en/uae" />
         <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/uae" />
         <link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/uae" />
-        <meta property="og:title" content="UAE Directory | Biet Al Reef" />
-        <meta property="og:description" content="Start by emirate, then choose a sector and continue through clearly organized areas and related services." />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bietalreef.ae/en/uae" />
+        <meta property="og:site_name" content="Biet Al Reef" />
+        <meta property="og:locale" content="en_AE" />
+        <meta property="og:image" content={shareImage} />
+        <meta property="og:image:secure_url" content={shareImage} />
+        <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="1080" />
+        <meta property="og:image:alt" content="Biet Al Reef UAE digital directory covering all seven emirates" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={shareImage} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </Head>
 
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
+        <SecondaryHeader backUrl="/en" backLabel="Back to home" locale="en" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left text-gray-900">
           <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-0 md:pb-16">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
             <div className="relative z-10 mx-auto max-w-6xl">
               <div className="relative mx-auto overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white/80 p-2 shadow-2xl shadow-[#8A6A00]/10 backdrop-blur md:rounded-[3rem] md:p-3">
-                <Link href="/en" className="absolute left-5 top-5 z-20 inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-white/78 px-4 py-3 text-xs font-black text-[#123A46] shadow-xl shadow-[#123A46]/10 backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#123A46] text-[#F7E7A0]"><Home size={16} /></span>
-                  Back to home
-                </Link>
                 <div className="relative aspect-[16/9] overflow-hidden rounded-[1.55rem] bg-[#071A2F] md:rounded-[2.35rem]">
                   <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="UAE Directory digital atlas for Biet Al Reef services" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
                 </div>
