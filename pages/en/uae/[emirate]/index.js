@@ -1,10 +1,15 @@
 import Head from 'next/head';
-import EnglishLayout from '../../../../components/EnglishLayout';
+import Navbar from '../../../../components/Navbar';
+import Footer from '../../../../components/Footer';
+import SecondaryHeader from '../../../../components/SecondaryHeader';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
+import { UAE_ATLAS_IMAGES } from '../../../../data/uaeAtlasImages';
+
+const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
 export default function EnglishEmiratePage({ emirate }) {
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
@@ -19,9 +24,18 @@ export default function EnglishEmiratePage({ emirate }) {
         <link rel="alternate" hrefLang="ar-AE" href={`https://bietalreef.ae/uae/${emirate.slug}`} />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
       </Head>
-      <EnglishLayout>
+      <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+        <Navbar locale="en" />
+        <div dir="rtl">
+          <SecondaryHeader backUrl="/en/uae" backLabel="Back to UAE Directory" />
+        </div>
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" title={`Services in ${emirate.nameEn}`} description={`Choose one of the seven main sectors, then continue to providers, services and locations relevant to ${emirate.nameEn}.`} emirate={emirate} />
+          <UaeDirectoryHero
+            locale="en"
+            emirate={emirate}
+            image={atlasImageBySlug[emirate.slug]}
+            imageOnly
+          />
 
           {showSeoProof && <SeoProofCardsEn title="Real service path inside Abu Dhabi Directory" desc="The Abu Dhabi page now connects SEO traffic to a verified marble and granite provider, a service path, a product intent and a quotation step instead of staying as generic directory content." />}
 
@@ -33,9 +47,10 @@ export default function EnglishEmiratePage({ emirate }) {
               <p className="mt-4 leading-8 text-gray-600">This page presents the seven main sectors first, followed by clearly organized links to areas and related services for a simpler journey and consistent geographic discovery.</p>
             </div>
           </section>
+          <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} />
         </main>
-        <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} />
-      </EnglishLayout>
+        <Footer locale="en" />
+      </div>
     </>
   );
 }
