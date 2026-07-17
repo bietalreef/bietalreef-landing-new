@@ -9,9 +9,10 @@ import ClientRequestCard from '../../components/ClientRequestCard';
 import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
 import UaeSmartFooter from '../../components/UaeSmartFooter';
+import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
-import { ArrowLeft, ChevronDown, ChevronUp, MapPinned, Search } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Search } from 'lucide-react';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item]));
 const shareImage = 'https://bietalreef.ae/images/uae-atlas/hero-uae-digital-atlas.webp';
@@ -30,7 +31,7 @@ export default function UAEDirectoryHome() {
   const [openSlug, setOpenSlug] = useState(null);
   const pageData = {
     h1: 'دليل الإمارات',
-    desc: 'ابدأ رحلتك لاكتشاف الخدمات والفرص في مختلف إمارات الدولة.',
+    desc: 'ابدأ رحلتك لاكتشاف ما يحتاج إليه مشروعك من مقاولين وموردين ومنتجات، واستكشف أفضل الفرص في مختلف إمارات الدولة.',
     seoTitle: 'دليل الإمارات للبناء والمقاولات والخدمات والموردين | بيت الريف',
     seoDesc: 'استكشف خدمات البناء والمقاولات والصيانة والتصميم ومواد البناء والموردين ومزودي الخدمات في الإمارات السبع من خلال دليل بيت الريف.',
   };
@@ -78,7 +79,7 @@ export default function UAEDirectoryHome() {
         <Navbar pageTitle="دليل الإمارات" />
         <SecondaryHeader backUrl="/" backLabel="العودة إلى الرئيسية" />
         <main>
-          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-12 pt-0 text-gray-900 md:pb-16">
+          <section className="relative isolate overflow-hidden bg-[#FDFBF7] px-4 pb-7 pt-0 text-gray-900 md:pb-9">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,#F3E6CD_0%,#FDFBF7_48%,#F7F1E8_100%)]" />
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#D4AF37]/70 to-transparent" />
             <div className="relative z-10 mx-auto max-w-6xl">
@@ -87,21 +88,20 @@ export default function UAEDirectoryHome() {
                   <Image src={UAE_ATLAS_IMAGES.heroDesktop} alt="خريطة رقمية لدليل الإمارات وخدمات بيت الريف" fill priority className="object-contain object-center" sizes="(max-width: 1200px) 100vw, 1120px" />
                 </div>
               </div>
-              <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-7 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-12 md:py-9">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]"><MapPinned size={15} /> ابدأ من المكان</span>
-                <h1 className="mt-4 text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{pageData.h1}</h1>
-                <p className="mx-auto mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 md:text-xl">{pageData.desc}</p>
-                <a href="#uae-emirates" className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-7 py-3 text-sm font-black text-[#1F170D] shadow-lg shadow-[#D4AF37]/20 transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">استكشف الآن <ChevronDown size={18} className="animate-bounce" /></a>
+              <div className="relative mx-auto -mt-5 max-w-4xl rounded-[2rem] border border-[#E6DCC8] bg-white/92 px-5 py-5 text-center shadow-2xl shadow-[#8A6A00]/10 backdrop-blur-xl md:-mt-8 md:rounded-[2.5rem] md:px-10 md:py-6">
+                <h1 className="text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{pageData.h1}</h1>
+                <p className="mx-auto mt-3 max-w-3xl text-base font-bold leading-8 text-gray-700 md:text-xl">{pageData.desc}</p>
               </div>
             </div>
           </section>
 
-          <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-14 md:py-20">
+          <UaeDirectoryWeyaakCard locale="ar" />
+
+          <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-10 md:py-14">
             <div className="mx-auto max-w-6xl">
-              <div className="mb-9 text-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#0F3F1A]/8 px-4 py-1 text-xs font-black text-[#0F3F1A]"><Search size={14} /> اختر الإمارة</span>
-                <h2 className="mx-auto mt-4 max-w-3xl text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">استكشف خدمات بيت الريف حسب الإمارة</h2>
-                <p className="mx-auto mt-3 max-w-3xl text-gray-600 leading-8">ابدأ من الإمارة، ثم اختر القطاع المناسب، وستجد المناطق والخدمات المرتبطة ضمن مسارات واضحة ومنظمة.</p>
+              <div className="mb-8 text-center">
+                <h2 className="inline-flex rounded-full border border-[#D4AF37]/35 bg-[linear-gradient(135deg,#F8E5A8_0%,#D4AF37_52%,#F5D97C_100%)] px-7 py-2.5 text-2xl font-black leading-tight text-[#0F3F1A] shadow-lg shadow-[#D4AF37]/15 md:text-4xl">ابدأ باختيار الإمارة</h2>
+                <p className="mx-auto mt-4 max-w-3xl text-gray-600 leading-8">اختر الإمارة، ثم القطاع المناسب، وستجد المناطق والخدمات المرتبطة ضمن مسارات واضحة ومنظمة.</p>
               </div>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {emirateCards.map((emirate, index) => {
