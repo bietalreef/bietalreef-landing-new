@@ -76,7 +76,7 @@ export default function EnglishEmiratePage({ emirate }) {
           <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} />
           <FAQ items={faqItems} title={`Frequently asked questions about ${emirate.nameEn} services`} />
         </main>
-        <Footer locale="en" />
+        <Footer locale="en" showRequestCTA={false} />
       </div>
     </>
   );
