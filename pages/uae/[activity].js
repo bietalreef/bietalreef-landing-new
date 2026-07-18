@@ -81,7 +81,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
           <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} />
           <FAQ items={faqItems} title={`أسئلة شائعة حول خدمات ${emirate.nameAr}`} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
