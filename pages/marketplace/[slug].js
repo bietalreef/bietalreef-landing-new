@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
 import SectionBackBar from '../../components/SectionBackBar';
+import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
@@ -104,7 +105,8 @@ export default function MarketplaceCategoryPage({ category }) {
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${category.title}`} />
         </main>
-        <Footer />
+        <ProductsSmartFooter locale="ar" />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );

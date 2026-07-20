@@ -33,7 +33,7 @@ export default function EnglishProviderProfilePage({ provider }) {
     );
   }
 
-  if (provider.slug === 'alrehab-cleaning-sanitizing') return <GenericProviderProfile provider={provider} locale="en" />;
+  return <GenericProviderProfile provider={provider} locale="en" />;
 
   const description = provider.descriptionEn || provider.nameEn;
   const canonical = `https://bietalreef.ae/en/providers/${provider.slug}`;

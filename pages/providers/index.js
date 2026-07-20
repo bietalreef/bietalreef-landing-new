@@ -143,6 +143,8 @@ export default function ProvidersPage() {
         title="مزودو الخدمات | مقاولون وموردون وحرفيون | بيت الريف"
         description="تصفح مزودي خدمات البناء والمقاولات والصيانة والتصميم الداخلي داخل بيت الريف، وافتح الملفات الرقمية أو تعرف على آلية الانضمام."
         keywords="مزودي خدمات الإمارات, مقاولين, موردين, حرفيين, شركات بناء, ورش نجارة, تسجيل مزود خدمة"
+        canonicalPath="/providers"
+        ogImage="https://bietalreef.ae/images/providers-hero.webp"
         structuredData={structuredData}
       />
 
