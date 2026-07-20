@@ -23,6 +23,15 @@ export const arklineProvider = {
   establishedAt: '2015',
   logo: arkleenTemplate.media.logo,
   cover: arkleenTemplate.media.cover,
+  locations: [
+    { emirate: 'abu-dhabi', city: 'al-ain', area: 'mazid-company-camp', coverageType: 'area', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain', areaAr: 'مزيد - معسكر الشركات', areaEn: 'Mazyad Company Camp' },
+  ],
+  directoryServices: [
+    { cardId: 'BR-SRV-ARK-001', slug: 'custom-wooden-kitchens', categorySlug: 'carpentry', titleAr: 'مطابخ خشبية حسب الطلب', titleEn: 'Custom Wooden Kitchens', image: '/images/providers/arkleen-premium/service-custom-kitchens.webp' },
+    { cardId: 'BR-SRV-ARK-002', slug: 'custom-wardrobes', categorySlug: 'carpentry', titleAr: 'خزائن ودواليب حسب المقاس', titleEn: 'Made-to-measure Wardrobes', image: '/images/providers/arkleen-premium/service-custom-wardrobes.webp' },
+    { cardId: 'BR-SRV-ARK-003', slug: 'wooden-doors-and-decor', categorySlug: 'carpentry', titleAr: 'أبواب وديكورات خشبية', titleEn: 'Wooden Doors & Decorative Woodwork', image: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp' },
+    { cardId: 'BR-SRV-ARK-004', slug: 'interior-design-fitout', categorySlug: 'interior-design', titleAr: 'تصميم داخلي وتشطيبات', titleEn: 'Interior Design & Fit-out', image: '/images/providers/arkleen-premium/service-interior-fitout.webp' },
+  ],
   googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=%D8%A3%D8%B1%D9%83%D9%84%D9%8A%D9%86+%D8%A3%D8%B9%D9%85%D8%A7%D9%84+%D8%A7%D9%84%D9%86%D8%AC%D8%A7%D8%B1%D8%A9+%D9%85%D8%B2%D9%8A%D8%AF+%D9%85%D8%B9%D8%B3%D9%83%D8%B1+%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A7%D8%AA+%D8%A7%D9%84%D8%B9%D9%8A%D9%86',
   workingHours: 'السبت - الخميس: بتنسيق مسبق، الجمعة حسب الموعد',
   workingHoursEn: 'Saturday - Thursday: By appointment, Friday: By arrangement',
@@ -55,7 +64,6 @@ export const providers = [
   {
     slug: 'al-hoot-marble-granite-factory',
     providerId: 'BR-PROV-HOT-001',
-    providerUuid: '63191f77-0472-4944-84f3-0e5a87bcfc35',
     planCode: 'professional-presence',
     planMonthlyPrice: 500,
     nameAr: 'مصنع الحوت الأبيض للرخام والجرانيت',
@@ -75,6 +83,16 @@ export const providers = [
     yearsExperience: 10,
     logo: '/images/providers/al-hoot-logo.png',
     cover: '/images/providers/al-hoot/cover.jpg',
+    locations: [
+      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain' },
+      { emirate: 'abu-dhabi', city: 'abu-dhabi-city', coverageType: 'city', cityAr: 'مدينة أبوظبي', cityEn: 'Abu Dhabi City' },
+    ],
+    directoryServices: [
+      { cardId: 'BR-SRV-HOT-001', slug: 'marble-granite-supply', categorySlug: 'marble-ceramic', titleAr: 'توريد الرخام والجرانيت', titleEn: 'Marble & Granite Supply', image: '/images/providers/al-hoot/gallery-1.jpg' },
+      { cardId: 'BR-SRV-HOT-002', slug: 'stone-cutting-fabrication', categorySlug: 'marble-ceramic', titleAr: 'قص وتصنيع الحجر حسب المقاس', titleEn: 'Custom Stone Cutting & Fabrication', image: '/images/providers/al-hoot/gallery-2.jpg' },
+      { cardId: 'BR-SRV-HOT-003', slug: 'kitchen-countertop-installation', categorySlug: 'marble-ceramic', titleAr: 'تصنيع وتركيب أسطح المطابخ', titleEn: 'Kitchen Countertop Installation', image: '/images/providers/al-hoot/gallery-3.jpg' },
+      { cardId: 'BR-SRV-HOT-004', slug: 'marble-cladding-flooring', categorySlug: 'marble-ceramic', titleAr: 'تركيب الرخام للواجهات والأرضيات', titleEn: 'Marble Cladding & Flooring', image: '/images/providers/al-hoot/gallery-4.jpg' },
+    ],
     googleMapsUrl: 'https://maps.app.goo.gl/tZ4vRF5Fty2EU3WR7',
     workingHours: 'السبت - الخميس: 8:00 صباحاً - 6:00 مساءً',
     workingHoursEn: 'Saturday - Thursday: 8:00 AM - 6:00 PM',
@@ -104,6 +122,32 @@ export const providers = [
       { questionAr: 'ما هي مناطق الخدمة؟', questionEn: 'What areas are served?', answerAr: 'الخدمة الأساسية في العين وأبوظبي، ويمكن دراسة الطلبات في باقي إمارات الدولة حسب تفاصيل وحجم المشروع.', answerEn: 'The main service coverage is Al Ain and Abu Dhabi. Requests in other UAE emirates can be reviewed depending on project details and size.' },
       { questionAr: 'كيف يتم تحديد السعر؟', questionEn: 'How is pricing determined?', answerAr: 'يعتمد السعر على نوع الخامة، المقاسات، تفاصيل التصنيع، موقع المشروع، وطريقة التركيب المطلوبة.', answerEn: 'Pricing depends on material type, measurements, fabrication details, project location and required installation method.' }
     ]
+  },
+  {
+    slug: 'alrehab-cleaning-sanitizing',
+    providerId: 'BR-PROV-ALR-001',
+    nameAr: 'الرحاب للتنظيف والتعقيم',
+    nameEn: 'Al Rehab Cleaning & Sanitizing',
+    descriptionAr: 'مزود متخصص في تنظيف وتعقيم الكنب والسجاد والمجالس والمراتب بالبخار، ويخدم مدينة أبوظبي والعين ودبي وفق نطاق التغطية المعتمد.',
+    descriptionEn: 'A specialist provider for steam cleaning and sanitizing sofas, carpets, majlis seating and mattresses, serving Abu Dhabi City, Al Ain and Dubai within its approved coverage.',
+    whatsapp: '+971547761290',
+    emirate: 'abu-dhabi',
+    city: 'abu-dhabi-city',
+    categorySlugs: ['cleaning-services'],
+    verified: true,
+    logo: '/images/providers/alrehab/logo.webp',
+    cover: '/images/providers/alrehab/profile-cover.webp',
+    locations: [
+      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain' },
+      { emirate: 'abu-dhabi', city: 'abu-dhabi-city', coverageType: 'city', cityAr: 'مدينة أبوظبي', cityEn: 'Abu Dhabi City' },
+      { emirate: 'dubai', city: 'dubai-city', coverageType: 'city', cityAr: 'دبي', cityEn: 'Dubai' },
+    ],
+    directoryServices: [
+      { cardId: 'BR-SRV-ALR-001', slug: 'steam-sofa-cleaning', categorySlug: 'cleaning-services', titleAr: 'تنظيف الكنب بالبخار', titleEn: 'Steam Sofa Cleaning', image: '/images/providers/alrehab/service-sofa.webp' },
+      { cardId: 'BR-SRV-ALR-002', slug: 'carpet-rug-cleaning', categorySlug: 'cleaning-services', titleAr: 'تنظيف السجاد والموكيت', titleEn: 'Carpet & Rug Cleaning', image: '/images/providers/alrehab/service-carpet.webp' },
+      { cardId: 'BR-SRV-ALR-003', slug: 'arabic-majlis-cleaning', categorySlug: 'cleaning-services', titleAr: 'تنظيف المجالس العربية', titleEn: 'Arabic Majlis Cleaning', image: '/images/providers/alrehab/service-majlis.webp' },
+      { cardId: 'BR-SRV-ALR-004', slug: 'mattress-cleaning-sanitizing', categorySlug: 'cleaning-services', titleAr: 'تنظيف وتعقيم المراتب', titleEn: 'Mattress Cleaning & Sanitizing', image: '/images/providers/alrehab/service-mattress.webp' },
+    ],
   }
 ];
 

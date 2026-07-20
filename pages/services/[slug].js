@@ -5,6 +5,7 @@ import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
 import { getSectorCardImage } from '../../lib/sectorCards';
+import SectionBackBar from '../../components/SectionBackBar';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -67,6 +68,7 @@ export default function ServiceLandingPage({ service }) {
       <SEOHead title={`${title} | بيت الريف`} description={desc} keywords={`${service.nameAr}, خدمات ${service.nameAr}, عروض ${service.nameAr}, مقاولات الإمارات, بيت الريف`} canonicalPath={`/services/${service.slug}`} ogImage={`${SITE_URL}${getSectorCardImage(service.slug)}`} structuredData={structuredData} breadcrumbs={[{ name: 'الخدمات والعروض', href: '/services' }, { name: service.nameAr, href: `/services/${service.slug}` }]} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="الخدمات والعروض" />
+        <SectionBackBar href="/services" label="العودة إلى الخدمات والعروض" />
         <main>
           <section className="bg-[#0F3F1A] text-white">
             <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">

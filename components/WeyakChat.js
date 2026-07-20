@@ -5,14 +5,16 @@ import {
 } from 'lucide-react';
 import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState';
 
-const QUICK_ACTIONS = [
-  { label: 'أحتاج خدمة', message: 'أنا عميل وأحتاج خدمة.' },
-  { label: 'أبحث عن مزود', message: 'أنا عميل وأبحث عن مزود خدمة مناسب.' },
-  { label: 'طلب عرض سعر', message: 'أريد تجهيز طلب عرض سعر.' },
-  { label: 'مناقصة أو مشروع', message: 'أريد تسجيل مناقصة أو مشروع.' },
-  { label: 'لدي نشاط تجاري', message: 'لدي شركة أو نشاط تجاري وأريد الانضمام.' },
-  { label: 'استفسار بلدي', message: 'لدي استفسار قانوني أو بلدي يتعلق بأعمال البناء.' },
-];
+const AUDIENCE_ACTIONS = {
+  ar: [
+    { label: 'أنا مستخدم وأبحث عن خدمة', message: 'أنا مستخدم أو عميل وأبحث عن خدمة.' },
+    { label: 'أنا مزود خدمة', message: 'أنا مزود خدمة وصاحب نشاط تجاري.' },
+  ],
+  en: [
+    { label: 'I need a service', message: 'I am a customer looking for a service.' },
+    { label: 'I am a provider', message: 'I am a service provider and business owner.' },
+  ],
+};
 
 function IntakeCard({ intake, disabled, onSubmitted }) {
   const [values, setValues] = useState(intake?.defaults || {});
@@ -193,10 +195,11 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
 
 export default function WeyakChat({ embedded = false }) {
   const [isOpen, setIsOpen] = useState(embedded);
+  const [pageContext, setPageContext] = useState({});
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'يا مرحبا الساع 👋 أنا وياك. أرتب طلبك خطوة بخطوة، وأراجع التفاصيل معك قبل أي تسجيل. قل لي وين نبدأ؟',
+      content: 'يا مرحبا، أنا وياك. أرتب طلبك خطوة بخطوة، وأراجع التفاصيل معك قبل أي تسجيل. قل لي وين نبدأ؟',
     },
   ]);
   const [sessionState, setSessionState] = useState({ audience: 'unknown', intent: 'general', payload: {} });
@@ -209,6 +212,24 @@ export default function WeyakChat({ embedded = false }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
+
+  useEffect(() => {
+    if (embedded) return undefined;
+    const openChat = (event) => {
+      const context = event?.detail && typeof event.detail === 'object' ? event.detail : {};
+      setPageContext(context);
+      setMessages((current) => {
+        if (current.some((message) => message.role === 'user')) return current;
+        const isEnglish = String(context.path || window.location.pathname).startsWith('/en');
+        const subject = [context.service, context.area, context.emirate, context.provider, context.product].filter(Boolean).join(isEnglish ? ' in ' : ' في ');
+        return [{ role: 'assistant', content: isEnglish ? `Hello, I’m Weyaak. I can see that you opened the chat from ${subject || context.sourceTitle || 'this section'}. Tell me what you need, and I’ll continue from this context.` : `يا مرحبا، أنا وياك. فتحت المحادثة من ${subject || context.sourceTitle || 'هذا القسم'}، وبكمل معك من نفس السياق. خبرني ما الذي تحتاجه؟` }];
+      });
+      setSessionState((current) => ({ ...current, payload: { ...current.payload, emirate: context.emirate || current.payload?.emirate || '', city: context.area || current.payload?.city || '', service_category: context.service || current.payload?.service_category || '' } }));
+      setIsOpen(true);
+    };
+    window.addEventListener('weyaak:open', openChat);
+    return () => window.removeEventListener('weyaak:open', openChat);
+  }, [embedded]);
 
   const sendMessage = async (rawMessage) => {
     const userMessage = String(rawMessage || '').trim();
@@ -234,6 +255,7 @@ export default function WeyakChat({ embedded = false }) {
           history,
           state: preparedState,
           pagePath: typeof window !== 'undefined' ? window.location.pathname : '/',
+          pageContext,
         }),
       });
       if (!response.ok) throw new Error('Failed to fetch response');
@@ -279,6 +301,7 @@ export default function WeyakChat({ embedded = false }) {
   };
 
   const hasUserMessages = messages.some((message) => message.role === 'user');
+  const isEnglish = pageContext.path?.startsWith('/en') || (typeof window !== 'undefined' && window.location.pathname.startsWith('/en'));
 
   return (
     <>
@@ -336,14 +359,15 @@ export default function WeyakChat({ embedded = false }) {
         </div>
 
         <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50 p-4 scroll-smooth" aria-live="polite">
+          {pageContext.sourceTitle || pageContext.service || pageContext.area ? <div className="rounded-xl border border-[#D8E4DC] bg-white px-3 py-2 text-[11px] font-bold leading-5 text-[#1B4D3E]"><span className="block text-[10px] text-gray-500">سياق المحادثة</span>{[pageContext.section, pageContext.emirate, pageContext.area, pageContext.service, pageContext.provider, pageContext.product].filter(Boolean).join(' · ') || pageContext.sourceTitle}</div> : null}
           {!hasUserMessages && (
             <div className="rounded-2xl border border-[#DDE8E1] bg-[#F4F8F5] p-3">
               <div className="mb-3 flex items-center gap-2 text-xs font-bold text-[#1B4D3E]">
                 <ShieldCheck className="h-4 w-4" />
-                اختر البداية المناسبة، ووياك يرتب الباقي معك خطوة بخطوة
+                {isEnglish ? 'First, tell Weyaak which journey you need' : 'أولًا، حدد لوياك نوع رحلتك'}
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                {QUICK_ACTIONS.map((action) => (
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {AUDIENCE_ACTIONS[isEnglish ? 'en' : 'ar'].map((action) => (
                   <button
                     key={action.label}
                     type="button"

@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
+import SectionBackBar from '../../components/SectionBackBar';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
@@ -57,6 +58,7 @@ export default function MarketplaceCategoryPage({ category }) {
       />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="المنتجات والمتاجر" />
+        <SectionBackBar href="/marketplace" label="العودة إلى المنتجات والمتاجر" />
         <main>
           <section className="bg-[#0F3F1A] text-white">
             <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">

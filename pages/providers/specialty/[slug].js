@@ -5,6 +5,7 @@ import Footer from '../../../components/Footer';
 import FAQ from '../../../components/FAQ';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../../data/siteTaxonomy';
 import { getProvidersByCategory } from '../../../data/providers';
+import SectionBackBar from '../../../components/SectionBackBar';
 
 export default function ProviderSpecialtyPage({ service, matchedProviders }) {
   const title = 'مزودو ' + service.nameAr;
@@ -24,6 +25,7 @@ export default function ProviderSpecialtyPage({ service, matchedProviders }) {
       </Head>
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="مزودو الخدمات" />
+        <SectionBackBar href="/providers" label="العودة إلى مزودي الخدمات" />
         <main>
           <section className="bg-[#0F3F1A] text-white">
             <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">

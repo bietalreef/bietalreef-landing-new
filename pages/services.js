@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import SEOHead from "../components/SEOHead";
 import ServicesSmartFooter from "../components/ServicesSmartFooter";
 import DiscoveryDirectoryHero from "../components/DiscoveryDirectoryHero";
+import SectionBackBar from "../components/SectionBackBar";
 import { getAllServices } from "../lib/services-detailed";
 import { getSectorCardImage } from "../lib/sectorCards";
 import { ArrowRight, MessageCircle, Search, Wrench, ChevronLeft } from "lucide-react";
@@ -62,7 +63,8 @@ export default function Services({ services }) {
       />
 
       <div dir="rtl" className="min-h-screen flex flex-col bg-[#FDFBF7]">
-        <Navbar pageTitle="الخدمات والعروض" />
+      <Navbar pageTitle="الخدمات والعروض" />
+      <SectionBackBar />
         <main className="flex-1 -mt-[1px] [&>section:nth-of-type(2)]:hidden">
           <DiscoveryDirectoryHero type="services" locale="ar" />
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">

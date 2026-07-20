@@ -22,6 +22,7 @@ const ArklineProjectsAndChannels = dynamic(
   () => import("../components/provider/ArklineProjectsAndChannels"),
   { ssr: false }
 );
+const WeyakChat = dynamic(() => import('../components/WeyakChat'), { ssr: false });
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -31,10 +32,35 @@ export default function MyApp({ Component, pageProps }) {
   const isArkleenProfile = /^\/(?:en\/)?providers\/(?:arkleen|arkline)(?:\/|$)/.test(currentPath);
 
   useEffect(() => initPublicAnalytics(router), [router]);
+  useEffect(() => {
+    const openWeyaakLinksInWidget = (event) => {
+      const link = event.target?.closest?.('a[href]');
+      if (!link) return;
+      let pathname = '';
+      try { pathname = new URL(link.href, window.location.origin).pathname; } catch { return; }
+      if (!['/weyaak', '/en/weyaak'].includes(pathname)) return;
+      event.preventDefault();
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      const uaeIndex = parts.indexOf('uae');
+      window.dispatchEvent(new CustomEvent('weyaak:open', { detail: {
+        path: window.location.pathname,
+        sourceTitle: link.dataset.weyaakTitle || document.title,
+        section: link.dataset.weyaakSection || (uaeIndex >= 0 ? (isEnglishPage ? 'UAE Directory' : 'دليل الإمارات') : ''),
+        emirate: uaeIndex >= 0 ? parts[uaeIndex + 1] || '' : '',
+        area: uaeIndex >= 0 ? parts[uaeIndex + 2] || '' : '',
+        service: uaeIndex >= 0 ? parts[uaeIndex + 3] || '' : '',
+        provider: parts.includes('providers') ? parts[parts.indexOf('providers') + 1] || '' : '',
+        product: parts.includes('marketplace') ? parts[parts.indexOf('marketplace') + 1] || '' : '',
+      } }));
+    };
+    document.addEventListener('click', openWeyaakLinksInWidget);
+    return () => document.removeEventListener('click', openWeyaakLinksInWidget);
+  }, [isEnglishPage]);
 
   return (
     <ClientSafetyBoundary>
       <Component {...pageProps} />
+      <WeyakChat />
       {isProviderProfile ? (
         <>
           <Head>

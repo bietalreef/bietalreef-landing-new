@@ -6,6 +6,7 @@ import { getEmirate, getArea } from '../../data/siteTaxonomy';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Gem, ChevronDown, ExternalLink, Hammer, Layers, Users, Factory, Navigation, BadgeCheck } from 'lucide-react';
+import GenericProviderProfile from '../../components/GenericProviderProfile';
 
 export default function ProviderPage({ provider, emirate, area }) {
   if (!provider) {
@@ -20,6 +21,8 @@ export default function ProviderPage({ provider, emirate, area }) {
       </>
     );
   }
+
+  if (provider.slug === 'alrehab-cleaning-sanitizing') return <GenericProviderProfile provider={provider} locale="ar" />;
 
   const providerUrl = `https://bietalreef.ae/providers/${provider.slug}`;
   const providerLogo = provider.logo ? `https://bietalreef.ae${provider.logo}` : 'https://bietalreef.ae/logo.png';

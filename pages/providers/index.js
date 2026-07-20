@@ -15,6 +15,7 @@ import {
 import { directoryProviders } from '../../data/providers';
 import { ProviderCard } from '../../components/cards/SmartEntityCard';
 import ProvidersDirectoryHero from '../../components/ProvidersDirectoryHero';
+import SectionBackBar from '../../components/SectionBackBar';
 
 const providerSectorCards = [
   {
@@ -146,6 +147,7 @@ export default function ProvidersPage() {
       />
 
       <Navbar pageTitle="مزودو الخدمات" />
+      <SectionBackBar />
 
       <main className="-mt-[1px] [&>section:nth-of-type(2)]:hidden">
         <ProvidersDirectoryHero locale="ar" />

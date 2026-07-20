@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowLeft, ArrowRight, MessageCircle, Search, ShoppingBag, Wrench } from 'lucide-react';
 
 const content = {
@@ -31,7 +30,6 @@ export default function DiscoveryDirectoryHero({ type, locale = 'ar' }) {
       <div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_20px_55px_rgba(18,58,70,0.08)] md:rounded-[2.5rem]">
         <div className="grid lg:grid-cols-[1.05fr_.95fr] lg:items-stretch">
           <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12">
-            <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold text-gray-500"><Link href={isAr ? '/' : '/en'} className="transition hover:text-[#0F3F1A]">{isAr ? 'الرئيسية' : 'Home'}</Link><span aria-hidden="true">/</span><span className="text-[#8A6A00]">{t.label}</span></nav>
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#D4AF37]/35 bg-[#FFF8E5] px-4 py-2 text-xs font-black text-[#8A6A00]"><Icon className="h-4 w-4" aria-hidden="true" />{t.label}</span>
             <h1 className="mt-5 max-w-2xl text-3xl font-black leading-[1.35] text-[#0F3F1A] md:text-5xl">{t.title}</h1>
             <p className="mt-5 max-w-2xl text-sm font-semibold leading-8 text-gray-600 md:text-base md:leading-9">{t.description}</p>

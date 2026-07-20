@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { Search, Star, Zap } from 'lucide-react';
+import SectionBackBar from '../../../components/SectionBackBar';
 
 const categories = {
   'building-materials': {
@@ -55,6 +56,7 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
       </Head>
 
       <EnglishLayout>
+        <SectionBackBar locale="en" href="/en/marketplace" label="Back to Products & Stores" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
           <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
             <Link href="/en/marketplace" className="inline-flex rounded-full border border-[#E6DCC8] bg-white px-4 py-2 text-sm font-black text-[#0F3F1A] hover:border-[#D4AF37]">

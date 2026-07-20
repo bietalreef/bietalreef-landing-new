@@ -106,7 +106,7 @@ try {
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
   if (customer.match_status === 'matched') {
     assert(hasLink(customer, /providers\/al-hoot-marble-granite-factory/i), 'matched marble request must identify White Whale before review', customer);
-    const asksForProviderConfirmation = /تأكيد|تأكيدك|مزود/i.test(customer.reply);
+    const asksForProviderConfirmation = /تأكيد|تأكيدك|مزو(?:ّ)?د|أحتاج|قياس|هل المطلوب/i.test(customer.reply);
     // The live model may phrase the next step as confirmation or as a
     // clarification. The structured quote intake is the stable contract;
     // exact Arabic wording is intentionally not used as a deployment gate.
