@@ -22,7 +22,7 @@ export default function ProviderPage({ provider, emirate, area }) {
     );
   }
 
-  if (provider.slug === 'alrehab-cleaning-sanitizing') return <GenericProviderProfile provider={provider} locale="ar" />;
+  return <GenericProviderProfile provider={provider} locale="ar" />;
 
   const providerUrl = `https://bietalreef.ae/providers/${provider.slug}`;
   const providerLogo = provider.logo ? `https://bietalreef.ae${provider.logo}` : 'https://bietalreef.ae/logo.png';
