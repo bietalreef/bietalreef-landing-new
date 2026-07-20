@@ -4,6 +4,8 @@ import EnglishLayout from '../../../components/EnglishLayout';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../../data/siteTaxonomy';
 import { getSectorCardImage } from '../../../lib/sectorCards';
 import ServicesSmartFooter from '../../../components/ServicesSmartFooter';
+import SectionBackBar from '../../../components/SectionBackBar';
+import SectionCategoryHero from '../../../components/SectionCategoryHero';
 
 export default function EnglishCategoryPage({ service }) {
   const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
@@ -23,14 +25,12 @@ export default function EnglishCategoryPage({ service }) {
         <meta name="twitter:image" content={`https://bietalreef.ae${getSectorCardImage(service.slug)}`} />
       </Head>
       <EnglishLayout>
-        <main className="max-w-7xl mx-auto px-4 py-14 md:py-20">
-          <p className="text-[#B8922B] font-black mb-3">Service category</p>
-          <div className="flex items-center gap-4 mb-5">
-            <div className="text-4xl">{service.icon}</div>
-            <h1 className="text-3xl md:text-5xl font-black text-[#0F3F1A]">{service.nameEn} in the UAE</h1>
-          </div>
-          <p className="text-gray-600 leading-8 max-w-3xl mb-10">Browse {service.nameEn.toLowerCase()} information pages by emirate and local area. These pages are built for clear navigation and search indexing.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <SectionBackBar locale="en" href="/en/services" label="Back to Services & Offers" />
+        <main className="bg-[#FDFBF7]">
+          <SectionCategoryHero locale="en" type="services" title={service.nameEn} description={service.descEn || `Browse ${service.nameEn.toLowerCase()} services, offers and request paths across the UAE.`} image={getSectorCardImage(service.slug)} />
+          <section className="mx-auto max-w-7xl px-4 pb-16">
+            <div className="mb-8"><p className="font-black text-[#B8922B]">Browse by location</p><h2 className="mt-3 text-3xl font-black text-[#0F3F1A]">Choose an emirate and service area</h2></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {UAE_EMIRATES.map((emirate) => (
               <div key={emirate.slug} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm">
                 <Link href={`/en/uae/${emirate.slug}`} className="font-black text-[#0F3F1A] hover:text-[#B8922B] block mb-3">{emirate.nameEn}</Link>
@@ -43,7 +43,8 @@ export default function EnglishCategoryPage({ service }) {
                 </div>
               </div>
             ))}
-          </div>
+            </div>
+          </section>
           <ServicesSmartFooter locale="en" />
         </main>
       </EnglishLayout>
