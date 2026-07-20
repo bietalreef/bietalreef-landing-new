@@ -143,10 +143,12 @@ try {
   assert(!hasWhatsApp(unmatched), 'unmatched customer flow must use the review form, not WhatsApp', unmatched);
   tests.push('unmatched-customer-team-review');
 
-  const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
+  const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، مقر الشركة في مدينة دبي، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، ونخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
   const provider = await chat(providerMessage);
   assert(provider.audience === 'provider', 'business owner must be classified as provider', provider);
   assert(provider.intent === 'provider_subscription', 'business owner must use provider subscription flow', provider);
+  assert(provider.state?.payload?.business_location === 'مدينة دبي' || /دبي/.test(provider.state?.payload?.business_location || ''), 'provider headquarters must be extracted separately', provider);
+  assert(/العين/.test(provider.state?.payload?.service_areas || '') && /أبوظبي/.test(provider.state?.payload?.service_areas || ''), 'service coverage must remain separate from headquarters', provider);
   assert(!hasWhatsApp(provider), 'provider flow must not expose WhatsApp', provider);
   assert(!/(خصم|10\s*%|١٠\s*٪)/i.test(provider.reply), 'stage one must not mention discounts', provider);
 
