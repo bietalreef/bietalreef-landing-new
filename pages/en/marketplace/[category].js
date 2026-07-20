@@ -51,7 +51,9 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
         <meta property="og:description" content={`${category.title} inside Biet Al Reef Products & Stores.`} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={`https://bietalreef.ae${category.image}`} />
+        <meta property="og:image:alt" content={`${category.title} | Products & Stores | Biet Al Reef`} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${category.title} | Products & Stores | Biet Al Reef`} />
         <meta name="twitter:image" content={`https://bietalreef.ae${category.image}`} />
       </Head>
 
@@ -112,6 +114,7 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
               </div>
             </div>
           </section>
+          <ProductsSmartFooter locale="en" />
         </main>
       </EnglishLayout>
     </>
