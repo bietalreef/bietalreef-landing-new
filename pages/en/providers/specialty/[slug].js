@@ -4,6 +4,7 @@ import EnglishLayout from '../../../../components/EnglishLayout';
 import { SERVICE_CATEGORIES } from '../../../../data/siteTaxonomy';
 import { providers } from '../../../../data/providers';
 import SectionBackBar from '../../../../components/SectionBackBar';
+import ProvidersSmartFooter from '../../../../components/ProvidersSmartFooter';
 
 function providerTypeLabel(provider) {
   if (provider.slug === 'al-hoot-marble-granite-factory') return 'Marble & Granite Factory';
@@ -29,6 +30,14 @@ export default function EnglishProviderSpecialtyPage({ specialty, matchingProvid
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href={`https://bietalreef.ae/providers/specialty/${specialty.slug}`} />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
+        <meta property="og:title" content={`${specialty.nameEn || specialty.nameAr} Providers | Biet Al Reef`} />
+        <meta property="og:description" content={`Browse ${specialty.nameEn || specialty.nameAr} provider profiles inside Biet Al Reef.`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content="https://bietalreef.ae/images/providers-hero.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${specialty.nameEn || specialty.nameAr} Providers | Biet Al Reef`} />
+        <meta name="twitter:image" content="https://bietalreef.ae/images/providers-hero.webp" />
       </Head>
 
       <EnglishLayout>
@@ -76,6 +85,7 @@ export default function EnglishProviderSpecialtyPage({ specialty, matchingProvid
               </div>
             )}
           </section>
+          <ProvidersSmartFooter locale="en" />
         </main>
       </EnglishLayout>
     </>
