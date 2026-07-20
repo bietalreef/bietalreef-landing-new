@@ -1,39 +1,50 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const copy = {
   ar: {
-    homeTitle: 'وياك في دليل الإمارات',
-    homeText: 'أخبر وياك بما يحتاجه مشروعك، وسيساعدك في اختيار الإمارة والقطاع والخدمة أو المنتج والمسار الأنسب داخل دليل الإمارات.',
+    homeTitle: 'اجعل رحلتك أسهل مع وياك',
+    homeText: 'صف احتياج مشروعك، وسيساعدك وياك في الوصول إلى الإمارة والقطاع والخدمة أو المزود المناسب.',
     abuDhabiTitle: 'وياك في أبوظبي',
     abuDhabiText: 'أخبر وياك بما يحتاجه مشروعك في أبوظبي أو العين، وسيساعدك في الوصول إلى القسم أو الخدمة أو المنتج والمسار الأنسب.',
     action: 'اسأل وياك',
     href: '/weyaak',
+    logoAlt: 'شعار وياك الرسمي',
   },
   en: {
-    homeTitle: 'Wayaak in the UAE Directory',
-    homeText: 'Tell Wayaak what your project needs, and it will help you choose the emirate, sector, service, product or most relevant directory path.',
+    homeTitle: 'Make your journey easier with Weyaak',
+    homeText: 'Describe your project needs, and Weyaak will guide you to the right emirate, sector, service or provider.',
     abuDhabiTitle: 'Wayaak in Abu Dhabi',
     abuDhabiText: 'Tell Wayaak what your project needs in Abu Dhabi or Al Ain, and it will guide you to the most relevant sector, service, product or directory path.',
     action: 'Ask Wayaak',
     href: '/en/weyaak',
+    logoAlt: 'Official Weyaak logo',
   },
 };
 
 export default function UaeDirectoryWeyaakCard({ locale = 'ar', context = 'home', className = '' }) {
-  const isEn = locale === 'en';
-  const t = copy[locale];
+  const isEnglish = locale === 'en';
+  const t = copy[isEnglish ? 'en' : 'ar'];
   const title = context === 'abu-dhabi' ? t.abuDhabiTitle : t.homeTitle;
-  const text = context === 'abu-dhabi' ? t.abuDhabiText : t.homeText;
+  const description = context === 'abu-dhabi' ? t.abuDhabiText : t.homeText;
+  const Arrow = isEnglish ? ArrowRight : ArrowLeft;
 
   return (
-    <section dir={isEn ? 'ltr' : 'rtl'} className={`mx-auto max-w-6xl px-4 ${className}`.trim()}>
-      <div className="rounded-[2rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] p-5 shadow-[0_16px_38px_rgba(138,106,0,.08)] sm:flex sm:items-center sm:gap-6 md:p-7">
-        <div className="flex-1 text-center sm:text-start">
-          <h2 className="text-2xl font-black text-[#0F3F1A] md:text-3xl">{title}</h2>
-          <p className="mt-2 text-sm font-semibold leading-7 text-gray-600 md:text-base">{text}</p>
+    <section dir={isEnglish ? 'ltr' : 'rtl'} className={`bg-[#FDFBF7] px-4 pb-4 md:pb-6 ${className}`.trim()}>
+      <div className={`mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-[1.75rem] border border-[#D9C89F] bg-white/92 px-4 py-4 shadow-lg shadow-[#0F3F1A]/5 sm:flex-row sm:justify-between md:px-6 ${isEnglish ? 'text-left' : 'text-right'}`}>
+        <div className={`flex min-w-0 flex-1 items-center gap-4 ${isEnglish ? '' : 'sm:flex-row-reverse'}`}>
+          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-[#FDFBF7] p-1.5 shadow-inner md:h-[4.5rem] md:w-[4.5rem]">
+            <Image src="/images/weyaak-new-logo.jpg" alt={t.logoAlt} fill sizes="72px" className="object-contain" />
+          </div>
+          <div className="min-w-0">
+            <h2 className="text-lg font-black leading-tight text-[#0F3F1A] md:text-2xl">{title}</h2>
+            <p className="mt-1.5 text-sm font-semibold leading-6 text-gray-600 md:text-base">{description}</p>
+          </div>
         </div>
-        <Link href={t.href} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center rounded-2xl bg-[#0F3F1A] px-6 py-3 text-sm font-black text-white transition hover:bg-[#B8922B] sm:mt-0 sm:w-auto">
+        <Link href={t.href} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 text-sm font-black text-white shadow-md shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]">
           {t.action}
+          <Arrow size={17} aria-hidden="true" />
         </Link>
       </div>
     </section>
