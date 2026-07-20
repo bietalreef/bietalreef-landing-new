@@ -93,7 +93,9 @@ try {
 
   const legal = await chat('عندي سؤال عن اشتراطات بناء');
   assert(['legal', 'inquiry'].includes(legal.intent), 'municipal question must enter a legal or inquiry flow', legal);
-  assert(hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i), 'municipal answer must use an official government source', legal);
+  const usesOfficialSourceOrAppliesGate = hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i)
+    || /أي إمارة|ا(?:لإ|ل)مارة|الامارة/i.test(legal.reply);
+  assert(usesOfficialSourceOrAppliesGate, 'municipal answer must use an official source or ask for the emirate first', legal);
   assert(!legal.intake && !hasWhatsApp(legal), 'municipal gate must not open an intake or WhatsApp', legal);
   tests.push('legal-emirate-gate');
 
