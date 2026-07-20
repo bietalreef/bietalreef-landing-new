@@ -23,11 +23,15 @@ export default function EmiratePage({ emirate, emirateSlug }) {
   const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
   const pageData = {
     h1: `خدمات بيت الريف في ${emirate.nameAr}`,
-    desc: `استكشف قطاعات البناء والمقاولات والصيانة والتصميم ومواد البناء والموردين ومزودي الخدمات في ${emirate.nameAr} عبر دليل بيت الريف.`,
+    desc: isAbuDhabi
+      ? 'استكشف المقاولين ومزودي الخدمات والموردين والمتاجر والمنتجات في أبوظبي والعين ومناطق الإمارة عبر دليل بيت الريف.'
+      : `استكشف قطاعات البناء والمقاولات والصيانة والتصميم ومواد البناء والموردين ومزودي الخدمات في ${emirate.nameAr} عبر دليل بيت الريف.`,
   };
-  const pageTitle = `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
+  const pageTitle = isAbuDhabi
+    ? 'دليل أبوظبي للخدمات والمنتجات والموردين | بيت الريف'
+    : `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ باختيار أحد أقسام الخدمات أو المنتجات الأحد عشر، ثم انتقل إلى المدينة أو المنطقة والتخصص المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ باختيار أحد مسارات الخدمات أو المنتجات الأحد عشر، ثم انتقل إلى المدينة أو المنطقة والتخصص المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
     ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
     ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
@@ -50,7 +54,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <meta property="og:image" content={shareImage} />
         <meta property="og:image:secure_url" content={shareImage} />
         <meta property="og:image:type" content="image/webp" />
-        <meta property="og:image:alt" content={`دليل خدمات البناء والمقاولات في ${emirate.nameAr}`} />
+        <meta property="og:image:alt" content={isAbuDhabi ? 'دليل أبوظبي للخدمات والمنتجات والموردين في بيت الريف' : `دليل خدمات البناء والمقاولات في ${emirate.nameAr}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageData.desc} />
@@ -74,10 +78,10 @@ export default function EmiratePage({ emirate, emirateSlug }) {
             {showAlHootSeoPath && <p className="mt-4">تم دعم صفحة أبوظبي بمسار داخلي واضح يربط بين محتوى البحث الجغرافي ومزود خدمة فعلي داخل المنصة، مثل مصنع الحوت الأبيض للرخام والجرانيت.</p>}
           </SeoContent>
 
-          <FAQ items={faqItems} title={`أسئلة شائعة حول خدمات ${emirate.nameAr}`} />
           <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} />
+          <FAQ items={faqItems} title={`أسئلة شائعة حول خدمات ${emirate.nameAr}`} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );

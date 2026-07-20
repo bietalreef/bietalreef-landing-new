@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SecondaryHeader from '../../components/SecondaryHeader';
 import UaeDirectoryHomeContent from '../../components/UaeDirectoryHomeContent';
+import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
 import { ArrowLeft, ChevronDown, ChevronUp, Search } from 'lucide-react';
@@ -77,6 +78,8 @@ export default function UAEDirectoryHome() {
               </div>
             </div>
           </section>
+
+          <UaeDirectoryWeyaakCard locale="ar" className="pb-4 md:pb-6" />
 
           <section id="uae-emirates" className="scroll-mt-24 bg-[#FDFBF7] px-4 py-10 md:py-14">
             <div className="mx-auto max-w-6xl">
