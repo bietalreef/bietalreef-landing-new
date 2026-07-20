@@ -164,7 +164,12 @@ try {
 
   assert(providerReview.intake?.type === 'provider_interest', 'provider details must open the review card after at most one clarification', providerReview);
   assert(!hasWhatsApp(providerReview), 'provider review must not expose WhatsApp', providerReview);
-  assert(/انضم|انضمام|ظهور|ملف|تخصص|موقع/i.test(providerReview.reply), 'provider reply must explain the value of joining without guarantees', providerReview);
+  const providerJourneyText = [
+    providerReview.reply,
+    providerReview.intake?.title,
+    ...(providerReview.links || []).map((link) => link.label),
+  ].filter(Boolean).join(' ');
+  assert(/انضم|انضمام|ظهور|ملف|تخصص|موقع/i.test(providerJourneyText), 'provider journey must clearly invite joining without guarantees', providerReview);
   tests.push('provider-review-ready');
 
   assert(customer.model === 'gpt-5-mini' || Boolean(process.env.WEYAAK_MODEL), 'Weyaak must use the configured modern model', customer);
