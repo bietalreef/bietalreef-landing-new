@@ -211,7 +211,9 @@ export default function EnglishLayout({ children }) {
   const isEnglishUaeIndex = englishUaePath === '/en/uae';
   const isEnglishUaeRoute = isEnglishUaeIndex || englishUaePath.startsWith('/en/uae/');
 
-  if (isEnglishUaeRoute) {
+  const useUnifiedHeader = true;
+
+  if (useUnifiedHeader) {
     return (
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <style jsx global>{`
@@ -223,7 +225,7 @@ export default function EnglishLayout({ children }) {
         `}</style>
         <Navbar locale="en" />
         <div className="english-readable">{children}</div>
-        <Footer locale="en" showRequestCTA={false} />
+        <Footer locale="en" showRequestCTA={!isEnglishUaeRoute} />
       </div>
     );
   }
