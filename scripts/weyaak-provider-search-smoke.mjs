@@ -76,6 +76,7 @@ try {
   assert(carpenter.intent === 'provider_search', 'Carpenter request must use provider_search.', carpenter);
   assert(providerTool(carpenter)?.status === 'matched', 'Carpenter search must call the Supabase provider tool and match.', carpenter);
   assert(hasArkleen(carpenter), 'Carpenter request in Al Ain must return Arkleen from live Supabase data.', carpenter);
+  assert(!hasWhiteWhale(carpenter), 'A marble provider must never be returned for a carpenter search.', carpenter);
   assert(!/ميزانية|مقاسات/i.test(carpenter.reply), 'Provider search must not start a quotation questionnaire.', carpenter);
 
   const marble = await chat('أعطيني مزود رخام وجرانيت في العين');
@@ -101,6 +102,19 @@ try {
   assert(providerOwner.audience === 'provider', 'A business owner must enter the provider onboarding flow.', providerOwner);
   assert(providerOwner.intent === 'provider_subscription', 'Business owner must not be treated as a customer provider search.', providerOwner);
   assert(!providerTool(providerOwner), 'Provider onboarding must not search for another provider.', providerOwner);
+
+  const providerToCustomer = await chat(
+    'هل يوجد نجار في العين؟',
+    [
+      { role: 'user', content: 'أنا صاحب شركة' },
+      { role: 'assistant', content: 'ممتاز، ما اسم شركتك؟' },
+    ],
+    { audience: 'provider', intent: 'provider_subscription', payload: { business_name: 'شركة' } },
+  );
+  assert(providerToCustomer.audience === 'customer', 'A direct service search must leave provider onboarding immediately.', providerToCustomer);
+  assert(providerToCustomer.intent === 'provider_search', 'The new carpenter request must become a provider search.', providerToCustomer);
+  assert(hasArkleen(providerToCustomer), 'Provider-to-customer switch must return Arkleen for carpentry in Al Ain.', providerToCustomer);
+  assert(!hasWhiteWhale(providerToCustomer), 'Provider-to-customer switch must not return White Whale for carpentry.', providerToCustomer);
 
   const objection = await chat(
     'يا وكيل فهمتني غلط، أنا أبحث عن نجار في العين',

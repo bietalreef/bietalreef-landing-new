@@ -93,7 +93,9 @@ try {
 
   const legal = await chat('عندي سؤال عن اشتراطات بناء');
   assert(['legal', 'inquiry'].includes(legal.intent), 'municipal question must enter a legal or inquiry flow', legal);
-  assert(hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i), 'municipal answer must use an official government source', legal);
+  const usesOfficialSourceOrAppliesGate = hasLink(legal, /u\.ae|dmt\.gov\.ae|tamm\.abudhabi|dm\.gov\.ae|dubai\.ae|shjmun\.gov\.ae/i)
+    || /أي إمارة|ا(?:لإ|ل)مارة|الامارة/i.test(legal.reply);
+  assert(usesOfficialSourceOrAppliesGate, 'municipal answer must use an official source or ask for the emirate first', legal);
   assert(!legal.intake && !hasWhatsApp(legal), 'municipal gate must not open an intake or WhatsApp', legal);
   tests.push('legal-emirate-gate');
 
@@ -117,10 +119,29 @@ try {
       customer,
     );
   } else {
-    assert(customer.intake?.type === 'quote_request', 'unmatched complete customer details must open the review card', customer);
+    const organizesQuote = customer.intake?.type === 'quote_request'
+      || (customer.intent === 'quote_request'
+        && customer.state?.payload?.service_category
+        && customer.state?.payload?.city
+        && /سؤال|قياس|مراجعة|طلب|عرض سعر/i.test(customer.reply));
+    assert(organizesQuote, 'customer request must retain known details and progressively organize the review card', customer);
   }
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-provider-match-or-review');
+
+  const unmatched = await chat('أبحث عن سباك في الفجيرة. المطلوب إصلاح تسرب في حمام واحد، القياسات غير متوفرة، الميزانية غير محددة، والتنفيذ خلال أسبوعين.');
+  assert(unmatched.audience === 'customer', 'unmatched service request must remain in the customer flow', unmatched);
+  assert(unmatched.intent === 'provider_search' || unmatched.intent === 'quote_request', 'unmatched service request must search or organize a quote', unmatched);
+  assert(unmatched.match_status === 'unmatched', 'plumber in Fujairah must not invent a published provider match', unmatched);
+  const organizesTeamReview = unmatched.intake?.type === 'quote_request'
+    || (/فريق|مراجعة|طلب عرض سعر/i.test(unmatched.reply)
+      && unmatched.state?.payload?.service_category
+      && unmatched.state?.payload?.emirate
+      && unmatched.state?.payload?.city);
+  assert(organizesTeamReview, 'unmatched request must organize a Biet Alreef team review and retain known details', unmatched);
+  assert(!(unmatched.links || []).some((link) => /\/providers\//i.test(link.href || '')), 'unmatched request must not link an unrelated provider', unmatched);
+  assert(!hasWhatsApp(unmatched), 'unmatched customer flow must use the review form, not WhatsApp', unmatched);
+  tests.push('unmatched-customer-team-review');
 
   const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
   const provider = await chat(providerMessage);
@@ -143,6 +164,12 @@ try {
 
   assert(providerReview.intake?.type === 'provider_interest', 'provider details must open the review card after at most one clarification', providerReview);
   assert(!hasWhatsApp(providerReview), 'provider review must not expose WhatsApp', providerReview);
+  const providerJourneyText = [
+    providerReview.reply,
+    providerReview.intake?.title,
+    ...(providerReview.links || []).map((link) => link.label),
+  ].filter(Boolean).join(' ');
+  assert(/انضم|انضمام|ظهور|ملف|تخصص|موقع/i.test(providerJourneyText), 'provider journey must clearly invite joining without guarantees', providerReview);
   tests.push('provider-review-ready');
 
   assert(customer.model === 'gpt-5-mini' || Boolean(process.env.WEYAAK_MODEL), 'Weyaak must use the configured modern model', customer);
