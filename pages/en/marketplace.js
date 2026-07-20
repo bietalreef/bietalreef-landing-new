@@ -4,6 +4,7 @@ import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
+import SectionBackBar from '../../components/SectionBackBar';
 import { ArrowLeft, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronRight, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -26,6 +27,7 @@ export default function MarketplaceEnglishPage() {
     <>
       <Head><title>Products & Stores | Building Materials, Finishing and Furniture in the UAE</title><meta name="description" content="Products & Stores in Biet Al Reef: building materials, finishing products, smart systems and furniture. A separate path from services and the UAE Directory." /><meta name="keywords" content="building products, building materials, finishing stores, suppliers, marble, ceramic, furniture" /><meta name="robots" content="index, follow" /><link rel="canonical" href="https://bietalreef.ae/en/marketplace" /><link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/marketplace" /><link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/marketplace" /><meta property="og:title" content="Products & Stores | Biet Al Reef" /><meta property="og:description" content="Building materials, finishing products, smart systems and furniture in a dedicated marketplace path." /><meta property="og:type" content="website" /><meta property="og:url" content="https://bietalreef.ae/en/marketplace" /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /></Head>
       <EnglishLayout>
+        <SectionBackBar locale="en" />
         <main dir="ltr" className="-mt-[1px] bg-[#FDFBF7] text-left [&>section:nth-of-type(2)]:hidden [&>section:nth-of-type(3)>section:first-of-type]:hidden">
           <DiscoveryDirectoryHero type="products" locale="en" />
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
