@@ -3,6 +3,7 @@ import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../../data/siteTaxonomy';
 import { getSectorCardImage } from '../../../lib/sectorCards';
+import ServicesSmartFooter from '../../../components/ServicesSmartFooter';
 
 export default function EnglishCategoryPage({ service }) {
   const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
@@ -43,6 +44,7 @@ export default function EnglishCategoryPage({ service }) {
               </div>
             ))}
           </div>
+          <ServicesSmartFooter locale="en" />
         </main>
       </EnglishLayout>
     </>
