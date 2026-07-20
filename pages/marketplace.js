@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import ProductsSmartFooter from '../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
+import SectionBackBar from '../components/SectionBackBar';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -68,6 +69,7 @@ export default function MarketplacePage() {
         structuredData={structuredData}
       />
       <Navbar pageTitle="المنتجات والمتاجر" />
+      <SectionBackBar />
 
       <main className="-mt-[1px] [&>section:nth-of-type(2)]:hidden">
         <DiscoveryDirectoryHero type="products" locale="ar" />
