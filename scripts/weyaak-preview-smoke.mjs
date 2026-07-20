@@ -122,6 +122,15 @@ try {
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-provider-match-or-review');
 
+  const unmatched = await chat('أبحث عن سباك في الفجيرة. المطلوب إصلاح تسرب في حمام واحد، القياسات غير متوفرة، الميزانية غير محددة، والتنفيذ خلال أسبوعين.');
+  assert(unmatched.audience === 'customer', 'unmatched service request must remain in the customer flow', unmatched);
+  assert(unmatched.intent === 'provider_search' || unmatched.intent === 'quote_request', 'unmatched service request must search or organize a quote', unmatched);
+  assert(unmatched.match_status === 'unmatched', 'plumber in Fujairah must not invent a published provider match', unmatched);
+  assert(unmatched.intake?.type === 'quote_request', 'complete unmatched request must open a Biet Alreef team review card', unmatched);
+  assert(!(unmatched.links || []).some((link) => /\/providers\//i.test(link.href || '')), 'unmatched request must not link an unrelated provider', unmatched);
+  assert(!hasWhatsApp(unmatched), 'unmatched customer flow must use the review form, not WhatsApp', unmatched);
+  tests.push('unmatched-customer-team-review');
+
   const providerMessage = 'أنا صاحب شركة اسمها النخبة للتنظيف، تخصصنا تنظيف وتعقيم الخزانات والكنب والسجاد، نخدم العين وأبوظبي، الرخصة سارية وعندنا صور أعمال جاهزة.';
   const provider = await chat(providerMessage);
   assert(provider.audience === 'provider', 'business owner must be classified as provider', provider);
@@ -143,6 +152,7 @@ try {
 
   assert(providerReview.intake?.type === 'provider_interest', 'provider details must open the review card after at most one clarification', providerReview);
   assert(!hasWhatsApp(providerReview), 'provider review must not expose WhatsApp', providerReview);
+  assert(/انضم|انضمام|ظهور|ملف|تخصص|موقع/i.test(providerReview.reply), 'provider reply must explain the value of joining without guarantees', providerReview);
   tests.push('provider-review-ready');
 
   assert(customer.model === 'gpt-5-mini' || Boolean(process.env.WEYAAK_MODEL), 'Weyaak must use the configured modern model', customer);
