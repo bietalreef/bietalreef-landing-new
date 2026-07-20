@@ -195,6 +195,11 @@ export const UAE_DIRECTORY_SPECIALTIES = SERVICE_CATEGORIES.map((service) => ({
   ...SPECIALTY_CARD_META[service.slug],
 }));
 
+const directorySpecialtySlugs = UAE_DIRECTORY_SPECIALTIES.map((service) => service.slug);
+if (new Set(directorySpecialtySlugs).size !== directorySpecialtySlugs.length) {
+  throw new Error('Duplicate UAE directory specialty slug detected in siteTaxonomy');
+}
+
 export function getEmirate(slug) {
   return UAE_EMIRATES.find((item) => item.slug === slug) || null;
 }
