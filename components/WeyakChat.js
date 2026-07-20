@@ -327,7 +327,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
       )}
 
       <div
-        className={`${standalone ? 'fixed inset-x-0 bottom-0 top-[70px] z-40 h-auto w-full rounded-none sm:inset-x-auto sm:bottom-4 sm:right-4 sm:top-[86px] sm:w-[min(520px,calc(100vw-2rem))] sm:rounded-2xl' : embedded ? 'relative h-[660px] w-full' : 'fixed bottom-6 right-6 z-50 h-[680px] max-h-[84vh] w-[94vw] sm:w-[430px]'} flex origin-bottom-right transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-all duration-300 ${
+        className={`${standalone ? 'fixed inset-x-0 bottom-0 top-[70px] z-40 h-auto w-full !rounded-none touch-manipulation sm:inset-x-auto sm:bottom-4 sm:right-4 sm:top-[86px] sm:w-[min(520px,calc(100vw-2rem))] sm:!rounded-2xl' : embedded ? 'relative h-[660px] w-full' : 'fixed bottom-6 right-6 z-50 h-[680px] max-h-[84vh] w-[94vw] sm:w-[430px]'} flex origin-bottom-right transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-all duration-300 ${
           isOpen ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-10 scale-95 opacity-0'
         }`}
         role="dialog"
