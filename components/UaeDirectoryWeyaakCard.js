@@ -23,11 +23,11 @@ const copy = {
   },
 };
 
-export default function UaeDirectoryWeyaakCard({ locale = 'ar', context = 'home', className = '' }) {
+export default function UaeDirectoryWeyaakCard({ locale = 'ar', context = 'home', title: customTitle, description: customDescription, className = '' }) {
   const isEnglish = locale === 'en';
   const t = copy[isEnglish ? 'en' : 'ar'];
-  const title = context === 'abu-dhabi' ? t.abuDhabiTitle : t.homeTitle;
-  const description = context === 'abu-dhabi' ? t.abuDhabiText : t.homeText;
+  const title = customTitle || (context === 'abu-dhabi' ? t.abuDhabiTitle : t.homeTitle);
+  const description = customDescription || (context === 'abu-dhabi' ? t.abuDhabiText : t.homeText);
   const Arrow = isEnglish ? ArrowRight : ArrowLeft;
 
   return (

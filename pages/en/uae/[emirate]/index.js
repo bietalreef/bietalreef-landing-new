@@ -56,9 +56,9 @@ export default function EnglishEmiratePage({ emirate }) {
       </Head>
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
-        <div dir="rtl"><SecondaryHeader backUrl="/en/uae" backLabel="Back to UAE Directory" /></div>
+        <SecondaryHeader locale="en" backUrl="/en/uae" backLabel="Back to UAE Directory" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" emirate={emirate} image={atlasImageBySlug[emirate.slug]} imageOnly />
+          <UaeDirectoryHero locale="en" title={isAbuDhabi ? 'Biet Al Reef services in Abu Dhabi' : `Biet Al Reef services in ${emirate.nameEn}`} description={description} emirate={emirate} image={atlasImageBySlug[emirate.slug]} />
 
           {isAbuDhabi && <AbuDhabiDirectoryIntro locale="en" />}
 

@@ -10,6 +10,9 @@ import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../components/SeoProofCards';
 import UaeDirectoryHero from '../../../components/UaeDirectoryHero';
 import UaeActivityProviders from '../../../components/UaeActivityProviders';
+import UaeDirectorySectorCards from '../../../components/UaeDirectorySectorCards';
+import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
+import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -94,23 +97,11 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
         <main>
           <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} area={area} />
 
-          <ClientRequestCard title={`تبحث عن خدمة في ${area.nameAr}؟`} desc="حدد نوع الخدمة المطلوبة وسيتم توجيه طلبك حسب المنطقة والتخصص المناسب." buttonText={`اطلب عرض سعر في ${area.nameAr}`} />
+          <UaeContextInfoCard locale="ar" locationLabel={`${area.nameAr}، ${emirate.nameAr}`} title={`الخدمات والتخصصات المتاحة في ${area.nameAr}`} description={`تعرض هذه الصفحة جميع تخصصات المنصة داخل ${area.nameAr}. اختر التخصص المطلوب للانتقال إلى صفحته واستعراض مزودي الخدمة المرتبطين بالمكان والتخصص.`} />
 
-          <section className="max-w-6xl mx-auto px-4 py-16">
-            <div className="mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر الخدمة في {area.nameAr}</h2>
-              <p className="mt-3 text-gray-600 leading-8">هذه الصفحة باقية كامتداد جغرافي قديم، بينما صفحة الإمارة الرئيسية أصبحت تعرض الأنشطة مباشرة.</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SERVICE_CATEGORIES.map((item) => (
-                <Link key={item.slug} href={`/uae/${emirateSlug}/${areaSlug}/${item.slug}`} className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-                  <div className="text-3xl mb-4">{item.icon}</div>
-                  <h3 className="text-lg font-black text-gray-900 group-hover:text-primary transition">{item.nameAr} في {area.nameAr}</h3>
-                  <p className="mt-3 text-sm text-gray-500 leading-7">{item.descAr}</p>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <UaeDirectoryWeyaakCard locale="ar" title={`وياك في ${area.nameAr}`} description={`أخبر وياك بما يحتاجه مشروعك في ${area.nameAr}، وسيساعدك في تحديد التخصص والوصول إلى مزود الخدمة أو مسار الطلب المناسب.`} />
+
+          <UaeDirectorySectorCards emirate={emirate} area={area} locale="ar" />
 
           <SeoContent title={`${area.nameAr} في دليل بيت الريف`}>
             <p>صفحة {area.nameAr} داخل {emirate.nameAr} تربط الموقع بالخدمات المتاحة، مع الحفاظ على الروابط الجغرافية ومسار تصفح واضح.</p>

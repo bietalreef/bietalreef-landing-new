@@ -4,9 +4,13 @@ import { directoryProviders } from '../data/providers';
 const sectorCategories = {
   'general-contracting': ['general-contracting'],
   'engineering-consultants': ['engineering-consultants'],
+  'interior-design': ['interior-design'],
+  'finishing-works': ['finishing-works'],
   'building-materials': ['building-materials', 'marble-ceramic'],
   'general-maintenance': ['general-maintenance', 'finishing-works'],
-  'aluminium-glass': ['aluminium-glass', 'carpentry-woodwork', 'interior-design'],
+  carpentry: ['carpentry', 'carpentry-woodwork'],
+  'aluminium-glass': ['aluminium-glass'],
+  'marble-ceramic': ['marble-ceramic'],
   'cleaning-services': ['cleaning-services', 'equipment-rental'],
 };
 
@@ -36,18 +40,23 @@ function toCard(provider, locale) {
   };
 }
 
-export default function UaeActivityProviders({ emirate, service, locale = 'ar' }) {
+export default function UaeActivityProviders({ emirate, area = null, service, locale = 'ar' }) {
   const isEn = locale === 'en';
-  const providers = directoryProviders.filter((provider) => provider.emirate === emirate.slug && matchesSector(provider, service.slug));
+  const providers = directoryProviders.filter((provider) => {
+    const matchesEmirate = provider.emirate === emirate.slug;
+    const matchesArea = !area || provider.city === area.slug || provider.area === area.slug || provider.serviceAreas?.includes(area.slug);
+    return matchesEmirate && matchesArea && matchesSector(provider, service.slug);
+  });
+  const locationName = area ? (isEn ? area.nameEn : area.nameAr) : (isEn ? emirate.nameEn : emirate.nameAr);
 
   return (
     <section dir={isEn ? 'ltr' : 'rtl'} className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       <div className={isEn ? 'mb-8 text-left' : 'mb-8 text-right'}>
         <span className="inline-flex rounded-full border border-[#DCCAA7] bg-[#FFF9EC] px-4 py-1.5 text-xs font-black text-[#8A611B]">{isEn ? 'Service providers' : 'مزودو الخدمة'}</span>
-        <h2 className="mt-4 text-3xl font-black text-[#0F3F1A]">{isEn ? `${service.nameEn} providers in ${emirate.nameEn}` : `مزودو ${service.nameAr} في ${emirate.nameAr}`}</h2>
+        <h2 className="mt-4 text-3xl font-black text-[#0F3F1A]">{isEn ? `${service.nameEn} providers in ${locationName}` : `مزودو ${service.nameAr} في ${locationName}`}</h2>
         <p className="mt-3 max-w-3xl font-semibold leading-8 text-gray-600">{isEn ? 'Open a provider profile to review services, products, projects and contact options.' : 'افتح بطاقة المزود لمراجعة الخدمات والمنتجات والمشاريع وطرق التواصل.'}</p>
       </div>
-      {providers.length ? <div className="grid grid-cols-1 gap-6 md:grid-cols-2">{providers.map((provider) => <ProviderCard key={provider.slug} item={toCard(provider, locale)} />)}</div> : <div className="rounded-[2rem] border border-dashed border-[#D7C7A7] bg-white p-8 text-center text-sm font-bold leading-7 text-gray-600">{isEn ? 'Verified provider cards will appear here after review.' : 'ستظهر هنا بطاقات المزودين بعد مراجعة واعتماد بياناتهم.'}</div>}
+      {providers.length ? <div className="grid grid-cols-1 gap-6 md:grid-cols-2">{providers.map((provider) => <ProviderCard key={provider.slug} item={toCard(provider, locale)} />)}</div> : <div className="rounded-[2rem] border border-dashed border-[#D7C7A7] bg-white p-8 text-center text-sm font-bold leading-7 text-gray-600">{isEn ? 'Subscribed provider profiles will appear here after their profiles are approved and published.' : 'ستظهر هنا بروفايلات مزودي الخدمة المشتركين بعد اعتماد ملفاتهم ونشرها.'}</div>}
     </section>
   );
 }

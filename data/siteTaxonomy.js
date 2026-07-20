@@ -167,6 +167,34 @@ export const SERVICE_CATEGORIES = [
   { slug: 'transport-logistics', nameAr: 'نقل وشحن', nameEn: 'Transport & Logistics', icon: '🚚', descAr: 'نقل مواد بناء وأثاث وشحن داخلي وبين الإمارات.' }
 ];
 
+// The single presentation source for specialty cards across every emirate and area.
+// Ordering follows SERVICE_CATEGORIES so Arabic and English directory routes cannot drift.
+const SPECIALTY_CARD_META = {
+  'general-contracting': { image: '/images/sector-cards/general-contracting-construction-card.webp', eyebrowAr: 'قطاع البناء', eyebrowEn: 'Construction sector', tagsAr: ['مقاولات', 'بناء', 'تشييد'], tagsEn: ['Contracting', 'Construction', 'Building'] },
+  'engineering-consultants': { image: '/images/sector-cards/engineering-consultants-design-card.webp', eyebrowAr: 'قطاع التصميم', eyebrowEn: 'Design sector', tagsAr: ['تصميم', 'استشارات', 'إشراف'], tagsEn: ['Design', 'Consultancy', 'Supervision'] },
+  'interior-design': { image: '/images/sector-cards/engineering-consultants-design-card.webp', eyebrowAr: 'قطاع التصميم', eyebrowEn: 'Design sector', tagsAr: ['داخلي', 'ديكور', 'مجالس'], tagsEn: ['Interior', 'Decor', 'Majlis'] },
+  'finishing-works': { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع التشطيبات', eyebrowEn: 'Finishing sector', tagsAr: ['دهانات', 'جبس', 'أرضيات'], tagsEn: ['Paint', 'Gypsum', 'Flooring'] },
+  'general-maintenance': { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع الصيانة', eyebrowEn: 'Maintenance sector', tagsAr: ['صيانة', 'إصلاح', 'MEP'], tagsEn: ['Maintenance', 'Repairs', 'MEP'] },
+  'building-materials': { image: '/images/sector-cards/building-materials-stores-card.webp', eyebrowAr: 'قطاع التوريد', eyebrowEn: 'Supply sector', tagsAr: ['مواد بناء', 'متاجر', 'توريد'], tagsEn: ['Materials', 'Stores', 'Supply'] },
+  'furniture-decor': { image: '/images/sector-cards/factories-suppliers-workshops-card.webp', eyebrowAr: 'قطاع الأثاث', eyebrowEn: 'Furniture sector', tagsAr: ['أثاث', 'فرش', 'ديكور'], tagsEn: ['Furniture', 'Furnishing', 'Decor'] },
+  carpentry: { image: '/images/sector-cards/aluminium-glass-wood-card.webp', eyebrowAr: 'قطاع النجارة', eyebrowEn: 'Carpentry sector', tagsAr: ['أبواب', 'خزائن', 'مطابخ'], tagsEn: ['Doors', 'Wardrobes', 'Kitchens'] },
+  electrical: { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع الكهرباء', eyebrowEn: 'Electrical sector', tagsAr: ['تمديدات', 'إنارة', 'لوحات'], tagsEn: ['Wiring', 'Lighting', 'Panels'] },
+  plumbing: { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع السباكة', eyebrowEn: 'Plumbing sector', tagsAr: ['تمديدات', 'تسريبات', 'صحي'], tagsEn: ['Pipes', 'Leaks', 'Sanitary'] },
+  'ac-technicians': { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع التكييف', eyebrowEn: 'AC sector', tagsAr: ['تكييف', 'تبريد', 'داكت'], tagsEn: ['AC', 'Cooling', 'Ducts'] },
+  'aluminium-glass': { image: '/images/sector-cards/aluminium-glass-wood-card.webp', eyebrowAr: 'قطاع الواجهات', eyebrowEn: 'Facade sector', tagsAr: ['ألمنيوم', 'زجاج', 'واجهات'], tagsEn: ['Aluminium', 'Glass', 'Facades'] },
+  'marble-ceramic': { image: '/images/sector-cards/building-materials-stores-card.webp', eyebrowAr: 'قطاع الأرضيات', eyebrowEn: 'Surfaces sector', tagsAr: ['رخام', 'سيراميك', 'بورسلان'], tagsEn: ['Marble', 'Ceramic', 'Porcelain'] },
+  'smart-systems': { image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'قطاع الأنظمة', eyebrowEn: 'Systems sector', tagsAr: ['ذكي', 'كاميرات', 'تحكم'], tagsEn: ['Smart', 'CCTV', 'Control'] },
+  landscaping: { image: '/images/sector-cards/general-contracting-construction-card.webp', eyebrowAr: 'قطاع الحدائق', eyebrowEn: 'Landscape sector', tagsAr: ['حدائق', 'ري', 'خارجي'], tagsEn: ['Gardens', 'Irrigation', 'Outdoor'] },
+  'cleaning-services': { image: '/images/sector-cards/cleaning-equipment-rental-card.webp', eyebrowAr: 'قطاع التنظيف', eyebrowEn: 'Cleaning sector', tagsAr: ['تنظيف', 'تعقيم', 'ما بعد البناء'], tagsEn: ['Cleaning', 'Sanitising', 'Post-build'] },
+  'equipment-rental': { image: '/images/sector-cards/cleaning-equipment-rental-card.webp', eyebrowAr: 'قطاع المعدات', eyebrowEn: 'Equipment sector', tagsAr: ['معدات', 'سقالات', 'مواقع'], tagsEn: ['Equipment', 'Scaffolds', 'Sites'] },
+  'transport-logistics': { image: '/images/sector-cards/factories-suppliers-workshops-card.webp', eyebrowAr: 'قطاع النقل', eyebrowEn: 'Logistics sector', tagsAr: ['نقل', 'شحن', 'مواد'], tagsEn: ['Transport', 'Shipping', 'Materials'] },
+};
+
+export const UAE_DIRECTORY_SPECIALTIES = SERVICE_CATEGORIES.map((service) => ({
+  ...service,
+  ...SPECIALTY_CARD_META[service.slug],
+}));
+
 export function getEmirate(slug) {
   return UAE_EMIRATES.find((item) => item.slug === slug) || null;
 }

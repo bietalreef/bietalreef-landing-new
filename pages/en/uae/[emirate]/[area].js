@@ -5,6 +5,10 @@ import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import UaeActivityProviders from '../../../../components/UaeActivityProviders';
+import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
+import SecondaryHeader from '../../../../components/SecondaryHeader';
+import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
+import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -23,6 +27,7 @@ function EnglishEmirateServiceHub({ emirate, service }) {
         <link rel="alternate" hrefLang="en" href={canonical} />
       </Head>
       <EnglishLayout>
+        <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
           <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${emirate.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} providers and related locations across ${emirate.nameEn}.`} emirate={emirate} service={service} />
           <UaeActivityProviders locale="en" emirate={emirate} service={service} />
@@ -62,18 +67,12 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service 
         <link rel="alternate" hrefLang="en" href={canonical} />
       </Head>
       <EnglishLayout>
+        <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
           <UaeDirectoryHero locale="en" title={`Services in ${area.nameEn}, ${emirate.nameEn}`} description={`Choose the service category that best matches your request in ${area.nameEn}.`} emirate={emirate} area={area} />
-          <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {SERVICE_CATEGORIES.map((item) => (
-              <Link key={item.slug} href={`/en/uae/${emirate.slug}/${area.slug}/${item.slug}`} className="bg-white rounded-2xl border border-[#E6DCC8] p-5 shadow-sm hover:border-[#D4AF37]">
-                <div className="text-3xl mb-3">{item.icon}</div>
-                <h2 className="font-black text-[#0F3F1A] mb-2">{item.nameEn}</h2>
-                <p className="text-sm text-gray-600 leading-6">{item.nameEn} information in {area.nameEn}.</p>
-              </Link>
-            ))}
-          </div></section>
+          <UaeContextInfoCard locale="en" locationLabel={`${area.nameEn}, ${emirate.nameEn}`} title={`Services and specialties available in ${area.nameEn}`} description={`This page shows every Biet Al Reef specialty in ${area.nameEn}. Choose a specialty to open its page and browse provider profiles connected to the location and specialty.`} />
+          <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${area.nameEn}`} description={`Tell Weyaak what your project needs in ${area.nameEn}, and it will help you choose the specialty and reach the right provider or request path.`} />
+          <UaeDirectorySectorCards emirate={emirate} area={area} locale="en" />
         </main>
         <UaeSmartFooter locale="en" pageType="area" emirate={emirate} area={area} />
       </EnglishLayout>

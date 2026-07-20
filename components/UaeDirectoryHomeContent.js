@@ -82,6 +82,30 @@ function Icon({ src, alt, size = 68 }) {
   return <span className="relative block shrink-0" style={{ width: size, height: size }}><Image src={src} alt={alt} fill className="object-contain" sizes={`${size}px`} /></span>;
 }
 
+export function UaeDirectoryExploreFooter({ locale = 'ar', emirate = null, area = null }) {
+  const isEn = locale === 'en';
+  const root = isEn ? '/en/uae' : '/uae';
+  const locationLinks = emirate
+    ? emirate.areas.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${root}/${emirate.slug}/${item.slug}` }))
+    : UAE_EMIRATES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${root}/${item.slug}` }));
+  const serviceRoot = emirate ? `${root}/${emirate.slug}${area ? `/${area.slug}` : ''}` : `${root}/abu-dhabi`;
+  const groups = [
+    { title: emirate ? (isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`) : (isEn ? 'UAE emirates' : 'إمارات الدولة'), text: isEn ? 'Start by location' : 'ابدأ حسب المكان', icon: icons.location, links: locationLinks },
+    { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
+    { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: isEn ? [{ label: 'Building materials', href: '/en/marketplace' }, { label: 'Furniture and decor', href: '/en/marketplace' }, { label: 'Smart systems', href: '/en/marketplace' }] : [{ label: 'مواد البناء', href: '/marketplace' }, { label: 'الأثاث والديكور', href: '/marketplace' }, { label: 'الأنظمة الذكية', href: '/marketplace' }] },
+    { title: isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد', text: isEn ? 'Helpful project resources' : 'أدلة تساعد مشروعك', icon: icons.support, links: isEn ? [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] : [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
+  ];
+
+  return (
+    <section dir={isEn ? 'ltr' : 'rtl'} className="bg-[#FDFBF7] px-4 pb-14 pt-6">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{isEn ? 'Explore the UAE Directory' : 'استكشف دليل الإمارات'}</h2>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{groups.map((item) => <details key={item.title} className="group rounded-[1.35rem] border border-[#E4D6BA] bg-white p-3 shadow-sm"><summary className="cursor-pointer list-none"><div className="flex items-center gap-2"><Icon src={item.icon} alt="" size={46} /><span className="min-w-0"><strong className="block text-sm font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-0.5 block text-[11px] font-semibold text-gray-500">{item.text}</span></span></div></summary><div className="mt-3 max-h-72 space-y-1.5 overflow-y-auto border-t border-[#F0E7D6] pt-3">{item.links.map((link) => <Link key={`${item.title}-${link.href}`} href={link.href} className="block rounded-xl px-2 py-1.5 text-xs font-bold text-gray-650 hover:bg-[#F8F0DA] hover:text-[#0F3F1A]">{link.label}</Link>)}</div></details>)}</div>
+      </div>
+    </section>
+  );
+}
+
 export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
   const isEn = locale === 'en';
   const t = copy[locale];
@@ -114,11 +138,8 @@ export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
           <div className="mt-5 space-y-3">{t.faqs.map(([q, a], index) => <details key={q} open={index === 0} className="group rounded-2xl border border-[#E4D6BA] bg-white px-5 py-4 shadow-sm"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-black text-[#0F3F1A]"><span>{q}</span><span className="text-[#B8922B] transition group-open:rotate-45">＋</span></summary><p className="mt-3 border-t border-[#F0E7D6] pt-3 text-sm font-semibold leading-7 text-gray-600">{a}</p></details>)}</div>
         </section>
 
-        <section>
-          <h2 className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{t.exploreTitle}</h2>
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{t.explore.map((item) => <details key={item.title} className="group rounded-[1.35rem] border border-[#E4D6BA] bg-white p-3 shadow-sm"><summary className="cursor-pointer list-none"><div className="flex items-center gap-2"><Icon src={item.icon} alt="" size={46} /><span className="min-w-0"><strong className="block text-sm font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-0.5 block text-[11px] font-semibold text-gray-500">{item.text}</span></span></div></summary><div className="mt-3 space-y-1.5 border-t border-[#F0E7D6] pt-3">{item.links.map((link) => <Link key={`${item.title}-${link.label}`} href={link.href} className="block rounded-xl px-2 py-1.5 text-xs font-bold text-gray-650 hover:bg-[#F8F0DA] hover:text-[#0F3F1A]">{link.label}</Link>)}</div></details>)}</div>
-        </section>
       </div>
+      <UaeDirectoryExploreFooter locale={locale} />
     </div>
   );
 }

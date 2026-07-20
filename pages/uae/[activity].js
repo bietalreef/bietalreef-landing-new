@@ -64,7 +64,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <Navbar />
         <SecondaryHeader backUrl="/uae" backLabel="العودة إلى دليل الإمارات" />
         <main>
-          <UaeDirectoryHero locale="ar" emirate={emirate} image={atlasImageBySlug[emirate.slug]} imageOnly />
+          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} image={atlasImageBySlug[emirate.slug]} />
 
           {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="ar" /> : <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />}
 
