@@ -64,6 +64,15 @@ export default function ServicesEnglishPage({ services }) {
         <link rel="canonical" href="https://bietalreef.ae/en/services" />
         <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/services" />
         <link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/services" />
+        <meta property="og:title" content="Services & Offers | Biet Al Reef" />
+        <meta property="og:description" content="Construction, maintenance, interior design and project service paths in the UAE." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://bietalreef.ae/en/services" />
+        <meta property="og:image" content="https://bietalreef.ae/images/services-offers-hero.webp" />
+        <meta property="og:image:alt" content="Services & Offers | Biet Al Reef" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Services & Offers | Biet Al Reef" />
+        <meta name="twitter:image" content="https://bietalreef.ae/images/services-offers-hero.webp" />
       </Head>
       <EnglishLayout>
         <SectionBackBar locale="en" />
