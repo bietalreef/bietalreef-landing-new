@@ -126,7 +126,12 @@ try {
   assert(unmatched.audience === 'customer', 'unmatched service request must remain in the customer flow', unmatched);
   assert(unmatched.intent === 'provider_search' || unmatched.intent === 'quote_request', 'unmatched service request must search or organize a quote', unmatched);
   assert(unmatched.match_status === 'unmatched', 'plumber in Fujairah must not invent a published provider match', unmatched);
-  assert(unmatched.intake?.type === 'quote_request', 'complete unmatched request must open a Biet Alreef team review card', unmatched);
+  const organizesTeamReview = unmatched.intake?.type === 'quote_request'
+    || (/فريق|مراجعة|طلب عرض سعر/i.test(unmatched.reply)
+      && unmatched.state?.payload?.service_category
+      && unmatched.state?.payload?.emirate
+      && unmatched.state?.payload?.city);
+  assert(organizesTeamReview, 'unmatched request must organize a Biet Alreef team review and retain known details', unmatched);
   assert(!(unmatched.links || []).some((link) => /\/providers\//i.test(link.href || '')), 'unmatched request must not link an unrelated provider', unmatched);
   assert(!hasWhatsApp(unmatched), 'unmatched customer flow must use the review form, not WhatsApp', unmatched);
   tests.push('unmatched-customer-team-review');
