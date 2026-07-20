@@ -24,7 +24,7 @@ export const arklineProvider = {
   logo: arkleenTemplate.media.logo,
   cover: arkleenTemplate.media.cover,
   locations: [
-    { emirate: 'abu-dhabi', city: 'al-ain', area: 'mazid-company-camp', coverageType: 'area', cityAr: 'العين', cityEn: 'Al Ain', areaAr: 'مزيد - معسكر الشركات', areaEn: 'Mazyad Company Camp' },
+    { emirate: 'abu-dhabi', city: 'al-ain', area: 'mazid-company-camp', coverageType: 'area', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain', areaAr: 'مزيد - معسكر الشركات', areaEn: 'Mazyad Company Camp' },
   ],
   directoryServices: [
     { cardId: 'BR-SRV-ARK-001', slug: 'custom-wooden-kitchens', categorySlug: 'carpentry', titleAr: 'مطابخ خشبية حسب الطلب', titleEn: 'Custom Wooden Kitchens', image: '/images/providers/arkleen-premium/service-custom-kitchens.webp' },
@@ -84,7 +84,7 @@ export const providers = [
     logo: '/images/providers/al-hoot-logo.png',
     cover: '/images/providers/al-hoot/cover.jpg',
     locations: [
-      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', cityAr: 'العين', cityEn: 'Al Ain' },
+      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain' },
       { emirate: 'abu-dhabi', city: 'abu-dhabi-city', coverageType: 'city', cityAr: 'مدينة أبوظبي', cityEn: 'Abu Dhabi City' },
     ],
     directoryServices: [
@@ -138,7 +138,7 @@ export const providers = [
     logo: '/images/providers/alrehab/logo.webp',
     cover: '/images/providers/alrehab/profile-cover.webp',
     locations: [
-      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', cityAr: 'العين', cityEn: 'Al Ain' },
+      { emirate: 'abu-dhabi', city: 'al-ain', coverageType: 'city', isPrimary: true, cityAr: 'العين', cityEn: 'Al Ain' },
       { emirate: 'abu-dhabi', city: 'abu-dhabi-city', coverageType: 'city', cityAr: 'مدينة أبوظبي', cityEn: 'Abu Dhabi City' },
       { emirate: 'dubai', city: 'dubai-city', coverageType: 'city', cityAr: 'دبي', cityEn: 'Dubai' },
     ],
