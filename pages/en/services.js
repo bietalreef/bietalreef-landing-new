@@ -4,6 +4,7 @@ import Link from 'next/link';
 import EnglishLayout from '../../components/EnglishLayout';
 import ServicesSmartFooter from '../../components/ServicesSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
+import SectionBackBar from '../../components/SectionBackBar';
 import { getAllServices } from '../../lib/services-detailed';
 import { getSectorCardImage } from '../../lib/sectorCards';
 import { ArrowLeft, MessageCircle, Search, Wrench, ChevronRight } from 'lucide-react';
@@ -65,6 +66,7 @@ export default function ServicesEnglishPage({ services }) {
         <link rel="alternate" hrefLang="en-AE" href="https://bietalreef.ae/en/services" />
       </Head>
       <EnglishLayout>
+        <SectionBackBar locale="en" />
         <main dir="ltr" className="-mt-[1px] flex-1 bg-[#FDFBF7] text-left [&>section:nth-of-type(2)]:hidden">
           <DiscoveryDirectoryHero type="services" locale="en" />
           <section className="relative isolate overflow-hidden bg-[#FDFBF7]">
