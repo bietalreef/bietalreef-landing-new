@@ -193,11 +193,70 @@ const SPECIALTY_CARD_META = {
 export const UAE_DIRECTORY_SPECIALTIES = SERVICE_CATEGORIES.map((service) => ({
   ...service,
   ...SPECIALTY_CARD_META[service.slug],
+  directoryTitleAr: `مزودو ${service.nameAr}`,
+  directoryTitleEn: `${service.nameEn} Providers`,
+  routeKind: 'providers',
 }));
 
 const directorySpecialtySlugs = UAE_DIRECTORY_SPECIALTIES.map((service) => service.slug);
 if (new Set(directorySpecialtySlugs).size !== directorySpecialtySlugs.length) {
   throw new Error('Duplicate UAE directory specialty slug detected in siteTaxonomy');
+}
+
+const SERVICE_OFFER_SLUGS = [
+  'general-contracting',
+  'engineering-consultants',
+  'general-maintenance',
+  'carpentry',
+  'equipment-rental',
+  'building-materials',
+  'furniture-decor',
+  'cleaning-services',
+];
+
+export const UAE_SERVICE_OFFER_CATEGORIES = [
+  ...SERVICE_OFFER_SLUGS.map((slug) => {
+    const service = SERVICE_CATEGORIES.find((item) => item.slug === slug);
+    return {
+      ...service,
+      ...SPECIALTY_CARD_META[slug],
+      directoryTitleAr: `خدمة ${service.nameAr}`,
+      directoryTitleEn: `${service.nameEn} Service`,
+      routeKind: 'services',
+    };
+  }),
+  {
+    slug: 'workshops',
+    nameAr: 'الورش الصناعية',
+    nameEn: 'Industrial Workshops',
+    directoryTitleAr: 'خدمات الورش الصناعية',
+    directoryTitleEn: 'Industrial Workshop Services',
+    descAr: 'خدمات التصنيع والتجهيز والتنفيذ حسب متطلبات المشروع.',
+    image: '/images/sector-cards/factories-suppliers-workshops-card.webp',
+    eyebrowAr: 'الخدمات والعروض',
+    eyebrowEn: 'Services & offers',
+    tagsAr: ['ورش', 'تصنيع', 'تجهيز'],
+    tagsEn: ['Workshops', 'Fabrication', 'Fit-out'],
+    routeKind: 'services',
+  },
+];
+
+export const UAE_PRODUCT_CATEGORIES = [
+  { slug: 'building-materials', nameAr: 'مواد البناء الأساسية', nameEn: 'Core Building Materials', directoryTitleAr: 'مواد البناء الأساسية', directoryTitleEn: 'Core Building Materials', descAr: 'أسمنت وحديد وبلوك وعزل ومواد أساسية للمشروع.', image: '/images/sector-cards/building-materials-stores-card.webp', eyebrowAr: 'المنتجات والمتاجر', eyebrowEn: 'Products & stores', tagsAr: ['أسمنت', 'حديد', 'عزل'], tagsEn: ['Cement', 'Steel', 'Insulation'], routeKind: 'products' },
+  { slug: 'finishing-works', nameAr: 'مواد التشطيب والديكور', nameEn: 'Finishing & Decor Materials', directoryTitleAr: 'مواد التشطيب والديكور', directoryTitleEn: 'Finishing & Decor Materials', descAr: 'رخام وسيراميك وبورسلان ودهانات ومنتجات التشطيب.', image: '/images/sector-cards/factories-suppliers-workshops-card.webp', eyebrowAr: 'المنتجات والمتاجر', eyebrowEn: 'Products & stores', tagsAr: ['رخام', 'سيراميك', 'دهانات'], tagsEn: ['Marble', 'Ceramic', 'Paint'], routeKind: 'products' },
+  { slug: 'smart-systems', nameAr: 'الإنارة والأنظمة الذكية', nameEn: 'Lighting & Smart Systems', directoryTitleAr: 'الإنارة والأنظمة الذكية', directoryTitleEn: 'Lighting & Smart Systems', descAr: 'حلول الإنارة والتحكم المنزلي والكاميرات والأنظمة الذكية.', image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp', eyebrowAr: 'المنتجات والمتاجر', eyebrowEn: 'Products & stores', tagsAr: ['إنارة', 'تحكم', 'كاميرات'], tagsEn: ['Lighting', 'Control', 'CCTV'], routeKind: 'products' },
+  { slug: 'furniture-decor', nameAr: 'الأثاث والمفروشات', nameEn: 'Furniture & Furnishings', directoryTitleAr: 'الأثاث والمفروشات', directoryTitleEn: 'Furniture & Furnishings', descAr: 'أثاث ومطابخ ومفروشات وتجهيزات داخلية للمشروع.', image: '/images/sector-cards/aluminium-glass-wood-card.webp', eyebrowAr: 'المنتجات والمتاجر', eyebrowEn: 'Products & stores', tagsAr: ['أثاث', 'مطابخ', 'مفروشات'], tagsEn: ['Furniture', 'Kitchens', 'Furnishings'], routeKind: 'products' },
+];
+
+export const UAE_DIRECTORY_SECTIONS = [
+  { key: 'providers', titleAr: 'مزودو الخدمات', titleEn: 'Service Providers', descAr: 'اختر التخصص لعرض بروفايلات مزودي الخدمة المشتركين حسب الإمارة.', descEn: 'Choose a specialty to browse subscribed provider profiles by emirate.', items: UAE_DIRECTORY_SPECIALTIES },
+  { key: 'services', titleAr: 'الخدمات والعروض', titleEn: 'Services & Offers', descAr: 'اختر الخدمة أو العرض المناسب ثم أضف تفاصيل مشروعك وموقعه.', descEn: 'Choose a service or offer, then add your project details and location.', items: UAE_SERVICE_OFFER_CATEGORIES },
+  { key: 'products', titleAr: 'المنتجات والمتاجر', titleEn: 'Products & Stores', descAr: 'اختر فئة المادة أو المنتج للوصول إلى المتاجر والموردين ومسار التسعير.', descEn: 'Choose a material or product category to reach stores, suppliers and pricing.', items: UAE_PRODUCT_CATEGORIES },
+];
+
+for (const section of UAE_DIRECTORY_SECTIONS) {
+  const slugs = section.items.map((item) => item.slug);
+  if (new Set(slugs).size !== slugs.length) throw new Error(`Duplicate card in UAE directory section: ${section.key}`);
 }
 
 export function getEmirate(slug) {
