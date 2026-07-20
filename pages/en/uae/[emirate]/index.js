@@ -8,6 +8,7 @@ import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import AbuDhabiDirectoryIntro from '../../../../components/AbuDhabiDirectoryIntro';
+import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../../data/uaeAtlasImages';
 
@@ -58,9 +59,9 @@ export default function EnglishEmiratePage({ emirate }) {
         <Navbar locale="en" />
         <SecondaryHeader locale="en" backUrl="/en/uae" backLabel="Back to UAE Directory" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" title={isAbuDhabi ? 'Biet Al Reef services in Abu Dhabi' : `Biet Al Reef services in ${emirate.nameEn}`} description={description} emirate={emirate} image={atlasImageBySlug[emirate.slug]} />
+          <UaeDirectoryHero locale="en" title={isAbuDhabi ? 'Biet Al Reef services in Abu Dhabi' : `Biet Al Reef services in ${emirate.nameEn}`} description={description} emirate={emirate} image={atlasImageBySlug[emirate.slug]} cleanNavigation />
 
-          {isAbuDhabi && <AbuDhabiDirectoryIntro locale="en" />}
+          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="en" /> : <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${emirate.nameEn}`} description={`Tell Weyaak what your project needs in ${emirate.nameEn}, and it will guide you to the right provider, service or offer, product or store.`} />}
 
           {showSeoProof && <SeoProofCardsEn title="Real service path inside Abu Dhabi Directory" desc="The Abu Dhabi page now connects SEO traffic to a verified marble and granite provider, a service path, a product intent and a quotation step instead of staying as generic directory content." />}
 

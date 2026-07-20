@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SecondaryHeader from '../../components/SecondaryHeader';
-import ClientRequestCard from '../../components/ClientRequestCard';
 import SeoContent from '../../components/SeoContent';
 import FAQ from '../../components/FAQ';
 import UaeSmartFooter from '../../components/UaeSmartFooter';
@@ -10,6 +9,7 @@ import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../components/UaeDirectoryHero';
 import AbuDhabiDirectoryIntro from '../../components/AbuDhabiDirectoryIntro';
+import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
 
@@ -64,9 +64,9 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <Navbar />
         <SecondaryHeader backUrl="/uae" backLabel="العودة إلى دليل الإمارات" />
         <main>
-          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} image={atlasImageBySlug[emirate.slug]} />
+          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} image={atlasImageBySlug[emirate.slug]} cleanNavigation />
 
-          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="ar" /> : <ClientRequestCard title={`تبحث عن مزود خدمة في ${emirate.nameAr}؟`} desc="اختر النشاط المطلوب أولاً، أو أرسل تفاصيل مشروعك مباشرة عبر وياك." buttonText={`اطلب عرض سعر في ${emirate.nameAr}`} />}
+          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="ar" /> : <UaeDirectoryWeyaakCard locale="ar" title={`وياك في ${emirate.nameAr}`} description={`أخبر وياك بما يحتاجه مشروعك في ${emirate.nameAr}، وسيساعدك في الوصول إلى مزود الخدمة أو الخدمة والعرض أو المنتج والمتجر المناسب.`} />}
 
           {showAlHootSeoPath && <SeoProofCards title="مسار حقيقي داخل صفحة أبوظبي" desc="هذه الصفحة لا تكتفي بنص SEO عام. يوجد داخلها مثال واضح لمسار العميل: مزود موثق للرخام والجرانيت، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة أو عرض سعر مرتبطة بملف مصنع الحوت." />}
 
