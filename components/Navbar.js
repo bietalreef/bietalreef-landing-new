@@ -101,7 +101,10 @@ export default function Navbar({ locale = 'ar' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
-  const languageHref = isEnglish ? '/' : '/en';
+  const currentPath = (router.asPath || router.pathname || '/').split('?')[0];
+  const languageHref = isEnglish
+    ? (currentPath.replace(/^\/en(?=\/|$)/, '') || '/')
+    : `/en${currentPath === '/' ? '' : currentPath}`;
   const prefix = isEnglish ? '/en' : '';
   const labels = isEnglish ? {
     home: 'Home', uae: 'UAE Directory', providers: 'Service Providers', services: 'Services & Offers', marketplace: 'Products & Stores',
@@ -122,7 +125,7 @@ export default function Navbar({ locale = 'ar' }) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir={isEnglish ? 'ltr' : 'rtl'}>
           <Link href={isEnglish ? '/en' : '/'} className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
               <Image src="/logo.png" alt={isEnglish ? 'Biet Al Reef' : 'بيت الريف'} width={44} height={44} className="h-full w-full object-contain" priority />

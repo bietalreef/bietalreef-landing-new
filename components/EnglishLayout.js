@@ -23,6 +23,7 @@ import {
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../data/uaeAtlasImages';
 import Footer from './Footer';
+import Navbar from './Navbar';
 
 const primaryLinks = [
   { href: '/en', label: 'Home', icon: Home },
@@ -209,6 +210,23 @@ export default function EnglishLayout({ children }) {
   const englishUaePath = router.asPath?.split('?')[0] || router.pathname;
   const isEnglishUaeIndex = englishUaePath === '/en/uae';
   const isEnglishUaeRoute = isEnglishUaeIndex || englishUaePath.startsWith('/en/uae/');
+
+  if (isEnglishUaeRoute) {
+    return (
+      <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
+        <style jsx global>{`
+          .english-readable main :where(h1, h2, h3, h4, p, li, span, a, button),
+          .english-footer-text,
+          .english-footer-text :where(p, a, li, h2, span) {
+            unicode-bidi: plaintext;
+          }
+        `}</style>
+        <Navbar locale="en" />
+        <div className="english-readable">{children}</div>
+        <Footer locale="en" showRequestCTA={false} />
+      </div>
+    );
+  }
 
   return (
     <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
