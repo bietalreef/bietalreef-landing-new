@@ -23,7 +23,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}/${area.slug}`} backLabel={`Back to ${area.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${area.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} information and provider paths for ${area.nameEn}, ${emirate.nameEn}.`} emirate={emirate} area={area} service={service} />
+          <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${area.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} information and provider paths for ${area.nameEn}, ${emirate.nameEn}.`} emirate={emirate} area={area} service={service} cleanNavigation />
           <UaeContextInfoCard locale="en" locationLabel={`${area.nameEn}, ${emirate.nameEn}`} title={`About ${service.nameEn} in ${area.nameEn}`} description={`This page places ${service.nameEn.toLowerCase()} in its correct location context and provides a clear path back to the area and emirate or forward to a project request.`} />
           <UaeDirectoryWeyaakCard locale="en" title={`Ask Weyaak about ${service.nameEn} in ${area.nameEn}`} description="Share the service details, measurements or available photos, and Weyaak will help structure and route the request by location and specialty." />
           <UaeActivityProviders locale="en" emirate={emirate} area={area} service={service} />

@@ -33,7 +33,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}/${areaSlug}`} backLabel={`العودة إلى ${area.nameAr}`} />
         <main>
-          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} area={area} service={service} />
+          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} area={area} service={service} cleanNavigation />
           <UaeContextInfoCard locale="ar" locationLabel={`${area.nameAr}، ${emirate.nameAr}`} title={`عن خدمة ${service.nameAr} في ${area.nameAr}`} description={`${service.descAr} تعرض الصفحة هذا التخصص ضمن موقعه الصحيح، مع مسار واضح للعودة إلى المنطقة والإمارة أو الانتقال إلى الطلب.`} />
           <UaeDirectoryWeyaakCard locale="ar" title={`اسأل وياك عن ${service.nameAr} في ${area.nameAr}`} description="أرسل تفاصيل الخدمة والمقاسات أو الصور المتاحة، وسيساعدك وياك في ترتيب الطلب وتوجيهه حسب المكان والتخصص." />
           <UaeActivityProviders locale="ar" emirate={emirate} area={area} service={service} />

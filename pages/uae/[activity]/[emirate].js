@@ -41,7 +41,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
         <main>
-          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} />
+          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} cleanNavigation />
           <ClientRequestCard title={`تحتاج ${service.nameAr} في ${emirate.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم توجيه الطلب حسب النشاط والمنطقة المناسبة." buttonText="اطلب عرض سعر الآن" />
           <UaeActivityProviders locale="ar" emirate={emirate} service={service} />
           {showAlHootPath && (
@@ -95,7 +95,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
 
         <main>
-          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} area={area} />
+          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} area={area} cleanNavigation />
 
           <UaeContextInfoCard locale="ar" locationLabel={`${area.nameAr}، ${emirate.nameAr}`} title={`الخدمات والتخصصات المتاحة في ${area.nameAr}`} description={`تعرض هذه الصفحة جميع تخصصات المنصة داخل ${area.nameAr}. اختر التخصص المطلوب للانتقال إلى صفحته واستعراض مزودي الخدمة المرتبطين بالمكان والتخصص.`} />
 

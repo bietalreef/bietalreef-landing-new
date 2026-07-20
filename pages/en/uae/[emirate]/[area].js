@@ -29,7 +29,7 @@ function EnglishEmirateServiceHub({ emirate, service }) {
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${emirate.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} providers and related locations across ${emirate.nameEn}.`} emirate={emirate} service={service} />
+          <UaeDirectoryHero locale="en" title={`${service.nameEn} in ${emirate.nameEn}`} description={`Explore ${service.nameEn.toLowerCase()} providers and related locations across ${emirate.nameEn}.`} emirate={emirate} service={service} cleanNavigation />
           <UaeActivityProviders locale="en" emirate={emirate} service={service} />
           <section className="max-w-7xl mx-auto px-4 py-10 md:py-14">
             <section className="bg-white rounded-3xl border border-[#E6DCC8] p-6 md:p-8 shadow-sm">
@@ -69,7 +69,7 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service 
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" title={`Services in ${area.nameEn}, ${emirate.nameEn}`} description={`Choose the service category that best matches your request in ${area.nameEn}.`} emirate={emirate} area={area} />
+          <UaeDirectoryHero locale="en" title={`Services in ${area.nameEn}, ${emirate.nameEn}`} description={`Choose the service category that best matches your request in ${area.nameEn}.`} emirate={emirate} area={area} cleanNavigation />
           <UaeContextInfoCard locale="en" locationLabel={`${area.nameEn}, ${emirate.nameEn}`} title={`Services and specialties available in ${area.nameEn}`} description={`This page shows every Biet Al Reef specialty in ${area.nameEn}. Choose a specialty to open its page and browse provider profiles connected to the location and specialty.`} />
           <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${area.nameEn}`} description={`Tell Weyaak what your project needs in ${area.nameEn}, and it will help you choose the specialty and reach the right provider or request path.`} />
           <UaeDirectorySectorCards emirate={emirate} area={area} locale="en" />
