@@ -4,6 +4,7 @@ import EnglishLayout from '../../../components/EnglishLayout';
 import { Search, Star, Zap } from 'lucide-react';
 import SectionBackBar from '../../../components/SectionBackBar';
 import ProductsSmartFooter from '../../../components/ProductsSmartFooter';
+import SectionCategoryHero from '../../../components/SectionCategoryHero';
 
 const categories = {
   'building-materials': {
@@ -61,18 +62,7 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
       <EnglishLayout>
         <SectionBackBar locale="en" href="/en/marketplace" label="Back to Products & Stores" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-            <Link href="/en/marketplace" className="inline-flex rounded-full border border-[#E6DCC8] bg-white px-4 py-2 text-sm font-black text-[#0F3F1A] hover:border-[#D4AF37]">
-              ← Back to Products & Stores
-            </Link>
-
-            <header className="mt-10 text-center">
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white text-5xl shadow-sm border border-[#E6DCC8]">{category.icon}</div>
-              <p className="mb-3 font-black text-[#B8922B]">Products & Stores category</p>
-              <h1 className="text-4xl font-black leading-tight text-[#0F3F1A] md:text-6xl">{category.title}</h1>
-              <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-600">{category.desc}</p>
-            </header>
-          </section>
+          <SectionCategoryHero locale="en" type="products" title={category.title} description={category.desc} image={category.image} />
 
           <section className="mx-auto max-w-6xl px-4 pb-16">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">

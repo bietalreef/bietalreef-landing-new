@@ -5,6 +5,7 @@ import EnglishLayout from '../../components/EnglishLayout';
 import ServicesSmartFooter from '../../components/ServicesSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../../components/SectionBackBar';
+import YouTubeVideoSection from '../../components/YouTubeVideoSection';
 import { getAllServices } from '../../lib/services-detailed';
 import { getSectorCardImage } from '../../lib/sectorCards';
 import { ArrowLeft, MessageCircle, Search, Wrench, ChevronRight } from 'lucide-react';
@@ -110,6 +111,7 @@ export default function ServicesEnglishPage({ services }) {
           </section>
 
           <section className="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24"><div className="max-w-6xl mx-auto px-4"><h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">How do you choose the right service?</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-8"><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">1️⃣</div><h3 className="font-bold text-lg mb-3">Define the service</h3><p className="text-gray-600 text-sm">Start from the type of work required: contracting, maintenance, carpentry, marble or another service.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">2️⃣</div><h3 className="font-bold text-lg mb-3">Add the details</h3><p className="text-gray-600 text-sm">Location, measurements, photos and required materials help guide the request.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">3️⃣</div><h3 className="font-bold text-lg mb-3">Request a quotation</h3><p className="text-gray-600 text-sm">We do not rely on a general price. The correct price needs project details.</p></div></div></div></section>
+          <YouTubeVideoSection locale="en" videoId="ST8u4b8g2zs" />
           <ServicesSmartFooter locale="en" />
         </main>
       </EnglishLayout>
