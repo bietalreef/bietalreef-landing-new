@@ -206,7 +206,9 @@ export default function EnglishLayout({ children }) {
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const closeMenu = () => setOpen(false);
-  const isEnglishUaePage = router.pathname === '/en/uae' || router.asPath?.split('?')[0] === '/en/uae';
+  const englishUaePath = router.asPath?.split('?')[0] || router.pathname;
+  const isEnglishUaeIndex = englishUaePath === '/en/uae';
+  const isEnglishUaeRoute = isEnglishUaeIndex || englishUaePath.startsWith('/en/uae/');
 
   return (
     <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
@@ -305,9 +307,9 @@ export default function EnglishLayout({ children }) {
         </div>
       )}
 
-      {isEnglishUaePage ? <EnglishUaeDirectoryPremium /> : <div className="english-readable">{children}</div>}
+      {isEnglishUaeIndex ? <EnglishUaeDirectoryPremium /> : <div className="english-readable">{children}</div>}
 
-      <Footer locale="en" />
+      <Footer locale="en" showRequestCTA={!isEnglishUaeRoute} />
     </div>
   );
 }

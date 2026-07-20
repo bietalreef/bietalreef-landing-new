@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
-import ClientRequestCard from '../../../../components/ClientRequestCard';
 import FAQ from '../../../../components/FAQ';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../../components/SeoProofCards';
@@ -46,7 +45,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
           <UaeSmartFooter locale="ar" pageType="service" emirate={emirate} area={area} service={service} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );

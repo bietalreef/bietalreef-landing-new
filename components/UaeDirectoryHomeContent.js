@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
+import UaeProviderJoinCTA from './UaeProviderJoinCTA';
 
 const icons = {
   provider: '/images/ui-icons-3d/provider-worker.webp',
@@ -125,13 +126,7 @@ export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
           {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]">←</span></Link>)}
         </section>
 
-        <section className="overflow-hidden rounded-[2rem] border border-[#D9B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] shadow-[0_20px_55px_rgba(138,106,0,.10)]">
-          <div className="grid items-center gap-5 p-6 md:grid-cols-[190px_1fr_auto] md:p-8">
-            <div className="mx-auto"><Icon src={icons.workshop} alt="" size={150} /></div>
-            <div><h2 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-3xl">{t.providerTitle}</h2><p className="mt-3 text-sm font-semibold leading-8 text-gray-650 md:text-base">{t.providerText}</p></div>
-            <Link href={isEn ? '/en/providers/register' : '/providers/register'} className="inline-flex min-h-[52px] items-center justify-center rounded-2xl bg-[#0F3F1A] px-6 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#B8922B]">{t.providerButton} ←</Link>
-          </div>
-        </section>
+        <UaeProviderJoinCTA locale={locale} />
 
         <section>
           <h2 className="text-center text-3xl font-black text-[#0F3F1A]">{t.faqTitle}</h2>

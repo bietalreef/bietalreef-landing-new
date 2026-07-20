@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SecondaryHeader from '../../../components/SecondaryHeader';
-import ClientRequestCard from '../../../components/ClientRequestCard';
 import SeoContent from '../../../components/SeoContent';
 import FAQ from '../../../components/FAQ';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
@@ -42,7 +41,6 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
         <main>
           <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} cleanNavigation />
-          <ClientRequestCard title={`تحتاج ${service.nameAr} في ${emirate.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم توجيه الطلب حسب النشاط والمنطقة المناسبة." buttonText="اطلب عرض سعر الآن" />
           <UaeActivityProviders locale="ar" emirate={emirate} service={service} />
           {showAlHootPath && (
             <SeoProofCards
@@ -57,7 +55,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
           <UaeSmartFooter locale="ar" pageType="emirateService" emirate={emirate} service={service} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
@@ -110,7 +108,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
           <FAQ items={faqItems} title={`أسئلة شائعة حول الخدمات في ${area.nameAr}`} />
           <UaeSmartFooter locale="ar" pageType="area" emirate={emirate} area={area} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
