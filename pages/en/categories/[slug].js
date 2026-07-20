@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../../data/siteTaxonomy';
+import { getSectorCardImage } from '../../../lib/sectorCards';
 
 export default function EnglishCategoryPage({ service }) {
   const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
@@ -13,6 +14,12 @@ export default function EnglishCategoryPage({ service }) {
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/categories/${service.slug}`} />
         <link rel="alternate" hrefLang="en" href={canonical} />
+        <meta property="og:title" content={`${service.nameEn} in the UAE | Biet Al Reef`} />
+        <meta property="og:description" content={`Find ${service.nameEn.toLowerCase()} pages across UAE emirates, cities and service areas through Biet Al Reef.`} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={`https://bietalreef.ae${getSectorCardImage(service.slug)}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`https://bietalreef.ae${getSectorCardImage(service.slug)}`} />
       </Head>
       <EnglishLayout>
         <main className="max-w-7xl mx-auto px-4 py-14 md:py-20">

@@ -5,10 +5,10 @@ import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
 
 const categories = [
-  { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️' },
-  { id: 'finishing-works', title: 'مواد التشطيب والديكور', desc: 'رخام، سيراميك، بورسلان، وأرضيات خشبية فاخرة.', icon: '✨' },
-  { id: 'smart-systems', title: 'الإنارة والأنظمة الذكية', desc: 'حلول إضاءة داخلية وخارجية وأنظمة التحكم المنزلي.', icon: '💡' },
-  { id: 'furniture-decor', title: 'الأثاث والمفروشات', desc: 'أثاث غرف النوم والمعيشة والمطابخ بتصاميم عصرية.', icon: '🛋️' }
+  { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
+  { id: 'finishing-works', title: 'مواد التشطيب والديكور', desc: 'رخام، سيراميك، بورسلان، وأرضيات خشبية فاخرة.', icon: '✨', image: '/images/sector-cards/factories-suppliers-workshops-card.webp' },
+  { id: 'smart-systems', title: 'الإنارة والأنظمة الذكية', desc: 'حلول إضاءة داخلية وخارجية وأنظمة التحكم المنزلي.', icon: '💡', image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp' },
+  { id: 'furniture-decor', title: 'الأثاث والمفروشات', desc: 'أثاث غرف النوم والمعيشة والمطابخ بتصاميم عصرية.', icon: '🛋️', image: '/images/sector-cards/aluminium-glass-wood-card.webp' }
 ];
 
 export default function MarketplaceCategoryPage({ category }) {
@@ -51,6 +51,7 @@ export default function MarketplaceCategoryPage({ category }) {
         description={description}
         keywords={`${category.title}, منتجات البناء, مواد التشطيب, المنتجات والمتاجر, بيت الريف`}
         canonicalPath={`/marketplace/${category.id}`}
+        ogImage={`https://bietalreef.ae${category.image}`}
         structuredData={structuredData}
         breadcrumbs={[{ name: 'المنتجات والمتاجر', href: '/marketplace' }, { name: category.title, href: `/marketplace/${category.id}` }]}
       />

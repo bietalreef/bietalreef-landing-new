@@ -8,6 +8,7 @@ import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
 import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import AbuDhabiDirectoryIntro from '../../../../components/AbuDhabiDirectoryIntro';
+import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../../data/uaeAtlasImages';
 
@@ -48,6 +49,8 @@ export default function EnglishEmiratePage({ emirate }) {
         <meta property="og:image" content={shareImage} />
         <meta property="og:image:secure_url" content={shareImage} />
         <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:width" content="1600" />
+        <meta property="og:image:height" content="1000" />
         <meta property="og:image:alt" content={isAbuDhabi ? 'Abu Dhabi services, products and suppliers directory by Biet Al Reef' : `${emirate.nameEn} construction and services directory`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
@@ -56,11 +59,11 @@ export default function EnglishEmiratePage({ emirate }) {
       </Head>
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
-        <div dir="rtl"><SecondaryHeader backUrl="/en/uae" backLabel="Back to UAE Directory" /></div>
+        <SecondaryHeader locale="en" backUrl="/en/uae" backLabel="Back to UAE Directory" />
         <main dir="ltr" className="bg-[#FDFBF7] text-left">
-          <UaeDirectoryHero locale="en" emirate={emirate} image={atlasImageBySlug[emirate.slug]} imageOnly />
+          <UaeDirectoryHero locale="en" title={isAbuDhabi ? 'Biet Al Reef services in Abu Dhabi' : `Biet Al Reef services in ${emirate.nameEn}`} description={description} emirate={emirate} image={atlasImageBySlug[emirate.slug]} cleanNavigation />
 
-          {isAbuDhabi && <AbuDhabiDirectoryIntro locale="en" />}
+          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="en" /> : <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${emirate.nameEn}`} description={`Tell Weyaak what your project needs in ${emirate.nameEn}, and it will guide you to the right provider, service or offer, product or store.`} />}
 
           {showSeoProof && <SeoProofCardsEn title="Real service path inside Abu Dhabi Directory" desc="The Abu Dhabi page now connects SEO traffic to a verified marble and granite provider, a service path, a product intent and a quotation step instead of staying as generic directory content." />}
 

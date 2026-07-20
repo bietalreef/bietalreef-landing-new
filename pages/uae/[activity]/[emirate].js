@@ -1,15 +1,17 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import SecondaryHeader from '../../../components/SecondaryHeader';
-import ClientRequestCard from '../../../components/ClientRequestCard';
 import SeoContent from '../../../components/SeoContent';
 import FAQ from '../../../components/FAQ';
 import UaeSmartFooter from '../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../components/SeoProofCards';
 import UaeDirectoryHero from '../../../components/UaeDirectoryHero';
 import UaeActivityProviders from '../../../components/UaeActivityProviders';
+import UaeDirectorySectorCards from '../../../components/UaeDirectorySectorCards';
+import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
+import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
+import UaeDirectorySeo from '../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -29,17 +31,12 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={`صفحة ${title} داخل دليل الإمارات مع روابط المناطق والخدمات المرتبطة ومسارات طلب حقيقية عند توفر مزودين موثقين.`} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${service.slug}`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={title} description={`صفحة ${title} داخل دليل الإمارات مع مزودي الخدمة والمناطق والمسارات المرتبطة.`} path={`/uae/${emirateSlug}/${service.slug}`} alternatePath={`/en/uae/${emirateSlug}/${service.slug}`} emirate={emirate} service={service} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
         <main>
-          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} />
-          <ClientRequestCard title={`تحتاج ${service.nameAr} في ${emirate.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم توجيه الطلب حسب النشاط والمنطقة المناسبة." buttonText="اطلب عرض سعر الآن" />
+          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} service={service} cleanNavigation />
           <UaeActivityProviders locale="ar" emirate={emirate} service={service} />
           {showAlHootPath && (
             <SeoProofCards
@@ -54,7 +51,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
           <UaeSmartFooter locale="ar" pageType="emirateService" emirate={emirate} service={service} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
@@ -81,36 +78,20 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
 
   return (
     <>
-      <Head>
-        <title>{pageData.h1} | بيت الريف</title>
-        <meta name="description" content={pageData.desc} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${areaSlug}`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={pageData.h1} description={pageData.desc} path={`/uae/${emirateSlug}/${areaSlug}`} alternatePath={`/en/uae/${emirateSlug}/${areaSlug}`} emirate={emirate} />
 
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={area.nameAr} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
 
         <main>
-          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} area={area} />
+          <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} area={area} cleanNavigation />
 
-          <ClientRequestCard title={`تبحث عن خدمة في ${area.nameAr}؟`} desc="حدد نوع الخدمة المطلوبة وسيتم توجيه طلبك حسب المنطقة والتخصص المناسب." buttonText={`اطلب عرض سعر في ${area.nameAr}`} />
+          <UaeContextInfoCard locale="ar" locationLabel={`${area.nameAr}، ${emirate.nameAr}`} title={`الخدمات والتخصصات المتاحة في ${area.nameAr}`} description={`تعرض هذه الصفحة جميع تخصصات المنصة داخل ${area.nameAr}. اختر التخصص المطلوب للانتقال إلى صفحته واستعراض مزودي الخدمة المرتبطين بالمكان والتخصص.`} />
 
-          <section className="max-w-6xl mx-auto px-4 py-16">
-            <div className="mb-10">
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900">اختر الخدمة في {area.nameAr}</h2>
-              <p className="mt-3 text-gray-600 leading-8">هذه الصفحة باقية كامتداد جغرافي قديم، بينما صفحة الإمارة الرئيسية أصبحت تعرض الأنشطة مباشرة.</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SERVICE_CATEGORIES.map((item) => (
-                <Link key={item.slug} href={`/uae/${emirateSlug}/${areaSlug}/${item.slug}`} className="group bg-white rounded-2xl border border-[#E6DCC8] p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-                  <div className="text-3xl mb-4">{item.icon}</div>
-                  <h3 className="text-lg font-black text-gray-900 group-hover:text-primary transition">{item.nameAr} في {area.nameAr}</h3>
-                  <p className="mt-3 text-sm text-gray-500 leading-7">{item.descAr}</p>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <UaeDirectoryWeyaakCard locale="ar" title={`وياك في ${area.nameAr}`} description={`أخبر وياك بما يحتاجه مشروعك في ${area.nameAr}، وسيساعدك في تحديد التخصص والوصول إلى مزود الخدمة أو مسار الطلب المناسب.`} />
+
+          <UaeDirectorySectorCards emirate={emirate} area={area} locale="ar" />
 
           <SeoContent title={`${area.nameAr} في دليل بيت الريف`}>
             <p>صفحة {area.nameAr} داخل {emirate.nameAr} تربط الموقع بالخدمات المتاحة، مع الحفاظ على الروابط الجغرافية ومسار تصفح واضح.</p>
@@ -119,7 +100,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
           <FAQ items={faqItems} title={`أسئلة شائعة حول الخدمات في ${area.nameAr}`} />
           <UaeSmartFooter locale="ar" pageType="area" emirate={emirate} area={area} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );

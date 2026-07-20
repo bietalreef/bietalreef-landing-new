@@ -1,12 +1,14 @@
-import Head from 'next/head';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
-import ClientRequestCard from '../../../../components/ClientRequestCard';
 import FAQ from '../../../../components/FAQ';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCards from '../../../../components/SeoProofCards';
 import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
+import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
+import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
+import UaeActivityProviders from '../../../../components/UaeActivityProviders';
+import UaeDirectorySeo from '../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -22,23 +24,15 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={`دليل ${title} داخل ${emirate.nameAr} مع توجيه لطلب عرض سعر مناسب ومسارات مزودين موثقين عند توفرهم.`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={title} description={`دليل ${title} داخل ${emirate.nameAr} مع بروفايلات مزودي الخدمة ومسارات المنطقة المرتبطة.`} path={`/uae/${emirateSlug}/${areaSlug}/${service.slug}`} alternatePath={`/en/uae/${emirateSlug}/${areaSlug}/${service.slug}`} emirate={emirate} service={service} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}/${areaSlug}`} backLabel={`العودة إلى ${area.nameAr}`} />
         <main>
-          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} area={area} service={service} />
-          <ClientRequestCard title={`تحتاج ${service.nameAr} في ${area.nameAr}؟`} desc="أرسل تفاصيل مشروعك وسيتم تجهيز الطلب حسب المكان والخدمة المطلوبة." buttonText="اطلب عرض سعر الآن" />
-          <section className="max-w-6xl mx-auto px-4 py-12">
-            <div className="rounded-3xl bg-white border border-[#E6DCC8] p-8 shadow-sm">
-              <h2 className="text-2xl font-black mb-4">ماذا تجد هنا؟</h2>
-              <p className="text-gray-600 leading-8">صفحة مخصصة لخدمة {service.nameAr} في {area.nameAr}، مبنية على ترتيب: الإمارة ثم المنطقة ثم الخدمة.</p>
-              {showAlHootPath && <p className="mt-4 text-gray-600 leading-8">ولأن هذه الخدمة مرتبطة بالرخام أو مواد البناء أو التشطيبات، تم إضافة مربع عملي يثبت وجود مسار مزود/خدمة/منتج داخل نفس الصفحة.</p>}
-            </div>
-          </section>
+          <UaeDirectoryHero locale="ar" title={title} description={service.descAr} emirate={emirate} area={area} service={service} cleanNavigation />
+          <UaeContextInfoCard locale="ar" locationLabel={`${area.nameAr}، ${emirate.nameAr}`} title={`عن خدمة ${service.nameAr} في ${area.nameAr}`} description={`${service.descAr} تعرض الصفحة هذا التخصص ضمن موقعه الصحيح، مع مسار واضح للعودة إلى المنطقة والإمارة أو الانتقال إلى الطلب.`} />
+          <UaeDirectoryWeyaakCard locale="ar" title={`اسأل وياك عن ${service.nameAr} في ${area.nameAr}`} description="أرسل تفاصيل الخدمة والمقاسات أو الصور المتاحة، وسيساعدك وياك في ترتيب الطلب وتوجيهه حسب المكان والتخصص." />
+          <UaeActivityProviders locale="ar" emirate={emirate} area={area} service={service} />
           {showAlHootPath && (
             <SeoProofCards
               title={`مزود وخدمة ومنتج داخل صفحة ${title}`}
@@ -48,7 +42,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${title}`} />
           <UaeSmartFooter locale="ar" pageType="service" emirate={emirate} area={area} service={service} />
         </main>
-        <Footer />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
