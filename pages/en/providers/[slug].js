@@ -4,6 +4,7 @@ import Image from 'next/image';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { providers } from '../../../data/providers';
 import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Gem, ChevronDown, ExternalLink, Users, Hammer, Layers, ArrowRight, Factory, Navigation, BadgeCheck } from 'lucide-react';
+import GenericProviderProfile from '../../../components/GenericProviderProfile';
 
 const serviceLabels = {
   'رخام طبيعي': 'Natural Marble',
@@ -31,6 +32,8 @@ export default function EnglishProviderProfilePage({ provider }) {
       </>
     );
   }
+
+  if (provider.slug === 'alrehab-cleaning-sanitizing') return <GenericProviderProfile provider={provider} locale="en" />;
 
   const description = provider.descriptionEn || provider.nameEn;
   const canonical = `https://bietalreef.ae/en/providers/${provider.slug}`;
