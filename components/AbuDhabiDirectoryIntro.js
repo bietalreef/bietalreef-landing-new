@@ -23,25 +23,30 @@ const copy = {
 };
 
 function Icon({ src }) {
-  return <span className="relative block h-12 w-12 shrink-0 sm:h-11 sm:w-11 lg:h-14 lg:w-14"><Image src={src} alt="" fill className="object-contain" sizes="56px" /></span>;
+  return (
+    <span className="relative block h-10 w-10 shrink-0 sm:h-11 sm:w-11 lg:h-14 lg:w-14">
+      <Image src={src} alt="" fill className="object-contain" sizes="56px" />
+    </span>
+  );
 }
 
 export default function AbuDhabiDirectoryIntro({ locale = 'ar' }) {
   const isEn = locale === 'en';
   const t = copy[locale];
+
   return (
-    <div dir={isEn ? 'ltr' : 'rtl'} className="pt-8 md:pt-10">
+    <div dir={isEn ? 'ltr' : 'rtl'} className="relative z-10 bg-[#FDFBF7] pt-0">
       <UaeDirectoryWeyaakCard locale={locale} context="abu-dhabi" />
 
-      <section className="mx-auto max-w-6xl px-4 pt-7">
+      <section className="mx-auto max-w-6xl px-4">
         <div className={`${isEn ? 'text-left' : 'text-right'} rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-[0_16px_38px_rgba(18,58,70,.06)] md:p-8`}>
           <h2 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-3xl">{t.title}</h2>
           <p className="mt-4 text-base font-semibold leading-8 text-gray-600 md:text-lg md:leading-9">{t.text}</p>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-3 min-[560px]:grid-cols-3 sm:gap-4">
+        <div className="mt-5 grid auto-cols-[82%] grid-flow-col gap-3 overflow-x-auto pb-2 sm:auto-cols-auto sm:grid-flow-row sm:grid-cols-3 sm:overflow-visible sm:pb-0 sm:gap-4">
           {t.cards.map((item) => (
-            <article key={item.title} className="flex min-h-[150px] flex-col items-center justify-center rounded-[1.5rem] border border-[#E4D6BA] bg-white px-3 py-4 text-center shadow-[0_10px_28px_rgba(18,58,70,.04)] sm:min-h-[170px] sm:px-3 lg:px-5">
+            <article key={item.title} className="flex min-h-[150px] flex-col items-center justify-center rounded-[1.5rem] border border-[#E4D6BA] bg-white px-3 py-4 text-center shadow-[0_10px_28px_rgba(18,58,70,.04)] sm:min-h-[170px] lg:px-5">
               <Icon src={item.icon} />
               <h3 className="mt-2 text-sm font-black leading-6 text-[#0F3F1A] sm:text-[15px] lg:text-lg">{item.title}</h3>
               <p className="mt-2 text-xs font-semibold leading-6 text-gray-600 sm:text-[12px] lg:text-sm lg:leading-7">{item.text}</p>
