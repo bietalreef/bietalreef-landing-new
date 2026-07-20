@@ -181,4 +181,4 @@ export async function getStaticProps({ params }) {
   return { props: { provider }, revalidate: 3600 };
 }
 
-export async function getStaticPaths() { return { paths: providers.map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }
+export async function getStaticPaths() { return { paths: providers.filter((provider) => provider.slug !== 'alrehab-cleaning-sanitizing').map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }
