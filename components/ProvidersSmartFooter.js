@@ -99,7 +99,7 @@ export default function ProvidersSmartFooter({ locale = 'ar' }) {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {providerActions.map((item) => (
             <Link key={item.hrefAr} href={hrefFor(locale, item)} className="group rounded-[1.6rem] border border-[#E6DCC8] bg-white p-4 shadow-[0_16px_36px_rgba(18,58,70,0.06)] transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-2xl hover:shadow-[#123A46]/10">
-              <IconBadge icon={item.icon} />
+              <div className="mb-3"><IconBadge icon={item.icon} /></div>
               <h3 className="text-base font-black leading-7 text-[#0F3F1A]">{labelFor(locale, item)}</h3>
               <p className="mt-2 text-xs font-semibold leading-6 text-gray-500">{isEn ? 'Go to the right provider action.' : 'انتقل مباشرة إلى إجراء مناسب لمزود الخدمة.'}</p>
             </Link>
