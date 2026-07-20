@@ -7,6 +7,7 @@ import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data
 import { getSectorCardImage } from '../../lib/sectorCards';
 import SectionBackBar from '../../components/SectionBackBar';
 import ServicesSmartFooter from '../../components/ServicesSmartFooter';
+import SectionCategoryHero from '../../components/SectionCategoryHero';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -71,15 +72,7 @@ export default function ServiceLandingPage({ service }) {
         <Navbar pageTitle="الخدمات والعروض" />
         <SectionBackBar href="/services" label="العودة إلى الخدمات والعروض" />
         <main>
-          <section className="bg-[#0F3F1A] text-white">
-            <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">
-              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F4D35E]">الخدمات والعروض</span>
-              <div className="mt-6 text-5xl">{service.icon}</div>
-              <h1 className="mt-6 text-3xl md:text-5xl font-black leading-tight">{service.nameAr}</h1>
-              <p className="mt-6 max-w-3xl text-lg leading-9 text-white/90 mx-auto md:mx-0">{service.descAr}</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center md:justify-start"><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">اطلب عرض سعر</a><Link href="/services" className="rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-black text-white">كل الخدمات والعروض</Link></div>
-            </div>
-          </section>
+          <SectionCategoryHero locale="ar" type="services" title={service.nameAr} description={service.descAr} image={getSectorCardImage(service.slug)} />
 
           <section className="max-w-6xl mx-auto px-4 py-14">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
