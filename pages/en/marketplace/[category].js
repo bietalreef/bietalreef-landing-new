@@ -3,6 +3,7 @@ import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
 import { Search, Star, Zap } from 'lucide-react';
 import SectionBackBar from '../../../components/SectionBackBar';
+import ProductsSmartFooter from '../../../components/ProductsSmartFooter';
 
 const categories = {
   'building-materials': {
