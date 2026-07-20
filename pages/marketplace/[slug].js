@@ -5,6 +5,7 @@ import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
 import SectionBackBar from '../../components/SectionBackBar';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
+import SectionCategoryHero from '../../components/SectionCategoryHero';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
@@ -61,18 +62,7 @@ export default function MarketplaceCategoryPage({ category }) {
         <Navbar pageTitle="المنتجات والمتاجر" />
         <SectionBackBar href="/marketplace" label="العودة إلى المنتجات والمتاجر" />
         <main>
-          <section className="bg-[#0F3F1A] text-white">
-            <div className="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center md:text-right">
-              <span className="inline-block rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F4D35E]">المنتجات والمتاجر</span>
-              <div className="mt-6 text-5xl">{category.icon}</div>
-              <h1 className="mt-6 text-3xl md:text-5xl font-black leading-tight">{category.title}</h1>
-              <p className="mt-6 max-w-3xl text-lg leading-9 text-white/90 mx-auto md:mx-0">{category.desc}</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">اطلب عرض سعر</a>
-                <Link href="/marketplace" className="rounded-2xl border border-white/20 bg-white/10 px-8 py-4 font-black text-white">كل المنتجات والمتاجر</Link>
-              </div>
-            </div>
-          </section>
+          <SectionCategoryHero locale="ar" type="products" title={category.title} description={category.desc} image={category.image} />
 
           <section className="max-w-6xl mx-auto px-4 py-14">
             <div className="rounded-[2rem] bg-white border border-[#E6DCC8] p-8 shadow-sm">
