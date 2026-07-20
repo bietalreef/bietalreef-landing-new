@@ -41,6 +41,14 @@ function locationLabel(provider, emirateSlug, locale) {
   }).filter(Boolean).join(isEn ? ' · ' : ' · ');
 }
 
+function primaryLocationLabel(provider, locale) {
+  const isEn = locale === 'en';
+  const location = providerLocations(provider).find((item) => item.isPrimary) || providerLocations(provider)[0];
+  if (!location) return '';
+  const place = isEn ? location.areaEn || location.cityEn || location.area || location.city : location.areaAr || location.cityAr || location.area || location.city;
+  return place;
+}
+
 function DirectoryProviderCard({ provider, emirateSlug, locale }) {
   const isEn = locale === 'en';
   const name = isEn ? provider.nameEn || provider.nameAr : provider.nameAr;
@@ -58,7 +66,8 @@ function DirectoryProviderCard({ provider, emirateSlug, locale }) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">{name}</h3>
-            <p className="mt-2 flex items-center gap-1.5 text-sm font-bold text-[#6B5530]"><MapPin className="h-4 w-4" />{locationLabel(provider, emirateSlug, locale)}</p>
+            <p className="mt-2 flex items-center gap-1.5 text-sm font-bold text-[#6B5530]"><MapPin className="h-4 w-4" />{isEn ? 'Provider location:' : 'موقع المزود:'} {primaryLocationLabel(provider, locale)}</p>
+            <p className="mt-1 text-xs font-bold leading-6 text-gray-500">{isEn ? 'Service coverage:' : 'نطاق تقديم الخدمة:'} {locationLabel(provider, emirateSlug, locale)}</p>
           </div>
           {provider.verified ? <BadgeCheck className="h-6 w-6 shrink-0 text-[#B8860B]" aria-label={isEn ? 'Verified' : 'موثّق'} /> : null}
         </div>
