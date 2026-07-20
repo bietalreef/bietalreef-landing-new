@@ -1,4 +1,5 @@
-import Head from 'next/head';
+import SEOHead from '../../../components/SEOHead';
+import ProvidersSmartFooter from '../../../components/ProvidersSmartFooter';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -18,11 +19,14 @@ export default function ProviderSpecialtyPage({ service, matchedProviders }) {
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={desc} />
-        <link rel="canonical" href={'https://bietalreef.ae/providers/specialty/' + service.slug} />
-      </Head>
+      <SEOHead
+        title={`${title} | بيت الريف`}
+        description={desc}
+        canonicalPath={`/providers/specialty/${service.slug}`}
+        alternatePath={`/en/providers/specialty/${service.slug}`}
+        ogImage={`https://bietalreef.ae${service.image || '/images/providers-hero.webp'}`}
+        breadcrumbs={[{ name: 'مزودو الخدمات', href: '/providers' }, { name: service.nameAr, href: `/providers/specialty/${service.slug}` }]}
+      />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="مزودو الخدمات" />
         <SectionBackBar href="/providers" label="العودة إلى مزودي الخدمات" />
@@ -80,7 +84,8 @@ export default function ProviderSpecialtyPage({ service, matchedProviders }) {
 
           <FAQ items={faqItems} title={'أسئلة شائعة حول ' + title} />
         </main>
-        <Footer />
+        <ProvidersSmartFooter locale="ar" />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
