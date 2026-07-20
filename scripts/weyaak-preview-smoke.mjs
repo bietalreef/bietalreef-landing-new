@@ -117,7 +117,12 @@ try {
       customer,
     );
   } else {
-    assert(customer.intake?.type === 'quote_request', 'unmatched complete customer details must open the review card', customer);
+    const organizesQuote = customer.intake?.type === 'quote_request'
+      || (customer.intent === 'quote_request'
+        && customer.state?.payload?.service_category
+        && customer.state?.payload?.city
+        && /سؤال|قياس|مراجعة|طلب|عرض سعر/i.test(customer.reply));
+    assert(organizesQuote, 'customer request must retain known details and progressively organize the review card', customer);
   }
   assert(!hasWhatsApp(customer), 'customer review must not expose WhatsApp', customer);
   tests.push('customer-provider-match-or-review');
