@@ -1,13 +1,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { UAE_ATLAS_IMAGES } from '../data/uaeAtlasImages';
+import { getSectorCardImage } from '../lib/sectorCards';
+
+const emirateHeroBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
 export default function UaeDirectoryHero({ locale = 'ar', title, description, emirate, area, service, image, imageOnly = false, cleanNavigation = false }) {
   const isEn = locale === 'en';
   const dir = isEn ? 'ltr' : 'rtl';
   const Arrow = isEn ? ChevronRight : ChevronLeft;
   const root = isEn ? '/en/uae' : '/uae';
-  const imageSrc = image || `/images/seo/emirates/${emirate?.slug || 'abu-dhabi'}.webp`;
+  const imageSrc = image || (service ? getSectorCardImage(service.slug) : emirateHeroBySlug[emirate?.slug]) || UAE_ATLAS_IMAGES.heroDesktop;
+  const imageAlt = service
+    ? (isEn ? `${service.nameEn} services in ${area?.nameEn || emirate?.nameEn || 'the UAE'}` : `خدمات ${service.nameAr} في ${area?.nameAr || emirate?.nameAr || 'الإمارات'}`)
+    : title;
   const crumbs = [
     { label: isEn ? 'UAE Directory' : 'دليل الإمارات', href: root },
     emirate && { label: isEn ? emirate.nameEn : emirate.nameAr, href: `${root}/${emirate.slug}` },
@@ -22,7 +29,7 @@ export default function UaeDirectoryHero({ locale = 'ar', title, description, em
           <div className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] bg-[#071A2F] md:aspect-[16/8] md:rounded-[2.35rem]">
             <Image
               src={imageSrc}
-              alt=""
+              alt={imageAlt}
               fill
               priority
               className="object-cover object-center"
@@ -52,7 +59,7 @@ export default function UaeDirectoryHero({ locale = 'ar', title, description, em
             <p className="mt-5 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">{description}</p>
           </div>
           <div className="relative min-h-[250px] overflow-hidden border-t border-[#E6DCC8] bg-[#EEE4D2] lg:min-h-[390px] lg:border-s lg:border-t-0">
-            <Image src={imageSrc} alt="" fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 44vw" />
+            <Image src={imageSrc} alt={imageAlt} fill priority className="object-cover" sizes="(max-width: 1024px) 100vw, 44vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10" />
           </div>
         </div>

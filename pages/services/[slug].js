@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import FAQ from '../../components/FAQ';
 import SEOHead from '../../components/SEOHead';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
+import { getSectorCardImage } from '../../lib/sectorCards';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -63,7 +64,7 @@ export default function ServiceLandingPage({ service }) {
 
   return (
     <>
-      <SEOHead title={`${title} | بيت الريف`} description={desc} keywords={`${service.nameAr}, خدمات ${service.nameAr}, عروض ${service.nameAr}, مقاولات الإمارات, بيت الريف`} canonicalPath={`/services/${service.slug}`} structuredData={structuredData} breadcrumbs={[{ name: 'الخدمات والعروض', href: '/services' }, { name: service.nameAr, href: `/services/${service.slug}` }]} />
+      <SEOHead title={`${title} | بيت الريف`} description={desc} keywords={`${service.nameAr}, خدمات ${service.nameAr}, عروض ${service.nameAr}, مقاولات الإمارات, بيت الريف`} canonicalPath={`/services/${service.slug}`} ogImage={`${SITE_URL}${getSectorCardImage(service.slug)}`} structuredData={structuredData} breadcrumbs={[{ name: 'الخدمات والعروض', href: '/services' }, { name: service.nameAr, href: `/services/${service.slug}` }]} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900">
         <Navbar pageTitle="الخدمات والعروض" />
         <main>

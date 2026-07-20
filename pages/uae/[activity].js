@@ -54,6 +54,8 @@ export default function EmiratePage({ emirate, emirateSlug }) {
         <meta property="og:image" content={shareImage} />
         <meta property="og:image:secure_url" content={shareImage} />
         <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:width" content="1600" />
+        <meta property="og:image:height" content="1000" />
         <meta property="og:image:alt" content={isAbuDhabi ? 'دليل أبوظبي للخدمات والمنتجات والموردين في بيت الريف' : `دليل خدمات البناء والمقاولات في ${emirate.nameAr}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />

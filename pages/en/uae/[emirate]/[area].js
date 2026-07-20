@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../components/EnglishLayout';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
@@ -9,23 +8,17 @@ import UaeDirectorySectorCards from '../../../../components/UaeDirectorySectorCa
 import SecondaryHeader from '../../../../components/SecondaryHeader';
 import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
+import UaeDirectorySeo from '../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
 function EnglishEmirateServiceHub({ emirate, service }) {
-  const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${service.slug}`;
   const showSeoProof = false;
 
   return (
     <>
-      <Head>
-        <title>{`${service.nameEn} in ${emirate.nameEn} | Biet Al Reef`}</title>
-        <meta name="description" content={`Service hub for ${service.nameEn.toLowerCase()} in ${emirate.nameEn}, with related areas and provider paths.`} />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${service.slug}`} />
-        <link rel="alternate" hrefLang="en" href={canonical} />
-      </Head>
+      <UaeDirectorySeo locale="en" title={`${service.nameEn} in ${emirate.nameEn}`} description={`Service hub for ${service.nameEn.toLowerCase()} in ${emirate.nameEn}, with subscribed providers and related areas.`} path={`/en/uae/${emirate.slug}/${service.slug}`} alternatePath={`/uae/${emirate.slug}/${service.slug}`} emirate={emirate} service={service} />
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">
@@ -56,16 +49,9 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service 
     return <EnglishEmirateServiceHub emirate={emirate} service={service} />;
   }
 
-  const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${area.slug}`;
   return (
     <>
-      <Head>
-        <title>{`${area.nameEn} Service Categories | Biet Al Reef`}</title>
-        <meta name="description" content={`Browse construction, maintenance, design and building service categories in ${area.nameEn}, ${emirate.nameEn}.`} />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}`} />
-        <link rel="alternate" hrefLang="en" href={canonical} />
-      </Head>
+      <UaeDirectorySeo locale="en" title={`Services in ${area.nameEn}, ${emirate.nameEn}`} description={`Browse providers, services and offers, products and stores in ${area.nameEn}, ${emirate.nameEn}.`} path={`/en/uae/${emirate.slug}/${area.slug}`} alternatePath={`/uae/${emirate.slug}/${area.slug}`} emirate={emirate} />
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}`} backLabel={`Back to ${emirate.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">

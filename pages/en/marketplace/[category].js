@@ -8,24 +8,28 @@ const categories = {
     title: 'Basic Building Materials',
     desc: 'Cement, reinforcement steel, blocks and essential insulation materials for construction projects.',
     icon: '🏗️',
+    image: '/images/sector-cards/building-materials-stores-card.webp',
     items: ['Cement and concrete materials', 'Reinforcement steel', 'Blocks and masonry', 'Insulation materials'],
   },
   'finishing-works': {
     title: 'Finishing and Décor Materials',
     desc: 'Marble, ceramic, porcelain, quartz and premium finishing materials for villas, homes and commercial spaces.',
     icon: '✨',
+    image: '/images/sector-cards/factories-suppliers-workshops-card.webp',
     items: ['Marble and granite', 'Quartz surfaces', 'Ceramic and porcelain', 'Premium finishing materials'],
   },
   'smart-systems': {
     title: 'Lighting and Smart Systems',
     desc: 'Indoor and outdoor lighting solutions, smart home systems, control devices and related installation products.',
     icon: '💡',
+    image: '/images/sector-cards/maintenance-finishing-ac-plumbing-electrical-card.webp',
     items: ['Indoor lighting', 'Outdoor lighting', 'Smart control systems', 'CCTV and network support'],
   },
   'furniture-decor': {
     title: 'Furniture and Furnishings',
     desc: 'Furniture, décor, kitchens, curtains, carpets and furnishing paths for residential and commercial projects.',
     icon: '🛋️',
+    image: '/images/sector-cards/aluminium-glass-wood-card.webp',
     items: ['Living room furniture', 'Bedroom furniture', 'Kitchens and cabinets', 'Decor and accessories'],
   },
 };
@@ -42,6 +46,12 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href={`https://bietalreef.ae/marketplace/${slug}`} />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
+        <meta property="og:title" content={`${category.title} | Products & Stores | Biet Al Reef`} />
+        <meta property="og:description" content={`${category.title} inside Biet Al Reef Products & Stores.`} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={`https://bietalreef.ae${category.image}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`https://bietalreef.ae${category.image}`} />
       </Head>
 
       <EnglishLayout>

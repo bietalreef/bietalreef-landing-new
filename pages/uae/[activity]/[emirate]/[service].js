@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
@@ -9,6 +8,7 @@ import UaeDirectoryHero from '../../../../components/UaeDirectoryHero';
 import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
 import UaeActivityProviders from '../../../../components/UaeActivityProviders';
+import UaeDirectorySeo from '../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -24,10 +24,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={`دليل ${title} داخل ${emirate.nameAr} مع توجيه لطلب عرض سعر مناسب ومسارات مزودين موثقين عند توفرهم.`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={title} description={`دليل ${title} داخل ${emirate.nameAr} مع بروفايلات مزودي الخدمة ومسارات المنطقة المرتبطة.`} path={`/uae/${emirateSlug}/${areaSlug}/${service.slug}`} alternatePath={`/en/uae/${emirateSlug}/${areaSlug}/${service.slug}`} emirate={emirate} service={service} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}/${areaSlug}`} backLabel={`العودة إلى ${area.nameAr}`} />

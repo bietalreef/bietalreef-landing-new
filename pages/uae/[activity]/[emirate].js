@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -12,6 +11,7 @@ import UaeActivityProviders from '../../../components/UaeActivityProviders';
 import UaeDirectorySectorCards from '../../../components/UaeDirectorySectorCards';
 import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
+import UaeDirectorySeo from '../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
@@ -31,11 +31,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={`صفحة ${title} داخل دليل الإمارات مع روابط المناطق والخدمات المرتبطة ومسارات طلب حقيقية عند توفر مزودين موثقين.`} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${service.slug}`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={title} description={`صفحة ${title} داخل دليل الإمارات مع مزودي الخدمة والمناطق والمسارات المرتبطة.`} path={`/uae/${emirateSlug}/${service.slug}`} alternatePath={`/en/uae/${emirateSlug}/${service.slug}`} emirate={emirate} service={service} />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={title} />
         <SecondaryHeader backUrl={`/uae/${emirateSlug}`} backLabel={`العودة إلى ${emirate.nameAr}`} />
@@ -82,11 +78,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
 
   return (
     <>
-      <Head>
-        <title>{pageData.h1} | بيت الريف</title>
-        <meta name="description" content={pageData.desc} />
-        <link rel="canonical" href={`https://bietalreef.ae/uae/${emirateSlug}/${areaSlug}`} />
-      </Head>
+      <UaeDirectorySeo locale="ar" title={pageData.h1} description={pageData.desc} path={`/uae/${emirateSlug}/${areaSlug}`} alternatePath={`/en/uae/${emirateSlug}/${areaSlug}`} emirate={emirate} />
 
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
         <Navbar pageTitle={area.nameAr} />

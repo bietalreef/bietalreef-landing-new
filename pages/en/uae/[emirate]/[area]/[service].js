@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import EnglishLayout from '../../../../../components/EnglishLayout';
 import UaeSmartFooter from '../../../../../components/UaeSmartFooter';
@@ -7,19 +6,13 @@ import SecondaryHeader from '../../../../../components/SecondaryHeader';
 import UaeDirectoryWeyaakCard from '../../../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../../../components/UaeContextInfoCard';
 import UaeActivityProviders from '../../../../../components/UaeActivityProviders';
+import UaeDirectorySeo from '../../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
 
 export default function EnglishLocalServicePage({ emirate, area, service }) {
-  const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}/${area.slug}/${service.slug}`;
   return (
     <>
-      <Head>
-        <title>{`${service.nameEn} in ${area.nameEn}, ${emirate.nameEn} | Biet Al Reef`}</title>
-        <meta name="description" content={`Find information about ${service.nameEn.toLowerCase()} in ${area.nameEn}, ${emirate.nameEn}.`} />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar" href={`https://bietalreef.ae/uae/${emirate.slug}/${area.slug}/${service.slug}`} />
-        <link rel="alternate" hrefLang="en" href={canonical} />
-      </Head>
+      <UaeDirectorySeo locale="en" title={`${service.nameEn} in ${area.nameEn}, ${emirate.nameEn}`} description={`Browse ${service.nameEn.toLowerCase()} provider profiles and related paths in ${area.nameEn}, ${emirate.nameEn}.`} path={`/en/uae/${emirate.slug}/${area.slug}/${service.slug}`} alternatePath={`/uae/${emirate.slug}/${area.slug}/${service.slug}`} emirate={emirate} service={service} />
       <EnglishLayout>
         <SecondaryHeader locale="en" backUrl={`/en/uae/${emirate.slug}/${area.slug}`} backLabel={`Back to ${area.nameEn}`} />
         <main className="bg-[#FDFBF7] text-left">

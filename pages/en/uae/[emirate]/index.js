@@ -49,6 +49,8 @@ export default function EnglishEmiratePage({ emirate }) {
         <meta property="og:image" content={shareImage} />
         <meta property="og:image:secure_url" content={shareImage} />
         <meta property="og:image:type" content="image/webp" />
+        <meta property="og:image:width" content="1600" />
+        <meta property="og:image:height" content="1000" />
         <meta property="og:image:alt" content={isAbuDhabi ? 'Abu Dhabi services, products and suppliers directory by Biet Al Reef' : `${emirate.nameEn} construction and services directory`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
