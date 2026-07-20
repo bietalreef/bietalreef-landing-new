@@ -6,6 +6,7 @@ import SEOHead from '../../components/SEOHead';
 import { SERVICE_CATEGORIES, UAE_EMIRATES, getServiceCategory } from '../../data/siteTaxonomy';
 import { getSectorCardImage } from '../../lib/sectorCards';
 import SectionBackBar from '../../components/SectionBackBar';
+import ServicesSmartFooter from '../../components/ServicesSmartFooter';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -116,7 +117,8 @@ export default function ServiceLandingPage({ service }) {
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${service.nameAr}`} />
         </main>
-        <Footer />
+        <ServicesSmartFooter locale="ar" />
+        <Footer showRequestCTA={false} />
       </div>
     </>
   );
