@@ -57,7 +57,8 @@ export default function Services({ services }) {
         title="الخدمات والعروض | مقاولات، صيانة، تصميم داخلي، مواد بناء في الإمارات"
         description="قسم الخدمات والعروض في بيت الريف: اختر الخدمة المطلوبة في البناء والصيانة والتصميم والمواد، ثم اطلب عرض سعر حسب تفاصيل مشروعك."
         keywords="خدمات بناء الإمارات, عروض مقاولات, صيانة, تصميم داخلي, سباكة, كهرباء, تكييف, دهانات, نجارة, مواد بناء"
-        ogImage="https://bietalreef.ae/og-weyaak.jpg"
+        canonicalPath="/services"
+        ogImage="https://bietalreef.ae/images/services-offers-hero.webp"
         structuredData={servicesItemListSchema}
         breadcrumbs={[{ name: "الخدمات والعروض", item: "https://bietalreef.ae/services" }]}
       />
