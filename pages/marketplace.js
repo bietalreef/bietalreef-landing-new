@@ -66,6 +66,8 @@ export default function MarketplacePage() {
         title="المنتجات والمتاجر | مواد البناء والتشطيب والأثاث في الإمارات"
         description="قسم المنتجات والمتاجر في بيت الريف: مواد بناء، تشطيبات، أنظمة ذكية، وأثاث. مسار مستقل عن الخدمات ودليل الإمارات."
         keywords="منتجات بناء, مواد بناء, متاجر تشطيب, موردين, رخام, سيراميك, أثاث"
+        canonicalPath="/marketplace"
+        ogImage="https://bietalreef.ae/images/materials-products-hero.webp"
         structuredData={structuredData}
       />
       <Navbar pageTitle="المنتجات والمتاجر" />
