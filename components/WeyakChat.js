@@ -5,14 +5,16 @@ import {
 } from 'lucide-react';
 import { applyAnswerToWeyaakState } from '../lib/weyaakConversationState';
 
-const QUICK_ACTIONS = [
-  { label: 'أحتاج خدمة', message: 'أنا عميل وأحتاج خدمة.' },
-  { label: 'أبحث عن مزود', message: 'أنا عميل وأبحث عن مزود خدمة مناسب.' },
-  { label: 'طلب عرض سعر', message: 'أريد تجهيز طلب عرض سعر.' },
-  { label: 'مناقصة أو مشروع', message: 'أريد تسجيل مناقصة أو مشروع.' },
-  { label: 'لدي نشاط تجاري', message: 'لدي شركة أو نشاط تجاري وأريد الانضمام.' },
-  { label: 'استفسار بلدي', message: 'لدي استفسار قانوني أو بلدي يتعلق بأعمال البناء.' },
-];
+const AUDIENCE_ACTIONS = {
+  ar: [
+    { label: 'أنا مستخدم وأبحث عن خدمة', message: 'أنا مستخدم أو عميل وأبحث عن خدمة.' },
+    { label: 'أنا مزود خدمة', message: 'أنا مزود خدمة وصاحب نشاط تجاري.' },
+  ],
+  en: [
+    { label: 'I need a service', message: 'I am a customer looking for a service.' },
+    { label: 'I am a provider', message: 'I am a service provider and business owner.' },
+  ],
+};
 
 function IntakeCard({ intake, disabled, onSubmitted }) {
   const [values, setValues] = useState(intake?.defaults || {});
@@ -299,6 +301,7 @@ export default function WeyakChat({ embedded = false }) {
   };
 
   const hasUserMessages = messages.some((message) => message.role === 'user');
+  const isEnglish = pageContext.path?.startsWith('/en') || (typeof window !== 'undefined' && window.location.pathname.startsWith('/en'));
 
   return (
     <>
@@ -361,10 +364,10 @@ export default function WeyakChat({ embedded = false }) {
             <div className="rounded-2xl border border-[#DDE8E1] bg-[#F4F8F5] p-3">
               <div className="mb-3 flex items-center gap-2 text-xs font-bold text-[#1B4D3E]">
                 <ShieldCheck className="h-4 w-4" />
-                اختر البداية المناسبة، ووياك يرتب الباقي معك خطوة بخطوة
+                {isEnglish ? 'First, tell Weyaak which journey you need' : 'أولًا، حدد لوياك نوع رحلتك'}
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                {QUICK_ACTIONS.map((action) => (
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {AUDIENCE_ACTIONS[isEnglish ? 'en' : 'ar'].map((action) => (
                   <button
                     key={action.label}
                     type="button"
