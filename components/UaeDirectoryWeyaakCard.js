@@ -42,7 +42,7 @@ export default function UaeDirectoryWeyaakCard({ locale = 'ar', context = 'home'
             <p className="mt-1.5 text-sm font-semibold leading-6 text-gray-600 md:text-base">{description}</p>
           </div>
         </div>
-        <Link href={t.href} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 text-sm font-black text-white shadow-md shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]">
+        <Link href={t.href} data-weyaak-title={title} data-weyaak-section={isEnglish ? 'UAE Directory' : 'دليل الإمارات'} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 text-sm font-black text-white shadow-md shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]">
           {t.action}
           <Arrow size={17} aria-hidden="true" />
         </Link>
