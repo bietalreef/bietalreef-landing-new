@@ -98,14 +98,14 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
                   placeholder={field.placeholder || ''}
                   rows={3}
                   disabled={disabled || submitting}
-                  className="w-full resize-none rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-xs leading-6 outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
+                  className="w-full resize-none rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-base sm:text-xs leading-6 outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
                 />
               ) : field.type === 'select' ? (
                 <select
                   value={values[field.name] || ''}
                   onChange={(event) => updateValue(field.name, event.target.value)}
                   disabled={disabled || submitting}
-                  className="w-full rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-xs outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
+                  className="w-full rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-base sm:text-xs outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
                 >
                   <option value="">اختر</option>
                   {(field.options || []).map((option) => (
@@ -119,7 +119,7 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
                   onChange={(event) => updateValue(field.name, event.target.value)}
                   placeholder={field.placeholder || ''}
                   disabled={disabled || submitting}
-                  className="w-full rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-xs outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
+                  className="w-full rounded-xl border border-[#D7E2DA] bg-white px-3 py-2.5 text-base sm:text-xs outline-none transition focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/10"
                 />
               )}
             </label>
@@ -193,8 +193,8 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
   );
 }
 
-export default function WeyakChat({ embedded = false }) {
-  const [isOpen, setIsOpen] = useState(embedded);
+export default function WeyakChat({ embedded = false, standalone = false }) {
+  const [isOpen, setIsOpen] = useState(embedded || standalone);
   const [pageContext, setPageContext] = useState({});
   const [messages, setMessages] = useState([
     {
@@ -214,7 +214,8 @@ export default function WeyakChat({ embedded = false }) {
   }, [messages, isOpen]);
 
   useEffect(() => {
-    if (embedded) return undefined;
+    if (standalone) setIsOpen(true);
+    if (embedded || standalone) return undefined;
     const openChat = (event) => {
       const context = event?.detail && typeof event.detail === 'object' ? event.detail : {};
       setPageContext(context);
@@ -229,7 +230,7 @@ export default function WeyakChat({ embedded = false }) {
     };
     window.addEventListener('weyaak:open', openChat);
     return () => window.removeEventListener('weyaak:open', openChat);
-  }, [embedded]);
+  }, [embedded, standalone]);
 
   const sendMessage = async (rawMessage) => {
     const userMessage = String(rawMessage || '').trim();
@@ -305,7 +306,7 @@ export default function WeyakChat({ embedded = false }) {
 
   return (
     <>
-      {!embedded && (
+      {!embedded && !standalone && (
         <button
           type="button"
           onClick={() => setIsOpen(true)}
@@ -326,7 +327,7 @@ export default function WeyakChat({ embedded = false }) {
       )}
 
       <div
-        className={`${embedded ? 'relative h-[660px] w-full' : 'fixed bottom-6 right-6 z-50 h-[680px] max-h-[84vh] w-[94vw] sm:w-[430px]'} flex origin-bottom-right transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-all duration-300 ${
+        className={`${standalone ? 'fixed inset-x-0 bottom-0 top-[70px] z-40 h-auto w-full rounded-none sm:inset-x-auto sm:bottom-4 sm:right-4 sm:top-[86px] sm:w-[min(520px,calc(100vw-2rem))] sm:rounded-2xl' : embedded ? 'relative h-[660px] w-full' : 'fixed bottom-6 right-6 z-50 h-[680px] max-h-[84vh] w-[94vw] sm:w-[430px]'} flex origin-bottom-right transform flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl transition-all duration-300 ${
           isOpen ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-10 scale-95 opacity-0'
         }`}
         role="dialog"
@@ -345,7 +346,7 @@ export default function WeyakChat({ embedded = false }) {
               <p className="text-xs text-green-100 opacity-90">وكيل خدمة العملاء ومزودي الخدمات</p>
             </div>
           </div>
-          {!embedded && (
+          {!embedded && !standalone && (
             <button
               type="button"
               onClick={() => setIsOpen(false)}
@@ -373,7 +374,7 @@ export default function WeyakChat({ embedded = false }) {
                     type="button"
                     disabled={isLoading}
                     onClick={() => void sendMessage(action.message)}
-                    className="rounded-xl border border-[#D5E3D9] bg-white px-3 py-2.5 text-xs font-bold text-[#1B4D3E] transition hover:border-[#1B4D3E] hover:bg-[#F8FBF9] disabled:opacity-50"
+                    className="rounded-xl border border-[#D5E3D9] bg-white px-3 py-2.5 text-base sm:text-xs font-bold text-[#1B4D3E] transition hover:border-[#1B4D3E] hover:bg-[#F8FBF9] disabled:opacity-50"
                   >
                     {action.label}
                   </button>
@@ -454,7 +455,7 @@ export default function WeyakChat({ embedded = false }) {
                   }
                 }}
                 placeholder="اكتب طلبك أو استفسارك..."
-                className="min-h-[50px] max-h-[120px] w-full resize-none rounded-xl border border-gray-200 bg-gray-50 p-3 pl-10 text-right text-sm shadow-sm outline-none focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/20"
+                className="min-h-[50px] max-h-[120px] w-full resize-none rounded-xl border border-gray-200 bg-gray-50 p-3 pl-10 text-right text-base shadow-sm sm:text-sm outline-none focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/20"
                 rows={1}
                 style={{ direction: 'rtl' }}
               />
