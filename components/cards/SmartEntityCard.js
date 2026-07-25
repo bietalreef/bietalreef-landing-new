@@ -133,10 +133,10 @@ function ModernArklineProviderCard({ item }) {
         <div className="absolute -top-12 right-5 flex h-24 w-24 items-center justify-center rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.08),0_20px_38px_rgba(52,47,35,.20)]">
           <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
             <Image
-              src={item.logoImage || '/images/providers/arkleen-logo.png'}
+              src={`${item.logoImage || '/images/providers/arkleen-logo.png'}?v=arkleen-light-20260725`}
               alt="شعار أركلين الأبيض"
               fill
-              className="object-contain p-1.5"
+              className="object-cover"
               sizes="96px"
             />
           </div>
