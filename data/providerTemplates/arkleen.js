@@ -26,8 +26,8 @@ export const arkleenTemplate = {
   },
   media: {
     logo: '/images/providers/arkleen-logo.png',
-    cover: '/images/providers/arkleen-premium/profile-cover.webp',
-    gallery: ['/images/providers/arkleen-premium/profile-cover.webp', '/images/providers/arkleen-premium/service-custom-kitchens.webp', '/images/providers/arkleen-premium/service-custom-wardrobes.webp', '/images/providers/arkleen-premium/service-wooden-doors-decor.webp', '/images/providers/arkleen-premium/service-interior-fitout.webp'],
+    cover: '/images/providers/arkline/arkline-hero-exterior.webp',
+    gallery: ['/images/providers/arkline/arkline-hero-exterior.webp', '/images/providers/arkleen-premium/service-custom-kitchens.webp', '/images/providers/arkleen-premium/service-custom-wardrobes.webp', '/images/providers/arkleen-premium/service-wooden-doors-decor.webp', '/images/providers/arkleen-premium/service-interior-fitout.webp'],
   },
   services: [
     { id: 'BR-SRV-ARK-001', slug: 'custom-wooden-kitchens', title: { ar: 'مطابخ خشبية حسب الطلب', en: 'Custom Wooden Kitchens' }, summary: { ar: 'تصميم وتصنيع وتركيب حسب مساحة الموقع والخامة والتشطيب المطلوب.', en: 'Design, fabrication and installation tailored to the site, material and finish.' }, image: '/images/providers/arkleen-premium/service-custom-kitchens.webp' },
