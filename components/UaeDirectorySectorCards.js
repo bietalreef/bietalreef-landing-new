@@ -6,21 +6,27 @@ import { UAE_DIRECTORY_SECTIONS } from '../data/siteTaxonomy';
 const ABU_DHABI_SECTION_META = {
   providers: {
     title: 'الشركات والمؤسسات والحرفيون في أبوظبي',
-    description: 'اكتشف الشركات والمؤسسات والورش والحرفيين في أبوظبي حسب النشاط والتصنيف والتخصص والخدمة المطلوبة.',
+    description: 'اكتشف الشركات والمؤسسات والورش والحرفيين داخل أبوظبي، واختر النشاط والتخصص المطلوب من القوائم المعتمدة في المنصة.',
     eyebrow: 'شركات ومؤسسات وحرفيون',
-    button: 'اكتشف الشركات والمؤسسات',
+    itemLabel: 'تخصص',
+    icon: '/images/ui-icons-3d/provider-worker.webp',
+    summary: 'عرض تخصصات النشاط',
   },
   services_offers: {
     title: 'الخدمات والعروض في أبوظبي',
-    description: 'اختر النشاط الرئيسي للوصول بالتدرج إلى التخصص والخدمة، ثم استعرض بطاقات الخدمات والعروض المنشورة داخل أبوظبي.',
-    eyebrow: 'الخدمات والعروض',
-    button: 'عرض الخدمات والعروض',
+    description: 'اختر بطاقة النشاط لعرض الخدمات المسجلة في قاعدة البيانات والمتاحة للطلب داخل أبوظبي.',
+    eyebrow: 'خدمات داخل أبوظبي',
+    itemLabel: 'خدمة',
+    icon: '/images/ui-icons-3d/tools-maintenance.webp',
+    summary: 'عرض جميع خدمات النشاط',
   },
   products_stores: {
     title: 'المنتجات والمتاجر في أبوظبي',
-    description: 'اختر النشاط الرئيسي للوصول إلى المنتجات والمتاجر والمصانع والورش والموردين الذين يخدمون إمارة أبوظبي.',
+    description: 'استعرض فئات المنتجات والمتاجر والمصانع والورش والموردين بحسب النشاط المعتمد داخل أبوظبي.',
     eyebrow: 'المنتجات والمتاجر',
-    button: 'عرض المنتجات والمتاجر',
+    itemLabel: 'قسم',
+    icon: '/images/ui-icons-3d/products-box.webp',
+    summary: 'عرض أقسام المنتجات والمتاجر',
   },
 };
 
@@ -28,24 +34,23 @@ function providerCardTitle(activityName) {
   return `شركات ومؤسسات ${activityName} في أبوظبي`;
 }
 
-const ABU_DHABI_ACTIVITY_ROUTES = {
-  'construction-contracting': 'general-contracting',
-  'engineering-design': 'engineering-consultants',
-  'maintenance-finishing': 'general-maintenance',
-  'aluminium-glass-wood': 'carpentry',
-  'building-materials-supply': 'building-materials',
-  'cleaning-operations-equipment': 'cleaning-services',
-  'factories-workshops-stores': 'furniture-decor',
-};
+function cardItems(card, sectionKey) {
+  if (sectionKey === 'services_offers') return card.activity.services;
+  if (sectionKey === 'products_stores') return card.activity.categories;
+  return card.activity.specialties;
+}
 
-const ABU_DHABI_CARD_SPECIALTIES = {
-  'construction-contracting': [
-    'مقاولات إنشاء المباني',
-    'الترميم والتجديد',
-    'أعمال الخرسانة',
-    'أعمال البناء والطابوق',
-  ],
-};
+function ConstitutionalItem({ item, meta }) {
+  return (
+    <li className="flex min-h-[34px] items-center gap-2 rounded-xl border border-[#E9DFC9] bg-[#FFF9EC] px-2.5 py-1.5 text-[11px] font-black leading-5 text-[#6F5700] shadow-[0_5px_12px_rgba(111,87,0,0.08)]">
+      <span className="relative h-6 w-6 shrink-0" aria-hidden="true">
+        <Image src={meta.icon} alt="" fill className="object-contain" sizes="24px" />
+      </span>
+      <span>{item.name}</span>
+      <span className="sr-only">{meta.itemLabel}</span>
+    </li>
+  );
+}
 
 function AbuDhabiDirectoryCards({ cards }) {
   return (
@@ -63,20 +68,12 @@ function AbuDhabiDirectoryCards({ cards }) {
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {sectionCards.map((card) => {
-              const displayedSpecialties =
-                ABU_DHABI_CARD_SPECIALTIES[card.activity.slug] ||
-                card.activity.specialtyNames.slice(0, 4);
-              const routeSlug = ABU_DHABI_ACTIVITY_ROUTES[card.activity.slug];
-              const locationQuery = 'emirate=abu-dhabi';
-              const href =
-                sectionKey === 'providers'
-                  ? `/uae/abu-dhabi/${routeSlug}`
-                  : sectionKey === 'services_offers'
-                    ? `/services/${routeSlug}?${locationQuery}`
-                    : `/marketplace/${routeSlug}?${locationQuery}`;
+              const items = cardItems(card, sectionKey);
+              const previewItems = sectionKey === 'services_offers' ? items.slice(0, 8) : items;
+              const remainingItems = items.slice(previewItems.length);
 
               return (
-              <article key={card.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
+              <article id={`abu-dhabi-${sectionKey}-${card.activity.slug}`} key={card.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
                 <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
                   <Image src={card.image} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
@@ -88,17 +85,26 @@ function AbuDhabiDirectoryCards({ cards }) {
                   <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">
                     {sectionKey === 'providers' ? providerCardTitle(card.activity.name) : card.title}
                   </h3>
-                  <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.activity.description || card.description}</p>
-                  <div className="mt-4 flex min-h-[72px] flex-wrap content-start gap-2">
-                    {displayedSpecialties.map((specialtyName) => (
-                      <span key={specialtyName} className="rounded-full bg-[#FDF7E8] px-3 py-1.5 text-[11px] font-black text-[#8A6A00]">
-                        {specialtyName}
-                      </span>
-                    ))}
-                  </div>
-                  <Link href={href} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
-                    {meta.button}<ChevronLeft aria-hidden="true" className="h-4 w-4" />
-                  </Link>
+                  <p className="mt-3 min-h-[56px] text-sm font-semibold leading-7 text-gray-600">{card.description}</p>
+                  <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" aria-label={`${meta.itemLabel} ${card.activity.name}`}>
+                    {previewItems.map((item) => <ConstitutionalItem key={item.slug} item={item} meta={meta} />)}
+                  </ul>
+                  {remainingItems.length > 0 && (
+                    <details className="mt-3 rounded-2xl border border-[#D8C59F] bg-white open:pb-3">
+                      <summary className="flex min-h-[46px] cursor-pointer list-none items-center justify-center gap-2 px-4 py-2 text-xs font-black text-[#0F3F1A] marker:content-none">
+                        {meta.summary} ({items.length})
+                        <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+                      </summary>
+                      <ul className="grid grid-cols-1 gap-2 px-3 sm:grid-cols-2">
+                        {remainingItems.map((item) => <ConstitutionalItem key={item.slug} item={item} meta={meta} />)}
+                      </ul>
+                    </details>
+                  )}
+                  {remainingItems.length === 0 && (
+                    <div className="mt-4 flex min-h-[46px] items-center justify-center rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-4 py-2 text-xs font-black text-[#0F3F1A]">
+                      {items.length} {meta.itemLabel}
+                    </div>
+                  )}
                 </div>
               </article>
               );
@@ -116,7 +122,7 @@ export default function UaeDirectorySectorCards({ emirate, area = null, locale =
     !isEn &&
     !area &&
     emirate.slug === 'abu-dhabi' &&
-    directoryCards.length === 21;
+    directoryCards.length === 18;
 
   if (showAbuDhabiDirectory) {
     return <AbuDhabiDirectoryCards cards={directoryCards} />;
