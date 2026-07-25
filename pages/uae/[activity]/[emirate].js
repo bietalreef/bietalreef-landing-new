@@ -12,20 +12,9 @@ import UaeDirectorySectorCards from '../../../components/UaeDirectorySectorCards
 import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
 import UaeDirectorySeo from '../../../components/UaeDirectorySeo';
-import AbuDhabiActivityDirectory from '../../../components/AbuDhabiActivityDirectory';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
-import { getArabicAbuDhabiActivity } from '../../../lib/platformDirectoryCards';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
-const CONSTITUTIONAL_ACTIVITY_SLUGS = [
-  'construction-contracting',
-  'engineering-design',
-  'maintenance-finishing',
-  'aluminium-glass-wood',
-  'building-materials-supply',
-  'cleaning-operations-equipment',
-  'factories-workshops-stores',
-];
 
 function shouldShowAlHootPath(emirateSlug, serviceSlug) {
   return false;
@@ -68,24 +57,8 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
   );
 }
 
-export default function AreaOrServicePage({ mode, emirate, area, service, emirateSlug, areaSlug, constitutionalActivity }) {
+export default function AreaOrServicePage({ mode, emirate, area, service, emirateSlug, areaSlug }) {
   if (!emirate) return null;
-
-  if (mode === 'constitutionalActivity') {
-    return (
-      <>
-        <UaeDirectorySeo locale="ar" title={`${constitutionalActivity.name} في أبوظبي`} description={`دليل أقسام وتخصصات وخدمات ${constitutionalActivity.name} داخل إمارة أبوظبي.`} path={`/uae/abu-dhabi/${constitutionalActivity.slug}`} alternatePath="/en/uae/abu-dhabi" emirate={emirate} />
-        <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900 font-sans">
-          <Navbar pageTitle={constitutionalActivity.name} />
-          <SecondaryHeader backUrl="/uae/abu-dhabi#uae-sector-cards" backLabel="العودة إلى دليل أبوظبي" />
-          <main>
-            <AbuDhabiActivityDirectory activity={constitutionalActivity} />
-          </main>
-          <Footer showRequestCTA={false} />
-        </div>
-      </>
-    );
-  }
 
   if (mode === 'emirateService') {
     return <EmirateServiceHub emirate={emirate} service={service} emirateSlug={emirateSlug} />;
@@ -141,20 +114,15 @@ export async function getStaticProps({ params }) {
 
   const area = getArea(emirateSlug, secondSlug);
   const service = getServiceCategory(secondSlug);
-  const constitutionalActivity =
-    emirateSlug === 'abu-dhabi' && CONSTITUTIONAL_ACTIVITY_SLUGS.includes(secondSlug)
-      ? await getArabicAbuDhabiActivity(secondSlug)
-      : null;
 
-  if (!area && !service && !constitutionalActivity) return { notFound: true };
+  if (!area && !service) return { notFound: true };
 
   return {
     props: {
-      mode: constitutionalActivity ? 'constitutionalActivity' : service && !area ? 'emirateService' : 'area',
+      mode: service && !area ? 'emirateService' : 'area',
       emirate,
       area: area || null,
       service: service || null,
-      constitutionalActivity,
       emirateSlug,
       areaSlug: secondSlug,
     },
@@ -165,8 +133,5 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const areaPaths = UAE_EMIRATES.flatMap((emirate) => emirate.areas.map((area) => ({ params: { activity: emirate.slug, emirate: area.slug } })));
   const servicePaths = UAE_EMIRATES.flatMap((emirate) => SERVICE_CATEGORIES.map((service) => ({ params: { activity: emirate.slug, emirate: service.slug } })));
-  const constitutionalActivityPaths = CONSTITUTIONAL_ACTIVITY_SLUGS.map((activitySlug) => ({
-    params: { activity: 'abu-dhabi', emirate: activitySlug },
-  }));
-  return { paths: [...areaPaths, ...servicePaths, ...constitutionalActivityPaths], fallback: 'blocking' };
+  return { paths: [...areaPaths, ...servicePaths], fallback: 'blocking' };
 }
