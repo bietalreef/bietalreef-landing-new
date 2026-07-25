@@ -10,6 +10,7 @@ import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCar
 import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
 import UaeDirectorySeo from '../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
+import { getEnglishAbuDhabiDirectoryCards } from '../../../../lib/platformDirectoryCards';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
@@ -44,7 +45,7 @@ function EnglishEmirateServiceHub({ emirate, service }) {
   );
 }
 
-export default function EnglishAreaOrServicePage({ mode, emirate, area, service }) {
+export default function EnglishAreaOrServicePage({ mode, emirate, area, service, directoryCards = [] }) {
   if (mode === 'emirateService') {
     return <EnglishEmirateServiceHub emirate={emirate} service={service} />;
   }
@@ -58,7 +59,7 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service 
           <UaeDirectoryHero locale="en" title={`Services in ${area.nameEn}, ${emirate.nameEn}`} description={`Choose the service category that best matches your request in ${area.nameEn}.`} emirate={emirate} area={area} cleanNavigation />
           <UaeContextInfoCard locale="en" locationLabel={`${area.nameEn}, ${emirate.nameEn}`} title={`Services and specialties available in ${area.nameEn}`} description={`This page shows every Biet Al Reef specialty in ${area.nameEn}. Choose a specialty to open its page and browse provider profiles connected to the location and specialty.`} />
           <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${area.nameEn}`} description={`Tell Weyaak what your project needs in ${area.nameEn}, and it will help you choose the specialty and reach the right provider or request path.`} />
-          <UaeDirectorySectorCards emirate={emirate} area={area} locale="en" />
+          <UaeDirectorySectorCards emirate={emirate} area={area} locale="en" directoryCards={directoryCards} />
         </main>
         <UaeSmartFooter locale="en" pageType="area" emirate={emirate} area={area} />
       </EnglishLayout>
@@ -74,6 +75,8 @@ export async function getStaticProps({ params }) {
   const service = getServiceCategory(params.area);
 
   if (!area && !service) return { notFound: true };
+  const directoryCards =
+    params.emirate === 'abu-dhabi' && area ? await getEnglishAbuDhabiDirectoryCards() : [];
 
   return {
     props: {
@@ -81,6 +84,7 @@ export async function getStaticProps({ params }) {
       emirate,
       area: area || null,
       service: service || null,
+      directoryCards,
     },
     revalidate: 3600,
   };
@@ -89,6 +93,7 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const areaPaths = [];
   UAE_EMIRATES.forEach((emirate) => {
+    if (emirate.slug === 'abu-dhabi') return;
     emirate.areas.forEach((area) => areaPaths.push({ params: { emirate: emirate.slug, area: area.slug } }));
   });
   const servicePaths = [];

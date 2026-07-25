@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { UAE_EMIRATES, SERVICE_CATEGORIES } from '../data/siteTaxonomy';
+import { UAE_EMIRATES, SERVICE_CATEGORIES, UAE_PRODUCT_CATEGORIES } from '../data/siteTaxonomy';
 import UaeProviderJoinCTA from './UaeProviderJoinCTA';
 
 const icons = {
@@ -92,8 +92,8 @@ export function UaeDirectoryExploreFooter({ locale = 'ar', emirate = null, area 
   const serviceRoot = emirate ? `${root}/${emirate.slug}${area ? `/${area.slug}` : ''}` : `${root}/abu-dhabi`;
   const groups = [
     { title: emirate ? (isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`) : (isEn ? 'UAE emirates' : 'إمارات الدولة'), text: isEn ? 'Start by location' : 'ابدأ حسب المكان', icon: icons.location, links: locationLinks },
-    { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
-    { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: isEn ? [{ label: 'Building materials', href: '/en/marketplace' }, { label: 'Furniture and decor', href: '/en/marketplace' }, { label: 'Smart systems', href: '/en/marketplace' }] : [{ label: 'مواد البناء', href: '/marketplace' }, { label: 'الأثاث والديكور', href: '/marketplace' }, { label: 'الأنظمة الذكية', href: '/marketplace' }] },
+    { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 7).map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
+    { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: UAE_PRODUCT_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${isEn ? '/en' : ''}/marketplace/${item.slug}` })) },
     { title: isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد', text: isEn ? 'Helpful project resources' : 'أدلة تساعد مشروعك', icon: icons.support, links: isEn ? [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] : [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
   ];
 

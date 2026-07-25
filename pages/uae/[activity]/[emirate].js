@@ -13,6 +13,7 @@ import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
 import UaeDirectorySeo from '../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
+import { getArabicAbuDhabiDirectoryCards } from '../../../lib/platformDirectoryCards';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
@@ -57,7 +58,7 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
   );
 }
 
-export default function AreaOrServicePage({ mode, emirate, area, service, emirateSlug, areaSlug }) {
+export default function AreaOrServicePage({ mode, emirate, area, service, emirateSlug, areaSlug, directoryCards = [] }) {
   if (!emirate) return null;
 
   if (mode === 'emirateService') {
@@ -91,7 +92,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
 
           <UaeDirectoryWeyaakCard locale="ar" title={`وياك في ${area.nameAr}`} description={`أخبر وياك بما يحتاجه مشروعك في ${area.nameAr}، وسيساعدك في تحديد التخصص والوصول إلى مزود الخدمة أو مسار الطلب المناسب.`} />
 
-          <UaeDirectorySectorCards emirate={emirate} area={area} locale="ar" />
+          <UaeDirectorySectorCards emirate={emirate} area={area} locale="ar" directoryCards={directoryCards} />
 
           <SeoContent title={`${area.nameAr} في دليل بيت الريف`}>
             <p>صفحة {area.nameAr} داخل {emirate.nameAr} تربط الموقع بالخدمات المتاحة، مع الحفاظ على الروابط الجغرافية ومسار تصفح واضح.</p>
@@ -116,6 +117,8 @@ export async function getStaticProps({ params }) {
   const service = getServiceCategory(secondSlug);
 
   if (!area && !service) return { notFound: true };
+  const directoryCards =
+    emirateSlug === 'abu-dhabi' && area ? await getArabicAbuDhabiDirectoryCards() : [];
 
   return {
     props: {
@@ -125,13 +128,16 @@ export async function getStaticProps({ params }) {
       service: service || null,
       emirateSlug,
       areaSlug: secondSlug,
+      directoryCards,
     },
     revalidate: 3600,
   };
 }
 
 export async function getStaticPaths() {
-  const areaPaths = UAE_EMIRATES.flatMap((emirate) => emirate.areas.map((area) => ({ params: { activity: emirate.slug, emirate: area.slug } })));
+  const areaPaths = UAE_EMIRATES
+    .filter((emirate) => emirate.slug !== 'abu-dhabi')
+    .flatMap((emirate) => emirate.areas.map((area) => ({ params: { activity: emirate.slug, emirate: area.slug } })));
   const servicePaths = UAE_EMIRATES.flatMap((emirate) => SERVICE_CATEGORIES.map((service) => ({ params: { activity: emirate.slug, emirate: service.slug } })));
   return { paths: [...areaPaths, ...servicePaths], fallback: 'blocking' };
 }

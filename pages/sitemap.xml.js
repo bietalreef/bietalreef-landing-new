@@ -1,4 +1,9 @@
 const { buildSearchIndexEntries } = require('../lib/searchIndexRoutes');
+import { UAE_EMIRATES } from '../data/siteTaxonomy';
+import {
+  ABU_DHABI_DIRECTORY_SECTION_SLUGS,
+  getArabicAbuDhabiDirectoryCards,
+} from '../lib/platformDirectoryCards';
 
 function escapeXml(value) {
   return String(value)
@@ -26,8 +31,8 @@ function renderImages(images = []) {
   ].join('\n')).join('\n');
 }
 
-function buildSitemapXml() {
-  const urls = buildSearchIndexEntries().map((entry) => {
+function buildSitemapXml(entries) {
+  const urls = entries.map((entry) => {
     const optionalLines = [renderAlternates(entry.alternates), renderImages(entry.images)].filter(Boolean);
     return [
       '  <url>',
@@ -51,9 +56,42 @@ function buildSitemapXml() {
 }
 
 export async function getServerSideProps({ res }) {
+  const entries = buildSearchIndexEntries();
+  const cards = await getArabicAbuDhabiDirectoryCards();
+  const abuDhabi = UAE_EMIRATES.find((item) => item.slug === 'abu-dhabi');
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const addPair = (arPath, enPath, image) => {
+    const alternates = {
+      ar: `https://bietalreef.ae${arPath}`,
+      en: `https://bietalreef.ae${enPath}`,
+      default: `https://bietalreef.ae${arPath}`,
+    };
+    const shared = {
+      lastmod,
+      changefreq: 'weekly',
+      priority: 0.72,
+      alternates,
+      images: image ? [image.startsWith('http') ? image : `https://bietalreef.ae${image}`] : [],
+    };
+    entries.push(
+      { ...shared, loc: alternates.ar },
+      { ...shared, loc: alternates.en }
+    );
+  };
+
+  cards.forEach((card) => {
+    const section = ABU_DHABI_DIRECTORY_SECTION_SLUGS[card.sectionKey];
+    const suffix = `/directory/${section}/${card.activity.slug}`;
+    addPair(`/uae/abu-dhabi${suffix}`, `/en/uae/abu-dhabi${suffix}`, card.image);
+    abuDhabi.areas.forEach((area) => {
+      const areaSuffix = `/${area.slug}${suffix}`;
+      addPair(`/uae/abu-dhabi${areaSuffix}`, `/en/uae/abu-dhabi${areaSuffix}`, card.image);
+    });
+  });
+
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  res.write(buildSitemapXml());
+  res.write(buildSitemapXml(entries.sort((left, right) => left.loc.localeCompare(right.loc))));
   res.end();
   return { props: {} };
 }

@@ -11,10 +11,11 @@ import AbuDhabiDirectoryIntro from '../../../../components/AbuDhabiDirectoryIntr
 import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../../../data/uaeAtlasImages';
+import { ABU_DHABI_DIRECTORY_SECTION_SLUGS, getEnglishAbuDhabiDirectoryCards } from '../../../../lib/platformDirectoryCards';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
-export default function EnglishEmiratePage({ emirate }) {
+export default function EnglishEmiratePage({ emirate, directoryCards = [] }) {
   const isAbuDhabi = emirate.slug === 'abu-dhabi';
   const canonical = `https://bietalreef.ae/en/uae/${emirate.slug}`;
   const shareImage = `https://bietalreef.ae${atlasImageBySlug[emirate.slug]}`;
@@ -25,8 +26,25 @@ export default function EnglishEmiratePage({ emirate }) {
     ? 'Explore contractors, service providers, suppliers, stores and products across Abu Dhabi, Al Ain and the wider emirate through Biet Al Reef.'
     : `Explore construction, contracting, maintenance, design, building materials, suppliers and service providers across ${emirate.nameEn} through Biet Al Reef.`;
   const showSeoProof = false;
+  const directorySchema = isAbuDhabi && directoryCards.length === 18 ? {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Abu Dhabi activities, services and products directory',
+    numberOfItems: directoryCards.length,
+    itemListElement: directoryCards.map((card, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: card.title,
+        description: card.description,
+        image: card.image.startsWith('http') ? card.image : `https://bietalreef.ae${card.image}`,
+        url: `${canonical}/directory/${ABU_DHABI_DIRECTORY_SECTION_SLUGS[card.sectionKey]}/${card.activity.slug}`,
+      },
+    })),
+  } : null;
   const faqItems = [
-    [`How do I search for a service in ${emirate.nameEn}?`, isAbuDhabi ? 'Choose one of the eleven service or product paths, then continue to the relevant city, area and specialty.' : 'Choose one of the seven main sectors, then continue through the related areas and services on the page.'],
+    [`How do I search for a service in ${emirate.nameEn}?`, isAbuDhabi ? 'Choose one of the 18 organized provider, service or product cards, then continue to the relevant activity or area.' : 'Choose one of the seven main sectors, then continue through the related areas and services on the page.'],
     ['Can I browse by area?', 'Yes. City and area links are organized in the directory paths section below.'],
     ['Can I request a quotation?', 'Yes. You can request a quotation from the emirate or activity page, and the request will be routed by location and service type.'],
   ];
@@ -56,6 +74,7 @@ export default function EnglishEmiratePage({ emirate }) {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={shareImage} />
+        {directorySchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(directorySchema) }} />}
       </Head>
       <div dir="ltr" lang="en" className="min-h-screen bg-[#FDFBF7] text-gray-900" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
         <Navbar locale="en" />
@@ -67,12 +86,12 @@ export default function EnglishEmiratePage({ emirate }) {
 
           {showSeoProof && <SeoProofCardsEn title="Real service path inside Abu Dhabi Directory" desc="The Abu Dhabi page now connects SEO traffic to a verified marble and granite provider, a service path, a product intent and a quotation step instead of staying as generic directory content." />}
 
-          <UaeDirectorySectorCards emirate={emirate} locale="en" />
+          <UaeDirectorySectorCards emirate={emirate} locale="en" directoryCards={directoryCards} />
 
           <section className="mx-auto max-w-6xl px-4 pb-14">
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8">
               <h2 className="text-2xl font-black text-[#0F3F1A]">{emirate.nameEn} inside Biet Al Reef UAE Directory</h2>
-              <p className="mt-4 leading-8 text-gray-600">{isAbuDhabi ? 'This page presents eleven service, product and store paths, followed by organized links to areas and related specialties for a clear geographic journey across Abu Dhabi and Al Ain.' : 'This page presents the seven main sectors first, followed by clearly organized links to areas and related services for a simpler journey and consistent geographic discovery.'}</p>
+              <p className="mt-4 leading-8 text-gray-600">{isAbuDhabi ? 'This page presents seven provider cards, seven service and offer cards, and four product and store cards, followed by organized links to Abu Dhabi areas.' : 'This page presents the seven main sectors first, followed by clearly organized links to areas and related services for a simpler journey and consistent geographic discovery.'}</p>
             </div>
           </section>
 
@@ -88,9 +107,16 @@ export default function EnglishEmiratePage({ emirate }) {
 export async function getStaticProps({ params }) {
   const emirate = getEmirate(params.emirate);
   if (!emirate) return { notFound: true };
-  return { props: { emirate }, revalidate: 3600 };
+  const directoryCards =
+    emirate.slug === 'abu-dhabi' ? await getEnglishAbuDhabiDirectoryCards() : [];
+  return { props: { emirate, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
-  return { paths: UAE_EMIRATES.map((emirate) => ({ params: { emirate: emirate.slug } })), fallback: 'blocking' };
+  return {
+    paths: UAE_EMIRATES
+      .filter((emirate) => emirate.slug !== 'abu-dhabi')
+      .map((emirate) => ({ params: { emirate: emirate.slug } })),
+    fallback: 'blocking',
+  };
 }
