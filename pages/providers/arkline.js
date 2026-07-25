@@ -424,7 +424,7 @@ export default function ArklinePage() {
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="أعمال النجارة والتصميم الداخلي" />
+              <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="أعمال النجارة" />
               <ActivityDetail icon={Layers3} title="التخصص" value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس" />
               <ActivityDetail icon={ListChecks} title="الخدمات" value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية" />
             </div>
