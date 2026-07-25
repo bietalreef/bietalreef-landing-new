@@ -44,7 +44,7 @@ const provider = {
   phone: '+971 56 779 7828',
   whatsapp: '971567797828',
   base: '/images/providers/arkline/',
-  hero: '/images/providers/arkleen-premium/profile-cover.webp',
+  hero: '/images/providers/arkline/arkline-hero-exterior.webp',
   logo: '/images/providers/arkleen-logo.png',
 };
 
@@ -151,7 +151,7 @@ const products = [
 ];
 
 const gallery = [
-  ['/images/providers/arkleen-premium/profile-cover.webp', 'أعمال أركلين للنجارة والتصميم الداخلي'],
+  ['/images/providers/arkline/arkline-hero-exterior.webp', 'أعمال أركلين للنجارة والتصميم الداخلي'],
   ['/images/providers/arkleen-premium/service-custom-kitchens.webp', 'مطابخ خشبية مصنعة حسب الطلب'],
   ['/images/providers/arkleen-premium/service-custom-wardrobes.webp', 'خزائن ودواليب حسب المقاس'],
   ['/images/providers/arkleen-premium/service-wooden-doors-decor.webp', 'أبواب وكسوات خشبية مخصصة'],
