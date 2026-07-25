@@ -7,9 +7,9 @@ import ServicesSmartFooter from "../components/ServicesSmartFooter";
 import DiscoveryDirectoryHero from "../components/DiscoveryDirectoryHero";
 import SectionBackBar from "../components/SectionBackBar";
 import YouTubeVideoSection from "../components/YouTubeVideoSection";
-import { getAllServices } from "../lib/services-detailed";
-import { getSectorCardImage } from "../lib/sectorCards";
-import { ArrowRight, MessageCircle, Search, Wrench, ChevronLeft } from "lucide-react";
+import ConstitutionalSectionCards from "../components/ConstitutionalSectionCards";
+import { getArabicAbuDhabiDirectoryCards } from "../lib/platformDirectoryCards";
+import { ArrowRight, MessageCircle, Search, Wrench } from "lucide-react";
 
 const servicesItemListSchema = {
   "@context": "https://schema.org",
@@ -51,7 +51,7 @@ function getCategorySlug(serviceId) {
   return categoryMap[serviceId] || serviceId;
 }
 
-export default function Services({ services }) {
+export default function Services({ directoryCards }) {
   return (
     <>
       <SEOHead
@@ -88,14 +88,7 @@ export default function Services({ services }) {
 
           <section id="services-list" className="max-w-6xl mx-auto px-4 py-14 md:py-20">
             <div className="mb-8 text-center md:text-right"><span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">قطاعات الخدمات</span><h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">اختر نوع الخدمة</h2><p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">اختر بطاقة الخدمة المناسبة، ثم أضف تفاصيل المشروع للانتقال إلى طلب واضح قابل للتوجيه والتسعير.</p></div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {services.map((service) => {
-                const categorySlug = getCategorySlug(service.id);
-                return (
-                  <Link key={service.id} href={`/services/${categorySlug}`}><article className="group h-full overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]"><div className="relative h-52 overflow-hidden bg-[#F5EFE4] sm:h-56 lg:h-52"><Image src={getSectorCardImage(categorySlug)} alt={service.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" /><div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/78 via-[#0F3F1A]/16 to-transparent" /><div className="absolute bottom-4 right-4 left-4 flex items-center justify-between gap-3"><span className="rounded-2xl bg-white/92 px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{service.title}</span><span className="rounded-2xl bg-[#123A46] px-3 py-2 text-xs font-black text-[#F7E7A0] shadow-lg ring-1 ring-[#D4AF37]/40">خدمة</span></div></div><div className="p-5 md:p-6"><h3 className="mb-3 text-xl font-black leading-8 text-[#0F3F1A] group-hover:text-[#B8922B]">{service.title}</h3><p className="mb-5 text-sm font-semibold leading-7 text-gray-600">{service.shortDesc}</p><div className="mb-5 rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3"><p className="text-xs font-black text-gray-500">طريقة التسعير</p><p className="mt-1 text-sm font-black text-[#0F3F1A]">حسب تفاصيل المشروع</p></div><div className="mb-5 space-y-2">{service.benefits.slice(0, 2).map((benefit) => <div key={benefit} className="flex items-start gap-2 text-xs font-bold leading-6 text-gray-700"><span className="mt-1 text-[#B8922B]">✓</span><span>{benefit}</span></div>)}</div><span className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition group-hover:bg-[#D4AF37] group-hover:text-[#0F3F1A]">تفاصيل الخدمة <ChevronLeft className="h-4 w-4" /></span></div></article></Link>
-                );
-              })}
-            </div>
+            <ConstitutionalSectionCards cards={directoryCards} sectionKey="services_offers" locale="ar" />
           </section>
 
           <section className="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24"><div className="max-w-6xl mx-auto px-4"><h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">كيف تختار الخدمة المناسبة؟</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-8"><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">1️⃣</div><h3 className="font-bold text-lg mb-3">حدد الخدمة</h3><p className="text-gray-600 text-sm">ابدأ من نوع العمل المطلوب: مقاولات، صيانة، نجارة، رخام أو غيرها.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">2️⃣</div><h3 className="font-bold text-lg mb-3">أضف التفاصيل</h3><p className="text-gray-600 text-sm">الموقع، المقاسات، الصور، والمواد المطلوبة تساعد على توجيه الطلب.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">3️⃣</div><h3 className="font-bold text-lg mb-3">اطلب عرض سعر</h3><p className="text-gray-600 text-sm">لا نعتمد على سعر عام؛ السعر الصحيح يحتاج تفاصيل المشروع.</p></div></div></div></section>
@@ -109,6 +102,6 @@ export default function Services({ services }) {
 }
 
 export async function getStaticProps() {
-  const services = getAllServices();
-  return { props: { services } };
+  const directoryCards = await getArabicAbuDhabiDirectoryCards();
+  return { props: { directoryCards }, revalidate: 300 };
 }
