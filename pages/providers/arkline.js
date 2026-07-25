@@ -570,9 +570,9 @@ function ProviderLogo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
-        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-light-20260725`}
+        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-premium`}
         alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain p-1"
         loading="eager"
         decoding="async"
       />
