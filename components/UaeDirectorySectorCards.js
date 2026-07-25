@@ -28,6 +28,25 @@ function providerCardTitle(activityName) {
   return `شركات ومؤسسات ${activityName} في أبوظبي`;
 }
 
+const ABU_DHABI_ACTIVITY_ROUTES = {
+  'construction-contracting': 'general-contracting',
+  'engineering-design': 'engineering-consultants',
+  'maintenance-finishing': 'general-maintenance',
+  'aluminium-glass-wood': 'carpentry',
+  'building-materials-supply': 'building-materials',
+  'cleaning-operations-equipment': 'cleaning-services',
+  'factories-workshops-stores': 'furniture-decor',
+};
+
+const ABU_DHABI_CARD_SPECIALTIES = {
+  'construction-contracting': [
+    'مقاولات إنشاء المباني',
+    'الترميم والتجديد',
+    'أعمال الخرسانة',
+    'أعمال البناء والطابوق',
+  ],
+};
+
 function AbuDhabiConstitutionalCards({ cards }) {
   return (
     <section dir="rtl" id="uae-sector-cards" className="mx-auto max-w-6xl space-y-16 px-4 py-14 md:py-18">
@@ -43,7 +62,13 @@ function AbuDhabiConstitutionalCards({ cards }) {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {sectionCards.map((card) => (
+            {sectionCards.map((card) => {
+              const displayedSpecialties =
+                ABU_DHABI_CARD_SPECIALTIES[card.activity.slug] ||
+                card.activity.specialtyNames.slice(0, 4);
+              const routeSlug = ABU_DHABI_ACTIVITY_ROUTES[card.activity.slug];
+
+              return (
               <article key={card.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
                 <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
                   <Image src={card.image} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
@@ -58,18 +83,19 @@ function AbuDhabiConstitutionalCards({ cards }) {
                   </h3>
                   <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.activity.description || card.description}</p>
                   <div className="mt-4 flex min-h-[72px] flex-wrap content-start gap-2">
-                    {card.activity.specialtyNames.slice(0, 4).map((specialtyName) => (
+                    {displayedSpecialties.map((specialtyName) => (
                       <span key={specialtyName} className="rounded-full bg-[#FDF7E8] px-3 py-1.5 text-[11px] font-black text-[#8A6A00]">
                         {specialtyName}
                       </span>
                     ))}
                   </div>
-                  <Link href={`/uae/abu-dhabi/${card.activity.primarySpecialtySlug}`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
+                  <Link href={`/uae/abu-dhabi/${routeSlug}`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
                     {meta.button}<ChevronLeft aria-hidden="true" className="h-4 w-4" />
                   </Link>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>;
       })}
