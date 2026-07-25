@@ -12,10 +12,11 @@ import AbuDhabiDirectoryIntro from '../../components/AbuDhabiDirectoryIntro';
 import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
+import { getArabicAbuDhabiDirectoryCards } from '../../lib/platformDirectoryCards';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
-export default function EmiratePage({ emirate, emirateSlug }) {
+export default function EmiratePage({ emirate, emirateSlug, abuDhabiDirectoryCards = [] }) {
   if (!emirate) return null;
   const isAbuDhabi = emirate.slug === 'abu-dhabi';
   const showAlHootSeoPath = false;
@@ -31,7 +32,7 @@ export default function EmiratePage({ emirate, emirateSlug }) {
     ? 'دليل أبوظبي للخدمات والمنتجات والموردين | بيت الريف'
     : `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ باختيار أحد مسارات الخدمات أو المنتجات الأحد عشر، ثم انتقل إلى المدينة أو المنطقة والتخصص المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ من إحدى مجموعات الدليل الثلاث، ثم اختر النشاط الرئيسي من البطاقات السبع للوصول إلى المسار المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
     ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
     ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
@@ -72,11 +73,11 @@ export default function EmiratePage({ emirate, emirateSlug }) {
 
           {showAlHootSeoPath && <SeoProofCards title="مسار حقيقي داخل صفحة أبوظبي" desc="هذه الصفحة لا تكتفي بنص SEO عام. يوجد داخلها مثال واضح لمسار العميل: مزود موثق للرخام والجرانيت، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة أو عرض سعر مرتبطة بملف مصنع الحوت." />}
 
-          <UaeDirectorySectorCards emirate={emirate} locale="ar" />
+          <UaeDirectorySectorCards emirate={emirate} locale="ar" directoryCards={abuDhabiDirectoryCards} />
 
           <SeoContent title={`${emirate.nameAr} داخل دليل بيت الريف`}>
             <p>{emirate.description}</p>
-            <p className="mt-4">{isAbuDhabi ? 'يعرض هذا القسم أحد عشر مسارًا رئيسيًا تجمع قطاعات الخدمات والمنتجات والمتاجر داخل أبوظبي، مع روابط منظمة للمدن والمناطق والتخصصات لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.' : `يعرض هذا القسم القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.`}</p>
+            <p className="mt-4">{isAbuDhabi ? 'تعرض الصفحة 21 بطاقة دستورية: سبعة أنشطة للوصول إلى مزودي الخدمات، وسبعة للخدمات والعروض، وسبعة للمنتجات والمتاجر. تأتي أسماء البطاقات وترتيبها مباشرة من القاموس المركزي للمنصة.' : `يعرض هذا القسم القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.`}</p>
             {showAlHootSeoPath && <p className="mt-4">تم دعم صفحة أبوظبي بمسار داخلي واضح يربط بين محتوى البحث الجغرافي ومزود خدمة فعلي داخل المنصة، مثل مصنع الحوت الأبيض للرخام والجرانيت.</p>}
           </SeoContent>
 
@@ -93,7 +94,9 @@ export async function getStaticProps({ params }) {
   const emirateSlug = params.activity;
   const emirate = getEmirate(emirateSlug);
   if (!emirate) return { notFound: true };
-  return { props: { emirate, emirateSlug }, revalidate: 3600 };
+  const abuDhabiDirectoryCards =
+    emirateSlug === 'abu-dhabi' ? await getArabicAbuDhabiDirectoryCards() : [];
+  return { props: { emirate, emirateSlug, abuDhabiDirectoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
