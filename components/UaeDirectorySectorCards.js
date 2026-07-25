@@ -57,13 +57,14 @@ function AbuDhabiConstitutionalCards({ cards }) {
                     {sectionKey === 'providers' ? providerCardTitle(card.activity.name) : card.title}
                   </h3>
                   <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.activity.description || card.description}</p>
-                  <div className="mt-4 grid grid-cols-3 gap-2">
-                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.categoryCount} أقسام</span>
-                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.specialtyCount} تخصصات</span>
-                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.serviceCount} خدمات</span>
+                  <div className="mt-4 flex min-h-[72px] flex-wrap content-start gap-2">
+                    {card.activity.specialtyNames.slice(0, 4).map((specialtyName) => (
+                      <span key={specialtyName} className="rounded-full bg-[#FDF7E8] px-3 py-1.5 text-[11px] font-black text-[#8A6A00]">
+                        {specialtyName}
+                      </span>
+                    ))}
                   </div>
-                  <p className="mt-3 line-clamp-2 text-xs font-bold leading-6 text-gray-500">{card.activity.categoryNames.join(' · ')}</p>
-                  <Link href={`/uae/abu-dhabi/${card.activity.slug}?section=${sectionKey}`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
+                  <Link href={`/uae/abu-dhabi/${card.activity.primarySpecialtySlug}`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
                     {meta.button}<ChevronLeft aria-hidden="true" className="h-4 w-4" />
                   </Link>
                 </div>
