@@ -2,6 +2,7 @@ import AbuDhabiDirectoryLanding from '../../../../../../components/AbuDhabiDirec
 import { getArea, getEmirate } from '../../../../../../data/siteTaxonomy';
 import {
   findAbuDhabiDirectoryCard,
+  getAbuDhabiDirectoryEntities,
   getArabicAbuDhabiDirectoryCards,
 } from '../../../../../../lib/platformDirectoryCards';
 
@@ -13,9 +14,11 @@ export async function getStaticProps({ params }) {
   const cards = await getArabicAbuDhabiDirectoryCards();
   const card = findAbuDhabiDirectoryCard(cards, params.section, params.slug);
   if (!card) return { notFound: true };
+  const entities = await getAbuDhabiDirectoryEntities(card, 'ar', params.area);
   return {
     props: {
       card,
+      entities,
       locale: 'ar',
       area,
       emirate: getEmirate('abu-dhabi'),
