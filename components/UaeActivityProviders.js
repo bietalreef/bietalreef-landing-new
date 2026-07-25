@@ -81,25 +81,9 @@ function DirectoryProviderCard({ provider, emirateSlug, locale }) {
   );
 }
 
-function DirectoryServiceCard({ provider, card, locale }) {
-  const isEn = locale === 'en';
-  const providerName = isEn ? provider.nameEn || provider.nameAr : provider.nameAr;
-  return (
-    <Link href={`${isEn ? '/en' : ''}/providers/${provider.slug}#services`} className="group overflow-hidden rounded-[1.5rem] border border-[#E5D9C4] bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <div className="relative h-36 bg-[#F3EEE4]"><Image src={card.image || provider.cover} alt={isEn ? card.titleEn : card.titleAr} fill className="object-cover transition group-hover:scale-105" sizes="(max-width: 768px) 92vw, 360px" /></div>
-      <div className="p-4">
-        <h3 className="font-black leading-7 text-[#0F3F1A]">{isEn ? card.titleEn : card.titleAr}</h3>
-        <p className="mt-2 text-xs font-bold text-[#6B5530]">{providerName}</p>
-        <div className="mt-3 flex flex-wrap gap-2 font-mono text-[10px] font-black" dir="ltr"><span className="rounded-lg bg-[#F8F4EB] px-2 py-1">{provider.providerId}</span><span className="rounded-lg bg-[#F8F4EB] px-2 py-1">{card.cardId}</span></div>
-      </div>
-    </Link>
-  );
-}
-
 export default function UaeActivityProviders({ emirate, area = null, service, locale = 'ar' }) {
   const isEn = locale === 'en';
   const providers = directoryProviders.filter((provider) => coversLocation(provider, emirate.slug, area?.slug) && matchesSector(provider, service.slug));
-  const serviceCards = providers.flatMap((provider) => (provider.directoryServices || []).filter((card) => card.categorySlug === service.slug).map((card) => ({ provider, card })));
   const locationName = area ? (isEn ? area.nameEn : area.nameAr) : (isEn ? emirate.nameEn : emirate.nameAr);
   return (
     <section dir={isEn ? 'ltr' : 'rtl'} className="mx-auto max-w-6xl px-4 py-12 md:py-16">
@@ -108,7 +92,6 @@ export default function UaeActivityProviders({ emirate, area = null, service, lo
         <h2 className="mt-4 text-3xl font-black text-[#0F3F1A]">{isEn ? `${service.nameEn} providers in ${locationName}` : `مزودو ${service.nameAr} في ${locationName}`}</h2>
       </div>
       {providers.length ? <div className="grid grid-cols-1 gap-6 md:grid-cols-2">{providers.map((provider) => <DirectoryProviderCard key={provider.slug} provider={provider} emirateSlug={emirate.slug} locale={locale} />)}</div> : <div className="rounded-[2rem] border border-dashed border-[#D7C7A7] bg-white p-8 text-center text-sm font-bold leading-7 text-gray-600">{isEn ? 'Approved subscribed providers will appear here.' : 'ستظهر هنا ملفات مزودي الخدمة المشتركين بعد اعتمادها.'}</div>}
-      {serviceCards.length ? <div className="mt-12"><h2 className="mb-6 text-2xl font-black text-[#0F3F1A]">{isEn ? 'Available service cards' : 'بطاقات الخدمات المتاحة'}</h2><div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">{serviceCards.map(({ provider, card }) => <DirectoryServiceCard key={card.cardId} provider={provider} card={card} locale={locale} />)}</div></div> : null}
     </section>
   );
 }
