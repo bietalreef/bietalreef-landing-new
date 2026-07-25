@@ -6,6 +6,8 @@ import SEOHead from '../components/SEOHead';
 import ProductsSmartFooter from '../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../components/SectionBackBar';
+import ConstitutionalSectionCards from '../components/ConstitutionalSectionCards';
+import { getArabicAbuDhabiDirectoryCards } from '../lib/platformDirectoryCards';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -51,7 +53,7 @@ const faq = [
 
 export { categories as marketplaceCategories };
 
-export default function MarketplacePage() {
+export default function MarketplacePage({ directoryCards }) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -135,30 +137,8 @@ export default function MarketplacePage() {
             <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">كروت المنتجات أصبحت بنفس أسلوب باقي الأقسام: صورة واضحة، محتوى مختصر، ومسار مباشر للطلب أو التصفح.</p>
           </div>
 
-          <div className="mb-20 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {categories.map((cat) => (
-              <Link key={cat.id} href={`/marketplace/${cat.id}`} className="group block h-full">
-                <article className="h-full overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
-                  <div className="relative h-52 overflow-hidden bg-[#F5EFE4] sm:h-56 xl:h-48">
-                    <Image src={cat.image} alt={cat.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/78 via-[#0F3F1A]/16 to-transparent" />
-                    <div className="absolute bottom-4 right-4 left-4 flex items-center justify-between gap-3">
-                      <span className="rounded-2xl bg-white/92 px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{cat.badge}</span>
-                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123A46] text-xl text-[#F7E7A0] shadow-lg ring-1 ring-[#D4AF37]/40">{cat.icon}</span>
-                    </div>
-                  </div>
-                  <div className="p-5 md:p-6">
-                    <div className="mb-3 flex items-center gap-2 text-[#B8922B]"><Sparkles className="h-4 w-4" /><span className="text-xs font-black">قسم منتجات</span></div>
-                    <h3 className="text-xl font-black leading-8 text-[#0F3F1A] group-hover:text-[#B8922B]">{cat.title}</h3>
-                    <p className="mt-3 min-h-[64px] text-sm font-semibold leading-7 text-gray-600">{cat.desc}</p>
-                    <span className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition group-hover:bg-[#D4AF37] group-hover:text-[#0F3F1A]">
-                      تصفح المنتجات
-                      <ChevronLeft className="h-4 w-4" />
-                    </span>
-                  </div>
-                </article>
-              </Link>
-            ))}
+          <div className="mb-20">
+            <ConstitutionalSectionCards cards={directoryCards} sectionKey="products_stores" locale="ar" />
           </div>
 
           {false && <section className="mb-20" aria-label="منتج مميز من مصنع الحوت">
@@ -198,4 +178,9 @@ export default function MarketplacePage() {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const directoryCards = await getArabicAbuDhabiDirectoryCards();
+  return { props: { directoryCards }, revalidate: 300 };
 }
