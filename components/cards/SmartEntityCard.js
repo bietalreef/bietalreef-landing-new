@@ -24,13 +24,6 @@ const cardTypeConfig = {
 };
 
 const isPremium = (item) => item?.premium || item?.id?.includes('al-hoot') || item?.providerName?.includes('الحوت') || item?.supplierName?.includes('الحوت');
-const isArkline = (item) =>
-  item?.id === 'arkline' ||
-  item?.id === 'arkleen' ||
-  item?.href === '/providers/arkline' ||
-  item?.href === '/providers/arkleen' ||
-  item?.name?.includes('أركلين') ||
-  item?.name?.includes('ARKLEEN');
 
 function CardShell({ children, href = '#', className = '' }) {
   const isEnglish = href.startsWith('/en/');
@@ -101,16 +94,21 @@ function GoogleMapMark() {
   );
 }
 
-function ModernArklineProviderCard({ item }) {
+function UnifiedProviderCard({ item }) {
   const isEnglish = item.href?.startsWith('/en/');
+  const isArkleen =
+    item.href === '/providers/arkleen' ||
+    item.href === '/en/providers/arkleen' ||
+    item.name?.includes('أركلين') ||
+    item.name?.includes('ARKLEEN');
   const copy = isEnglish
-    ? { fallbackName: 'ARKLEEN', fallbackCity: 'Al Ain', fallbackArea: 'Mazid - Company Camp', fallbackType: 'Carpentry & Interior Design Workshop', servicesLabel: 'Main services', map: 'Location on Google Maps', open: 'Open profile', whatsapp: 'WhatsApp', verified: 'Verified provider' }
-    : { fallbackName: 'أركلين', fallbackCity: 'العين', fallbackArea: 'مزيد معسكر الشركات', fallbackType: 'ورشة نجارة وتصميم داخلي', servicesLabel: 'الخدمات الرئيسية', map: 'الموقع على خرائط Google', open: 'فتح الملف', whatsapp: 'واتساب', verified: 'مزود موثق' };
-  const services = [
-    { label: isEnglish ? 'Kitchens' : 'مطابخ', Icon: Home },
-    { label: isEnglish ? 'Wardrobes' : 'خزائن', Icon: Package },
-    { label: isEnglish ? 'Doors' : 'أبواب', Icon: Store },
-  ];
+    ? { fallbackName: 'Service provider', fallbackCity: 'UAE', fallbackArea: '', fallbackType: 'Service provider', servicesLabel: 'Main services', map: 'Location on Google Maps', open: 'Open profile', whatsapp: 'WhatsApp', verified: 'Verified provider' }
+    : { fallbackName: 'مزود خدمة', fallbackCity: 'الإمارات', fallbackArea: '', fallbackType: 'مزود خدمة', servicesLabel: 'الخدمات الرئيسية', map: 'الموقع على خرائط Google', open: 'فتح الملف', whatsapp: 'واتساب', verified: 'مزود موثق' };
+  const serviceIcons = [Home, Package, Store];
+  const services = (item.specialties || []).slice(0, 3).map((label, index) => ({
+    label,
+    Icon: serviceIcons[index],
+  }));
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${item.name || copy.fallbackName} ${item.city || copy.fallbackCity} ${item.area || copy.fallbackArea}`)}`;
 
   return (
@@ -130,37 +128,44 @@ function ModernArklineProviderCard({ item }) {
       </div>
 
       <div className="relative px-5 pb-5 pt-14 md:px-6">
-        <div className="absolute -top-12 right-5 flex h-24 w-24 items-center justify-center rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.08),0_20px_38px_rgba(52,47,35,.20)]">
+        <div className={`absolute -top-12 flex h-24 w-24 items-center justify-center rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.08),0_20px_38px_rgba(52,47,35,.20)] ${isEnglish ? 'left-5' : 'right-5'}`}>
           <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
             <Image
-              src={`${item.logoImage || '/images/providers/arkleen-logo.png'}?v=arkleen-light-20260725`}
-              alt="شعار أركلين الأبيض"
+              src={`${item.logoImage || '/images/providers/arkleen-logo.png'}${isArkleen ? '?v=arkleen-light-20260725' : ''}`}
+              alt={isEnglish ? `${item.name || copy.fallbackName} logo` : `شعار ${item.name || copy.fallbackName}`}
               fill
-              className="object-cover"
+              className="object-contain p-1.5"
               sizes="96px"
             />
           </div>
-          <span className="absolute -bottom-1 -left-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md" aria-label={copy.verified}>
-            <BadgeCheck className="h-4 w-4" />
-          </span>
+          {item.verified ? (
+            <span className={`absolute -bottom-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-[#0F3F1A] text-[#F4CA61] shadow-md ${isEnglish ? '-right-1' : '-left-1'}`} aria-label={copy.verified}>
+              <BadgeCheck className="h-4 w-4" />
+            </span>
+          ) : null}
         </div>
 
-        <div className="mr-28 min-h-[40px]" />
+        <div className={`min-h-[40px] ${isEnglish ? 'ml-28' : 'mr-28'}`} />
 
         <h3 className="text-2xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
         <p className="mt-2 flex items-center gap-2 text-sm font-black text-[#8A611B]">
           <Building2 className="h-4 w-4" />
           {item.providerType || copy.fallbackType}
         </p>
+        {item.providerId ? (
+          <p dir="ltr" className={`mt-2 inline-flex rounded-full border border-[#E3D5BD] bg-[#FBF8F1] px-3 py-1 font-mono text-[11px] font-black text-[#0F3F1A] ${isEnglish ? 'self-start' : 'self-end'}`}>
+            ID {item.providerId}
+          </p>
+        ) : null}
 
-        <div className="mt-4 grid grid-cols-3 gap-2" aria-label={copy.servicesLabel}>
+        {services.length ? <div className="mt-4 grid grid-cols-3 gap-2" aria-label={copy.servicesLabel}>
           {services.map(({ label, Icon }) => (
             <div key={label} className="flex min-h-[64px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-[#E8DDCA] bg-[#FBF8F1] text-[#0F3F1A] shadow-[0_5px_0_rgba(81,58,23,.05)]">
               <Icon className="h-5 w-5 text-[#A66B19]" />
-              <span className="text-xs font-black">{label}</span>
+              <span className="line-clamp-2 px-1 text-center text-xs font-black leading-5">{label}</span>
             </div>
           ))}
-        </div>
+        </div> : null}
 
         <a
           href={mapHref}
@@ -265,29 +270,7 @@ function PremiumEntityCard({ item }) {
 }
 
 export function ProviderCard({ item }) {
-  if (isArkline(item)) return <ModernArklineProviderCard item={item} />;
-  if (isPremium(item)) return <PremiumAlHootProviderCard item={item} />;
-
-  return (
-    <CardShell href={item.href}>
-      <ImagePanel src={item.coverImage} alt={item.name} />
-      <div className="absolute right-4 top-4 flex items-center gap-2">
-        <TypePill type="provider" />
-        {item.verified ? <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1 text-xs font-black text-emerald-700"><BadgeCheck className="h-3.5 w-3.5" /> موثق</span> : null}
-      </div>
-      <div className="px-5 pb-5 pt-4">
-        <div className="-mt-12 mb-4 flex items-end gap-3">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl border-4 border-white bg-[#F7F2E8] text-2xl font-black text-[#6F5400] shadow-lg">{item.logoText || item.name?.slice(0, 1)}</div>
-          <div className="mb-1 rounded-full bg-white/90 px-3 py-1 text-xs font-black text-[#6F5400] shadow-sm backdrop-blur">{item.providerType}</div>
-        </div>
-        <h3 className="text-xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
-        <p className="mt-2 line-clamp-2 min-h-[52px] text-sm font-semibold leading-7 text-gray-600">{item.summary}</p>
-        <div className="mt-4 flex flex-wrap gap-2"><span className="inline-flex items-center gap-1 rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-bold text-gray-700"><MapPin className="h-3.5 w-3.5 text-[#6F5400]" /> {item.city} - {item.area}</span></div>
-        <div className="mt-4 flex flex-wrap gap-2">{item.specialties?.slice(0, 4).map((tag) => <span key={tag} className="rounded-full border border-[#E6DCC8] bg-white px-3 py-1 text-xs font-bold text-[#0F3F1A]">{tag}</span>)}</div>
-        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="عرض الملف" />
-      </div>
-    </CardShell>
-  );
+  return <UnifiedProviderCard item={item} />;
 }
 
 export function ServiceOfferCard({ item }) {

@@ -10,10 +10,9 @@ import {
   MessageCircle,
   Users,
   ChevronLeft,
-  Sparkles,
 } from 'lucide-react';
-import { directoryProviders } from '../../data/providers';
 import { ProviderCard } from '../../components/cards/SmartEntityCard';
+import { getPublishedProviderCards } from '../../lib/platformDirectoryCards';
 import ProvidersDirectoryHero from '../../components/ProvidersDirectoryHero';
 import SectionBackBar from '../../components/SectionBackBar';
 
@@ -94,46 +93,19 @@ const steps = [
   },
 ];
 
-function toProviderCardItem(provider) {
-  return {
-    id: provider.slug,
-    entityType: 'provider',
-    premium: provider.slug === 'al-hoot-marble-granite-factory',
-    name: provider.nameAr,
-    nameEn: provider.nameEn,
-    providerType: provider.providerTypeAr,
-    emirate: provider.emirate,
-    city: provider.city === 'al-ain' ? 'العين' : provider.city,
-    area: provider.area === 'mazid-company-camp' ? 'مزيد - معسكر الشركات' : provider.area,
-    specialties: provider.services || [],
-    verified: provider.verified,
-    coverImage: provider.cover || provider.logo,
-    logoImage: provider.logo,
-    logoText: provider.nameAr?.slice(0, 1) || 'م',
-    providerId: provider.providerId,
-    establishedAt: provider.establishedAt,
-    acceptsQuotes: provider.acceptsQuotes,
-    href: `/providers/${provider.slug}`,
-    whatsapp: provider.whatsapp
-      ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}`
-      : undefined,
-    summary: provider.descriptionAr,
-  };
-}
-
-export default function ProvidersPage() {
+export default function ProvidersPage({ providers = [] }) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'مزودو الخدمات في بيت الريف',
     description: 'قسم مستقل لمزودي الخدمات في الإمارات: مقاولون، موردون، ورش، مصانع، مكاتب هندسية وحرفيون.',
     url: 'https://bietalreef.ae/providers',
-    mainEntity: directoryProviders.map((provider) => ({
+    mainEntity: providers.map((provider) => ({
       '@type': 'LocalBusiness',
-      name: provider.nameAr,
-      url: `https://bietalreef.ae/providers/${provider.slug}`,
-      image: `https://bietalreef.ae${provider.cover || provider.logo}`,
-      telephone: provider.phone,
+      name: provider.name,
+      url: `https://bietalreef.ae${provider.href}`,
+      image: provider.coverImage?.startsWith('http') ? provider.coverImage : `https://bietalreef.ae${provider.coverImage}`,
+      identifier: provider.providerId,
     })),
   };
 
@@ -236,9 +208,9 @@ export default function ProvidersPage() {
             {providerSectorCards.map((card) => (
               <article
                 key={card.title}
-                className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]"
+                className="group overflow-hidden rounded-[1.6rem] border border-[#DCC895] bg-white shadow-[0_8px_0_#E7DAC0,0_18px_35px_rgba(18,58,70,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_10px_0_#E1D0AD,0_22px_42px_rgba(18,58,70,.14)]"
               >
-                <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
+                <div className="relative h-40 overflow-hidden bg-[#F5EFE4] sm:h-44">
                   <Image
                     src={card.image}
                     alt={card.title}
@@ -247,30 +219,26 @@ export default function ProvidersPage() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/70 via-[#0F3F1A]/18 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
-                    <span className="rounded-full border border-[#D4AF37]/45 bg-white/84 px-3 py-1.5 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
-                      {card.eyebrow}
-                    </span>
-                    <Sparkles className="h-5 w-5 text-[#F7E7A0] drop-shadow" aria-hidden="true" />
-                  </div>
+                  <span className="absolute bottom-3 right-3 rounded-full border border-white/50 bg-white/92 px-3 py-1 text-[10px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">
+                    {card.eyebrow}
+                  </span>
                 </div>
 
-                <div className="p-5 md:p-6">
-                  <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">{card.title}</h3>
-                  <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.desc}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                <div className="p-4 md:p-5">
+                  <h3 className="text-lg font-black leading-7 text-[#0F3F1A]">{card.title}</h3>
+                  <p className="mt-2 min-h-[66px] text-[13px] font-semibold leading-6 text-gray-600">{card.desc}</p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {card.tags.map((tag) => (
-                      <span key={tag} className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">
+                      <span key={tag} className="rounded-full bg-[#FDF7E8] px-2.5 py-1 text-[10px] font-black text-[#8A6A00]">
                         {tag}
                       </span>
                     ))}
                   </div>
                   <Link
                     href={card.href}
-                    className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]"
+                    className="mt-4 inline-flex min-h-[42px] w-full items-center justify-center rounded-xl bg-[#123A46] px-4 py-2.5 text-xs font-black text-white shadow-[0_7px_0_rgba(18,58,70,0.12)] transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]"
                   >
                     افتح القطاع
-                    <ChevronLeft className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
               </article>
@@ -290,8 +258,8 @@ export default function ProvidersPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {directoryProviders.map((provider) => (
-              <ProviderCard key={provider.slug} item={toProviderCardItem(provider)} />
+            {providers.map((provider) => (
+              <ProviderCard key={provider.id} item={provider} />
             ))}
           </div>
         </section>
@@ -335,4 +303,11 @@ export default function ProvidersPage() {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: { providers: await getPublishedProviderCards('ar') },
+    revalidate: 300,
+  };
 }
