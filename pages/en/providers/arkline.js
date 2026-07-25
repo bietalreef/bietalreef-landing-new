@@ -564,9 +564,9 @@ function ProviderLogo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
-        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-premium`}
+        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-light-20260725`}
         alt="ARKLEEN Carpentry & Interior Design logo"
-        className="h-full w-full object-contain p-1"
+        className="h-full w-full object-cover"
         loading="eager"
         decoding="async"
       />
