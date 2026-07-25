@@ -5,6 +5,8 @@ import EnglishLayout from '../../components/EnglishLayout';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../../components/SectionBackBar';
+import ConstitutionalSectionCards from '../../components/ConstitutionalSectionCards';
+import { getEnglishAbuDhabiDirectoryCards } from '../../lib/platformDirectoryCards';
 import { ArrowLeft, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronRight, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -20,7 +22,7 @@ const faq = [
   { q: 'Can supply cover all Emirates?', a: 'This depends on the supplier. Supply areas will be clarified when product and store data is approved.' }
 ];
 
-export default function MarketplaceEnglishPage() {
+export default function MarketplaceEnglishPage({ directoryCards }) {
   const structuredData = { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Products and Stores in Biet Al Reef', description: 'An independent section for products, stores, building materials and finishing products inside Biet Al Reef.', url: 'https://bietalreef.ae/en/marketplace', inLanguage: 'en-AE' };
 
   return (
@@ -56,27 +58,8 @@ export default function MarketplaceEnglishPage() {
               <p className="mx-auto mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:mx-0 md:text-base">Product cards now follow the same premium style as the other sections: strong image, focused content and a direct browsing path.</p>
             </div>
 
-            <div className="mb-20 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {categories.map((cat) => (
-                <Link key={cat.id} href={`/en/marketplace/${cat.id}`} className="group block h-full">
-                  <article className="h-full overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
-                    <div className="relative h-52 overflow-hidden bg-[#F5EFE4] sm:h-56 xl:h-48">
-                      <Image src={cat.image} alt={cat.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/78 via-[#0F3F1A]/16 to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
-                        <span className="rounded-2xl bg-white/92 px-4 py-2 text-sm font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{cat.badge}</span>
-                        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#123A46] text-xl text-[#F7E7A0] shadow-lg ring-1 ring-[#D4AF37]/40">{cat.icon}</span>
-                      </div>
-                    </div>
-                    <div className="p-5 md:p-6">
-                      <div className="mb-3 flex items-center gap-2 text-[#B8922B]"><Sparkles className="h-4 w-4" /><span className="text-xs font-black">Product section</span></div>
-                      <h3 className="text-xl font-black leading-8 text-[#0F3F1A] group-hover:text-[#B8922B]">{cat.title}</h3>
-                      <p className="mt-3 min-h-[64px] text-sm font-semibold leading-7 text-gray-600">{cat.desc}</p>
-                      <span className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#123A46] px-5 py-3 text-sm font-black text-white shadow-[0_10px_0_rgba(18,58,70,0.12)] transition group-hover:bg-[#D4AF37] group-hover:text-[#0F3F1A]">Browse products <ChevronRight className="h-4 w-4" /></span>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+            <div className="mb-20">
+              <ConstitutionalSectionCards cards={directoryCards} sectionKey="products_stores" locale="en" />
             </div>
 
             <section className="mb-20" aria-label="Featured product from White Whale Marble and Granite Factory"><div className="mb-6 text-left"><span className="inline-flex rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-4 py-1 text-xs font-black text-[#8A6A00]">Featured product</span><h2 className="mt-4 text-2xl font-black text-[#0F3F1A] md:text-3xl">Product card from White Whale Factory</h2><p className="mt-3 leading-8 text-gray-600">A product available for supply, fabrication and installation based on the project measurements.</p></div><div className="overflow-hidden rounded-[2rem] border border-[#D4AF37]/40 bg-white shadow-2xl shadow-[#8A6A00]/10"><div className="grid lg:grid-cols-[0.9fr_1.35fr]"><div className="relative min-h-[280px] bg-[radial-gradient(circle_at_top,#F7F1E8_0%,#E9DDC7_42%,#B8922B_100%)] p-8 md:p-10"><div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0%,#ffffff_35%,transparent_72%)] opacity-30" /><div className="relative z-10 flex h-full flex-col justify-between"><div><span className="inline-flex rounded-full bg-[#0F3F1A] px-4 py-1.5 text-xs font-black text-white">Available on request</span><h3 className="mt-5 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">Premium Kitchen Quartz</h3><p className="mt-4 text-sm font-bold text-[#6F5400]">Kitchen tops · Countertops · Kitchen islands</p></div><div className="mt-8 rounded-3xl border border-white/60 bg-white/45 p-5 shadow-inner"><div className="h-24 rounded-2xl border border-white/70 bg-gradient-to-br from-white via-[#EFE7D8] to-[#CDBB98]" /></div></div></div><div className="p-8 md:p-10"><div className="flex flex-wrap gap-2"><span className="rounded-full bg-[#FFF8E5] px-3 py-1.5 text-xs font-black text-[#8A6A00]">Quartz</span><span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">Premium finish</span><span className="rounded-full bg-[#FDFBF7] px-3 py-1.5 text-xs font-black text-[#0F3F1A]">White Whale Factory</span></div><h3 className="mt-5 text-2xl font-black text-[#0F3F1A]">Custom premium kitchen quartz</h3><p className="mt-4 text-base font-semibold leading-8 text-gray-700">A product suitable for kitchen tops, countertops and kitchen islands. It can be supplied, fabricated and installed according to project measurements, selected color and finishing requirements.</p><div className="mt-6 grid gap-3 sm:grid-cols-3">{['Easy to clean', 'Custom fabrication', 'Supply and installation'].map((item) => <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>)}</div><div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/en/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">View product</Link><a href="https://wa.me/971506623518" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">Request price on WhatsApp</a></div></div></div></div></section>
@@ -92,4 +75,9 @@ export default function MarketplaceEnglishPage() {
       </EnglishLayout>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const directoryCards = await getEnglishAbuDhabiDirectoryCards();
+  return { props: { directoryCards }, revalidate: 300 };
 }
