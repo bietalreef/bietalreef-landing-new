@@ -5,27 +5,28 @@ import { UAE_DIRECTORY_SECTIONS } from '../data/siteTaxonomy';
 
 const ABU_DHABI_SECTION_META = {
   providers: {
-    title: 'مزودو الخدمات في أبوظبي',
-    description: 'اختر النشاط الرئيسي، ثم انتقل إلى التصنيف والتخصص لعرض مزودي الخدمات المنشورين الذين يغطون إمارة أبوظبي.',
-    eyebrow: 'مزودو الخدمات',
-    button: 'عرض مزودي النشاط',
-    route: '/providers',
+    title: 'الشركات والمؤسسات والحرفيون في أبوظبي',
+    description: 'اكتشف الشركات والمؤسسات والورش والحرفيين في أبوظبي حسب النشاط والتصنيف والتخصص والخدمة المطلوبة.',
+    eyebrow: 'شركات ومؤسسات وحرفيون',
+    button: 'اكتشف الشركات والمؤسسات',
   },
   services_offers: {
     title: 'الخدمات والعروض في أبوظبي',
     description: 'اختر النشاط الرئيسي للوصول بالتدرج إلى التخصص والخدمة، ثم استعرض بطاقات الخدمات والعروض المنشورة داخل أبوظبي.',
     eyebrow: 'الخدمات والعروض',
     button: 'عرض الخدمات والعروض',
-    route: '/services',
   },
   products_stores: {
     title: 'المنتجات والمتاجر في أبوظبي',
     description: 'اختر النشاط الرئيسي للوصول إلى المنتجات والمتاجر والمصانع والورش والموردين الذين يخدمون إمارة أبوظبي.',
     eyebrow: 'المنتجات والمتاجر',
     button: 'عرض المنتجات والمتاجر',
-    route: '/marketplace',
   },
 };
+
+function providerCardTitle(activityName) {
+  return `شركات ومؤسسات ${activityName} في أبوظبي`;
+}
 
 function AbuDhabiConstitutionalCards({ cards }) {
   return (
@@ -37,8 +38,7 @@ function AbuDhabiConstitutionalCards({ cards }) {
 
         return <div key={sectionKey} id={`uae-${sectionKey}`}>
           <div className="mb-8 text-center md:text-right">
-            <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">7 بطاقات · 7 أنشطة رئيسية</span>
-            <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">{meta.title}</h2>
+            <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{meta.title}</h2>
             <p className="mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{meta.description}</p>
           </div>
 
@@ -53,14 +53,17 @@ function AbuDhabiConstitutionalCards({ cards }) {
                   </div>
                 </div>
                 <div className="p-5 text-right md:p-6">
-                  <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">{card.title}</h3>
+                  <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">
+                    {sectionKey === 'providers' ? providerCardTitle(card.activity.name) : card.title}
+                  </h3>
                   <p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{card.activity.description || card.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">نشاط رئيسي</span>
-                    <span className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">أبوظبي</span>
-                    <span className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">من الدستور</span>
+                  <div className="mt-4 grid grid-cols-3 gap-2">
+                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.categoryCount} أقسام</span>
+                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.specialtyCount} تخصصات</span>
+                    <span className="rounded-2xl bg-[#FDF7E8] px-2 py-2 text-center text-[11px] font-black text-[#8A6A00]">{card.activity.serviceCount} خدمات</span>
                   </div>
-                  <Link href={`${meta.route}?activity=${encodeURIComponent(card.activity.slug)}&emirate=abu-dhabi`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
+                  <p className="mt-3 line-clamp-2 text-xs font-bold leading-6 text-gray-500">{card.activity.categoryNames.join(' · ')}</p>
+                  <Link href={`/uae/abu-dhabi/${card.activity.slug}?section=${sectionKey}`} aria-label={`${meta.button}: ${card.activity.name}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
                     {meta.button}<ChevronLeft aria-hidden="true" className="h-4 w-4" />
                   </Link>
                 </div>
