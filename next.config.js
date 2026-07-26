@@ -12,7 +12,20 @@ const nextConfig = {
   },
   compress: true,
   async headers() {
+    const securityHeaders = [
+      { key: 'Content-Security-Policy', value: "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://vitals.vercel-insights.com https://*.vercel-insights.com; frame-src https://www.youtube-nocookie.com; upgrade-insecure-requests" },
+      { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+      { key: 'Strict-Transport-Security', value: 'max-age=31536000' },
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      { key: 'X-Frame-Options', value: 'DENY' },
+    ];
     return [
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
       {
         source: '/images/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
@@ -32,6 +45,12 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.bietalreef.ae' }],
+        destination: 'https://bietalreef.ae/:path*',
+        permanent: true,
+      },
       {
         source: '/join-provider',
         destination: '/providers/register',
@@ -80,6 +99,11 @@ module.exports = {
       {
         source: '/home',
         destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/en/home',
+        destination: '/en',
         permanent: true,
       },
       {

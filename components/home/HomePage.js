@@ -200,10 +200,19 @@ export default function HomePage({ locale = 'ar' }) {
           <section className="relative isolate overflow-hidden border-b border-[#E6DCC8] bg-[#FAF7F0]">
             <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_78%_20%,rgba(212,175,55,.14),transparent_34%)]" />
             <div className="relative mx-auto grid max-w-[1440px] md:min-h-[650px] md:grid-cols-[1fr_1fr] md:items-stretch" dir="rtl">
-              <div className="relative order-1 min-h-[330px] overflow-hidden rounded-b-[2.2rem] border-b border-[#D4AF37]/45 md:order-2 md:min-h-0 md:rounded-bl-[45%] md:rounded-br-none md:border-b-0 md:border-l">
+              <div className="relative order-1 min-h-[300px] overflow-hidden rounded-b-[2.2rem] border-b border-[#D4AF37]/45 sm:min-h-[330px] md:order-2 md:min-h-0 md:rounded-bl-[45%] md:rounded-br-none md:border-b-0 md:border-l">
                 {content.heroSlides.map((slide, index) => (
                   <div key={slide.src} className={`absolute inset-0 transition-opacity duration-[1800ms] ease-in-out motion-reduce:transition-none ${index === heroSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'}`}>
-                    <Image src={slide.src} alt={slide.alt} fill priority={index === 0} className={`object-cover object-center transition-transform duration-[6500ms] ease-linear motion-reduce:transition-none ${index === heroSlide ? 'scale-[1.045]' : 'scale-100'}`} sizes="(max-width: 767px) 100vw, 50vw" />
+                    <Image
+                      src={slide.src}
+                      alt={slide.alt}
+                      fill
+                      priority={index === 0}
+                      fetchPriority={index === 0 ? 'high' : 'auto'}
+                      quality={65}
+                      className={`object-cover object-center transition-transform duration-[6500ms] ease-linear motion-reduce:transition-none ${index === heroSlide ? 'scale-[1.045]' : 'scale-100'}`}
+                      sizes="(max-width: 767px) 100vw, 50vw"
+                    />
                   </div>
                 ))}
                 <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-[#073F3E]/24 via-transparent to-white/5" />
@@ -220,21 +229,26 @@ export default function HomePage({ locale = 'ar' }) {
             </div>
 
             <div className="relative z-10 mx-auto -mt-1 max-w-[1440px] px-3 pb-5 md:-mt-28 md:px-8 md:pb-8">
-              <div className="grid grid-cols-4 gap-2 md:gap-4" dir={isEnglish ? 'ltr' : 'rtl'}>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-2 md:gap-4" dir={isEnglish ? 'ltr' : 'rtl'}>
                 {content.introModels.map((item) => {
                   const Icon = item.icon;
                   return (
-                    <div key={item.title} className={`grid min-h-[116px] min-w-0 grid-rows-[64px_1fr] overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur md:min-h-0 md:grid-cols-[42%_58%] md:grid-rows-1 md:rounded-[1.4rem] ${isEnglish ? 'text-left' : 'text-right'}`}>
-                      <div className="relative h-16 overflow-hidden bg-[#F3EBDD] md:h-36">
-                        <Image src={item.image} alt="" fill className="object-cover" sizes="(max-width: 768px) 25vw, 150px" />
+                    <Link
+                      key={item.title}
+                      href={item.href}
+                      aria-label={`${item.title}: ${item.desc}`}
+                      className={`grid min-h-[136px] min-w-0 grid-rows-[76px_1fr] overflow-hidden rounded-2xl border border-[#DED4C2] bg-white/95 shadow-[0_12px_30px_rgba(32,42,39,.08)] backdrop-blur transition active:scale-[.99] sm:min-h-[116px] sm:grid-rows-[64px_1fr] md:min-h-0 md:grid-cols-[42%_58%] md:grid-rows-1 md:rounded-[1.4rem] md:hover:-translate-y-0.5 md:hover:shadow-lg ${isEnglish ? 'text-left' : 'text-right'}`}
+                    >
+                      <div className="relative h-[76px] overflow-hidden bg-[#F3EBDD] sm:h-16 md:h-36">
+                        <Image src={item.image} alt="" fill className="object-cover" sizes="(max-width: 639px) 50vw, (max-width: 768px) 25vw, 150px" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0F3F1A]/20 to-transparent" />
                       </div>
-                      <div className={`flex min-w-0 flex-col items-center justify-center px-1 py-2 text-center md:items-start md:px-4 ${isEnglish ? 'md:text-left' : 'md:text-right'}`}>
+                      <div className={`flex min-w-0 flex-col items-center justify-center px-2 py-2 text-center md:items-start md:px-4 ${isEnglish ? 'md:text-left' : 'md:text-right'}`}>
                         <Icon className="mb-1 hidden h-6 w-6 text-[#0F3F1A] md:block" aria-hidden="true" />
-                        <p className="text-[0.58rem] font-black leading-4 text-[#0F3F1A] min-[390px]:text-[0.65rem] sm:text-xs md:text-base md:leading-5">{item.title}</p>
+                        <p className="text-xs font-black leading-5 text-[#0F3F1A] min-[390px]:text-sm sm:text-xs md:text-base md:leading-5">{item.title}</p>
                         <p className="hidden text-xs font-semibold leading-5 text-gray-500 md:block">{item.desc}</p>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>
@@ -254,20 +268,20 @@ export default function HomePage({ locale = 'ar' }) {
             </div>
           </section>
 
-          <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+          <section className="deferred-section mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className={`mb-6 text-center ${isEnglish ? 'md:text-left' : 'md:text-right'}`}><span className="text-sm font-black text-[#6F5400]">{t.eyebrow}</span><h2 className="mt-2 text-3xl font-black text-[#0F3F1A] md:text-5xl">{t.gatewayTitle}</h2><p className="mt-4 max-w-4xl text-base leading-8 text-gray-600 md:text-lg">{t.gatewayText}</p></div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
               {content.gatewayCards.map((card) => <GatewayCard key={card.href} card={card} explore={t.explore} isEnglish={isEnglish} />)}
             </div>
           </section>
 
-          <section className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+          <section className="deferred-section mx-auto max-w-7xl px-4 py-8 md:py-12">
             <div className="grid grid-cols-1 gap-5 md:grid-cols-3">{content.clientJourneyCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition-shadow hover:shadow-md ${isEnglish ? 'text-left' : 'text-right'}`}><div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0F3F1A] text-white shadow-lg shadow-[#0F3F1A]/15"><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}</div>
           </section>
 
           <PlatformStoryVideo locale={language} />
 
-          <section className="bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
+          <section className="deferred-section bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
               <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">{t.providerEyebrow}</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.providerTitle}</h2><p className="mx-auto mt-5 max-w-5xl text-base font-semibold leading-9 text-gray-600 md:text-lg">{t.providerText}</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`${isEnglish ? '/en' : ''}/providers/register`} className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F4C4A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#17615E]">{t.providerPrimaryAction}</Link><Link href={`${isEnglish ? '/en' : ''}/pricing`} className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#D8C59F] bg-white px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#FFF9E8]">{t.providerSecondaryAction}</Link></div></div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
@@ -276,7 +290,7 @@ export default function HomePage({ locale = 'ar' }) {
             </div>
           </section>
 
-          <section className="bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{t.experienceTitle}</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">{t.experienceText}</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{content.experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm ${isEnglish ? 'text-left' : 'text-right'}`}><div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F4EEDC] text-[#0F4C4A] ${isEnglish ? 'mr-auto' : 'ml-auto'}`}><Icon className="h-7 w-7" strokeWidth={1.7} aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
+          <section className="deferred-section bg-white py-12 md:py-18"><div className="mx-auto max-w-7xl px-4"><div className="mb-8 text-center"><h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{t.experienceTitle}</h2><p className="mx-auto mt-4 max-w-3xl font-semibold leading-8 text-gray-600">{t.experienceText}</p></div><div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">{content.experienceCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-6 shadow-sm ${isEnglish ? 'text-left' : 'text-right'}`}><div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F4EEDC] text-[#0F4C4A] ${isEnglish ? 'mr-auto' : 'ml-auto'}`}><Icon className="h-7 w-7" strokeWidth={1.7} aria-hidden="true" /></div><h3 className="text-xl font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-3 text-sm leading-8 text-gray-600">{item.desc}</p></div>; })}</div></div></section>
         </main>
         <Footer locale={language} showRequestCTA={false} />
       </div>

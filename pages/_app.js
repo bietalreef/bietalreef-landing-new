@@ -60,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ClientSafetyBoundary>
       <Component {...pageProps} />
-      <WeyakChat standalone={currentPath === '/weyaak' || currentPath === '/en/weyaak'} />
+      <WeyakChat locale={isEnglishPage ? 'en' : 'ar'} standalone={currentPath === '/weyaak' || currentPath === '/en/weyaak'} />
       {isProviderProfile ? (
         <>
           <Head>

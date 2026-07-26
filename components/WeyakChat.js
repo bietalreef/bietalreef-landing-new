@@ -16,6 +16,43 @@ const AUDIENCE_ACTIONS = {
   ],
 };
 
+const CHAT_COPY = {
+  ar: {
+    greeting: 'يا مرحبا، أنا وياك. أرتب طلبك خطوة بخطوة، وأراجع التفاصيل معك قبل أي تسجيل. قل لي وين نبدأ؟',
+    subtitle: 'وكيل خدمة العملاء ومزودي الخدمات',
+    open: 'فتح محادثة وياك',
+    close: 'إغلاق المحادثة',
+    dialog: 'وياك وكيل منصة بيت الريف',
+    context: 'سياق المحادثة',
+    fallback: 'وصلت رسالتك، لكن ما قدرت أرتب الرد الآن.',
+    error: 'المعذرة يا طويل العمر، ما قدرت أكمل مراجعة المعلومات الآن. جرّب مرة ثانية بعد لحظات.',
+    loading: 'لحظة يا طويل العمر، أراجع لك بعض البيانات والمعلومات…',
+    followUp: 'رقم المتابعة:',
+    inputLabel: 'اكتب رسالتك إلى وياك',
+    placeholder: 'اكتب طلبك أو استفسارك...',
+    send: 'إرسال الرسالة',
+    voice: 'تسجيل صوتي قريباً',
+    privacy: 'لا يتم تسجيل البيانات إلا بعد مراجعتك وتأكيدك، ثم يصدر رقم متابعة',
+  },
+  en: {
+    greeting: 'Hello, I’m Weyaak. I can help you find published providers and organise your request step by step. What do you need?',
+    subtitle: 'Customer and service-provider assistant',
+    open: 'Open Weyaak chat',
+    close: 'Close chat',
+    dialog: 'Weyaak, Biet Al Reef assistant',
+    context: 'Conversation context',
+    fallback: 'I received your message, but I could not organise the response right now.',
+    error: 'Sorry, I could not finish checking the live information. Please try again in a moment.',
+    loading: 'One moment while I check the live information…',
+    followUp: 'Reference number:',
+    inputLabel: 'Write your message to Weyaak',
+    placeholder: 'Write your request or question...',
+    send: 'Send message',
+    voice: 'Voice input coming soon',
+    privacy: 'Information is saved only after you review and confirm it, then a reference number is issued',
+  },
+};
+
 function IntakeCard({ intake, disabled, onSubmitted }) {
   const [values, setValues] = useState(intake?.defaults || {});
   const [reviewing, setReviewing] = useState(false);
@@ -193,13 +230,15 @@ function IntakeCard({ intake, disabled, onSubmitted }) {
   );
 }
 
-export default function WeyakChat({ embedded = false, standalone = false }) {
+export default function WeyakChat({ embedded = false, standalone = false, locale = 'ar' }) {
   const [isOpen, setIsOpen] = useState(embedded || standalone);
   const [pageContext, setPageContext] = useState({});
+  const isEnglish = locale === 'en' || pageContext.path?.startsWith('/en');
+  const t = CHAT_COPY[isEnglish ? 'en' : 'ar'];
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'يا مرحبا، أنا وياك. أرتب طلبك خطوة بخطوة، وأراجع التفاصيل معك قبل أي تسجيل. قل لي وين نبدأ؟',
+      content: CHAT_COPY[locale === 'en' ? 'en' : 'ar'].greeting,
     },
   ]);
   const [sessionState, setSessionState] = useState({ audience: 'unknown', intent: 'general', payload: {} });
@@ -212,6 +251,12 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
+
+  useEffect(() => {
+    setMessages((current) => current.some((message) => message.role === 'user')
+      ? current
+      : [{ role: 'assistant', content: CHAT_COPY[locale === 'en' ? 'en' : 'ar'].greeting }]);
+  }, [locale]);
 
   useEffect(() => {
     if (standalone) setIsOpen(true);
@@ -265,7 +310,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
       if (data.state) setSessionState(data.state);
       setMessages((current) => [...current, {
         role: 'assistant',
-        content: data.reply || data.message || 'وصلت رسالتك، لكن ما قدرت أرتب الرد الآن.',
+        content: data.reply || data.message || t.fallback,
         links: Array.isArray(data.links) ? data.links : [],
         requestNumber: data.request_number || null,
         intake: data.intake || null,
@@ -274,7 +319,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
       console.error('Chat error:', error);
       setMessages((current) => [...current, {
         role: 'assistant',
-        content: 'المعذرة يا طويل العمر، ما قدرت أكمل مراجعة المعلومات الآن. جرّب مرة ثانية بعد لحظات.',
+        content: t.error,
         links: [],
       }]);
     } finally {
@@ -302,8 +347,6 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
   };
 
   const hasUserMessages = messages.some((message) => message.role === 'user');
-  const isEnglish = pageContext.path?.startsWith('/en') || (typeof window !== 'undefined' && window.location.pathname.startsWith('/en'));
-
   return (
     <>
       {!embedded && !standalone && (
@@ -313,8 +356,8 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
           className={`fixed bottom-6 right-6 z-50 rounded-full bg-[#1B4D3E] p-4 text-white shadow-lg transition-all duration-300 hover:scale-110 ${
             isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
           }`}
-          aria-label="فتح محادثة وياك"
-          title="تحدث مع وياك"
+          aria-label={t.open}
+          title={t.open}
         >
           <div className="relative" aria-hidden="true">
             <MessageCircle className="h-8 w-8" />
@@ -331,7 +374,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
           isOpen ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-10 scale-95 opacity-0'
         }`}
         role="dialog"
-        aria-label="وياك وكيل منصة بيت الريف"
+        aria-label={t.dialog}
       >
         <div className="flex shrink-0 items-center justify-between bg-[#1B4D3E] p-4 text-white">
           <div className="flex items-center gap-3">
@@ -343,7 +386,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
             </div>
             <div>
               <h3 className="text-lg font-bold">وياك</h3>
-              <p className="text-xs text-green-100 opacity-90">وكيل خدمة العملاء ومزودي الخدمات</p>
+              <p className="text-xs text-green-100 opacity-90">{t.subtitle}</p>
             </div>
           </div>
           {!embedded && !standalone && (
@@ -351,8 +394,8 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
               type="button"
               onClick={() => setIsOpen(false)}
               className="rounded-full p-2 transition-colors hover:bg-white/10"
-              aria-label="إغلاق المحادثة"
-              title="إغلاق المحادثة"
+              aria-label={t.close}
+              title={t.close}
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
@@ -360,7 +403,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
         </div>
 
         <div className="flex-1 space-y-4 overflow-y-auto bg-gray-50 p-4 scroll-smooth" aria-live="polite">
-          {pageContext.sourceTitle || pageContext.service || pageContext.area ? <div className="rounded-xl border border-[#D8E4DC] bg-white px-3 py-2 text-[11px] font-bold leading-5 text-[#1B4D3E]"><span className="block text-[10px] text-gray-500">سياق المحادثة</span>{[pageContext.section, pageContext.emirate, pageContext.area, pageContext.service, pageContext.provider, pageContext.product].filter(Boolean).join(' · ') || pageContext.sourceTitle}</div> : null}
+          {pageContext.sourceTitle || pageContext.service || pageContext.area ? <div className="rounded-xl border border-[#D8E4DC] bg-white px-3 py-2 text-[11px] font-bold leading-5 text-[#1B4D3E]"><span className="block text-[10px] text-gray-500">{t.context}</span>{[pageContext.section, pageContext.emirate, pageContext.area, pageContext.service, pageContext.provider, pageContext.product].filter(Boolean).join(' · ') || pageContext.sourceTitle}</div> : null}
           {!hasUserMessages && (
             <div className="rounded-2xl border border-[#DDE8E1] bg-[#F4F8F5] p-3">
               <div className="mb-3 flex items-center gap-2 text-xs font-bold text-[#1B4D3E]">
@@ -394,7 +437,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
 
                 {message.requestNumber && (
                   <div className="mt-3 rounded-xl bg-[#F3F8F4] px-3 py-2 text-xs font-bold text-[#1B4D3E]">
-                    رقم المتابعة: <span dir="ltr">{message.requestNumber}</span>
+                    {t.followUp} <span dir="ltr">{message.requestNumber}</span>
                   </div>
                 )}
 
@@ -433,7 +476,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
             <div className="flex justify-start">
               <div className="flex items-center gap-2 rounded-2xl rounded-bl-none border border-gray-100 bg-white p-4 shadow-sm">
                 <Loader2 className="h-4 w-4 animate-spin text-[#1B4D3E]" aria-hidden="true" />
-                <span className="text-xs text-gray-500">لحظة يا طويل العمر، أراجع لك بعض البيانات والمعلومات…</span>
+                <span className="text-xs text-gray-500">{t.loading}</span>
               </div>
             </div>
           )}
@@ -443,7 +486,7 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
         <div className="shrink-0 border-t border-gray-100 bg-white p-4">
           <form onSubmit={handleSubmit} className="flex items-end gap-2">
             <div className="relative flex-1">
-              <label htmlFor="weyaak-message" className="sr-only">اكتب رسالتك إلى وياك</label>
+              <label htmlFor="weyaak-message" className="sr-only">{t.inputLabel}</label>
               <textarea
                 id="weyaak-message"
                 value={input}
@@ -454,16 +497,16 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
                     void sendMessage(input);
                   }
                 }}
-                placeholder="اكتب طلبك أو استفسارك..."
-                className="min-h-[50px] max-h-[120px] w-full resize-none rounded-xl border border-gray-200 bg-gray-50 p-3 pl-10 text-right text-base shadow-sm sm:text-sm outline-none focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/20"
+                placeholder={t.placeholder}
+                className={`min-h-[50px] max-h-[120px] w-full resize-none rounded-xl border border-gray-200 bg-gray-50 p-3 text-base shadow-sm outline-none focus:border-[#1B4D3E] focus:ring-2 focus:ring-[#1B4D3E]/20 sm:text-sm ${isEnglish ? 'pr-10 text-left' : 'pl-10 text-right'}`}
                 rows={1}
-                style={{ direction: 'rtl' }}
+                style={{ direction: isEnglish ? 'ltr' : 'rtl' }}
               />
               <button
                 type="button"
-                className="absolute bottom-2.5 left-2 p-1.5 text-gray-400 transition-colors hover:text-[#1B4D3E]"
-                title="تسجيل صوتي (قريباً)"
-                aria-label="تسجيل صوتي قريباً"
+                className={`absolute bottom-2.5 p-1.5 text-gray-400 transition-colors hover:text-[#1B4D3E] ${isEnglish ? 'right-2' : 'left-2'}`}
+                title={t.voice}
+                aria-label={t.voice}
               >
                 <Mic className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -472,15 +515,15 @@ export default function WeyakChat({ embedded = false, standalone = false }) {
               type="submit"
               disabled={!input.trim() || isLoading}
               className="shrink-0 rounded-xl bg-[#1B4D3E] p-3 text-white shadow-sm transition-all hover:bg-[#143D31] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
-              aria-label="إرسال الرسالة"
-              title="إرسال الرسالة"
+              aria-label={t.send}
+              title={t.send}
             >
               <Send className="h-5 w-5 rotate-180" aria-hidden="true" />
             </button>
           </form>
           <div className="mt-2 flex items-center justify-center gap-2 text-[10px] text-gray-400">
             <ShieldCheck className="h-3 w-3" />
-            لا يتم تسجيل البيانات إلا بعد مراجعتك وتأكيدك، ثم يصدر رقم متابعة
+            {t.privacy}
           </div>
         </div>
       </div>

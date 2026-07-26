@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import UniversalRequestCTA from './UniversalRequestCTA';
+import { getEmirate } from '../data/siteTaxonomy';
 import {
   Home,
+  MapPin,
   Layers3,
   Handshake,
   Headphones,
@@ -102,21 +105,65 @@ function FooterAccordionSection({ section, isOpen, onToggle, textAlign }) {
   );
 }
 
+function EmirateFooterContext({ language, emirate }) {
+  if (!emirate) return null;
+  const isEnglish = language === 'en';
+  const root = `${isEnglish ? '/en' : ''}/uae/${emirate.slug}`;
+  const name = isEnglish ? emirate.nameEn : emirate.nameAr;
+
+  return (
+    <nav
+      aria-label={isEnglish ? `${name} directory links` : `روابط دليل ${name}`}
+      data-emirate-footer={emirate.slug}
+      className={`mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#F7FBF8] p-6 shadow-[0_14px_35px_rgba(15,63,26,0.07)] ${isEnglish ? 'text-left' : 'text-right'}`}
+    >
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="flex items-center gap-2 text-sm font-black text-[#8A611B]">
+            <MapPin className="h-4 w-4" />
+            {isEnglish ? `${name} directory` : `دليل ${name}`}
+          </p>
+          <h2 className="mt-2 text-xl font-black text-[#0F3F1A]">
+            {isEnglish ? `Explore providers and services across ${name}` : `استكشف مزودي الخدمات والأعمال في ${name}`}
+          </h2>
+        </div>
+        <Link href={root} className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#0F3F1A] px-5 py-2.5 text-sm font-black text-white">
+          {isEnglish ? `Open ${name}` : `فتح دليل ${name}`}
+        </Link>
+      </div>
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {emirate.areas.map((area) => (
+          <li key={area.slug}>
+            <Link href={`${root}/${area.slug}`} className="inline-flex rounded-full border border-[#D8C9A8] bg-white px-3 py-2 text-xs font-bold text-gray-700 transition hover:border-primary hover:text-primary">
+              {isEnglish ? area.nameEn : area.nameAr}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 export { socialLinks };
 
 export default function Footer({ locale = 'ar', showRequestCTA = true }) {
+  const router = useRouter();
   const language = locale === 'en' ? 'en' : 'ar';
   const t = copy[language];
   const [openSection, setOpenSection] = useState(null);
   const textAlign = language === 'en' ? 'text-left' : 'text-right';
   const desktopAlign = language === 'en' ? 'md:text-left' : 'md:text-right';
   const desktopSocial = language === 'en' ? 'md:justify-start' : 'md:justify-end';
+  const pathParts = String(router.asPath || '').split(/[?#]/)[0].split('/').filter(Boolean);
+  const uaeIndex = pathParts.indexOf('uae');
+  const activeEmirate = uaeIndex >= 0 ? getEmirate(pathParts[uaeIndex + 1]) : null;
 
   return (
     <>
       {showRequestCTA ? <UniversalRequestCTA locale={language} /> : null}
       <footer className="border-t border-[#E6DCC8] bg-white text-gray-900" dir={t.dir} role="contentinfo">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <EmirateFooterContext language={language} emirate={activeEmirate} />
           <div className={`mb-9 rounded-[2rem] border border-[#D4AF37]/35 bg-[#FFF9E8] p-6 shadow-[0_16px_40px_rgba(15,63,26,0.08)] md:flex md:items-center md:justify-between md:gap-8 ${textAlign}`}>
             <div>
               <p className="text-sm font-black text-[#A27E18]">{t.promoEyebrow}</p>
@@ -128,7 +175,7 @@ export default function Footer({ locale = 'ar', showRequestCTA = true }) {
           <div className="grid grid-cols-1 gap-x-8 gap-y-0 lg:grid-cols-2 lg:gap-y-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
             <div className={`text-center lg:col-span-2 xl:col-span-1 ${desktopAlign}`}>
               <Link href={t.home} aria-label={language === 'en' ? 'Biet Al Reef home' : 'الرئيسية'}>
-                <Image src="/logo.png" alt={language === 'en' ? 'Biet Al Reef' : 'بيت الريف'} width={110} height={110} className={`mx-auto h-24 w-24 object-contain ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`} />
+                <Image src="/icons/logo-512.webp" alt={language === 'en' ? 'Biet Al Reef' : 'بيت الريف'} width={110} height={110} className={`mx-auto h-24 w-24 object-contain ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`} />
               </Link>
               <p className={`mx-auto mt-4 max-w-xs text-sm font-medium leading-7 text-gray-600 ${language === 'en' ? 'md:ml-0' : 'md:mr-0'}`}>{t.description}</p>
               <div className={`mt-5 flex flex-wrap items-center justify-center gap-3 ${desktopSocial}`} dir="ltr">{socialLinks.map((item) => <SocialLink key={item.label} {...item} />)}</div>

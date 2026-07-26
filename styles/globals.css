@@ -141,6 +141,11 @@ pre,
   padding-bottom: max(env(safe-area-inset-bottom), 16px);
 }
 
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 760px;
+}
+
 /* Homepage gateway cards: premium petrol glass frame */
 a[href="/uae"] div[class*="bg-[#0F3F1A]/95"],
 a[href="/providers"] div[class*="bg-[#0F3F1A]/95"],

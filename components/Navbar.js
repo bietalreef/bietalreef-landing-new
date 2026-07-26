@@ -46,6 +46,36 @@ function isActivePath(pathname, href) {
   return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
 }
 
+export function getLocalizedPath(asPath = '/', targetLocale = 'en') {
+  const hashIndex = asPath.indexOf('#');
+  const hash = hashIndex >= 0 ? asPath.slice(hashIndex) : '';
+  const pathAndQuery = hashIndex >= 0 ? asPath.slice(0, hashIndex) : asPath;
+  const queryIndex = pathAndQuery.indexOf('?');
+  const query = queryIndex >= 0 ? pathAndQuery.slice(queryIndex) : '';
+  const rawPathname = queryIndex >= 0 ? pathAndQuery.slice(0, queryIndex) : pathAndQuery;
+  const pathname = rawPathname.startsWith('/') ? rawPathname : `/${rawPathname}`;
+  const arabicPath = pathname === '/en'
+    ? '/'
+    : pathname.startsWith('/en/')
+      ? pathname.slice(3)
+      : pathname;
+
+  let localizedPath;
+  if (targetLocale === 'ar') {
+    localizedPath = arabicPath;
+    if (localizedPath.startsWith('/categories/')) {
+      localizedPath = localizedPath.replace('/categories/', '/services/');
+    }
+  } else {
+    const englishSource = arabicPath.startsWith('/services/') && arabicPath.split('/').length === 3
+      ? arabicPath.replace('/services/', '/categories/')
+      : arabicPath;
+    localizedPath = englishSource === '/' ? '/en' : `/en${englishSource}`;
+  }
+
+  return `${localizedPath}${query}${hash}`;
+}
+
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false, rtl = true }) {
   return (
     <Link
@@ -101,7 +131,7 @@ export default function Navbar({ locale = 'ar' }) {
   const [isOpen, setIsOpen] = useState(false);
   const [platformOpen, setPlatformOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
-  const languageHref = isEnglish ? '/' : '/en';
+  const languageHref = getLocalizedPath(router.asPath || router.pathname || '/', isEnglish ? 'ar' : 'en');
   const prefix = isEnglish ? '/en' : '';
   const labels = isEnglish ? {
     home: 'Home', uae: 'UAE Directory', providers: 'Service Providers', services: 'Services & Offers', marketplace: 'Products & Stores',
@@ -125,7 +155,7 @@ export default function Navbar({ locale = 'ar' }) {
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
           <Link href={isEnglish ? '/en' : '/'} className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
-              <Image src="/logo.png" alt={isEnglish ? 'Biet Al Reef' : 'بيت الريف'} width={44} height={44} className="h-full w-full object-contain" priority />
+              <Image src="/icons/logo-512.webp" alt={isEnglish ? 'Biet Al Reef' : 'بيت الريف'} width={44} height={44} className="h-full w-full object-contain" loading="eager" />
             </div>
             <div className="hidden flex-col sm:flex">
               <span className="text-sm font-bold text-primary">{isEnglish ? 'Biet Al Reef' : 'بيت الريف'}</span>
@@ -152,7 +182,7 @@ export default function Navbar({ locale = 'ar' }) {
               <button type="button" onClick={closeMenu} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label={isEnglish ? labels.close : 'إغلاق القائمة'}>
                 <X className="h-6 w-6" />
               </button>
-              <Image src="/logo.png" alt="بيت الريف" width={72} height={72} className="h-16 w-16 object-contain" priority />
+              <Image src="/icons/logo-512.webp" alt="بيت الريف" width={72} height={72} className="h-16 w-16 object-contain" />
               <span className="h-10 w-10" />
             </div>
 

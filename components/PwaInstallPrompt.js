@@ -52,7 +52,7 @@ export default function PwaInstallPrompt({ locale = 'ar' }) {
   return (
     <aside dir={isEnglish ? 'ltr' : 'rtl'} className="fixed inset-x-4 bottom-4 z-[205] mx-auto max-w-md rounded-[1.6rem] border border-[#D7C48D] bg-white/95 p-4 shadow-2xl backdrop-blur-xl" aria-label={isEnglish ? 'Install Biet Al Reef' : 'تثبيت بيت الريف'}>
       <div className="flex items-start gap-3">
-        <Image src="/logo.png" alt="" width={48} height={48} className="h-12 w-12 shrink-0 rounded-xl object-cover" />
+        <Image src="/icons/logo-512.webp" alt="" width={48} height={48} className="h-12 w-12 shrink-0 rounded-xl object-cover" />
         <div className="min-w-0 flex-1">
           <h2 className="font-black text-[#102F18]">{isEnglish ? 'Add Biet Al Reef to your device' : 'ثبّت بيت الريف على جهازك'}</h2>
           <p className="mt-1 text-xs font-semibold leading-6 text-gray-600">{isEnglish ? 'Faster access from your home screen with the same public website and identity.' : 'وصول أسرع من الشاشة الرئيسية إلى نفس الموقع العام وبنفس الهوية.'}</p>

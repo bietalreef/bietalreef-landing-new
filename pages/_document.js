@@ -42,10 +42,10 @@ export default class BietAlReefDocument extends Document {
     return (
       <Html lang={isEnglish ? 'en-AE' : 'ar-AE'} dir={isEnglish ? 'ltr' : 'rtl'}>
         <Head>
-          <link rel="icon" href="/logo.png" type="image/png" />
-          <link rel="shortcut icon" href="/logo.png" type="image/png" />
+          <link rel="icon" href="/icons/favicon-48.png" sizes="48x48" type="image/png" />
+          <link rel="shortcut icon" href="/icons/favicon-48.png" type="image/png" />
           <link rel="manifest" href="/manifest.webmanifest" />
-          <link rel="apple-touch-icon" href="/logo.png" />
+          <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
           <meta name="google-site-verification" content={GOOGLE_VERIFICATION} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
