@@ -10,7 +10,7 @@ import UaeDirectoryWeyaakCard from '../../../../components/UaeDirectoryWeyaakCar
 import UaeContextInfoCard from '../../../../components/UaeContextInfoCard';
 import UaeDirectorySeo from '../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../data/siteTaxonomy';
-import { getEnglishAbuDhabiDirectoryCards } from '../../../../lib/platformDirectoryCards';
+import { getEnglishUaeDirectoryCards } from '../../../../lib/platformDirectoryCards';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
@@ -61,7 +61,7 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service,
           <UaeDirectoryWeyaakCard locale="en" title={`Weyaak in ${area.nameEn}`} description={`Tell Weyaak what your project needs in ${area.nameEn}, and it will help you choose the specialty and reach the right provider or request path.`} />
           <UaeDirectorySectorCards emirate={emirate} area={area} locale="en" directoryCards={directoryCards} />
         </main>
-        <UaeSmartFooter locale="en" pageType="area" emirate={emirate} area={area} />
+        <UaeSmartFooter locale="en" pageType="area" emirate={emirate} area={area} directoryCards={directoryCards} />
       </EnglishLayout>
     </>
   );
@@ -75,8 +75,7 @@ export async function getStaticProps({ params }) {
   const service = getServiceCategory(params.area);
 
   if (!area && !service) return { notFound: true };
-  const directoryCards =
-    params.emirate === 'abu-dhabi' && area ? await getEnglishAbuDhabiDirectoryCards() : [];
+  const directoryCards = area ? await getEnglishUaeDirectoryCards() : [];
 
   return {
     props: {
@@ -93,7 +92,6 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const areaPaths = [];
   UAE_EMIRATES.forEach((emirate) => {
-    if (emirate.slug === 'abu-dhabi') return;
     emirate.areas.forEach((area) => areaPaths.push({ params: { emirate: emirate.slug, area: area.slug } }));
   });
   const servicePaths = [];

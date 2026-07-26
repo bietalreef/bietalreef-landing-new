@@ -9,20 +9,19 @@ import SeoProofCards from '../../components/SeoProofCards';
 import UaeDirectorySectorCards from '../../components/UaeDirectorySectorCards';
 import UaeDirectoryHero from '../../components/UaeDirectoryHero';
 import AbuDhabiDirectoryIntro from '../../components/AbuDhabiDirectoryIntro';
-import UaeDirectoryWeyaakCard from '../../components/UaeDirectoryWeyaakCard';
 import { UAE_EMIRATES, getEmirate } from '../../data/siteTaxonomy';
 import { UAE_ATLAS_IMAGES } from '../../data/uaeAtlasImages';
-import { ABU_DHABI_DIRECTORY_SECTION_SLUGS, getArabicAbuDhabiDirectoryCards } from '../../lib/platformDirectoryCards';
+import { UAE_DIRECTORY_SECTION_SLUGS, getArabicUaeDirectoryCards } from '../../lib/platformDirectoryCards';
 
 const atlasImageBySlug = Object.fromEntries(UAE_ATLAS_IMAGES.emirates.map((item) => [item.slug, item.image]));
 
-function providerSchemaTitle(activityName) {
+function providerSchemaTitle(activityName, emirateName) {
   return activityName === 'المقاولات والبناء'
-    ? 'أفضل المقاولين الموثقين في المقاولات والإنشاءات العامة في أبوظبي'
-    : `شركات ومؤسسات ${activityName} في أبوظبي`;
+    ? `أفضل المقاولين الموثقين في المقاولات والإنشاءات العامة في ${emirateName}`
+    : `شركات ومؤسسات ${activityName} في ${emirateName}`;
 }
 
-export default function EmiratePage({ emirate, emirateSlug, abuDhabiDirectoryCards = [] }) {
+export default function EmiratePage({ emirate, emirateSlug, directoryCards = [] }) {
   if (!emirate) return null;
   const isAbuDhabi = emirate.slug === 'abu-dhabi';
   const showAlHootSeoPath = false;
@@ -37,32 +36,32 @@ export default function EmiratePage({ emirate, emirateSlug, abuDhabiDirectoryCar
   const pageTitle = isAbuDhabi
     ? 'دليل أبوظبي للخدمات والمنتجات والموردين | بيت الريف'
     : `${emirate.nameAr}: دليل البناء والمقاولات والخدمات | بيت الريف`;
-  const abuDhabiDirectorySchema = isAbuDhabi && abuDhabiDirectoryCards.length
+  const directorySchema = directoryCards.length === 18
     ? {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'دليل أنشطة وخدمات ومنتجات أبوظبي',
+        name: `دليل أنشطة وخدمات ومنتجات ${emirate.nameAr}`,
         itemListOrder: 'https://schema.org/ItemListOrderAscending',
-        numberOfItems: abuDhabiDirectoryCards.length,
-        itemListElement: abuDhabiDirectoryCards.map((card, index) => ({
+        numberOfItems: directoryCards.length,
+        itemListElement: directoryCards.map((card, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           item: {
             '@type': 'CreativeWork',
             name: card.sectionKey === 'providers'
-              ? providerSchemaTitle(card.activity.name)
+              ? providerSchemaTitle(card.activity.name, emirate.nameAr)
               : card.title,
             description: card.description,
             image: card.image.startsWith('http')
               ? card.image
               : `https://bietalreef.ae${card.image}`,
-            url: `${canonical}/directory/${ABU_DHABI_DIRECTORY_SECTION_SLUGS[card.sectionKey]}/${card.activity.slug}`,
+            url: `${canonical}/directory/${UAE_DIRECTORY_SECTION_SLUGS[card.sectionKey]}/${card.activity.slug}`,
           },
         })),
       }
     : null;
   const faqItems = [
-    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, isAbuDhabi ? 'ابدأ من إحدى مجموعات الدليل الثلاث، ثم اختر النشاط الرئيسي من البطاقات السبع للوصول إلى المسار المناسب.' : 'ابدأ باختيار أحد القطاعات السبعة الرئيسية مثل المقاولات أو المواد أو الصيانة، وستجد المناطق والخدمات ذات الصلة في الصفحة.'],
+    [`كيف أبحث عن خدمة في ${emirate.nameAr}؟`, 'ابدأ من إحدى مجموعات الدليل الثلاث، ثم اختر النشاط الرئيسي من البطاقات المعتمدة للوصول إلى المسار المناسب.'],
     ['هل يمكنني التصفح حسب المنطقة؟', 'نعم، روابط المدن والمناطق متاحة ضمن قسم المسارات الإضافية أسفل الصفحة.'],
     ['هل أستطيع طلب عرض سعر؟', 'نعم، يمكنك طلب عرض سعر من صفحة الإمارة أو صفحة النشاط، وسيتم توجيه الطلب حسب المكان والخدمة.'],
   ];
@@ -92,10 +91,10 @@ export default function EmiratePage({ emirate, emirateSlug, abuDhabiDirectoryCar
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageData.desc} />
         <meta name="twitter:image" content={shareImage} />
-        {abuDhabiDirectorySchema && (
+        {directorySchema && (
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(abuDhabiDirectorySchema) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(directorySchema) }}
           />
         )}
       </Head>
@@ -105,19 +104,19 @@ export default function EmiratePage({ emirate, emirateSlug, abuDhabiDirectoryCar
         <main>
           <UaeDirectoryHero locale="ar" title={pageData.h1} description={pageData.desc} emirate={emirate} image={atlasImageBySlug[emirate.slug]} cleanNavigation />
 
-          {isAbuDhabi ? <AbuDhabiDirectoryIntro locale="ar" /> : <UaeDirectoryWeyaakCard locale="ar" title={`وياك في ${emirate.nameAr}`} description={`أخبر وياك بما يحتاجه مشروعك في ${emirate.nameAr}، وسيساعدك في الوصول إلى مزود الخدمة أو الخدمة والعرض أو المنتج والمتجر المناسب.`} />}
+          <AbuDhabiDirectoryIntro locale="ar" emirate={emirate} />
 
           {showAlHootSeoPath && <SeoProofCards title="مسار حقيقي داخل صفحة أبوظبي" desc="هذه الصفحة لا تكتفي بنص SEO عام. يوجد داخلها مثال واضح لمسار العميل: مزود موثق للرخام والجرانيت، خدمة قابلة للطلب، منتج واضح، وخطوة معاينة أو عرض سعر مرتبطة بملف مصنع الحوت." />}
 
-          <UaeDirectorySectorCards emirate={emirate} locale="ar" directoryCards={abuDhabiDirectoryCards} />
+          <UaeDirectorySectorCards emirate={emirate} locale="ar" directoryCards={directoryCards} />
 
           <SeoContent title={`${emirate.nameAr} داخل دليل بيت الريف`}>
             <p>{emirate.description}</p>
-            <p className="mt-4">{isAbuDhabi ? 'تعرض الصفحة سبع بطاقات للوصول إلى الشركات والمؤسسات والورش والحرفيين، وسبع بطاقات للخدمات والعروض، وأربع بطاقات للمنتجات والمتاجر. تأتي أسماء البطاقات وترتيبها مباشرة من القاموس المركزي للمنصة.' : `يعرض هذا القسم القطاعات السبعة الرئيسية داخل ${emirate.nameAr}، مع روابط منظمة للمدن والمناطق والتخصصات الأخرى لتسهيل الوصول والمحافظة على قوة البحث الجغرافي.`}</p>
+            <p className="mt-4">تعرض الصفحة سبع بطاقات للوصول إلى الشركات والمؤسسات والورش والحرفيين، وسبع بطاقات للخدمات والعروض، وأربع بطاقات للمنتجات والمتاجر. تأتي أسماء البطاقات وترتيبها مباشرة من القاموس المركزي للمنصة.</p>
             {showAlHootSeoPath && <p className="mt-4">تم دعم صفحة أبوظبي بمسار داخلي واضح يربط بين محتوى البحث الجغرافي ومزود خدمة فعلي داخل المنصة، مثل مصنع الحوت الأبيض للرخام والجرانيت.</p>}
           </SeoContent>
 
-          <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} />
+          <UaeSmartFooter locale="ar" pageType="emirate" emirate={emirate} directoryCards={directoryCards} />
           <FAQ items={faqItems} title={`أسئلة شائعة حول خدمات ${emirate.nameAr}`} />
         </main>
         <Footer showRequestCTA={false} />
@@ -130,16 +129,13 @@ export async function getStaticProps({ params }) {
   const emirateSlug = params.activity;
   const emirate = getEmirate(emirateSlug);
   if (!emirate) return { notFound: true };
-  const abuDhabiDirectoryCards =
-    emirateSlug === 'abu-dhabi' ? await getArabicAbuDhabiDirectoryCards() : [];
-  return { props: { emirate, emirateSlug, abuDhabiDirectoryCards }, revalidate: 3600 };
+  const directoryCards = await getArabicUaeDirectoryCards();
+  return { props: { emirate, emirateSlug, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
   return {
-    paths: UAE_EMIRATES
-      .filter((emirate) => emirate.slug !== 'abu-dhabi')
-      .map((emirate) => ({ params: { activity: emirate.slug } })),
+    paths: UAE_EMIRATES.map((emirate) => ({ params: { activity: emirate.slug } })),
     fallback: 'blocking',
   };
 }

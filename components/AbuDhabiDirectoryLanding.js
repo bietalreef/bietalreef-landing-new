@@ -16,9 +16,11 @@ function itemsForCard(card) {
   return card.activity.specialties;
 }
 
-function pageCopy(card, locale, area) {
+function pageCopy(card, locale, area, emirate) {
   const isEn = locale === 'en';
-  const location = area ? (isEn ? area.nameEn : area.nameAr) : (isEn ? 'Abu Dhabi' : 'أبوظبي');
+  const location = area
+    ? (isEn ? area.nameEn : area.nameAr)
+    : (isEn ? emirate.nameEn : emirate.nameAr);
   const type = card.sectionKey;
   if (isEn) {
     const title = type === 'providers'
@@ -98,13 +100,22 @@ function DirectoryEntityCard({ entity, locale }) {
   );
 }
 
-function LandingContent({ card, entities = [], locale, area, emirate, path, alternatePath }) {
+function LandingContent({
+  card,
+  entities = [],
+  directoryCards = [],
+  locale,
+  area,
+  emirate,
+  path,
+  alternatePath,
+}) {
   const isEn = locale === 'en';
-  const copy = pageCopy(card, locale, area);
+  const copy = pageCopy(card, locale, area, emirate);
   const items = itemsForCard(card);
   const canonical = `https://bietalreef.ae${path}`;
   const image = card.image.startsWith('http') ? card.image : `https://bietalreef.ae${card.image}`;
-  const hubPath = `${isEn ? '/en' : ''}/uae/abu-dhabi${area ? `/${area.slug}` : ''}`;
+  const hubPath = `${isEn ? '/en' : ''}/uae/${emirate.slug}${area ? `/${area.slug}` : ''}`;
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -112,7 +123,7 @@ function LandingContent({ card, entities = [], locale, area, emirate, path, alte
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: isEn ? 'UAE Directory' : 'دليل الإمارات', item: `https://bietalreef.ae${isEn ? '/en' : ''}/uae` },
-          { '@type': 'ListItem', position: 2, name: isEn ? 'Abu Dhabi' : 'أبوظبي', item: `https://bietalreef.ae${isEn ? '/en' : ''}/uae/abu-dhabi` },
+          { '@type': 'ListItem', position: 2, name: isEn ? emirate.nameEn : emirate.nameAr, item: `https://bietalreef.ae${isEn ? '/en' : ''}/uae/${emirate.slug}` },
           ...(area ? [{ '@type': 'ListItem', position: 3, name: copy.location, item: `https://bietalreef.ae${hubPath}` }] : []),
           { '@type': 'ListItem', position: area ? 4 : 3, name: copy.title, item: canonical },
         ],
@@ -191,7 +202,7 @@ function LandingContent({ card, entities = [], locale, area, emirate, path, alte
           </div>
         </section>
 
-        <UaeSmartFooter locale={locale} pageType="area" emirate={emirate} area={area} />
+        <UaeSmartFooter locale={locale} pageType="area" emirate={emirate} area={area} directoryCards={directoryCards} />
       </main>
     </>
   );

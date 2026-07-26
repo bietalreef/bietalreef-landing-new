@@ -13,7 +13,7 @@ import UaeDirectoryWeyaakCard from '../../../components/UaeDirectoryWeyaakCard';
 import UaeContextInfoCard from '../../../components/UaeContextInfoCard';
 import UaeDirectorySeo from '../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../data/siteTaxonomy';
-import { getArabicAbuDhabiDirectoryCards } from '../../../lib/platformDirectoryCards';
+import { getArabicUaeDirectoryCards } from '../../../lib/platformDirectoryCards';
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
@@ -99,7 +99,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
           </SeoContent>
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول الخدمات في ${area.nameAr}`} />
-          <UaeSmartFooter locale="ar" pageType="area" emirate={emirate} area={area} />
+          <UaeSmartFooter locale="ar" pageType="area" emirate={emirate} area={area} directoryCards={directoryCards} />
         </main>
         <Footer showRequestCTA={false} />
       </div>
@@ -117,8 +117,7 @@ export async function getStaticProps({ params }) {
   const service = getServiceCategory(secondSlug);
 
   if (!area && !service) return { notFound: true };
-  const directoryCards =
-    emirateSlug === 'abu-dhabi' && area ? await getArabicAbuDhabiDirectoryCards() : [];
+  const directoryCards = area ? await getArabicUaeDirectoryCards() : [];
 
   return {
     props: {
@@ -136,7 +135,6 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const areaPaths = UAE_EMIRATES
-    .filter((emirate) => emirate.slug !== 'abu-dhabi')
     .flatMap((emirate) => emirate.areas.map((area) => ({ params: { activity: emirate.slug, emirate: area.slug } })));
   const servicePaths = UAE_EMIRATES.flatMap((emirate) => SERVICE_CATEGORIES.map((service) => ({ params: { activity: emirate.slug, emirate: service.slug } })));
   return { paths: [...areaPaths, ...servicePaths], fallback: 'blocking' };

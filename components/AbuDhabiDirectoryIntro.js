@@ -1,26 +1,34 @@
 import Image from 'next/image';
 import UaeDirectoryWeyaakCard from './UaeDirectoryWeyaakCard';
 
-const copy = {
-  ar: {
-    title: 'كيف يساعدك دليل أبوظبي في الوصول إلى ما يحتاجه مشروعك؟',
-    text: 'يجمع دليل أبوظبي في بيت الريف بين شركات المقاولات والمؤسسات والورش والحرفيين والموردين والمتاجر والمنتجات ضمن مسار جغرافي منظم يبدأ من الإمارة، ثم النشاط، ثم القسم والتخصص والخدمة. ويساعد هذا النظام أصحاب الفلل والمباني والمشاريع التجارية على الوصول إلى الخيارات الأقرب لاحتياجات المشروع داخل أبوظبي والعين ومناطق الإمارة.',
+function copyFor(locale, emirate) {
+  const isEn = locale === 'en';
+  const location = isEn ? emirate.nameEn : emirate.nameAr;
+  if (isEn) {
+    return {
+      title: `How does the ${location} Directory help you find what your project needs?`,
+      text: `The Biet Al Reef ${location} Directory brings contractors, service providers, suppliers, stores and products together within an organized geographic journey that starts with the emirate, then the activity, section, specialty and service. It helps villa owners, building managers and commercial projects find options that are more relevant to their needs across ${location}.`,
+      wayaakTitle: `Weyaak in ${location}`,
+      wayaakText: `Tell Weyaak what your project needs in ${location}, and it will guide you to the most relevant activity, service, product or directory path.`,
+      cards: [
+        { title: 'Choose by location', text: `Start with ${location} or the area closest to your project.`, icon: '/images/ui-icons-3d/location-map.webp' },
+        { title: 'Explore services and products', text: 'Move between contractors, services, offers, materials and stores.', icon: '/images/ui-icons-3d/products-box.webp' },
+        { title: 'Compare with Weyaak', text: 'Organize your needs and identify the best route before contacting providers.', icon: '/images/ui-icons-3d/search-magnifier.webp' },
+      ],
+    };
+  }
+  return {
+    title: `كيف يساعدك دليل ${location} في الوصول إلى ما يحتاجه مشروعك؟`,
+    text: `يجمع دليل ${location} في بيت الريف بين شركات المقاولات والمؤسسات والورش والحرفيين والموردين والمتاجر والمنتجات ضمن مسار جغرافي منظم يبدأ من الإمارة، ثم النشاط، ثم القسم والتخصص والخدمة. ويساعد هذا النظام أصحاب الفلل والمباني والمشاريع التجارية على الوصول إلى الخيارات الأقرب لاحتياجات المشروع داخل ${location}.`,
+    wayaakTitle: `وياك في ${location}`,
+    wayaakText: `أخبر وياك بما يحتاجه مشروعك في ${location}، وسيساعدك في الوصول إلى النشاط أو الخدمة أو المنتج والمسار الأنسب.`,
     cards: [
-      { title: 'اختر حسب الموقع', text: 'ابدأ من أبوظبي أو العين أو المنطقة الأقرب إلى مشروعك.', icon: '/images/ui-icons-3d/location-map.webp' },
+      { title: 'اختر حسب الموقع', text: `ابدأ من ${location} أو المنطقة الأقرب إلى مشروعك.`, icon: '/images/ui-icons-3d/location-map.webp' },
       { title: 'استكشف الخدمات والمنتجات', text: 'انتقل بين المقاولين والخدمات والعروض والمواد والمتاجر.', icon: '/images/ui-icons-3d/products-box.webp' },
       { title: 'قارن مع وياك', text: 'نظّم احتياجك وحدد المسار الأنسب قبل التواصل.', icon: '/images/ui-icons-3d/search-magnifier.webp' },
     ],
-  },
-  en: {
-    title: 'How does the Abu Dhabi Directory help you find what your project needs?',
-    text: 'The Biet Al Reef Abu Dhabi Directory brings contractors, service providers, suppliers, stores and products together within an organized geographic journey that starts with the emirate, then the sector, city or area, and finally the specialty. It helps villa owners, building managers and commercial projects find options that are more relevant to their needs across Abu Dhabi, Al Ain and the wider emirate.',
-    cards: [
-      { title: 'Choose by location', text: 'Start with Abu Dhabi, Al Ain or the area closest to your project.', icon: '/images/ui-icons-3d/location-map.webp' },
-      { title: 'Explore services and products', text: 'Move between contractors, services, offers, materials and stores.', icon: '/images/ui-icons-3d/products-box.webp' },
-      { title: 'Compare with Wayaak', text: 'Organize your needs and identify the best route before contacting providers.', icon: '/images/ui-icons-3d/search-magnifier.webp' },
-    ],
-  },
-};
+  };
+}
 
 function Icon({ src }) {
   return (
@@ -30,13 +38,13 @@ function Icon({ src }) {
   );
 }
 
-export default function AbuDhabiDirectoryIntro({ locale = 'ar' }) {
+export default function AbuDhabiDirectoryIntro({ locale = 'ar', emirate }) {
   const isEn = locale === 'en';
-  const t = copy[locale];
+  const t = copyFor(locale, emirate);
 
   return (
     <div dir={isEn ? 'ltr' : 'rtl'} className="relative z-10 bg-[#FDFBF7] pt-0">
-      <UaeDirectoryWeyaakCard locale={locale} context="abu-dhabi" />
+      <UaeDirectoryWeyaakCard locale={locale} title={t.wayaakTitle} description={t.wayaakText} />
 
       <section className="mx-auto max-w-6xl px-4">
         <div className={`${isEn ? 'text-left' : 'text-right'} rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-[0_16px_38px_rgba(18,58,70,.06)] md:p-8`}>

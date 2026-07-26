@@ -1,8 +1,8 @@
 const { buildSearchIndexEntries } = require('../lib/searchIndexRoutes');
 import { UAE_EMIRATES } from '../data/siteTaxonomy';
 import {
-  ABU_DHABI_DIRECTORY_SECTION_SLUGS,
-  getArabicAbuDhabiDirectoryCards,
+  UAE_DIRECTORY_SECTION_SLUGS,
+  getArabicUaeDirectoryCards,
 } from '../lib/platformDirectoryCards';
 
 function escapeXml(value) {
@@ -57,8 +57,7 @@ function buildSitemapXml(entries) {
 
 export async function getServerSideProps({ res }) {
   const entries = buildSearchIndexEntries();
-  const cards = await getArabicAbuDhabiDirectoryCards();
-  const abuDhabi = UAE_EMIRATES.find((item) => item.slug === 'abu-dhabi');
+  const cards = await getArabicUaeDirectoryCards();
   const lastmod = new Date().toISOString().slice(0, 10);
   const addPair = (arPath, enPath, image) => {
     const alternates = {
@@ -79,13 +78,15 @@ export async function getServerSideProps({ res }) {
     );
   };
 
-  cards.forEach((card) => {
-    const section = ABU_DHABI_DIRECTORY_SECTION_SLUGS[card.sectionKey];
-    const suffix = `/directory/${section}/${card.activity.slug}`;
-    addPair(`/uae/abu-dhabi${suffix}`, `/en/uae/abu-dhabi${suffix}`, card.image);
-    abuDhabi.areas.forEach((area) => {
-      const areaSuffix = `/${area.slug}${suffix}`;
-      addPair(`/uae/abu-dhabi${areaSuffix}`, `/en/uae/abu-dhabi${areaSuffix}`, card.image);
+  UAE_EMIRATES.forEach((emirate) => {
+    cards.forEach((card) => {
+      const section = UAE_DIRECTORY_SECTION_SLUGS[card.sectionKey];
+      const suffix = `/directory/${section}/${card.activity.slug}`;
+      addPair(`/uae/${emirate.slug}${suffix}`, `/en/uae/${emirate.slug}${suffix}`, card.image);
+      emirate.areas.forEach((area) => {
+        const areaSuffix = `/${area.slug}${suffix}`;
+        addPair(`/uae/${emirate.slug}${areaSuffix}`, `/en/uae/${emirate.slug}${areaSuffix}`, card.image);
+      });
     });
   });
 

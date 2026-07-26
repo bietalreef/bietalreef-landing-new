@@ -2,12 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { UAE_DIRECTORY_SECTIONS } from '../data/siteTaxonomy';
-import { ABU_DHABI_DIRECTORY_SECTION_SLUGS } from '../lib/platformDirectoryCards';
+import { UAE_DIRECTORY_SECTION_SLUGS } from '../lib/platformDirectoryCards';
 
-const ABU_DHABI_SECTION_META = {
+const UAE_SECTION_META = {
   providers: {
-    title: 'الشركات والمؤسسات والحرفيون في أبوظبي',
-    description: 'اكتشف الشركات والمؤسسات والورش والحرفيين داخل أبوظبي، واختر النشاط والتخصص المطلوب من القوائم المعتمدة في المنصة.',
+    title: 'الشركات والمؤسسات والحرفيون في {location}',
+    description: 'اكتشف الشركات والمؤسسات والورش والحرفيين داخل {location}، واختر النشاط والتخصص المطلوب من القوائم المعتمدة في المنصة.',
     eyebrow: 'شركات ومؤسسات وحرفيون',
     itemLabel: 'تخصص',
     icon: '/images/ui-icons-3d/provider-worker.webp',
@@ -15,17 +15,17 @@ const ABU_DHABI_SECTION_META = {
     explore: 'استكشف الآن',
   },
   services_offers: {
-    title: 'الخدمات والعروض في أبوظبي',
-    description: 'اختر بطاقة النشاط لعرض الخدمات المسجلة في قاعدة البيانات والمتاحة للطلب داخل أبوظبي.',
-    eyebrow: 'خدمات داخل أبوظبي',
+    title: 'الخدمات والعروض في {location}',
+    description: 'اختر بطاقة النشاط لعرض الخدمات المسجلة في قاعدة البيانات والمتاحة للطلب داخل {location}.',
+    eyebrow: 'خدمات وعروض',
     itemLabel: 'خدمة',
     icon: '/images/ui-icons-3d/tools-maintenance.webp',
     summary: 'عرض باقي الخدمات',
     explore: 'استكشف الخدمات',
   },
   products_stores: {
-    title: 'المنتجات والمتاجر في أبوظبي',
-    description: 'استعرض فئات المنتجات والمتاجر والمصانع والورش والموردين بحسب النشاط المعتمد داخل أبوظبي.',
+    title: 'المنتجات والمتاجر في {location}',
+    description: 'استعرض فئات المنتجات والمتاجر والمصانع والورش والموردين بحسب النشاط المعتمد داخل {location}.',
     eyebrow: 'المنتجات والمتاجر',
     itemLabel: 'قسم',
     icon: '/images/ui-icons-3d/products-box.webp',
@@ -34,28 +34,28 @@ const ABU_DHABI_SECTION_META = {
   },
 };
 
-const ABU_DHABI_SECTION_META_EN = {
+const UAE_SECTION_META_EN = {
   providers: {
-    title: 'Companies, workshops and professionals in Abu Dhabi',
-    description: 'Explore trusted companies, workshops and professionals in Abu Dhabi, then choose the activity and specialty that matches your project.',
-    eyebrow: 'Providers in Abu Dhabi',
+    title: 'Companies, workshops and professionals in {location}',
+    description: 'Explore trusted companies, workshops and professionals in {location}, then choose the activity and specialty that matches your project.',
+    eyebrow: 'Providers',
     itemLabel: 'Specialty',
     icon: '/images/ui-icons-3d/provider-worker.webp',
     summary: 'Show more specialties',
     explore: 'Explore providers',
   },
   services_offers: {
-    title: 'Services and offers in Abu Dhabi',
-    description: 'Choose an activity to explore requestable services and offers registered across Abu Dhabi.',
-    eyebrow: 'Services in Abu Dhabi',
+    title: 'Services and offers in {location}',
+    description: 'Choose an activity to explore requestable services and offers registered across {location}.',
+    eyebrow: 'Services and offers',
     itemLabel: 'Service',
     icon: '/images/ui-icons-3d/tools-maintenance.webp',
     summary: 'Show more services',
     explore: 'Explore services',
   },
   products_stores: {
-    title: 'Products and stores in Abu Dhabi',
-    description: 'Explore products, stores, factories, workshops and suppliers by approved commercial activity.',
+    title: 'Products and stores in {location}',
+    description: 'Explore products, stores, factories, workshops and suppliers in {location} by approved commercial activity.',
     eyebrow: 'Products and stores',
     itemLabel: 'Category',
     icon: '/images/ui-icons-3d/products-box.webp',
@@ -94,13 +94,13 @@ function ConstitutionalItem({ item, meta }) {
   );
 }
 
-function AbuDhabiDirectoryCards({ cards, locale = 'ar', area = null }) {
+function EmirateDirectoryCards({ cards, emirate, locale = 'ar', area = null }) {
   const isEn = locale === 'en';
-  const sectionMeta = isEn ? ABU_DHABI_SECTION_META_EN : ABU_DHABI_SECTION_META;
+  const sectionMeta = isEn ? UAE_SECTION_META_EN : UAE_SECTION_META;
   const locationName = area
     ? (isEn ? area.nameEn : area.nameAr)
-    : (isEn ? 'Abu Dhabi' : 'أبوظبي');
-  const routeRoot = `${isEn ? '/en' : ''}/uae/abu-dhabi${area ? `/${area.slug}` : ''}`;
+    : (isEn ? emirate.nameEn : emirate.nameAr);
+  const routeRoot = `${isEn ? '/en' : ''}/uae/${emirate.slug}${area ? `/${area.slug}` : ''}`;
   const Arrow = isEn ? ChevronRight : ChevronLeft;
   return (
     <section dir={isEn ? 'ltr' : 'rtl'} id="uae-sector-cards" className="mx-auto max-w-6xl space-y-16 px-4 py-14 md:py-18">
@@ -111,8 +111,8 @@ function AbuDhabiDirectoryCards({ cards, locale = 'ar', area = null }) {
 
         return <div key={sectionKey} id={`uae-${sectionKey}`}>
           <div className={`mb-8 text-center ${isEn ? 'md:text-left' : 'md:text-right'}`}>
-            <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{area ? `${meta.title.replace(/Abu Dhabi|أبوظبي/g, locationName)}` : meta.title}</h2>
-            <p className="mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{area ? meta.description.replace(/Abu Dhabi|أبوظبي/g, locationName) : meta.description}</p>
+            <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{meta.title.replace('{location}', locationName)}</h2>
+            <p className="mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{meta.description.replace('{location}', locationName)}</p>
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -120,10 +120,10 @@ function AbuDhabiDirectoryCards({ cards, locale = 'ar', area = null }) {
               const items = cardItems(card, sectionKey);
               const previewItems = items.slice(0, 4);
               const remainingItems = items.slice(previewItems.length);
-              const href = `${routeRoot}/directory/${ABU_DHABI_DIRECTORY_SECTION_SLUGS[sectionKey]}/${card.activity.slug}`;
+              const href = `${routeRoot}/directory/${UAE_DIRECTORY_SECTION_SLUGS[sectionKey]}/${card.activity.slug}`;
 
               return (
-              <article id={`abu-dhabi-${sectionKey}-${card.activity.slug}`} key={card.id} className="group relative overflow-hidden rounded-[2rem] border border-[#DCC895] bg-gradient-to-br from-white via-white to-[#FFF8E8] shadow-[0_10px_0_#E7DAC0,0_24px_55px_rgba(18,58,70,0.14)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_14px_0_#DCC895,0_32px_70px_rgba(18,58,70,0.20)]">
+              <article id={`${emirate.slug}-${sectionKey}-${card.activity.slug}`} key={card.id} className="group relative overflow-hidden rounded-[2rem] border border-[#DCC895] bg-gradient-to-br from-white via-white to-[#FFF8E8] shadow-[0_10px_0_#E7DAC0,0_24px_55px_rgba(18,58,70,0.14)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_14px_0_#DCC895,0_32px_70px_rgba(18,58,70,0.20)]">
                 <div aria-hidden="true" className="pointer-events-none absolute inset-x-8 top-0 z-10 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
                 <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
                   <Image src={card.image} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
@@ -169,12 +169,10 @@ function AbuDhabiDirectoryCards({ cards, locale = 'ar', area = null }) {
 
 export default function UaeDirectorySectorCards({ emirate, area = null, locale = 'ar', directoryCards = [] }) {
   const isEn = locale === 'en';
-  const showAbuDhabiDirectory =
-    emirate.slug === 'abu-dhabi' &&
-    directoryCards.length === 18;
+  const showConstitutionalDirectory = directoryCards.length === 18;
 
-  if (showAbuDhabiDirectory) {
-    return <AbuDhabiDirectoryCards cards={directoryCards} locale={locale} area={area} />;
+  if (showConstitutionalDirectory) {
+    return <EmirateDirectoryCards cards={directoryCards} emirate={emirate} locale={locale} area={area} />;
   }
 
   const emirateName = isEn ? emirate.nameEn : emirate.nameAr;

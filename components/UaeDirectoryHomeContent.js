@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, UAE_PRODUCT_CATEGORIES } from '../data/siteTaxonomy';
+import { UAE_DIRECTORY_SECTION_SLUGS } from '../lib/platformDirectoryCards';
 import UaeProviderJoinCTA from './UaeProviderJoinCTA';
 
 const icons = {
@@ -83,24 +84,59 @@ function Icon({ src, alt, size = 68 }) {
   return <span className="relative block shrink-0" style={{ width: size, height: size }}><Image src={src} alt={alt} fill className="object-contain" sizes={`${size}px`} /></span>;
 }
 
-export function UaeDirectoryExploreFooter({ locale = 'ar', emirate = null, area = null }) {
+export function UaeDirectoryExploreFooter({
+  locale = 'ar',
+  emirate = null,
+  area = null,
+  directoryCards = [],
+}) {
   const isEn = locale === 'en';
   const root = isEn ? '/en/uae' : '/uae';
   const locationLinks = emirate
     ? emirate.areas.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${root}/${emirate.slug}/${item.slug}` }))
     : UAE_EMIRATES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${root}/${item.slug}` }));
   const serviceRoot = emirate ? `${root}/${emirate.slug}${area ? `/${area.slug}` : ''}` : `${root}/abu-dhabi`;
-  const groups = [
-    { title: emirate ? (isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`) : (isEn ? 'UAE emirates' : 'إمارات الدولة'), text: isEn ? 'Start by location' : 'ابدأ حسب المكان', icon: icons.location, links: locationLinks },
-    { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 7).map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
-    { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: UAE_PRODUCT_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${isEn ? '/en' : ''}/marketplace/${item.slug}` })) },
-    { title: isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد', text: isEn ? 'Helpful project resources' : 'أدلة تساعد مشروعك', icon: icons.support, links: isEn ? [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] : [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
+  const directoryGroups = [
+    { key: 'providers', titleAr: 'مزودو الخدمات', titleEn: 'Service providers', textAr: 'الشركات والمؤسسات والحرفيون', textEn: 'Companies and professionals', icon: icons.provider },
+    { key: 'services_offers', titleAr: 'الخدمات والعروض', titleEn: 'Services and offers', textAr: 'الخدمات المتاحة حسب النشاط', textEn: 'Services organized by activity', icon: icons.tools },
+    { key: 'products_stores', titleAr: 'المنتجات والمتاجر', titleEn: 'Products and stores', textAr: 'المواد والمنتجات والموردون', textEn: 'Materials, products and suppliers', icon: icons.products },
   ];
+  const hasConstitutionalCards = emirate && directoryCards.length === 18;
+  const groups = hasConstitutionalCards
+    ? [
+        {
+          title: isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`,
+          text: isEn ? 'Start by location' : 'ابدأ حسب المكان',
+          icon: icons.location,
+          links: locationLinks,
+        },
+        ...directoryGroups.map((group) => ({
+          title: isEn ? group.titleEn : group.titleAr,
+          text: isEn ? group.textEn : group.textAr,
+          icon: group.icon,
+          links: directoryCards
+            .filter((card) => card.sectionKey === group.key)
+            .sort((left, right) => left.displayOrder - right.displayOrder)
+            .map((card) => ({
+              label: card.activity.name,
+              href: `${serviceRoot}/directory/${UAE_DIRECTORY_SECTION_SLUGS[group.key]}/${card.activity.slug}`,
+            })),
+        })),
+      ]
+    : [
+        { title: emirate ? (isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`) : (isEn ? 'UAE emirates' : 'إمارات الدولة'), text: isEn ? 'Start by location' : 'ابدأ حسب المكان', icon: icons.location, links: locationLinks },
+        { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 7).map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
+        { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: UAE_PRODUCT_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${isEn ? '/en' : ''}/marketplace/${item.slug}` })) },
+        { title: isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد', text: isEn ? 'Helpful project resources' : 'أدلة تساعد مشروعك', icon: icons.support, links: isEn ? [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] : [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
+      ];
+  const footerTitle = emirate
+    ? (isEn ? `Explore the ${emirate.nameEn} Directory` : `استكشف دليل ${emirate.nameAr}`)
+    : (isEn ? 'Explore the UAE Directory' : 'استكشف دليل الإمارات');
 
   return (
     <section dir={isEn ? 'ltr' : 'rtl'} className="bg-[#FDFBF7] px-4 pb-14 pt-6">
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{isEn ? 'Explore the UAE Directory' : 'استكشف دليل الإمارات'}</h2>
+        <h2 className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{footerTitle}</h2>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{groups.map((item) => <details key={item.title} className="group rounded-[1.35rem] border border-[#E4D6BA] bg-white p-3 shadow-sm"><summary className="cursor-pointer list-none"><div className="flex items-center gap-2"><Icon src={item.icon} alt="" size={46} /><span className="min-w-0"><strong className="block text-sm font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-0.5 block text-[11px] font-semibold text-gray-500">{item.text}</span></span></div></summary><div className="mt-3 max-h-72 space-y-1.5 overflow-y-auto border-t border-[#F0E7D6] pt-3">{item.links.map((link) => <Link key={`${item.title}-${link.href}`} href={link.href} className="block rounded-xl px-2 py-1.5 text-xs font-bold text-gray-650 hover:bg-[#F8F0DA] hover:text-[#0F3F1A]">{link.label}</Link>)}</div></details>)}</div>
       </div>
     </section>

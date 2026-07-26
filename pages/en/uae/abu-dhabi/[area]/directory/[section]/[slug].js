@@ -19,6 +19,7 @@ export async function getStaticProps({ params }) {
     props: {
       card,
       entities,
+      directoryCards: cards,
       locale: 'en',
       area,
       emirate: getEmirate('abu-dhabi'),
