@@ -3,6 +3,7 @@ import { UAE_EMIRATES } from '../data/siteTaxonomy';
 import {
   UAE_DIRECTORY_SECTION_SLUGS,
   getArabicUaeDirectoryCards,
+  getPublishedProviderCards,
 } from '../lib/platformDirectoryCards';
 
 function escapeXml(value) {
@@ -57,7 +58,10 @@ function buildSitemapXml(entries) {
 
 export async function getServerSideProps({ res }) {
   const entries = buildSearchIndexEntries();
-  const cards = await getArabicUaeDirectoryCards();
+  const [cards, providerCards] = await Promise.all([
+    getArabicUaeDirectoryCards(),
+    getPublishedProviderCards('ar'),
+  ]);
   const lastmod = new Date().toISOString().slice(0, 10);
   const addPair = (arPath, enPath, image) => {
     const alternates = {
@@ -77,6 +81,16 @@ export async function getServerSideProps({ res }) {
       { ...shared, loc: alternates.en }
     );
   };
+
+  providerCards.forEach((provider) => {
+    const slug = String(provider.href || '').split('/').filter(Boolean).pop();
+    if (!slug) return;
+    addPair(
+      `/providers/${slug}`,
+      `/en/providers/${slug}`,
+      provider.coverImage || provider.logoImage
+    );
+  });
 
   UAE_EMIRATES.forEach((emirate) => {
     cards.forEach((card) => {
