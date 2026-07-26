@@ -13,6 +13,7 @@ import {
   Tag,
   X,
 } from 'lucide-react';
+import { buildCardWhatsappUrl } from '../../lib/providerWhatsapp';
 
 const ARKLINE_PROVIDER = {
   id: 'BR-PROV-ARK-001',
@@ -125,23 +126,23 @@ const ARKLINE_PRODUCTS = {
 };
 
 function buildProductWhatsappMessage(product) {
-  const details = product.requiredDetails
-    .map((item, index) => `${index + 1}. ${item}:`)
-    .join('\n');
-
-  return encodeURIComponent(
-    [
-      `مرحباً، أرغب في الاستفسار عن منتج «${product.title}» لدى أركلين عبر منصة بيت الريف.`,
-      '',
-      `معرف المزود: ${ARKLINE_PROVIDER.id}`,
-      `معرف المنتج: ${product.id}`,
-      '',
-      'تفاصيل طلبي:',
-      details,
-      '',
-      'سأرفق الصور أو المخططات المتوفرة في الرسالة التالية.',
-    ].join('\n')
-  );
+  return buildCardWhatsappUrl({
+    phone: ARKLINE_PROVIDER.whatsapp,
+    locale: 'ar',
+    cardType: 'product',
+    providerName: ARKLINE_PROVIDER.name,
+    providerCode: ARKLINE_PROVIDER.id,
+    cardCode: product.id,
+    cardId: product.id,
+    title: product.title,
+    description: product.description,
+    category: product.category,
+    price: 'السعر حسب المواصفات',
+    pricingModel: 'متوفر حسب الطلب',
+    specifications: [...product.specifications, ...product.requiredDetails],
+    location: 'العين – مزيد – معسكر الشركات',
+    pagePath: `/providers/arkleen#${product.id}`,
+  });
 }
 
 function buildProductWeyaakHref(product) {
@@ -445,7 +446,7 @@ function ProductDetailsModal({ product, onClose }) {
             </Link>
 
             <a
-              href={`https://wa.me/${ARKLINE_PROVIDER.whatsapp}?text=${whatsappText}`}
+              href={whatsappText}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => emitProductAction(product, 'whatsapp_click')}

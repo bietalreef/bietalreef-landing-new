@@ -5,6 +5,10 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import {
+  buildCardWhatsappUrl,
+  buildProviderWhatsappUrl,
+} from '../../lib/providerWhatsapp';
+import {
   ArrowLeft,
   BadgeCheck,
   Bot,
@@ -166,21 +170,22 @@ const faqs = [
 ];
 
 function buildServiceWhatsappMessage(service) {
-  const details = service.requiredDetails.map((item, index) => `${index + 1}. ${item}:`).join('\n');
-
-  return encodeURIComponent(
-    [
-      `مرحباً، أرغب في الاستفسار عن خدمة «${service.title}» لدى أركلين عبر منصة بيت الريف.`,
-      '',
-      `معرف المزود: ${provider.id}`,
-      `معرف الخدمة: ${service.id}`,
-      '',
-      'تفاصيل طلبي:',
-      details,
-      '',
-      'سأرفق الصور أو المخططات المتوفرة في الرسالة التالية.',
-    ].join('\n')
-  );
+  return buildCardWhatsappUrl({
+    phone: provider.whatsapp,
+    locale: 'ar',
+    cardType: 'service',
+    providerName: provider.name,
+    providerCode: provider.id,
+    cardCode: service.id,
+    cardId: service.id,
+    title: service.title,
+    description: service.description,
+    category: service.tags,
+    pricingModel: 'السعر حسب المواصفات وبعد مراجعة الطلب',
+    specifications: service.requiredDetails,
+    location: provider.location,
+    pagePath: `/providers/arkleen#${service.id}`,
+  });
 }
 
 function buildWeyaakHref(service) {
@@ -199,7 +204,15 @@ export default function ArklinePage() {
   const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/providers/arkleen';
   const description = 'أركلين لأعمال النجارة والتصميم الداخلي في العين: مطابخ، خزائن، أبواب، ديكورات خشبية وأعمال حسب المقاس مع طلب عرض سعر وتواصل مباشر.';
-  const message = encodeURIComponent('مرحباً، أرغب في الاستفسار عن خدمات أركلين عبر منصة بيت الريف.');
+  const message = buildProviderWhatsappUrl({
+    phone: provider.whatsapp,
+    locale: 'ar',
+    providerName: provider.name,
+    providerCode: provider.id,
+    location: provider.location,
+    summary: description,
+    profilePath: '/providers/arkleen',
+  });
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('أركلين أعمال النجارة والتصميم الداخلي مزيد معسكر الشركات العين')}`;
 
   useEffect(() => {
@@ -379,7 +392,7 @@ export default function ArklinePage() {
                 </Link>
 
                 <div className="mt-4 grid grid-cols-3 gap-3">
-                  <ContactButton href={`https://wa.me/${provider.whatsapp}?text=${message}`} external icon={MessageCircle} label="واتساب" />
+                  <ContactButton href={message} external icon={MessageCircle} label="واتساب" />
                   <ContactButton href="tel:+971567797828" icon={Phone} label="اتصال" />
                   <ContactButton href="/weyaak" icon={Bot} label="وياك" />
                 </div>
@@ -711,7 +724,7 @@ function ServiceCard({ service, whatsapp, onDetails }) {
             <Maximize2 className="h-4 w-4" />
           </button>
           <a
-            href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
+            href={whatsappText}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`التواصل عبر واتساب بشأن خدمة ${service.title}`}
@@ -801,7 +814,7 @@ function ServiceDetailsModal({ service, whatsapp, onClose }) {
               اسأل وياك
             </Link>
             <a
-              href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
+              href={whatsappText}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`تواصل مباشر عبر واتساب بشأن خدمة ${service.title}`}
@@ -832,6 +845,22 @@ function ModalInfo({ icon: Icon, title, value }) {
 }
 
 function ProductCard({ product }) {
+  const whatsapp = buildCardWhatsappUrl({
+    phone: provider.whatsapp,
+    locale: 'ar',
+    cardType: 'product',
+    providerName: provider.name,
+    providerCode: provider.id,
+    cardCode: product.id,
+    cardId: product.id,
+    title: product.title,
+    description: product.description,
+    category: product.category,
+    price: 'السعر حسب المواصفات',
+    pricingModel: 'متوفر حسب الطلب',
+    location: provider.location,
+    pagePath: `/providers/arkleen#${product.id}`,
+  });
   return (
     <article id={product.id} itemScope itemType="https://schema.org/Product" data-provider-id={provider.id} data-product-id={product.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(67,45,17,.15)]">
       <meta itemProp="sku" content={product.id} />
@@ -855,6 +884,10 @@ function ProductCard({ product }) {
           اطلب تفاصيل المنتج
           <ArrowLeft className="h-4 w-4" />
         </Link>
+        <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white">
+          <MessageCircle className="h-4 w-4" />
+          تواصل واتساب بتفاصيل المنتج
+        </a>
       </div>
     </article>
   );

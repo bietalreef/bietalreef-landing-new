@@ -18,6 +18,13 @@ export default function PwaLifecycleManager({ locale = 'ar' }) {
     };
     const register = async () => {
       try {
+        const existingRegistrations = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(existingRegistrations
+          .filter((item) => {
+            const scriptUrl = item.active?.scriptURL || item.waiting?.scriptURL || item.installing?.scriptURL || '';
+            return scriptUrl && new URL(scriptUrl).pathname !== '/sw.js';
+          })
+          .map((item) => item.unregister()));
         const nextRegistration = await navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' });
         if (cancelled) return;
         setRegistration(nextRegistration);
@@ -37,6 +44,10 @@ export default function PwaLifecycleManager({ locale = 'ar' }) {
     const onControllerChange = () => {
       if (refreshing) return;
       refreshing = true;
+      if (window.location.pathname.startsWith('/_next/')) {
+        window.location.replace('/?source=pwa-recovery');
+        return;
+      }
       window.location.reload();
     };
     if (document.readyState === 'complete') register();

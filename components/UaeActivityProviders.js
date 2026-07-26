@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, BadgeCheck, MapPin, MessageCircle } from 'lucide-react';
 import { directoryProviders } from '../data/providers';
+import { buildProviderWhatsappUrl } from '../lib/providerWhatsapp';
 
 const emirateCities = {
   'abu-dhabi': ['abu-dhabi-city', 'al-ain'],
@@ -53,7 +54,16 @@ function DirectoryProviderCard({ provider, emirateSlug, locale }) {
   const isEn = locale === 'en';
   const name = isEn ? provider.nameEn || provider.nameAr : provider.nameAr;
   const href = `${isEn ? '/en' : ''}/providers/${provider.slug}`;
-  const whatsapp = provider.whatsapp ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}` : href;
+  const location = locationLabel(provider, emirateSlug, locale);
+  const whatsapp = buildProviderWhatsappUrl({
+    phone: provider.whatsapp,
+    locale,
+    providerName: name,
+    providerCode: provider.providerId,
+    location,
+    summary: isEn ? provider.descriptionEn || provider.descriptionAr : provider.descriptionAr,
+    profilePath: href,
+  }) || href;
   return (
     <article className="overflow-hidden rounded-[2rem] border border-[#E1D4BD] bg-white shadow-[0_16px_42px_rgba(15,63,26,.08)]">
       <div className="relative h-44 bg-[#F3EEE4]">

@@ -8,7 +8,23 @@ import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../components/SectionBackBar';
 import ConstitutionalSectionCards from '../components/ConstitutionalSectionCards';
 import { getUaeSectionCards } from '../lib/platformDirectoryCards';
+import { buildCardWhatsappUrl } from '../lib/providerWhatsapp';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
+
+const WHITE_WHALE_QUARTZ_WHATSAPP = buildCardWhatsappUrl({
+  phone: '971506623518',
+  locale: 'ar',
+  cardType: 'product',
+  providerName: 'مصنع الحوت الأبيض للرخام والجرانيت',
+  providerCode: 'BR-PROV-HOT-001',
+  title: 'كوارتز مطابخ فاخر حسب الطلب',
+  description: 'توريد وتصنيع وتركيب أسطح المطابخ والكونترات والجزر حسب المقاسات واللون والتشطيب.',
+  category: 'كوارتز · أسطح مطابخ · كونترات',
+  price: 'السعر حسب المقاسات والمواصفات',
+  pricingModel: 'متوفر حسب الطلب',
+  location: 'العين · أبوظبي',
+  pagePath: '/marketplace',
+});
 
 const categories = [
   {
@@ -161,7 +177,7 @@ export default function MarketplacePage({ directoryCards }) {
                   <h3 className="mt-5 text-2xl font-black text-[#0F3F1A]">كوارتز مطابخ فاخر حسب المقاس</h3>
                   <p className="mt-4 text-base font-semibold leading-8 text-gray-700">منتج مناسب لأسطح المطابخ والكونترات وجزر المطابخ، قابل للتوريد والتصنيع والتركيب حسب المقاسات ومتطلبات المشروع.</p>
                   <div className="mt-6 grid gap-3 sm:grid-cols-3">{['سهل التنظيف', 'تصنيع حسب المقاس', 'توريد وتركيب'].map((item) => <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>)}</div>
-                  <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">عرض المنتج</Link><a href="https://wa.me/971506623518" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">طلب سعر واتساب</a></div>
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">عرض المنتج</Link><a href={WHITE_WHALE_QUARTZ_WHATSAPP} target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">طلب سعر واتساب</a></div>
                 </div>
               </div>
             </div>

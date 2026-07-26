@@ -5,6 +5,10 @@ import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, MessageCircle } from 'lucide
 import Navbar from './Navbar';
 import Footer from './Footer';
 import EnglishLayout from './EnglishLayout';
+import {
+  buildCardWhatsappUrl,
+  buildProviderWhatsappUrl,
+} from '../lib/providerWhatsapp';
 
 function ProfileContent({ provider, locale }) {
   const isEn = locale === 'en';
@@ -12,7 +16,17 @@ function ProfileContent({ provider, locale }) {
   const description = isEn ? provider.descriptionEn : provider.descriptionAr;
   const base = isEn ? '/en' : '';
   const locations = (provider.locations || []).map((item) => isEn ? item.areaEn || item.cityEn : item.areaAr || item.cityAr).filter(Boolean);
-  const whatsapp = String(provider.whatsapp || '').replace(/\D/g, '');
+  const profilePath = `${base}/providers/${provider.slug}`;
+  const locationText = locations.join(' · ');
+  const whatsapp = buildProviderWhatsappUrl({
+    phone: provider.whatsapp,
+    locale,
+    providerName: name,
+    providerCode: provider.providerId,
+    location: locationText,
+    summary: description,
+    profilePath,
+  });
   return (
     <main dir={isEn ? 'ltr' : 'rtl'} className="min-h-screen bg-[#FDFBF7] text-[#0F3F1A]">
       <section className="mx-auto max-w-6xl px-4 py-6 md:py-10">
@@ -23,14 +37,51 @@ function ProfileContent({ provider, locale }) {
             <div className={`absolute -top-16 ${isEn ? 'left-6 md:left-10' : 'right-6 md:right-10'} h-32 w-32 overflow-hidden rounded-full border-[6px] border-white bg-white shadow-xl`}><Image src={provider.logo} alt={isEn ? `${name} logo` : `شعار ${name}`} fill className="object-contain p-2" /></div>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div><div className="flex items-center gap-2"><h1 className="text-3xl font-black md:text-5xl">{name}</h1>{provider.verified ? <BadgeCheck className="h-7 w-7 text-[#B8860B]" /> : null}</div><p className="mt-3 font-mono text-xs font-black" dir="ltr">{provider.providerId}</p></div>
-              {whatsapp ? <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 font-black text-white"><MessageCircle className="h-5 w-5" />{isEn ? 'Contact provider' : 'تواصل مع المزود'}</a> : null}
+              {whatsapp ? <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 font-black text-white"><MessageCircle className="h-5 w-5" />{isEn ? 'Contact provider' : 'تواصل مع المزود'}</a> : null}
             </div>
             <p className="mt-7 max-w-4xl text-base font-semibold leading-9 text-gray-600">{description}</p>
             <div className="mt-6 flex flex-wrap gap-2">{locations.map((location) => <span key={location} className="inline-flex items-center gap-1.5 rounded-full bg-[#F8F4EB] px-4 py-2 text-sm font-black"><MapPin className="h-4 w-4 text-[#9A6B16]" />{location}</span>)}</div>
           </div>
         </div>
       </section>
-      <section id="services" className="mx-auto max-w-6xl px-4 pb-16"><h2 className="mb-7 text-3xl font-black">{isEn ? 'Published services' : 'الخدمات المنشورة'}</h2><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{(provider.directoryServices || []).map((service) => <article key={service.cardId} className="overflow-hidden rounded-[1.5rem] border border-[#E5D9C4] bg-white shadow-sm"><div className="relative h-40"><Image src={service.image} alt={isEn ? service.titleEn : service.titleAr} fill className="object-cover" /></div><div className="p-4"><h3 className="font-black leading-7">{isEn ? service.titleEn : service.titleAr}</h3><p className="mt-3 font-mono text-[11px] font-black" dir="ltr">{service.cardId}</p><p className="mt-1 font-mono text-[10px] text-gray-500" dir="ltr">{provider.providerId}</p></div></article>)}</div></section>
+      <section id="services" className="mx-auto max-w-6xl px-4 pb-16">
+        <h2 className="mb-7 text-3xl font-black">{isEn ? 'Published services' : 'الخدمات المنشورة'}</h2>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {(provider.directoryServices || []).map((service) => {
+            const title = isEn ? service.titleEn : service.titleAr;
+            const serviceWhatsapp = buildCardWhatsappUrl({
+              phone: provider.whatsapp,
+              locale,
+              cardType: 'service',
+              providerName: name,
+              providerCode: provider.providerId,
+              cardCode: service.cardId,
+              cardId: service.cardId,
+              title,
+              description: isEn ? service.descriptionEn : service.descriptionAr,
+              category: service.categorySlug,
+              location: locationText,
+              pagePath: `${profilePath}#${service.cardId}`,
+            });
+            return (
+              <article id={service.cardId} key={service.cardId} className="overflow-hidden rounded-[1.5rem] border border-[#E5D9C4] bg-white shadow-sm">
+                <div className="relative h-40"><Image src={service.image} alt={title} fill className="object-cover" /></div>
+                <div className="p-4">
+                  <h3 className="font-black leading-7">{title}</h3>
+                  <p className="mt-3 font-mono text-[11px] font-black" dir="ltr">{service.cardId}</p>
+                  <p className="mt-1 font-mono text-[10px] text-gray-500" dir="ltr">{provider.providerId}</p>
+                  {serviceWhatsapp ? (
+                    <a href={serviceWhatsapp} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-xl bg-[#0F3F1A] px-3 text-sm font-black text-white">
+                      <MessageCircle className="h-4 w-4" />
+                      {isEn ? 'Request via WhatsApp' : 'اطلب عبر واتساب'}
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 }

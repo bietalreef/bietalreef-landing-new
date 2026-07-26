@@ -63,7 +63,12 @@ function ActionRow({ href, whatsapp, primary = 'عرض التفاصيل', second
         {primary}
         <ArrowLeft className="h-4 w-4" />
       </Link>
-      <a href={whatsapp || href || '#'} className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-black transition ${premium ? 'border-[#B8922B]/35 bg-white text-[#0F3F1A] hover:bg-[#FFF8E5]' : 'border-[#E6DCC8] bg-[#FDFBF7] text-[#0F3F1A] hover:border-[#0F3F1A]'}`}>
+      <a
+        href={whatsapp || href || '#'}
+        target={whatsapp ? '_blank' : undefined}
+        rel={whatsapp ? 'noopener noreferrer' : undefined}
+        className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-black transition ${premium ? 'border-[#B8922B]/35 bg-white text-[#0F3F1A] hover:bg-[#FFF8E5]' : 'border-[#E6DCC8] bg-[#FDFBF7] text-[#0F3F1A] hover:border-[#0F3F1A]'}`}
+      >
         <MessageCircle className="h-4 w-4" />
         {secondary}
       </a>
@@ -263,7 +268,7 @@ function PremiumEntityCard({ item }) {
 
         {isService && item.tags?.length ? <div className="mt-4 flex flex-wrap gap-2">{item.tags.map((tag) => <span key={tag} className="rounded-full border border-[#E6DCC8] bg-white/80 px-3 py-1 text-xs font-bold text-[#0F3F1A]">{tag}</span>)}</div> : null}
 
-        <ActionRow href={item.href} primary={primary} secondary="فتح الملف" premium />
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary={primary} secondary="واتساب" premium />
       </div>
     </CardShell>
   );
@@ -287,7 +292,7 @@ export function ServiceOfferCard({ item }) {
         <p className="mt-2 line-clamp-3 min-h-[78px] text-sm font-semibold leading-7 text-gray-600">{item.shortDescription || item.summary}</p>
         <div className="mt-4 rounded-2xl bg-[#FDFBF7] p-3 text-sm font-bold text-gray-700"><Store className="ml-2 inline h-4 w-4 text-[#6F5400]" />{item.providerName}</div>
         {!isOffer && item.tags?.length ? <div className="mt-4 flex flex-wrap gap-2">{item.tags.map((tag) => <span key={tag} className="rounded-full border border-[#E6DCC8] bg-white px-3 py-1 text-xs font-bold text-[#0F3F1A]">{tag}</span>)}</div> : null}
-        <ActionRow href={item.href} primary={isOffer ? 'استفد من العرض' : 'اطلب عرض'} secondary="اسأل وياك" />
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary={isOffer ? 'استفد من العرض' : 'اطلب عرض'} secondary="واتساب" />
       </div>
     </CardShell>
   );
@@ -304,7 +309,7 @@ export function ProductCard({ item }) {
         <span className="rounded-full bg-[#F7F2E8] px-3 py-1 text-xs font-black text-[#6F5400]">{item.category}</span>
         <h3 className="mt-3 text-xl font-black leading-tight text-[#0F3F1A]">{item.name}</h3>
         <div className="mt-4 space-y-2 rounded-2xl bg-[#FDFBF7] p-4 text-sm font-semibold text-gray-700"><p><span className="font-black text-[#0F3F1A]">المورد:</span> {item.supplierName}</p><p><span className="font-black text-[#0F3F1A]">الخامة:</span> {item.material}</p><p><span className="font-black text-[#0F3F1A]">متوفر في:</span> {item.availableArea}</p></div>
-        <ActionRow href={item.href} primary="طلب سعر" secondary="تواصل" />
+        <ActionRow href={item.href} whatsapp={item.whatsapp} primary="طلب سعر" secondary="واتساب" />
       </div>
     </CardShell>
   );

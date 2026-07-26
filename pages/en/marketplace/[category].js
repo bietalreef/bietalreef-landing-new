@@ -11,6 +11,22 @@ import {
   getUaeFooterCards,
 } from '../../../lib/platformDirectoryCards';
 import { getSectionActivitySlug } from '../../../lib/sectionCardRoutes';
+import { buildCardWhatsappUrl } from '../../../lib/providerWhatsapp';
+
+const WHITE_WHALE_QUARTZ_WHATSAPP = buildCardWhatsappUrl({
+  phone: '971506623518',
+  locale: 'en',
+  cardType: 'product',
+  providerName: 'White Whale Marble & Granite Factory',
+  providerCode: 'BR-PROV-HOT-001',
+  title: 'Custom premium kitchen quartz',
+  description: 'Supply, fabrication and installation for kitchen tops and islands according to project measurements and finishes.',
+  category: 'Quartz · Kitchen tops · Countertops',
+  price: 'Price based on specifications',
+  pricingModel: 'Available on request',
+  location: 'Al Ain · Abu Dhabi',
+  pagePath: '/en/marketplace/finishing-works',
+});
 
 const categories = {
   'building-materials': {
@@ -133,7 +149,7 @@ export default function MarketplaceCategoryEnglishPage({
                     <div className="flex flex-wrap gap-2"><span className="rounded-full bg-[#FFF8E5] px-3 py-1.5 text-xs font-black text-[#8A6A00]">Quartz</span><span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">Premium finish</span><span className="rounded-full bg-[#FDFBF7] px-3 py-1.5 text-xs font-black text-[#0F3F1A]">White Whale Factory</span></div>
                     <h3 className="mt-5 text-2xl font-black text-[#0F3F1A]">Custom premium kitchen quartz</h3>
                     <p className="mt-4 text-base font-semibold leading-8 text-gray-700">A product suitable for kitchen tops, countertops and kitchen islands. It can be supplied, fabricated and installed according to project measurements and finishing requirements.</p>
-                    <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/en/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">View product</Link><a href="https://wa.me/971506623518" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">Request price on WhatsApp</a></div>
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/en/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">View product</Link><a href={WHITE_WHALE_QUARTZ_WHATSAPP} target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:bg-[#FFF8E5]">Request price on WhatsApp</a></div>
                   </div>
                 </div>
               </div>

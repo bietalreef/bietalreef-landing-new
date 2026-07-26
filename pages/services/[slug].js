@@ -14,8 +14,23 @@ import {
   getUaeFooterCards,
 } from '../../lib/platformDirectoryCards';
 import { getSectionActivitySlug } from '../../lib/sectionCardRoutes';
+import { buildCardWhatsappUrl } from '../../lib/providerWhatsapp';
 
 const SITE_URL = 'https://bietalreef.ae';
+const WHITE_WHALE_SERVICE_WHATSAPP = buildCardWhatsappUrl({
+  phone: '971506623518',
+  locale: 'ar',
+  cardType: 'service',
+  providerName: 'مصنع الحوت الأبيض للرخام والجرانيت',
+  providerCode: 'BR-PROV-HOT-001',
+  cardCode: 'BR-SRV-HOT-001',
+  title: 'توريد وتصنيع وتركيب الرخام والجرانيت والكوارتز',
+  description: 'توريد وقص وتصنيع وتركيب الخامات حسب المقاسات وموقع المشروع وطريقة التنفيذ المطلوبة.',
+  category: 'رخام وسيراميك وتشطيبات',
+  pricingModel: 'السعر بعد مراجعة الخامة والمقاسات والموقع',
+  location: 'العين · أبوظبي',
+  pagePath: '/services/workshops',
+});
 
 const customServices = {
   workshops: {
@@ -129,7 +144,7 @@ export default function ServiceLandingPage({
                   <div className="bg-white p-8 md:p-10">
                     <div className="flex flex-wrap gap-2"><span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-black text-emerald-700">موثق</span><span className="rounded-full bg-[#FFF8E5] px-3 py-1.5 text-xs font-black text-[#8A6A00]">مزود خدمة</span><span className="rounded-full bg-[#FDFBF7] px-3 py-1.5 text-xs font-black text-[#0F3F1A]">الورش الصناعية</span></div>
                     <div className="mt-6 grid gap-3 sm:grid-cols-4">{['رخام طبيعي', 'جرانيت', 'كوارتز', 'تركيب احترافي'].map((item) => <div key={item} className="rounded-2xl border border-[#E6DCC8] bg-[#FDFBF7] px-4 py-3 text-center text-xs font-black text-[#0F3F1A]">{item}</div>)}</div>
-                    <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white hover:bg-[#D4AF37] hover:text-[#0F3F1A] transition">افتح ملف المصنع</Link><a href="https://wa.me/971506623518" target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] hover:bg-[#FFF8E5] transition">تواصل واتساب</a></div>
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row"><Link href="/providers/al-hoot-marble-granite-factory" className="inline-flex justify-center rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white hover:bg-[#D4AF37] hover:text-[#0F3F1A] transition">افتح ملف المصنع</Link><a href={WHITE_WHALE_SERVICE_WHATSAPP} target="_blank" rel="noopener noreferrer" className="inline-flex justify-center rounded-2xl border border-[#D4AF37]/50 px-7 py-3 text-sm font-black text-[#0F3F1A] hover:bg-[#FFF8E5] transition">تواصل واتساب</a></div>
                   </div>
                 </div>
               </div>

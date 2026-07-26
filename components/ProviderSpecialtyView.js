@@ -2,15 +2,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Building2, MapPin, Sparkles } from 'lucide-react';
 import { ProviderCard } from './cards/SmartEntityCard';
+import { buildProviderWhatsappUrl } from '../lib/providerWhatsapp';
 
 const serviceLabels = { 'رخام طبيعي': 'Natural Marble', 'جرانيت': 'Granite', 'كوارتز': 'Quartz', 'حجر صناعي': 'Engineered Stone', 'تصنيع حسب الطلب': 'Custom Fabrication', 'توريد': 'Supply', 'تركيب': 'Installation', 'مطابخ': 'Kitchens', 'مغاسل': 'Washbasins', 'واجهات': 'Façades', 'أرضيات': 'Floors', 'سلالم': 'Stairs' };
 
 function providerItem(provider, isEn) {
+  const locale = isEn ? 'en' : 'ar';
+  const href = `${isEn ? '/en' : ''}/providers/${provider.slug}`;
+  const name = isEn ? provider.nameEn || provider.nameAr : provider.nameAr;
+  const summary = isEn ? provider.descriptionEn || provider.descriptionAr : provider.descriptionAr;
+  const location = [
+    provider.city === 'al-ain' ? (isEn ? 'Al Ain' : 'العين') : provider.city,
+    provider.area === 'mazid-company-camp' ? (isEn ? 'Mazid - Company Camp' : 'مزيد - معسكر الشركات') : provider.area,
+  ].filter(Boolean).join(' · ');
   return {
     id: provider.slug,
     entityType: 'provider',
     premium: provider.slug === 'al-hoot-marble-granite-factory',
-    name: isEn ? provider.nameEn || provider.nameAr : provider.nameAr,
+    name,
     nameEn: provider.nameEn,
     providerType: isEn ? provider.providerTypeEn || provider.providerTypeAr : provider.providerTypeAr,
     emirate: provider.emirate,
@@ -24,9 +33,17 @@ function providerItem(provider, isEn) {
     providerId: provider.providerId,
     establishedAt: provider.establishedAt,
     acceptsQuotes: provider.acceptsQuotes,
-    href: `${isEn ? '/en' : ''}/providers/${provider.slug}`,
-    whatsapp: provider.whatsapp ? `https://wa.me/${String(provider.whatsapp).replace(/\D/g, '')}` : undefined,
-    summary: isEn ? provider.descriptionEn || provider.descriptionAr : provider.descriptionAr,
+    href,
+    whatsapp: buildProviderWhatsappUrl({
+      phone: provider.whatsapp,
+      locale,
+      providerName: name,
+      providerCode: provider.providerId,
+      location,
+      summary,
+      profilePath: href,
+    }),
+    summary,
   };
 }
 

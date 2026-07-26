@@ -5,7 +5,7 @@
   "description": "منصة بيت الريف لخدمات البناء والتصميم والصيانة في الإمارات",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "/?source=pwa",
+  "start_url": "/?source=pwa&version=6",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
