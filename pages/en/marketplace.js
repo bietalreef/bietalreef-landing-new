@@ -6,11 +6,7 @@ import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../../components/SectionBackBar';
 import ConstitutionalSectionCards from '../../components/ConstitutionalSectionCards';
-import PublishedEntityGrid from '../../components/PublishedEntityGrid';
-import {
-  getPublishedSectionEntities,
-  getUaeSectionCards,
-} from '../../lib/platformDirectoryCards';
+import { getUaeSectionCards } from '../../lib/platformDirectoryCards';
 import { ArrowLeft, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronRight, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -26,7 +22,7 @@ const faq = [
   { q: 'Can supply cover all Emirates?', a: 'This depends on the supplier. Supply areas will be clarified when product and store data is approved.' }
 ];
 
-export default function MarketplaceEnglishPage({ directoryCards, publishedProducts = [] }) {
+export default function MarketplaceEnglishPage({ directoryCards }) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -34,22 +30,6 @@ export default function MarketplaceEnglishPage({ directoryCards, publishedProduc
     description: 'An independent section for products, stores, building materials and finishing products inside Biet Al Reef.',
     url: 'https://bietalreef.ae/en/marketplace',
     inLanguage: 'en-AE',
-    mainEntity: {
-      '@type': 'ItemList',
-      numberOfItems: publishedProducts.length,
-      itemListElement: publishedProducts.map((product, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: product.name,
-        url: `https://bietalreef.ae${product.providerHref}`,
-        item: {
-          '@type': 'Product',
-          name: product.name,
-          description: product.description || product.providerSummary,
-          brand: { '@type': 'Brand', name: product.providerName },
-        },
-      })),
-    },
   };
 
   return (
@@ -97,7 +77,6 @@ export default function MarketplaceEnglishPage({ directoryCards, publishedProduc
 
             <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">Need a product or material for your project?</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">Send the product type, quantity, specifications and supply location to receive suitable guidance.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">Contact Biet Al Reef</a></section>
           </section>
-          <PublishedEntityGrid items={publishedProducts} locale="en" type="product" />
           <ProductsSmartFooter locale="en" directoryCards={directoryCards} />
         </main>
       </EnglishLayout>
@@ -106,9 +85,6 @@ export default function MarketplaceEnglishPage({ directoryCards, publishedProduc
 }
 
 export async function getStaticProps() {
-  const [directoryCards, publishedProducts] = await Promise.all([
-    getUaeSectionCards('en', 'products_stores'),
-    getPublishedSectionEntities('en', 'products_stores'),
-  ]);
-  return { props: { directoryCards, publishedProducts }, revalidate: 300 };
+  const directoryCards = await getUaeSectionCards('en', 'products_stores');
+  return { props: { directoryCards }, revalidate: 300 };
 }

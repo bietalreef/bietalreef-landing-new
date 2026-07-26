@@ -172,16 +172,6 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/services/workshops',
-        destination: '/categories/carpentry',
-        permanent: true,
-      },
-      {
-        source: '/services/building-materials',
-        destination: '/building-materials-uae',
-        permanent: true,
-      },
-      {
         source: '/services/furniture-stores',
         destination: '/categories/furniture-decor',
         permanent: true,

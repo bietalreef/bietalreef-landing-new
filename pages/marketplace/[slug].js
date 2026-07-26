@@ -6,7 +6,12 @@ import SEOHead from '../../components/SEOHead';
 import SectionBackBar from '../../components/SectionBackBar';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import SectionCategoryHero from '../../components/SectionCategoryHero';
-import { getUaeFooterCards } from '../../lib/platformDirectoryCards';
+import PublishedEntityGrid from '../../components/PublishedEntityGrid';
+import {
+  getPublishedSectionEntities,
+  getUaeFooterCards,
+} from '../../lib/platformDirectoryCards';
+import { getSectionActivitySlug } from '../../lib/sectionCardRoutes';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
@@ -15,7 +20,11 @@ const categories = [
   { id: 'furniture-decor', title: 'الأثاث والمفروشات', desc: 'أثاث غرف النوم والمعيشة والمطابخ بتصاميم عصرية.', icon: '🛋️', image: '/images/sector-cards/aluminium-glass-wood-card.webp' }
 ];
 
-export default function MarketplaceCategoryPage({ category, directoryCards = [] }) {
+export default function MarketplaceCategoryPage({
+  category,
+  directoryCards = [],
+  publishedProducts = [],
+}) {
   const title = `${category.title} | المنتجات والمتاجر`;
   const description = `تصفح ${category.title} داخل قسم المنتجات والمتاجر في بيت الريف.`;
   const faqItems = [
@@ -46,6 +55,24 @@ export default function MarketplaceCategoryPage({ category, directoryCards = [] 
         acceptedAnswer: { '@type': 'Answer', text: answer },
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: `المنتجات المنشورة داخل ${category.title}`,
+      numberOfItems: publishedProducts.length,
+      itemListElement: publishedProducts.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: `https://bietalreef.ae${item.providerHref}`,
+        item: {
+          '@type': 'Product',
+          name: item.name,
+          description: item.description || item.providerSummary,
+          brand: { '@type': 'Brand', name: item.providerName },
+        },
+      })),
+    },
   ];
 
   return (
@@ -72,16 +99,20 @@ export default function MarketplaceCategoryPage({ category, directoryCards = [] 
             </div>
           </section>
 
-          <section className="max-w-6xl mx-auto px-4 py-10" aria-label="قائمة المنتجات">
-            <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
-              <h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد منتجات متاحة حاليًا</h2>
-              <p className="mt-3 text-gray-600 leading-8">لا يوجد منتج منشور حاليًا داخل تصنيف {category.title}. يمكنك إرسال طلبك وسنساعدك في الوصول إلى المورد أو المتجر المناسب.</p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب المنتج عبر واتساب</a>
-                <Link href="/marketplace" className="rounded-2xl border border-[#E6DCC8] px-7 py-3 text-sm font-black text-primary">العودة إلى المنتجات والمتاجر</Link>
+          <PublishedEntityGrid items={publishedProducts} locale="ar" type="product" />
+
+          {publishedProducts.length === 0 && (
+            <section className="max-w-6xl mx-auto px-4 py-10" aria-label="قائمة المنتجات">
+              <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
+                <h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد منتجات منشورة حاليًا</h2>
+                <p className="mt-3 text-gray-600 leading-8">لا توجد بطاقة منتج منشورة من قاعدة البيانات داخل تصنيف {category.title}. يمكنك إرسال طلبك وسنساعدك في الوصول إلى المورد أو المتجر المناسب.</p>
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب المنتج عبر واتساب</a>
+                  <Link href="/marketplace" className="rounded-2xl border border-[#E6DCC8] px-7 py-3 text-sm font-black text-primary">العودة إلى المنتجات والمتاجر</Link>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           <section className="max-w-6xl mx-auto px-4 py-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -106,8 +137,12 @@ export default function MarketplaceCategoryPage({ category, directoryCards = [] 
 export async function getStaticProps({ params }) {
   const category = categories.find((item) => item.id === params.slug);
   if (!category) return { notFound: true };
-  const directoryCards = await getUaeFooterCards('ar');
-  return { props: { category, directoryCards }, revalidate: 3600 };
+  const activitySlug = getSectionActivitySlug('products_stores', category.id);
+  const [directoryCards, publishedProducts] = await Promise.all([
+    getUaeFooterCards('ar'),
+    getPublishedSectionEntities('ar', 'products_stores', activitySlug),
+  ]);
+  return { props: { category, directoryCards, publishedProducts }, revalidate: 300 };
 }
 
 export async function getStaticPaths() {

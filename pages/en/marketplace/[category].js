@@ -5,7 +5,12 @@ import { Search, Star, Zap } from 'lucide-react';
 import SectionBackBar from '../../../components/SectionBackBar';
 import ProductsSmartFooter from '../../../components/ProductsSmartFooter';
 import SectionCategoryHero from '../../../components/SectionCategoryHero';
-import { getUaeFooterCards } from '../../../lib/platformDirectoryCards';
+import PublishedEntityGrid from '../../../components/PublishedEntityGrid';
+import {
+  getPublishedSectionEntities,
+  getUaeFooterCards,
+} from '../../../lib/platformDirectoryCards';
+import { getSectionActivitySlug } from '../../../lib/sectionCardRoutes';
 
 const categories = {
   'building-materials': {
@@ -38,7 +43,12 @@ const categories = {
   },
 };
 
-export default function MarketplaceCategoryEnglishPage({ category, slug, directoryCards = [] }) {
+export default function MarketplaceCategoryEnglishPage({
+  category,
+  slug,
+  directoryCards = [],
+  publishedProducts = [],
+}) {
   const canonical = `https://bietalreef.ae/en/marketplace/${slug}`;
 
   return (
@@ -58,6 +68,29 @@ export default function MarketplaceCategoryEnglishPage({ category, slug, directo
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${category.title} | Products & Stores | Biet Al Reef`} />
         <meta name="twitter:image" content={`https://bietalreef.ae${category.image}`} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: `Published products in ${category.title}`,
+              numberOfItems: publishedProducts.length,
+              itemListElement: publishedProducts.map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.name,
+                url: `https://bietalreef.ae${item.providerHref}`,
+                item: {
+                  '@type': 'Product',
+                  name: item.name,
+                  description: item.description || item.providerSummary,
+                  brand: { '@type': 'Brand', name: item.providerName },
+                },
+              })),
+            }).replace(/</g, '\\u003c'),
+          }}
+        />
       </Head>
 
       <EnglishLayout>
@@ -75,6 +108,16 @@ export default function MarketplaceCategoryEnglishPage({ category, slug, directo
               ))}
             </div>
           </section>
+
+          <PublishedEntityGrid items={publishedProducts} locale="en" type="product" />
+          {publishedProducts.length === 0 && (
+            <section className="mx-auto max-w-6xl px-4 pb-16">
+              <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
+                <h2 className="text-2xl font-black text-[#0F3F1A]">No published products are available yet</h2>
+                <p className="mt-3 leading-8 text-gray-600">No live database product card currently matches the {category.title} category. You can still request sourcing support.</p>
+              </div>
+            </section>
+          )}
 
           {false && slug === 'finishing-works' && (
             <section className="mx-auto max-w-6xl px-4 pb-16" aria-label="Featured product from White Whale Marble and Granite Factory">
@@ -116,8 +159,20 @@ export default function MarketplaceCategoryEnglishPage({ category, slug, directo
 export async function getStaticProps({ params }) {
   const category = categories[params.category];
   if (!category) return { notFound: true };
-  const directoryCards = await getUaeFooterCards('en');
-  return { props: { category, slug: params.category, directoryCards }, revalidate: 3600 };
+  const activitySlug = getSectionActivitySlug('products_stores', params.category);
+  const [directoryCards, publishedProducts] = await Promise.all([
+    getUaeFooterCards('en'),
+    getPublishedSectionEntities('en', 'products_stores', activitySlug),
+  ]);
+  return {
+    props: {
+      category,
+      slug: params.category,
+      directoryCards,
+      publishedProducts,
+    },
+    revalidate: 300,
+  };
 }
 
 export async function getStaticPaths() {

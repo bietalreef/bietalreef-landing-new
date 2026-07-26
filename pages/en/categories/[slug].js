@@ -6,9 +6,28 @@ import { getSectorCardImage } from '../../../lib/sectorCards';
 import ServicesSmartFooter from '../../../components/ServicesSmartFooter';
 import SectionBackBar from '../../../components/SectionBackBar';
 import SectionCategoryHero from '../../../components/SectionCategoryHero';
-import { getUaeFooterCards } from '../../../lib/platformDirectoryCards';
+import PublishedEntityGrid from '../../../components/PublishedEntityGrid';
+import {
+  getPublishedSectionEntities,
+  getUaeFooterCards,
+} from '../../../lib/platformDirectoryCards';
+import { getSectionActivitySlug } from '../../../lib/sectionCardRoutes';
 
-export default function EnglishCategoryPage({ service, directoryCards = [] }) {
+const customServices = {
+  workshops: {
+    slug: 'workshops',
+    nameAr: 'الورش الصناعية',
+    nameEn: 'Industrial Workshops',
+    descAr: 'خدمات التصنيع والتجهيز والتنفيذ حسب متطلبات المشروع.',
+    descEn: 'Fabrication, preparation and execution services based on project requirements.',
+  },
+};
+
+export default function EnglishCategoryPage({
+  service,
+  directoryCards = [],
+  publishedServices = [],
+}) {
   const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
   return (
     <>
@@ -24,11 +43,47 @@ export default function EnglishCategoryPage({ service, directoryCards = [] }) {
         <meta property="og:image" content={`https://bietalreef.ae${getSectorCardImage(service.slug)}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`https://bietalreef.ae${getSectorCardImage(service.slug)}`} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: `Published services in ${service.nameEn}`,
+              numberOfItems: publishedServices.length,
+              itemListElement: publishedServices.map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.name,
+                url: `https://bietalreef.ae${item.providerHref}`,
+                item: {
+                  '@type': 'Service',
+                  name: item.name,
+                  description: item.description || item.providerSummary,
+                  provider: {
+                    '@type': 'LocalBusiness',
+                    name: item.providerName,
+                    url: `https://bietalreef.ae${item.providerHref}`,
+                  },
+                },
+              })),
+            }).replace(/</g, '\\u003c'),
+          }}
+        />
       </Head>
       <EnglishLayout>
         <SectionBackBar locale="en" href="/en/services" label="Back to Services & Offers" />
         <main className="bg-[#FDFBF7]">
           <SectionCategoryHero locale="en" type="services" title={service.nameEn} description={service.descEn || `Browse ${service.nameEn.toLowerCase()} services, offers and request paths across the UAE.`} image={getSectorCardImage(service.slug)} />
+          <PublishedEntityGrid items={publishedServices} locale="en" type="service" />
+          {publishedServices.length === 0 && (
+            <section className="mx-auto max-w-6xl px-4 pb-16">
+              <div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status">
+                <h2 className="text-2xl font-black text-[#0F3F1A]">No published services are available yet</h2>
+                <p className="mt-3 leading-8 text-gray-600">No live database card currently matches the {service.nameEn} section. You can still request a tailored quotation.</p>
+              </div>
+            </section>
+          )}
           <section className="mx-auto max-w-7xl px-4 pb-16">
             <div className="mb-8"><p className="font-black text-[#B8922B]">Browse by location</p><h2 className="mt-3 text-3xl font-black text-[#0F3F1A]">Choose an emirate and service area</h2></div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -54,15 +109,22 @@ export default function EnglishCategoryPage({ service, directoryCards = [] }) {
 }
 
 export async function getStaticProps({ params }) {
-  const service = getServiceCategory(params.slug);
+  const service = customServices[params.slug] || getServiceCategory(params.slug);
   if (!service) return { notFound: true };
-  const directoryCards = await getUaeFooterCards('en');
-  return { props: { service, directoryCards }, revalidate: 3600 };
+  const activitySlug = getSectionActivitySlug('services_offers', service.slug);
+  const [directoryCards, publishedServices] = await Promise.all([
+    getUaeFooterCards('en'),
+    getPublishedSectionEntities('en', 'services_offers', activitySlug),
+  ]);
+  return { props: { service, directoryCards, publishedServices }, revalidate: 300 };
 }
 
 export async function getStaticPaths() {
   return {
-    paths: SERVICE_CATEGORIES.map((service) => ({ params: { slug: service.slug } })),
+    paths: [
+      ...SERVICE_CATEGORIES.map((service) => ({ params: { slug: service.slug } })),
+      { params: { slug: 'workshops' } },
+    ],
     fallback: 'blocking'
   };
 }
