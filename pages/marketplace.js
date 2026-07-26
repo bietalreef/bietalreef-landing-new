@@ -7,7 +7,11 @@ import ProductsSmartFooter from '../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../components/SectionBackBar';
 import ConstitutionalSectionCards from '../components/ConstitutionalSectionCards';
-import { getUaeSectionCards } from '../lib/platformDirectoryCards';
+import PublishedEntityGrid from '../components/PublishedEntityGrid';
+import {
+  getPublishedSectionEntities,
+  getUaeSectionCards,
+} from '../lib/platformDirectoryCards';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -53,13 +57,29 @@ const faq = [
 
 export { categories as marketplaceCategories };
 
-export default function MarketplacePage({ directoryCards }) {
+export default function MarketplacePage({ directoryCards, publishedProducts = [] }) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'المنتجات والمتاجر في بيت الريف',
     description: 'قسم مستقل للمنتجات والمتاجر ومواد البناء والتشطيب داخل بيت الريف.',
     url: 'https://bietalreef.ae/marketplace',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: publishedProducts.length,
+      itemListElement: publishedProducts.map((product, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: product.name,
+        url: `https://bietalreef.ae${product.providerHref}`,
+        item: {
+          '@type': 'Product',
+          name: product.name,
+          description: product.description || product.providerSummary,
+          brand: { '@type': 'Brand', name: product.providerName },
+        },
+      })),
+    },
   };
 
   return (
@@ -173,6 +193,7 @@ export default function MarketplacePage({ directoryCards }) {
 
           <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">تحتاج منتجًا أو مادة لمشروعك؟</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">أرسل نوع المنتج والكمية والمواصفات وموقع التوريد للحصول على توجيه مناسب.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">تواصل مع بيت الريف</a></section>
         </section>
+        <PublishedEntityGrid items={publishedProducts} locale="ar" type="product" />
         <ProductsSmartFooter locale="ar" directoryCards={directoryCards} />
       </main>
       <Footer />
@@ -181,6 +202,9 @@ export default function MarketplacePage({ directoryCards }) {
 }
 
 export async function getStaticProps() {
-  const directoryCards = await getUaeSectionCards('ar', 'products_stores');
-  return { props: { directoryCards }, revalidate: 300 };
+  const [directoryCards, publishedProducts] = await Promise.all([
+    getUaeSectionCards('ar', 'products_stores'),
+    getPublishedSectionEntities('ar', 'products_stores'),
+  ]);
+  return { props: { directoryCards, publishedProducts }, revalidate: 300 };
 }

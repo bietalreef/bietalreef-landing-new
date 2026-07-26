@@ -8,7 +8,11 @@ import DiscoveryDirectoryHero from "../components/DiscoveryDirectoryHero";
 import SectionBackBar from "../components/SectionBackBar";
 import YouTubeVideoSection from "../components/YouTubeVideoSection";
 import ConstitutionalSectionCards from "../components/ConstitutionalSectionCards";
-import { getUaeSectionCards } from "../lib/platformDirectoryCards";
+import PublishedEntityGrid from "../components/PublishedEntityGrid";
+import {
+  getPublishedSectionEntities,
+  getUaeSectionCards,
+} from "../lib/platformDirectoryCards";
 import { ArrowRight, MessageCircle, Search, Wrench } from "lucide-react";
 
 const servicesItemListSchema = {
@@ -51,7 +55,30 @@ function getCategorySlug(serviceId) {
   return categoryMap[serviceId] || serviceId;
 }
 
-export default function Services({ directoryCards }) {
+export default function Services({ directoryCards, publishedServices = [] }) {
+  const publishedServicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "الخدمات المنشورة من مزودي بيت الريف",
+    "numberOfItems": publishedServices.length,
+    "itemListElement": publishedServices.map((service, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": service.name,
+      "url": `https://bietalreef.ae${service.providerHref}`,
+      "item": {
+        "@type": "Service",
+        "name": service.name,
+        "description": service.description || service.providerSummary,
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": service.providerName,
+          "url": `https://bietalreef.ae${service.providerHref}`,
+        },
+      },
+    })),
+  };
+
   return (
     <>
       <SEOHead
@@ -60,7 +87,7 @@ export default function Services({ directoryCards }) {
         keywords="خدمات بناء الإمارات, عروض مقاولات, صيانة, تصميم داخلي, سباكة, كهرباء, تكييف, دهانات, نجارة, مواد بناء"
         canonicalPath="/services"
         ogImage="https://bietalreef.ae/images/services-offers-hero.webp"
-        structuredData={servicesItemListSchema}
+        structuredData={[servicesItemListSchema, publishedServicesSchema]}
         breadcrumbs={[{ name: "الخدمات والعروض", item: "https://bietalreef.ae/services" }]}
       />
 
@@ -91,6 +118,8 @@ export default function Services({ directoryCards }) {
             <ConstitutionalSectionCards cards={directoryCards} sectionKey="services_offers" locale="ar" />
           </section>
 
+          <PublishedEntityGrid items={publishedServices} locale="ar" type="service" />
+
           <section className="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24"><div className="max-w-6xl mx-auto px-4"><h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">كيف تختار الخدمة المناسبة؟</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-8"><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">1️⃣</div><h3 className="font-bold text-lg mb-3">حدد الخدمة</h3><p className="text-gray-600 text-sm">ابدأ من نوع العمل المطلوب: مقاولات، صيانة، نجارة، رخام أو غيرها.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">2️⃣</div><h3 className="font-bold text-lg mb-3">أضف التفاصيل</h3><p className="text-gray-600 text-sm">الموقع، المقاسات، الصور، والمواد المطلوبة تساعد على توجيه الطلب.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">3️⃣</div><h3 className="font-bold text-lg mb-3">اطلب عرض سعر</h3><p className="text-gray-600 text-sm">لا نعتمد على سعر عام؛ السعر الصحيح يحتاج تفاصيل المشروع.</p></div></div></div></section>
           <YouTubeVideoSection locale="ar" videoId="MUuZRsaCe9s" />
           <ServicesSmartFooter locale="ar" directoryCards={directoryCards} />
@@ -102,6 +131,9 @@ export default function Services({ directoryCards }) {
 }
 
 export async function getStaticProps() {
-  const directoryCards = await getUaeSectionCards('ar', 'services_offers');
-  return { props: { directoryCards }, revalidate: 300 };
+  const [directoryCards, publishedServices] = await Promise.all([
+    getUaeSectionCards('ar', 'services_offers'),
+    getPublishedSectionEntities('ar', 'services_offers'),
+  ]);
+  return { props: { directoryCards, publishedServices }, revalidate: 300 };
 }
