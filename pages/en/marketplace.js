@@ -6,7 +6,7 @@ import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../../components/SectionBackBar';
 import ConstitutionalSectionCards from '../../components/ConstitutionalSectionCards';
-import { getEnglishAbuDhabiDirectoryCards } from '../../lib/platformDirectoryCards';
+import { getUaeSectionCards } from '../../lib/platformDirectoryCards';
 import { ArrowLeft, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronRight, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -70,7 +70,7 @@ export default function MarketplaceEnglishPage({ directoryCards }) {
 
             <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">Need a product or material for your project?</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">Send the product type, quantity, specifications and supply location to receive suitable guidance.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">Contact Biet Al Reef</a></section>
           </section>
-          <ProductsSmartFooter locale="en" />
+          <ProductsSmartFooter locale="en" directoryCards={directoryCards} />
         </main>
       </EnglishLayout>
     </>
@@ -78,6 +78,6 @@ export default function MarketplaceEnglishPage({ directoryCards }) {
 }
 
 export async function getStaticProps() {
-  const directoryCards = await getEnglishAbuDhabiDirectoryCards();
+  const directoryCards = await getUaeSectionCards('en', 'products_stores');
   return { props: { directoryCards }, revalidate: 300 };
 }

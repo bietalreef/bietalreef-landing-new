@@ -8,7 +8,7 @@ import DiscoveryDirectoryHero from "../components/DiscoveryDirectoryHero";
 import SectionBackBar from "../components/SectionBackBar";
 import YouTubeVideoSection from "../components/YouTubeVideoSection";
 import ConstitutionalSectionCards from "../components/ConstitutionalSectionCards";
-import { getArabicAbuDhabiDirectoryCards } from "../lib/platformDirectoryCards";
+import { getUaeSectionCards } from "../lib/platformDirectoryCards";
 import { ArrowRight, MessageCircle, Search, Wrench } from "lucide-react";
 
 const servicesItemListSchema = {
@@ -93,7 +93,7 @@ export default function Services({ directoryCards }) {
 
           <section className="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24"><div className="max-w-6xl mx-auto px-4"><h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">كيف تختار الخدمة المناسبة؟</h2><div className="grid grid-cols-1 md:grid-cols-3 gap-8"><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">1️⃣</div><h3 className="font-bold text-lg mb-3">حدد الخدمة</h3><p className="text-gray-600 text-sm">ابدأ من نوع العمل المطلوب: مقاولات، صيانة، نجارة، رخام أو غيرها.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">2️⃣</div><h3 className="font-bold text-lg mb-3">أضف التفاصيل</h3><p className="text-gray-600 text-sm">الموقع، المقاسات، الصور، والمواد المطلوبة تساعد على توجيه الطلب.</p></div><div className="text-center p-6 rounded-xl bg-white shadow-soft"><div className="text-5xl mb-4">3️⃣</div><h3 className="font-bold text-lg mb-3">اطلب عرض سعر</h3><p className="text-gray-600 text-sm">لا نعتمد على سعر عام؛ السعر الصحيح يحتاج تفاصيل المشروع.</p></div></div></div></section>
           <YouTubeVideoSection locale="ar" videoId="MUuZRsaCe9s" />
-          <ServicesSmartFooter locale="ar" />
+          <ServicesSmartFooter locale="ar" directoryCards={directoryCards} />
         </main>
         <Footer />
       </div>
@@ -102,6 +102,6 @@ export default function Services({ directoryCards }) {
 }
 
 export async function getStaticProps() {
-  const directoryCards = await getArabicAbuDhabiDirectoryCards();
+  const directoryCards = await getUaeSectionCards('ar', 'services_offers');
   return { props: { directoryCards }, revalidate: 300 };
 }

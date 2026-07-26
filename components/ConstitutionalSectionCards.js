@@ -1,9 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { getSectionCardHref } from '../lib/sectionCardRoutes';
 
 const COPY = {
   ar: {
+    providers: {
+      eyebrow: 'مزودو الخدمات',
+      itemLabel: 'تخصص',
+      summary: 'عرض باقي التخصصات',
+      explore: 'استكشف المزودين',
+    },
     services_offers: {
       eyebrow: 'خدمات وعروض',
       itemLabel: 'خدمة',
@@ -18,6 +25,12 @@ const COPY = {
     },
   },
   en: {
+    providers: {
+      eyebrow: 'Service providers',
+      itemLabel: 'Specialty',
+      summary: 'Show more specialties',
+      explore: 'Explore providers',
+    },
     services_offers: {
       eyebrow: 'Services & offers',
       itemLabel: 'Service',
@@ -33,34 +46,10 @@ const COPY = {
   },
 };
 
-const SERVICE_ROUTES = {
-  'construction-contracting': 'general-contracting',
-  'engineering-design': 'engineering-consultants',
-  'maintenance-finishing': 'general-maintenance',
-  'aluminium-glass-wood': 'carpentry',
-  'building-materials-supply': 'building-materials',
-  'cleaning-operations-equipment': 'cleaning-services',
-  'factories-workshops-stores': 'workshops',
-};
-
-const PRODUCT_ROUTES = {
-  'aluminium-glass-wood': 'furniture-decor',
-  'building-materials-supply': 'building-materials',
-  'cleaning-operations-equipment': 'smart-systems',
-  'factories-workshops-stores': 'finishing-works',
-};
-
 function getItems(card, sectionKey) {
-  return sectionKey === 'services_offers'
-    ? card.activity.services
-    : card.activity.categories;
-}
-
-function getHref(card, sectionKey, locale) {
-  const prefix = locale === 'en' ? '/en' : '';
-  const routeMap = sectionKey === 'services_offers' ? SERVICE_ROUTES : PRODUCT_ROUTES;
-  const section = sectionKey === 'services_offers' ? 'services' : 'marketplace';
-  return `${prefix}/${section}/${routeMap[card.activity.slug] || card.activity.slug}`;
+  if (sectionKey === 'providers') return card.activity.specialties;
+  if (sectionKey === 'services_offers') return card.activity.services;
+  return card.activity.categories;
 }
 
 function ConstitutionalItem({ item, meta }) {
@@ -145,7 +134,7 @@ export default function ConstitutionalSectionCards({
                 </details>
               )}
               <Link
-                href={getHref(card, sectionKey, locale)}
+                href={getSectionCardHref(card, sectionKey, locale)}
                 className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#B9922E] bg-gradient-to-b from-[#FFF2B8] to-[#EBC75B] px-5 py-3 text-sm font-black text-[#173F2A] shadow-[0_5px_0_#B9922E,0_10px_20px_rgba(185,146,46,0.22)] transition hover:-translate-y-0.5 hover:from-[#FFF7D1] hover:to-[#F4D47A]"
               >
                 <Search className="h-4 w-4" aria-hidden="true" />

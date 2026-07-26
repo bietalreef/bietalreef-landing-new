@@ -8,6 +8,7 @@ import { getSectorCardImage } from '../../lib/sectorCards';
 import SectionBackBar from '../../components/SectionBackBar';
 import ServicesSmartFooter from '../../components/ServicesSmartFooter';
 import SectionCategoryHero from '../../components/SectionCategoryHero';
+import { getUaeFooterCards } from '../../lib/platformDirectoryCards';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -35,7 +36,7 @@ const aliases = {
   'engineering-consultation': 'engineering-consultants',
 };
 
-export default function ServiceLandingPage({ service }) {
+export default function ServiceLandingPage({ service, directoryCards = [] }) {
   const title = `${service.nameAr} | الخدمات والعروض`;
   const desc = `صفحة مخصصة لخدمة ${service.nameAr} داخل قسم الخدمات والعروض في بيت الريف، بعيدًا عن مسارات دليل الإمارات أو المنتجات.`;
   const serviceUrl = `${SITE_URL}/services/${service.slug}`;
@@ -110,7 +111,7 @@ export default function ServiceLandingPage({ service }) {
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${service.nameAr}`} />
         </main>
-        <ServicesSmartFooter locale="ar" />
+        <ServicesSmartFooter locale="ar" directoryCards={directoryCards} />
         <Footer showRequestCTA={false} />
       </div>
     </>
@@ -122,7 +123,8 @@ export async function getStaticProps({ params }) {
   const serviceSlug = aliases[rawSlug] || rawSlug;
   const service = customServices[serviceSlug] || getServiceCategory(serviceSlug);
   if (!service) return { notFound: true };
-  return { props: { service }, revalidate: 3600 };
+  const directoryCards = await getUaeFooterCards('ar');
+  return { props: { service, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {

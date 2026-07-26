@@ -6,6 +6,7 @@ import SEOHead from '../../components/SEOHead';
 import SectionBackBar from '../../components/SectionBackBar';
 import ProductsSmartFooter from '../../components/ProductsSmartFooter';
 import SectionCategoryHero from '../../components/SectionCategoryHero';
+import { getUaeFooterCards } from '../../lib/platformDirectoryCards';
 
 const categories = [
   { id: 'building-materials', title: 'مواد البناء الأساسية', desc: 'أسمنت، حديد تسليح، بلوك، ومواد العزل الأساسية.', icon: '🏗️', image: '/images/sector-cards/building-materials-stores-card.webp' },
@@ -14,7 +15,7 @@ const categories = [
   { id: 'furniture-decor', title: 'الأثاث والمفروشات', desc: 'أثاث غرف النوم والمعيشة والمطابخ بتصاميم عصرية.', icon: '🛋️', image: '/images/sector-cards/aluminium-glass-wood-card.webp' }
 ];
 
-export default function MarketplaceCategoryPage({ category }) {
+export default function MarketplaceCategoryPage({ category, directoryCards = [] }) {
   const title = `${category.title} | المنتجات والمتاجر`;
   const description = `تصفح ${category.title} داخل قسم المنتجات والمتاجر في بيت الريف.`;
   const faqItems = [
@@ -95,7 +96,7 @@ export default function MarketplaceCategoryPage({ category }) {
 
           <FAQ items={faqItems} title={`أسئلة شائعة حول ${category.title}`} />
         </main>
-        <ProductsSmartFooter locale="ar" />
+        <ProductsSmartFooter locale="ar" directoryCards={directoryCards} />
         <Footer showRequestCTA={false} />
       </div>
     </>
@@ -105,7 +106,8 @@ export default function MarketplaceCategoryPage({ category }) {
 export async function getStaticProps({ params }) {
   const category = categories.find((item) => item.id === params.slug);
   if (!category) return { notFound: true };
-  return { props: { category }, revalidate: 3600 };
+  const directoryCards = await getUaeFooterCards('ar');
+  return { props: { category, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {

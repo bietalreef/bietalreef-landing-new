@@ -5,6 +5,7 @@ import { Search, Star, Zap } from 'lucide-react';
 import SectionBackBar from '../../../components/SectionBackBar';
 import ProductsSmartFooter from '../../../components/ProductsSmartFooter';
 import SectionCategoryHero from '../../../components/SectionCategoryHero';
+import { getUaeFooterCards } from '../../../lib/platformDirectoryCards';
 
 const categories = {
   'building-materials': {
@@ -37,7 +38,7 @@ const categories = {
   },
 };
 
-export default function MarketplaceCategoryEnglishPage({ category, slug }) {
+export default function MarketplaceCategoryEnglishPage({ category, slug, directoryCards = [] }) {
   const canonical = `https://bietalreef.ae/en/marketplace/${slug}`;
 
   return (
@@ -105,7 +106,7 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
               </div>
             </div>
           </section>
-          <ProductsSmartFooter locale="en" />
+          <ProductsSmartFooter locale="en" directoryCards={directoryCards} />
         </main>
       </EnglishLayout>
     </>
@@ -115,7 +116,8 @@ export default function MarketplaceCategoryEnglishPage({ category, slug }) {
 export async function getStaticProps({ params }) {
   const category = categories[params.category];
   if (!category) return { notFound: true };
-  return { props: { category, slug: params.category }, revalidate: 3600 };
+  const directoryCards = await getUaeFooterCards('en');
+  return { props: { category, slug: params.category, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {

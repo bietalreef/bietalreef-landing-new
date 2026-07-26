@@ -7,7 +7,7 @@ import ProductsSmartFooter from '../components/ProductsSmartFooter';
 import DiscoveryDirectoryHero from '../components/DiscoveryDirectoryHero';
 import SectionBackBar from '../components/SectionBackBar';
 import ConstitutionalSectionCards from '../components/ConstitutionalSectionCards';
-import { getArabicAbuDhabiDirectoryCards } from '../lib/platformDirectoryCards';
+import { getUaeSectionCards } from '../lib/platformDirectoryCards';
 import { ArrowRight, MessageCircle, Search, ShoppingBag, Star, Zap, ChevronLeft, Sparkles } from 'lucide-react';
 
 const categories = [
@@ -173,7 +173,7 @@ export default function MarketplacePage({ directoryCards }) {
 
           <section className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 text-center shadow-[0_18px_45px_rgba(18,58,70,0.07)] md:p-12"><h2 className="mb-4 text-3xl font-black text-[#0F3F1A]">تحتاج منتجًا أو مادة لمشروعك؟</h2><p className="mx-auto mb-8 max-w-xl font-semibold leading-8 text-gray-600">أرسل نوع المنتج والكمية والمواصفات وموقع التوريد للحصول على توجيه مناسب.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F3F1A] px-8 py-3 font-black text-white shadow-lg transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]">تواصل مع بيت الريف</a></section>
         </section>
-        <ProductsSmartFooter locale="ar" />
+        <ProductsSmartFooter locale="ar" directoryCards={directoryCards} />
       </main>
       <Footer />
     </div>
@@ -181,6 +181,6 @@ export default function MarketplacePage({ directoryCards }) {
 }
 
 export async function getStaticProps() {
-  const directoryCards = await getArabicAbuDhabiDirectoryCards();
+  const directoryCards = await getUaeSectionCards('ar', 'products_stores');
   return { props: { directoryCards }, revalidate: 300 };
 }

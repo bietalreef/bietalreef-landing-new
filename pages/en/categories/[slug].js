@@ -6,8 +6,9 @@ import { getSectorCardImage } from '../../../lib/sectorCards';
 import ServicesSmartFooter from '../../../components/ServicesSmartFooter';
 import SectionBackBar from '../../../components/SectionBackBar';
 import SectionCategoryHero from '../../../components/SectionCategoryHero';
+import { getUaeFooterCards } from '../../../lib/platformDirectoryCards';
 
-export default function EnglishCategoryPage({ service }) {
+export default function EnglishCategoryPage({ service, directoryCards = [] }) {
   const canonical = `https://bietalreef.ae/en/categories/${service.slug}`;
   return (
     <>
@@ -45,7 +46,7 @@ export default function EnglishCategoryPage({ service }) {
             ))}
             </div>
           </section>
-          <ServicesSmartFooter locale="en" />
+          <ServicesSmartFooter locale="en" directoryCards={directoryCards} />
         </main>
       </EnglishLayout>
     </>
@@ -55,7 +56,8 @@ export default function EnglishCategoryPage({ service }) {
 export async function getStaticProps({ params }) {
   const service = getServiceCategory(params.slug);
   if (!service) return { notFound: true };
-  return { props: { service }, revalidate: 3600 };
+  const directoryCards = await getUaeFooterCards('en');
+  return { props: { service, directoryCards }, revalidate: 3600 };
 }
 
 export async function getStaticPaths() {
