@@ -66,6 +66,7 @@ export default function MarketplaceCategoryEnglishPage({
   publishedProducts = [],
 }) {
   const canonical = `https://bietalreef.ae/en/marketplace/${slug}`;
+  const pricedProducts = publishedProducts.filter((item) => Number(item.priceValue) > 0);
 
   return (
     <>
@@ -91,19 +92,37 @@ export default function MarketplaceCategoryEnglishPage({
               '@context': 'https://schema.org',
               '@type': 'ItemList',
               name: `Published products in ${category.title}`,
-              numberOfItems: publishedProducts.length,
-              itemListElement: publishedProducts.map((item, index) => ({
-                '@type': 'ListItem',
-                position: index + 1,
-                name: item.name,
-                url: `https://bietalreef.ae${item.providerHref}`,
-                item: {
-                  '@type': 'Product',
+              numberOfItems: pricedProducts.length,
+              itemListElement: pricedProducts.map((item, index) => {
+                const productUrl = `https://bietalreef.ae${item.href || item.providerHref}`;
+                return {
+                  '@type': 'ListItem',
+                  position: index + 1,
                   name: item.name,
-                  description: item.description || item.providerSummary,
-                  brand: { '@type': 'Brand', name: item.providerName },
-                },
-              })),
+                  url: productUrl,
+                  item: {
+                    '@type': 'Product',
+                    '@id': `${productUrl}#product`,
+                    name: item.name,
+                    description: item.description || item.providerSummary,
+                    sku: item.code,
+                    image: item.image
+                      ? (item.image.startsWith('http') ? item.image : `https://bietalreef.ae${item.image}`)
+                      : undefined,
+                    url: productUrl,
+                    brand: { '@type': 'Brand', name: item.providerName },
+                    offers: {
+                      '@type': 'Offer',
+                      url: productUrl,
+                      price: Number(item.priceValue).toString(),
+                      priceCurrency: item.currency || 'AED',
+                      availability: 'https://schema.org/PreOrder',
+                      itemCondition: 'https://schema.org/NewCondition',
+                      seller: { '@type': 'Organization', name: item.providerName },
+                    },
+                  },
+                };
+              }),
             }).replace(/</g, '\\u003c'),
           }}
         />
