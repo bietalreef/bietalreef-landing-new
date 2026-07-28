@@ -32,6 +32,7 @@ export default function MarketplaceCategoryPage({
     ['هل هذه صفحة خدمة؟', 'لا. هذه الصفحة تتبع قسم المنتجات والمتاجر، وليست قسم الخدمات والعروض أو دليل الإمارات.'],
     ['كيف أطلب عرض سعر؟', 'أرسل نوع المنتج والكمية والموقع ليتم توجيه الطلب بطريقة مناسبة.'],
   ];
+  const pricedProducts = publishedProducts.filter((item) => Number(item.priceValue) > 0);
   const structuredData = [
     {
       '@context': 'https://schema.org',
@@ -59,19 +60,37 @@ export default function MarketplaceCategoryPage({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
       name: `المنتجات المنشورة داخل ${category.title}`,
-      numberOfItems: publishedProducts.length,
-      itemListElement: publishedProducts.map((item, index) => ({
+      numberOfItems: pricedProducts.length,
+      itemListElement: pricedProducts.map((item, index) => {
+        const productUrl = `https://bietalreef.ae${item.href || item.providerHref}`;
+        return {
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,
-        url: `https://bietalreef.ae${item.providerHref}`,
+        url: productUrl,
         item: {
           '@type': 'Product',
+          '@id': `${productUrl}#product`,
           name: item.name,
           description: item.description || item.providerSummary,
+          sku: item.code,
+          image: item.image
+            ? (item.image.startsWith('http') ? item.image : `https://bietalreef.ae${item.image}`)
+            : undefined,
+          url: productUrl,
           brand: { '@type': 'Brand', name: item.providerName },
+          offers: {
+            '@type': 'Offer',
+            url: productUrl,
+            price: Number(item.priceValue).toString(),
+            priceCurrency: item.currency || 'AED',
+            availability: 'https://schema.org/PreOrder',
+            itemCondition: 'https://schema.org/NewCondition',
+            seller: { '@type': 'Organization', name: item.providerName },
+          },
         },
-      })),
+      };
+      }),
     },
   ];
 
