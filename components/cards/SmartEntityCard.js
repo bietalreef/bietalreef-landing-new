@@ -136,7 +136,7 @@ function UnifiedProviderCard({ item }) {
         <div className={`absolute -top-12 flex h-24 w-24 items-center justify-center rounded-full border-[5px] border-white bg-white shadow-[0_12px_0_rgba(96,63,9,.08),0_20px_38px_rgba(52,47,35,.20)] ${isEnglish ? 'left-5' : 'right-5'}`}>
           <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
             <Image
-              src={`${item.logoImage || '/images/providers/arkleen-logo.png'}${isArkleen ? '?v=arkleen-light-20260725' : ''}`}
+              src={isArkleen ? '/images/providers/arkleen-logo.png' : (item.logoImage || '/images/providers/arkleen-logo.png')}
               alt={isEnglish ? `${item.name || copy.fallbackName} logo` : `شعار ${item.name || copy.fallbackName}`}
               fill
               className="object-contain p-1.5"

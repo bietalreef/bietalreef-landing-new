@@ -4,7 +4,7 @@
 img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"],
 img[alt="ARKLEEN Carpentry & Interior Design logo"],
 img[alt="Arkline Carpentry & Interior Design logo"] {
-  content: url("/images/providers/arkleen-logo.png?v=5701b2c") !important;
+  content: url("/images/providers/arkleen-logo.png") !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;

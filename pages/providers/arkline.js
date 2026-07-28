@@ -41,7 +41,7 @@ const provider = {
   id: 'BR-PROV-ARK-001',
   name: 'أركلين لأعمال النجارة والتصميم الداخلي',
   shortName: 'أركلين',
-  type: 'منجرة وتصميم داخلي',
+  type: 'ورشة نجارة وتصميم داخلي',
   location: 'العين – مزيد – معسكر الشركات',
   joinedAt: 'يوليو 2026',
   establishedAt: '2015',
@@ -59,7 +59,7 @@ const services = [
     id: 'BR-SRV-ARK-001',
     slug: 'custom-wooden-kitchens',
     title: 'مطابخ خشبية حسب المقاس',
-    description: 'تصميم وتصنيع وتركيب المطابخ وفق مساحة الموقع والخامة والتشطيب وتوزيع الاستخدام المطلوب.',
+    description: 'تقدم أركلين خدمة تصميم وتصنيع وتركيب المطابخ الخشبية حسب الطلب في العين وأبوظبي، مع توزيع عملي يناسب مساحة المطبخ وأماكن الأجهزة واحتياجات التخزين. تشمل الخدمة مراجعة المقاسات أو المخطط، واختيار نوع الخشب والخامة واللون والتشطيب والإكسسوارات، ثم تجهيز عرض سعر واضح قبل التصنيع. ويمكن تنفيذ مطبخ أركلين أو اركلين للفلل والمنازل والملاحق والمكاتب وفق تفاصيل المشروع وموقع التركيب. وتشمل التغطية أعمال المعاينة والتنسيق للتنفيذ داخل مدينة العين ومناطق أبوظبي المتفق عليها.',
     image: '/images/providers/arkleen-premium/service-custom-kitchens.webp',
     icon: Ruler,
     tags: ['حسب المقاس', 'تصنيع وتركيب', 'خامات حسب الاختيار'],
@@ -75,7 +75,7 @@ const services = [
     id: 'BR-SRV-ARK-002',
     slug: 'custom-wardrobes',
     title: 'خزائن ودواليب مخصصة',
-    description: 'خزائن غرف وحلول تخزين داخلية مصنعة حسب المقاسات، مع تنظيم داخلي يناسب احتياج العميل.',
+    description: 'تنفذ أركلين خزائن ودواليب حسب المقاس في العين وأبوظبي للغرف وغرف الملابس والمداخل ومساحات التخزين المنزلية أو التجارية. يتم تحديد العرض والارتفاع والعمق، ثم تصميم التقسيم الداخلي للرفوف والأدراج وعلاقات الملابس واختيار الأبواب المفصلية أو السحاب والخامة واللون والتشطيب. تساعد صور الموقع والمقاسات التقريبية على تجهيز تصور أولي وعرض سعر، ثم تعتمد التفاصيل النهائية قبل التصنيع والتوريد والتركيب داخل المشروع. وتغطي الخدمة مشاريع الفلل والمنازل والمكاتب وفق متطلبات كل عميل.',
     image: '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
     icon: Home,
     tags: ['تفصيل خاص', 'حلول تخزين', 'تشطيبات متعددة'],
@@ -91,7 +91,7 @@ const services = [
     id: 'BR-SRV-ARK-003',
     slug: 'wooden-doors-and-decor',
     title: 'أبواب وديكورات خشبية',
-    description: 'أبواب داخلية وفواصل وكسوات وديكورات خشبية مع مراجعة المقاسات والتفاصيل قبل التنفيذ.',
+    description: 'توفر أركلين تصنيع وتوريد وتركيب الأبواب الداخلية والكسوات والفواصل والديكورات الخشبية حسب المقاس في العين وأبوظبي. تبدأ الخدمة بتحديد عدد القطع وقياسات الفتحات والتصميم المطلوب ونوع الخشب أو القشرة واللون والإكسسوارات والتشطيب. كما يمكن تنسيق الأبواب والأعمال الخشبية مع هوية التصميم الداخلي للمكان. بعد مراجعة صور الموقع أو النموذج المرجعي يتم توضيح نطاق التنفيذ والمدة والسعر قبل بدء التصنيع والتركيب. وتناسب الخدمة الفلل والمنازل والمكاتب والمشاريع التجارية بمواصفات مختلفة.',
     image: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
     icon: Hammer,
     tags: ['أبواب داخلية', 'كسوات خشبية', 'توريد وتركيب'],
@@ -107,7 +107,7 @@ const services = [
     id: 'BR-SRV-ARK-004',
     slug: 'interior-design-and-fitout',
     title: 'تصميم داخلي وتجهيز المساحات',
-    description: 'تنسيق الأعمال الخشبية والديكورات داخل المساحة بما يحقق الوظيفة والشكل المطلوب للمشروع.',
+    description: 'تقدم أركلين خدمات التصميم الداخلي وتجهيز المساحات في العين وأبوظبي مع تركيز متخصص على النجارة والأثاث والكسوات والتفاصيل الخشبية المصممة حسب المشروع. تبدأ الخدمة بفهم نوع المساحة ومساحتها وطريقة الاستخدام والطراز والألوان والميزانية، ثم مراجعة الصور والمخططات والخامات المطلوبة. يمكن تنسيق تصميم المطابخ والخزائن والأبواب والأثاث والديكور ضمن تصور واحد، مع تحديد واضح للأعمال التي ستصمم أو تصنع أو تورد أو تركب. ويتم التنسيق مع العميل حتى اعتماد التصور المناسب قبل بدء التنفيذ.',
     image: '/images/providers/arkleen-premium/service-interior-fitout.webp',
     icon: Sparkles,
     tags: ['تصميم داخلي', 'تنسيق خامات', 'تنفيذ حسب المشروع'],
@@ -127,7 +127,7 @@ const products = [
     slug: 'custom-wooden-kitchen',
     title: 'مطبخ خشبي حسب الطلب',
     category: 'مطابخ',
-    description: 'ينفذ حسب المقاسات ونوع الخامة والتشطيب والملحقات المطلوبة.',
+    description: 'مطبخ خشبي حسب الطلب من أركلين في العين وأبوظبي، يبدأ سعره من 980 درهم للمتر الطولي ويصمم وفق مساحة الموقع وطريقة الاستخدام. يشمل التخصيص توزيع الخزائن والأدراج وأماكن الأجهزة واختيار الخامة واللون والتشطيب والمفصلات والملحقات الداخلية. السعر المعروض ابتدائي للمقارنة، أما السعر النهائي فيعتمد بعد مراجعة المقاسات والمخطط وصور الموقع والمواصفات المطلوبة وتحديد نطاق التصنيع والتوريد والتركيب. ويستطيع العميل طلب معاينة أولية ومناقشة البدائل المناسبة لمساحة المطبخ وميزانية المشروع.',
     image: '/images/providers/arkleen-premium/product-custom-kitchen.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-kitchen.webp', '/images/providers/arkleen-premium/product-custom-kitchen-detail.webp', '/images/providers/arkleen-premium/product-custom-kitchen-storage.webp'],
     icon: Home,
@@ -142,7 +142,7 @@ const products = [
     slug: 'custom-wooden-wardrobe',
     title: 'خزانة ملابس حسب المقاس',
     category: 'خزائن',
-    description: 'تقسيم داخلي مخصص مع خيارات متعددة للأبواب والتشطيبات.',
+    description: 'خزانة ملابس حسب المقاس من أركلين للغرف وغرف الملابس ومساحات التخزين في العين وأبوظبي، وتبدأ من 2,500 درهم للوحدة. تصنع الخزانة وفق العرض والارتفاع والعمق المتاح، مع إمكانية تخصيص الرفوف والأدراج وعلاقات الملابس والإضاءة والأبواب المفصلية أو السحاب والخامة واللون. السعر ابتدائي، ويحدد السعر النهائي بعد اعتماد المقاسات والتقسيم الداخلي والتشطيب والإكسسوارات وموقع التوريد والتركيب. ويمكن طلب معاينة للمساحة ومقارنة بدائل التخزين قبل اعتماد التصميم النهائي.',
     image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-wardrobe.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-detail.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-storage.webp'],
     icon: Package,
@@ -157,7 +157,7 @@ const products = [
     slug: 'custom-wooden-door',
     title: 'باب داخلي خشبي',
     category: 'أبواب',
-    description: 'تصنيع حسب المقاس والتصميم ونوع الخشب أو القشرة المطلوبة.',
+    description: 'باب داخلي خشبي من أركلين يصنع حسب فتحة الباب والتصميم المطلوب للمنازل والفلل والمكاتب في العين وأبوظبي، ويبدأ من 800 درهم للقطعة. يمكن اختيار نوع الخشب أو القشرة واللون والتشطيب والإطار والإكسسوارات بما يناسب التصميم الداخلي للمكان. السعر المعروض ابتدائي، ويعتمد السعر النهائي بعد تحديد العدد والمقاسات ونوع الباب والخامة ومستلزمات التوريد والتركيب ومراجعة صور الفتحات أو النموذج المرجعي. وتتاح معاينة أولية لمواءمة التصميم مع بقية الأبواب والديكور في المشروع.',
     image: '/images/providers/arkleen-premium/product-custom-door.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp'],
     icon: Store,
@@ -218,7 +218,7 @@ function buildWeyaakHref(service) {
 export default function ArklinePage() {
   const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/providers/arkleen';
-  const description = 'أركلين لأعمال النجارة والتصميم الداخلي في العين: مطابخ، خزائن، أبواب، ديكورات خشبية وأعمال حسب المقاس مع طلب عرض سعر وتواصل مباشر.';
+  const description = 'أركلين واركلين ورشة نجارة وتصميم داخلي في العين وأبوظبي لتصميم وتصنيع وتركيب المطابخ والخزائن والأبواب والأثاث والديكورات الخشبية حسب الطلب.';
   const message = buildProviderWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'ar',
@@ -348,11 +348,11 @@ export default function ArklinePage() {
   return (
     <>
       <Head>
-        <title>أركلين للنجارة والتصميم الداخلي في العين | بيت الريف</title>
+        <title>أركلين واركلين للنجارة والتصميم الداخلي في العين وأبوظبي</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <meta property="og:title" content="أركلين للنجارة والتصميم الداخلي في العين" />
+        <meta property="og:title" content="أركلين للنجارة والتصميم الداخلي في العين وأبوظبي" />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
         <meta property="og:locale" content="ar_AE" />
@@ -406,7 +406,7 @@ export default function ArklinePage() {
 
                 <div className="min-w-0 flex-1">
                   <div className="mb-3 flex flex-wrap justify-center gap-2 sm:justify-start">
-                    <Tag>منجرة وتصميم داخلي</Tag>
+                    <Tag>ورشة نجارة وتصميم داخلي</Tag>
                     <Tag green>يقبل طلبات الأسعار</Tag>
                   </div>
                   <h1 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl lg:text-5xl">{provider.name}</h1>
@@ -462,7 +462,7 @@ export default function ArklinePage() {
           <section id="overview" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-12 md:py-14">
             <SectionHeading eyebrow="معلومات النشاط" title="نبذة عن نشاط أركلين" />
             <p className="mt-4 max-w-4xl text-base leading-9 text-[#625A50] md:text-lg">
-              أركلين ورشة نجارة وتصميم داخلي في مدينة العين، تأسست عام 2015 وتقدم حلولاً مخصصة للمنازل والفلل والملاحق والمكاتب. يشمل نطاق العمل تصميم وتصنيع وتركيب المطابخ والخزائن والأبواب والكسوات والديكورات الخشبية والأثاث حسب المقاس. تبدأ كل مهمة بمراجعة صور الموقع والمقاسات ونوع الخامة والتشطيب، ثم تحديد نطاق العمل والمدة التقديرية وعرض السعر قبل التنفيذ.
+              أركلين، ويبحث عنها بعض العملاء باسم اركلين، ورشة نجارة وتصميم داخلي مقرها مدينة العين في إمارة أبوظبي وتخدم المشاريع في العين وأبوظبي حسب نطاق الطلب. تقدم الورشة تصميم وتصنيع وتوريد وتركيب المطابخ الخشبية، خزائن الملابس، الأبواب الداخلية، الكسوات، الأثاث والديكورات الخشبية حسب المقاس. تبدأ كل خدمة بمراجعة صور الموقع والمخططات والمقاسات ونوع الخامة واللون والتشطيب والملحقات، ثم توضيح نطاق العمل والمدة والسعر قبل التنفيذ. ملف أركلين داخل بيت الريف يربط النشاط الرئيسي والتخصصات والخدمات والمنتجات ومناطق التغطية بمعرفات قاعدة البيانات لتسهيل البحث وطلب عرض السعر.
             </p>
 
             <div className="mt-7 grid grid-cols-3 gap-2.5 md:gap-4">
@@ -472,15 +472,15 @@ export default function ArklinePage() {
             </div>
 
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
-              <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="أعمال النجارة" />
-              <ActivityDetail icon={Layers3} title="التخصص" value="مطابخ وخزائن وأبواب وديكورات خشبية حسب المقاس" />
-              <ActivityDetail icon={ListChecks} title="الخدمات" value="تصميم ومعاينة وتصنيع وتوريد وتركيب وتشطيبات داخلية" />
+              <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="المصانع والورش والمتاجر — ورشة نجارة وتصميم داخلي" source="provider_categories.is_primary" />
+              <ActivityDetail icon={Layers3} title="التخصص" value="النجارة والتصميم الداخلي المتكامل، المطابخ والخزائن، الأبواب والأعمال الخشبية، الأثاث والديكور الخشبي" source="provider_specialties" />
+              <ActivityDetail icon={ListChecks} title="الخدمات" value="تصميم المطابخ الخشبية، تصنيع خزائن الملابس، تصنيع الأبواب الخشبية، تشطيب وتسليم الأعمال الداخلية" source="provider_services.service_id" />
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
               <CompactInfo icon={CalendarDays} title="تاريخ الانضمام" value={provider.joinedAt} />
               <CompactInfo icon={Clock3} title="موعد الزيارة" value="بتنسيق مسبق مع الورشة" />
-              <CompactInfo icon={MapPin} title="نطاق الخدمة" value="العين وأبوظبي حسب المشروع" />
+              <CompactInfo icon={MapPin} title="نطاق الخدمة" value="العين ومناطق أبوظبي حسب المشروع" source="provider_service_locations" />
             </div>
 
             <a
@@ -523,7 +523,7 @@ export default function ArklinePage() {
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="الخدمات والعروض" title="خدمات أركلين القابلة لطلب عرض سعر" />
               <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-                تظهر الخدمات في بطاقات مختصرة وسريعة التصفح. اضغط «التفاصيل» لفتح البطاقة الموسعة داخل الصفحة دون الانتقال إلى صفحة أو تغيير الرابط.
+                تعرض كل بطاقة خدمة مساراً حقيقياً من قاعدة البيانات باسم الخدمة وتخصصها ومعرفها وصورة مستقلة. اقرأ الملخص ثم اضغط «التفاصيل» لعرض المحتوى الكامل والكلمات المرتبطة بالخدمة والبيانات اللازمة لتجهيز طلب السعر داخل الصفحة.
               </p>
 
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
@@ -542,7 +542,7 @@ export default function ArklinePage() {
           <section id="products" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-14">
             <SectionHeading eyebrow="المنتجات والأسعار" title="منتجات حسب الطلب بأسعار ابتدائية واضحة" />
             <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-              الأسعار المعروضة هي أسعار بداية تساعدك على المقارنة وتجهيز الطلب. السعر النهائي يُعتمد بعد مراجعة المقاسات والخامة والتشطيب والملحقات وموقع المشروع.
+              تعرض منتجات أركلين واركلين المصنّعة حسب الطلب بصور مطابقة وأسعار بداية تساعد العميل على المقارنة وتجهيز المواصفات. تحمل كل بطاقة معرف المنتج ووصفاً تفصيلياً محفوظاً في قاعدة البيانات، بينما يعتمد السعر النهائي بعد مراجعة المقاسات والخامة والتشطيب والملحقات وموقع المشروع.
             </p>
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -618,9 +618,9 @@ function ProviderLogo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
-        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-premium`}
+        src={resolveProviderMedia(provider.logo)}
         alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"
-        className="h-full w-full object-contain p-1"
+        className="h-full w-full object-contain"
         loading="eager"
         decoding="async"
       />
@@ -646,9 +646,9 @@ function ThreeDIcon({ icon: Icon }) {
   );
 }
 
-function ActivityDetail({ icon: Icon, title, value }) {
+function ActivityDetail({ icon: Icon, title, value, source }) {
   return (
-    <article className="flex min-h-[104px] items-start gap-3 rounded-[1.45rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_7px_0_rgba(85,58,16,.06),0_14px_26px_rgba(85,58,16,.08)] sm:min-h-[118px] sm:flex-col">
+    <article data-source-field={source} className="flex min-h-[104px] items-start gap-3 rounded-[1.45rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_7px_0_rgba(85,58,16,.06),0_14px_26px_rgba(85,58,16,.08)] sm:min-h-[118px] sm:flex-col">
       <ThreeDIcon icon={Icon} />
       <div className="min-w-0">
         <p className="text-xs font-black text-[#A66B19]">{title}</p>
@@ -658,9 +658,9 @@ function ActivityDetail({ icon: Icon, title, value }) {
   );
 }
 
-function CompactInfo({ icon: Icon, title, value }) {
+function CompactInfo({ icon: Icon, title, value, source }) {
   return (
-    <article className="flex min-h-[96px] items-start gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/95 px-3 py-3.5 shadow-[0_8px_22px_rgba(67,45,17,.07)] sm:min-h-[88px] sm:items-center sm:px-4">
+    <article data-source-field={source} className="flex min-h-[96px] items-start gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/95 px-3 py-3.5 shadow-[0_8px_22px_rgba(67,45,17,.07)] sm:min-h-[88px] sm:items-center sm:px-4">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
         <Icon className="h-5 w-5" />
       </span>
@@ -903,8 +903,8 @@ function ProductCard({ product }) {
       <div className="relative h-56 overflow-hidden bg-[#E8D5B4]">
         <Image src={product.image} alt={`${product.title} من أركلين للنجارة والتصميم الداخلي في العين`} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:767px) 100vw,33vw" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-        <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
-        <span className="absolute bottom-4 right-4 rounded-2xl border border-white/30 bg-[#0F3F1A]/95 px-4 py-2 text-sm font-black text-white shadow-xl backdrop-blur">
+        <span data-product-category className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
+        <span data-product-price-badge className="absolute bottom-4 right-4 rounded-2xl border border-white/30 bg-[#0F3F1A]/95 px-4 py-2 text-sm font-black text-white shadow-xl backdrop-blur">
           يبدأ من {formattedPrice} درهم
         </span>
       </div>

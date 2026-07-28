@@ -59,7 +59,7 @@ const services = [
     id: 'BR-SRV-ARK-001',
     slug: 'custom-wooden-kitchens',
     title: 'Custom Wooden Kitchens',
-    description: 'Design, fabrication and installation of kitchens based on the site dimensions, selected material, finish and required layout.',
+    description: 'ARKLEEN designs, manufactures and installs custom wooden kitchens for homes, villas, extensions and offices in Al Ain and Abu Dhabi. The service covers practical space planning, appliance positions, storage requirements, material selection, colours, finishes and accessories. Measurements, drawings and site photographs are reviewed before fabrication so the quotation and scope reflect the actual project. Each kitchen is made to order and coordinated for delivery and installation according to the approved design and site conditions.',
     image: '/images/providers/arkleen-premium/service-custom-kitchens.webp',
     icon: Ruler,
     tags: ['Made to measure', 'Fabrication & installation', 'Material options'],
@@ -75,7 +75,7 @@ const services = [
     id: 'BR-SRV-ARK-002',
     slug: 'custom-wardrobes',
     title: 'Custom Wardrobes & Storage',
-    description: 'Made-to-measure wardrobes and interior storage solutions with customised internal organisation for the client’s needs.',
+    description: 'ARKLEEN produces made-to-measure wardrobes and storage units for bedrooms, dressing rooms, entrances and residential or commercial interiors in Al Ain and Abu Dhabi. Width, height and depth are reviewed before planning shelves, drawers, hanging areas and internal accessories. Clients can select hinged or sliding doors, materials, colours and finishes. Site photographs and approximate measurements support the initial proposal and quotation, while final dimensions and specifications are confirmed before manufacturing, delivery and installation.',
     image: '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
     icon: Home,
     tags: ['Custom-built', 'Storage solutions', 'Multiple finishes'],
@@ -91,7 +91,7 @@ const services = [
     id: 'BR-SRV-ARK-003',
     slug: 'wooden-doors-and-decor',
     title: 'Wooden Doors & Decorative Works',
-    description: 'Interior doors, dividers, wall cladding and decorative woodwork with dimensions and details reviewed before execution.',
+    description: 'ARKLEEN manufactures, supplies and installs made-to-measure interior doors, wall cladding, dividers and decorative woodwork in Al Ain and Abu Dhabi. The service begins by confirming quantities, opening dimensions, the required design, timber or veneer, colour, hardware and finish. Doors and decorative elements can be coordinated with the wider interior identity of the space. Site photographs or reference designs are reviewed before the execution scope, expected timeframe and quotation are confirmed for fabrication and installation.',
     image: '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
     icon: Hammer,
     tags: ['Interior doors', 'Wood cladding', 'Supply & installation'],
@@ -107,7 +107,7 @@ const services = [
     id: 'BR-SRV-ARK-004',
     slug: 'interior-design-and-fitout',
     title: 'Interior Design & Space Fit-Out',
-    description: 'Coordination of woodwork and decorative elements to achieve the required function and visual direction for the space.',
+    description: 'ARKLEEN provides interior design and space fit-out services in Al Ain and Abu Dhabi with specialist attention to joinery, furniture, cladding and custom wooden details. The process starts by understanding the space, its use, preferred style, colours, budget, photographs and available drawings. Kitchens, wardrobes, doors, furniture and decorative elements can be coordinated within one design direction. The proposal defines which elements will be designed, manufactured, supplied or installed before the project scope and quotation are approved.',
     image: '/images/providers/arkleen-premium/service-interior-fitout.webp',
     icon: Sparkles,
     tags: ['Interior design', 'Material coordination', 'Project-based execution'],
@@ -127,7 +127,7 @@ const products = [
     slug: 'custom-wooden-kitchen',
     title: 'Custom Wooden Kitchen',
     category: 'Kitchens',
-    description: 'Produced according to dimensions, material, finish and required accessories.',
+    description: 'A custom wooden kitchen by ARKLEEN in Al Ain and Abu Dhabi, with a starting price of AED 980 per linear metre. The design is tailored to the site dimensions and required use, including cabinet distribution, drawers, appliance positions, material, colour, finish, hinges and internal accessories. The displayed amount is an indicative starting price for comparison. Final pricing is confirmed after reviewing measurements, drawings, site photographs, specifications and the required manufacturing, delivery and installation scope.',
     image: '/images/providers/arkleen-premium/product-custom-kitchen.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-kitchen.webp', '/images/providers/arkleen-premium/product-custom-kitchen-detail.webp', '/images/providers/arkleen-premium/product-custom-kitchen-storage.webp'],
     icon: Home,
@@ -142,7 +142,7 @@ const products = [
     slug: 'custom-wooden-wardrobe',
     title: 'Made-to-Measure Wardrobe',
     category: 'Wardrobes',
-    description: 'Custom internal organisation with multiple door and finish options.',
+    description: 'A made-to-measure wardrobe by ARKLEEN for bedrooms, dressing rooms and storage spaces in Al Ain and Abu Dhabi, starting from AED 2,500 per unit. The wardrobe is manufactured to the available width, height and depth, with configurable shelves, drawers, hanging space, lighting, hinged or sliding doors, materials and colours. The displayed price is indicative. Final pricing is confirmed after approving dimensions, internal organisation, finish, accessories and the delivery and installation location.',
     image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-wardrobe.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-detail.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-storage.webp'],
     icon: Package,
@@ -157,7 +157,7 @@ const products = [
     slug: 'custom-wooden-door',
     title: 'Wooden Interior Door',
     category: 'Doors',
-    description: 'Manufactured according to the dimensions, design and required wood or veneer.',
+    description: 'A wooden interior door by ARKLEEN, manufactured to the opening size and required design for homes, villas and offices in Al Ain and Abu Dhabi, starting from AED 800 per piece. Timber or veneer, colour, finish, frame and hardware can be selected to suit the interior. The displayed amount is an indicative starting price. Final pricing depends on quantity, dimensions, door construction, material, delivery, installation and a review of opening photographs or reference designs.',
     image: '/images/providers/arkleen-premium/product-custom-door.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp'],
     icon: Store,
@@ -219,7 +219,7 @@ function buildWeyaakHref(service) {
 export default function ArklineEnglishPage() {
   const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/en/providers/arkleen';
-  const description = 'ARKLEEN Carpentry & Interior Design in Al Ain provides custom kitchens, wardrobes, wooden doors, decorative woodwork and made-to-measure interior solutions.';
+  const description = 'ARKLEEN is a carpentry and interior design workshop in Al Ain, Abu Dhabi, for custom kitchens, wardrobes, doors, furniture, fit-out and decorative woodwork.';
   const message = buildProviderWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'en',
@@ -338,14 +338,14 @@ export default function ArklineEnglishPage() {
   return (
     <>
       <Head>
-        <title>ARKLEEN Carpentry & Interior Design in Al Ain | Biet Al Reef</title>
+        <title>ARKLEEN Carpentry & Interior Design Workshop in Al Ain, Abu Dhabi</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers/arkleen" />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
         <link rel="alternate" hrefLang="x-default" href="https://bietalreef.ae/providers/arkleen" />
-        <meta property="og:title" content="ARKLEEN Carpentry & Interior Design in Al Ain" />
+        <meta property="og:title" content="ARKLEEN Carpentry & Interior Design Workshop in Al Ain, Abu Dhabi" />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
         <meta property="og:locale" content="en_AE" />
@@ -402,7 +402,7 @@ export default function ArklineEnglishPage() {
 
                 <div className="min-w-0 flex-1">
                   <div className="mb-3 flex flex-wrap justify-center gap-2 sm:justify-start">
-                    <Tag>Carpentry & Interior Design</Tag>
+                    <Tag>Carpentry & Interior Design Workshop</Tag>
                     <Tag green>Accepts quotation requests</Tag>
                   </div>
                   <h1 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl lg:text-5xl">{provider.name}</h1>
@@ -458,7 +458,7 @@ export default function ArklineEnglishPage() {
           <section id="overview" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-12 md:py-14">
             <SectionHeading eyebrow="Business Information" title="About ARKLEEN" />
             <p className="mt-4 max-w-4xl text-base leading-9 text-[#625A50] md:text-lg">
-              ARKLEEN is a carpentry and interior design workshop in Al Ain, established in 2015 and providing custom solutions for homes, villas, external extensions, offices and other interior spaces. Its work includes the design, fabrication and installation of kitchens, wardrobes, doors, wall cladding, decorative woodwork and made-to-measure furniture. Each request begins with a review of the site photos, measurements, selected material and required finish, followed by confirmation of the work scope, estimated timeframe and quotation before execution.
+              ARKLEEN is a carpentry and interior design workshop based in Al Ain, Abu Dhabi, serving projects across Al Ain and Abu Dhabi according to scope. The workshop designs, manufactures, supplies and installs custom wooden kitchens, wardrobes, interior doors, wall cladding, furniture and decorative woodwork. Every request starts with a review of site photographs, drawings, measurements, materials, colours, finishes and accessories, followed by a clear scope, estimated programme and quotation before execution. The ARKLEEN profile on Biet Al Reef connects the business activity, specialisations, services, products and coverage areas to verified database records.
             </p>
 
             <div className="mt-7 grid gap-3 md:grid-cols-3">
@@ -468,15 +468,15 @@ export default function ArklineEnglishPage() {
             </div>
 
             <div className="mt-6 grid gap-3 lg:grid-cols-3">
-              <ActivityDetail icon={Building2} title="Main activity" value="Carpentry and interior design works" />
-              <ActivityDetail icon={Layers3} title="Specialisation" value="Custom kitchens, wardrobes, doors and decorative woodwork" />
-              <ActivityDetail icon={ListChecks} title="Services" value="Design, site review, fabrication, supply, installation and interior finishing" />
+              <ActivityDetail icon={Building2} title="Main activity" value="Factories, Workshops & Stores — Carpentry & Interior Design Workshop" source="provider_categories.is_primary" />
+              <ActivityDetail icon={Layers3} title="Specialisation" value="Integrated carpentry and interior design, custom kitchens and wardrobes, wooden doors, furniture and wood décor" source="provider_specialties" />
+              <ActivityDetail icon={ListChecks} title="Services" value="Wooden kitchen design, wardrobe manufacturing, wooden door manufacturing and interior fit-out handover" source="provider_services.service_id" />
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
               <CompactInfo icon={CalendarDays} title="Joined" value={provider.joinedAt} />
               <CompactInfo icon={Clock3} title="Workshop visit" value="By prior appointment" />
-              <CompactInfo icon={MapPin} title="Service coverage" value="Al Ain and Abu Dhabi, subject to project details" />
+              <CompactInfo icon={MapPin} title="Service coverage" value="Al Ain and Abu Dhabi areas, subject to project scope" source="provider_service_locations" />
             </div>
 
             <a
@@ -519,7 +519,7 @@ export default function ArklineEnglishPage() {
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="Services & Offers" title="ARKLEEN services available for quotation requests" />
               <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-                Services are presented in concise cards for quick browsing. Select “Details” to open the expanded card inside the same page without changing the route.
+                Each service card represents a real database record with its service name, specialisation, public ID and dedicated image. Read the summary, then select “Details” to view the complete search-focused content and the information required to prepare a quotation request.
               </p>
 
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
@@ -538,7 +538,7 @@ export default function ArklineEnglishPage() {
           <section id="products" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-14">
             <SectionHeading eyebrow="Products & pricing" title="Made-to-order products with clear starting prices" />
             <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-              The displayed prices are starting prices for comparison and request planning. Final pricing is confirmed after dimensions, materials, finishes, accessories and project location are reviewed.
+              ARKLEEN made-to-order products are presented with matching images, database IDs, detailed searchable descriptions and clear starting prices. Final pricing is confirmed after dimensions, materials, finishes, accessories and the delivery or installation location are reviewed.
             </p>
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -612,9 +612,9 @@ function ProviderLogo() {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-full bg-white">
       <img
-        src={`${resolveProviderMedia(provider.logo)}?v=arkleen-premium`}
+        src={resolveProviderMedia(provider.logo)}
         alt="ARKLEEN Carpentry & Interior Design logo"
-        className="h-full w-full object-contain p-1"
+        className="h-full w-full object-contain"
         loading="eager"
         decoding="async"
       />
@@ -640,9 +640,9 @@ function ThreeDIcon({ icon: Icon }) {
   );
 }
 
-function ActivityDetail({ icon: Icon, title, value }) {
+function ActivityDetail({ icon: Icon, title, value, source }) {
   return (
-    <article className="flex min-h-[96px] items-center gap-4 rounded-[1.6rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_8px_0_rgba(85,58,16,.07),0_15px_28px_rgba(85,58,16,.09)]">
+    <article data-source-field={source} className="flex min-h-[96px] items-center gap-4 rounded-[1.6rem] border border-[#E2D4BB] bg-white px-4 py-4 shadow-[0_8px_0_rgba(85,58,16,.07),0_15px_28px_rgba(85,58,16,.09)]">
       <ThreeDIcon icon={Icon} />
       <div className="min-w-0">
         <p className="text-xs font-black text-[#A66B19]">{title}</p>
@@ -652,9 +652,9 @@ function ActivityDetail({ icon: Icon, title, value }) {
   );
 }
 
-function CompactInfo({ icon: Icon, title, value }) {
+function CompactInfo({ icon: Icon, title, value, source }) {
   return (
-    <article className="flex min-h-[78px] items-center gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/90 px-4 py-3 shadow-[0_10px_24px_rgba(67,45,17,.07)]">
+    <article data-source-field={source} className="flex min-h-[78px] items-center gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/90 px-4 py-3 shadow-[0_10px_24px_rgba(67,45,17,.07)]">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF2CF] text-[#0F3F1A] shadow-inner">
         <Icon className="h-5 w-5" />
       </span>
@@ -897,8 +897,8 @@ function ProductCard({ product }) {
       <div className="relative h-56 overflow-hidden bg-[#E8D5B4]">
         <Image src={product.image} alt={`${product.title} by ARKLEEN Carpentry & Interior Design in Al Ain`} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:767px) 100vw,33vw" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
-        <span className="absolute bottom-4 left-4 rounded-2xl border border-white/30 bg-[#0F3F1A]/95 px-4 py-2 text-sm font-black text-white shadow-xl backdrop-blur">
+        <span data-product-category className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
+        <span data-product-price-badge className="absolute bottom-4 left-4 rounded-2xl border border-white/30 bg-[#0F3F1A]/95 px-4 py-2 text-sm font-black text-white shadow-xl backdrop-blur">
           From AED {formattedPrice}
         </span>
       </div>

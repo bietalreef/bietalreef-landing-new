@@ -22,17 +22,18 @@ import {
 const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_BASE = '/images/providers/arkline/';
 const WEBSITE_URL = 'https://bietalreef.ae/providers/arkleen';
+const resolveProjectMedia = (src) => (src?.startsWith('/') ? src : `${PROVIDER_BASE}${src}`);
 
 const copy = {
   ar: {
     projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال أركلين',
-    intro: 'كل مشروع له بطاقة مستقلة ومعرف خاص وصور وتفاصيل يمكن فتحها داخل الصفحة دون الانتقال إلى رابط أو مسار جديد.',
+    intro: 'بطاقة مشروع واحدة تجمع صور مزود الخدمة وتوضح جاهزية أركلين لدراسة وتصميم وتصنيع وتنفيذ المشروع المطلوب حسب المقاسات والخامات وموقع العمل.',
     details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع أركلين',
     unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع',
   },
   en: {
     projectsTab: 'Projects', eyebrow: 'Projects', title: 'Arkline Projects & Work',
-    intro: 'Each project has its own card, reference ID, images and details that open within the page without changing the route.',
+    intro: 'One project card brings the provider imagery together and presents ARKLEEN’s readiness to review, design, manufacture and deliver the requested project.',
     details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Arkline',
     unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects',
   },
@@ -41,51 +42,28 @@ const copy = {
 const projects = [
   {
     id: 'BR-PRJ-ARK-001',
-    title: 'واجهة وهوية ورشة أركلين',
-    category: 'تجهيز واجهات',
-    location: 'العين – مزيد',
+    title: 'مشروعك القادم مع أركلين',
+    category: 'تصميم وتنفيذ حسب الطلب',
+    location: 'العين وأبوظبي',
     year: '2026',
-    cover: 'arkline-hero-exterior.webp',
-    images: ['arkline-hero-exterior.webp', 'arkline-workshop.webp'],
-    description: 'تجهيز واجهة الورشة وإظهار الهوية البصرية للنشاط بصورة واضحة ومتناسقة مع مجال النجارة والتصميم الداخلي.',
-    scope: ['تصميم الواجهة', 'تنظيم لوحة النشاط', 'إظهار بيانات التواصل', 'توحيد الهوية البصرية'],
-    en: { title: 'Arkline Workshop Façade & Identity', category: 'Façade Fit-Out', location: 'Al Ain – Mazid', description: 'Workshop façade preparation and clear presentation of the business identity in a style aligned with carpentry and interior design.', scope: ['Façade design', 'Signage organisation', 'Contact information display', 'Visual identity consistency'] },
-  },
-  {
-    id: 'BR-PRJ-ARK-002',
-    title: 'تجهيز ورشة النجارة والإنتاج',
-    category: 'تجهيز ورش',
-    location: 'العين – مزيد',
-    year: '2026',
-    cover: 'arkline-workshop.webp',
-    images: ['arkline-workshop.webp', 'arkline-production.webp'],
-    description: 'تنظيم مساحة الورشة ومناطق العمل والمعدات بما يخدم مراحل القص والتجميع والتشطيب للأعمال الخشبية.',
-    scope: ['تنظيم مناطق العمل', 'توزيع المعدات', 'مسارات الإنتاج', 'تجهيز مساحة التصنيع'],
-    en: { title: 'Carpentry Workshop & Production Fit-Out', category: 'Workshop Fit-Out', location: 'Al Ain – Mazid', description: 'Organisation of the workshop, work zones and equipment to support cutting, assembly and finishing stages for woodwork.', scope: ['Work-zone organisation', 'Equipment layout', 'Production flow', 'Manufacturing-area preparation'] },
-  },
-  {
-    id: 'BR-PRJ-ARK-003',
-    title: 'مساحة التصميم والتشطيبات الداخلية',
-    category: 'تصميم داخلي',
-    location: 'العين',
-    year: '2026',
-    cover: 'arkline-showroom.webp',
-    images: ['arkline-showroom.webp', 'arkline-hero-exterior.webp'],
-    description: 'مساحة مخصصة لمراجعة الخامات والألوان والتفاصيل الداخلية قبل اعتماد الأعمال الخشبية والتنفيذ.',
-    scope: ['مراجعة الخامات', 'اختيار التشطيبات', 'تنسيق الألوان', 'تجهيز نماذج التنفيذ'],
-    en: { title: 'Interior Design & Finishes Area', category: 'Interior Design', location: 'Al Ain', description: 'A dedicated area for reviewing materials, colours and interior details before approving woodwork and execution.', scope: ['Material review', 'Finish selection', 'Colour coordination', 'Execution sample preparation'] },
-  },
-  {
-    id: 'BR-PRJ-ARK-004',
-    title: 'خط إنتاج وتصنيع الأعمال الخشبية',
-    category: 'إنتاج وتصنيع',
-    location: 'العين – مزيد',
-    year: '2026',
-    cover: 'arkline-production.webp',
-    images: ['arkline-production.webp', 'arkline-workshop.webp'],
-    description: 'عرض منطقة الإنتاج والمعدات المستخدمة في تجهيز وتصنيع المطابخ والخزائن والأبواب والأعمال الخشبية حسب المقاس.',
-    scope: ['قص وتجهيز الخشب', 'تصنيع حسب المقاس', 'تجميع القطع', 'التشطيب قبل التركيب'],
-    en: { title: 'Woodwork Manufacturing Line', category: 'Production & Manufacturing', location: 'Al Ain – Mazid', description: 'A view of the production area and equipment used to manufacture made-to-measure kitchens, wardrobes, doors and woodwork.', scope: ['Wood cutting and preparation', 'Made-to-measure manufacturing', 'Component assembly', 'Pre-installation finishing'] },
+    cover: '/images/providers/arkleen-premium/service-interior-fitout.webp',
+    images: [
+      '/images/providers/arkleen-premium/service-interior-fitout.webp',
+      '/images/providers/arkleen-premium/service-custom-kitchens.webp',
+      '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
+      '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
+      '/images/providers/arkline/arkline-workshop.webp',
+      '/images/providers/arkline/arkline-production.webp',
+    ],
+    description: 'أركلين جاهزة لدراسة وتصميم وتصنيع وتنفيذ مشروعك القادم في العين أو أبوظبي، سواء كان مطبخاً أو خزائن أو أبواباً أو أثاثاً أو كسوات وديكورات خشبية أو تجهيزاً داخلياً متكاملاً. تعرض البطاقة صوراً من هوية الورشة ونماذج مجالات عمل المزود لتوضيح قدرته على تحويل الفكرة والمقاسات والصور المرجعية إلى نطاق عمل قابل للتسعير والتنفيذ. أرسل موقع المشروع والمقاسات والمخططات والصور والخامة والتشطيب والميزانية التقريبية للحصول على مراجعة أولية وعرض سعر مناسب.',
+    scope: ['فهم الفكرة واحتياج المشروع', 'مراجعة الموقع والمقاسات والصور', 'تصميم واختيار الخامات والتشطيبات', 'تصنيع وتوريد وتركيب حسب نطاق الطلب'],
+    en: {
+      title: 'Your Next Custom Project with ARKLEEN',
+      category: 'Custom design & delivery',
+      location: 'Al Ain and Abu Dhabi',
+      description: 'ARKLEEN is ready to review, design, manufacture and deliver your next project in Al Ain or Abu Dhabi, whether it involves a kitchen, wardrobes, doors, furniture, wooden cladding, decorative joinery or a coordinated interior fit-out. This single card brings together verified provider imagery and the available fields of work. Share the location, dimensions, drawings, photographs, preferred materials, finish and approximate budget for an initial review and quotation.',
+      scope: ['Understand the project idea and requirements', 'Review the site, dimensions and photographs', 'Coordinate design, materials and finishes', 'Manufacture, supply and install to the approved scope'],
+    },
   },
 ];
 
@@ -266,7 +244,7 @@ function ProjectsSection({ locale, onDetails }) {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2">
+      <div className="mt-8 grid gap-5">
         {projects.map((project) => {
           const localizedProject = locale === 'en' ? { ...project, ...project.en } : project;
           return (
@@ -292,7 +270,7 @@ function ProjectCard({ project, locale, onDetails }) {
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-[#EFE7D8]">
         <Image
-          src={`${PROVIDER_BASE}${project.cover}`}
+          src={resolveProjectMedia(project.cover)}
           alt={project.title}
           fill
           className="object-cover transition duration-500 hover:scale-[1.02]"
@@ -449,7 +427,7 @@ function ProjectDetailsModal({ project, locale, onClose }) {
                 className={`relative overflow-hidden rounded-[1.7rem] border border-[#E2D4BB] bg-white ${index === 0 ? 'md:col-span-2 aspect-[16/8]' : 'aspect-[4/3]'}`}
               >
                 <Image
-                  src={`${PROVIDER_BASE}${image}`}
+                  src={resolveProjectMedia(image)}
                   alt={`${project.title} — ${t.image} ${index + 1}`}
                   fill
                   className="object-cover"

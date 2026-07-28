@@ -200,7 +200,7 @@ a[href="/en/marketplace"] span[class*="bg-[#143D1F]/90"] {
 /* Arkline provider profile: render the real repository PNG directly.
    The cache token prevents stale blank logo responses in preview browsers. */
 img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"] {
-  content: url("/images/providers/arkline/logo.png?v=93a1491") !important;
+  content: url("/images/providers/arkleen-logo.png") !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;

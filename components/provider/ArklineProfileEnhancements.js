@@ -11,7 +11,7 @@ import {
 const BIET_AL_REEF_WHATSAPP = '971567856001';
 const PROVIDER_ID = 'BR-PROV-ARK-001';
 const PROVIDER_NAME = 'أركلين لأعمال النجارة والتصميم الداخلي';
-const PREVIEW_LOGO = '/images/providers/arkleen-logo.png?v=5701b2c';
+const PREVIEW_LOGO = '/images/providers/arkleen-logo.png';
 
 const copy = {
   ar: {
@@ -88,10 +88,10 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
             logoImage.removeAttribute('srcset');
           }
 
-          logoImage.setAttribute('data-arkline-logo-preview', 'white-brand-logo');
+          logoImage.setAttribute('data-arkline-logo-source', 'public/images/providers/arkleen-logo.png');
           logoImage.style.backgroundColor = '#ffffff';
           logoImage.style.objectFit = 'contain';
-          logoImage.style.padding = '0.35rem';
+          logoImage.style.padding = '0';
         });
 
       const tabLink = document.querySelector('nav a[href="#faq"], nav a[data-arkline-reviews-tab="true"]');
