@@ -110,10 +110,6 @@ const ARKLINE_PRODUCTS = {
         src: 'product-custom-door-detail.webp',
         alt: 'تفاصيل الخشب والتشطيب في باب أركلين الداخلي',
       },
-      {
-        src: 'product-custom-door-opposite.webp',
-        alt: 'الجهة المقابلة من باب أركلين الداخلي الخشبي',
-      },
     ],
     price: 800,
     priceUnit: 'للقطعة',
