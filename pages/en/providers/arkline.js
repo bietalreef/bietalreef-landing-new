@@ -131,6 +131,11 @@ const products = [
     image: '/images/providers/arkleen-premium/product-custom-kitchen.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-kitchen.webp', '/images/providers/arkleen-premium/product-custom-kitchen-detail.webp', '/images/providers/arkleen-premium/product-custom-kitchen-storage.webp'],
     icon: Home,
+    price: 980,
+    currency: 'AED',
+    priceUnit: 'per linear metre',
+    priceUnitCode: 'MTR',
+    priceNote: 'Starting price. The final price is confirmed after dimensions, material, finish and accessories are reviewed.',
   },
   {
     id: 'BR-PRD-ARK-002',
@@ -141,6 +146,11 @@ const products = [
     image: '/images/providers/arkleen-premium/product-custom-wardrobe.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-wardrobe.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-detail.webp', '/images/providers/arkleen-premium/product-custom-wardrobe-storage.webp'],
     icon: Package,
+    price: 2500,
+    currency: 'AED',
+    priceUnit: 'per unit',
+    priceUnitCode: 'C62',
+    priceNote: 'Starting price. The final price is confirmed after dimensions, internal layout and material are reviewed.',
   },
   {
     id: 'BR-PRD-ARK-003',
@@ -151,6 +161,11 @@ const products = [
     image: '/images/providers/arkleen-premium/product-custom-door.webp',
     gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp', '/images/providers/arkleen-premium/product-custom-door-opposite.webp'],
     icon: Store,
+    price: 800,
+    currency: 'AED',
+    priceUnit: 'per piece',
+    priceUnitCode: 'C62',
+    priceNote: 'Starting price. The final price is confirmed after dimensions, wood or veneer type and finish are reviewed.',
   },
 ];
 
@@ -250,8 +265,28 @@ export default function ArklineEnglishPage() {
     '@type': 'Product', '@id': `${canonical}#${product.id}`, identifier: product.id, sku: product.id,
     name: product.title, description: product.description, url: `${canonical}#${product.id}`,
     image: product.gallery.map((src) => `https://bietalreef.ae${src}`), brand: { '@type': 'Brand', name: 'ARKLEEN' }, category: product.category,
-    areaServed: [{ '@type': 'City', name: 'Al Ain' }, { '@type': 'AdministrativeArea', name: 'Abu Dhabi' }],
-    additionalProperty: { '@type': 'PropertyValue', name: 'Availability and pricing', value: 'Made to order; price based on dimensions and specifications' },
+    offers: {
+      '@type': 'Offer',
+      url: `${canonical}#${product.id}`,
+      price: product.price.toString(),
+      priceCurrency: product.currency,
+      availability: 'https://schema.org/PreOrder',
+      itemCondition: 'https://schema.org/NewCondition',
+      seller: { '@id': `${canonical}#provider` },
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: product.price.toString(),
+        priceCurrency: product.currency,
+        unitText: product.priceUnit,
+        referenceQuantity: {
+          '@type': 'QuantitativeValue',
+          value: 1,
+          unitCode: product.priceUnitCode,
+          unitText: product.priceUnit,
+        },
+      },
+    },
+    additionalProperty: { '@type': 'PropertyValue', name: 'Pricing', value: `Starting from AED ${product.price.toLocaleString('en-US')} ${product.priceUnit}` },
   }));
 
   const schemas = [
@@ -501,9 +536,9 @@ export default function ArklineEnglishPage() {
           </section>
 
           <section id="products" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-14">
-            <SectionHeading eyebrow="Products" title="Products manufactured to order and dimensions" />
+            <SectionHeading eyebrow="Products & pricing" title="Made-to-order products with clear starting prices" />
             <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-              These product cards can be expanded as the catalogue grows. Fixed prices are not shown because cost depends on dimensions, materials, finishes and accessories.
+              The displayed prices are starting prices for comparison and request planning. Final pricing is confirmed after dimensions, materials, finishes, accessories and project location are reviewed.
             </p>
 
             <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -839,6 +874,8 @@ function ModalInfo({ icon: Icon, title, value }) {
 }
 
 function ProductCard({ product }) {
+  const formattedPrice = new Intl.NumberFormat('en-AE').format(product.price);
+  const priceText = `Starting from AED ${formattedPrice} ${product.priceUnit}`;
   const whatsapp = buildCardWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'en',
@@ -850,29 +887,36 @@ function ProductCard({ product }) {
     title: product.title,
     description: product.description,
     category: product.category,
-    price: 'Price based on specifications',
-    pricingModel: 'Available on request',
+    price: priceText,
+    pricingModel: 'Starting price · Made to order',
     location: provider.location,
     pagePath: `/en/providers/arkleen#${product.id}`,
   });
   return (
-    <article id={product.id} itemScope itemType="https://schema.org/Product" data-provider-id={provider.id} data-product-id={product.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(67,45,17,.15)]">
-      <meta itemProp="sku" content={product.id} />
-      <meta itemProp="brand" content="ARKLEEN" />
+    <article id={product.id} data-provider-id={provider.id} data-product-id={product.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(67,45,17,.15)]">
       <div className="relative h-56 overflow-hidden bg-[#E8D5B4]">
-        <Image src={product.image} alt={`${product.title} by ARKLEEN Carpentry & Interior Design in Al Ain`} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:767px) 100vw,33vw" itemProp="image" />
+        <Image src={product.image} alt={`${product.title} by ARKLEEN Carpentry & Interior Design in Al Ain`} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width:767px) 100vw,33vw" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
         <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-2 text-[11px] font-black text-[#0F3F1A] shadow-lg">{product.category}</span>
+        <span className="absolute bottom-4 left-4 rounded-2xl border border-white/30 bg-[#0F3F1A]/95 px-4 py-2 text-sm font-black text-white shadow-xl backdrop-blur">
+          From AED {formattedPrice}
+        </span>
       </div>
       <div className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 itemProp="name" className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
+          <h3 className="text-xl font-black text-[#0F3F1A]">{product.title}</h3>
           <span dir="ltr" className="rounded-full bg-[#F6F0E5] px-2.5 py-1 text-[9px] font-black tracking-wide text-[#8A6A35]">{product.id}</span>
         </div>
-        <p itemProp="description" className="mt-3 leading-8 text-[#625A50]">{product.description}</p>
-        <div className="mt-4 flex items-center justify-between rounded-2xl bg-[#FBF7EF] px-4 py-3 text-sm">
-          <span className="font-bold text-[#6A5B43]">Available on request</span>
-          <span className="font-black text-[#0F3F1A]">Price based on specifications</span>
+        <p className="mt-3 min-h-[64px] leading-8 text-[#625A50]">{product.description}</p>
+        <div className="mt-4 rounded-2xl border border-[#D4AF37]/35 bg-gradient-to-r from-[#FFF9EA] to-[#FBF7EF] px-4 py-4">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-black text-[#8A6A35]">Starting price</p>
+              <p className="mt-1 text-2xl font-black text-[#0F3F1A]"><span className="text-sm">AED</span> {formattedPrice}</p>
+            </div>
+            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-[#6A5B43] shadow-sm">{product.priceUnit}</span>
+          </div>
+          <p className="mt-3 border-t border-[#D4AF37]/20 pt-3 text-xs font-bold leading-6 text-[#6A5B43]">{product.priceNote}</p>
         </div>
         <Link href={`/request-quote?provider=arkleen&lang=en&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
           Request product details
