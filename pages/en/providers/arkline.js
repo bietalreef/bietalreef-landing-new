@@ -159,7 +159,7 @@ const products = [
     category: 'Doors',
     description: 'Manufactured according to the dimensions, design and required wood or veneer.',
     image: '/images/providers/arkleen-premium/product-custom-door.webp',
-    gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp', '/images/providers/arkleen-premium/product-custom-door-opposite.webp'],
+    gallery: ['/images/providers/arkleen-premium/product-custom-door.webp', '/images/providers/arkleen-premium/product-custom-door-detail.webp'],
     icon: Store,
     price: 800,
     currency: 'AED',
