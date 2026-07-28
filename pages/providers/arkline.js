@@ -265,71 +265,12 @@ export default function ArklinePage() {
     additionalProperty: { '@type': 'PropertyValue', name: 'نظام التسعير', value: 'عرض سعر بعد مراجعة المقاسات والخامة وموقع المشروع' },
   }));
 
-  const productSchemas = products.map((product) => ({
-    '@type': 'Product',
-    '@id': `${canonical}#${product.id}`,
-    identifier: product.id,
-    sku: product.id,
+  const productListItems = products.map((product, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
     name: product.title,
-    description: product.description,
-    url: `${canonical}#${product.id}`,
-    image: product.gallery.map((src) => `https://bietalreef.ae${src}`),
-    brand: { '@type': 'Brand', name: 'ARKLEEN' },
-    category: product.category,
-    offers: {
-      '@type': 'Offer',
-      url: `${canonical}#${product.id}`,
-      price: product.price.toString(),
-      priceCurrency: product.currency,
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      seller: { '@id': `${canonical}#provider` },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: 0,
-          currency: product.currency,
-        },
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'AE',
-        },
-        deliveryTime: {
-          '@type': 'ShippingDeliveryTime',
-          handlingTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 0,
-            maxValue: 0,
-            unitCode: 'DAY',
-          },
-          transitTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 3,
-            maxValue: 3,
-            unitCode: 'DAY',
-          },
-        },
-      },
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'AE',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-      },
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: product.price.toString(),
-        priceCurrency: product.currency,
-        unitText: product.priceUnit,
-        referenceQuantity: {
-          '@type': 'QuantitativeValue',
-          value: 1,
-          unitCode: product.priceUnitCode,
-          unitText: product.priceUnit,
-        },
-      },
-    },
-    additionalProperty: { '@type': 'PropertyValue', name: 'التسعير', value: `يبدأ من ${product.price.toLocaleString('en-US')} درهم ${product.priceUnit}` },
+    url: `https://bietalreef.ae/products/arkleen/${product.slug}`,
+    image: `https://bietalreef.ae${product.image}`,
   }));
 
   const schemas = [
@@ -365,7 +306,7 @@ export default function ArklinePage() {
       },
     },
     { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${canonical}#services`, name: 'خدمات أركلين للنجارة والتصميم الداخلي', itemListElement: serviceSchemas.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })) },
-    { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${canonical}#products`, name: 'منتجات أركلين المصنّعة حسب الطلب', itemListElement: productSchemas.map((item, index) => ({ '@type': 'ListItem', position: index + 1, item })) },
+    { '@context': 'https://schema.org', '@type': 'ItemList', '@id': `${canonical}#products`, name: 'منتجات أركلين المصنّعة حسب الطلب', itemListElement: productListItems },
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -914,6 +855,7 @@ function ModalInfo({ icon: Icon, title, value }) {
 function ProductCard({ product }) {
   const formattedPrice = new Intl.NumberFormat('ar-AE').format(product.price);
   const priceText = `يبدأ من ${formattedPrice} درهم ${product.priceUnit}`;
+  const productPath = `/products/arkleen/${product.slug}`;
   const whatsapp = buildCardWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'ar',
@@ -928,7 +870,7 @@ function ProductCard({ product }) {
     price: priceText,
     pricingModel: 'سعر ابتدائي · مصنّع حسب الطلب',
     location: provider.location,
-    pagePath: `/providers/arkleen#${product.id}`,
+    pagePath: productPath,
   });
   return (
     <article id={product.id} data-provider-id={provider.id} data-product-id={product.id} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_48px_rgba(67,45,17,.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(67,45,17,.15)]">
@@ -956,8 +898,8 @@ function ProductCard({ product }) {
           </div>
           <p className="mt-3 border-t border-[#D4AF37]/20 pt-3 text-xs font-bold leading-6 text-[#6A5B43]">{product.priceNote}</p>
         </div>
-        <Link href={`/request-quote?provider=arkleen&productId=${encodeURIComponent(product.id)}&product=${encodeURIComponent(product.title)}`} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
-          اطلب تفاصيل المنتج
+        <Link href={productPath} className="mt-5 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9EA] px-4 py-3 text-sm font-black text-[#0F3F1A]">
+          عرض صفحة المنتج
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white">
