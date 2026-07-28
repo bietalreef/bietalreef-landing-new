@@ -27,6 +27,9 @@ const COPY = {
     openService: 'فتح الخدمة والمزود',
     openProduct: 'فتح المنتج والمورد',
     whatsapp: 'واتساب',
+    startingPrice: 'السعر الابتدائي',
+    madeToOrder: 'مصنّع حسب الطلب',
+    priceNote: 'السعر النهائي بعد مراجعة المقاسات والمواصفات',
     fallbackDescription: 'افتح ملف المزود للاطلاع على التفاصيل وطلب عرض مناسب.',
   },
   en: {
@@ -44,6 +47,9 @@ const COPY = {
     openService: 'Open service and provider',
     openProduct: 'Open product and supplier',
     whatsapp: 'WhatsApp',
+    startingPrice: 'Starting price',
+    madeToOrder: 'Made to order',
+    priceNote: 'Final price after dimensions and specifications are reviewed',
     fallbackDescription: 'Open the provider profile to review the details and request a suitable quotation.',
   },
 };
@@ -107,6 +113,11 @@ export default function PublishedEntityGrid({
                     {copy.verified}
                   </span>
                 ) : null}
+                {isProduct && item.priceValue ? (
+                  <span className={`absolute bottom-4 rounded-2xl border border-white/25 bg-white/95 px-3 py-2 text-sm font-black text-[#0F3F1A] shadow-xl backdrop-blur ${isEn ? 'right-4' : 'left-4'}`}>
+                    {isEn ? 'From ' : 'من '} {Number(item.priceValue).toLocaleString(isEn ? 'en-AE' : 'ar-AE')} {item.currency || 'AED'}
+                  </span>
+                ) : null}
               </div>
 
               <div className="p-5">
@@ -124,9 +135,30 @@ export default function PublishedEntityGrid({
                 </div>
 
                 <h3 className="mt-4 text-xl font-black leading-8 text-[#0F3F1A]">{item.name}</h3>
+                {item.code ? (
+                  <p dir="ltr" className={`mt-1 text-[10px] font-black tracking-[0.12em] text-[#8A6A35] ${isEn ? 'text-left' : 'text-right'}`}>{item.code}</p>
+                ) : null}
                 <p className="mt-2 line-clamp-3 min-h-[72px] text-sm font-semibold leading-6 text-gray-600">
                   {item.description || item.providerSummary || copy.fallbackDescription}
                 </p>
+
+                {isProduct && item.priceValue ? (
+                  <div className="mt-4 rounded-2xl border border-[#D4AF37]/35 bg-gradient-to-br from-[#FFF9EA] to-[#FDFBF7] p-4">
+                    <div className="flex items-end justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-black text-[#8A6A35]">{copy.startingPrice}</p>
+                        <p className="mt-1 text-2xl font-black text-[#0F3F1A]">
+                          {Number(item.priceValue).toLocaleString(isEn ? 'en-AE' : 'ar-AE')}
+                          <span className="mx-1 text-sm">{item.currency || 'AED'}</span>
+                        </p>
+                      </div>
+                      <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-[#6A5B43] shadow-sm">
+                        {item.priceUnit || copy.madeToOrder}
+                      </span>
+                    </div>
+                    <p className="mt-3 border-t border-[#D4AF37]/20 pt-3 text-xs font-bold leading-5 text-[#6A5B43]">{copy.priceNote}</p>
+                  </div>
+                ) : null}
 
                 <div className="mt-4 space-y-2 rounded-2xl bg-[#FDFBF7] p-4 text-sm font-bold text-[#304333]">
                   <p className="flex items-start gap-2">
@@ -141,14 +173,14 @@ export default function PublishedEntityGrid({
 
                 <div className="mt-5 grid grid-cols-2 gap-2">
                   <Link
-                    href={item.providerHref}
+                    href={item.href || item.providerHref}
                     className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-3 py-3 text-center text-xs font-black text-white transition hover:bg-[#D4AF37] hover:text-[#0F3F1A]"
                   >
                     {isProduct ? copy.openProduct : copy.openService}
                     <DirectionArrow className="h-4 w-4" />
                   </Link>
                   <a
-                    href={item.providerWhatsapp || item.providerHref}
+                    href={item.providerWhatsapp || item.whatsapp || item.href || item.providerHref}
                     target={item.providerWhatsapp ? '_blank' : undefined}
                     rel={item.providerWhatsapp ? 'noopener noreferrer' : undefined}
                     className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl border border-[#D4AF37]/45 bg-[#FFF8E5] px-3 py-3 text-xs font-black text-[#0F3F1A]"
