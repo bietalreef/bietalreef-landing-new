@@ -3,6 +3,7 @@ import { UAE_EMIRATES } from '../data/siteTaxonomy';
 import {
   UAE_DIRECTORY_SECTION_SLUGS,
   getArabicUaeDirectoryCards,
+  getPublishedProductsForSitemap,
   getPublishedProviderCards,
 } from '../lib/platformDirectoryCards';
 
@@ -58,9 +59,10 @@ function buildSitemapXml(entries) {
 
 export async function getServerSideProps({ res }) {
   const entries = buildSearchIndexEntries();
-  const [cards, providerCards] = await Promise.all([
+  const [cards, providerCards, products] = await Promise.all([
     getArabicUaeDirectoryCards(),
     getPublishedProviderCards('ar'),
+    getPublishedProductsForSitemap('ar'),
   ]);
   const lastmod = new Date().toISOString().slice(0, 10);
   const addPair = (arPath, enPath, image) => {
@@ -89,6 +91,14 @@ export async function getServerSideProps({ res }) {
       `/providers/${slug}`,
       `/en/providers/${slug}`,
       provider.coverImage || provider.logoImage
+    );
+  });
+
+  products.forEach((product) => {
+    addPair(
+      `/products/${product.providerSlug}/${product.slug}`,
+      `/en/products/${product.providerSlug}/${product.slug}`,
+      product.image
     );
   });
 
