@@ -270,7 +270,7 @@ export default function ArklineEnglishPage() {
       url: `${canonical}#${product.id}`,
       price: product.price.toString(),
       priceCurrency: product.currency,
-      availability: 'https://schema.org/PreOrder',
+      availability: 'https://schema.org/InStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: { '@id': `${canonical}#provider` },
       priceSpecification: {
