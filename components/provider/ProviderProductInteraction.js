@@ -20,7 +20,7 @@ const ARKLINE_PROVIDER = {
   slug: 'arkleen',
   name: 'أركلين',
   whatsapp: '971567797828',
-  base: '/images/providers/arkline/',
+  base: '/images/providers/arkleen-premium/',
 };
 
 const ARKLINE_PRODUCTS = {
@@ -29,22 +29,24 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-wooden-kitchen',
     title: 'مطبخ خشبي حسب الطلب',
     category: 'مطابخ',
-    cardImage: 'arkline-showroom.webp',
-    cardImagePosition: 'center 52%',
+    cardImage: 'product-custom-kitchen.webp',
+    cardImagePosition: 'center',
     gallery: [
       {
-        src: 'arkline-showroom.webp',
-        alt: 'صورة كاملة لمساحة عرض وتشطيبات أركلين المناسبة لأعمال المطابخ الخشبية',
+        src: 'product-custom-kitchen.webp',
+        alt: 'مطبخ خشبي حسب الطلب من أركلين',
       },
       {
-        src: 'arkline-workshop.webp',
-        alt: 'صورة كاملة لورشة أركلين وأعمال التصنيع والتجهيز الخشبي',
+        src: 'product-custom-kitchen-detail.webp',
+        alt: 'تفاصيل التشطيب والتصنيع في مطبخ أركلين الخشبي',
       },
       {
-        src: 'arkline-production.webp',
-        alt: 'صورة كاملة لمعدات الإنتاج والتصنيع داخل ورشة أركلين',
+        src: 'product-custom-kitchen-storage.webp',
+        alt: 'حلول التخزين الداخلية في مطبخ أركلين حسب الطلب',
       },
     ],
+    price: 980,
+    priceUnit: 'للمتر الطولي',
     icon: Home,
     description: 'مطبخ خشبي يُصمم ويُصنع حسب مساحة الموقع، وتوزيع الاستخدام، ونوع الخامة والتشطيب والملحقات المطلوبة.',
     specifications: ['تصنيع حسب المقاس', 'خيارات خامات وتشطيبات', 'ملحقات داخلية حسب الطلب'],
@@ -62,22 +64,24 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-wardrobe',
     title: 'خزانة ملابس حسب المقاس',
     category: 'خزائن',
-    cardImage: 'arkline-workshop.webp',
-    cardImagePosition: 'center 48%',
+    cardImage: 'product-custom-wardrobe.webp',
+    cardImagePosition: 'center',
     gallery: [
       {
-        src: 'arkline-workshop.webp',
-        alt: 'صورة كاملة لورشة أركلين وتجهيز أعمال الخزائن والدواليب',
+        src: 'product-custom-wardrobe.webp',
+        alt: 'خزانة ملابس حسب المقاس من أركلين',
       },
       {
-        src: 'arkline-showroom.webp',
-        alt: 'صورة كاملة لمساحة عرض التشطيبات والخامات داخل أركلين',
+        src: 'product-custom-wardrobe-detail.webp',
+        alt: 'تفاصيل أبواب وتشطيب خزانة أركلين حسب المقاس',
       },
       {
-        src: 'arkline-production.webp',
-        alt: 'صورة كاملة لمعدات تصنيع وتجهيز الخزائن داخل ورشة أركلين',
+        src: 'product-custom-wardrobe-storage.webp',
+        alt: 'التقسيم الداخلي وحلول التخزين في خزانة أركلين',
       },
     ],
+    price: 2500,
+    priceUnit: 'للوحدة',
     icon: Package,
     description: 'خزانة ملابس بتقسيم داخلي مخصص، تُصنع حسب عرض وارتفاع وعمق المساحة مع خيارات متعددة للأبواب والخامات والتشطيبات.',
     specifications: ['تقسيم داخلي مخصص', 'أبواب سحاب أو مفصلية', 'تشطيبات متعددة'],
@@ -95,22 +99,24 @@ const ARKLINE_PRODUCTS = {
     slug: 'custom-interior-door',
     title: 'باب داخلي خشبي',
     category: 'أبواب',
-    cardImage: 'arkline-production.webp',
-    cardImagePosition: 'center 56%',
+    cardImage: 'product-custom-door.webp',
+    cardImagePosition: 'center',
     gallery: [
       {
-        src: 'arkline-production.webp',
-        alt: 'صورة كاملة لورشة تصنيع الأبواب والأعمال الخشبية لدى أركلين',
+        src: 'product-custom-door.webp',
+        alt: 'باب داخلي خشبي حسب الطلب من أركلين',
       },
       {
-        src: 'arkline-workshop.webp',
-        alt: 'صورة كاملة لمنطقة العمل والتجهيز داخل ورشة أركلين',
+        src: 'product-custom-door-detail.webp',
+        alt: 'تفاصيل الخشب والتشطيب في باب أركلين الداخلي',
       },
       {
-        src: 'arkline-hero-exterior.webp',
-        alt: 'صورة كاملة لواجهة ورشة أركلين لأعمال النجارة والتصميم الداخلي في العين',
+        src: 'product-custom-door-opposite.webp',
+        alt: 'الجهة المقابلة من باب أركلين الداخلي الخشبي',
       },
     ],
+    price: 800,
+    priceUnit: 'للقطعة',
     icon: Store,
     description: 'باب داخلي خشبي يُصنع حسب فتحة الباب والتصميم المطلوب، مع اختيار نوع الخشب أو القشرة واللون والإكسسوارات وطريقة التركيب.',
     specifications: ['تصنيع حسب فتحة الباب', 'خيارات خشب وقشرة', 'توريد وتركيب'],
@@ -126,6 +132,7 @@ const ARKLINE_PRODUCTS = {
 };
 
 function buildProductWhatsappMessage(product) {
+  const formattedPrice = new Intl.NumberFormat('ar-AE').format(product.price);
   return buildCardWhatsappUrl({
     phone: ARKLINE_PROVIDER.whatsapp,
     locale: 'ar',
@@ -137,8 +144,8 @@ function buildProductWhatsappMessage(product) {
     title: product.title,
     description: product.description,
     category: product.category,
-    price: 'السعر حسب المواصفات',
-    pricingModel: 'متوفر حسب الطلب',
+    price: `يبدأ من ${formattedPrice} درهم ${product.priceUnit}`,
+    pricingModel: 'سعر ابتدائي · مصنّع حسب الطلب',
     specifications: [...product.specifications, ...product.requiredDetails],
     location: 'العين – مزيد – معسكر الشركات',
     pagePath: `/providers/arkleen#${product.id}`,
@@ -280,6 +287,7 @@ export default function ProviderProductInteraction({ currentPath = '' }) {
 
 function ProductDetailsModal({ product, onClose }) {
   const Icon = product.icon;
+  const formattedPrice = new Intl.NumberFormat('ar-AE').format(product.price);
   const whatsappText = buildProductWhatsappMessage(product);
   const wayaakHref = buildProductWeyaakHref(product);
   const gallery = product.gallery?.length
@@ -401,6 +409,21 @@ function ProductDetailsModal({ product, onClose }) {
             {product.description}
           </p>
 
+          <div className="mt-5 rounded-[1.4rem] border border-[#D4AF37]/35 bg-gradient-to-l from-[#FFF9EA] to-[#FBF7EF] p-4">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-black text-[#8A6A35]">السعر الابتدائي</p>
+                <p className="mt-1 text-3xl font-black text-[#0F3F1A]">
+                  {formattedPrice} <span className="text-base">درهم</span>
+                </p>
+              </div>
+              <span className="rounded-full bg-white px-3 py-2 text-xs font-black text-[#6A5B43] shadow-sm">{product.priceUnit}</span>
+            </div>
+            <p className="mt-3 border-t border-[#D4AF37]/20 pt-3 text-xs font-bold leading-6 text-[#6A5B43]">
+              السعر النهائي يُعتمد بعد مراجعة المقاسات والخامة والتشطيب والملحقات وموقع المشروع.
+            </p>
+          </div>
+
           <div className="mt-5 flex flex-wrap gap-2">
             {product.specifications.map((specification) => (
               <span
@@ -415,7 +438,7 @@ function ProductDetailsModal({ product, onClose }) {
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <ProductInfo icon={Tag} title="الفئة" value={product.category} />
             <ProductInfo icon={Ruler} title="التنفيذ" value="حسب المقاسات والمواصفات" />
-            <ProductInfo icon={ShieldCheck} title="التسعير" value="بعد مراجعة التفاصيل" />
+            <ProductInfo icon={ShieldCheck} title="التسعير" value={`يبدأ من ${formattedPrice} درهم`} />
           </div>
 
           <div className="mt-6 rounded-[1.6rem] border border-[#E6DCC8] bg-[#FBF7EF] p-5">
