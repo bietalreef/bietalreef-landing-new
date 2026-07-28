@@ -68,7 +68,17 @@ export default function ProviderSpecialtyView({ service, providers, locale = 'ar
 
       <section className="mx-auto max-w-6xl px-4 py-14">
         <div className={`mb-8 ${isEn ? 'text-left' : 'text-right'}`}><span className="inline-flex items-center gap-2 rounded-full bg-[#FFF8E5] px-4 py-2 text-xs font-black text-[#8A6A00]"><Sparkles className="h-4 w-4" />{isEn ? 'Published from approved provider data' : 'منشور من بيانات المزودين المعتمدة'}</span><h2 className="mt-4 text-3xl font-black">{isEn ? 'Available providers now' : 'مزودون متاحون الآن'}</h2></div>
-        {providers.length ? <div className="grid gap-6 md:grid-cols-2">{providers.map((provider) => <ProviderCard key={provider.slug} item={providerItem(provider, isEn)} />)}</div> : <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-10 text-center shadow-sm"><h2 className="text-2xl font-black">{isEn ? 'No approved provider is published yet' : 'لا يوجد مزود معتمد منشور حالياً'}</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-gray-600">{isEn ? 'Your business can be the first visible option where customers search for this service.' : 'يمكن أن يكون نشاطك أول خيار ظاهر للعملاء الباحثين عن هذه الخدمة.'}</p></div>}
+        {providers.length ? <div className="grid gap-6 md:grid-cols-2">{providers.map((provider) => {
+          const item = provider.entityType === 'provider'
+            ? {
+              ...provider,
+              coverImage: provider.coverImage || provider.image,
+              logoImage: provider.logoImage || provider.logo,
+              providerId: provider.providerId || provider.providerNumericId,
+            }
+            : providerItem(provider, isEn);
+          return <ProviderCard key={provider.id || provider.slug} item={item} />;
+        })}</div> : <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-10 text-center shadow-sm"><h2 className="text-2xl font-black">{isEn ? 'No approved provider is published yet' : 'لا يوجد مزود معتمد منشور حالياً'}</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-gray-600">{isEn ? 'Your business can be the first visible option where customers search for this service.' : 'يمكن أن يكون نشاطك أول خيار ظاهر للعملاء الباحثين عن هذه الخدمة.'}</p></div>}
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16">
