@@ -5,8 +5,11 @@ import ProvidersSmartFooter from '../../../components/ProvidersSmartFooter';
 import ProviderSpecialtyView from '../../../components/ProviderSpecialtyView';
 import SectionBackBar from '../../../components/SectionBackBar';
 import { SERVICE_CATEGORIES, getServiceCategory } from '../../../data/siteTaxonomy';
-import { getProvidersByCategory } from '../../../data/providers';
-import { getUaeFooterCards } from '../../../lib/platformDirectoryCards';
+import {
+  getPublishedProvidersForRoute,
+  getUaeFooterCards,
+} from '../../../lib/platformDirectoryCards';
+import { getSectionActivitySlug } from '../../../lib/sectionCardRoutes';
 
 const providerSpecialties = [
   ...SERVICE_CATEGORIES,
@@ -27,5 +30,19 @@ export default function ProviderSpecialtyPage({ service, matchedProviders, direc
     <div dir="rtl" className="min-h-screen bg-[#FDFBF7]"><Navbar pageTitle="مزودو الخدمات" /><SectionBackBar href="/providers" label="العودة إلى مزودي الخدمات" /><ProviderSpecialtyView service={service} providers={matchedProviders} locale="ar" /><ProvidersSmartFooter locale="ar" directoryCards={directoryCards} /><Footer showRequestCTA={false} /></div>
   </>;
 }
-export async function getStaticProps({ params }) { const service = providerSpecialties.find((item) => item.slug === params.slug) || getServiceCategory(params.slug); if (!service) return { notFound: true }; const directoryCards = await getUaeFooterCards('ar'); return { props: { service, matchedProviders: getProvidersByCategory(params.slug), directoryCards }, revalidate: 3600 }; }
+export async function getStaticProps({ params }) {
+  const service =
+    providerSpecialties.find((item) => item.slug === params.slug) ||
+    getServiceCategory(params.slug);
+  if (!service) return { notFound: true };
+  const activitySlug = getSectionActivitySlug('providers', params.slug);
+  const [matchedProviders, directoryCards] = await Promise.all([
+    getPublishedProvidersForRoute('ar', params.slug, activitySlug),
+    getUaeFooterCards('ar'),
+  ]);
+  return {
+    props: { service, matchedProviders, directoryCards },
+    revalidate: 300,
+  };
+}
 export async function getStaticPaths() { return { paths: providerSpecialties.map((service) => ({ params: { slug: service.slug } })), fallback: 'blocking' }; }
