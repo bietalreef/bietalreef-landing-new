@@ -157,7 +157,6 @@ function buildProductSchema(product, canonical, gallery) {
       '@type': 'Brand',
       name: product.providerName,
     },
-    category: product.category,
     ...(product.countryOfOrigin
       ? {
           countryOfOrigin: {
