@@ -81,6 +81,10 @@ function hasWhatsApp(body) {
   return hasLink(body, /wa\.me/i);
 }
 
+function providerTool(body) {
+  return (body.tool_calls || []).find((call) => call.name === 'search_providers');
+}
+
 try {
   await waitForServer();
   const tests = [];
@@ -108,16 +112,8 @@ try {
   assert(customer.audience === 'customer', 'complete service request must be classified as customer', customer);
   if (customer.match_status === 'matched') {
     assert(hasLink(customer, /providers\/al-hoot-marble-granite-factory/i), 'matched marble request must identify White Whale before review', customer);
-    const asksForProviderConfirmation = /تأكيد|تأكيدك|مزو(?:ّ)?د|أحتاج|قياس|هل المطلوب/i.test(customer.reply);
-    // The live model may phrase the next step as confirmation or as a
-    // clarification. The structured quote intake is the stable contract;
-    // exact Arabic wording is intentionally not used as a deployment gate.
-    const asksForRequiredClarification = customer.intake?.type === 'quote_request';
-    assert(
-      asksForProviderConfirmation || asksForRequiredClarification,
-      'matched request must ask for provider confirmation or a required quote clarification',
-      customer,
-    );
+    assert(providerTool(customer)?.status === 'matched', 'matched request must come from the live provider search tool', customer);
+    assert(/الحوت\s*الأبيض|White\s*Whale/i.test(customer.reply), 'matched request must name the matched provider in the reply', customer);
   } else {
     const organizesQuote = customer.intake?.type === 'quote_request'
       || (customer.intent === 'quote_request'

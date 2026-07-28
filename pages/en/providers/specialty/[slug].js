@@ -4,8 +4,11 @@ import ProvidersSmartFooter from '../../../../components/ProvidersSmartFooter';
 import ProviderSpecialtyView from '../../../../components/ProviderSpecialtyView';
 import SectionBackBar from '../../../../components/SectionBackBar';
 import { SERVICE_CATEGORIES, getServiceCategory } from '../../../../data/siteTaxonomy';
-import { getProvidersByCategory } from '../../../../data/providers';
-import { getUaeFooterCards } from '../../../../lib/platformDirectoryCards';
+import {
+  getPublishedProvidersForRoute,
+  getUaeFooterCards,
+} from '../../../../lib/platformDirectoryCards';
+import { getSectionActivitySlug } from '../../../../lib/sectionCardRoutes';
 
 const providerSpecialties = [
   ...SERVICE_CATEGORIES,
@@ -27,5 +30,19 @@ export default function EnglishProviderSpecialtyPage({ specialty, matchingProvid
   const image = `https://bietalreef.ae${specialty.image || '/images/providers-hero.webp'}`;
   return <><Head><title>{title}</title><meta name="description" content={description} /><meta name="robots" content="index, follow" /><link rel="canonical" href={canonical} /><link rel="alternate" hrefLang="ar-AE" href={`https://bietalreef.ae/providers/specialty/${specialty.slug}`} /><link rel="alternate" hrefLang="en-AE" href={canonical} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" /><meta property="og:url" content={canonical} /><meta property="og:image" content={image} /><meta property="og:image:alt" content={title} /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={image} /></Head><EnglishLayout><SectionBackBar locale="en" href="/en/providers" label="Back to service providers" /><ProviderSpecialtyView service={specialty} providers={matchingProviders} locale="en" /><ProvidersSmartFooter locale="en" directoryCards={directoryCards} /></EnglishLayout></>;
 }
-export async function getStaticProps({ params }) { const specialty = providerSpecialties.find((item) => item.slug === params.slug) || getServiceCategory(params.slug); if (!specialty) return { notFound: true }; const directoryCards = await getUaeFooterCards('en'); return { props: { specialty, matchingProviders: getProvidersByCategory(params.slug), directoryCards }, revalidate: 3600 }; }
+export async function getStaticProps({ params }) {
+  const specialty =
+    providerSpecialties.find((item) => item.slug === params.slug) ||
+    getServiceCategory(params.slug);
+  if (!specialty) return { notFound: true };
+  const activitySlug = getSectionActivitySlug('providers', params.slug);
+  const [matchingProviders, directoryCards] = await Promise.all([
+    getPublishedProvidersForRoute('en', params.slug, activitySlug),
+    getUaeFooterCards('en'),
+  ]);
+  return {
+    props: { specialty, matchingProviders, directoryCards },
+    revalidate: 300,
+  };
+}
 export async function getStaticPaths() { return { paths: providerSpecialties.map((specialty) => ({ params: { slug: specialty.slug } })), fallback: 'blocking' }; }

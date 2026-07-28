@@ -116,9 +116,6 @@ function LandingContent({
   const canonical = `https://bietalreef.ae${path}`;
   const image = card.image.startsWith('http') ? card.image : `https://bietalreef.ae${card.image}`;
   const hubPath = `${isEn ? '/en' : ''}/uae/${emirate.slug}${area ? `/${area.slug}` : ''}`;
-  const showingLocationAlternatives = card.sectionKey === 'providers'
-    && entities.length > 0
-    && entities.every((entity) => entity.matchType === 'location_only');
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -171,18 +168,11 @@ function LandingContent({
           <div className={`mb-7 ${isEn ? 'text-left' : 'text-right'}`}>
             <span className="inline-flex rounded-full border border-[#DCCAA7] bg-[#FFF9EC] px-4 py-1.5 text-xs font-black text-[#8A611B]">{isEn ? 'Published results from Biet Al Reef database' : 'نتائج منشورة من قاعدة بيانات بيت الريف'}</span>
             <h2 className="mt-4 text-3xl font-black text-[#0F3F1A]">
-              {showingLocationAlternatives
-                ? (isEn ? `Related published providers serving ${copy.location}` : `مزودون منشورون يخدمون ${copy.location}`)
-                : (isEn ? `${card.title} available in ${copy.location}` : `${card.title} المتاحة في ${copy.location}`)}
+              {isEn
+                ? `${card.title} available in ${copy.location}`
+                : `${card.title} المتاحة في ${copy.location}`}
             </h2>
           </div>
-          {showingLocationAlternatives ? (
-            <div className={`mb-6 rounded-2xl border border-[#DCC895] bg-[#FFF9EC] p-4 text-sm font-bold leading-7 text-[#6B5530] ${isEn ? 'text-left' : 'text-right'}`}>
-              {isEn
-                ? `No published provider currently has an exact ${card.activity.name.toLowerCase()} classification in ${copy.location}. These are published providers with active coverage for the same location; open a profile to review its actual specialties and verification status.`
-                : `لا يوجد حاليًا مزود منشور مصنف بدقة ضمن ${card.activity.name} في ${copy.location}. هذه ملفات مزودين منشورين لديهم تغطية نشطة للموقع نفسه؛ افتح الملف لمراجعة تخصصه وحالة توثيقه الفعلية.`}
-            </div>
-          ) : null}
           {entities.length ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {entities.map((entity) => <DirectoryEntityCard key={`${entity.entityType}-${entity.id}`} entity={entity} locale={locale} />)}

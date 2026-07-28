@@ -64,32 +64,14 @@ export default function MarketplaceCategoryPage({
       itemListElement: pricedProducts.map((item, index) => {
         const productUrl = `https://bietalreef.ae${item.href || item.providerHref}`;
         return {
-        '@type': 'ListItem',
-        position: index + 1,
-        name: item.name,
-        url: productUrl,
-        item: {
-          '@type': 'Product',
-          '@id': `${productUrl}#product`,
+          '@type': 'ListItem',
+          position: index + 1,
           name: item.name,
-          description: item.description || item.providerSummary,
-          sku: item.code,
+          url: productUrl,
           image: item.image
             ? (item.image.startsWith('http') ? item.image : `https://bietalreef.ae${item.image}`)
             : undefined,
-          url: productUrl,
-          brand: { '@type': 'Brand', name: item.providerName },
-          offers: {
-            '@type': 'Offer',
-            url: productUrl,
-            price: Number(item.priceValue).toString(),
-            priceCurrency: item.currency || 'AED',
-            availability: 'https://schema.org/PreOrder',
-            itemCondition: 'https://schema.org/NewCondition',
-            seller: { '@type': 'Organization', name: item.providerName },
-          },
-        },
-      };
+        };
       }),
     },
   ];
