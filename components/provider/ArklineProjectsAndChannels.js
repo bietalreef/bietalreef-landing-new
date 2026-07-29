@@ -3,10 +3,9 @@ import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
   ArrowLeft,
-  Building2,
   CalendarDays,
   CheckCircle2,
-  ExternalLink,
+  ChevronDown,
   Facebook,
   FolderKanban,
   Globe2,
@@ -19,93 +18,137 @@ import {
   X,
 } from 'lucide-react';
 
-const PROVIDER_ID = 'BR-PROV-ARK-001';
-const PROVIDER_BASE = '/images/providers/arkline/';
-const WEBSITE_URL = 'https://bietalreef.ae/providers/arkleen';
-const resolveProjectMedia = (src) => (src?.startsWith('/') ? src : `${PROVIDER_BASE}${src}`);
-
-const copy = {
-  ar: {
-    projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال أركلين',
-    intro: 'بطاقة مشروع واحدة تجمع صور مزود الخدمة وتوضح جاهزية أركلين لدراسة وتصميم وتصنيع وتنفيذ المشروع المطلوب حسب المقاسات والخامات وموقع العمل.',
-    details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع أركلين',
-    unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع',
+const PROVIDERS = {
+  arkleen: {
+    id: 'BR-PROV-ARK-001',
+    code: 'ARK',
+    paths: ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'],
+    base: '/images/providers/arkline/',
+    website: 'https://bietalreef.ae/providers/arkleen',
+    websiteEn: 'https://bietalreef.ae/providers/arkleen',
+    copy: {
+      ar: {
+        projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال أركلين',
+        intro: 'بطاقة مشروع واحدة تجمع صور مزود الخدمة وتوضح جاهزية أركلين لدراسة وتصميم وتصنيع وتنفيذ المشروع المطلوب حسب المقاسات والخامات وموقع العمل.',
+        details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع أركلين',
+      },
+      en: {
+        projectsTab: 'Projects', eyebrow: 'Projects', title: 'Arkline Projects & Work',
+        intro: 'One project card brings the provider imagery together and presents ARKLEEN’s readiness to review, design, manufacture and deliver the requested project.',
+        details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Arkline',
+      },
+    },
+    projects: [
+      {
+        id: 'BR-PRJ-ARK-001',
+        title: 'مشروعك القادم مع أركلين',
+        category: 'تصميم وتنفيذ حسب الطلب',
+        location: 'العين وأبوظبي',
+        year: '2026',
+        cover: '/images/providers/arkleen-premium/service-interior-fitout.webp',
+        images: [
+          '/images/providers/arkleen-premium/service-interior-fitout.webp',
+          '/images/providers/arkleen-premium/service-custom-kitchens.webp',
+          '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
+          '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
+          '/images/providers/arkline/arkline-workshop.webp',
+          '/images/providers/arkline/arkline-production.webp',
+        ],
+        description: 'أركلين جاهزة لدراسة وتصميم وتصنيع وتنفيذ مشروعك القادم في العين أو أبوظبي، سواء كان مطبخاً أو خزائن أو أبواباً أو أثاثاً أو كسوات وديكورات خشبية أو تجهيزاً داخلياً متكاملاً. تعرض البطاقة صوراً من هوية الورشة ونماذج مجالات عمل المزود لتوضيح قدرته على تحويل الفكرة والمقاسات والصور المرجعية إلى نطاق عمل قابل للتسعير والتنفيذ. أرسل موقع المشروع والمقاسات والمخططات والصور والخامة والتشطيب والميزانية التقريبية للحصول على مراجعة أولية وعرض سعر مناسب.',
+        scope: ['فهم الفكرة واحتياج المشروع', 'مراجعة الموقع والمقاسات والصور', 'تصميم واختيار الخامات والتشطيبات', 'تصنيع وتوريد وتركيب حسب نطاق الطلب'],
+        en: {
+          title: 'Your Next Custom Project with ARKLEEN',
+          category: 'Custom design & delivery',
+          location: 'Al Ain and Abu Dhabi',
+          description: 'ARKLEEN is ready to review, design, manufacture and deliver your next project in Al Ain or Abu Dhabi, whether it involves a kitchen, wardrobes, doors, furniture, wooden cladding, decorative joinery or a coordinated interior fit-out. This single card brings together verified provider imagery and the available fields of work. Share the location, dimensions, drawings, photographs, preferred materials, finish and approximate budget for an initial review and quotation.',
+          scope: ['Understand the project idea and requirements', 'Review the site, dimensions and photographs', 'Coordinate design, materials and finishes', 'Manufacture, supply and install to the approved scope'],
+        },
+      },
+    ],
   },
-  en: {
-    projectsTab: 'Projects', eyebrow: 'Projects', title: 'Arkline Projects & Work',
-    intro: 'One project card brings the provider imagery together and presents ARKLEEN’s readiness to review, design, manufacture and deliver the requested project.',
-    details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Arkline',
-    unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects',
+  alrehab: {
+    id: 'BR-PROV-ALR-001',
+    code: 'ALR',
+    paths: ['/providers/alrehab-cleaning-sanitizing', '/en/providers/alrehab-cleaning-sanitizing'],
+    base: '/images/providers/alrehab/',
+    website: 'https://bietalreef.ae/providers/alrehab-cleaning-sanitizing',
+    websiteEn: 'https://bietalreef.ae/en/providers/alrehab-cleaning-sanitizing',
+    copy: {
+      ar: {
+        projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال الرحاب',
+        intro: 'يعرض قسم مشاريع وأعمال الرحاب نماذج مصورة تساعد العميل على فهم أنواع خدمات التنظيف العميق والتعقيم التي يمكن تقييمها وطلبها عبر منصة بيت الريف. تجمع بطاقة المشروع صورًا مرتبطة بتنظيف الكنب والسجاد والموكيت والمجالس العربية والمراتب، مع معرف واضح ونطاق عمل وموقع خدمة، حتى يستطيع الزائر مقارنة احتياجه بالمحتوى المنشور قبل طلب عرض السعر. لا تُستخدم الصور وحدها للحكم على النتيجة أو لتحديد تكلفة ثابتة؛ فكل حالة تختلف حسب نوع القماش أو السطح، عدد القطع، المقاسات، مستوى الاتساخ، شدة البقع والروائح، وإمكانية الوصول إلى الموقع. إذا كان السؤال: ما المعلومات المطلوبة لتقييم مشروع تنظيف؟ فالجواب هو صور حديثة وواضحة، المدينة والمنطقة، العدد والمقاسات التقريبية، وصف البقع أو الروائح، نوع الخامة إن كان معروفًا، والموعد المفضل. بعد مراجعة هذه البيانات يمكن للرحاب تحديد نطاق التنظيف، المعدات والمواد المناسبة، الوقت المتوقع، والسعر قبل اعتماد التنفيذ. يخدم هذا القسم العملاء الباحثين عن نماذج تنظيف كنب في العين، أعمال تنظيف مجالس في أبوظبي، تنظيف سجاد وموكيت، أو تنظيف وتعقيم مراتب في دبي حسب الموعد. كما يوضح للمساعدات الذكية ومحركات البحث أن الرحاب مزود خدمة تنظيف وتعقيم، وأن صفحة المشروع مصدر لفهم العمل وليست متجرًا لصور عامة أو أسعار غير موثقة. عند فتح تفاصيل المشروع تظهر الصور المتاحة ومراحل النطاق الأساسية، مثل مراجعة الحالة، تحديد الكمية والموقع، اختيار طريقة المعالجة، وتأكيد السعر والموعد. ويمكن إضافة مشاريع جديدة لاحقًا من بيانات المزود مع الحفاظ على المعرف والصور والوصف الخاص بكل مشروع. للحصول على استفادة عملية، افتح البطاقة، راجع الصور والمعلومات، ثم أرسل تفاصيل حالتك بدل الاكتفاء بعبارة «أريد تنظيفًا». كلما كانت البيانات أوضح كان تقييم الطلب أسرع وأقرب إلى الواقع. المحتوى المنشور لا يضمن معالجة كل بقعة بالطريقة نفسها، لكنه يوضح مسارًا مهنيًا يبدأ بالفهم والمراجعة وينتهي بعرض سعر واضح قبل الزيارة والتنفيذ. ويُفضّل إرسال صور بإضاءة جيدة ومن زوايا، منها صورة قريبة للبقعة وصورة للقطعة، لأنها تساعد على فهم الحجم والحالة وتحديد الأسئلة قبل الحجز.',
+        details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع الرحاب',
+      },
+      en: {
+        projectsTab: 'Projects', eyebrow: 'Projects', title: 'Al Rehab Projects & Work',
+        intro: 'The Al Rehab Projects and Work section presents published visual examples that help customers understand the deep cleaning and sanitizing services that can be assessed and requested through Biet Al Reef. The project card brings together images related to sofa cleaning, rugs and fitted carpets, Arabic majlis seating and mattresses. Visitors can compare their requirement with the available information before requesting a quotation. Images alone are not used to judge the result or set a fixed price. Every condition differs according to fabric or surface type, item quantity, dimensions, soil level, stain and odor severity and access to the service location. What information is required to assess a cleaning project? Send recent, clear photographs, the city and area, quantity, approximate measurements, a description of stains or odors, the material when known and the preferred appointment. Al Rehab can then review the cleaning scope, appropriate equipment and materials, expected time and price before work is approved. This section supports customers searching for sofa cleaning examples in Al Ain, majlis cleaning work in Abu Dhabi, carpet cleaning, or mattress cleaning and sanitizing in Dubai by appointment. Opening Project Details shows the available images and core scope stages, including condition review, confirmation of quantity and location, selection of the treatment method and approval of price and appointment. For a useful assessment, open the card, review the information, then describe your condition instead of sending only a general cleaning request. Clearer inputs support a faster, more realistic review. Send well-lit photographs from different angles, including a close view of stains and a full view of each item, to show scale and help identify follow-up questions before booking. Published content does not promise that every stain is treated identically; it explains a practical path from review to a clear quotation before attendance and service delivery.',
+        details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Al Rehab',
+      },
+    },
+    projects: [
+      {
+        id: 'BR-PRJ-ALR-001',
+        title: 'نماذج أعمال التنظيف العميق',
+        category: 'تنظيف وتعقيم احترافي',
+        location: 'العين وأبوظبي ودبي',
+        year: '2026',
+        cover: '/images/providers/alrehab/service-sofa.webp',
+        images: [
+          '/images/providers/alrehab/service-sofa.webp',
+          '/images/providers/alrehab/service-carpet.webp',
+          '/images/providers/alrehab/service-majlis.webp',
+          '/images/providers/alrehab/service-mattress.webp',
+        ],
+        description: 'بطاقة مشروع تجمع نماذج مصورة لتنظيف الكنب والسجاد والموكيت والمجالس والمراتب. يبدأ تقييم كل طلب بمراجعة الصور والعدد والمقاسات ونوع القماش وحالة البقع وموقع الخدمة قبل اعتماد السعر والموعد.',
+        scope: ['مراجعة الصور وحالة القماش والبقع', 'تحديد العدد والمقاسات وموقع الخدمة', 'اختيار المعدات والمواد المناسبة', 'تأكيد السعر والموعد قبل التنفيذ'],
+        en: {
+          title: 'Deep Cleaning Work Examples',
+          category: 'Professional cleaning & sanitizing',
+          location: 'Al Ain, Abu Dhabi and Dubai',
+          description: 'One project card brings together examples of sofa, carpet, rug, majlis and mattress cleaning. Each request starts with a review of photos, quantity, dimensions, fabric, stain condition and service location before the price and appointment are confirmed.',
+          scope: ['Review photos, fabric and stain condition', 'Confirm quantity, dimensions and location', 'Select suitable equipment and products', 'Confirm price and appointment before service'],
+        },
+      },
+    ],
   },
 };
 
-const projects = [
-  {
-    id: 'BR-PRJ-ARK-001',
-    title: 'مشروعك القادم مع أركلين',
-    category: 'تصميم وتنفيذ حسب الطلب',
-    location: 'العين وأبوظبي',
-    year: '2026',
-    cover: '/images/providers/arkleen-premium/service-interior-fitout.webp',
-    images: [
-      '/images/providers/arkleen-premium/service-interior-fitout.webp',
-      '/images/providers/arkleen-premium/service-custom-kitchens.webp',
-      '/images/providers/arkleen-premium/service-custom-wardrobes.webp',
-      '/images/providers/arkleen-premium/service-wooden-doors-decor.webp',
-      '/images/providers/arkline/arkline-workshop.webp',
-      '/images/providers/arkline/arkline-production.webp',
-    ],
-    description: 'أركلين جاهزة لدراسة وتصميم وتصنيع وتنفيذ مشروعك القادم في العين أو أبوظبي، سواء كان مطبخاً أو خزائن أو أبواباً أو أثاثاً أو كسوات وديكورات خشبية أو تجهيزاً داخلياً متكاملاً. تعرض البطاقة صوراً من هوية الورشة ونماذج مجالات عمل المزود لتوضيح قدرته على تحويل الفكرة والمقاسات والصور المرجعية إلى نطاق عمل قابل للتسعير والتنفيذ. أرسل موقع المشروع والمقاسات والمخططات والصور والخامة والتشطيب والميزانية التقريبية للحصول على مراجعة أولية وعرض سعر مناسب.',
-    scope: ['فهم الفكرة واحتياج المشروع', 'مراجعة الموقع والمقاسات والصور', 'تصميم واختيار الخامات والتشطيبات', 'تصنيع وتوريد وتركيب حسب نطاق الطلب'],
-    en: {
-      title: 'Your Next Custom Project with ARKLEEN',
-      category: 'Custom design & delivery',
-      location: 'Al Ain and Abu Dhabi',
-      description: 'ARKLEEN is ready to review, design, manufacture and deliver your next project in Al Ain or Abu Dhabi, whether it involves a kitchen, wardrobes, doors, furniture, wooden cladding, decorative joinery or a coordinated interior fit-out. This single card brings together verified provider imagery and the available fields of work. Share the location, dimensions, drawings, photographs, preferred materials, finish and approximate budget for an initial review and quotation.',
-      scope: ['Understand the project idea and requirements', 'Review the site, dimensions and photographs', 'Coordinate design, materials and finishes', 'Manufacture, supply and install to the approved scope'],
-    },
-  },
-];
+const sharedCopy = {
+  ar: { unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع', more: 'المزيد', less: 'عرض أقل' },
+  en: { unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects', more: 'Read more', less: 'Show less' },
+};
 
-const digitalChannels = [
-  {
-    id: 'BR-CH-ARK-WEB',
-    label: 'الموقع الإلكتروني',
-    value: 'صفحة أركلين داخل بيت الريف',
-    href: WEBSITE_URL,
-    icon: Globe2,
-    external: true,
-    active: true,
-  },
-  {
-    id: 'BR-CH-ARK-EMAIL',
-    label: 'البريد الإلكتروني',
-    value: 'غير مضاف بعد',
-    icon: Mail,
-    active: false,
-  },
-  {
-    id: 'BR-CH-ARK-IG',
-    label: 'Instagram',
-    value: 'غير مضاف بعد',
-    icon: Instagram,
-    active: false,
-  },
-  {
-    id: 'BR-CH-ARK-FB',
-    label: 'Facebook',
-    value: 'غير مضاف بعد',
-    icon: Facebook,
-    active: false,
-  },
-  {
-    id: 'BR-CH-ARK-TT',
-    label: 'TikTok',
-    value: 'غير مضاف بعد',
-    icon: Music2,
-    active: false,
-  },
-];
+function resolveProvider(cleanPath) {
+  return Object.values(PROVIDERS).find((provider) => provider.paths.includes(cleanPath)) || null;
+}
+
+function getCopy(provider, locale) {
+  return { ...sharedCopy[locale], ...provider.copy[locale] };
+}
+
+function resolveProjectMedia(provider, src) {
+  return src?.startsWith('/') ? src : `${provider.base}${src}`;
+}
+
+function getDigitalChannels(provider, locale) {
+  const unavailable = sharedCopy[locale].unavailable;
+  const isEnglish = locale === 'en';
+  return [
+    {
+      id: `BR-CH-${provider.code}-WEB`,
+      label: isEnglish ? 'Website' : 'الموقع الإلكتروني',
+      value: isEnglish ? 'Provider page on Biet Al Reef' : 'صفحة المزود داخل بيت الريف',
+      href: isEnglish ? provider.websiteEn : provider.website,
+      icon: Globe2,
+      external: true,
+      active: true,
+    },
+    { id: `BR-CH-${provider.code}-EMAIL`, label: isEnglish ? 'Email' : 'البريد الإلكتروني', value: unavailable, icon: Mail, active: false },
+    { id: `BR-CH-${provider.code}-IG`, label: 'Instagram', value: unavailable, icon: Instagram, active: false },
+    { id: `BR-CH-${provider.code}-FB`, label: 'Facebook', value: unavailable, icon: Facebook, active: false },
+    { id: `BR-CH-${provider.code}-TT`, label: 'TikTok', value: unavailable, icon: Music2, active: false },
+  ];
+}
 
 export default function ArklineProjectsAndChannels({ currentPath = '' }) {
   const [projectsTarget, setProjectsTarget] = useState(null);
@@ -113,11 +156,12 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const cleanPath = currentPath.split('?')[0];
   const locale = cleanPath.startsWith('/en/') ? 'en' : 'ar';
-  const isArklinePage = ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'].includes(cleanPath);
-  const t = copy[locale];
+  const provider = resolveProvider(cleanPath);
+  const isSupportedProviderPage = Boolean(provider);
+  const t = provider ? getCopy(provider, locale) : sharedCopy[locale];
 
   useEffect(() => {
-    if (!isArklinePage || typeof document === 'undefined') return undefined;
+    if (!isSupportedProviderPage || typeof document === 'undefined') return undefined;
 
     let observer;
     let animationFrame;
@@ -187,7 +231,7 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
         delete originalGallery.dataset.arklineOriginalGallery;
       }
     };
-  }, [isArklinePage, t.projectsTab]);
+  }, [isSupportedProviderPage, provider, t.projectsTab]);
 
   useEffect(() => {
     if (!selectedProject || typeof document === 'undefined') return undefined;
@@ -206,22 +250,23 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
     };
   }, [selectedProject]);
 
-  if (!isArklinePage) return null;
+  if (!isSupportedProviderPage) return null;
 
   return (
     <>
       {projectsTarget
         ? createPortal(
-            <ProjectsSection locale={locale} onDetails={setSelectedProject} />,
+            <ProjectsSection provider={provider} locale={locale} onDetails={setSelectedProject} />,
             projectsTarget
           )
         : null}
       {channelsTarget
-        ? createPortal(<DigitalChannels locale={locale} />, channelsTarget)
+        ? createPortal(<DigitalChannels provider={provider} locale={locale} />, channelsTarget)
         : null}
       {selectedProject ? (
         <ProjectDetailsModal
           project={selectedProject}
+          provider={provider}
           locale={locale}
           onClose={() => setSelectedProject(null)}
         />
@@ -230,27 +275,26 @@ export default function ArklineProjectsAndChannels({ currentPath = '' }) {
   );
 }
 
-function ProjectsSection({ locale, onDetails }) {
-  const t = copy[locale];
+function ProjectsSection({ provider, locale, onDetails }) {
+  const t = getCopy(provider, locale);
   return (
-    <div className="mx-auto max-w-6xl px-4" data-provider-id={PROVIDER_ID}>
+    <div className="mx-auto max-w-6xl px-4" data-provider-id={provider.id}>
       <div>
         <span className="text-sm font-black text-[#A66B19]">{t.eyebrow}</span>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
           {t.title}
         </h2>
-        <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-          {t.intro}
-        </p>
+        <ExpandableIntro id={`${provider.code.toLowerCase()}-projects-intro`} text={t.intro} locale={locale} />
       </div>
 
       <div className="mt-8 grid gap-5">
-        {projects.map((project) => {
+        {provider.projects.map((project) => {
           const localizedProject = locale === 'en' ? { ...project, ...project.en } : project;
           return (
           <ProjectCard
             key={project.id}
             project={localizedProject}
+            provider={provider}
             locale={locale}
             onDetails={onDetails}
           />
@@ -261,8 +305,39 @@ function ProjectsSection({ locale, onDetails }) {
   );
 }
 
-function ProjectCard({ project, locale, onDetails }) {
-  const t = copy[locale];
+function ExpandableIntro({ id, text, locale }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = text.trim().split(/\s+/).length > 80;
+  const labels = sharedCopy[locale];
+
+  if (!isLong) {
+    return <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">{text}</p>;
+  }
+
+  return (
+    <div className="mt-4 max-w-4xl">
+      <p
+        id={id}
+        className={`leading-8 text-[#625A50] ${isExpanded ? '' : 'line-clamp-2'}`}
+      >
+        {text}
+      </p>
+      <button
+        type="button"
+        aria-controls={id}
+        aria-expanded={isExpanded}
+        onClick={() => setIsExpanded((current) => !current)}
+        className="mt-2 inline-flex min-h-[42px] items-center gap-1.5 rounded-xl px-2 py-1 text-sm font-black text-[#8A611B] transition hover:bg-[#FFF7E2] focus:outline-none focus:ring-2 focus:ring-[#C9952A] focus:ring-offset-2"
+      >
+        {isExpanded ? labels.less : labels.more}
+        <ChevronDown className={`h-4 w-4 transition ${isExpanded ? 'rotate-180' : ''}`} />
+      </button>
+    </div>
+  );
+}
+
+function ProjectCard({ project, provider, locale, onDetails }) {
+  const t = getCopy(provider, locale);
   return (
     <article
       data-project-id={project.id}
@@ -270,7 +345,7 @@ function ProjectCard({ project, locale, onDetails }) {
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-[#EFE7D8]">
         <Image
-          src={resolveProjectMedia(project.cover)}
+          src={resolveProjectMedia(provider, project.cover)}
           alt={project.title}
           fill
           className="object-cover transition duration-500 hover:scale-[1.02]"
@@ -323,36 +398,37 @@ function ProjectCard({ project, locale, onDetails }) {
   );
 }
 
-function DigitalChannels({ locale }) {
-  const t = copy[locale];
-  const channelStyles = {
-    'BR-CH-ARK-WEB': 'from-[#0F3F1A] to-[#1F6A35] text-white',
-    'BR-CH-ARK-EMAIL': 'from-[#8F2638] to-[#C54B62] text-white',
-    'BR-CH-ARK-IG': 'from-[#7C3AED] via-[#DB2777] to-[#F59E0B] text-white',
-    'BR-CH-ARK-FB': 'from-[#1877F2] to-[#0D55B5] text-white',
-    'BR-CH-ARK-TT': 'from-[#101010] to-[#2F2F2F] text-white',
-  };
+function DigitalChannels({ provider, locale }) {
+  const t = getCopy(provider, locale);
+  const digitalChannels = getDigitalChannels(provider, locale);
+  const channelStyles = [
+    'from-[#0F3F1A] to-[#1F6A35] text-white',
+    'from-[#8F2638] to-[#C54B62] text-white',
+    'from-[#7C3AED] via-[#DB2777] to-[#F59E0B] text-white',
+    'from-[#1877F2] to-[#0D55B5] text-white',
+    'from-[#101010] to-[#2F2F2F] text-white',
+  ];
 
   return (
     <section
-      data-provider-id={PROVIDER_ID}
-      aria-labelledby="arkline-digital-channels-title"
+      data-provider-id={provider.id}
+      aria-labelledby={`${provider.code.toLowerCase()}-digital-channels-title`}
       className="rounded-[1.6rem] border border-[#DFD1B8] bg-white/96 p-3 shadow-[0_12px_34px_rgba(67,45,17,.09)] md:p-4"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <p className="text-[10px] font-black text-[#A66B19]">{t.digitalEyebrow}</p>
-          <h3 id="arkline-digital-channels-title" className="mt-0.5 text-sm font-black text-[#0F3F1A] md:text-base">
+          <h3 id={`${provider.code.toLowerCase()}-digital-channels-title`} className="mt-0.5 text-sm font-black text-[#0F3F1A] md:text-base">
             {t.digitalTitle}
           </h3>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          {digitalChannels.map((channel) => {
+          {digitalChannels.map((channel, index) => {
             const Icon = channel.icon;
             const icon = (
               <>
-                <span className={`flex h-10 w-10 items-center justify-center rounded-[.9rem] md:h-11 md:w-11 md:rounded-[1rem] bg-gradient-to-br ${channelStyles[channel.id]} shadow-[inset_0_1px_1px_rgba(255,255,255,.35),0_6px_0_rgba(44,31,12,.13),0_10px_18px_rgba(44,31,12,.14)] transition group-hover:-translate-y-0.5 group-hover:scale-105`}>
+                <span className={`flex h-10 w-10 items-center justify-center rounded-[.9rem] md:h-11 md:w-11 md:rounded-[1rem] bg-gradient-to-br ${channelStyles[index]} shadow-[inset_0_1px_1px_rgba(255,255,255,.35),0_6px_0_rgba(44,31,12,.13),0_10px_18px_rgba(44,31,12,.14)] transition group-hover:-translate-y-0.5 group-hover:scale-105`}>
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="sr-only">{channel.label}</span>
@@ -389,8 +465,8 @@ function DigitalChannels({ locale }) {
   );
 }
 
-function ProjectDetailsModal({ project, locale, onClose }) {
-  const t = copy[locale];
+function ProjectDetailsModal({ project, provider, locale, onClose }) {
+  const t = getCopy(provider, locale);
   return (
     <div
       role="dialog"
@@ -427,7 +503,7 @@ function ProjectDetailsModal({ project, locale, onClose }) {
                 className={`relative overflow-hidden rounded-[1.7rem] border border-[#E2D4BB] bg-white ${index === 0 ? 'md:col-span-2 aspect-[16/8]' : 'aspect-[4/3]'}`}
               >
                 <Image
-                  src={resolveProjectMedia(image)}
+                  src={resolveProjectMedia(provider, image)}
                   alt={`${project.title} — ${t.image} ${index + 1}`}
                   fill
                   className="object-cover"
