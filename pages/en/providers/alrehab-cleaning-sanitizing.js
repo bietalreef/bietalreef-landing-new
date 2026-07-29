@@ -114,6 +114,12 @@ const faqs = [
   ['Can every stain be removed?', 'Results depend on the stain type, age and fabric. The condition is assessed first and the expected result is explained without unrealistic promises.'],
 ];
 
+const sectionCopy = {
+  services: 'Al Rehab Cleaning and Sanitizing provides deep cleaning services for sofas, carpets, fitted carpeting, Arabic majlis seating and mattresses in Al Ain, with service in Abu Dhabi and Dubai available according to appointment and request scope. This section helps customers select the right cleaning service and request a quotation based on condition, rather than a figure that may change. Each card shows the service name, its Biet Al Reef identifier, a dedicated image, a concise description and the information needed for assessment. For a more accurate quotation, share the city and area, clear photographs, quantity, approximate dimensions, fabric type when known, soil level, stain or odor condition and preferred appointment. Al Rehab can then review the scope, cleaning method, suitable materials and equipment before confirming price and attendance. Options include steam sofa cleaning and stain treatment according to textile type, deep extraction for rugs and fitted carpets, cleaning of majlis seating, cushions and pillows, and mattress cleaning and sanitizing based on condition. How do you request an Al Rehab cleaning service? Choose the relevant card, read its summary, open Details, then send the photographs, quantity, measurements and location through the contact option. A photograph alone does not approve a price; it starts the assessment, and further clarification may be required when materials, stains or site access differ. The content answers customers searching for sofa cleaning in Al Ain, majlis cleaning in Abu Dhabi, carpet cleaning or mattress sanitizing in Dubai by appointment. Customers may also mention children, pets or sensitivity to odors when relevant to treatment, plus floor level, lift access and loading arrangements if they affect attendance. They prevent missing information and help prepare the team before arrival. Select Details to review the requirements for each service and submit complete information for a faster assessment and a clearer quotation.',
+  offers: 'Al Rehab offers provide a flexible way to combine several cleaning needs in one request, whether the customer needs sofa and majlis cleaning, carpets and fitted carpeting, mattresses, or more than one service type at the same location. A package is not one fixed price for every property. Every request begins with the city and area in Al Ain, Abu Dhabi or Dubai, subject to the available service scope, followed by photographs, quantity, approximate dimensions, fabric or surface type, stain and odor condition, and any access notes that may affect attendance or work time. Al Rehab reviews this information to identify the required services, arrange the visit and select a suitable cleaning method, materials and equipment. What is the difference between an individual service and a cleaning package? A service focuses on one defined requirement, such as sofa or mattress cleaning, while a package may combine several items or a larger quantity within one assessed request. Is the displayed price final? No price is confirmed until the request data is reviewed, because quantity, size, material, soil level and location are essential pricing factors. Offer cards help customers find a suitable option for homes, villas, apartments and majlis areas that require more than one treatment, without assuming needs or inserting unwanted items. Open Details to review each offer, then share the requested information for a quotation that can be checked before service. This approach answers searches for cleaning packages in Al Ain, sofa and majlis cleaning offers in Abu Dhabi, and deep cleaning in Dubai by appointment. Choose the closest offer, list all items and areas, attach recent photographs and specify a preferred time. The scope, price and attendance time are then confirmed clearly before work begins, so the customer knows what will be delivered and which information supported the assessment.',
+  products: 'The Al Rehab products section is reserved for cleaning materials or products that the provider chooses to add and officially publish through the Biet Al Reef administration dashboard. No products are currently published, so this page does not display invented names, prices or specifications and does not suggest that an unapproved item is available. When a real product is added, it will appear in a dedicated card containing its name, identifier, image, intended use, status, direct price or quotation method, and the information customers need before making contact. This structure creates a clear distinction between cleaning services delivered at the customer location and products offered as separate materials or supplies. Does Al Rehab sell cleaning products now? According to the published provider data, no products are available in this section at present. If a product is published later, use its official card to verify the name, price and specifications instead of relying on general information outside the provider profile. The section helps customers in Al Ain, Abu Dhabi and Dubai verify the source of information and connect every published product to Al Rehab and its Biet Al Reef identifier. It also gives search engines and AI assistants a precise answer instead of unverified promotional copy. The absence of products does not affect requests for sofa, carpet, fitted carpet, majlis or mattress cleaning through the other sections. It only means that separate material sales have not been announced on this page. When a new card appears, review the image, description, quantity or size, price or pricing method, then use the contact option on that card to ask about availability, collection or delivery in advance. This keeps the content current, preserves the dashboard as the main source and prevents any product, claim or cost from appearing without official publication by Al Rehab.',
+};
+
 function buildServiceWhatsappMessage(service) {
   return buildCardWhatsappUrl({
     phone: provider.whatsapp,
@@ -426,9 +432,7 @@ export default function AlRehabEnglishProviderPage() {
           <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-12 md:py-14">
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="Services & Offers" title="Al Rehab services available for quotation requests" />
-              <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-                Each service card presents the cleaning type, public ID and dedicated image. Read the summary, then select “Details” to see the photos, quantity, dimensions and information required to assess the condition and prepare a quotation.
-              </p>
+              <ExpandableSectionCopy id="alrehab-services-copy-en" text={sectionCopy.services} />
 
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {services.map((service) => (
@@ -443,9 +447,7 @@ export default function AlRehabEnglishProviderPage() {
 
               <div className="mt-12 border-t border-[#E6DCC8] pt-10">
                 <SectionHeading eyebrow="Al Rehab offers" title="Flexible cleaning packages based on the customer need" />
-                <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-                  Each package starts with a review of photos, quantity, dimensions, stain condition and service location before the price and appointment are confirmed.
-                </p>
+                <ExpandableSectionCopy id="alrehab-offers-copy-en" text={sectionCopy.offers} />
                 <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
                   {offers.map((offer) => (
                     <OfferCard key={offer.id} product={offer} />
@@ -457,9 +459,7 @@ export default function AlRehabEnglishProviderPage() {
 
           <section id="products" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-14">
             <SectionHeading eyebrow="Products" title="Al Rehab products" />
-            <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-              This section is reserved for products and materials published by the provider through the admin dashboard, with a clear image, public ID, description and price or pricing method.
-            </p>
+            <ExpandableSectionCopy id="alrehab-products-copy-en" text={sectionCopy.products} />
 
             <div className="mt-8 rounded-[2rem] border border-dashed border-[#D9C8A9] bg-white/75 p-8 text-center shadow-sm">
               <Package className="mx-auto h-10 w-10 text-[#A66B19]" />
@@ -609,6 +609,31 @@ function SectionHeading({ eyebrow, title, center }) {
     <div className={center ? 'text-center' : ''}>
       <span className="text-sm font-black text-[#A66B19]">{eyebrow}</span>
       <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{title}</h2>
+    </div>
+  );
+}
+
+function ExpandableSectionCopy({ id, text }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="mt-4 max-w-4xl">
+      <p
+        id={id}
+        className={`leading-8 text-[#625A50] ${isExpanded ? '' : 'line-clamp-2'}`}
+      >
+        {text}
+      </p>
+      <button
+        type="button"
+        aria-controls={id}
+        aria-expanded={isExpanded}
+        onClick={() => setIsExpanded((current) => !current)}
+        className="mt-2 inline-flex min-h-[42px] items-center gap-1.5 rounded-xl px-2 py-1 text-sm font-black text-[#8A611B] transition hover:bg-[#FFF7E2] focus:outline-none focus:ring-2 focus:ring-[#C9952A] focus:ring-offset-2"
+      >
+        {isExpanded ? 'Show less' : 'Read more'}
+        <ChevronDown className={`h-4 w-4 transition ${isExpanded ? 'rotate-180' : ''}`} />
+      </button>
     </div>
   );
 }

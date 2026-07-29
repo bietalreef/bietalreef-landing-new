@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   CalendarDays,
   CheckCircle2,
+  ChevronDown,
   Facebook,
   FolderKanban,
   Globe2,
@@ -75,12 +76,12 @@ const PROVIDERS = {
     copy: {
       ar: {
         projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال الرحاب',
-        intro: 'نماذج الأعمال المنشورة توضح أنواع خدمات التنظيف التي تنفذها الرحاب، مع صور ومعلومات قبل كل مشروع تساعد العميل على فهم الخدمة المطلوبة.',
+        intro: 'يعرض قسم مشاريع وأعمال الرحاب نماذج مصورة تساعد العميل على فهم أنواع خدمات التنظيف العميق والتعقيم التي يمكن تقييمها وطلبها عبر منصة بيت الريف. تجمع بطاقة المشروع صورًا مرتبطة بتنظيف الكنب والسجاد والموكيت والمجالس العربية والمراتب، مع معرف واضح ونطاق عمل وموقع خدمة، حتى يستطيع الزائر مقارنة احتياجه بالمحتوى المنشور قبل طلب عرض السعر. لا تُستخدم الصور وحدها للحكم على النتيجة أو لتحديد تكلفة ثابتة؛ فكل حالة تختلف حسب نوع القماش أو السطح، عدد القطع، المقاسات، مستوى الاتساخ، شدة البقع والروائح، وإمكانية الوصول إلى الموقع. إذا كان السؤال: ما المعلومات المطلوبة لتقييم مشروع تنظيف؟ فالجواب هو صور حديثة وواضحة، المدينة والمنطقة، العدد والمقاسات التقريبية، وصف البقع أو الروائح، نوع الخامة إن كان معروفًا، والموعد المفضل. بعد مراجعة هذه البيانات يمكن للرحاب تحديد نطاق التنظيف، المعدات والمواد المناسبة، الوقت المتوقع، والسعر قبل اعتماد التنفيذ. يخدم هذا القسم العملاء الباحثين عن نماذج تنظيف كنب في العين، أعمال تنظيف مجالس في أبوظبي، تنظيف سجاد وموكيت، أو تنظيف وتعقيم مراتب في دبي حسب الموعد. كما يوضح للمساعدات الذكية ومحركات البحث أن الرحاب مزود خدمة تنظيف وتعقيم، وأن صفحة المشروع مصدر لفهم العمل وليست متجرًا لصور عامة أو أسعار غير موثقة. عند فتح تفاصيل المشروع تظهر الصور المتاحة ومراحل النطاق الأساسية، مثل مراجعة الحالة، تحديد الكمية والموقع، اختيار طريقة المعالجة، وتأكيد السعر والموعد. ويمكن إضافة مشاريع جديدة لاحقًا من بيانات المزود مع الحفاظ على المعرف والصور والوصف الخاص بكل مشروع. للحصول على استفادة عملية، افتح البطاقة، راجع الصور والمعلومات، ثم أرسل تفاصيل حالتك بدل الاكتفاء بعبارة «أريد تنظيفًا». كلما كانت البيانات أوضح كان تقييم الطلب أسرع وأقرب إلى الواقع. المحتوى المنشور لا يضمن معالجة كل بقعة بالطريقة نفسها، لكنه يوضح مسارًا مهنيًا يبدأ بالفهم والمراجعة وينتهي بعرض سعر واضح قبل الزيارة والتنفيذ. ويُفضّل إرسال صور بإضاءة جيدة ومن زوايا، منها صورة قريبة للبقعة وصورة للقطعة، لأنها تساعد على فهم الحجم والحالة وتحديد الأسئلة قبل الحجز.',
         details: 'التفاصيل', digitalEyebrow: 'الحضور الرقمي', digitalTitle: 'تواصل مع الرحاب',
       },
       en: {
         projectsTab: 'Projects', eyebrow: 'Projects', title: 'Al Rehab Projects & Work',
-        intro: 'Published work examples present the cleaning services delivered by Al Rehab, with images and information before each project to help customers understand the requested service.',
+        intro: 'The Al Rehab Projects and Work section presents published visual examples that help customers understand the deep cleaning and sanitizing services that can be assessed and requested through Biet Al Reef. The project card brings together images related to sofa cleaning, rugs and fitted carpets, Arabic majlis seating and mattresses. Visitors can compare their requirement with the available information before requesting a quotation. Images alone are not used to judge the result or set a fixed price. Every condition differs according to fabric or surface type, item quantity, dimensions, soil level, stain and odor severity and access to the service location. What information is required to assess a cleaning project? Send recent, clear photographs, the city and area, quantity, approximate measurements, a description of stains or odors, the material when known and the preferred appointment. Al Rehab can then review the cleaning scope, appropriate equipment and materials, expected time and price before work is approved. This section supports customers searching for sofa cleaning examples in Al Ain, majlis cleaning work in Abu Dhabi, carpet cleaning, or mattress cleaning and sanitizing in Dubai by appointment. Opening Project Details shows the available images and core scope stages, including condition review, confirmation of quantity and location, selection of the treatment method and approval of price and appointment. For a useful assessment, open the card, review the information, then describe your condition instead of sending only a general cleaning request. Clearer inputs support a faster, more realistic review. Send well-lit photographs from different angles, including a close view of stains and a full view of each item, to show scale and help identify follow-up questions before booking. Published content does not promise that every stain is treated identically; it explains a practical path from review to a clear quotation before attendance and service delivery.',
         details: 'Details', digitalEyebrow: 'Digital presence', digitalTitle: 'Connect with Al Rehab',
       },
     },
@@ -113,8 +114,8 @@ const PROVIDERS = {
 };
 
 const sharedCopy = {
-  ar: { unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع' },
-  en: { unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects' },
+  ar: { unavailable: 'غير مضاف بعد', close: 'إغلاق تفاصيل المشروع', image: 'صورة', scope: 'نطاق المشروع', back: 'العودة إلى المشاريع', more: 'المزيد', less: 'عرض أقل' },
+  en: { unavailable: 'Not added yet', close: 'Close project details', image: 'Image', scope: 'Project scope', back: 'Back to projects', more: 'Read more', less: 'Show less' },
 };
 
 function resolveProvider(cleanPath) {
@@ -283,9 +284,7 @@ function ProjectsSection({ provider, locale, onDetails }) {
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
           {t.title}
         </h2>
-        <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">
-          {t.intro}
-        </p>
+        <ExpandableIntro id={`${provider.code.toLowerCase()}-projects-intro`} text={t.intro} locale={locale} />
       </div>
 
       <div className="mt-8 grid gap-5">
@@ -302,6 +301,37 @@ function ProjectsSection({ provider, locale, onDetails }) {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function ExpandableIntro({ id, text, locale }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isLong = text.trim().split(/\s+/).length > 80;
+  const labels = sharedCopy[locale];
+
+  if (!isLong) {
+    return <p className="mt-4 max-w-3xl leading-8 text-[#625A50]">{text}</p>;
+  }
+
+  return (
+    <div className="mt-4 max-w-4xl">
+      <p
+        id={id}
+        className={`leading-8 text-[#625A50] ${isExpanded ? '' : 'line-clamp-2'}`}
+      >
+        {text}
+      </p>
+      <button
+        type="button"
+        aria-controls={id}
+        aria-expanded={isExpanded}
+        onClick={() => setIsExpanded((current) => !current)}
+        className="mt-2 inline-flex min-h-[42px] items-center gap-1.5 rounded-xl px-2 py-1 text-sm font-black text-[#8A611B] transition hover:bg-[#FFF7E2] focus:outline-none focus:ring-2 focus:ring-[#C9952A] focus:ring-offset-2"
+      >
+        {isExpanded ? labels.less : labels.more}
+        <ChevronDown className={`h-4 w-4 transition ${isExpanded ? 'rotate-180' : ''}`} />
+      </button>
     </div>
   );
 }
