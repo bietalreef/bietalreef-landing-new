@@ -29,7 +29,7 @@ export default function MyApp({ Component, pageProps }) {
   const currentPath = router.asPath?.split('?')[0] || '/';
   const isEnglishPage = currentPath === '/en' || currentPath.startsWith('/en/');
   const isProviderProfile = /^\/(?:en\/)?providers\/(?!register(?:\/|$))[^/?#]+/.test(currentPath);
-  const isArkleenProfile = /^\/(?:en\/)?providers\/(?:arkleen|arkline)(?:\/|$)/.test(currentPath);
+  const usesUnifiedProviderTemplate = /^\/(?:en\/)?providers\/(?:arkleen|arkline|alrehab-cleaning-sanitizing)(?:\/|$)/.test(currentPath);
 
   useEffect(() => initPublicAnalytics(router), [router]);
   useEffect(() => {
@@ -69,7 +69,7 @@ export default function MyApp({ Component, pageProps }) {
           <ProviderProductInteraction currentPath={router.asPath || ''} />
         </>
       ) : null}
-      {isArkleenProfile ? (
+      {usesUnifiedProviderTemplate ? (
         <>
           <ArklineProfileEnhancements currentPath={router.asPath || ''} />
           <ArklineProjectsAndChannels currentPath={router.asPath || ''} />

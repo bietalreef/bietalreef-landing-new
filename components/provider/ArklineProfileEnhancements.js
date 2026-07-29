@@ -9,15 +9,50 @@ import {
 } from 'lucide-react';
 
 const BIET_AL_REEF_WHATSAPP = '971567856001';
-const PROVIDER_ID = 'BR-PROV-ARK-001';
-const PROVIDER_NAME = 'أركلين لأعمال النجارة والتصميم الداخلي';
-const PREVIEW_LOGO = '/images/providers/arkleen-logo.png';
+const PROVIDERS = {
+  arkleen: {
+    id: 'BR-PROV-ARK-001',
+    code: 'ARK',
+    paths: ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'],
+    name: {
+      ar: 'أركلين لأعمال النجارة والتصميم الداخلي',
+      en: 'Arkline Carpentry & Interior Design',
+    },
+    logo: '/images/providers/arkleen-logo.png',
+    logoAlts: [
+      'شعار أركلين لأعمال النجارة والتصميم الداخلي',
+      'Arkline Carpentry & Interior Design logo',
+      'ARKLEEN Carpentry & Interior Design logo',
+    ],
+    hours: {
+      ar: ['السبت إلى الخميس — بتنسيق مسبق', 'الجمعة حسب الموعد'],
+      en: ['Saturday to Thursday — by prior arrangement', 'Friday by appointment'],
+    },
+  },
+  alrehab: {
+    id: 'BR-PROV-ALR-001',
+    code: 'ALR',
+    paths: ['/providers/alrehab-cleaning-sanitizing', '/en/providers/alrehab-cleaning-sanitizing'],
+    name: {
+      ar: 'الرحاب للتنظيف والتعقيم',
+      en: 'Al Rehab Cleaning & Sanitizing',
+    },
+    logo: '/images/providers/alrehab/logo.webp',
+    logoAlts: [
+      'شعار الرحاب للتنظيف والتعقيم',
+      'Al Rehab Cleaning & Sanitizing logo',
+    ],
+    hours: {
+      ar: ['يوميًا — بالحجز والتنسيق المسبق', 'الموعد حسب المنطقة ونوع الخدمة'],
+      en: ['Daily — by prior booking and coordination', 'Availability depends on the area and service'],
+    },
+  },
+};
 
-const copy = {
+const baseCopy = {
   ar: {
-    providerName: PROVIDER_NAME, tab: 'التقييمات والشكاوى', joined: 'تاريخ الانضمام', hours: 'مواعيد العمل',
-    hoursMain: 'السبت إلى الخميس — بتنسيق مسبق', hoursNote: 'الجمعة حسب الموعد', eyebrow: 'جودة التعامل وحماية العميل',
-    title: 'التقييمات والشكاوى', intro: 'شارك تجربتك بعد التعامل الفعلي مع أركلين، أو أرسل شكوى وملاحظة خاصة إلى فريق بيت الريف لمراجعتها ومتابعتها بسرية.',
+    tab: 'التقييمات والشكاوى', joined: 'تاريخ الانضمام', hours: 'مواعيد العمل',
+    eyebrow: 'جودة التعامل وحماية العميل', title: 'التقييمات والشكاوى',
     reviewEyebrow: 'تجارب العملاء', reviewTitle: 'تقييم مزود الخدمة', emptyTitle: 'لا توجد تقييمات منشورة حتى الآن',
     emptyBody: 'تُراجع التقييمات قبل نشرها للتأكد من ارتباطها بخدمة أو طلب فعلي وحماية الطرفين من التقييمات غير الموثوقة.',
     addReview: 'إضافة تقييم موثق', complaintEyebrow: 'قناة خاصة وآمنة', complaintTitle: 'الشكاوى والملاحظات',
@@ -25,9 +60,8 @@ const copy = {
     addComplaint: 'تقديم شكوى أو ملاحظة',
   },
   en: {
-    providerName: 'Arkline Carpentry & Interior Design', tab: 'Reviews & Complaints', joined: 'Joined', hours: 'Business hours',
-    hoursMain: 'Saturday to Thursday — by prior arrangement', hoursNote: 'Friday by appointment', eyebrow: 'Service quality & customer protection',
-    title: 'Reviews & Complaints', intro: 'Share your experience after a completed service, or send a private complaint or note to the Biet Al Reef team for confidential review and follow-up.',
+    tab: 'Reviews & Complaints', joined: 'Joined', hours: 'Business hours',
+    eyebrow: 'Service quality & customer protection', title: 'Reviews & Complaints',
     reviewEyebrow: 'Customer experiences', reviewTitle: 'Rate this provider', emptyTitle: 'No published reviews yet',
     emptyBody: 'Reviews are checked before publication to confirm that they relate to a genuine service or request and to protect both parties from unreliable feedback.',
     addReview: 'Add a verified review', complaintEyebrow: 'Private & secure channel', complaintTitle: 'Complaints & notes',
@@ -36,23 +70,41 @@ const copy = {
   },
 };
 
-function buildSupportMessage(type, locale) {
+function resolveProvider(cleanPath) {
+  return Object.values(PROVIDERS).find((provider) => provider.paths.includes(cleanPath)) || null;
+}
+
+function getCopy(locale, provider) {
+  if (!provider) return baseCopy[locale];
+  const [hoursMain, hoursNote] = provider.hours[locale];
+  return {
+    ...baseCopy[locale],
+    providerName: provider.name[locale],
+    hoursMain,
+    hoursNote,
+    intro: locale === 'en'
+      ? `Share your experience after a completed service with ${provider.name.en}, or send a private complaint or note to the Biet Al Reef team for confidential review and follow-up.`
+      : `شارك تجربتك بعد التعامل الفعلي مع ${provider.name.ar}، أو أرسل شكوى وملاحظة خاصة إلى فريق بيت الريف لمراجعتها ومتابعتها بسرية.`,
+  };
+}
+
+function buildSupportMessage(type, locale, provider) {
   const isReview = type === 'review';
-  const t = copy[locale];
+  const t = getCopy(locale, provider);
 
   if (locale === 'en') {
     return encodeURIComponent([
       `Hello, I would like to ${isReview ? 'add a review' : 'submit a complaint or note'} about “${t.providerName}” through Biet Al Reef.`,
-      '', `Provider ID: ${PROVIDER_ID}`, `Request type: ${isReview ? 'Provider review' : 'Private complaint or note'}`, '',
+      '', `Provider ID: ${provider.id}`, `Request type: ${isReview ? 'Provider review' : 'Private complaint or note'}`, '',
       isReview ? 'I will provide the service received, transaction date and details of my experience.' : 'Please handle this complaint confidentially. I will provide the request details and any available documents or photos.',
     ].join('\n'));
   }
 
   return encodeURIComponent(
     [
-      `مرحباً، أرغب في ${isReview ? 'إضافة تقييم' : 'تقديم شكوى أو ملاحظة'} بخصوص مزود الخدمة «${PROVIDER_NAME}» عبر منصة بيت الريف.`,
+      `مرحباً، أرغب في ${isReview ? 'إضافة تقييم' : 'تقديم شكوى أو ملاحظة'} بخصوص مزود الخدمة «${provider.name.ar}» عبر منصة بيت الريف.`,
       '',
-      `معرف المزود: ${PROVIDER_ID}`,
+      `معرف المزود: ${provider.id}`,
       `نوع الطلب: ${isReview ? 'تقييم مزود خدمة' : 'شكوى أو ملاحظة خاصة'}`,
       '',
       isReview
@@ -67,34 +119,39 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
   const [reviewsTarget, setReviewsTarget] = useState(null);
   const cleanPath = currentPath.split('?')[0];
   const locale = cleanPath.startsWith('/en/') ? 'en' : 'ar';
-  const t = copy[locale];
-  const isArklinePage = ['/providers/arkline', '/providers/arkleen', '/en/providers/arkline', '/en/providers/arkleen'].includes(cleanPath);
+  const provider = resolveProvider(cleanPath);
+  const t = getCopy(locale, provider);
+  const isSupportedProviderPage = Boolean(provider);
 
   useEffect(() => {
-    if (!isArklinePage || typeof document === 'undefined') return undefined;
+    if (!isSupportedProviderPage || typeof document === 'undefined') return undefined;
 
     let observer;
     let animationFrame;
 
     const ensureEnhancements = () => {
+      const logoSelector = provider.logoAlts
+        .map((alt) => `img[alt="${alt}"]`)
+        .join(', ');
+
       document
-        .querySelectorAll('img[alt="شعار أركلين لأعمال النجارة والتصميم الداخلي"], img[alt="Arkline Carpentry & Interior Design logo"], img[alt="ARKLEEN Carpentry & Interior Design logo"]')
+        .querySelectorAll(logoSelector)
         .forEach((logoImage) => {
-          if (logoImage.getAttribute('src') !== PREVIEW_LOGO) {
-            logoImage.setAttribute('src', PREVIEW_LOGO);
+          if (logoImage.getAttribute('src') !== provider.logo) {
+            logoImage.setAttribute('src', provider.logo);
           }
 
           if (logoImage.hasAttribute('srcset')) {
             logoImage.removeAttribute('srcset');
           }
 
-          logoImage.setAttribute('data-arkline-logo-source', 'public/images/providers/arkleen-logo.png');
+          logoImage.setAttribute('data-provider-logo-source', provider.logo);
           logoImage.style.backgroundColor = '#ffffff';
           logoImage.style.objectFit = 'contain';
           logoImage.style.padding = '0';
         });
 
-      const tabLink = document.querySelector('nav a[href="#faq"], nav a[data-arkline-reviews-tab="true"]');
+      const tabLink = document.querySelector('nav a[href="#faq"], nav a[href="#reviews"], nav a[data-arkline-reviews-tab="true"]');
       if (tabLink) {
         tabLink.href = '#reviews';
         tabLink.textContent = t.tab;
@@ -160,27 +217,27 @@ export default function ArklineProfileEnhancements({ currentPath = '' }) {
       document.querySelector('[data-arkline-working-hours-slot="true"]')?.remove();
       document.querySelector('[data-arkline-reviews-host="true"]')?.remove();
     };
-  }, [isArklinePage, t.joined, t.tab]);
+  }, [isSupportedProviderPage, provider, t.joined, t.tab]);
 
-  if (!isArklinePage) return null;
+  if (!isSupportedProviderPage) return null;
 
   return (
     <>
       {workingHoursTarget
-        ? createPortal(<WorkingHoursCard locale={locale} />, workingHoursTarget)
+        ? createPortal(<WorkingHoursCard locale={locale} provider={provider} />, workingHoursTarget)
         : null}
       {reviewsTarget
-        ? createPortal(<ReviewsAndComplaints locale={locale} />, reviewsTarget)
+        ? createPortal(<ReviewsAndComplaints locale={locale} provider={provider} />, reviewsTarget)
         : null}
     </>
   );
 }
 
-function WorkingHoursCard({ locale }) {
-  const t = copy[locale];
+function WorkingHoursCard({ locale, provider }) {
+  const t = getCopy(locale, provider);
   return (
     <article
-      data-provider-id={PROVIDER_ID}
+      data-provider-id={provider.id}
       data-info-type="business-hours"
       className="flex min-h-[78px] items-center gap-3 rounded-[1.35rem] border border-[#E6DCC8] bg-white/90 px-4 py-3 shadow-[0_10px_24px_rgba(67,45,17,.07)]"
     >
@@ -200,13 +257,13 @@ function WorkingHoursCard({ locale }) {
   );
 }
 
-function ReviewsAndComplaints({ locale }) {
-  const t = copy[locale];
-  const reviewMessage = buildSupportMessage('review', locale);
-  const complaintMessage = buildSupportMessage('complaint', locale);
+function ReviewsAndComplaints({ locale, provider }) {
+  const t = getCopy(locale, provider);
+  const reviewMessage = buildSupportMessage('review', locale, provider);
+  const complaintMessage = buildSupportMessage('complaint', locale, provider);
 
   return (
-    <div data-provider-id={PROVIDER_ID}>
+    <div data-provider-id={provider.id}>
       <div className="text-center">
         <span className="text-sm font-black text-[#A66B19]">{t.eyebrow}</span>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
@@ -240,7 +297,7 @@ function ReviewsAndComplaints({ locale }) {
             href={`https://wa.me/${BIET_AL_REEF_WHATSAPP}?text=${reviewMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            data-action-id="BR-REV-ARK-NEW"
+            data-action-id={`BR-REV-${provider.code}-NEW`}
             className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-4 py-3 text-sm font-black text-white shadow-[0_7px_0_rgba(5,37,13,.16)]"
           >
             <BadgeCheck className="h-5 w-5 text-[#F4CA61]" />
@@ -270,7 +327,7 @@ function ReviewsAndComplaints({ locale }) {
             href={`https://wa.me/${BIET_AL_REEF_WHATSAPP}?text=${complaintMessage}`}
             target="_blank"
             rel="noopener noreferrer"
-            data-action-id="BR-CMP-ARK-NEW"
+            data-action-id={`BR-CMP-${provider.code}-NEW`}
             className="mt-5 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C8AA] bg-white px-4 py-3 text-sm font-black text-[#0F3F1A]"
           >
             <MessageCircle className="h-5 w-5 text-[#159447]" />
