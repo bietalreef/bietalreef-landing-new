@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import ClientSafetyBoundary from "../components/ClientSafetyBoundary";
 import PrivacyConsentCenter from "../components/PrivacyConsentCenter";
 import ConsentAwareSpeedInsights from "../components/ConsentAwareSpeedInsights";
+import ConsentAwareGoogleTag from "../components/ConsentAwareGoogleTag";
 import PwaLifecycleManager from "../components/PwaLifecycleManager";
 import PwaInstallPrompt from "../components/PwaInstallPrompt";
 import { initPublicAnalytics } from "../lib/publicAnalytics";
@@ -76,6 +77,7 @@ export default function MyApp({ Component, pageProps }) {
         </>
       ) : null}
       <PrivacyConsentCenter locale={isEnglishPage ? "en" : "ar"} />
+      <ConsentAwareGoogleTag />
       <ConsentAwareSpeedInsights />
       <PwaInstallPrompt locale={isEnglishPage ? "en" : "ar"} />
       <PwaLifecycleManager locale={isEnglishPage ? "en" : "ar"} />
