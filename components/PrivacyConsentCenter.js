@@ -89,7 +89,7 @@ const copy = {
       'ضروري لعمل واجهة وياك وحماية الجلسة أثناء الاستخدام. لا ترسل أسئلة المستخدم أو إجابات وياك إلى جداول تحليلات السلوك، ولا نستخدمها لإنشاء ملف إعلاني للمستخدم.',
     externalTitle: 'أدوات الإعلانات والتتبع التسويقي',
     externalText:
-      'لا تستخدم بيت الريف حالياً أدوات إعلانية أو ملفات تتبع تسويقية لبناء ملفات شخصية للزوار. عند إضافة أي جهة من هذا النوع مستقبلاً سنوضح اسمها والغرض منها ونطلب موافقة مستقلة قبل تشغيلها.',
+      'تستخدم بيت الريف علامة Google لقياس أداء الصفحات والحملات والتحويلات بصورة مجمعة بعد موافقتك فقط. لا تعمل العلامة قبل الموافقة، ولا نرسل إليها محتوى النماذج أو محادثات وياك أو بيانات إنشاء الحساب.',
     save: 'موافق وتحسين التجربة',
     close: 'إغلاق',
   },
@@ -119,7 +119,7 @@ const copy = {
       'Required for the Weyaak interface and session safety. User questions and Weyaak answers are not sent to behavior analytics tables and are not used to build advertising profiles.',
     externalTitle: 'Advertising and marketing trackers',
     externalText:
-      'Biet Al Reef does not currently use advertising or marketing trackers to build visitor profiles. If one is introduced, its name and purpose will be disclosed and separate consent requested before activation.',
+      'Biet Al Reef uses the Google tag to measure aggregate page, campaign and conversion performance only after you consent. The tag stays off before consent, and form content, Weyaak conversations and account-creation data are not sent to it.',
     save: 'Allow and improve my experience',
     close: 'Close',
   },
@@ -265,7 +265,7 @@ export default function PrivacyConsentCenter({ locale = 'ar' }) {
                   <Toggle enabled={performance} isArabic={isArabic} onChange={() => setPerformance((value) => !value)} />,
                 )}
                 {row('weyaak', t.weyaakTitle, t.always, t.weyaakText)}
-                {row('external', t.externalTitle, t.unused, t.externalText)}
+                {row('external', t.externalTitle, t.optional, t.externalText)}
               </div>
             </div>
             <div className="flex flex-col-reverse gap-2 border-t border-[#D8D8D8] bg-[#FAFAFA] px-5 py-5 sm:flex-row md:px-12">
