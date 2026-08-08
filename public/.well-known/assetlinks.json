@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ae.bietalreef.app",
+      "sha256_cert_fingerprints": [
+        "CB:C2:1E:3F:71:48:F4:A7:07:70:35:E4:56:30:38:D7:DC:48:3D:86:7D:84:CB:22:EE:61:8E:FB:88:2A:F0:BB"
+      ]
+    }
+  }
+]
