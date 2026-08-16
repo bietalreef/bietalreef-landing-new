@@ -94,13 +94,15 @@ export async function getServerSideProps({ res }) {
     );
   });
 
-  products.forEach((product) => {
-    addPair(
-      `/products/${product.providerSlug}/${product.slug}`,
-      `/en/products/${product.providerSlug}/${product.slug}`,
-      product.image
-    );
-  });
+  products
+    .filter((product) => product.providerSlug !== 'arkleen')
+    .forEach((product) => {
+      addPair(
+        `/products/${product.providerSlug}/${product.slug}`,
+        `/en/products/${product.providerSlug}/${product.slug}`,
+        product.image
+      );
+    });
 
   UAE_EMIRATES.forEach((emirate) => {
     cards.forEach((card) => {
