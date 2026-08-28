@@ -1,8 +1,8 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import FAQ from './FAQ';
+import SEOHead from './SEOHead';
 import { ArrowLeft, CheckCircle2, Compass, FileText, ShieldCheck, Sparkles } from 'lucide-react';
 
 const SITE_URL = 'https://bietalreef.ae';
@@ -38,18 +38,40 @@ export default function ArabicGenericPage({
     ['كيف أستفيد من هذه الصفحة؟', 'راجع المعلومات ثم استخدم الروابط ذات الصلة أو الإجراء الرئيسي للانتقال إلى المسار الأنسب داخل بيت الريف.'],
   ];
   const canonical = `${SITE_URL}${path}`;
+  const pageTitle = `${title} | بيت الريف`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: pageTitle,
+    description,
+    url: canonical,
+    inLanguage: 'ar-AE',
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: 'بيت الريف',
+      alternateName: 'منصة بيت الريف',
+      url: SITE_URL,
+    },
+    mainEntity: faqItems.map(([question, answer]) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    })),
+  };
 
   return (
     <>
-      <Head>
-        <title>{title} | بيت الريف</title>
-        <meta name="description" content={description} />
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar-AE" href={canonical} />
-        <link rel="alternate" hrefLang="en-AE" href={`${SITE_URL}${englishPath}`} />
-        <link rel="alternate" hrefLang="x-default" href={canonical} />
-      </Head>
+      <SEOHead
+        title={pageTitle}
+        description={description}
+        canonicalPath={path}
+        alternatePath={englishPath}
+        structuredData={jsonLd}
+      />
       <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-right text-gray-900">
         <Navbar />
         <main>
