@@ -7,10 +7,11 @@ const organizationSchema = {
   '@type': 'Organization',
   '@id': 'https://bietalreef.ae/#organization',
   name: 'بيت الريف',
-  alternateName: 'Biet Al Reef',
+  alternateName: ['منصة بيت الريف', 'Biet Al Reef', 'Biet Alreef Platform'],
+  legalName: 'مؤسسة بيت الريف للمقاولات العامة',
   url: 'https://bietalreef.ae',
   logo: { '@type': 'ImageObject', url: 'https://bietalreef.ae/logo.png' },
-  description: 'منصة رقمية إماراتية متخصصة في اكتشاف خدمات البناء والمقاولات والمنتجات ومزودي الخدمات.',
+  description: 'بيت الريف منصة رقمية إماراتية متخصصة في قطاع البناء والمقاولات والتشطيبات، تربط العملاء بمزودي الخدمات والمقاولين والموردين وتوفر مسارات لاكتشاف الخدمات والمنتجات.',
   areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
   knowsLanguage: ['ar-AE', 'en-AE'],
   contactPoint: {
@@ -27,6 +28,17 @@ const organizationSchema = {
     'https://www.tiktok.com/@bietalreef0',
     'https://www.linkedin.com/in/bietalreef',
   ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://bietalreef.ae/#website',
+  url: 'https://bietalreef.ae',
+  name: 'بيت الريف',
+  alternateName: ['منصة بيت الريف', 'Biet Al Reef', 'Biet Alreef Platform'],
+  inLanguage: ['ar-AE', 'en-AE'],
+  publisher: { '@id': 'https://bietalreef.ae/#organization' },
 };
 
 export default class BietAlReefDocument extends Document {
@@ -53,6 +65,7 @@ export default class BietAlReefDocument extends Document {
           <meta name="application-name" content={isEnglish ? 'Biet Al Reef' : 'بيت الريف'} />
           <meta name="theme-color" content="#0F3F1A" />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema).replace(/</g, '\\u003c') }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema).replace(/</g, '\\u003c') }} />
         </Head>
         <body>
           <Main />
