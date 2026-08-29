@@ -34,36 +34,38 @@ const copy = {
     dir: 'rtl',
     home: '/',
     prefix: '',
-    promoEyebrow: 'حضور رقمي يناسب مرحلة نشاطك',
-    promoTitle: 'نظّم خدماتك وأعمالك في ملف واضح يسهل اكتشافه وفهمه',
-    promoText: 'تساعدك خطط بيت الريف على تقديم بيانات نشاطك بصورة منظمة داخل المسارات المناسبة. مستوى الظهور يعتمد على الخطة واكتمال البيانات وتوافق النشاط والموقع، دون ضمان ترتيب أو عدد محدد من الطلبات.',
-    promoAction: 'استعرض الخطط والأسعار',
-    description: 'منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي خدمات البناء المناسبين، وتمكّن الشركات والموردين والورش والحرفيين من تقديم خبراتهم بصورة واضحة ومنظمة.',
+    promoEyebrow: 'بيت الريف للأعمال',
+    promoTitle: 'بيت الريف معك في المكتب، في الموقع، وفي كل مكان',
+    promoText: 'استخدم منصة بيت الريف من متصفح الكمبيوتر في المكتب، واستمر من تطبيق بيت الريف على Android أثناء وجودك في موقع العمل أو أثناء التنقل.',
+    promoAction: 'خطط الأعمال والاشتراكات',
+    promoHref: '/business-plans',
+    description: 'منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي الخدمات، وتمكّن الشركات والموردين والورش والحرفيين من تقديم أعمالهم وخدماتهم ومنتجاتهم بصورة واضحة ومنظمة.',
     rights: 'جميع الحقوق محفوظة © 2026 بيت الريف',
     sections: [
       { id: 'biet-alreef', title: 'بيت الريف', icon: Home, links: [['/about', 'عن بيت الريف'], ['/why-biet-alreef', 'لماذا بيت الريف']] },
-      { id: 'platform', title: 'المنصة', icon: Layers3, links: [['/how-it-works', 'تعرّف على المنصة وكيف تعمل'], ['/uae', 'دليل الإمارات'], ['/providers', 'مزودو الخدمات'], ['/services', 'الخدمات والعروض'], ['/marketplace', 'المنتجات والمتاجر'], ['/pricing', 'الخطط والأسعار'], ['/blog', 'المدونة']] },
-      { id: 'partners', title: 'الشركاء', icon: Handshake, links: [['/partners', 'كن شريكًا'], ['/providers/register', 'اطلب إضافة نشاطك'], ['/suppliers', 'الموردون'], ['/factories', 'المصانع والورش']] },
+      { id: 'platform', title: 'المنصة', icon: Layers3, links: [['/platform-for-business', 'كيف تعمل منصة بيت الريف للأعمال'], ['/join-provider', 'انضم كمزود خدمة إلى بيت الريف'], ['/business-solutions', 'حلول وخدمات بيت الريف للأعمال'], ['/start-your-store', 'أنشئ متجرك على بيت الريف'], ['/business-plans', 'خطط الأعمال والاشتراكات'], ['/blog', 'المدونة']] },
+      { id: 'partners', title: 'الشركاء', icon: Handshake, links: [['/partner-with-biet-alreef', 'الشراكة مع بيت الريف'], ['/join-biet-alreef', 'ضم شركتك إلى بيت الريف'], ['/google-cloud-biet-alreef', 'Google Cloud | بيت الريف'], ['/google-workspace-biet-alreef', 'Google Workspace | بيت الريف'], ['/weyaak-ai', 'وياك – الذكاء الاصطناعي من بيت الريف'], ['/suppliers-biet-alreef', 'الموردون مع بيت الريف'], ['/factories-workshops-biet-alreef', 'المصانع والورش مع بيت الريف']] },
       { id: 'support', title: 'الدعم', icon: Headphones, links: [['/contact', 'تواصل معنا'], ['/faq', 'الأسئلة الشائعة'], ['/support-policy', 'سياسة الدعم'], ['tel:+971567856001', 'اتصل بنا']] },
-      { id: 'legal', title: 'القانونية', icon: ShieldCheck, links: [['/privacy', 'الخصوصية'], ['/legal', 'الشروط والأحكام'], ['/cookies', 'سياسة ملفات الارتباط']] },
+      { id: 'legal', title: 'القانونية', icon: ShieldCheck, links: [['/privacy', 'سياسة الخصوصية'], ['/legal', 'الشروط والأحكام'], ['/cookies', 'سياسة ملفات الارتباط'], ['/refund-policy', 'سياسة الاسترداد']] },
     ],
   },
   en: {
     dir: 'ltr',
     home: '/en',
     prefix: '/en',
-    promoEyebrow: 'A digital presence that fits your business stage',
-    promoTitle: 'Organise your services and work in a profile that is easy to discover and understand',
-    promoText: 'Biet Al Reef plans help present your business information clearly across the relevant paths. Visibility depends on the plan, data completeness and the match between activity and location, without guaranteeing ranking or a fixed number of requests.',
-    promoAction: 'View plans and pricing',
-    description: 'A UAE digital platform that helps project owners discover suitable construction providers and enables companies, suppliers, workshops and skilled professionals to present their expertise clearly.',
+    promoEyebrow: 'Biet Al Reef for Business',
+    promoTitle: 'Biet Al Reef with you in the office, on site, and everywhere',
+    promoText: 'Use Biet Al Reef from your desktop browser in the office and continue from the Android app while you are on site or on the move.',
+    promoAction: 'Business plans & subscriptions',
+    promoHref: '/en/business-plans',
+    description: 'A UAE digital platform that helps project owners discover service providers and enables companies, suppliers, workshops and professionals to present their work, services and products clearly.',
     rights: 'All rights reserved © 2026 Biet Al Reef',
     sections: [
       { id: 'biet-alreef', title: 'Biet Al Reef', icon: Home, links: [['/en/about', 'About Biet Al Reef'], ['/en/why-biet-alreef', 'Why Biet Al Reef']] },
-      { id: 'platform', title: 'Platform', icon: Layers3, links: [['/en/how-it-works', 'Learn how the platform works'], ['/en/uae', 'UAE Directory'], ['/en/providers', 'Service Providers'], ['/en/services', 'Services & Offers'], ['/en/marketplace', 'Products & Stores'], ['/en/pricing', 'Plans & Pricing'], ['/en/blog', 'Blog']] },
-      { id: 'partners', title: 'Partners', icon: Handshake, links: [['/en/partners', 'Become a partner'], ['/en/providers/register', 'Request a business profile'], ['/en/suppliers', 'Suppliers'], ['/en/factories', 'Factories & Workshops']] },
+      { id: 'platform', title: 'Platform', icon: Layers3, links: [['/en/platform-for-business', 'How Biet Al Reef works for business'], ['/en/join-provider', 'Join Biet Al Reef as a service provider'], ['/en/business-solutions', 'Biet Al Reef business solutions'], ['/en/start-your-store', 'Start your store on Biet Al Reef'], ['/en/business-plans', 'Business plans & subscriptions'], ['/en/blog', 'Blog']] },
+      { id: 'partners', title: 'Partners', icon: Handshake, links: [['/en/partner-with-biet-alreef', 'Partner with Biet Al Reef'], ['/en/join-biet-alreef', 'Bring your company to Biet Al Reef'], ['/en/google-cloud-biet-alreef', 'Google Cloud | Biet Al Reef'], ['/en/google-workspace-biet-alreef', 'Google Workspace | Biet Al Reef'], ['/en/weyaak-ai', 'Weyaak – AI from Biet Al Reef'], ['/en/suppliers-biet-alreef', 'Suppliers with Biet Al Reef'], ['/en/factories-workshops-biet-alreef', 'Factories & workshops with Biet Al Reef']] },
       { id: 'support', title: 'Support', icon: Headphones, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['/en/support-policy', 'Support policy'], ['tel:+971567856001', 'Call us']] },
-      { id: 'legal', title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/legal', 'Terms & Conditions'], ['/en/cookies', 'Cookie Policy']] },
+      { id: 'legal', title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/legal', 'Terms & Conditions'], ['/en/cookies', 'Cookie Policy'], ['/en/refund-policy', 'Refund policy']] },
     ],
   },
 };
@@ -170,7 +172,7 @@ export default function Footer({ locale = 'ar', showRequestCTA = true }) {
               <h2 className="mt-2 text-2xl font-black leading-tight text-[#102F18]">{t.promoTitle}</h2>
               <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600">{t.promoText}</p>
             </div>
-            <Link href={`${t.prefix}/pricing`} className="mt-5 inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">{t.promoAction}</Link>
+            <Link href={t.promoHref} className="mt-5 inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">{t.promoAction}</Link>
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-0 lg:grid-cols-2 lg:gap-y-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
             <div className={`text-center lg:col-span-2 xl:col-span-1 ${desktopAlign}`}>
