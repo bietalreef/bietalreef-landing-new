@@ -1,14 +1,2 @@
-import EnglishGenericPage from '../../components/EnglishGenericPage';
-
-export default function SupportPolicyEnglishPage() {
-  return (
-    <EnglishGenericPage
-      title="Support policy"
-      description="Biet Al Reef support is focused on clear communication, organized requests and guiding users to the right platform path, service category or provider onboarding step."
-      path="/en/support-policy"
-      arabicPath="/support-policy"
-      ctaHref="/en/contact"
-      ctaLabel="Contact support"
-    />
-  );
-}
+import Head from 'next/head'; import Link from 'next/link'; import EnglishLayout from '../../components/EnglishLayout';
+export default function Page(){return <><Head><title>Support Policy | Biet Al Reef</title><meta name="description" content="Understand the scope of Biet Al Reef support, request handling, guidance paths and what requires a separate service scope or agreement."/><link rel="canonical" href="https://bietalreef.ae/en/support-policy"/></Head><EnglishLayout><main className="bg-[#F8FBF9]"><section className="bg-gradient-to-b from-[#EAF5ED] to-white px-4 py-20 text-center"><h1 className="text-4xl font-black text-[#0F3F1A] md:text-6xl">Support Policy</h1><p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-600">Biet Al Reef support focuses on clear communication, organised requests and guiding each user to the correct platform, service or policy path.</p></section><section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 md:grid-cols-4">{[['Communication','Receive questions, issues and support requests through available channels.'],['Guidance','Direct users to the relevant section, service, registration path or policy.'],['Request review','Review the available information before deciding the next step.'],['Clear boundaries','Support does not override plans, permissions or published policies.']].map(([t,d])=><article key={t} className="rounded-3xl border bg-white p-7"><h2 className="text-xl font-black">{t}</h2><p className="mt-3 leading-7 text-gray-600">{d}</p></article>)}</section><section className="bg-[#0F3F1A] px-4 py-16 text-white"><div className="mx-auto max-w-6xl"><h2 className="text-3xl font-black">How support handles a request</h2><div className="mt-8 grid gap-5 md:grid-cols-4">{['Receive request','Identify account or service','Review the issue','Guide to the right action'].map((x,i)=><div key={x} className="rounded-3xl bg-white/10 p-6"><span className="text-[#F3D46B]">0{i+1}</span><h3 className="mt-3 font-black">{x}</h3></div>)}</div><Link href="/en/contact" className="mt-8 inline-flex rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A]">Contact support</Link></div></section></main></EnglishLayout></>}
