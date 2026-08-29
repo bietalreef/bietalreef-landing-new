@@ -79,24 +79,42 @@ pre,
   -webkit-overflow-scrolling: touch;
 }
 
-/* English pages: improve text direction and wrapping only.
-   Do not reverse cards, icons, grids, or screen structure. */
+/* English site typography and reading flow only.
+   Keep existing cards, icons, grids and screen structure unchanged. */
+html.locale-en,
+html.locale-en body,
+body.locale-en,
+body.locale-en #__next {
+  direction: ltr !important;
+}
+
 body.locale-en {
-  direction: ltr;
   text-align: left;
 }
 
-body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th) {
+body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th, span, strong, small, em, b, a, button) {
   direction: ltr;
-  unicode-bidi: plaintext;
+  unicode-bidi: isolate;
   word-break: normal;
   overflow-wrap: break-word;
   hyphens: auto;
-  text-wrap: pretty;
 }
 
-body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th).text-right {
+/* Correct old RTL/text-right utility classes that still exist in English templates. */
+body.locale-en .text-right,
+body.locale-en [class~="sm:text-right"],
+body.locale-en [class~="md:text-right"],
+body.locale-en [class~="lg:text-right"],
+body.locale-en [class~="xl:text-right"],
+body.locale-en [class~="2xl:text-right"] {
   text-align: left !important;
+}
+
+/* Some English pages are mirrors of Arabic templates and retain nested dir=rtl.
+   Correct only their textual descendants, not the card/grid container itself. */
+body.locale-en [dir="rtl"] :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th, span, strong, small, em, b, a, button) {
+  direction: ltr !important;
+  unicode-bidi: isolate;
 }
 
 body.locale-en :where(input, textarea, select) {
@@ -104,23 +122,25 @@ body.locale-en :where(input, textarea, select) {
   text-align: left;
 }
 
-body.locale-en :where(.text-left) {
-  text-align: left;
+/* Long English copy must wrap from the left edge naturally on every viewport. */
+body.locale-en :where(p, li, label, dt, dd, blockquote, figcaption) {
+  text-wrap: pretty;
+  line-break: auto;
+}
+
+body.locale-en :where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
 }
 
 @media (max-width: 1024px) {
-  body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li) {
+  body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd) {
     overflow-wrap: anywhere;
   }
 }
 
 @media (max-width: 640px) {
-  body.locale-en :where(h1, h2, h3, h4, h5, h6) {
-    text-wrap: balance;
-  }
-
-  body.locale-en :where(p, li, label, dt, dd) {
-    text-wrap: pretty;
+  body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd) {
+    hyphens: auto;
   }
 }
 
