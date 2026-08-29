@@ -1,2 +1,30 @@
-import PlatformBusinessPage from '../components/PlatformBusinessPage';
-export default function Page(){ return <PlatformBusinessPage slug="platform-for-business" />; }
+import Head from 'next/head';
+import Link from 'next/link';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import FAQ from '../components/FAQ';
+import { ArrowLeft, BadgeCheck, Bot, Building2, CheckCircle2, LayoutDashboard, Monitor, Smartphone, Store } from 'lucide-react';
+
+const faqs = [
+  ['ما هي منصة بيت الريف للأعمال؟', 'هي مسار أعمال للشركات ومزودي الخدمات لتنظيم هوية النشاط والتخصصات ومناطق الخدمة وإدارة المتجر والعناصر والأدوات بحسب حالة الحساب والخطة.'],
+  ['هل التسجيل يعني النشر مباشرة؟', 'لا. النشر العام يرتبط باكتمال البيانات والتحقق وحالة الحساب والخطة والصلاحيات المفعلة.'],
+  ['هل تعمل المنصة على الكمبيوتر والهاتف؟', 'نعم، يمكن استخدام بيت الريف من متصفح الكمبيوتر، كما يتوفر تطبيق بيت الريف على Android.'],
+  ['ما دور وياك؟', 'وياك مساعد أعمال داخل منظومة بيت الريف يعمل مع سياق الحساب ويساعد في تنظيم المعلومات والمحتوى والعناصر والمستندات ضمن الصلاحيات المتاحة.'],
+];
+
+export default function PlatformForBusiness(){
+  return <>
+    <Head><title>كيف تعمل منصة بيت الريف للأعمال | بيت الريف</title><meta name="description" content="اكتشف رحلة الشركة داخل بيت الريف من إنشاء الحساب والتحقق إلى المتجر والعناصر ووياك وإدارة الأعمال من الكمبيوتر وAndroid."/><link rel="canonical" href="https://bietalreef.ae/platform-for-business"/></Head>
+    <div dir="rtl" className="min-h-screen bg-[#FDFBF7] text-gray-900"><Navbar/><main>
+      <section className="relative overflow-hidden bg-[#0F3F1A] text-white"><div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,175,55,.3),transparent_32%)]"/><div className="relative mx-auto max-w-7xl px-4 py-20 md:py-28"><div className="max-w-4xl"><span className="inline-flex rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F3D46B]">منصة بيت الريف للأعمال</span><h1 className="mt-7 text-4xl font-black leading-tight md:text-6xl">من حساب شركتك إلى منظومة أعمال رقمية متكاملة</h1><p className="mt-6 max-w-3xl text-lg leading-9 text-white/85 md:text-xl">أنشئ حساب نشاطك، استكمل التحقق، فعّل الخطة المناسبة، ثم أدر ملف الشركة والمتجر والمنتجات والخدمات والعروض والمستندات ووياك من منظومة واحدة.</p><div className="mt-9 flex flex-col gap-3 sm:flex-row"><Link href="/join-biet-alreef" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A]">ضم شركتك إلى بيت الريف <ArrowLeft className="h-5 w-5"/></Link><a href="#journey" className="rounded-2xl border border-white/25 bg-white/10 px-7 py-4 text-center font-black">شاهد رحلة الشركة</a></div></div></div></section>
+
+      <section id="journey" className="mx-auto max-w-7xl px-4 py-16 md:py-20"><div className="mb-10"><p className="font-black text-[#B8922B]">رحلة الشركة</p><h2 className="mt-2 text-3xl font-black md:text-4xl">أربع مراحل من التسجيل إلى التشغيل</h2></div><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{[['01','إنشاء حساب الشركة','تسجيل النشاط وبياناته الأساسية.'],['02','التحقق والاعتماد','استكمال الهوية والتخصصات ومناطق الخدمة والمراجعة.'],['03','الخطة والصلاحيات','تفعيل ما يسمح به الحساب من أدوات وحصص وعناصر.'],['04','إدارة الأعمال','إدارة الملف والمتجر والعناصر والمستندات ووياك.']].map(([n,t,d])=><article key={n} className="rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm"><span className="text-4xl font-black text-[#D4AF37]">{n}</span><h3 className="mt-5 text-xl font-black">{t}</h3><p className="mt-3 leading-7 text-gray-600">{d}</p></article>)}</div></section>
+
+      <section className="bg-white py-16 md:py-20"><div className="mx-auto max-w-7xl px-4"><div className="grid gap-6 lg:grid-cols-2"><article className="rounded-[2rem] bg-[#FFF8E5] p-8 md:p-10"><Building2 className="h-10 w-10 text-[#0F3F1A]"/><h2 className="mt-5 text-3xl font-black">ملف أعمال وليس مجرد حساب</h2><p className="mt-5 leading-9 text-gray-700">يرتبط الحساب بهوية النشاط والتخصصات والخدمات ومناطق العمل والمعلومات المهنية، ثم يستخدم كأساس للمتجر والعناصر والنشر والأدوات.</p><div className="mt-7 space-y-3">{['هوية ونشاط وتخصصات واضحة','مناطق خدمة مرتبطة بالشركة','مراجعة قبل النشر العام'].map(x=><div key={x} className="flex items-center gap-3 font-bold"><CheckCircle2 className="h-5 w-5 text-emerald-700"/>{x}</div>)}</div></article><article className="rounded-[2rem] bg-[#0F3F1A] p-8 text-white md:p-10"><LayoutDashboard className="h-10 w-10 text-[#F3D46B]"/><h2 className="mt-5 text-3xl font-black">كل أدوات نشاطك في مسار واحد</h2><div className="mt-7 grid gap-4 sm:grid-cols-2">{[['المتجر',Store],['وياك',Bot],['الملف',BadgeCheck],['إدارة الأعمال',LayoutDashboard]].map(([t,I])=><div key={t} className="rounded-2xl bg-white/10 p-5"><I className="h-6 w-6 text-[#F3D46B]"/><h3 className="mt-3 font-black">{t}</h3></div>)}</div></article></div></div></section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 md:py-20"><div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-8 md:p-12"><h2 className="text-3xl font-black">بيت الريف معك في المكتب، في الموقع، وفي كل مكان</h2><p className="mt-4 max-w-3xl leading-8 text-gray-600">استخدم متصفح الكمبيوتر لإدارة أعمال الشركة في المكتب، واستمر من تطبيق Android أثناء وجودك في الموقع أو أثناء التنقل.</p><div className="mt-8 grid gap-5 md:grid-cols-2"><div className="rounded-3xl bg-[#F7F4EC] p-6"><Monitor className="h-8 w-8 text-[#0F3F1A]"/><h3 className="mt-4 text-xl font-black">من الكمبيوتر</h3><p className="mt-2 text-gray-600">إدارة مريحة للملف والعناصر والمستندات.</p></div><div className="rounded-3xl bg-[#F7F4EC] p-6"><Smartphone className="h-8 w-8 text-[#0F3F1A]"/><h3 className="mt-4 text-xl font-black">من Android</h3><p className="mt-2 text-gray-600">تابع نشاطك أثناء العمل والتنقل.</p></div></div></div></section>
+      <FAQ items={faqs} title="أسئلة شائعة حول منصة بيت الريف للأعمال"/>
+      <section className="bg-[#0F3F1A] py-16 text-white"><div className="mx-auto max-w-4xl px-4 text-center"><h2 className="text-3xl font-black md:text-4xl">ابدأ ببناء حضور شركتك داخل بيت الريف</h2><Link href="/join-biet-alreef" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">ضم شركتك الآن <ArrowLeft className="h-5 w-5"/></Link></div></section>
+    </main><Footer/></div>
+  </>;
+}
