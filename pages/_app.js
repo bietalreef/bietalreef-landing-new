@@ -8,6 +8,7 @@ import ConsentAwareSpeedInsights from "../components/ConsentAwareSpeedInsights";
 import ConsentAwareGoogleTag from "../components/ConsentAwareGoogleTag";
 import PwaLifecycleManager from "../components/PwaLifecycleManager";
 import PwaInstallPrompt from "../components/PwaInstallPrompt";
+import BusinessLandingMeta, { resolveBusinessLandingPath } from "../components/BusinessLandingMeta";
 import { initPublicAnalytics } from "../lib/publicAnalytics";
 import { useEffect } from "react";
 
@@ -28,6 +29,11 @@ const WeyakChat = dynamic(() => import('../components/WeyakChat'), { ssr: false 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const currentPath = router.asPath?.split('?')[0] || '/';
+  const metadataPath = resolveBusinessLandingPath({
+    currentPath,
+    pathname: router.pathname,
+    pageProps,
+  });
   const isEnglishPage = currentPath === '/en' || currentPath.startsWith('/en/');
   const isProviderProfile = /^\/(?:en\/)?providers\/(?!register(?:\/|$))[^/?#]+/.test(currentPath);
   const usesUnifiedProviderTemplate = /^\/(?:en\/)?providers\/(?:arkleen|arkline|alrehab-cleaning-sanitizing)(?:\/|$)/.test(currentPath);
@@ -61,6 +67,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ClientSafetyBoundary>
       <Component {...pageProps} />
+      <BusinessLandingMeta path={metadataPath} />
       <WeyakChat locale={isEnglishPage ? 'en' : 'ar'} standalone={currentPath === '/weyaak' || currentPath === '/en/weyaak'} />
       {isProviderProfile ? (
         <>
