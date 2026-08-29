@@ -172,6 +172,11 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/en/services/equipment-rental',
+        destination: '/en/categories/equipment-rental',
+        permanent: true,
+      },
+      {
         source: '/services/construction-contracting/dubai',
         destination: '/categories/general-contracting',
         permanent: true,
