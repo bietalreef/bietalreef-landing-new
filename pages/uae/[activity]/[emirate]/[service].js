@@ -49,6 +49,14 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
 }
 
 export async function getStaticProps({ params }) {
+  if (params.activity === '[emirate]' && params.emirate === '[area]' && params.service === '[service]') {
+    return {
+      redirect: {
+        destination: '/uae',
+        permanent: true,
+      },
+    };
+  }
   const emirateSlug = params.activity;
   const areaSlug = params.emirate;
   const serviceSlug = params.service;
