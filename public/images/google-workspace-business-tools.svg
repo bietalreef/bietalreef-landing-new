@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+  <title id="title">Google Workspace مع بيت الريف في الإمارات</title>
+  <desc id="desc">رسم توضيحي لأدوات الأعمال: Gmail وGoogle Drive وGoogle Meet وGoogle Calendar ولوحة الإدارة.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f6f1ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2b1e48" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="820" rx="56" fill="url(#bg)"/>
+  <circle cx="1040" cy="120" r="190" fill="#efe8ff"/>
+  <circle cx="170" cy="700" r="180" fill="#edf7ff"/>
+  <g filter="url(#shadow)">
+    <rect x="105" y="95" width="990" height="630" rx="44" fill="#fff"/>
+  </g>
+  <text x="600" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#34245E">Google Workspace for Business</text>
+  <text x="600" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="23" fill="#6b6577">Email • Files • Meetings • Calendar • Administration</text>
+
+  <g transform="translate(175 285)">
+    <rect width="220" height="190" rx="34" fill="#fff7f6" stroke="#f0d0cd"/>
+    <rect x="50" y="48" width="120" height="86" rx="16" fill="#fff" stroke="#dadce0" stroke-width="5"/>
+    <path d="M55 55 L110 96 L165 55" fill="none" stroke="#EA4335" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="110" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#313131">Gmail</text>
+  </g>
+
+  <g transform="translate(490 285)">
+    <rect width="220" height="190" rx="34" fill="#f6fff8" stroke="#cdebd6"/>
+    <path d="M110 43 L166 138 H128 L90 73 Z" fill="#0F9D58"/>
+    <path d="M110 43 L53 138 H92 L130 73 Z" fill="#4285F4"/>
+    <path d="M53 138 H166 L145 102 H74 Z" fill="#F4B400"/>
+    <text x="110" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#313131">Drive</text>
+  </g>
+
+  <g transform="translate(805 285)">
+    <rect width="220" height="190" rx="34" fill="#f5fbff" stroke="#cfe5f7"/>
+    <rect x="52" y="58" width="92" height="72" rx="16" fill="#34A853"/>
+    <path d="M144 76 L178 58 V130 L144 112 Z" fill="#4285F4"/>
+    <text x="110" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#313131">Meet</text>
+  </g>
+
+  <g transform="translate(330 520)">
+    <rect width="220" height="150" rx="34" fill="#f7fbff" stroke="#cfe1f5"/>
+    <rect x="60" y="34" width="100" height="76" rx="14" fill="#4285F4"/>
+    <rect x="60" y="34" width="100" height="20" rx="10" fill="#EA4335"/>
+    <text x="110" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#fff">31</text>
+    <text x="110" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#313131">Calendar</text>
+  </g>
+
+  <g transform="translate(650 520)">
+    <rect width="220" height="150" rx="34" fill="#faf7ff" stroke="#dfd2f4"/>
+    <circle cx="90" cy="65" r="22" fill="#5B3E96"/>
+    <circle cx="135" cy="65" r="22" fill="#7b61b8"/>
+    <path d="M50 112 C58 82 82 80 100 90 C113 76 151 78 170 112" fill="#5B3E96"/>
+    <text x="110" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#313131">Admin</text>
+  </g>
+
+  <rect x="415" y="238" width="370" height="44" rx="22" fill="#34245E"/>
+  <text x="600" y="268" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#fff">Biet Al Reef • UAE Business Setup</text>
+</svg>
