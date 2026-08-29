@@ -9,7 +9,6 @@ import ConsentAwareGoogleTag from "../components/ConsentAwareGoogleTag";
 import PwaLifecycleManager from "../components/PwaLifecycleManager";
 import PwaInstallPrompt from "../components/PwaInstallPrompt";
 import BusinessLandingMeta, { resolveBusinessLandingPath } from "../components/BusinessLandingMeta";
-import { getPlatformLanding } from "../components/PlatformLandingRouter";
 import { initPublicAnalytics } from "../lib/publicAnalytics";
 import { useEffect } from "react";
 
@@ -30,7 +29,6 @@ const WeyakChat = dynamic(() => import('../components/WeyakChat'), { ssr: false 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const currentPath = router.asPath?.split('?')[0] || '/';
-  const PlatformLanding = getPlatformLanding(currentPath);
   const metadataPath = resolveBusinessLandingPath({
     currentPath,
     pathname: router.pathname,
@@ -68,7 +66,7 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <ClientSafetyBoundary>
-      {PlatformLanding ? <PlatformLanding /> : <Component {...pageProps} />}
+      <Component {...pageProps} />
       <BusinessLandingMeta path={metadataPath} />
       <WeyakChat locale={isEnglishPage ? 'en' : 'ar'} standalone={currentPath === '/weyaak' || currentPath === '/en/weyaak'} />
       {isProviderProfile ? (
