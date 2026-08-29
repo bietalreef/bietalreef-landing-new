@@ -5,30 +5,31 @@ export default function BlogEnglishPage() {
     <EnglishGenericPage
       badge="Biet Al Reef Blog"
       title="Biet Al Reef Blog"
-      description="Articles, success cases and ideas about construction, design and smart contracting in the UAE. Browse guidance and platform insights in one organized content path."
-      intent="This page presents the blog path for Biet Al Reef: articles, tips and practical guides about construction, contracting, interior design, maintenance and smart building decisions in the UAE."
+      description="Practical articles and guides about construction, contracting, design, maintenance, building materials and digital business solutions in the UAE."
+      intent="The Biet Al Reef Blog is a practical knowledge path for project owners, companies and service providers in the UAE. It brings together guidance on construction, contracting, interior design, maintenance, materials and smart business decisions, while also explaining how digital presence, marketplaces, Google services and Weyaak fit into modern business operations. The purpose is to help readers understand the subject before they move to discovery, quotation, marketplace or business-solution paths."
       path="/en/blog"
       arabicPath="/blog"
       ctaHref="/en/uae"
       ctaLabel="Explore UAE Directory"
       points={[
-        'Search and filter articles by topic to reach the right content faster.',
-        'Read construction, maintenance and interior design guidance in a structured blog format.',
-        'Use articles to understand the right path before requesting a service or quotation.',
+        'Construction, contracting, maintenance, design and building-material guidance written for practical use in the UAE.',
+        'Business and technology topics that help companies understand digital presence, marketplace operations and modern tools.',
+        'A structured content path that helps readers move from learning to the relevant service, marketplace or business solution.',
       ]}
       steps={[
-        'Search for articles',
-        'Choose a category',
-        'Open the right guide',
+        'Choose the topic you need',
+        'Read the relevant practical guide',
+        'Move to the related service or business path',
       ]}
       related={[
-        { href: '/en/services', label: 'Services & Offers' },
         { href: '/en/uae', label: 'UAE Directory' },
-        { href: '/en/contact', label: 'Contact us' },
+        { href: '/en/marketplace', label: 'Biet Al Reef Marketplace' },
+        { href: '/en/business-solutions', label: 'Business Solutions' },
       ]}
       faqs={[
-        ['What does the blog cover?', 'It covers construction, maintenance, interior design, contracting tips, smart building ideas and platform updates.'],
-        ['How do I use the blog?', 'Use the search and category path to find the right article, then move to the related service or contact path when needed.'],
+        ['What does the Biet Al Reef Blog cover?', 'It covers construction, contracting, maintenance, interior design, building materials, platform guidance and digital business topics relevant to companies and project owners in the UAE.'],
+        ['Who is the blog for?', 'It is intended for project owners, companies, service providers, suppliers, workshops and readers who want practical information before making a business or project decision.'],
+        ['How should I use the blog?', 'Start with the topic you need, read the relevant guide, then continue to the UAE directory, marketplace, service or business-solution path when you are ready to act.'],
       ]}
     />
   );
