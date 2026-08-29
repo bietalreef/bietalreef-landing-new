@@ -1,14 +1,3 @@
-import EnglishGenericPage from '../../components/EnglishGenericPage';
-
-export default function FaqEnglishPage() {
-  return (
-    <EnglishGenericPage
-      title="FAQ"
-      description="Answers to common questions about Biet Al Reef, the UAE directory, provider onboarding, service requests and future platform features."
-      path="/en/faq"
-      arabicPath="/faq"
-      ctaHref="/en/contact"
-      ctaLabel="Ask a question"
-    />
-  );
-}
+import Head from 'next/head'; import Link from 'next/link'; import EnglishLayout from '../../components/EnglishLayout';
+const groups=[['About Biet Al Reef',[['What is Biet Al Reef?','A UAE digital platform organising access to companies, service providers, products and business tools across construction and related services.'],['Is it only a business directory?','No. The directory is one part of the ecosystem, which also includes marketplace, stores, business tools, plans and Weyaak.']]],['Accounts & stores',[['Does registration mean immediate publishing?','No. Publishing depends on completed business data, verification, account status, plan and permissions.'],['Are listing limits unlimited?','No. Quotas, plans and permissions control what can be saved, published and managed.']]],['Weyaak AI',[['What is Weyaak?','An intelligent business assistant inside Biet Al Reef that works with account context, data and available permissions.'],['Does Weyaak make final decisions?','No. It helps with understanding, organisation and preparation while final decisions remain with authorised users.']]],['Plans & policies',[['Where can I review the current plan?','Use the Business Plans page or contact customer service before activation.'],['How do refunds work?','Review the Refund Policy and subscription terms because eligibility can be affected by activated services and external costs.']]]];
+export default function Page(){return <><Head><title>FAQ | Biet Al Reef</title><meta name="description" content="Clear answers about Biet Al Reef, business accounts, stores, Weyaak AI, plans, support and policies."/><link rel="canonical" href="https://bietalreef.ae/en/faq"/></Head><EnglishLayout><main className="bg-[#F8FBF9]"><section className="bg-[#0F3F1A] px-4 py-20 text-center text-white"><h1 className="text-4xl font-black md:text-6xl">Frequently Asked Questions</h1><p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-white/80">Direct answers about using Biet Al Reef, business accounts, stores, Weyaak, plans and policies.</p></section><section className="mx-auto grid max-w-6xl gap-7 px-4 py-16 lg:grid-cols-2">{groups.map(([title,items])=><article key={title} className="rounded-[2rem] border bg-white p-7"><h2 className="text-2xl font-black">{title}</h2>{items.map(([q,a])=><div key={q} className="mt-5 rounded-2xl bg-[#F7FAF7] p-5"><h3 className="font-black">{q}</h3><p className="mt-2 leading-7 text-gray-600">{a}</p></div>)}</article>)}</section><section className="bg-white px-4 py-16 text-center"><h2 className="text-3xl font-black">Still need an answer?</h2><Link href="/en/contact" className="mt-7 inline-flex rounded-2xl bg-[#0F3F1A] px-8 py-4 font-black text-white">Ask us</Link></section></main></EnglishLayout></>}
