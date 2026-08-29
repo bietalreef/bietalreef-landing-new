@@ -2,161 +2,25 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { ArrowLeft, BadgeCheck, Gift, Globe2, ShieldCheck, Sparkles, Store, WalletCards } from 'lucide-react';
+import { ArrowLeft, BadgeCheck, Check, Gift, Globe2, Minus, Sparkles, Store, WalletCards } from 'lucide-react';
 
-const plans = [
-  {
-    name: 'الخطة المجانية',
-    badge: 'مجانية',
-    monthly: '0 AED',
-    annual: 'بدون تاريخ تجديد',
-    features: [
-      'حساب شخصي موثق داخل تطبيق بيت الريف',
-      'فتح قسم الملف الشخصي والخطة المجانية',
-      'التصفح واستخدام الأدوات المتاحة وفق النظام',
-      'لا تشمل حصة نشر ضمن الخطة',
-    ],
-  },
-  {
-    name: 'الحضور الرقمي',
-    badge: '4 بطاقات',
-    monthly: '300 AED',
-    annual: '2,700 AED',
-    saving: 'خصم سنوي 25% — وفر 900 درهم سنويًا',
-    annualGift: 'هدية: باقة النشر العام – 4 بطاقات مجانًا مع الاشتراك السنوي',
-    features: [
-      '4 منتجات + 4 خدمات + 4 عروض + 4 مستندات',
-      'ربط Google Drive وGoogle Sheets',
-      'مساعد أعمال وياك',
-      'النشر داخل تطبيق بيت الريف وفق صلاحيات الخطة',
-    ],
-  },
-  {
-    name: 'الحضور الاحترافي',
-    badge: '10 بطاقات',
-    monthly: '500 AED',
-    annual: '4,500 AED',
-    saving: 'خصم سنوي 25% — وفر 1,500 درهم سنويًا',
-    annualGift: 'هدية: باقة النشر العام للأعمال – 10 بطاقات مجانًا مع الاشتراك السنوي',
-    featured: true,
-    features: [
-      '10 منتجات + 10 خدمات + 10 عروض + 10 مستندات',
-      'مساحة Google Cloud منفصلة وفق الخطة',
-      'Google Workspace ودومين ضمن مزايا الاشتراك السنوي المؤهل',
-      'مساعد أعمال وياك بصلاحيات الخطة',
-    ],
-  },
+const plans=[
+{name:'الخطة المجانية',badge:'مجانية',monthly:'0 AED',annual:'بدون تاريخ تجديد',features:['حساب شخصي موثق داخل تطبيق بيت الريف','فتح الملف الشخصي والخطة المجانية','التصفح واستخدام الأدوات المتاحة وفق النظام','لا تشمل حصة نشر ضمن الخطة']},
+{name:'الحضور الرقمي',badge:'4 بطاقات',monthly:'300 AED',annual:'2,700 AED',saving:'خصم سنوي 25% — وفر 900 درهم سنويًا',gift:'هدية: باقة النشر العام – 4 بطاقات مع الاشتراك السنوي',features:['4 منتجات + 4 خدمات + 4 عروض + 4 مستندات','ربط Google Drive وGoogle Sheets','مساعد أعمال وياك','النشر داخل تطبيق بيت الريف وفق صلاحيات الخطة']},
+{name:'الحضور الاحترافي',badge:'10 بطاقات',monthly:'500 AED',annual:'4,500 AED',saving:'خصم سنوي 25% — وفر 1,500 درهم سنويًا',gift:'هدية: باقة النشر العام للأعمال – 10 بطاقات مع الاشتراك السنوي',featured:true,features:['10 منتجات + 10 خدمات + 10 عروض + 10 مستندات','مساحة Google Cloud منفصلة وفق الخطة','Google Workspace ودومين ضمن مزايا الاشتراك السنوي المؤهل','مساعد أعمال وياك بصلاحيات الخطة']}
 ];
-
-const publishingPackages = [
-  {
-    name: 'باقة النشر العام – 4 بطاقات',
-    icon: Globe2,
-    firstYearPrice: '750 AED',
-    discount: 'السنة الأولى: خصم 50%',
-    annualBenefit: 'تُفتح مجانًا مع الاشتراك السنوي لخطة الحضور الرقمي',
-    features: [
-      'نشر 4 بطاقات مؤهلة في سوق بيت الريف',
-      'نشر 4 منتجات شهريًا في Google Shopping',
-      'ملف شخصي مختصر في السوق',
-      'صفحة هبوط كاملة في منصة بيت الريف',
-    ],
-  },
-  {
-    name: 'باقة النشر العام للأعمال – 10 بطاقات',
-    icon: Store,
-    firstYearPrice: '1,500 AED',
-    discount: 'السنة الأولى: خصم 50%',
-    annualBenefit: 'تُفتح مجانًا مع الاشتراك السنوي لخطة الحضور الاحترافي',
-    features: [
-      'نشر 10 بطاقات مؤهلة في سوق بيت الريف',
-      'نشر حتى 10 منتجات شهريًا في Google Shopping',
-      'ملف شخصي مختصر في السوق',
-      'صفحة هبوط كاملة في منصة بيت الريف',
-    ],
-  },
+const packages=[
+{name:'باقة النشر العام – 4 بطاقات',icon:Globe2,price:'750 AED',benefit:'تُفتح مجانًا مع الاشتراك السنوي لخطة الحضور الرقمي',features:['نشر 4 بطاقات مؤهلة في سوق بيت الريف','نشر 4 منتجات شهريًا في Google Shopping','ملف شخصي مختصر في السوق','صفحة هبوط كاملة في منصة بيت الريف']},
+{name:'باقة النشر العام للأعمال – 10 بطاقات',icon:Store,price:'1,500 AED',benefit:'تُفتح مجانًا مع الاشتراك السنوي لخطة الحضور الاحترافي',features:['نشر 10 بطاقات مؤهلة في سوق بيت الريف','نشر حتى 10 منتجات شهريًا في Google Shopping','ملف شخصي مختصر في السوق','صفحة هبوط كاملة في منصة بيت الريف']}
 ];
-
-export default function PricingPage() {
-  return <>
-    <Head>
-      <title>الأسعار والخطط | بيت الريف</title>
-      <meta name="description" content="أسعار وخطط بيت الريف: خطة مجانية، الحضور الرقمي 300 درهم شهريًا أو 2,700 سنويًا، الحضور الاحترافي 500 درهم شهريًا أو 4,500 سنويًا، وباقات النشر العام 750 و1,500 درهم للسنة الأولى." />
-      <link rel="canonical" href="https://bietalreef.ae/pricing" />
-    </Head>
-
-    <div dir="rtl" className="min-h-screen bg-[#FFFCF7] text-gray-900">
-      <Navbar />
-      <main>
-        <section className="bg-gradient-to-b from-[#123F1D] to-[#062D17] py-16 text-white md:py-24">
-          <div className="mx-auto max-w-7xl px-4 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F3D46B]"><Sparkles className="h-4 w-4" /> الأسعار والخطط</span>
-            <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-tight md:text-6xl">خطط وأسعار بيت الريف</h1>
-            <p className="mx-auto mt-6 max-w-4xl text-lg leading-9 text-white/85">اختر بين الخطة المجانية، الحضور الرقمي، والحضور الاحترافي. الاشتراك السنوي يمنح خصم 25%، ومع الخطط المؤهلة تحصل على باقة النشر العام المناسبة مجانًا.</p>
-            <a href="#plans" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">استعرض الخطط <ArrowLeft className="h-5 w-5" /></a>
-          </div>
-        </section>
-
-        <section id="plans" className="mx-auto max-w-7xl px-4 py-16 md:py-20">
-          <div className="mb-10">
-            <p className="font-black text-[#B8922B]">الاشتراك داخل تطبيق بيت الريف</p>
-            <h2 className="mt-2 text-3xl font-black md:text-4xl">الخطط الأساسية</h2>
-            <p className="mt-3 max-w-4xl leading-8 text-gray-600">هذه الخطط تتحكم في الحصص والصلاحيات والأدوات داخل التطبيق، بينما باقات النشر العام موضحة بشكل مستقل أدناه.</p>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {plans.map((plan) => (
-              <article key={plan.name} className={`relative rounded-[2rem] border bg-white p-7 shadow-sm ${plan.featured ? 'border-2 border-[#D4AF37] shadow-lg' : 'border-[#E6DCC8]'}`}>
-                {plan.featured && <span className="absolute -top-3 left-6 rounded-full bg-[#D4AF37] px-4 py-1 text-sm font-black text-[#0F3F1A]">الأكثر شمولًا</span>}
-                <div className="flex items-center justify-between gap-3"><WalletCards className="h-9 w-9 text-[#0F3F1A]" /><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-black text-emerald-700">{plan.badge}</span></div>
-                <h3 className="mt-6 text-2xl font-black">{plan.name}</h3>
-                <div className="mt-5 text-4xl font-black text-[#0F3F1A]">{plan.monthly}</div>
-                <p className="mt-1 text-sm font-bold text-gray-500">{plan.monthly !== '0 AED' ? 'شهريًا' : ''}</p>
-                <div className="mt-4 rounded-2xl bg-[#FFF8E5] p-4"><strong className="text-lg text-[#0F3F1A]">{plan.annual}</strong>{plan.saving && <p className="mt-1 text-sm font-bold text-[#A95B19]">{plan.saving}</p>}{plan.annualGift && <p className="mt-2 text-sm font-black text-emerald-700">{plan.annualGift}</p>}</div>
-                <div className="mt-6 space-y-3">{plan.features.map((feature) => <div key={feature} className="flex items-start gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600" /><span className="leading-7 text-gray-700">{feature}</span></div>)}</div>
-                <Link href="/contact" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">اختيار الخطة <ArrowLeft className="h-5 w-5" /></Link>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="bg-white py-16 md:py-20">
-          <div className="mx-auto max-w-7xl px-4">
-            <div className="mb-10">
-              <p className="font-black text-[#B8922B]">باقات النشر العام</p>
-              <h2 className="mt-2 text-3xl font-black md:text-4xl">النشر خارج التطبيق</h2>
-              <p className="mt-3 max-w-4xl leading-8 text-gray-600">هذه الباقات منفصلة عن اشتراك التطبيق عند شرائها منفردة، وتُمنح مجانًا مع الاشتراك السنوي المناسب حسب الخطة.</p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {publishingPackages.map((pkg) => {
-                const Icon = pkg.icon;
-                return <article key={pkg.name} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FFFDF8] p-8">
-                  <div className="flex items-center justify-between gap-3"><Icon className="h-9 w-9 text-[#0F3F1A]" /><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-black text-emerald-700">-50%</span></div>
-                  <h3 className="mt-5 text-2xl font-black">{pkg.name}</h3>
-                  <div className="mt-5 space-y-3">{pkg.features.map((feature) => <p key={feature} className="flex gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600" />{feature}</p>)}</div>
-                  <div className="mt-6 rounded-2xl bg-emerald-50 p-4 font-black text-emerald-700">{pkg.discount}</div>
-                  <div className="mt-3 rounded-2xl border border-[#E6DCC8] bg-white p-5"><p className="text-sm font-bold text-gray-500">سعر السنة الأولى</p><div className="mt-1 text-3xl font-black text-[#0F3F1A]">{pkg.firstYearPrice}</div></div>
-                  <div className="mt-3 rounded-2xl bg-[#FFF1C2] p-4 font-bold text-[#7B5A00]">{pkg.annualBenefit}</div>
-                  <Link href="/contact" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">اختيار الباقة <ArrowLeft className="h-5 w-5" /></Link>
-                </article>;
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-6xl px-4 py-16">
-          <div className="grid gap-6 md:grid-cols-2">
-            <article className="rounded-[2rem] bg-[#0F3F1A] p-8 text-white"><ShieldCheck className="h-9 w-9 text-[#F3D46B]" /><h2 className="mt-5 text-2xl font-black">الحصص والصلاحيات حسب الخطة</h2><p className="mt-4 leading-8 text-white/80">عدد المنتجات والخدمات والعروض والمستندات والأدوات المتاحة للحساب تحدده الخطة المفعلة وحالة الحساب.</p></article>
-            <article className="rounded-[2rem] border border-[#E6DCC8] bg-[#FFF8E5] p-8"><Gift className="h-9 w-9 text-[#0F3F1A]" /><h2 className="mt-5 text-2xl font-black">ميزة الاشتراك السنوي</h2><p className="mt-4 leading-8 text-gray-700">الحضور الرقمي السنوي يمنح باقة النشر العام – 4 بطاقات مجانًا، والحضور الاحترافي السنوي يمنح باقة النشر العام للأعمال – 10 بطاقات مجانًا، إضافة إلى خصم 25% على قيمة الاشتراك السنوي.</p></article>
-          </div>
-        </section>
-
-        <section className="bg-[#0F3F1A] py-16 text-white">
-          <div className="mx-auto max-w-4xl px-4 text-center"><h2 className="text-3xl font-black md:text-4xl">اختر خطتك أو باقة النشر المناسبة</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-white/80">راجع الحصص والمزايا وقيمة الاشتراك الشهري أو السنوي وأسعار النشر العام، ثم فعّل ما يناسب استخدامك الفعلي.</p><Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">تواصل مع خدمة العملاء <ArrowLeft className="h-5 w-5" /></Link></div>
-        </section>
-      </main>
-      <Footer />
-    </div>
-  </>;
-}
+const comparison=[
+['السعر الشهري','مجاني','300 درهم','500 درهم'],['السعر السنوي','مجاني','2,700 درهم','4,500 درهم'],['المنتجات','—','4','10'],['الخدمات','—','4','10'],['العروض','—','4','10'],['المستندات','—','4','10'],['مساعد أعمال وياك','ضمن المتاح','متاح حسب الخطة','صلاحيات موسعة حسب الخطة'],['Google Drive وSheets','—','متاح','متاح'],['مساحة Google Cloud منفصلة','—','—','متاح وفق الخطة'],['Google Workspace + دومين','—','—','ضمن مزايا السنوي المؤهل'],['النشر داخل تطبيق بيت الريف','حسب النظام','4 من كل نوع','10 من كل نوع'],['هدية النشر العام مع السنوي','—','4 بطاقات','10 بطاقات']
+];
+function Cell({value,featured=false}){const empty=value==='—';return <td className={`min-w-[180px] border-b border-[#E8E0D1] px-5 py-4 text-center text-sm font-bold md:text-base ${featured?'bg-[#F4FAF5]':'bg-white'}`}><span className={`inline-flex items-center justify-center gap-2 ${empty?'text-gray-400':'text-[#173F22]'}`}>{empty?<Minus className="h-4 w-4"/>:<Check className="h-4 w-4 text-emerald-600"/>}{value}</span></td>}
+export default function PricingPage(){return <><Head><title>الأسعار والخطط | بيت الريف</title><meta name="description" content="خطط وأسعار بيت الريف مع مقارنة واضحة بين الخطة المجانية والحضور الرقمي والحضور الاحترافي وباقات النشر العام."/><link rel="canonical" href="https://bietalreef.ae/pricing"/></Head><div dir="rtl" className="min-h-screen bg-[#FFFCF7] text-gray-900"><Navbar/><main>
+<section className="bg-gradient-to-b from-[#123F1D] to-[#062D17] py-16 text-white md:py-24"><div className="mx-auto max-w-7xl px-4 text-center"><span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F3D46B]"><Sparkles className="h-4 w-4"/> الأسعار والخطط</span><h1 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-tight md:text-6xl">خطط وأسعار بيت الريف</h1><p className="mx-auto mt-6 max-w-4xl text-lg leading-9 text-white/85">اختر الخطة بحسب طريقة استخدام شركتك لبيت الريف، وعدد الأدوات والعناصر والحصص والصلاحيات التي تحتاجها، مع توضيح المزايا قبل التفعيل.</p><div className="mt-8 flex flex-wrap justify-center gap-3"><a href="#plans" className="inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A]">استعرض الخطط <ArrowLeft className="h-5 w-5"/></a><a href="#compare" className="inline-flex items-center rounded-2xl border border-white/30 bg-white/10 px-7 py-4 font-black">مقارنة سريعة بين الخطط</a></div></div></section>
+<section id="plans" className="mx-auto max-w-7xl px-4 py-16 md:py-20"><p className="font-black text-[#B8922B]">الاشتراك داخل تطبيق بيت الريف</p><h2 className="mt-2 text-3xl font-black md:text-4xl">الخطط الأساسية</h2><p className="mt-3 max-w-4xl leading-8 text-gray-600">الاشتراك يحدد الحصص والصلاحيات والأدوات داخل التطبيق، بينما باقات النشر العام مستقلة عند شرائها منفردة.</p><div className="mt-10 grid gap-6 lg:grid-cols-3">{plans.map(p=><article key={p.name} className={`relative rounded-[2rem] border bg-white p-7 shadow-sm ${p.featured?'border-2 border-[#D4AF37] shadow-lg':'border-[#E6DCC8]'}`}>{p.featured&&<span className="absolute -top-3 left-6 rounded-full bg-[#D4AF37] px-4 py-1 text-sm font-black text-[#0F3F1A]">الأكثر شمولًا</span>}<div className="flex items-center justify-between"><WalletCards className="h-9 w-9 text-[#0F3F1A]"/><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-black text-emerald-700">{p.badge}</span></div><h3 className="mt-6 text-2xl font-black">{p.name}</h3><div className="mt-5 text-4xl font-black text-[#0F3F1A]">{p.monthly}</div><p className="mt-1 text-sm font-bold text-gray-500">{p.monthly!=='0 AED'?'شهريًا':''}</p><div className="mt-4 rounded-2xl bg-[#FFF8E5] p-4"><strong className="text-lg text-[#0F3F1A]">{p.annual}</strong>{p.saving&&<p className="mt-1 text-sm font-bold text-[#A95B19]">{p.saving}</p>}{p.gift&&<p className="mt-2 text-sm font-black text-emerald-700">{p.gift}</p>}</div><div className="mt-6 space-y-3">{p.features.map(f=><div key={f} className="flex items-start gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600"/><span className="leading-7 text-gray-700">{f}</span></div>)}</div><Link href="/contact" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">اختيار الخطة <ArrowLeft className="h-5 w-5"/></Link></article>)}</div></section>
+<section id="compare" className="border-y border-[#E9E0D0] bg-[#F7F2E8] py-16 md:py-20"><div className="mx-auto max-w-7xl px-4"><div className="text-center"><p className="font-black text-[#B8922B]">مقارنة سريعة</p><h2 className="mt-2 text-3xl font-black md:text-4xl">قارن الخطط في جدول واحد</h2><p className="mx-auto mt-3 max-w-3xl leading-8 text-gray-600">السعر والحصص وأهم المزايا جنبًا إلى جنب قبل اختيار الخطة المناسبة لشركتك.</p></div><div className="mt-10 overflow-x-auto rounded-[2rem] border border-[#DED3BE] bg-white shadow-sm"><table className="w-full min-w-[850px] border-collapse"><thead><tr><th className="sticky right-0 z-10 min-w-[230px] bg-[#0F3F1A] px-5 py-5 text-right font-black text-white">المقارنة</th><th className="bg-[#173F22] px-5 py-5 text-center font-black text-white">الخطة المجانية<br/><span className="text-sm text-white/70">0 درهم</span></th><th className="bg-[#173F22] px-5 py-5 text-center font-black text-white">الحضور الرقمي<br/><span className="text-sm text-[#F3D46B]">300 درهم / شهر</span></th><th className="bg-[#D4AF37] px-5 py-5 text-center font-black text-[#0F3F1A]">الحضور الاحترافي<br/><span className="text-sm">500 درهم / شهر</span></th></tr></thead><tbody>{comparison.map(r=><tr key={r[0]}><th className="sticky right-0 z-10 border-b border-[#E8E0D1] bg-[#FFF9EE] px-5 py-4 text-right font-black text-[#173F22]">{r[0]}</th><Cell value={r[1]}/><Cell value={r[2]}/><Cell value={r[3]} featured/></tr>)}</tbody></table></div><p className="mt-4 text-center text-sm text-gray-500">على الهاتف مرّر الجدول أفقيًا لمشاهدة جميع الخطط.</p></div></section>
+<section className="bg-white py-16 md:py-20"><div className="mx-auto max-w-7xl px-4"><p className="font-black text-[#B8922B]">باقات النشر العام</p><h2 className="mt-2 text-3xl font-black md:text-4xl">النشر خارج التطبيق</h2><p className="mt-3 max-w-4xl leading-8 text-gray-600">هذه الباقات منفصلة عن اشتراك التطبيق عند شرائها منفردة، وتُمنح مع الاشتراك السنوي المناسب حسب الخطة.</p><div className="mt-10 grid gap-6 md:grid-cols-2">{packages.map(pkg=>{const Icon=pkg.icon;return <article key={pkg.name} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FFFDF8] p-8"><Icon className="h-9 w-9 text-[#0F3F1A]"/><h3 className="mt-5 text-2xl font-black">{pkg.name}</h3><div className="mt-5 space-y-3">{pkg.features.map(f=><p key={f} className="flex gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600"/>{f}</p>)}</div><div className="mt-6 rounded-2xl border border-[#E6DCC8] bg-white p-5"><p className="text-sm font-bold text-gray-500">سعر الباقة</p><div className="mt-1 text-3xl font-black text-[#0F3F1A]">{pkg.price}</div></div><div className="mt-3 rounded-2xl bg-[#FFF1C2] p-4 font-bold text-[#7B5A00]">{pkg.benefit}</div><Link href="/contact" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">اختيار الباقة <ArrowLeft className="h-5 w-5"/></Link></article>})}</div></div></section>
+<section className="mx-auto max-w-6xl px-4 py-16"><div className="rounded-[2rem] bg-[#0F3F1A] p-8 text-center text-white md:p-12"><Gift className="mx-auto h-10 w-10 text-[#F3D46B]"/><h2 className="mt-5 text-3xl font-black">تحتاج مساعدة في اختيار الخطة؟</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-white/80">تواصل مع فريق بيت الريف لتحديد الخطة والباقات المناسبة لطريقة عمل شركتك.</p><Link href="/contact" className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">تواصل معنا <ArrowLeft className="h-5 w-5"/></Link></div></section>
+</main><Footer/></div></>}
