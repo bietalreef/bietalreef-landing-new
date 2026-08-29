@@ -60,12 +60,27 @@ function walk(directory) {
   });
 }
 
-const excludedApplicationDomain = ['app', 'bietalreef', 'ae'].join('.');
-for (const file of sourceRoots.flatMap((directory) => walk(path.join(root, directory)))) {
-  const source = fs.readFileSync(file, 'utf8');
-  if (source.includes(excludedApplicationDomain)) {
-    errors.push(`Public source contains excluded application domain: ${path.relative(root, file)}`);
+const platformUrlsPath = path.join(root, 'lib', 'platformUrls.js');
+if (!fs.existsSync(platformUrlsPath)) {
+  errors.push('Missing central platform URL configuration: lib/platformUrls.js');
+} else {
+  const platformUrlsSource = fs.readFileSync(platformUrlsPath, 'utf8');
+  for (const requiredUrl of [
+    'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
+    'https://app.bietalreef.ae/',
+    'https://providers.bietalreef.ae/',
+  ]) {
+    if (!platformUrlsSource.includes(requiredUrl)) errors.push(`Missing official platform destination: ${requiredUrl}`);
   }
+}
+
+const loginSource = fs.readFileSync(path.join(root, 'pages', 'login.js'), 'utf8');
+if (loginSource.includes('statusCode = 410')) errors.push('Login route must redirect to the providers web app, not return 410.');
+if (!loginSource.includes('PROVIDERS_APP_URL')) errors.push('Login route is not connected to the providers web app.');
+
+const nextConfigSource = fs.readFileSync(path.join(root, 'next.config.js'), 'utf8');
+for (const registrationRoute of ['/providers/register', '/en/providers/register']) {
+  if (!nextConfigSource.includes(`source: '${registrationRoute}'`)) errors.push(`Missing operational redirect for ${registrationRoute}.`);
 }
 
 const manifestPath = path.join(root, 'public', 'manifest.webmanifest');

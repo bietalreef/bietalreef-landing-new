@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import UniversalRequestCTA from './UniversalRequestCTA';
+import PlatformAccessActions from './PlatformAccessActions';
 import { getEmirate } from '../data/siteTaxonomy';
 import {
   Home,
@@ -37,8 +38,6 @@ const copy = {
     promoEyebrow: 'بيت الريف للأعمال',
     promoTitle: 'بيت الريف معك في المكتب، في الموقع، وفي كل مكان',
     promoText: 'استخدم منصة بيت الريف من متصفح الكمبيوتر في المكتب، واستمر من تطبيق بيت الريف على Android أثناء وجودك في موقع العمل أو أثناء التنقل.',
-    promoAction: 'خطط الأعمال والاشتراكات',
-    promoHref: '/business-plans',
     description: 'منصة رقمية إماراتية تساعد أصحاب المشاريع على اكتشاف مزودي الخدمات، وتمكّن الشركات والموردين والورش والحرفيين من تقديم أعمالهم وخدماتهم ومنتجاتهم بصورة واضحة ومنظمة.',
     rights: 'جميع الحقوق محفوظة © 2026 بيت الريف',
     sections: [
@@ -56,8 +55,6 @@ const copy = {
     promoEyebrow: 'Biet Al Reef for Business',
     promoTitle: 'Biet Al Reef with you in the office, on site, and everywhere',
     promoText: 'Use Biet Al Reef from your desktop browser in the office and continue from the Android app while you are on site or on the move.',
-    promoAction: 'Business plans & subscriptions',
-    promoHref: '/en/business-plans',
     description: 'A UAE digital platform that helps project owners discover service providers and enables companies, suppliers, workshops and professionals to present their work, services and products clearly.',
     rights: 'All rights reserved © 2026 Biet Al Reef',
     sections: [
@@ -172,7 +169,7 @@ export default function Footer({ locale = 'ar', showRequestCTA = true }) {
               <h2 className="mt-2 text-2xl font-black leading-tight text-[#102F18]">{t.promoTitle}</h2>
               <p className="mt-3 max-w-3xl text-sm font-semibold leading-7 text-gray-600">{t.promoText}</p>
             </div>
-            <Link href={t.promoHref} className="mt-5 inline-flex min-h-12 w-full shrink-0 items-center justify-center rounded-2xl bg-[#102F18] px-7 py-3 font-black text-white transition hover:bg-[#174A27] md:mt-0 md:w-auto">{t.promoAction}</Link>
+            <PlatformAccessActions locale={language} compact className="mt-5 w-full shrink-0 md:mt-0 md:max-w-xs" />
           </div>
           <div className="grid grid-cols-1 gap-x-8 gap-y-0 lg:grid-cols-2 lg:gap-y-8 xl:grid-cols-[1.4fr_repeat(5,minmax(0,1fr))]">
             <div className={`text-center lg:col-span-2 xl:col-span-1 ${desktopAlign}`}>

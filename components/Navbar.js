@@ -20,13 +20,15 @@ import {
   Globe2
 } from 'lucide-react';
 import PlatformOverviewLink from './PlatformOverviewLink';
+import PlatformAccessActions from './PlatformAccessActions';
+import { MARKET_URL } from '../lib/platformUrls';
 
 const primaryLinks = [
   { href: '/', label: 'الرئيسية', icon: Home },
   { href: '/uae', label: 'دليل الإمارات', icon: MapPin },
   { href: '/providers', label: 'مزودو الخدمات', icon: UserRound },
   { href: '/services', label: 'الخدمات والعروض', icon: Wrench },
-  { href: '/marketplace', label: 'المنتجات والمتاجر', icon: ShoppingBag }
+  { href: MARKET_URL, label: 'سوق بيت الريف', labelEn: 'Biet Al Reef Market', icon: ShoppingBag }
 ];
 
 const platformLinks = [
@@ -40,7 +42,7 @@ const companyLinks = [
 ];
 
 function isActivePath(pathname, href) {
-  if (!href || href.startsWith('tel:') || href.startsWith('mailto:')) return false;
+  if (!href || href.startsWith('http') || href.startsWith('tel:') || href.startsWith('mailto:')) return false;
   const cleanHref = href.split('?')[0];
   if (cleanHref === '/') return pathname === '/';
   return pathname === cleanHref || pathname.startsWith(`${cleanHref}/`);
@@ -77,16 +79,19 @@ export function getLocalizedPath(asPath = '/', targetLocale = 'en') {
 }
 
 function DrawerLink({ href, label, icon: Icon, active, onClick, nested = false, rtl = true }) {
+  const external = href?.startsWith('http');
+  const content = <><Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} /><span>{label}</span></>;
+  const className = `flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${
+    active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'
+  } ${nested ? (rtl ? 'mr-8' : 'ml-8') : ''}`;
+  if (external) return <a href={href} onClick={onClick} className={className}>{content}</a>;
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-[15px] font-semibold transition ${
-        active ? 'bg-primary/8 text-primary' : 'text-gray-800 hover:bg-primary/5 hover:text-primary'
-      } ${nested ? (rtl ? 'mr-8' : 'ml-8') : ''}`}
+      className={className}
     >
-      <Icon className={`h-5 w-5 ${active ? 'text-primary' : 'text-primary/90'}`} />
-      <span>{label}</span>
+      {content}
     </Link>
   );
 }
@@ -139,8 +144,8 @@ export default function Navbar({ locale = 'ar' }) {
   } : null;
   const localize = (items) => items.map((item) => ({
     ...item,
-    href: `${prefix}${item.href === '/' ? '' : item.href}` || '/',
-    label: !isEnglish ? item.label : ({ '/': labels.home, '/uae': labels.uae, '/providers': labels.providers, '/services': labels.services, '/marketplace': labels.marketplace, '/how-it-works': 'How it works', '/weyaak': 'Weyaak AI', '/about': 'About Biet Al Reef', '/why-biet-alreef': 'Why Biet Al Reef' }[item.href] || item.label),
+    href: item.href.startsWith('http') ? item.href : (`${prefix}${item.href === '/' ? '' : item.href}` || '/'),
+    label: !isEnglish ? item.label : (item.labelEn || ({ '/': labels.home, '/uae': labels.uae, '/providers': labels.providers, '/services': labels.services, '/marketplace': labels.marketplace, '/how-it-works': 'How it works', '/weyaak': 'Weyaak AI', '/about': 'About Biet Al Reef', '/why-biet-alreef': 'Why Biet Al Reef' }[item.href] || item.label)),
   }));
   const localizedPrimaryLinks = localize(primaryLinks);
   const localizedPlatformLinks = localize(platformLinks);
@@ -209,6 +214,7 @@ export default function Navbar({ locale = 'ar' }) {
             </div>
 
             <div className="border-t border-gray-100 p-5 pb-[max(env(safe-area-inset-bottom),20px)]">
+              <PlatformAccessActions locale={isEnglish ? 'en' : 'ar'} compact className="mb-3" />
               <div className="mb-3 grid grid-cols-2 gap-2">
                 <span className="flex items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] px-4 py-3 text-sm font-black text-primary">{isEnglish ? 'English' : 'AE عربي'}</span>
                 <LanguageSwitch href={languageHref} mobile onClick={closeMenu} label={isEnglish ? 'AR' : 'EN'} ariaLabel={isEnglish ? 'النسخة العربية' : 'English version'} />

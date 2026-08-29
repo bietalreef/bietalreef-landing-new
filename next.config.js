@@ -57,6 +57,16 @@ module.exports = {
         permanent: true,
       },
       {
+        source: '/providers/register',
+        destination: 'https://providers.bietalreef.ae/',
+        permanent: true,
+      },
+      {
+        source: '/en/providers/register',
+        destination: 'https://providers.bietalreef.ae/',
+        permanent: true,
+      },
+      {
         source: '/provider/:slug',
         destination: '/providers/:slug',
         permanent: true,
