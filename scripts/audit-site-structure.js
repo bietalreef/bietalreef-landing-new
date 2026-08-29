@@ -39,7 +39,6 @@ for (const relativePage of mirroredPages) {
 const forbiddenRoutes = [
   'pages/cards-preview.js',
   'pages/test-small-page.js',
-  'pages/join-provider.js',
   'pages/provider/[slug].js',
   'pages/en/provider/[slug].js',
   'pages/en-sitemap.js',
