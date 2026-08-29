@@ -204,16 +204,7 @@ function buildServiceWhatsappMessage(service) {
 }
 
 function buildWeyaakHref(service) {
-  const query = new URLSearchParams({
-    providerId: provider.id,
-    provider: 'arkleen',
-    serviceId: service.id,
-    service: service.title,
-    prompt: service.wayaakPrompt,
-    lang: 'en',
-  });
-
-  return `/en/weyaak?${query.toString()}`;
+  return 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
 }
 
 export default function ArklineEnglishPage() {
@@ -405,7 +396,7 @@ export default function ArklineEnglishPage() {
                 <div className="mt-4 grid grid-cols-3 gap-3">
                   <ContactButton href={message} external icon={MessageCircle} label="WhatsApp" />
                   <ContactButton href="tel:+971567797828" icon={Phone} label="Call" />
-                  <ContactButton href="/en/weyaak" icon={Bot} label="Weyaak" />
+                  <ContactButton href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" icon={Bot} label="Weyaak" />
                 </div>
               </div>
             </div>

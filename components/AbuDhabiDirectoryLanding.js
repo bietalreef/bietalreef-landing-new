@@ -92,7 +92,7 @@ function DirectoryEntityCard({ entity, locale }) {
               <MessageCircle className="h-4 w-4" />{isEn ? 'Contact' : 'تواصل'}
             </a>
           ) : (
-            <Link href={isEn ? '/en/weyaak' : '/weyaak'} className="inline-flex min-h-[46px] items-center justify-center rounded-xl border border-[#DCCBAE] px-3 text-sm font-black text-[#0F3F1A]">{isEn ? 'Ask Weyaak' : 'اسأل وياك'}</Link>
+            <a href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[46px] items-center justify-center rounded-xl border border-[#DCCBAE] px-3 text-sm font-black text-[#0F3F1A]">{isEn ? 'Download the app and ask Weyaak' : 'حمّل التطبيق واسأل وياك'}</a>
           )}
         </div>
       </div>

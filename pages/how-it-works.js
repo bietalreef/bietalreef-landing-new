@@ -56,7 +56,7 @@ const platformGateways = [
   {
     title: 'المنتجات والمتاجر',
     description: 'ابحث عن مواد البناء والمنتجات والمتاجر والموردين المرتبطين باحتياج المشروع.',
-    href: '/marketplace',
+    href: 'https://app.bietalreef.ae/',
     icon: ShoppingBag,
     image: '/images/gateway/materials-products-gateway.webp',
     imageAlt: 'مواد البناء والمنتجات والمتاجر في منصة بيت الريف',
@@ -389,7 +389,7 @@ export default function HowItWorksPage() {
                       </div>
                     ))}
                   </div>
-                  <Link href="/weyaak" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E4C65F]">
+                  <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E4C65F]">
                     ابدأ رحلتك مع وياك <ArrowLeft className="h-5 w-5" />
                   </Link>
                 </div>
@@ -472,7 +472,7 @@ export default function HowItWorksPage() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/providers/register" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-4 font-black text-white shadow-lg transition hover:-translate-y-0.5">
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-4 font-black text-white shadow-lg transition hover:-translate-y-0.5">
                 انضم كمزود خدمة <ArrowLeft className="h-5 w-5" />
               </Link>
               <Link href="/partners" className="inline-flex items-center justify-center rounded-2xl border border-[#CBAF5A] bg-[#FFF9E8] px-7 py-4 font-black text-[#0F3F1A] transition hover:-translate-y-0.5">تعرّف على الشراكة</Link>
@@ -509,7 +509,7 @@ export default function HowItWorksPage() {
                 <h2 className="mt-3 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">يساعدك على توضيح الطلب، ولا يتخذ القرار بدلًا عنك</h2>
                 <p className="mt-5 leading-8 text-gray-600">يفهم وياك وصف العميل، ويستخرج الخدمة والموقع والمقاسات والمواصفات، ثم يوجهه إلى الدليل أو عرض السعر أو طلب المناقصة. وتعتمد التوصيات على البيانات المنشورة والمعتمدة داخل المنصة.</p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href="/weyaak" className="inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-3.5 font-black text-white"><Bot className="h-5 w-5" /> تحدّث مع وياك</Link>
+                  <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-3.5 font-black text-white"><Bot className="h-5 w-5" /> تحدّث مع وياك</Link>
                   <Link href="/tools" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9E8] px-6 py-3.5 font-black text-[#0F3F1A]"><BriefcaseBusiness className="h-5 w-5" /> استكشف الأدوات</Link>
                 </div>
               </div>

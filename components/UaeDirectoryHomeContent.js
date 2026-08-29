@@ -43,7 +43,7 @@ const copy = {
     explore: [
       { title: 'إمارات الدولة', text: 'ابدأ حسب المكان', icon: icons.location, links: UAE_EMIRATES.map((x) => ({ label: x.nameAr, href: `/uae/${x.slug}` })) },
       { title: 'التخصصات والخدمات', text: 'جميع القطاعات والخدمات', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 12).map((x) => ({ label: x.nameAr, href: `/uae/abu-dhabi/${x.slug}` })) },
-      { title: 'المنتجات والمتاجر', text: 'مواد ومنتجات المشروع', icon: icons.products, links: [{ label: 'مواد البناء', href: '/marketplace' }, { label: 'الأثاث والديكور', href: '/marketplace' }, { label: 'الأنظمة الذكية', href: '/marketplace' }] },
+      { title: 'سوق بيت الريف', text: 'مواد ومنتجات المشروع', icon: icons.products, links: [{ label: 'مواد البناء', href: 'https://app.bietalreef.ae/' }, { label: 'الأثاث والديكور', href: 'https://app.bietalreef.ae/' }, { label: 'الأنظمة الذكية', href: 'https://app.bietalreef.ae/' }] },
       { title: 'مقالات ومحتوى مفيد', text: 'أدلة تساعد مشروعك', icon: icons.support, links: [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
     ],
   },
@@ -74,7 +74,7 @@ const copy = {
     explore: [
       { title: 'UAE emirates', text: 'Start by location', icon: icons.location, links: UAE_EMIRATES.map((x) => ({ label: x.nameEn, href: `/en/uae/${x.slug}` })) },
       { title: 'Specialties and services', text: 'Browse sectors and services', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 12).map((x) => ({ label: x.nameEn, href: `/en/categories/${x.slug}` })) },
-      { title: 'Products and stores', text: 'Materials and products', icon: icons.products, links: [{ label: 'Building materials', href: '/en/marketplace' }, { label: 'Furniture and decor', href: '/en/marketplace' }, { label: 'Smart systems', href: '/en/marketplace' }] },
+      { title: 'Biet Al Reef Market', text: 'Materials and products', icon: icons.products, links: [{ label: 'Building materials', href: 'https://app.bietalreef.ae/' }, { label: 'Furniture and decor', href: 'https://app.bietalreef.ae/' }, { label: 'Smart systems', href: 'https://app.bietalreef.ae/' }] },
       { title: 'Guides and useful content', text: 'Helpful project resources', icon: icons.support, links: [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] },
     ],
   },
@@ -126,7 +126,7 @@ export function UaeDirectoryExploreFooter({
     : [
         { title: emirate ? (isEn ? `Areas in ${emirate.nameEn}` : `مناطق ${emirate.nameAr}`) : (isEn ? 'UAE emirates' : 'إمارات الدولة'), text: isEn ? 'Start by location' : 'ابدأ حسب المكان', icon: icons.location, links: locationLinks },
         { title: isEn ? 'Specialties and services' : 'التخصصات والخدمات', text: isEn ? 'All platform specialties' : 'جميع تخصصات المنصة', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 7).map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${serviceRoot}/${item.slug}` })) },
-        { title: isEn ? 'Products and stores' : 'المنتجات والمتاجر', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: UAE_PRODUCT_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${isEn ? '/en' : ''}/marketplace/${item.slug}` })) },
+        { title: isEn ? 'Biet Al Reef Market' : 'سوق بيت الريف', text: isEn ? 'Materials and products' : 'مواد ومنتجات المشروع', icon: icons.products, links: UAE_PRODUCT_CATEGORIES.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: 'https://app.bietalreef.ae/' })) },
         { title: isEn ? 'Guides and useful content' : 'مقالات ومحتوى مفيد', text: isEn ? 'Helpful project resources' : 'أدلة تساعد مشروعك', icon: icons.support, links: isEn ? [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] : [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
       ];
   const footerTitle = emirate

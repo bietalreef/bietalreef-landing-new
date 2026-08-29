@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { GOOGLE_PLAY_URL } from '../lib/platformUrls';
 
 const copy = {
   ar: {
@@ -8,8 +8,7 @@ const copy = {
     homeText: 'صف احتياج مشروعك، وسيساعدك وياك في الوصول إلى الإمارة والقطاع والخدمة أو المزود المناسب.',
     abuDhabiTitle: 'وياك في أبوظبي',
     abuDhabiText: 'أخبر وياك بما يحتاجه مشروعك في أبوظبي أو العين، وسيساعدك في الوصول إلى القسم أو الخدمة أو المنتج والمسار الأنسب.',
-    action: 'اسأل وياك',
-    href: '/weyaak',
+    action: 'حمّل التطبيق وتحدث مع وياك',
     logoAlt: 'شعار وياك الرسمي',
   },
   en: {
@@ -17,8 +16,7 @@ const copy = {
     homeText: 'Describe your project needs, and Weyaak will guide you to the right emirate, sector, service or provider.',
     abuDhabiTitle: 'Wayaak in Abu Dhabi',
     abuDhabiText: 'Tell Wayaak what your project needs in Abu Dhabi or Al Ain, and it will guide you to the most relevant sector, service, product or directory path.',
-    action: 'Ask Wayaak',
-    href: '/en/weyaak',
+    action: 'Download the app and ask Weyaak',
     logoAlt: 'Official Weyaak logo',
   },
 };
@@ -42,10 +40,10 @@ export default function UaeDirectoryWeyaakCard({ locale = 'ar', context = 'home'
             <p className="mt-1.5 text-sm font-semibold leading-6 text-gray-600 md:text-base">{description}</p>
           </div>
         </div>
-        <Link href={t.href} data-weyaak-title={title} data-weyaak-section={isEnglish ? 'UAE Directory' : 'دليل الإمارات'} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 text-sm font-black text-white shadow-md shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]">
+        <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" data-weyaak-title={title} data-weyaak-section={isEnglish ? 'UAE Directory' : 'دليل الإمارات'} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 text-sm font-black text-white shadow-md shadow-[#0F3F1A]/15 transition hover:-translate-y-0.5 hover:bg-[#D4AF37] hover:text-[#1F170D]">
           {t.action}
           <Arrow size={17} aria-hidden="true" />
-        </Link>
+        </a>
       </div>
     </section>
   );

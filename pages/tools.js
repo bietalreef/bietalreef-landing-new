@@ -130,7 +130,7 @@ export default function ToolsPage() {
             <Link href="/contact" className="px-10 py-4 bg-white text-blue-600 rounded-2xl font-black shadow-lg hover:bg-blue-50 transition-all">
               تواصل مع فريق بيت الريف
             </Link>
-            <Link href="/weyaak" className="px-10 py-4 bg-blue-500 text-white rounded-2xl font-bold border border-blue-400 hover:bg-blue-400 transition-all">
+            <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="px-10 py-4 bg-blue-500 text-white rounded-2xl font-bold border border-blue-400 hover:bg-blue-400 transition-all">
               تحدث مع وياك AI
             </Link>
           </div>

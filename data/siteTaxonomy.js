@@ -300,7 +300,7 @@ export const NAV_CONFIG = [
   { href: '/uae', label: 'دليل الإمارات' },
   { href: '/providers', label: 'مزودو الخدمات' },
   { href: '/services', label: 'الخدمات والعروض' },
-  { href: '/marketplace', label: 'المنتجات والمتاجر' },
+  { href: 'https://app.bietalreef.ae/', label: 'سوق بيت الريف' },
   { href: '/weyaak', label: 'وياك' },
   { href: '/tools', label: 'الأدوات' },
   { href: '/about', label: 'من نحن' },

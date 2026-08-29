@@ -39,8 +39,8 @@ const visualSections = [
 const quickLinks = [
   { href: '/uae', title: 'دليل الإمارات', desc: 'صفحات لجميع الإمارات والمدن والمناطق', icon: '🇦🇪' },
   { href: '/providers', title: 'مزودو الخدمات', desc: 'مقاولون وموردون وحرفيون ومكاتب هندسية', icon: '👷' },
-  { href: '/marketplace', title: 'السوق', desc: 'مواد بناء وأثاث وديكور ومنتجات', icon: '🛒' },
-  { href: '/weyaak', title: 'وياك', desc: 'المساعد الذكي داخل منظومة بيت الريف', icon: '🤖' }
+  { href: 'https://app.bietalreef.ae/', title: 'السوق', desc: 'مواد بناء وأثاث وديكور ومنتجات', icon: '🛒' },
+  { href: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', title: 'وياك', desc: 'المساعد الذكي داخل تطبيق بيت الريف', icon: '🤖' }
 ];
 
 export default function HomeVisualShowcase() {

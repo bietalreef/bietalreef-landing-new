@@ -10,7 +10,10 @@
 - [مزودو الخدمات](https://bietalreef.ae/providers)
 - [الخدمات والعروض](https://bietalreef.ae/services)
 - [المنتجات والمتاجر](https://bietalreef.ae/marketplace)
-- [وكيل وياك](https://bietalreef.ae/weyaak)
+- [سوق بيت الريف](https://app.bietalreef.ae/)
+- [حمّل تطبيق بيت الريف من Google Play](https://play.google.com/store/apps/details?id=ae.bietalreef.app)
+- [الدخول إلى تطبيق المتصفح](https://providers.bietalreef.ae/)
+- [وياك داخل تطبيق بيت الريف](https://play.google.com/store/apps/details?id=ae.bietalreef.app)
 - [الأدوات](https://bietalreef.ae/tools)
 - [عن بيت الريف](https://bietalreef.ae/about)
 - [تواصل معنا](https://bietalreef.ae/contact)
@@ -23,7 +26,10 @@
 - [Service providers](https://bietalreef.ae/en/providers)
 - [Services and offers](https://bietalreef.ae/en/services)
 - [Products and stores](https://bietalreef.ae/en/marketplace)
-- [Weyaak](https://bietalreef.ae/en/weyaak)
+- [Biet Al Reef Market](https://app.bietalreef.ae/)
+- [Download Biet Al Reef on Google Play](https://play.google.com/store/apps/details?id=ae.bietalreef.app)
+- [Open the Biet Al Reef web app](https://providers.bietalreef.ae/)
+- [Weyaak inside the Biet Al Reef app](https://play.google.com/store/apps/details?id=ae.bietalreef.app)
 - [Contact](https://bietalreef.ae/en/contact)
 
 ## ملفات مزودي الخدمة المعتمدة

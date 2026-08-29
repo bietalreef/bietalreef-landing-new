@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { GOOGLE_PLAY_URL } from '../lib/platformUrls';
 
 export default function UaeProviderJoinCTA({ locale = 'ar', emirate = null, area = null, service = null }) {
   const isEn = locale === 'en';
@@ -20,10 +20,10 @@ export default function UaeProviderJoinCTA({ locale = 'ar', emirate = null, area
           <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{isEn ? 'Your company should appear here' : 'يجب أن تظهر شركتك هنا'}</h2>
           <p className="mt-4 max-w-3xl text-sm font-semibold leading-8 text-gray-700 md:text-base">{description}</p>
         </div>
-        <Link href={isEn ? '/en/providers/register' : '/providers/register'} className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#B8922B]">
-          {isEn ? 'Join now' : 'انضم الآن'}
+        <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-3 text-sm font-black text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#B8922B]">
+          {isEn ? 'Download the app and join' : 'حمّل التطبيق وانضم الآن'}
           <Arrow className="h-5 w-5" aria-hidden="true" />
-        </Link>
+        </a>
       </div>
     </section>
   );

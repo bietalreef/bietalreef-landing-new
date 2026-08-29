@@ -83,6 +83,30 @@ for (const registrationRoute of ['/providers/register', '/en/providers/register'
   if (!nextConfigSource.includes(`source: '${registrationRoute}'`)) errors.push(`Missing operational redirect for ${registrationRoute}.`);
 }
 
+const publicRobots = fs.readFileSync(path.join(root, 'public', 'robots.txt'), 'utf8');
+const publicLlms = fs.readFileSync(path.join(root, 'public', 'llms.txt'), 'utf8');
+const requiredDestinations = [
+  'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
+  'https://app.bietalreef.ae/',
+  'https://providers.bietalreef.ae/',
+];
+for (const destination of requiredDestinations) {
+  if (!publicRobots.includes(destination)) errors.push(`robots.txt is missing operational destination: ${destination}`);
+  if (!publicLlms.includes(destination)) errors.push(`llms.txt is missing operational destination: ${destination}`);
+}
+
+const actionSourceFiles = sourceRoots.flatMap((directory) => walk(path.join(root, directory)))
+  .filter((file) => !file.endsWith('providers/register.js') && !file.endsWith('SEOHead.js'));
+for (const file of actionSourceFiles) {
+  const source = fs.readFileSync(file, 'utf8');
+  if (/href\s*=\s*["']\/(?:en\/)?providers\/register(?:["'?#}]|$)/.test(source)) {
+    errors.push(`Stale provider-registration action remains in ${path.relative(root, file)}; use the Google Play destination.`);
+  }
+  if (/href\s*=\s*["']\/(?:en\/)?weyaak(?:["'?#}]|$)/.test(source)) {
+    errors.push(`Stale Weyaak action remains in ${path.relative(root, file)}; use the Google Play destination.`);
+  }
+}
+
 const manifestPath = path.join(root, 'public', 'manifest.webmanifest');
 const workerPath = path.join(root, 'public', 'sw.js');
 const offlinePath = path.join(root, 'public', 'offline.html');

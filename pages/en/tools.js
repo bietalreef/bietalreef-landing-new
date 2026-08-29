@@ -7,7 +7,7 @@ export default function ToolsEnglishPage() {
       description="Biet Al Reef tools help visitors and providers prepare quantities, requests, quotations and project information in a clearer way before moving to the right service path."
       path="/en/tools"
       arabicPath="/tools"
-      ctaHref="/en/providers/register"
+      ctaHref="https://play.google.com/store/apps/details?id=ae.bietalreef.app"
       ctaLabel="Explore provider tools"
     />
   );

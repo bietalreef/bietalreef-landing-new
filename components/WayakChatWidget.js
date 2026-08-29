@@ -47,7 +47,7 @@ export default function WayakChatWidget() {
       return { text: "تريد معرفة الأسعار؟ 💰 الأسعار تختلف حسب نوع الخدمة والمشروع. يمكنك:", suggestions: [
         { text: "استكشف الخدمات", link: "/services" },
         { text: "تواصل معنا للاستفسار", link: "#contact" },
-        { text: "صفحة مزود الخدمة", link: "/providers/register?source=chat-widget" },
+        { text: "حمّل التطبيق وانضم كمزود خدمة", link: "https://play.google.com/store/apps/details?id=ae.bietalreef.app" },
       ] };
     }
     if (lowerMessage.includes("العين") || lowerMessage.includes("ابوظبي") || lowerMessage.includes("دبي")) {
@@ -60,7 +60,7 @@ export default function WayakChatWidget() {
     return { text: "شكراً على سؤالك! 😊 يمكنك استكشاف خدماتنا أو اختيار من الخيارات أدناه:", suggestions: [
       { text: "جميع الخدمات", link: "/services" },
       { text: "عن المنصة", link: "#about" },
-      { text: "انضم كمزود خدمة", link: "/providers/register?source=chat-widget-default" },
+      { text: "حمّل التطبيق وانضم كمزود خدمة", link: "https://play.google.com/store/apps/details?id=ae.bietalreef.app" },
     ] };
   };
 

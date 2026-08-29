@@ -42,7 +42,7 @@ const CONFIG = {
     title: 'انضم كمزود خدمة إلى بيت الريف',
     description: 'حوّل نشاطك إلى حضور مهني منظم داخل بيت الريف، واستكمل بيانات شركتك وتخصصاتك ومناطق خدمتك قبل النشر العام.',
     cta: 'ابدأ تسجيل شركتك',
-    ctaHref: '/providers/register',
+    ctaHref: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
     secondary: 'تعرف على المزايا',
     icon: BriefcaseBusiness,
     accent: 'emerald',

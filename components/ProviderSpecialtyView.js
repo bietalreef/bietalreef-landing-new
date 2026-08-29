@@ -51,7 +51,7 @@ export default function ProviderSpecialtyView({ service, providers, locale = 'ar
   const isEn = locale === 'en';
   const name = isEn ? service.nameEn || service.nameAr : service.nameAr;
   const image = service.image || '/images/providers-hero.webp';
-  const joinHref = isEn ? '/en/providers/register' : '/providers/register';
+  const joinHref = isEn ? 'https://play.google.com/store/apps/details?id=ae.bietalreef.app' : 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
   return (
     <main dir={isEn ? 'ltr' : 'rtl'} className="bg-[#FDFBF7] text-[#0F3F1A]">
       <section className="mx-auto max-w-6xl px-4 pt-6 md:pt-10">

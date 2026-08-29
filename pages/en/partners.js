@@ -9,7 +9,7 @@ export default function PartnersEnglishPage() {
       intent="Partnership begins with clear business information and a review before publication. Once the profile is approved, the business can appear in the relevant directory, service and product paths according to its specialty, offerings and service areas. It may also be invited to quotation requests or managed internal tenders that match its capabilities."
       path="/en/partners"
       arabicPath="/partners"
-      ctaHref="/en/providers/register"
+      ctaHref="https://play.google.com/store/apps/details?id=ae.bietalreef.app"
       ctaLabel="Join as a service provider"
       points={[
         'An organised digital profile for the business, services, products, projects and service areas.',
@@ -22,7 +22,7 @@ export default function PartnersEnglishPage() {
         'Begin appearing and receiving relevant opportunities',
       ]}
       related={[
-        { href: '/en/providers/register', label: 'Provider registration' },
+        { href: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', label: 'Provider registration' },
         { href: '/en/suppliers', label: 'Suppliers' },
         { href: '/en/factories', label: 'Factories & Workshops' },
         { href: '/en/how-it-works', label: 'See how it works' },

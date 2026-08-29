@@ -39,6 +39,11 @@ const websiteSchema = {
   alternateName: ['منصة بيت الريف', 'Biet Al Reef', 'Biet Alreef Platform'],
   inLanguage: ['ar-AE', 'en-AE'],
   publisher: { '@id': 'https://bietalreef.ae/#organization' },
+  hasPart: [
+    { '@type': 'WebPage', name: 'سوق بيت الريف', url: 'https://app.bietalreef.ae/' },
+    { '@type': 'WebApplication', name: 'تطبيق بيت الريف للمتصفح', url: 'https://providers.bietalreef.ae/' },
+    { '@type': 'MobileApplication', name: 'تطبيق بيت الريف Android', operatingSystem: 'Android', downloadUrl: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', applicationCategory: 'BusinessApplication' },
+  ],
 };
 
 export default class BietAlReefDocument extends Document {

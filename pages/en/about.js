@@ -313,8 +313,8 @@ export default function AboutEnglishPage() {
             <p className="mx-auto mt-4 max-w-3xl text-lg leading-8 text-white/90">Whether you are a project owner searching for the right party or a business seeking a clearer digital presence, your journey begins here.</p>
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/en/uae" className="rounded-2xl bg-white px-6 py-3 font-bold text-primary">Explore the UAE Directory</Link>
-              <Link href="/en/providers/register" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">Join as a Service Provider</Link>
-              <Link href="/en/weyaak" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">Talk to Weyaak</Link>
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">Join as a Service Provider</Link>
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">Talk to Weyaak</Link>
             </div>
           </section>
         </main>

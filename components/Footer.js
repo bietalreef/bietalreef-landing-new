@@ -85,6 +85,7 @@ function SocialLink({ href, label, icon: Icon }) {
 
 function FooterLink({ href, children }) {
   const className = 'block py-1.5 text-sm font-medium leading-6 text-gray-600 transition [overflow-wrap:anywhere] hover:text-primary';
+  if (href?.startsWith('http')) return <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>;
   if (href?.startsWith('tel:') || href?.startsWith('mailto:')) return <a href={href} className={className}>{children}</a>;
   return <Link href={href} className={className}>{children}</Link>;
 }

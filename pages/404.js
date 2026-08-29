@@ -3,13 +3,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEOHead from '../components/SEOHead';
 import { Home, MapPinned, UsersRound, Wrench, ShoppingBag, ArrowLeft } from 'lucide-react';
+import { MARKET_URL } from '../lib/platformUrls';
 
 const links = [
   { href: '/', label: 'الرئيسية', icon: Home },
   { href: '/uae', label: 'دليل الإمارات', icon: MapPinned },
   { href: '/providers', label: 'مزودو الخدمات', icon: UsersRound },
   { href: '/services', label: 'الخدمات والعروض', icon: Wrench },
-  { href: '/marketplace', label: 'المنتجات والمتاجر', icon: ShoppingBag },
+  { href: MARKET_URL, label: 'سوق بيت الريف', icon: ShoppingBag },
 ];
 
 export default function NotFoundPage() {

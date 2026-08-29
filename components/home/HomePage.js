@@ -7,6 +7,7 @@ import SEOHead from '../SEOHead';
 import WeyaakHeroCard from '../WeyaakHeroCard';
 import PlatformStoryVideo from '../PlatformStoryVideo';
 import { ArrowLeft, ArrowRight, Bot, Building2, Compass, Languages, MapPinned, Search, ShoppingBag, Sparkles, UsersRound, Wrench, CheckCircle, ShieldCheck } from 'lucide-react';
+import { GOOGLE_PLAY_URL, MARKET_URL } from '../../lib/platformUrls';
 
 const SITE_URL = 'https://bietalreef.ae';
 
@@ -19,14 +20,14 @@ const gatewayCards = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان: الإمارة، المدينة، المنطقة، ثم الخدمة المناسبة لمشروعك.', href: '/uae', icon: MapPinned, label: 'بحث حسب المكان', image: '/images/gateway/uae-directory-gateway.webp', imageAlt: 'خريطة الإمارات ثلاثية الأبعاد لدليل الإمارات داخل بيت الريف' },
   { title: 'مزودو الخدمات', desc: 'أدر نشاطك التجاري من هاتفك، وابنِ حضورك الرقمي، واستقبل الطلبات والمناقصات من العملاء الذين يبحثون عن خدماتك.', href: '/providers', icon: UsersRound, label: 'حضور رقمي', image: '/images/gateway/providers-gateway.webp', imageAlt: 'مزودو خدمات البناء والمقاولات داخل بيت الريف' },
   { title: 'الخدمات والعروض', desc: 'اختر الخدمة المطلوبة، ثم تواصل مباشرة أو اطلب من وياك تحويل احتياجك إلى مسار واضح.', href: '/services', icon: Wrench, label: 'طلب خدمة', image: '/images/gateway/services-offers-gateway.webp', imageAlt: 'خدمات وعروض البناء والصيانة والتشطيبات في بيت الريف' },
-  { title: 'المنتجات والمتاجر', desc: 'تصفح مواد البناء والتشطيب والمنتجات حسب الفئة والاحتياج، وابدأ طلب عرض السعر بسهولة.', href: '/marketplace', icon: ShoppingBag, label: 'مواد ومنتجات', image: '/images/gateway/materials-products-gateway.webp', imageAlt: 'مواد البناء والمنتجات والمتاجر داخل بيت الريف' },
+  { title: 'سوق بيت الريف', desc: 'تصفح مواد البناء والتشطيب والمنتجات والخدمات والعروض داخل السوق العام.', href: MARKET_URL, icon: ShoppingBag, label: 'افتح السوق', image: '/images/gateway/materials-products-gateway.webp', imageAlt: 'سوق بيت الريف للمواد والمنتجات والخدمات' },
 ];
 
 const introModels = [
   { title: 'دليل الإمارات', desc: 'ابدأ من المكان', image: '/images/gateway/uae-directory-gateway.webp', href: '/uae', icon: MapPinned },
   { title: 'مزودون موثوقون', desc: 'شركات وورش', image: '/images/gateway/providers-gateway.webp', href: '/providers', icon: UsersRound },
   { title: 'خدمات وعروض', desc: 'طلب أو مقارنة', image: '/images/gateway/services-offers-gateway.webp', href: '/services', icon: Wrench },
-  { title: 'منتجات ومتاجر', desc: 'مواد وموردون', image: '/images/gateway/materials-products-gateway.webp', href: '/marketplace', icon: ShoppingBag },
+  { title: 'سوق بيت الريف', desc: 'مواد وموردون', image: '/images/gateway/materials-products-gateway.webp', href: MARKET_URL, icon: ShoppingBag },
 ];
 
 const clientJourneyCards = [
@@ -63,13 +64,13 @@ const englishCopy = {
     { title: 'UAE Directory', desc: 'Start with the place: emirate, city and area, then choose the right service for your project.', href: '/en/uae', icon: MapPinned, label: 'Search by place', image: '/images/gateway/uae-directory-gateway.webp', imageAlt: '3D UAE map for the Biet Al Reef directory' },
     { title: 'Service Providers', desc: 'Manage your business from your phone, build a digital presence and receive relevant customer requests.', href: '/en/providers', icon: UsersRound, label: 'Digital presence', image: '/images/gateway/providers-gateway.webp', imageAlt: 'Construction service providers on Biet Al Reef' },
     { title: 'Services & Offers', desc: 'Choose a service, contact a provider directly or let Weyaak turn your need into a clear path.', href: '/en/services', icon: Wrench, label: 'Request a service', image: '/images/gateway/services-offers-gateway.webp', imageAlt: 'Construction, maintenance and finishing services on Biet Al Reef' },
-    { title: 'Products & Stores', desc: 'Browse building and finishing materials by category and request a quotation with ease.', href: '/en/marketplace', icon: ShoppingBag, label: 'Materials & products', image: '/images/gateway/materials-products-gateway.webp', imageAlt: 'Building materials, products and stores on Biet Al Reef' },
+    { title: 'Biet Al Reef Market', desc: 'Browse products, services and offers in the public marketplace.', href: MARKET_URL, icon: ShoppingBag, label: 'Open the market', image: '/images/gateway/materials-products-gateway.webp', imageAlt: 'Biet Al Reef marketplace for products and services' },
   ],
   introModels: [
     { title: 'UAE Directory', desc: 'Start by place', image: '/images/gateway/uae-directory-gateway.webp', href: '/en/uae', icon: MapPinned },
     { title: 'Trusted Providers', desc: 'Companies & workshops', image: '/images/gateway/providers-gateway.webp', href: '/en/providers', icon: UsersRound },
     { title: 'Services & Offers', desc: 'Request or compare', image: '/images/gateway/services-offers-gateway.webp', href: '/en/services', icon: Wrench },
-    { title: 'Products & Stores', desc: 'Materials & suppliers', image: '/images/gateway/materials-products-gateway.webp', href: '/en/marketplace', icon: ShoppingBag },
+    { title: 'Biet Al Reef Market', desc: 'Materials & suppliers', image: '/images/gateway/materials-products-gateway.webp', href: MARKET_URL, icon: ShoppingBag },
   ],
   clientJourneyCards: [
     { title: 'Search and contact directly', desc: 'Browse freely, choose the suitable provider and contact them directly.', icon: Search },
@@ -120,18 +121,18 @@ const pageText = {
   ar: {
     eyebrow: 'ابدأ من هنا', gatewayTitle: 'اختر بوابة بيت الريف المناسبة', gatewayText: 'كل طريق يبدأ من اختيار القسم الصحيح: مكان، مزود، خدمة، أو منتج.', explore: 'استكشف الآن',
     providerEyebrow: 'لصاحب النشاط التجاري', providerTitle: 'هل تعمل في مجال المقاولات أو البناء؟', providerText: 'تغيّرت قواعد الظهور في السوق. لم يعد نشاطك بحاجة إلى إعلان مؤقت فقط، بل إلى حضور رقمي منظم يستطيع العملاء ومحركات البحث وأنظمة الذكاء الاصطناعي فهمه والوصول إليه في أي وقت. انضم إلى بيت الريف، وسنساعدك في تقديم خدماتك ومشاريعك ومناطق عملك داخل ملف مهني واضح، وبناء محتوى قابل للاكتشاف على المنصة وGoogle ومحركات الذكاء الاصطناعي. حضور رقمي مستدام لا يتوقف بانتهاء حملة إعلانية، وتتحسن فعاليته مع اكتمال بيانات نشاطك وجودة محتواه.',
-    providerPrimaryAction: 'ابدأ تجهيز ملف نشاطك', providerSecondaryAction: 'تعرّف على خطط الانضمام',
+    providerPrimaryAction: 'حمّل التطبيق وانضم كمزود خدمة', providerSecondaryAction: 'تعرّف على خطط الانضمام',
     experienceTitle: 'لا نبيع لك إعلاناً مؤقتاً', experienceText: 'الحملات الإعلانية تنتهي بانتهاء الميزانية. أما بيت الريف فيبني لك حضوراً رقمياً مستداماً يعتمد على تخصصك، خدماتك، محتواك، مستنداتك، وسمعتك المهنية.',
     h1: 'منصة بيت الريف الذكية', heroText: <>كل ما يحتاجه مشروعك في مكان واحد:<br />مزود، خدمة، منتج، أو مسار واضح مع وياك.</>, heroTitle: <>ابحث... تواصل مباشر<br />أو دع وياك يتولى المهمة</>,
-    weyaakAction: 'تحدث مع وياك الآن', providerAction: 'ابدأ كمزود خدمة',
+    weyaakAction: 'حمّل التطبيق وتحدث مع وياك', providerAction: 'حمّل التطبيق وانضم كمزود خدمة',
   },
   en: {
     eyebrow: 'Start here', gatewayTitle: 'Choose the right Biet Al Reef gateway', gatewayText: 'Every journey starts from the right section: place, provider, service or product.', explore: 'Explore now',
     providerEyebrow: 'For business owners', providerTitle: 'Do you work in construction or contracting?', providerText: 'The rules of market visibility have changed. Your business needs more than a temporary advertisement; it needs a structured digital presence that customers, search engines and AI systems can understand and discover at any time. Join Biet Al Reef and we will help present your services, projects and coverage areas in a clear professional profile, with discoverable content across the platform, Google and AI search engines. It is a lasting presence that does not end with an advertising campaign and becomes more effective as your business information and content improve.',
-    providerPrimaryAction: 'Start building your business profile', providerSecondaryAction: 'Explore membership plans',
+    providerPrimaryAction: 'Download the app and join as a provider', providerSecondaryAction: 'Explore membership plans',
     experienceTitle: 'We do not sell temporary advertising', experienceText: 'Advertising stops when its budget ends. Biet Al Reef builds a lasting digital presence around your specialty, services, content, documents and professional reputation.',
     h1: 'Biet Al Reef Smart Platform', heroText: <>Everything your project needs in one place:<br />a provider, service, product or a clear path with Weyaak.</>, heroTitle: <>Search and contact directly...<br />or let Weyaak handle the journey</>,
-    weyaakAction: 'Talk to Weyaak now', providerAction: 'Start as a service provider',
+    weyaakAction: 'Download the app and talk to Weyaak', providerAction: 'Download the app and join as a provider',
   },
 };
 
@@ -259,8 +260,8 @@ export default function HomePage({ locale = 'ar' }) {
             <div className="rounded-[2rem] border border-[#E6DCC8] bg-white/96 px-5 py-6 text-center shadow-xl shadow-[#0F3F1A]/7 backdrop-blur md:px-10 md:py-10">
               <WeyaakHeroCard locale={language} />
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                <Link href={`${isEnglish ? '/en' : ''}/weyaak`} className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">{t.weyaakAction}<Arrow className="h-5 w-5" aria-hidden="true" /></Link>
-                <Link href={`${isEnglish ? '/en' : ''}/providers`} className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">{t.providerAction}<Arrow className="h-5 w-5" aria-hidden="true" /></Link>
+                <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-8 py-4 text-base font-black text-white shadow-lg shadow-[#0F3F1A]/20 transition hover:-translate-y-0.5 hover:bg-[#143D1F]">{t.weyaakAction}<Arrow className="h-5 w-5" aria-hidden="true" /></a>
+                <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[50px] items-center justify-center gap-2 rounded-2xl border border-[#E6DCC8] bg-white px-8 py-4 text-base font-black text-[#0F3F1A] shadow-sm transition hover:-translate-y-0.5 hover:border-primary">{t.providerAction}<Arrow className="h-5 w-5" aria-hidden="true" /></a>
               </div>
               <div className="mt-5 grid grid-cols-3 gap-2 rounded-[1.5rem] border border-[#E6DCC8] bg-[#FDFBF7] p-2 md:gap-3 md:p-3">
                 {content.trustBadges.map((item) => { const Icon = item.icon; return <div key={item.title} className="rounded-2xl bg-white px-2 py-3 text-center shadow-sm"><Icon className="mx-auto mb-2 h-5 w-5 text-[#0F3F1A]" aria-hidden="true" /><p className="text-sm font-black text-[#0F3F1A]">{item.title}</p><p className="mt-1 hidden text-xs font-semibold text-gray-500 sm:block">{item.desc}</p></div>; })}
@@ -283,7 +284,7 @@ export default function HomePage({ locale = 'ar' }) {
 
           <section className="deferred-section bg-[#FDFBF7] py-12 text-gray-900 md:py-18">
             <div className="mx-auto max-w-7xl px-4">
-              <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">{t.providerEyebrow}</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.providerTitle}</h2><p className="mx-auto mt-5 max-w-5xl text-base font-semibold leading-9 text-gray-600 md:text-lg">{t.providerText}</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><Link href={`${isEnglish ? '/en' : ''}/providers/register`} className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F4C4A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#17615E]">{t.providerPrimaryAction}</Link><Link href={`${isEnglish ? '/en' : ''}/pricing`} className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#D8C59F] bg-white px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#FFF9E8]">{t.providerSecondaryAction}</Link></div></div>
+              <div className="mb-7 text-center md:mb-10"><span className="text-sm font-black text-[#6F5400]">{t.providerEyebrow}</span><h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.providerTitle}</h2><p className="mx-auto mt-5 max-w-5xl text-base font-semibold leading-9 text-gray-600 md:text-lg">{t.providerText}</p><div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row"><a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[#0F4C4A] px-7 py-3 text-sm font-black text-white transition hover:bg-[#17615E]">{t.providerPrimaryAction}</a><Link href={`${isEnglish ? '/en' : ''}/pricing`} className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#D8C59F] bg-white px-7 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#FFF9E8]">{t.providerSecondaryAction}</Link></div></div>
               <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
                 {content.providerPresenceCards.map((item) => { const Icon = item.icon; return <div key={item.title} dir={isEnglish ? 'ltr' : 'rtl'} className={`relative overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${isEnglish ? 'text-left' : 'text-right'}`}><div className="absolute -left-12 -top-12 h-32 w-32 rounded-full bg-[#D4AF37]/10" /><div className={`relative mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F7F2E8] text-[#B0912F] shadow-sm ${isEnglish ? 'mr-auto' : 'ml-auto'}`}><Icon className="h-7 w-7" aria-hidden="true" /></div><h3 className="relative text-2xl font-black text-[#0F3F1A]">{item.title}</h3><p className="relative mt-3 text-sm font-semibold leading-8 text-gray-600">{item.desc}</p></div>; })}
               </div>

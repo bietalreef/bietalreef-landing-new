@@ -58,12 +58,12 @@ module.exports = {
       },
       {
         source: '/providers/register',
-        destination: 'https://providers.bietalreef.ae/',
+        destination: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
         permanent: true,
       },
       {
         source: '/en/providers/register',
-        destination: 'https://providers.bietalreef.ae/',
+        destination: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
         permanent: true,
       },
       {

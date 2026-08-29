@@ -57,19 +57,19 @@ const CONFIG = {
       ctaLabel: 'Request a profile',
     },
     actions: [
-      { ar: 'اطلب إنشاء ملف نشاطك', en: 'Request a business profile', hrefAr: '/providers/register', hrefEn: '/en/providers/register', icon: Building2, descAr: 'ابدأ تجهيز ملف النشاط المعتمد.', descEn: 'Start preparing an approved business profile.' },
+      { ar: 'حمّل التطبيق وانضم كمزود خدمة', en: 'Download the app and join as a provider', hrefAr: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', hrefEn: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', icon: Building2, descAr: 'ابدأ تجهيز ملف النشاط المعتمد من التطبيق.', descEn: 'Start preparing an approved business profile in the app.' },
       { ar: 'تصفح الأنشطة الرئيسية', en: 'Browse main activities', hrefAr: '/providers#provider-sectors', hrefEn: '/en/providers#provider-sectors', icon: Users, descAr: 'اختر النشاط ثم افتح التخصص المناسب.', descEn: 'Choose an activity, then open the right specialty.' },
       { ar: 'اطلب عرض سعر', en: 'Request a quotation', hrefAr: '/request-quote', hrefEn: '/en/request-quote', icon: FileText, descAr: 'أرسل احتياج المشروع بشكل منظم.', descEn: 'Send the project need in a structured way.' },
       { ar: 'تواصل مع فريق الانضمام', en: 'Talk to onboarding', hrefAr: WHATSAPP_URL, hrefEn: WHATSAPP_URL, icon: MessageCircle, descAr: 'احصل على توجيه مباشر قبل التسجيل.', descEn: 'Get direct guidance before registration.' },
     ],
     journey: [
       { ar: 'تعرف على آلية الانضمام', en: 'Learn how joining works', hrefAr: '/how-it-works', hrefEn: '/en/how-it-works' },
-      { ar: 'جهز بيانات النشاط', en: 'Prepare business information', hrefAr: '/providers/register', hrefEn: '/en/providers/register' },
+      { ar: 'جهز بيانات النشاط', en: 'Prepare business information', hrefAr: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', hrefEn: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app' },
       { ar: 'راجع الخطط والأسعار', en: 'Review plans and pricing', hrefAr: '/pricing', hrefEn: '/en/pricing' },
-      { ar: 'اطلب نشر الملف', en: 'Request profile publication', hrefAr: '/providers/register', hrefEn: '/en/providers/register' },
+      { ar: 'اطلب نشر الملف', en: 'Request profile publication', hrefAr: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app', hrefEn: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app' },
     ],
-    ctaHrefAr: '/providers/register',
-    ctaHrefEn: '/en/providers/register',
+    ctaHrefAr: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
+    ctaHrefEn: 'https://play.google.com/store/apps/details?id=ae.bietalreef.app',
   },
   services_offers: {
     icon: Wrench,
@@ -139,13 +139,13 @@ const CONFIG = {
       ctaLabel: 'Request product pricing',
     },
     actions: [
-      { ar: 'تصفح المنتجات', en: 'Browse products', hrefAr: '/marketplace#marketplace-categories', hrefEn: '/en/marketplace#marketplace-categories', icon: Search, descAr: 'ابدأ من فئة المنتج أو المادة.', descEn: 'Start with the product or material category.' },
+      { ar: 'فتح سوق بيت الريف', en: 'Open Biet Al Reef Market', hrefAr: 'https://app.bietalreef.ae/', hrefEn: 'https://app.bietalreef.ae/', icon: Search, descAr: 'ابدأ من فئة المنتج أو المادة.', descEn: 'Start with the product or material category.' },
       { ar: 'اطلب تسعير مواد', en: 'Request material pricing', hrefAr: '/request-quote', hrefEn: '/en/request-quote', icon: ClipboardList, descAr: 'أرسل الكمية والمواصفات والموقع.', descEn: 'Send quantity, specifications and location.' },
       { ar: 'تصفح الموردين والمتاجر', en: 'Browse suppliers and stores', hrefAr: '/providers', hrefEn: '/en/providers', icon: Store, descAr: 'انتقل إلى ملفات المزودين المنشورة.', descEn: 'Move to published supplier profiles.' },
       { ar: 'مساعدة في التوريد', en: 'Sourcing help', hrefAr: WHATSAPP_URL, hrefEn: WHATSAPP_URL, icon: MessageCircle, descAr: 'احصل على توجيه مباشر لمسار التوريد.', descEn: 'Get direct guidance for the sourcing path.' },
     ],
     journey: [
-      { ar: 'حدد نوع المنتج أو المادة', en: 'Define the product or material type', hrefAr: '/marketplace#marketplace-categories', hrefEn: '/en/marketplace#marketplace-categories' },
+      { ar: 'حدد نوع المنتج أو المادة', en: 'Define the product or material type', hrefAr: 'https://app.bietalreef.ae/', hrefEn: 'https://app.bietalreef.ae/' },
       { ar: 'أضف الكمية والمواصفات', en: 'Add quantity and specifications', hrefAr: '/request-quote', hrefEn: '/en/request-quote' },
       { ar: 'حدد موقع التوريد', en: 'Set the supply location', hrefAr: '/request-quote', hrefEn: '/en/request-quote' },
       { ar: 'استلم مسار السعر أو المورد', en: 'Receive pricing or supplier path', hrefAr: '/providers', hrefEn: '/en/providers' },
@@ -159,7 +159,7 @@ const RELATED_LINKS = [
   { ar: 'دليل الإمارات', en: 'UAE Directory', hrefAr: '/uae', hrefEn: '/en/uae' },
   { ar: 'مزودو الخدمات', en: 'Service Providers', hrefAr: '/providers', hrefEn: '/en/providers' },
   { ar: 'الخدمات والعروض', en: 'Services & Offers', hrefAr: '/services', hrefEn: '/en/services' },
-  { ar: 'المنتجات والمتاجر', en: 'Products & Stores', hrefAr: '/marketplace', hrefEn: '/en/marketplace' },
+  { ar: 'سوق بيت الريف', en: 'Biet Al Reef Market', hrefAr: 'https://app.bietalreef.ae/', hrefEn: 'https://app.bietalreef.ae/' },
 ];
 
 function localize(locale, item) {

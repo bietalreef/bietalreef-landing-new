@@ -198,7 +198,7 @@ export default function Blog() {
               </p>
               <div className="flex flex-wrap gap-3">
                 <Link href="/uae"><a className="px-5 py-3 rounded-full bg-emerald-700 text-white font-bold">دليل الإمارات</a></Link>
-                <Link href="/marketplace"><a className="px-5 py-3 rounded-full border border-emerald-700 text-emerald-700 font-bold">سوق بيت الريف</a></Link>
+                <a href="https://app.bietalreef.ae/" className="px-5 py-3 rounded-full border border-emerald-700 text-emerald-700 font-bold">سوق بيت الريف</a>
                 <Link href="/business-solutions"><a className="px-5 py-3 rounded-full border border-emerald-700 text-emerald-700 font-bold">حلول الأعمال</a></Link>
               </div>
             </div>

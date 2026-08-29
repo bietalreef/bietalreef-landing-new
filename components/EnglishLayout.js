@@ -30,7 +30,7 @@ const primaryLinks = [
   { href: '/en/uae', label: 'UAE Directory', icon: MapPinned },
   { href: '/en/providers', label: 'Service Providers', icon: UsersRound },
   { href: '/en/services', label: 'Services & Offers', icon: Wrench },
-  { href: '/en/marketplace', label: 'Products & Stores', icon: ShoppingBag },
+  { href: 'https://app.bietalreef.ae/', label: 'Biet Al Reef Market', icon: ShoppingBag },
 ];
 
 const platformLinks = [

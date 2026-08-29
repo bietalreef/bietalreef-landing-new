@@ -129,7 +129,7 @@ export default function BlogPost({ post, relatedPosts }) {
             <div className="max-w-4xl mx-auto px-4 text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">هل تريد تحويل مشروعك إلى واقع؟</h2>
               <p className="text-lg text-emerald-100 mb-6">ابدأ من صفحة مزود الخدمة أو أرسل طلبًا منظمًا عبر بيت الريف.</p>
-              <Link href="/providers/register?source=blog-cta">
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app">
                 <a className="inline-block px-8 py-3 bg-white text-emerald-600 font-bold rounded-lg hover:bg-emerald-50 transition-colors">ابدأ الآن</a>
               </Link>
             </div>

@@ -149,15 +149,7 @@ function buildProductWhatsappMessage(product) {
 }
 
 function buildProductWeyaakHref(product) {
-  const query = new URLSearchParams({
-    providerId: ARKLINE_PROVIDER.id,
-    provider: ARKLINE_PROVIDER.slug,
-    productId: product.id,
-    product: product.title,
-    prompt: product.wayaakPrompt,
-  });
-
-  return `/weyaak?${query.toString()}`;
+  return 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
 }
 
 function emitProductAction(product, action, extra = {}) {

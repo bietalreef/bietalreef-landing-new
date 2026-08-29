@@ -7,7 +7,7 @@ export default function SuppliersEnglishPage() {
       description="A future path for suppliers of building materials, finishing products and project essentials to be discovered within the Biet Al Reef ecosystem."
       path="/en/suppliers"
       arabicPath="/suppliers"
-      ctaHref="/en/providers/register"
+      ctaHref="https://play.google.com/store/apps/details?id=ae.bietalreef.app"
       ctaLabel="Request a supplier profile"
     />
   );

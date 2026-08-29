@@ -55,7 +55,7 @@ export default function CityServices({ city, cityData }) {
         <div style={{ background: 'linear-gradient(135deg, #1a5f3f 0%, #2d8659 100%)', color: 'white', padding: '60px 20px', textAlign: 'center', marginTop: '60px' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '20px', fontWeight: 'bold' }}>جاهز لبدء مشروعك في {cityData.name}؟</h2>
           <p style={{ fontSize: '1.1rem', marginBottom: '30px', maxWidth: '600px', margin: '0 auto' }}>ابدأ من صفحة مزود الخدمة أو أرسل طلبك إلى فريق بيت الريف مباشرة</p>
-          <Link href="/providers/register?source=city-service"><button style={{ backgroundColor: 'white', color: '#1a5f3f', border: 'none', padding: '15px 40px', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold' }}>ابدأ الآن مع بيت الريف</button></Link>
+          <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app"><button style={{ backgroundColor: 'white', color: '#1a5f3f', border: 'none', padding: '15px 40px', borderRadius: '6px', cursor: 'pointer', fontSize: '1rem', fontWeight: 'bold' }}>ابدأ الآن مع بيت الريف</button></Link>
         </div>
       </div>
     </>

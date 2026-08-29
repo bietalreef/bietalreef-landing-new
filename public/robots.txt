@@ -15,6 +15,7 @@ Allow: /uae/
 Allow: /providers/
 Allow: /services/
 Allow: /marketplace
+Allow: /marketplace/
 Allow: /platform-for-business
 Allow: /join-provider
 Allow: /business-solutions
@@ -41,6 +42,7 @@ Disallow: /dashboard/
 Disallow: /employee/
 Disallow: /private/
 Disallow: /providers/register
+Disallow: /login
 Disallow: /providers/verify
 Disallow: /cart
 Disallow: /checkout
@@ -53,6 +55,7 @@ Disallow: /en/auth/
 Disallow: /en/dashboard/
 Disallow: /en/employee/
 Disallow: /en/providers/register
+Disallow: /en/login
 Disallow: /en/providers/verify
 Disallow: /en/cart
 Disallow: /en/checkout
@@ -63,3 +66,8 @@ Disallow: /*?*sort=
 Disallow: /*?*filter=
 
 Sitemap: https://bietalreef.ae/sitemap.xml
+
+# Operational destinations are separate from this crawlable public site:
+# Market: https://app.bietalreef.ae/
+# Browser app: https://providers.bietalreef.ae/
+# Android app: https://play.google.com/store/apps/details?id=ae.bietalreef.app

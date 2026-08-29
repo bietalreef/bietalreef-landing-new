@@ -55,7 +55,7 @@ const platformGateways = [
   {
     title: 'Products & Stores',
     description: 'Find building materials, products, stores and suppliers connected to the requirements of your project.',
-    href: '/en/marketplace',
+    href: 'https://app.bietalreef.ae/',
     icon: ShoppingBag,
     image: '/images/gateway/materials-products-gateway.webp',
     imageAlt: 'Building materials, products and stores on Biet Al Reef',
@@ -334,7 +334,7 @@ export default function HowItWorksEnglishPage() {
                       <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/12 bg-white/10 p-4 font-bold backdrop-blur-sm"><CheckCircle2 className="h-5 w-5 shrink-0 text-[#F3D46B]" />{item}</div>
                     ))}
                   </div>
-                  <Link href="/en/weyaak" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E4C65F]">Start your journey with Weyaak <ArrowRight className="h-5 w-5" /></Link>
+                  <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E4C65F]">Start your journey with Weyaak <ArrowRight className="h-5 w-5" /></Link>
                 </div>
               </div>
             </div>
@@ -388,7 +388,7 @@ export default function HowItWorksEnglishPage() {
               {providerBenefits.map((item) => <div key={item} className="flex items-start gap-4 rounded-[1.6rem] border border-[#E5D9C1] bg-[#FCFAF6] p-5 shadow-sm"><CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#0F3F1A]" /><p className="font-semibold leading-7 text-gray-700 md:leading-8">{item}</p></div>)}
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/en/providers/register" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-4 font-black text-white shadow-lg transition hover:-translate-y-0.5">Request a provider profile <ArrowRight className="h-5 w-5" /></Link>
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-7 py-4 font-black text-white shadow-lg transition hover:-translate-y-0.5">Request a provider profile <ArrowRight className="h-5 w-5" /></Link>
               <Link href="/en/partners" className="inline-flex items-center justify-center rounded-2xl border border-[#CBAF5A] bg-[#FFF9E8] px-7 py-4 font-black text-[#0F3F1A] transition hover:-translate-y-0.5">Explore partnerships</Link>
             </div>
           </div>
@@ -415,7 +415,7 @@ export default function HowItWorksEnglishPage() {
                 <h2 className="mt-3 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">It clarifies your request without making the decision for you</h2>
                 <p className="mt-5 leading-7 text-gray-600 md:leading-8">Weyaak understands the customer’s description, extracts the service, location, dimensions and specifications, then guides the customer to the directory, quotation or tender path. Recommendations rely on published and verified platform data.</p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href="/en/weyaak" className="inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-3.5 font-black text-white"><Bot className="h-5 w-5" />Talk to Weyaak</Link>
+                  <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-3.5 font-black text-white"><Bot className="h-5 w-5" />Talk to Weyaak</Link>
                   <Link href="/en/tools" className="inline-flex items-center gap-2 rounded-2xl border border-[#D4AF37] bg-[#FFF9E8] px-6 py-3.5 font-black text-[#0F3F1A]"><BriefcaseBusiness className="h-5 w-5" />Explore tools</Link>
                 </div>
               </div>

@@ -355,8 +355,8 @@ export default function About() {
             </p>
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <Link href="/uae" className="rounded-2xl bg-white px-6 py-3 font-bold text-primary">استكشف دليل الإمارات</Link>
-              <Link href="/providers/register" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">انضم كمزود خدمة</Link>
-              <Link href="/weyaak" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">تحدث مع وياك</Link>
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">انضم كمزود خدمة</Link>
+              <Link href="https://play.google.com/store/apps/details?id=ae.bietalreef.app" className="rounded-2xl border border-white/50 bg-white/10 px-6 py-3 font-bold text-white">تحدث مع وياك</Link>
             </div>
           </section>
         </main>
