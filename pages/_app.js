@@ -39,6 +39,30 @@ export default function MyApp({ Component, pageProps }) {
   const usesUnifiedProviderTemplate = /^\/(?:en\/)?providers\/(?:arkleen|arkline|alrehab-cleaning-sanitizing)(?:\/|$)/.test(currentPath);
 
   useEffect(() => initPublicAnalytics(router), [router]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.classList.toggle('locale-en', isEnglishPage);
+    body.classList.toggle('locale-en', isEnglishPage);
+
+    if (isEnglishPage) {
+      html.lang = 'en';
+      html.dir = 'ltr';
+      body.dir = 'ltr';
+    } else {
+      html.lang = 'ar';
+      html.dir = 'rtl';
+      body.dir = 'rtl';
+    }
+
+    return () => {
+      html.classList.remove('locale-en');
+      body.classList.remove('locale-en');
+    };
+  }, [isEnglishPage]);
+
   useEffect(() => {
     const openWeyaakLinksInWidget = (event) => {
       const link = event.target?.closest?.('a[href]');
