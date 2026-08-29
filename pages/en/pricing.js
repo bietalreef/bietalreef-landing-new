@@ -1,35 +1,31 @@
-import EnglishGenericPage from '../../components/EnglishGenericPage';
+import Head from 'next/head';
+import Link from 'next/link';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import { ArrowRight, BadgeCheck, Gift, Globe2, Sparkles, Store, WalletCards } from 'lucide-react';
 
-export default function PricingEnglishPage() {
-  return (
-    <EnglishGenericPage
-      badge="Provider plans"
-      title="Plans & Pricing"
-      description="Choose a structured digital presence plan for your business, with clear monthly, annual and one-time setup terms."
-      intent="Digital Presence is AED 300 monthly plus a one-time AED 750 setup fee, or AED 2,700 annually with setup included. Professional Presence is AED 500 monthly plus a one-time AED 1,500 setup fee, or AED 4,500 annually with setup included."
-      path="/en/pricing"
-      arabicPath="/pricing"
-      ctaHref="/en/contact"
-      ctaLabel="Request a quotation"
-      points={[
-        'Digital Presence: AED 300 monthly + AED 750 one-time setup, or AED 2,700 annually with setup included.',
-        'Professional Presence: AED 500 monthly + AED 1,500 one-time setup, or AED 4,500 annually with setup included.',
-        'Visibility depends on the selected plan, complete data, service relevance and location; no ranking or lead volume is guaranteed.',
-      ]}
-      steps={[
-        'Send the project description',
-        'Define the location and measurements',
-        'Receive suitable guidance',
-      ]}
-      related={[
-        { href: '/en/services', label: 'Services & Offers' },
-        { href: '/en/marketplace', label: 'Products & Stores' },
-        { href: '/en/faq', label: 'FAQ' },
-      ]}
-      faqs={[
-        ['Is setup charged on annual plans?', 'No. Setup is included in the annual Digital Presence and Professional Presence plans.'],
-        ['Does a paid plan guarantee first ranking or a fixed number of leads?', 'No. Discovery depends on plan level, data quality, relevance, location and platform matching.'],
-      ]}
-    />
-  );
-}
+const plans=[
+{name:'Free Plan',badge:'Free',monthly:'AED 0',annual:'No renewal date',features:['Verified personal account in the Biet Al Reef app','Personal profile and free-plan access','Browse and use the tools available under the system','No publishing quota included in the plan']},
+{name:'Digital Presence',badge:'4 cards',monthly:'AED 300',annual:'AED 2,700',saving:'25% annual discount — save AED 900 per year',gift:'Gift: Public Publishing Package – 4 cards with annual subscription',features:['4 products + 4 services + 4 offers + 4 documents','Google Drive and Google Sheets integration','Weyaak business assistant','Publishing inside the Biet Al Reef app according to plan permissions']},
+{name:'Professional Presence',badge:'10 cards',monthly:'AED 500',annual:'AED 4,500',saving:'25% annual discount — save AED 1,500 per year',gift:'Gift: Business Public Publishing Package – 10 cards with annual subscription',featured:true,features:['10 products + 10 services + 10 offers + 10 documents','Dedicated Google Cloud space according to the plan','Google Workspace and domain included with eligible annual subscription benefits','Weyaak business assistant according to plan permissions']}
+];
+const packages=[
+{name:'Public Publishing Package – 4 Cards',icon:Globe2,price:'AED 750',benefit:'Included free with the annual Digital Presence subscription',features:['Publish 4 eligible cards in Biet Al Reef Market','Publish 4 products monthly on Google Shopping','Independent merchant profile and presence in the Biet Al Reef Market store directory','Full landing page on the Biet Al Reef platform']},
+{name:'Business Public Publishing Package – 10 Cards',icon:Store,price:'AED 1,500',benefit:'Included free with the annual Professional Presence subscription',features:['Publish 10 eligible cards in Biet Al Reef Market','Publish up to 10 products monthly on Google Shopping','Independent merchant profile and presence in the Biet Al Reef Market store directory','Full landing page on the Biet Al Reef platform']}
+];
+const comparisonCards=[
+{name:'Free Plan',badge:'AED 0',lines:['Verified personal account','Personal profile inside the app','Browse and use available tools','No publishing quota included']},
+{name:'Digital Presence',badge:'AED 300 monthly • AED 2,700 annually',lines:['4 products + 4 services + 4 offers + 4 documents','Google Drive + Google Sheets','Weyaak business assistant','In-app publishing: 4 of each type','Annual: 4-card Public Publishing Package included']},
+{name:'Professional Presence',badge:'AED 500 monthly • AED 4,500 annually',featured:true,lines:['10 products + 10 services + 10 offers + 10 documents','Google Drive + Google Sheets','Dedicated Google Cloud space according to the plan','Google Workspace + domain within eligible annual benefits','Weyaak business assistant according to plan permissions','In-app publishing: 10 of each type','Annual: 10-card Business Public Publishing Package included']},
+{name:'Companies & Institutions',badge:'Custom Plan',lines:['Plan tailored to company or institution requirements','Quotas and permissions based on business needs','Google solutions and tools according to agreement','Weyaak business assistant according to plan scope','Publishing and digital presence according to requirements','Contact Biet Al Reef to configure the plan']},
+{name:'Public Publishing – 4 Cards',badge:'AED 750',lines:['4 eligible cards in Biet Al Reef Market','4 products monthly on Google Shopping','Independent merchant profile and presence in the Biet Al Reef Market store directory','Full landing page on the Biet Al Reef platform','Included with annual Digital Presence']},
+{name:'Business Public Publishing – 10 Cards',badge:'AED 1,500',lines:['10 eligible cards in Biet Al Reef Market','Up to 10 products monthly on Google Shopping','Independent merchant profile and presence in the Biet Al Reef Market store directory','Full landing page on the Biet Al Reef platform','Included with annual Professional Presence']}
+];
+
+export default function PricingEnglishPage(){return <><Head><title>Plans & Pricing | Biet Al Reef</title><meta name="description" content="Biet Al Reef plans and pricing with a clear comparison of the Free, Digital Presence, Professional Presence, custom Companies & Institutions plan and public publishing packages."/><link rel="canonical" href="https://bietalreef.ae/en/pricing"/></Head><div dir="ltr" className="min-h-screen bg-[#FFFCF7] text-gray-900"><Navbar/><main>
+<section className="bg-gradient-to-b from-[#123F1D] to-[#062D17] py-16 text-white md:py-24"><div className="mx-auto max-w-7xl px-4 text-center"><span className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-2 text-sm font-black text-[#F3D46B]"><Sparkles className="h-4 w-4"/> Plans & Pricing</span><h1 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-tight md:text-6xl">Biet Al Reef Plans & Pricing</h1><p className="mx-auto mt-6 max-w-4xl text-lg leading-9 text-white/85">Choose the plan that fits how your business uses Biet Al Reef, with clear quotas, tools, permissions and benefits before activation.</p><div className="mt-8 flex flex-wrap justify-center gap-3"><a href="#plans" className="inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 font-black text-[#0F3F1A]">Explore plans <ArrowRight className="h-5 w-5"/></a><a href="#compare" className="inline-flex items-center rounded-2xl border border-white/30 bg-white/10 px-7 py-4 font-black">Quick plan comparison</a></div></div></section>
+<section id="plans" className="mx-auto max-w-7xl px-4 py-16 md:py-20"><p className="font-black text-[#B8922B]">Subscription inside the Biet Al Reef app</p><h2 className="mt-2 text-3xl font-black md:text-4xl">Core plans</h2><p className="mt-3 max-w-4xl leading-8 text-gray-600">Your subscription defines quotas, permissions and tools inside the app, while public publishing packages can also be purchased separately.</p><div className="mt-10 grid gap-6 lg:grid-cols-3">{plans.map(p=><article key={p.name} className={`relative rounded-[2rem] border bg-white p-7 shadow-sm ${p.featured?'border-2 border-[#D4AF37] shadow-lg':'border-[#E6DCC8]'}`}>{p.featured&&<span className="absolute -top-3 right-6 rounded-full bg-[#D4AF37] px-4 py-1 text-sm font-black text-[#0F3F1A]">Most comprehensive</span>}<div className="flex items-center justify-between"><WalletCards className="h-9 w-9 text-[#0F3F1A]"/><span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-black text-emerald-700">{p.badge}</span></div><h3 className="mt-6 text-2xl font-black">{p.name}</h3><div className="mt-5 text-4xl font-black text-[#0F3F1A]">{p.monthly}</div><p className="mt-1 text-sm font-bold text-gray-500">{p.monthly!=='AED 0'?'monthly':''}</p><div className="mt-4 rounded-2xl bg-[#FFF8E5] p-4"><strong className="text-lg text-[#0F3F1A]">{p.annual}</strong>{p.saving&&<p className="mt-1 text-sm font-bold text-[#A95B19]">{p.saving}</p>}{p.gift&&<p className="mt-2 text-sm font-black text-emerald-700">{p.gift}</p>}</div><div className="mt-6 space-y-3">{p.features.map(f=><div key={f} className="flex items-start gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600"/><span className="leading-7 text-gray-700">{f}</span></div>)}</div><Link href="/en/contact" className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">Choose plan <ArrowRight className="h-5 w-5"/></Link></article>)}</div></section>
+<section id="compare" className="border-y border-[#E9E0D0] bg-[#F7F2E8] py-16 md:py-20"><div className="mx-auto max-w-[1500px] px-4"><div className="text-center"><p className="font-black text-[#B8922B]">Quick comparison</p><h2 className="mt-2 text-3xl font-black md:text-4xl">Each package and its benefits in one card</h2><p className="mx-auto mt-3 max-w-3xl leading-8 text-gray-600">See the price and everything included in each package without navigating a long comparison table.</p></div><div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-6">{comparisonCards.map(c=><article key={c.name} className={`flex h-full flex-col rounded-[2rem] border p-5 shadow-sm ${c.featured?'border-2 border-[#D4AF37] bg-[#0F3F1A] text-white':'border-[#DED3BE] bg-white'}`}><h3 className="text-lg font-black">{c.name}</h3><div className={`mt-4 rounded-2xl px-3 py-3 text-center text-base font-black ${c.featured?'bg-[#D4AF37] text-[#0F3F1A]':'bg-[#FFF4D2] text-[#0F3F1A]'}`}>{c.badge}</div><div className="mt-5 flex-1 space-y-3">{c.lines.map(line=><div key={line} className="flex items-start gap-2"><BadgeCheck className={`mt-1 h-5 w-5 shrink-0 ${c.featured?'text-[#F3D46B]':'text-emerald-600'}`}/><span className={`text-sm font-bold leading-7 ${c.featured?'text-white/90':'text-gray-700'}`}>{line}</span></div>)}</div></article>)}</div></div></section>
+<section className="bg-white py-16 md:py-20"><div className="mx-auto max-w-7xl px-4"><p className="font-black text-[#B8922B]">Public publishing packages</p><h2 className="mt-2 text-3xl font-black md:text-4xl">Publishing outside the app</h2><p className="mt-3 max-w-4xl leading-8 text-gray-600">These packages are separate from the app subscription when purchased individually and are included with the corresponding annual subscription.</p><div className="mt-10 grid gap-6 md:grid-cols-2">{packages.map(pkg=>{const Icon=pkg.icon;return <article key={pkg.name} className="rounded-[2rem] border border-[#E6DCC8] bg-[#FFFDF8] p-8"><Icon className="h-9 w-9 text-[#0F3F1A]"/><h3 className="mt-5 text-2xl font-black">{pkg.name}</h3><div className="mt-5 space-y-3">{pkg.features.map(f=><p key={f} className="flex gap-3"><BadgeCheck className="mt-1 h-5 w-5 shrink-0 text-emerald-600"/>{f}</p>)}</div><div className="mt-6 rounded-2xl border border-[#E6DCC8] bg-white p-5"><p className="text-sm font-bold text-gray-500">Package price</p><div className="mt-1 text-3xl font-black text-[#0F3F1A]">{pkg.price}</div></div><div className="mt-3 rounded-2xl bg-[#FFF1C2] p-4 font-bold text-[#7B5A00]">{pkg.benefit}</div><Link href="/en/contact" className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#0F3F1A] px-6 py-4 font-black text-white">Choose package <ArrowRight className="h-5 w-5"/></Link></article>})}</div></div></section>
+<section className="mx-auto max-w-6xl px-4 py-16"><div className="rounded-[2rem] bg-[#0F3F1A] p-8 text-center text-white md:p-12"><Gift className="mx-auto h-10 w-10 text-[#F3D46B]"/><h2 className="mt-5 text-3xl font-black">Need help choosing a plan?</h2><p className="mx-auto mt-4 max-w-2xl leading-8 text-white/80">Contact the Biet Al Reef team to identify the right plan and publishing package for your business.</p><Link href="/en/contact" className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-[#D4AF37] px-8 py-4 font-black text-[#0F3F1A]">Contact us <ArrowRight className="h-5 w-5"/></Link></div></section>
+</main><Footer/></div></>}
