@@ -136,6 +136,14 @@ export default function MarketplaceCategoryPage({
 }
 
 export async function getStaticProps({ params }) {
+  if (params.slug === '[slug]') {
+    return {
+      redirect: {
+        destination: '/marketplace',
+        permanent: true,
+      },
+    };
+  }
   const category = categories.find((item) => item.id === params.slug);
   if (!category) return { notFound: true };
   const activitySlug = getSectionActivitySlug('products_stores', category.id);
