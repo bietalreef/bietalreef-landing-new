@@ -34,7 +34,14 @@ function renderImages(images = []) {
 }
 
 function buildSitemapXml(entries) {
-  const urls = entries.map((entry) => {
+  const uniqueEntries = Array.from(
+    entries.reduce((map, entry) => {
+      if (!map.has(entry.loc)) map.set(entry.loc, entry);
+      return map;
+    }, new Map()).values(),
+  ).sort((left, right) => left.loc.localeCompare(right.loc));
+
+  const urls = uniqueEntries.map((entry) => {
     const optionalLines = [renderAlternates(entry.alternates), renderImages(entry.images)].filter(Boolean);
     return [
       '  <url>',
@@ -118,7 +125,7 @@ export async function getServerSideProps({ res }) {
 
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  res.write(buildSitemapXml(entries.sort((left, right) => left.loc.localeCompare(right.loc))));
+  res.write(buildSitemapXml(entries));
   res.end();
   return { props: {} };
 }
