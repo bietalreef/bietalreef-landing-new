@@ -79,6 +79,51 @@ pre,
   -webkit-overflow-scrolling: touch;
 }
 
+/* English pages: improve text direction and wrapping only.
+   Do not reverse cards, icons, grids, or screen structure. */
+body.locale-en {
+  direction: ltr;
+  text-align: left;
+}
+
+body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th) {
+  direction: ltr;
+  unicode-bidi: plaintext;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li, label, dt, dd, blockquote, figcaption, td, th).text-right {
+  text-align: left !important;
+}
+
+body.locale-en :where(input, textarea, select) {
+  direction: ltr;
+  text-align: left;
+}
+
+body.locale-en :where(.text-left) {
+  text-align: left;
+}
+
+@media (max-width: 1024px) {
+  body.locale-en :where(h1, h2, h3, h4, h5, h6, p, li) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 640px) {
+  body.locale-en :where(h1, h2, h3, h4, h5, h6) {
+    text-wrap: balance;
+  }
+
+  body.locale-en :where(p, li, label, dt, dd) {
+    text-wrap: pretty;
+  }
+}
+
 /* PWA Install Prompt Animation */
 @keyframes slideUp {
   from {
