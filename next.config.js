@@ -52,11 +52,6 @@ module.exports = {
         permanent: true,
       },
       {
-        source: '/join-provider',
-        destination: '/providers/register',
-        permanent: true,
-      },
-      {
         source: '/provider/:slug',
         destination: '/providers/:slug',
         permanent: true,
