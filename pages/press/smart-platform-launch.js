@@ -20,26 +20,14 @@ export default function SmartPlatformLaunchPressPage() {
     datePublished: '2026-09-01T00:00:00+04:00',
     dateModified: '2026-09-01T00:00:00+04:00',
     inLanguage: 'ar-AE',
-    author: {
-      '@type': 'Organization',
-      name: 'بيت الريف',
-      url: SITE_URL,
-    },
+    author: { '@type': 'Organization', name: 'بيت الريف', url: SITE_URL },
     publisher: {
       '@type': 'Organization',
       name: 'بيت الريف',
       url: SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/logo.png`,
-      },
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
     },
-    about: [
-      'البناء والمقاولات في الإمارات',
-      'منصة بيت الريف',
-      'وياك AI',
-      'Google Cloud',
-    ],
+    about: ['البناء والمقاولات في الإمارات', 'منصة بيت الريف', 'وياك AI', 'Google Cloud'],
   };
 
   return (
@@ -49,6 +37,8 @@ export default function SmartPlatformLaunchPressPage() {
         description={description}
         keywords="بيت الريف, منصة بيت الريف, البناء في الإمارات, المقاولات, مزودو الخدمات, سوق بيت الريف, وياك, الذكاء الاصطناعي, Google Cloud"
         ogImage={OG_IMAGE}
+        ogImageWidth={1200}
+        ogImageHeight={627}
         ogType="article"
         canonicalPath={PAGE_PATH}
         alternatePath={EN_PATH}
