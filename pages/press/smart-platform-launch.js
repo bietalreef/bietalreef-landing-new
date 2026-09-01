@@ -1,5 +1,6 @@
 import SEOHead from '../../components/SEOHead';
 import PressSmartPlatformLaunch from '../../components/PressSmartPlatformLaunch';
+import PressVisualUpgrade from '../../components/PressVisualUpgrade';
 
 const SITE_URL = 'https://bietalreef.ae';
 const PAGE_PATH = '/press/smart-platform-launch';
@@ -45,7 +46,9 @@ export default function SmartPlatformLaunchPressPage() {
         structuredData={article}
         breadcrumbs={[{ name: 'البيانات الصحفية', item: `${SITE_URL}/press` }, { name: 'إطلاق المنظومة الذكية', item: `${SITE_URL}${PAGE_PATH}` }]}
       />
-      <PressSmartPlatformLaunch locale="ar" />
+      <PressVisualUpgrade>
+        <PressSmartPlatformLaunch locale="ar" />
+      </PressVisualUpgrade>
     </>
   );
 }
