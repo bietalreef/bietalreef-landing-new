@@ -77,6 +77,7 @@ export function UaeDirectoryExploreFooter({
   directoryCards = [],
 }) {
   const isEn = locale === 'en';
+  const textDir = isEn ? 'ltr' : 'rtl';
   const root = isEn ? '/en/uae' : '/uae';
   const locationLinks = emirate
     ? emirate.areas.map((item) => ({ label: isEn ? item.nameEn : item.nameAr, href: `${root}/${emirate.slug}/${item.slug}` }))
@@ -120,10 +121,10 @@ export function UaeDirectoryExploreFooter({
     : (isEn ? 'Explore the UAE Directory' : 'استكشف دليل الإمارات');
 
   return (
-    <section dir={isEn ? 'ltr' : 'rtl'} className="bg-[#FDFBF7] px-4 pb-14 pt-6">
+    <section dir="rtl" className="bg-[#FDFBF7] px-4 pb-14 pt-6">
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{footerTitle}</h2>
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{groups.map((item) => <details key={item.title} className="group rounded-[1.35rem] border border-[#E4D6BA] bg-white p-3 shadow-sm"><summary className="cursor-pointer list-none"><div className="flex items-center gap-2"><Icon src={item.icon} alt="" size={46} /><span className="min-w-0"><strong className="block text-sm font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-0.5 block text-[11px] font-semibold text-gray-500">{item.text}</span></span></div></summary><div className="mt-3 max-h-72 space-y-1.5 overflow-y-auto border-t border-[#F0E7D6] pt-3">{item.links.map((link) => <Link key={`${item.title}-${link.href}`} href={link.href} className="block rounded-xl px-2 py-1.5 text-xs font-bold text-gray-650 hover:bg-[#F8F0DA] hover:text-[#0F3F1A]">{link.label}</Link>)}</div></details>)}</div>
+        <h2 dir={textDir} className="mb-4 text-center text-2xl font-black text-[#0F3F1A] md:text-3xl">{footerTitle}</h2>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{groups.map((item) => <details key={item.title} className="group rounded-[1.35rem] border border-[#E4D6BA] bg-white p-3 shadow-sm"><summary className="cursor-pointer list-none"><div className="flex items-center gap-2"><Icon src={item.icon} alt="" size={46} /><span dir={textDir} className="min-w-0"><strong className="block text-sm font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-0.5 block text-[11px] font-semibold text-gray-500">{item.text}</span></span></div></summary><div className="mt-3 max-h-72 space-y-1.5 overflow-y-auto border-t border-[#F0E7D6] pt-3">{item.links.map((link) => <Link key={`${item.title}-${link.href}`} href={link.href} dir={textDir} className="block rounded-xl px-2 py-1.5 text-xs font-bold text-gray-650 hover:bg-[#F8F0DA] hover:text-[#0F3F1A]">{link.label}</Link>)}</div></details>)}</div>
       </div>
     </section>
   );
@@ -131,28 +132,29 @@ export function UaeDirectoryExploreFooter({
 
 export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
   const isEn = locale === 'en';
+  const textDir = isEn ? 'ltr' : 'rtl';
   const t = copy[locale];
   return (
-    <div dir={isEn ? 'ltr' : 'rtl'} className="bg-[#FDFBF7] px-4 pb-14">
+    <div dir="rtl" className="bg-[#FDFBF7] px-4 pb-14">
       <div className="mx-auto max-w-6xl space-y-8">
         <section className="pt-4 text-center">
-          <h2 className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{t.title}</h2>
-          <p className="mx-auto mt-4 max-w-5xl text-base font-semibold leading-9 text-gray-650 md:text-lg">{t.intro}</p>
+          <h2 dir={textDir} className="text-3xl font-black leading-tight text-[#0F3F1A] md:text-4xl">{t.title}</h2>
+          <p dir={textDir} className="mx-auto mt-4 max-w-5xl text-base font-semibold leading-9 text-gray-650 md:text-lg">{t.intro}</p>
         </section>
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {t.trust.map((item) => <article key={item.title} className="flex min-h-[158px] flex-col items-center justify-center rounded-[1.5rem] border border-[#E4D6BA] bg-white px-5 py-5 text-center shadow-[0_10px_28px_rgba(18,58,70,.04)]"><Icon src={item.icon} alt="" size={62} /><h3 className="mt-2 text-lg font-black text-[#0F3F1A]">{item.title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{item.text}</p></article>)}
+          {t.trust.map((item) => <article key={item.title} className="flex min-h-[158px] flex-col items-center justify-center rounded-[1.5rem] border border-[#E4D6BA] bg-white px-5 py-5 text-center shadow-[0_10px_28px_rgba(18,58,70,.04)]"><Icon src={item.icon} alt="" size={62} /><h3 dir={textDir} className="mt-2 text-lg font-black text-[#0F3F1A]">{item.title}</h3><p dir={textDir} className="mt-2 text-sm font-semibold leading-7 text-gray-600">{item.text}</p></article>)}
         </section>
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]" aria-hidden="true">{isEn ? '→' : '←'}</span></Link>)}
+          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span dir={textDir} className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]" aria-hidden="true">←</span></Link>)}
         </section>
 
         <UaeProviderJoinCTA locale={locale} />
 
         <section>
-          <h2 className="text-center text-3xl font-black text-[#0F3F1A]">{t.faqTitle}</h2>
-          <div className="mt-5 space-y-3">{t.faqs.map(([q, a], index) => <details key={q} open={index === 0} className="group rounded-2xl border border-[#E4D6BA] bg-white px-5 py-4 shadow-sm"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-black text-[#0F3F1A]"><span>{q}</span><span className="text-[#B8922B] transition group-open:rotate-45">＋</span></summary><p className="mt-3 border-t border-[#F0E7D6] pt-3 text-sm font-semibold leading-7 text-gray-600">{a}</p></details>)}</div>
+          <h2 dir={textDir} className="text-center text-3xl font-black text-[#0F3F1A]">{t.faqTitle}</h2>
+          <div className="mt-5 space-y-3">{t.faqs.map(([q, a], index) => <details key={q} open={index === 0} className="group rounded-2xl border border-[#E4D6BA] bg-white px-5 py-4 shadow-sm"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-black text-[#0F3F1A]"><span dir={textDir}>{q}</span><span className="text-[#B8922B] transition group-open:rotate-45">＋</span></summary><p dir={textDir} className="mt-3 border-t border-[#F0E7D6] pt-3 text-sm font-semibold leading-7 text-gray-600">{a}</p></details>)}</div>
         </section>
       </div>
       <UaeDirectoryExploreFooter locale={locale} />
