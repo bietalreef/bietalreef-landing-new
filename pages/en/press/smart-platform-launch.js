@@ -3,7 +3,6 @@ import PressSmartPlatformLaunch from '../../../components/PressSmartPlatformLaun
 
 const SITE_URL = 'https://bietalreef.ae';
 const PAGE_PATH = '/en/press/smart-platform-launch';
-const AR_PATH = '/press/smart-platform-launch';
 const OG_IMAGE = `${SITE_URL}/api/press/smart-platform-launch-og`;
 
 export default function SmartPlatformLaunchPressPageEnglish() {
@@ -20,26 +19,14 @@ export default function SmartPlatformLaunchPressPageEnglish() {
     datePublished: '2026-09-01T00:00:00+04:00',
     dateModified: '2026-09-01T00:00:00+04:00',
     inLanguage: 'en-AE',
-    author: {
-      '@type': 'Organization',
-      name: 'Biet Al Reef',
-      url: SITE_URL,
-    },
+    author: { '@type': 'Organization', name: 'Biet Al Reef', url: SITE_URL },
     publisher: {
       '@type': 'Organization',
       name: 'Biet Al Reef',
       url: SITE_URL,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/logo.png`,
-      },
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
     },
-    about: [
-      'UAE construction and contracting',
-      'Biet Al Reef Platform',
-      'Weyaak AI',
-      'Google Cloud',
-    ],
+    about: ['UAE construction and contracting', 'Biet Al Reef Platform', 'Weyaak AI', 'Google Cloud'],
   };
 
   return (
@@ -49,6 +36,8 @@ export default function SmartPlatformLaunchPressPageEnglish() {
         description={description}
         keywords="Biet Al Reef, UAE construction platform, UAE contracting, service providers, Biet Al Reef Market, Weyaak AI, Google Cloud"
         ogImage={OG_IMAGE}
+        ogImageWidth={1200}
+        ogImageHeight={627}
         ogType="article"
         canonicalPath={PAGE_PATH}
         structuredData={article}
