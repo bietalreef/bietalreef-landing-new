@@ -72,7 +72,7 @@ export async function getServerSideProps({ res }) {
     getPublishedProductsForSitemap('ar'),
   ]);
   const lastmod = new Date().toISOString().slice(0, 10);
-  const addPair = (arPath, enPath, image) => {
+  const addPair = (arPath, enPath, image, options = {}) => {
     const alternates = {
       ar: `https://bietalreef.ae${arPath}`,
       en: `https://bietalreef.ae${enPath}`,
@@ -80,8 +80,8 @@ export async function getServerSideProps({ res }) {
     };
     const shared = {
       lastmod,
-      changefreq: 'weekly',
-      priority: 0.72,
+      changefreq: options.changefreq || 'weekly',
+      priority: options.priority ?? 0.72,
       alternates,
       images: image ? [image.startsWith('http') ? image : `https://bietalreef.ae${image}`] : [],
     };
@@ -90,6 +90,13 @@ export async function getServerSideProps({ res }) {
       { ...shared, loc: alternates.en }
     );
   };
+
+  addPair(
+    '/press/smart-platform-launch',
+    '/en/press/smart-platform-launch',
+    'https://bietalreef.ae/api/press/smart-platform-launch-og',
+    { changefreq: 'monthly', priority: 0.88 }
+  );
 
   providerCards.forEach((provider) => {
     const slug = String(provider.href || '').split('/').filter(Boolean).pop();
