@@ -88,6 +88,7 @@ export default function SEOHead({
       <meta name="geo.position" content="25.2048;55.2708" />
       <meta name="ICBM" content="25.2048, 55.2708" />
       <meta httpEquiv="content-language" content={pageLanguage} />
+      {/* React hrefLang renders the standard HTML hreflang attribute. */}
       <link rel="alternate" hrefLang="ar-AE" href={arabicUrl} />
       {englishUrl ? <link rel="alternate" hrefLang="en-AE" href={englishUrl} /> : null}
       <link rel="alternate" hrefLang="x-default" href={arabicUrl} />
