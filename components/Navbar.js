@@ -157,7 +157,7 @@ export default function Navbar({ locale = 'ar' }) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir={isEnglish ? 'ltr' : 'rtl'}>
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5" dir="rtl">
           <Link href={isEnglish ? '/en' : '/'} className="flex flex-shrink-0 items-center gap-2">
             <div className="relative h-11 w-11">
               <Image src="/icons/logo-512.webp" alt={isEnglish ? 'Biet Al Reef' : 'بيت الريف'} width={44} height={44} className="h-full w-full object-contain" loading="eager" />
@@ -182,7 +182,7 @@ export default function Navbar({ locale = 'ar' }) {
         <div className="fixed inset-0 z-[100]" dir={isEnglish ? 'ltr' : 'rtl'}>
           <button type="button" aria-label={isEnglish ? labels.close : 'إغلاق القائمة'} onClick={closeMenu} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
 
-          <aside className={`absolute bottom-0 top-0 flex w-[88vw] max-w-[410px] flex-col bg-white shadow-2xl ${isEnglish ? 'right-0 rounded-l-[28px]' : 'left-0 rounded-r-[28px]'}`}>
+          <aside className="absolute bottom-0 left-0 top-0 flex w-[88vw] max-w-[410px] flex-col rounded-r-[28px] bg-white shadow-2xl">
             <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
               <button type="button" onClick={closeMenu} className="flex h-10 w-10 items-center justify-center rounded-full text-gray-900 hover:bg-gray-100" aria-label={isEnglish ? labels.close : 'إغلاق القائمة'}>
                 <X className="h-6 w-6" />
