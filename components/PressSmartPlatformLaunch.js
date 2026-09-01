@@ -8,7 +8,6 @@ import {
   Building2,
   CheckCircle2,
   Cloud,
-  Download,
   ExternalLink,
   FileText,
   Globe2,
@@ -32,7 +31,6 @@ const GOOGLE_PARTNER_URL = 'https://cloud.google.com/find-a-partner/partner/biet
 const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
 const MARKET_URL = 'https://app.bietalreef.ae/';
 const PROVIDERS_APP_URL = 'https://providers.bietalreef.ae/';
-const PDF_URL = '/api/press/smart-platform-launch-pdf';
 
 const copy = {
   ar: {
@@ -43,7 +41,6 @@ const copy = {
     intro: 'تجمع بيت الريف العميل ومزود الخدمة والشركة والمتجر داخل رحلة عمل واحدة تشمل التواصل والطلبات والسوق ومساحة العمل والمستندات والذكاء الاصطناعي «وياك».',
     explore: 'استكشف منصة بيت الريف',
     market: 'تصفح سوق بيت الريف',
-    pdf: 'تحميل البيان الصحفي PDF',
     trust: ['تواصل مباشر', 'دون عمولة على التواصل', 'Android والمتصفح'],
     challengeEyebrow: 'المشكلة الحقيقية',
     challengeTitle: 'قطاع يعمل بأدوات متفرقة',
@@ -117,7 +114,6 @@ const copy = {
     intro: 'Biet Al Reef brings customers, service providers, companies and stores into one operating journey covering communication, requests, the marketplace, workspaces, documents and Weyaak AI.',
     explore: 'Explore Biet Al Reef Platform',
     market: 'Browse Biet Al Reef Market',
-    pdf: 'Download the press release PDF',
     trust: ['Direct communication', 'No commission on communication', 'Android and browser'],
     challengeEyebrow: 'The real challenge',
     challengeTitle: 'A sector still operating through disconnected tools',
@@ -183,6 +179,7 @@ const copy = {
 const solutionIcons = [MessageSquare, Workflow, ShoppingBag, ReceiptText];
 const profileIcons = [BadgeCheck, MessageSquare, Phone, Store];
 const cloudIcons = [Cloud, MapPin, Sparkles];
+const trustIcons = [Phone, ReceiptText, MonitorSmartphone];
 
 function SectionHeading({ eyebrow, title, text }) {
   return (
@@ -272,10 +269,19 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
               <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Link href={homeHref} className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#1677FF] px-6 py-3 font-black text-white shadow-xl shadow-blue-950/20 sm:w-auto sm:flex-1">{t.explore}<Arrow className="h-5 w-5" /></Link>
                 <a href={MARKET_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-6 py-3 font-black sm:w-auto sm:flex-1"><ShoppingBag className="h-5 w-5" />{t.market}</a>
-                <a href={PDF_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-[#F1C75B]/50 bg-[#F1C75B]/10 px-6 py-3 font-black text-[#FFE6A3] sm:flex-basis-full"><Download className="h-5 w-5" />{t.pdf}</a>
               </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {t.trust.map((item) => <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-bold text-slate-100">{item}</span>)}
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                {t.trust.map((item, index) => {
+                  const Icon = trustIcons[index];
+                  return (
+                    <div key={item} className="flex min-h-24 flex-col items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-2 py-3 text-center shadow-lg shadow-black/10 backdrop-blur-sm">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F1C75B] text-[#0B3157] shadow-md shadow-black/20">
+                        <Icon className="h-5 w-5" strokeWidth={2.4} aria-hidden="true" />
+                      </span>
+                      <span className="text-[11px] font-black leading-5 text-white sm:text-xs md:text-sm">{item}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="order-1 lg:order-2">
