@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Cloud,
   Download,
+  ExternalLink,
   FileText,
   Globe2,
   MapPin,
@@ -77,6 +78,19 @@ const copy = {
     weyaakTitle: '«وياك» وكيل أعمال داخل المنظومة',
     weyaakText: 'يفهم احتياج المستخدم باللغة الطبيعية، ويستخلص تفاصيل الخدمة والموقع والمواصفات، ثم يحوّلها إلى طلب منظم أو مستند أو مسار واضح داخل بيت الريف.',
     weyaakSteps: [['يفهم الاحتياج', 'يقرأ الطلب النصي أو الصوتي كما يعبّر عنه المستخدم.'], ['ينظّم التفاصيل', 'يستخلص المعلومات الأساسية ويطلب استكمال الناقص.'], ['يوجّه الخطوة التالية', 'يربط الطلب بالقسم أو المستند أو مزود الخدمة المناسب.']],
+    weyaakUi: {
+      name: 'وكيل وياك',
+      status: 'جاهز للتنفيذ',
+      history: 'المحادثات',
+      prompt: 'ماذا تريد أن ينجز وياك؟',
+      helper: 'اكتب الهدف بوضوح. يقرأ وياك بيانات حسابك ثم يعرض خطوات قابلة للمراجعة والاعتماد.',
+      commands: [
+        ['راجع حسابي', 'تحقق من اكتمال الملف والبيانات المطلوبة.'],
+        ['جهّز عرض سعر', 'حوّل نطاق العمل إلى مستند منظم وواضح.'],
+        ['جهّز متجري', 'رتّب بيانات المتجر والعناصر قبل المراجعة.'],
+      ],
+      placeholder: 'اكتب ما تريد من وياك تنفيذه…',
+    },
     accessEyebrow: 'مرونة الوصول',
     accessTitle: 'من المكتب والموقع ومن أي مكان',
     accessText: 'تعمل منظومة بيت الريف عبر نسخة المتصفح وتطبيق Android، ليصل صاحب النشاط وفريق المكتب والميدان إلى الحساب نفسه والأدوات نفسها.',
@@ -133,6 +147,19 @@ const copy = {
     weyaakTitle: 'Weyaak is a business agent inside the ecosystem',
     weyaakText: 'Weyaak understands a user requirement in natural language, extracts service, location and specification details, then turns them into a structured request, document or a clear next path inside Biet Al Reef.',
     weyaakSteps: [['Understands the requirement', 'Reads the text or voice request as the user naturally describes it.'], ['Organises the details', 'Extracts the key information and asks for what is missing.'], ['Routes the next step', 'Connects the request with the right section, document or service provider.']],
+    weyaakUi: {
+      name: 'Weyaak Agent',
+      status: 'Ready to act',
+      history: 'Conversations',
+      prompt: 'What would you like Weyaak to accomplish?',
+      helper: 'Describe the goal clearly. Weyaak reads the relevant account context and presents reviewable actions before approval.',
+      commands: [
+        ['Review my account', 'Check profile completion and required business data.'],
+        ['Prepare a quotation', 'Turn the work scope into a clear structured document.'],
+        ['Prepare my store', 'Organise store and listing data before review.'],
+      ],
+      placeholder: 'Tell Weyaak what you want completed…',
+    },
     accessEyebrow: 'Flexible access',
     accessTitle: 'From the office, the site and anywhere else',
     accessText: 'Biet Al Reef works through the browser and Android app so business owners, office teams and field teams can access the same account and tools.',
@@ -171,12 +198,48 @@ function CheckList({ items }) {
   return (
     <ul className="mt-5 space-y-3">
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-3 text-sm font-bold leading-7 text-gray-700 md:text-base">
+        <li key={item} className="flex items-start gap-3 text-base font-bold leading-8 text-gray-700 md:text-lg">
           <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#198754]" />
           <span>{item}</span>
         </li>
       ))}
     </ul>
+  );
+}
+
+function WeyaakInterface({ ui, isEn }) {
+  const commandIcons = [Search, FileText, Store];
+  const SubmitArrow = isEn ? ArrowRight : ArrowLeft;
+
+  return (
+    <div className="mx-auto mt-8 max-w-5xl overflow-hidden rounded-[2rem] border border-[#C9D5E5] bg-[#F4F7FB] shadow-xl shadow-[#0B3157]/10" aria-label={ui.name}>
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#D8E0EB] bg-white px-5 py-4 md:px-7">
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0B3157] text-[#F5D887]"><Sparkles className="h-6 w-6" /></div>
+          <div><div className="text-lg font-black text-[#0B1C2E]">{ui.name}</div><div className="mt-0.5 flex items-center gap-2 text-xs font-bold text-gray-500"><span className="h-2 w-2 rounded-full bg-[#15966A]" />{ui.status}</div></div>
+        </div>
+        <div className="rounded-xl border border-[#D8E0EB] bg-[#F8FAFC] px-4 py-2 text-sm font-bold text-[#41546B]">{ui.history}</div>
+      </div>
+
+      <div className="px-5 py-7 md:px-8 md:py-9">
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF4CF] text-[#0B3157]"><Bot className="h-6 w-6" /></div>
+          <div><h3 className="text-2xl font-black leading-tight text-[#0B1C2E] md:text-3xl">{ui.prompt}</h3><p className="mt-2 max-w-3xl text-base font-semibold leading-8 text-gray-600">{ui.helper}</p></div>
+        </div>
+
+        <div className="mt-7 grid gap-3 md:grid-cols-3">
+          {ui.commands.map(([title, text], index) => {
+            const Icon = commandIcons[index];
+            return <div key={title} className="rounded-[1.35rem] border border-[#D8E0EB] bg-white p-5"><Icon className="h-6 w-6 text-[#0B5FD7]" /><div className="mt-5 text-lg font-black text-[#0B1C2E]">{title}</div><p className="mt-2 text-base font-semibold leading-7 text-gray-600">{text}</p></div>;
+          })}
+        </div>
+
+        <div className="mt-6 flex items-center gap-3 rounded-[1.35rem] border border-[#C9D5E5] bg-white p-3 shadow-sm">
+          <div className="min-w-0 flex-1 px-2 text-sm font-bold text-gray-500 md:text-base">{ui.placeholder}</div>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#0B3157] text-white"><SubmitArrow className="h-5 w-5" /></span>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -206,18 +269,18 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
               </div>
               <h1 className="mt-6 text-4xl font-black leading-[1.22] md:text-6xl">{t.title}</h1>
               <p className="mt-6 max-w-3xl text-base font-semibold leading-8 text-slate-200 md:text-xl md:leading-10">{t.intro}</p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link href={homeHref} className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl bg-[#1677FF] px-6 py-3 font-black text-white shadow-xl shadow-blue-950/20">{t.explore}<Arrow className="h-5 w-5" /></Link>
-                <a href={MARKET_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-6 py-3 font-black"><ShoppingBag className="h-5 w-5" />{t.market}</a>
-                <a href={PDF_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl border border-[#F1C75B]/50 bg-[#F1C75B]/10 px-6 py-3 font-black text-[#FFE6A3]"><Download className="h-5 w-5" />{t.pdf}</a>
+              <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <Link href={homeHref} className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#1677FF] px-6 py-3 font-black text-white shadow-xl shadow-blue-950/20 sm:w-auto sm:flex-1">{t.explore}<Arrow className="h-5 w-5" /></Link>
+                <a href={MARKET_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-6 py-3 font-black sm:w-auto sm:flex-1"><ShoppingBag className="h-5 w-5" />{t.market}</a>
+                <a href={PDF_URL} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-[#F1C75B]/50 bg-[#F1C75B]/10 px-6 py-3 font-black text-[#FFE6A3] sm:flex-basis-full"><Download className="h-5 w-5" />{t.pdf}</a>
               </div>
-              <div className="mt-7 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-2">
                 {t.trust.map((item) => <span key={item} className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-bold text-slate-100">{item}</span>)}
               </div>
             </div>
             <div className="order-1 lg:order-2">
-              <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-2 shadow-2xl shadow-black/25">
-                <Image src="/images/bietalreef-option-one-villa.webp" alt={t.badge} width={1400} height={788} priority className="h-auto w-full rounded-[1.55rem] object-cover" />
+              <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-white p-1">
+                <Image src="/images/press-image-01.webp" alt={t.badge} width={1400} height={788} priority sizes="(max-width: 1023px) calc(100vw - 40px), 48vw" className="h-auto w-full rounded-[1.7rem] object-contain" />
               </div>
             </div>
           </div>
@@ -246,11 +309,16 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
           <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-4">
             {t.solutionCards.map(([title, text], index) => {
               const Icon = solutionIcons[index];
-              return <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-[#FDFBF7] p-5 shadow-sm"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E8F1FF] text-[#0B5FD7]"><Icon className="h-5 w-5" /></div><h3 className="mt-4 text-lg font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{text}</p></article>;
+              return <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-[#FDFBF7] p-5 shadow-sm"><div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E8F1FF] text-[#0B5FD7]"><Icon className="h-5 w-5" /></div><h3 className="mt-4 text-xl font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-base font-semibold leading-7 text-gray-600">{text}</p></article>;
             })}
           </div>
-          <div className="mx-auto mt-9 max-w-6xl overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-2 shadow-xl shadow-[#8A6A00]/10">
-            <Image src="/images/gateway/providers-gateway.webp" alt={t.solutionTitle} width={1600} height={900} className="h-auto w-full rounded-[1.55rem] object-cover" />
+          <div className="mx-auto mt-9 grid max-w-4xl grid-cols-2 items-start gap-2 md:gap-4">
+            <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-[#FDFBF7] p-1 md:rounded-[2rem] md:p-2">
+              <Image src="/images/press-image-07.webp" alt={isEn ? 'Biet Al Reef providers marketplace' : 'سوق مزودي الخدمة في بيت الريف'} width={760} height={1469} sizes="(max-width: 767px) 46vw, 380px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" />
+            </div>
+            <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-[#FDFBF7] p-1 md:rounded-[2rem] md:p-2">
+              <Image src="/images/press-image-08.webp" alt={isEn ? 'Biet Al Reef products marketplace' : 'سوق المنتجات في بيت الريف'} width={760} height={1406} sizes="(max-width: 767px) 46vw, 380px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" />
+            </div>
           </div>
         </section>
 
@@ -263,13 +331,18 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {t.profileItems.map(([title, text], index) => {
                   const Icon = profileIcons[index];
-                  return <div key={title} className="rounded-2xl border border-[#E6DCC8] bg-white p-4"><Icon className="h-5 w-5 text-[#0F3F1A]" /><div className="mt-2 font-black text-[#0F3F1A]">{title}</div><p className="mt-1 text-sm font-semibold leading-6 text-gray-600">{text}</p></div>;
+                  return <div key={title} className="rounded-2xl border border-[#E6DCC8] bg-white p-4"><Icon className="h-5 w-5 text-[#0F3F1A]" /><div className="mt-2 text-lg font-black text-[#0F3F1A]">{title}</div><p className="mt-1 text-base font-semibold leading-7 text-gray-600">{text}</p></div>;
                 })}
               </div>
               <Link href={isEn ? '/en/providers' : '/providers'} className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 font-black text-white">{t.profileCta}<Arrow className="h-4 w-4" /></Link>
             </div>
-            <div className="overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-2 shadow-xl">
-              <Image src="/images/providers-hero.webp" alt={t.profileTitle} width={1600} height={1000} className="h-auto w-full rounded-[1.55rem] object-cover" />
+            <div className="grid grid-cols-2 items-start gap-2 md:gap-4">
+              <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-white p-1 md:rounded-[2rem] md:p-2">
+                <Image src="/images/press-image-09.webp" alt={isEn ? 'Professional profile workspace' : 'مساحة إدارة الملف المهني'} width={760} height={1411} sizes="(max-width: 1023px) 46vw, 270px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" />
+              </div>
+              <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-white p-1 md:rounded-[2rem] md:p-2">
+                <Image src="/images/press-image-10.webp" alt={isEn ? 'Public professional profile' : 'معاينة الملف المهني للعميل'} width={760} height={1332} sizes="(max-width: 1023px) 46vw, 270px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" />
+              </div>
             </div>
           </div>
         </section>
@@ -281,11 +354,11 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
               <h2 className="mt-3 text-3xl font-black leading-tight md:text-5xl">{t.quotationTitle}</h2>
               <p className="mt-5 text-base font-semibold leading-8 text-slate-200 md:text-lg">{t.quotationText}</p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {t.quotationItems.map((item) => <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 p-3 text-sm font-bold"><FileText className="h-5 w-5 shrink-0 text-[#F1C75B]" />{item}</div>)}
+                {t.quotationItems.map((item) => <div key={item} className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 p-3 text-base font-bold"><FileText className="h-5 w-5 shrink-0 text-[#F1C75B]" />{item}</div>)}
               </div>
             </div>
-            <div className="overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-2 shadow-2xl">
-              <Image src="/images/services-offers-hero.webp" alt={t.quotationTitle} width={1600} height={1000} className="h-auto w-full rounded-[1.55rem] object-cover" />
+            <div className="mx-auto w-full max-w-md overflow-hidden rounded-[2rem] border border-white/20 bg-white p-2">
+              <Image src="/images/press-image-11.webp" alt={t.quotationTitle} width={760} height={1423} sizes="(max-width: 767px) calc(100vw - 40px), 448px" className="h-auto w-full rounded-[1.55rem] object-contain" />
             </div>
           </div>
         </section>
@@ -293,16 +366,17 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
         <section id="weyaak" className="px-5 py-16 md:px-8 md:py-24">
           <SectionHeading eyebrow={t.weyaakEyebrow} title={t.weyaakTitle} text={t.weyaakText} />
           <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-3">
-            {t.weyaakSteps.map(([title, text], index) => <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-white p-6 shadow-sm"><div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F3F1A] text-lg font-black text-white">{index + 1}</div><h3 className="mt-4 text-xl font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{text}</p></article>)}
+            {t.weyaakSteps.map(([title, text], index) => <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-white p-6 shadow-sm"><div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0F3F1A] text-lg font-black text-white">{index + 1}</div><h3 className="mt-4 text-xl font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-base font-semibold leading-7 text-gray-600">{text}</p></article>)}
           </div>
-          <div className="mx-auto mt-8 max-w-5xl rounded-[2rem] border border-[#D6E4F5] bg-[#EDF4FF] p-6 md:p-8">
-            <div className="flex items-start gap-4"><Bot className="mt-1 h-8 w-8 shrink-0 text-[#0B5FD7]" /><div><div className="font-black text-[#0F3F1A]">Weyaak AI</div><p className="mt-1 text-sm font-semibold leading-7 text-gray-700">{t.weyaakText}</p></div></div>
-          </div>
+          <WeyaakInterface ui={t.weyaakUi} isEn={isEn} />
         </section>
 
         <section className="bg-white px-5 py-16 md:px-8 md:py-24">
           <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-[#FDFBF7] p-2 shadow-xl"><Image src="/images/home-premium-hero.svg" alt={t.accessTitle} width={1200} height={800} className="h-auto w-full rounded-[1.55rem] object-contain" /></div>
+            <div className="grid grid-cols-2 items-start gap-2 md:gap-4">
+              <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-[#FDFBF7] p-1 md:rounded-[2rem] md:p-2"><Image src="/images/press-image-06.webp" alt={isEn ? 'Biet Al Reef workspace and integrations' : 'مساحة عمل بيت الريف والتكاملات'} width={760} height={1406} sizes="(max-width: 1023px) 46vw, 270px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" /></div>
+              <div className="overflow-hidden rounded-[1.25rem] border border-[#E6DCC8] bg-[#FDFBF7] p-1 md:rounded-[2rem] md:p-2"><Image src="/images/press-image-13.webp" alt={isEn ? 'Biet Al Reef design workspace' : 'مساحة التصميم في بيت الريف'} width={760} height={1391} sizes="(max-width: 1023px) 46vw, 270px" className="h-auto w-full rounded-[1rem] object-contain md:rounded-[1.55rem]" /></div>
+            </div>
             <div>
               <div className="text-sm font-black uppercase tracking-[.12em] text-[#A67C16]">{t.accessEyebrow}</div>
               <h2 className="mt-3 text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.accessTitle}</h2>
@@ -325,7 +399,7 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
                   return <div key={title} className="rounded-2xl bg-[#F7F1E8] p-4"><Icon className="h-5 w-5 text-[#0F3F1A]" /><div className="mt-2 text-sm font-black text-[#0F3F1A]">{title}</div><div className="mt-1 text-xs font-semibold leading-5 text-gray-600">{text}</div></div>;
                 })}
               </div>
-              <a href={GOOGLE_PARTNER_URL} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[#0F3F1A] px-5 py-3 font-black text-white"><Cloud className="h-4 w-4" />{t.cloudCta}</a>
+              <a href={GOOGLE_PARTNER_URL} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-[#1A73E8] px-6 py-3 text-base font-black text-white shadow-lg shadow-blue-900/15 transition hover:bg-[#155FC0] focus:outline-none focus:ring-4 focus:ring-blue-200"><Cloud className="h-6 w-6 shrink-0" aria-hidden="true" /><span>{t.cloudCta}</span><ExternalLink className="h-5 w-5 shrink-0" aria-hidden="true" /></a>
             </div>
             <div className="flex min-h-64 items-center justify-center rounded-[2rem] bg-[#F6F9FF] p-8"><Image src="/images/google-cloud-business-solutions.svg" alt="Google Cloud" width={620} height={420} className="h-auto w-full max-w-md object-contain" /></div>
           </div>
@@ -334,20 +408,25 @@ export default function PressSmartPlatformLaunch({ locale = 'ar' }) {
         <section className="bg-white px-5 py-16 md:px-8 md:py-24">
           <SectionHeading eyebrow={t.howTitle} title={t.howSubtitle} text={t.howText} />
           <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {t.steps.map(([title, text], index) => <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-[#FDFBF7] p-5"><div className="text-sm font-black text-[#A67C16]">0{index + 1}</div><h3 className="mt-2 text-lg font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-sm font-semibold leading-7 text-gray-600">{text}</p></article>)}
+            {t.steps.map(([title, text], index) => <article key={title} className="rounded-[1.75rem] border border-[#E6DCC8] bg-[#FDFBF7] p-5"><div className="text-base font-black text-[#A67C16]">0{index + 1}</div><h3 className="mt-2 text-xl font-black text-[#0F3F1A]">{title}</h3><p className="mt-2 text-base font-semibold leading-7 text-gray-600">{text}</p></article>)}
           </div>
         </section>
 
-        <section className="px-5 py-16 md:px-8 md:py-24">
-          <div className="mx-auto max-w-6xl overflow-hidden rounded-[2.6rem] bg-[#0B3157] px-6 py-10 text-center text-white shadow-2xl md:px-10 md:py-14">
-            <div className="text-sm font-black uppercase tracking-[.12em] text-[#F1C75B]">{t.ctaEyebrow}</div>
-            <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight md:text-5xl">{t.ctaTitle}</h2>
-            <p className="mx-auto mt-5 max-w-3xl text-base font-semibold leading-8 text-slate-200 md:text-lg">{t.ctaText}</p>
+        <section className="bg-[#F7F1E8] px-5 py-16 md:px-8 md:py-24">
+          <div className="mx-auto max-w-6xl text-center">
+            <div className="text-sm font-black uppercase tracking-[.12em] text-[#A67C16]">{t.ctaEyebrow}</div>
+            <h2 className="mx-auto mt-3 max-w-4xl text-3xl font-black leading-tight text-[#0F3F1A] md:text-5xl">{t.ctaTitle}</h2>
+            <p className="mx-auto mt-5 max-w-3xl text-base font-semibold leading-8 text-gray-600 md:text-lg">{t.ctaText}</p>
+
+            <div className="mx-auto mt-8 w-full max-w-3xl overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white p-1.5 md:p-2">
+              <Image src="/images/press-image-04.webp" alt={t.ctaTitle} width={1200} height={1200} sizes="(max-width: 767px) calc(100vw - 40px), 768px" className="h-auto w-full rounded-[1.65rem] object-contain" />
+            </div>
+
             <div className="mx-auto mt-7 max-w-4xl"><PlatformAccessActions locale={isEn ? 'en' : 'ar'} /></div>
-            <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs font-bold text-slate-300">
-              <a href={PROVIDERS_APP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/15 px-3 py-1.5"><MonitorSmartphone className="mr-1 inline h-4 w-4" />{isEn ? 'Web app' : 'نسخة المتصفح'}</a>
-              <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/15 px-3 py-1.5">Google Play</a>
-              <a href={MARKET_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/15 px-3 py-1.5">{isEn ? 'Market' : 'السوق'}</a>
+            <div className="mt-5 flex flex-wrap justify-center gap-2 text-sm font-bold text-[#42556A]">
+              <a href={PROVIDERS_APP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5"><MonitorSmartphone className="mr-1 inline h-4 w-4" />{isEn ? 'Web app' : 'نسخة المتصفح'}</a>
+              <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5">Google Play</a>
+              <a href={MARKET_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5">{isEn ? 'Market' : 'السوق'}</a>
             </div>
           </div>
         </section>
