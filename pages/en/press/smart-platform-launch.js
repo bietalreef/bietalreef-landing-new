@@ -4,6 +4,7 @@ import PressVisualUpgrade from '../../../components/PressVisualUpgrade';
 
 const SITE_URL = 'https://bietalreef.ae';
 const PAGE_PATH = '/en/press/smart-platform-launch';
+const AR_PATH = '/press/smart-platform-launch';
 const OG_IMAGE = `${SITE_URL}/api/press/smart-platform-launch-og`;
 
 export default function SmartPlatformLaunchPressPageEnglish() {
@@ -41,6 +42,7 @@ export default function SmartPlatformLaunchPressPageEnglish() {
         ogImageHeight={627}
         ogType="article"
         canonicalPath={PAGE_PATH}
+        alternatePath={AR_PATH}
         structuredData={article}
         breadcrumbs={[{ name: 'Press', item: `${SITE_URL}/en/press` }, { name: 'Smart platform launch', item: `${SITE_URL}${PAGE_PATH}` }]}
       />
