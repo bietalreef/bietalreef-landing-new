@@ -1,5 +1,6 @@
 import SEOHead from '../../../components/SEOHead';
 import PressSmartPlatformLaunch from '../../../components/PressSmartPlatformLaunch';
+import PressVisualUpgrade from '../../../components/PressVisualUpgrade';
 
 const SITE_URL = 'https://bietalreef.ae';
 const PAGE_PATH = '/en/press/smart-platform-launch';
@@ -43,7 +44,9 @@ export default function SmartPlatformLaunchPressPageEnglish() {
         structuredData={article}
         breadcrumbs={[{ name: 'Press', item: `${SITE_URL}/en/press` }, { name: 'Smart platform launch', item: `${SITE_URL}${PAGE_PATH}` }]}
       />
-      <PressSmartPlatformLaunch locale="en" />
+      <PressVisualUpgrade>
+        <PressSmartPlatformLaunch locale="en" />
+      </PressVisualUpgrade>
     </>
   );
 }
