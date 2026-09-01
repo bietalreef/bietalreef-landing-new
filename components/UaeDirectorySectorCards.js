@@ -1,6 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import {
+  BadgeCheck,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  ShieldCheck,
+} from 'lucide-react';
 import { UAE_DIRECTORY_SECTIONS } from '../data/siteTaxonomy';
 import { UAE_DIRECTORY_SECTION_SLUGS } from '../lib/platformDirectoryCards';
 
@@ -8,28 +15,31 @@ const UAE_SECTION_META = {
   providers: {
     title: 'الشركات والمؤسسات والحرفيون في {location}',
     description: 'اكتشف الشركات والمؤسسات والورش والحرفيين داخل {location}، واختر النشاط والتخصص المطلوب من القوائم المعتمدة في المنصة.',
-    eyebrow: 'شركات ومؤسسات وحرفيون',
+    approvedLabel: 'شركات ومؤسسات وحرفيون معتمدون',
+    verifiedLabel: 'موثق',
+    qualityLabel: 'جودة',
     itemLabel: 'تخصص',
-    icon: '/images/ui-icons-3d/provider-worker.webp',
-    summary: 'عرض باقي التخصصات',
+    moreLabel: '+{count} تخصصات أخرى',
     explore: 'استكشف الآن',
   },
   services_offers: {
     title: 'الخدمات والعروض في {location}',
     description: 'اختر بطاقة النشاط لعرض الخدمات المسجلة في قاعدة البيانات والمتاحة للطلب داخل {location}.',
-    eyebrow: 'خدمات وعروض',
+    approvedLabel: 'خدمات وعروض معتمدة',
+    verifiedLabel: 'موثق',
+    qualityLabel: 'جودة',
     itemLabel: 'خدمة',
-    icon: '/images/ui-icons-3d/tools-maintenance.webp',
-    summary: 'عرض باقي الخدمات',
+    moreLabel: '+{count} خدمات أخرى',
     explore: 'استكشف الخدمات',
   },
   products_stores: {
     title: 'المنتجات والمتاجر في {location}',
     description: 'استعرض فئات المنتجات والمتاجر والمصانع والورش والموردين بحسب النشاط المعتمد داخل {location}.',
-    eyebrow: 'المنتجات والمتاجر',
+    approvedLabel: 'منتجات ومتاجر معتمدة',
+    verifiedLabel: 'موثق',
+    qualityLabel: 'جودة',
     itemLabel: 'قسم',
-    icon: '/images/ui-icons-3d/products-box.webp',
-    summary: 'عرض باقي الأقسام',
+    moreLabel: '+{count} أقسام أخرى',
     explore: 'استكشف المنتجات والمتاجر',
   },
 };
@@ -38,29 +48,32 @@ const UAE_SECTION_META_EN = {
   providers: {
     title: 'Companies, workshops and professionals in {location}',
     description: 'Explore trusted companies, workshops and professionals in {location}, then choose the activity and specialty that matches your project.',
-    eyebrow: 'Providers',
+    approvedLabel: 'Approved companies & professionals',
+    verifiedLabel: 'Verified',
+    qualityLabel: 'Quality',
     itemLabel: 'Specialty',
-    icon: '/images/ui-icons-3d/provider-worker.webp',
-    summary: 'Show more specialties',
+    moreLabel: '+{count} more specialties',
     explore: 'Explore providers',
   },
   services_offers: {
     title: 'Services and offers in {location}',
     description: 'Choose an activity to explore requestable services and offers registered across {location}.',
-    eyebrow: 'Services and offers',
+    approvedLabel: 'Approved services & offers',
+    verifiedLabel: 'Verified',
+    qualityLabel: 'Quality',
     itemLabel: 'Service',
-    icon: '/images/ui-icons-3d/tools-maintenance.webp',
-    summary: 'Show more services',
+    moreLabel: '+{count} more services',
     explore: 'Explore services',
   },
   products_stores: {
     title: 'Products and stores in {location}',
     description: 'Explore products, stores, factories, workshops and suppliers in {location} by approved commercial activity.',
-    eyebrow: 'Products and stores',
+    approvedLabel: 'Approved products & stores',
+    verifiedLabel: 'Verified',
+    qualityLabel: 'Quality',
     itemLabel: 'Category',
-    icon: '/images/ui-icons-3d/products-box.webp',
-    summary: 'Show more categories',
-    explore: 'Explore products and stores',
+    moreLabel: '+{count} more categories',
+    explore: 'Explore products & stores',
   },
 };
 
@@ -77,20 +90,104 @@ function providerCardTitle(activityName, locale = 'ar', locationName = 'أبوظ
 }
 
 function cardItems(card, sectionKey) {
-  if (sectionKey === 'services_offers') return card.activity.services;
-  if (sectionKey === 'products_stores') return card.activity.categories;
-  return card.activity.specialties;
+  if (sectionKey === 'services_offers') return card.activity.services || [];
+  if (sectionKey === 'products_stores') return card.activity.categories || [];
+  return card.activity.specialties || [];
 }
 
-function ConstitutionalItem({ item, meta }) {
+function TrustStrip({ meta }) {
   return (
-    <li className="flex min-h-[38px] items-center gap-2 rounded-xl border border-[#E9D5A7] bg-gradient-to-b from-white to-[#FFF7E5] px-2.5 py-1.5 text-[11px] font-black leading-5 text-[#5F4A00] shadow-[0_6px_0_#E8D7B3,0_10px_18px_rgba(111,87,0,0.10)]">
-      <span className="relative h-6 w-6 shrink-0" aria-hidden="true">
-        <Image src={meta.icon} alt="" fill className="object-contain" sizes="24px" />
+    <div className="flex min-h-[34px] items-center justify-between gap-1.5 border-b border-[#EFE4D1] bg-[#FFFDF8] px-2 py-1.5 sm:px-3">
+      <span className="min-w-0 truncate text-[9px] font-black leading-4 text-[#0F3F1A] sm:text-[10px]">
+        {meta.approvedLabel}
       </span>
-      <span>{item.name}</span>
-      <span className="sr-only">{meta.itemLabel}</span>
+      <span className="flex shrink-0 items-center gap-1 text-[#9A7415]" aria-label={`${meta.verifiedLabel} · ${meta.qualityLabel}`}>
+        <span className="inline-flex items-center gap-0.5 text-[8px] font-black sm:text-[9px]">
+          <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="hidden sm:inline">{meta.verifiedLabel}</span>
+        </span>
+        <span className="inline-flex items-center gap-0.5 text-[8px] font-black sm:text-[9px]">
+          <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="hidden sm:inline">{meta.qualityLabel}</span>
+        </span>
+      </span>
+    </div>
+  );
+}
+
+function TextItem({ item }) {
+  return (
+    <li className="flex items-start gap-1.5 border-b border-[#F1E8D8] py-1 text-[9px] font-bold leading-4 text-[#5C4A26] last:border-b-0 sm:text-[10px]">
+      <span className="mt-[6px] h-1 w-1 shrink-0 rounded-full bg-[#B8922B]" aria-hidden="true" />
+      <span className="line-clamp-1">{item.name}</span>
     </li>
+  );
+}
+
+function CompactDirectoryCard({ card, sectionKey, meta, href, locale, locationName, domId }) {
+  const isEn = locale === 'en';
+  const Arrow = isEn ? ChevronRight : ChevronLeft;
+  const items = cardItems(card, sectionKey);
+  const previewItems = items.slice(0, 2);
+  const remainingItems = items.slice(previewItems.length);
+  const title = sectionKey === 'providers'
+    ? providerCardTitle(card.activity.name, locale, locationName)
+    : `${card.title} ${isEn ? 'in' : 'في'} ${locationName}`;
+
+  return (
+    <article
+      id={domId}
+      className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.35rem] border border-[#E2D4B8] bg-white shadow-[0_8px_22px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_14px_32px_rgba(18,58,70,0.13)] sm:rounded-[1.65rem]"
+    >
+      <div className="relative aspect-[4/3] overflow-hidden bg-[#F3EEE4]">
+        <Image
+          src={card.image}
+          alt={card.title}
+          fill
+          className="object-cover transition duration-500 group-hover:scale-[1.025]"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+        />
+      </div>
+
+      <TrustStrip meta={meta} />
+
+      <div className={`flex flex-1 flex-col p-2.5 sm:p-4 ${isEn ? 'text-left' : 'text-right'}`}>
+        <h3 className="line-clamp-3 min-h-[48px] text-[12px] font-black leading-[1.35rem] text-[#0F3F1A] sm:min-h-[52px] sm:text-sm sm:leading-6">
+          {title}
+        </h3>
+        <p className="mt-1.5 line-clamp-2 min-h-[32px] text-[9px] font-semibold leading-4 text-gray-500 sm:text-[10px] sm:leading-5">
+          {card.description}
+        </p>
+
+        {previewItems.length > 0 ? (
+          <ul className="mt-2" aria-label={`${meta.itemLabel} ${card.activity.name}`}>
+            {previewItems.map((item) => <TextItem key={item.slug} item={item} />)}
+          </ul>
+        ) : null}
+
+        {remainingItems.length > 0 ? (
+          <details className="group/details mt-1.5">
+            <summary className="flex cursor-pointer list-none items-center gap-1 py-1 text-[9px] font-black text-[#8A6A00] marker:content-none sm:text-[10px]">
+              <span>{meta.moreLabel.replace('{count}', String(remainingItems.length))}</span>
+              <ChevronDown className="h-3.5 w-3.5 transition group-open/details:rotate-180" aria-hidden="true" />
+            </summary>
+            <ul className="border-t border-[#F1E8D8] pt-1">
+              {remainingItems.map((item) => <TextItem key={item.slug} item={item} />)}
+            </ul>
+          </details>
+        ) : null}
+
+        <Link
+          href={href}
+          aria-label={`${meta.explore}: ${card.activity.name} ${isEn ? 'in' : 'في'} ${locationName}`}
+          className="mt-auto inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-b from-[#F8D96F] to-[#E9BD3E] px-2 py-2 text-[10px] font-black text-[#173F2A] shadow-[0_3px_0_#B9922E] transition hover:-translate-y-0.5 hover:from-[#FDE89D] hover:to-[#F2CB55] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/30 sm:text-xs"
+        >
+          <Search className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="line-clamp-1">{meta.explore}</span>
+          <Arrow className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+        </Link>
+      </div>
+    </article>
   );
 }
 
@@ -101,70 +198,53 @@ function EmirateDirectoryCards({ cards, emirate, locale = 'ar', area = null }) {
     ? (isEn ? area.nameEn : area.nameAr)
     : (isEn ? emirate.nameEn : emirate.nameAr);
   const routeRoot = `${isEn ? '/en' : ''}/uae/${emirate.slug}${area ? `/${area.slug}` : ''}`;
-  const Arrow = isEn ? ChevronRight : ChevronLeft;
+
   return (
-    <section dir={isEn ? 'ltr' : 'rtl'} id="uae-sector-cards" className="mx-auto max-w-6xl space-y-16 px-4 py-14 md:py-18">
+    <section dir={isEn ? 'ltr' : 'rtl'} id="uae-sector-cards" className="mx-auto max-w-6xl space-y-12 px-3 py-10 sm:px-4 md:space-y-16 md:py-14">
       {Object.entries(sectionMeta).map(([sectionKey, meta]) => {
         const sectionCards = cards
           .filter((card) => card.sectionKey === sectionKey)
           .sort((a, b) => a.displayOrder - b.displayOrder);
 
-        return <div key={sectionKey} id={`uae-${sectionKey}`}>
-          <div className={`mb-8 text-center ${isEn ? 'md:text-left' : 'md:text-right'}`}>
-            <h2 className="text-3xl font-black text-[#0F3F1A] md:text-4xl">{meta.title.replace('{location}', locationName)}</h2>
-            <p className="mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{meta.description.replace('{location}', locationName)}</p>
-          </div>
+        return (
+          <div key={sectionKey} id={`uae-${sectionKey}`}>
+            <div className={`mb-5 ${isEn ? 'text-left' : 'text-right'} md:mb-7`}>
+              <h2 className="text-2xl font-black leading-tight text-[#0F3F1A] md:text-4xl">
+                {meta.title.replace('{location}', locationName)}
+              </h2>
+              <p className="mt-2 max-w-3xl text-xs font-semibold leading-6 text-gray-600 md:text-base md:leading-8">
+                {meta.description.replace('{location}', locationName)}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {sectionCards.map((card) => {
-              const items = cardItems(card, sectionKey);
-              const previewItems = items.slice(0, 4);
-              const remainingItems = items.slice(previewItems.length);
-              const href = `${routeRoot}/directory/${UAE_DIRECTORY_SECTION_SLUGS[sectionKey]}/${card.activity.slug}`;
-
-              return (
-              <article id={`${emirate.slug}-${sectionKey}-${card.activity.slug}`} key={card.id} className="group relative overflow-hidden rounded-[2rem] border border-[#DCC895] bg-gradient-to-br from-white via-white to-[#FFF8E8] shadow-[0_10px_0_#E7DAC0,0_24px_55px_rgba(18,58,70,0.14)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_14px_0_#DCC895,0_32px_70px_rgba(18,58,70,0.20)]">
-                <div aria-hidden="true" className="pointer-events-none absolute inset-x-8 top-0 z-10 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
-                <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52">
-                  <Image src={card.image} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-end">
-                    <span className="rounded-full border border-[#D4AF37]/45 bg-white/90 px-3 py-1.5 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{meta.eyebrow}</span>
-                  </div>
-                </div>
-                <div className={`p-5 md:p-6 ${isEn ? 'text-left' : 'text-right'}`}>
-                  <h3 className="text-xl font-black leading-8 text-[#0F3F1A]">
-                    {sectionKey === 'providers' ? providerCardTitle(card.activity.name, locale, locationName) : `${card.title} ${isEn ? 'in' : 'في'} ${locationName}`}
-                  </h3>
-                  <p className="mt-3 min-h-[56px] text-sm font-semibold leading-7 text-gray-600">{card.description}</p>
-                  <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" aria-label={`${meta.itemLabel} ${card.activity.name}`}>
-                    {previewItems.map((item) => <ConstitutionalItem key={item.slug} item={item} meta={meta} />)}
-                  </ul>
-                  {remainingItems.length > 0 && (
-                    <details className="group/details mt-4 rounded-2xl border border-[#D8C59F] bg-white/85 open:pb-3">
-                      <summary className="flex min-h-[42px] cursor-pointer list-none items-center justify-center gap-2 px-4 py-2 text-xs font-black text-[#0F3F1A] marker:content-none">
-                        {meta.summary}
-                        <ChevronDown aria-hidden="true" className="h-4 w-4 transition group-open/details:rotate-180" />
-                      </summary>
-                      <ul className="grid grid-cols-1 gap-2 px-3 sm:grid-cols-2">
-                        {remainingItems.map((item) => <ConstitutionalItem key={item.slug} item={item} meta={meta} />)}
-                      </ul>
-                    </details>
-                  )}
-                  <Link href={href} aria-label={`${meta.explore}: ${card.activity.name} ${isEn ? 'in' : 'في'} ${locationName}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#B9922E] bg-gradient-to-b from-[#FFF2B8] to-[#EBC75B] px-5 py-3 text-sm font-black text-[#173F2A] shadow-[0_5px_0_#B9922E,0_10px_20px_rgba(185,146,46,0.22)] transition hover:-translate-y-0.5 hover:from-[#FFF7D1] hover:to-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">
-                    <Search aria-hidden="true" className="h-4 w-4" />
-                    {meta.explore}
-                    <Arrow aria-hidden="true" className="h-4 w-4" />
-                  </Link>
-                </div>
-              </article>
-              );
-            })}
+            <div className="grid grid-cols-2 items-stretch gap-2.5 sm:gap-4 lg:grid-cols-3">
+              {sectionCards.map((card) => {
+                const href = `${routeRoot}/directory/${UAE_DIRECTORY_SECTION_SLUGS[sectionKey]}/${card.activity.slug}`;
+                return (
+                  <CompactDirectoryCard
+                    key={card.id}
+                    card={card}
+                    sectionKey={sectionKey}
+                    meta={meta}
+                    href={href}
+                    locale={locale}
+                    locationName={locationName}
+                    domId={`${emirate.slug}-${sectionKey}-${card.activity.slug}`}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>;
+        );
       })}
     </section>
   );
+}
+
+function fallbackMeta(section, isEn) {
+  if (section.key === 'providers') return isEn ? UAE_SECTION_META_EN.providers : UAE_SECTION_META.providers;
+  if (section.key === 'services') return isEn ? UAE_SECTION_META_EN.services_offers : UAE_SECTION_META.services_offers;
+  return isEn ? UAE_SECTION_META_EN.products_stores : UAE_SECTION_META.products_stores;
 }
 
 export default function UaeDirectorySectorCards({ emirate, area = null, locale = 'ar', directoryCards = [] }) {
@@ -177,6 +257,7 @@ export default function UaeDirectorySectorCards({ emirate, area = null, locale =
 
   const emirateName = isEn ? emirate.nameEn : emirate.nameAr;
   const areaName = area ? (isEn ? area.nameEn : area.nameAr) : null;
+  const locationName = areaName || emirateName;
   const providerRoot = `${isEn ? '/en' : ''}/uae/${emirate.slug}${area ? `/${area.slug}` : ''}`;
   const locationQuery = `emirate=${encodeURIComponent(emirate.slug)}${area ? `&area=${encodeURIComponent(area.slug)}` : ''}`;
   const hrefFor = (card) => {
@@ -190,26 +271,54 @@ export default function UaeDirectorySectorCards({ emirate, area = null, locale =
   const Arrow = isEn ? ChevronRight : ChevronLeft;
 
   return (
-    <section dir={isEn ? 'ltr' : 'rtl'} id="uae-sector-cards" className="mx-auto max-w-6xl space-y-16 px-4 py-14 md:py-18">
-      {UAE_DIRECTORY_SECTIONS.map((section) => <div key={section.key} id={`uae-${section.key}`}>
-        <div className={isEn ? 'mb-8 text-center md:text-left' : 'mb-8 text-center md:text-right'}>
-          <span className="inline-flex rounded-full border border-[#B8922B]/30 bg-white px-4 py-1.5 text-xs font-black text-[#8A6A00] shadow-sm">{isEn ? `${section.items.length} cards` : `${section.items.length} بطاقات`}</span>
-          <h2 className="mt-4 text-3xl font-black text-[#0F3F1A] md:text-4xl">{isEn ? `${section.titleEn} in ${areaName || emirateName}` : `${section.titleAr} في ${areaName || emirateName}`}</h2>
-          <p className="mt-3 max-w-3xl text-sm font-semibold leading-8 text-gray-600 md:text-base">{isEn ? section.descEn : section.descAr}</p>
-        </div>
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {section.items.map((card) => {
-          const title = isEn ? card.directoryTitleEn : card.directoryTitleAr;
-          const eyebrow = isEn ? card.eyebrowEn : card.eyebrowAr;
-          const desc = isEn ? `${card.nameEn} services and providers available through the Biet Al Reef UAE Directory.` : card.descAr;
-          const tags = card[isEn ? 'tagsEn' : 'tagsAr'];
-          return <article key={card.slug} className="group overflow-hidden rounded-[2rem] border border-[#E6DCC8] bg-white shadow-[0_18px_45px_rgba(18,58,70,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(18,58,70,0.15)]">
-            <div className="relative h-48 overflow-hidden bg-[#F5EFE4] sm:h-52"><Image src={card.image} alt={title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" /><div className={`absolute bottom-4 left-4 right-4 flex ${isEn ? 'justify-start' : 'justify-end'}`}><span className="rounded-full border border-[#D4AF37]/45 bg-white/90 px-3 py-1.5 text-[11px] font-black text-[#0F3F1A] shadow-lg backdrop-blur-xl">{eyebrow}</span></div></div>
-            <div className={`${isEn ? 'text-left' : 'text-right'} p-5 md:p-6`}><h3 className="text-xl font-black leading-8 text-[#0F3F1A]">{title}</h3><p className="mt-3 min-h-[76px] text-sm font-semibold leading-7 text-gray-600">{desc}</p><div className="mt-4 flex flex-wrap gap-2">{tags.map((tag) => <span key={tag} className="rounded-full bg-[#FDF7E8] px-3 py-1 text-[11px] font-black text-[#8A6A00]">{tag}</span>)}</div><Link href={hrefFor(card)} aria-label={`${isEn ? 'Open' : 'فتح'} ${title}`} className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C59F] bg-[#FFF9EC] px-5 py-3 text-sm font-black text-[#0F3F1A] transition hover:border-[#D4AF37] hover:bg-[#F4D47A] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D4AF37]/35">{isEn ? 'Open section' : 'افتح القسم'}<Arrow aria-hidden="true" className="h-4 w-4" /></Link></div>
-          </article>;
-        })}
-        </div>
-      </div>)}
+    <section dir={isEn ? 'ltr' : 'rtl'} id="uae-sector-cards" className="mx-auto max-w-6xl space-y-12 px-3 py-10 sm:px-4 md:space-y-16 md:py-14">
+      {UAE_DIRECTORY_SECTIONS.map((section) => {
+        const meta = fallbackMeta(section, isEn);
+        return (
+          <div key={section.key} id={`uae-${section.key}`}>
+            <div className={`mb-5 ${isEn ? 'text-left' : 'text-right'} md:mb-7`}>
+              <h2 className="text-2xl font-black text-[#0F3F1A] md:text-4xl">
+                {isEn ? `${section.titleEn} in ${locationName}` : `${section.titleAr} في ${locationName}`}
+              </h2>
+              <p className="mt-2 max-w-3xl text-xs font-semibold leading-6 text-gray-600 md:text-base md:leading-8">
+                {isEn ? section.descEn : section.descAr}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 items-stretch gap-2.5 sm:gap-4 lg:grid-cols-3">
+              {section.items.map((card) => {
+                const title = isEn ? card.directoryTitleEn : card.directoryTitleAr;
+                const desc = isEn
+                  ? `${card.nameEn} services and providers available through the Biet Al Reef UAE Directory.`
+                  : card.descAr;
+                const tags = card[isEn ? 'tagsEn' : 'tagsAr'] || [];
+                return (
+                  <article key={card.slug} className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[1.35rem] border border-[#E2D4B8] bg-white shadow-[0_8px_22px_rgba(18,58,70,0.08)] sm:rounded-[1.65rem]">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-[#F3EEE4]">
+                      <Image src={card.image} alt={title} fill className="object-cover" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw" />
+                    </div>
+                    <TrustStrip meta={meta} />
+                    <div className={`flex flex-1 flex-col p-2.5 sm:p-4 ${isEn ? 'text-left' : 'text-right'}`}>
+                      <h3 className="line-clamp-3 min-h-[48px] text-[12px] font-black leading-[1.35rem] text-[#0F3F1A] sm:text-sm">{title}</h3>
+                      <p className="mt-1.5 line-clamp-2 min-h-[32px] text-[9px] font-semibold leading-4 text-gray-500 sm:text-[10px]">{desc}</p>
+                      {tags.length ? (
+                        <p className="mt-2 line-clamp-2 min-h-[30px] text-[9px] font-bold leading-4 text-[#6B5530] sm:text-[10px]">
+                          {tags.join(' · ')}
+                        </p>
+                      ) : null}
+                      <Link href={hrefFor(card)} className="mt-auto inline-flex min-h-[38px] w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-b from-[#F8D96F] to-[#E9BD3E] px-2 py-2 text-[10px] font-black text-[#173F2A] shadow-[0_3px_0_#B9922E] sm:text-xs">
+                        <Search className="h-3.5 w-3.5" aria-hidden="true" />
+                        {isEn ? 'Open section' : 'افتح القسم'}
+                        <Arrow className="h-3.5 w-3.5" aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </section>
   );
 }

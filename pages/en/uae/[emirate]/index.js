@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
+import SeoContent from '../../../../components/SeoContent';
 import FAQ from '../../../../components/FAQ';
 import UaeSmartFooter from '../../../../components/UaeSmartFooter';
 import SeoProofCardsEn from '../../../../components/SeoProofCardsEn';
@@ -87,12 +88,10 @@ export default function EnglishEmiratePage({ emirate, directoryCards = [] }) {
 
           <UaeDirectorySectorCards emirate={emirate} locale="en" directoryCards={directoryCards} />
 
-          <section className="mx-auto max-w-6xl px-4 pb-14">
-            <div className="rounded-[2rem] border border-[#E6DCC8] bg-white p-6 shadow-sm md:p-8">
-              <h2 className="text-2xl font-black text-[#0F3F1A]">{emirate.nameEn} inside Biet Al Reef UAE Directory</h2>
-              <p className="mt-4 leading-8 text-gray-600">This page presents seven provider cards, seven service and offer cards, and four product and store cards, followed by organized links to {emirate.nameEn} areas.</p>
-            </div>
-          </section>
+          <SeoContent title={`${emirate.nameEn} inside Biet Al Reef UAE Directory`}>
+            <p>{description}</p>
+            <p className="mt-4">This page presents seven provider cards, seven service and offer cards, and four product and store cards. Card names and ordering come directly from the platform’s central directory taxonomy.</p>
+          </SeoContent>
 
           <UaeSmartFooter locale="en" pageType="emirate" emirate={emirate} directoryCards={directoryCards} />
           <FAQ items={faqItems} title={`Frequently asked questions about ${emirate.nameEn} services`} />

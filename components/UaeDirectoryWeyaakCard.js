@@ -14,8 +14,8 @@ const copy = {
   en: {
     homeTitle: 'Make your journey easier with Weyaak',
     homeText: 'Describe your project needs, and Weyaak will guide you to the right emirate, sector, service or provider.',
-    abuDhabiTitle: 'Wayaak in Abu Dhabi',
-    abuDhabiText: 'Tell Wayaak what your project needs in Abu Dhabi or Al Ain, and it will guide you to the most relevant sector, service, product or directory path.',
+    abuDhabiTitle: 'Weyaak in Abu Dhabi',
+    abuDhabiText: 'Tell Weyaak what your project needs in Abu Dhabi or Al Ain, and it will guide you to the most relevant sector, service, product or directory path.',
     action: 'Download the app and ask Weyaak',
     logoAlt: 'Official Weyaak logo',
   },

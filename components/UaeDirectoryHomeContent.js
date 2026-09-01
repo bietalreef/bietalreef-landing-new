@@ -39,13 +39,6 @@ const copy = {
       ['هل يشمل الدليل المنتجات ومواد البناء؟', 'نعم، يربط الدليل بين الخدمات والمزودين والمنتجات والمتاجر ومواد البناء ذات الصلة بالمشروع.'],
       ['كيف يمكن لمزود الخدمة إضافة نشاطه؟', 'استخدم زر طلب إضافة النشاط وأرسل بيانات الشركة والخدمات ومناطق العمل ليتم تجهيز الملف ومراجعته.'],
     ],
-    exploreTitle: 'استكشف دليل الإمارات',
-    explore: [
-      { title: 'إمارات الدولة', text: 'ابدأ حسب المكان', icon: icons.location, links: UAE_EMIRATES.map((x) => ({ label: x.nameAr, href: `/uae/${x.slug}` })) },
-      { title: 'التخصصات والخدمات', text: 'جميع القطاعات والخدمات', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 12).map((x) => ({ label: x.nameAr, href: `/uae/abu-dhabi/${x.slug}` })) },
-      { title: 'سوق بيت الريف', text: 'مواد ومنتجات المشروع', icon: icons.products, links: [{ label: 'مواد البناء', href: 'https://app.bietalreef.ae/' }, { label: 'الأثاث والديكور', href: 'https://app.bietalreef.ae/' }, { label: 'الأنظمة الذكية', href: 'https://app.bietalreef.ae/' }] },
-      { title: 'مقالات ومحتوى مفيد', text: 'أدلة تساعد مشروعك', icon: icons.support, links: [{ label: 'مقالات بيت الريف', href: '/blog' }, { label: 'طلب عرض سعر واضح', href: '/request-quote' }, { label: 'طريقة عمل المنصة', href: '/how-it-works' }] },
-    ],
   },
   en: {
     title: 'How does the UAE Directory help project owners?',
@@ -69,13 +62,6 @@ const copy = {
       ['How can I find a provider in my city?', 'Open the emirate page, choose the relevant sector, then continue to your area and browse related providers and services.'],
       ['Does the directory include products and building materials?', 'Yes. It connects services and providers with relevant products, stores and building materials.'],
       ['How can a provider add a business?', 'Use the business-profile request and submit company, service and coverage information for review and setup.'],
-    ],
-    exploreTitle: 'Explore the UAE Directory',
-    explore: [
-      { title: 'UAE emirates', text: 'Start by location', icon: icons.location, links: UAE_EMIRATES.map((x) => ({ label: x.nameEn, href: `/en/uae/${x.slug}` })) },
-      { title: 'Specialties and services', text: 'Browse sectors and services', icon: icons.tools, links: SERVICE_CATEGORIES.slice(0, 12).map((x) => ({ label: x.nameEn, href: `/en/categories/${x.slug}` })) },
-      { title: 'Biet Al Reef Market', text: 'Materials and products', icon: icons.products, links: [{ label: 'Building materials', href: 'https://app.bietalreef.ae/' }, { label: 'Furniture and decor', href: 'https://app.bietalreef.ae/' }, { label: 'Smart systems', href: 'https://app.bietalreef.ae/' }] },
-      { title: 'Guides and useful content', text: 'Helpful project resources', icon: icons.support, links: [{ label: 'Biet Al Reef articles', href: '/en/blog' }, { label: 'Request a quotation', href: '/en/request-quote' }, { label: 'How the platform works', href: '/en/how-it-works' }] },
     ],
   },
 };
@@ -159,7 +145,7 @@ export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
         </section>
 
         <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]">←</span></Link>)}
+          {t.quick.map((item) => <Link key={item.title} href={item.href} className="group flex min-h-[124px] items-center gap-4 rounded-[1.6rem] border border-[#D8B75A]/55 bg-[linear-gradient(135deg,#FFFDF7_0%,#F8F0DA_100%)] px-5 py-4 shadow-[0_16px_38px_rgba(138,106,0,.08)] transition hover:-translate-y-1 hover:border-[#B8922B]"><Icon src={item.icon} alt="" size={74} /><span className="flex-1"><strong className="block text-xl font-black text-[#0F3F1A]">{item.title}</strong><span className="mt-2 block text-sm font-semibold leading-7 text-gray-600">{item.text}</span></span><span className="text-2xl font-black text-[#B8922B]" aria-hidden="true">{isEn ? '→' : '←'}</span></Link>)}
         </section>
 
         <UaeProviderJoinCTA locale={locale} />
@@ -168,7 +154,6 @@ export default function UaeDirectoryHomeContent({ locale = 'ar' }) {
           <h2 className="text-center text-3xl font-black text-[#0F3F1A]">{t.faqTitle}</h2>
           <div className="mt-5 space-y-3">{t.faqs.map(([q, a], index) => <details key={q} open={index === 0} className="group rounded-2xl border border-[#E4D6BA] bg-white px-5 py-4 shadow-sm"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-black text-[#0F3F1A]"><span>{q}</span><span className="text-[#B8922B] transition group-open:rotate-45">＋</span></summary><p className="mt-3 border-t border-[#F0E7D6] pt-3 text-sm font-semibold leading-7 text-gray-600">{a}</p></details>)}</div>
         </section>
-
       </div>
       <UaeDirectoryExploreFooter locale={locale} />
     </div>
