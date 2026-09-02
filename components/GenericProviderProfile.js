@@ -93,7 +93,7 @@ export default function GenericProviderProfile({ provider, locale = 'ar' }) {
   const canonical = `https://bietalreef.ae${isEn ? '/en' : ''}/providers/${provider.slug}`;
   const body = <ProfileContent provider={provider} locale={locale} />;
   const alternate = `https://bietalreef.ae${isEn ? '' : '/en'}/providers/${provider.slug}`;
-  const image = `https://bietalreef.ae${provider.cover}`;
+  const image = /^https?:\/\//i.test(provider.cover || '') ? provider.cover : `https://bietalreef.ae${provider.cover || '/images/providers-hero.webp'}`;
   const title = `${name} | ${isEn ? 'Biet Al Reef' : 'بيت الريف'}`;
   return <><Head><title>{title}</title><meta name="description" content={description} /><link rel="canonical" href={canonical} /><link rel="alternate" hrefLang={isEn ? 'en-AE' : 'ar-AE'} href={canonical} /><link rel="alternate" hrefLang={isEn ? 'ar-AE' : 'en-AE'} href={alternate} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={image} /><meta property="og:image:alt" content={name} /><meta property="og:type" content="business.business" /><meta property="og:locale" content={isEn ? 'en_AE' : 'ar_AE'} /><meta property="og:site_name" content={isEn ? 'Biet Al Reef' : 'بيت الريف'} /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={image} /></Head>{isEn ? <EnglishLayout>{body}</EnglishLayout> : <><Navbar />{body}<Footer /></>}</>;
 }
