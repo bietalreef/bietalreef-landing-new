@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { providers } from '../../data/providers';
-import { getEmirate, getArea } from '../../data/siteTaxonomy';
+import { getPublicProviderProfile } from '../../lib/publicProviderProfiles';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Gem, ChevronDown, ExternalLink, Hammer, Layers, Users, Factory, Navigation, BadgeCheck } from 'lucide-react';
@@ -168,12 +167,9 @@ function BusinessInfo({ icon, label, value }) { return <div className="group rou
 function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
-export async function getStaticProps({ params }) {
-  const provider = providers.find((p) => p.slug === params.slug);
+export async function getServerSideProps({ params, res }) {
+  const provider = await getPublicProviderProfile(params.slug);
   if (!provider) return { notFound: true };
-  const emirate = getEmirate(provider.emirate);
-  const area = getArea(provider.emirate, provider.area) || getArea(provider.emirate, provider.city);
-  return { props: { provider, emirate: emirate || null, area: area || null }, revalidate: false };
+  res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=120');
+  return { props: { provider, emirate: null, area: null } };
 }
-
-export async function getStaticPaths() { return { paths: providers.filter((provider) => provider.slug !== 'alrehab-cleaning-sanitizing').map((provider) => ({ params: { slug: provider.slug } })), fallback: false }; }
