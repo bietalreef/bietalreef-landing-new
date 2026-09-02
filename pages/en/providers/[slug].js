@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import EnglishLayout from '../../../components/EnglishLayout';
-import { providers } from '../../../data/providers';
+import { getPublicProviderProfile } from '../../../lib/publicProviderProfiles';
 import { ShieldCheck, MapPin, Clock, Phone, MessageCircle, Gem, ChevronDown, ExternalLink, Users, Hammer, Layers, ArrowRight, Factory, Navigation, BadgeCheck } from 'lucide-react';
 import GenericProviderProfile from '../../../components/GenericProviderProfile';
 
@@ -175,10 +175,9 @@ function BusinessInfo({ icon, label, value }) { return <div className="group rou
 function InfoItem({ icon, label, value, highlight = false }) { return <div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FDFBF7] border border-[#E6DCC8]">{icon}</div><div><p className="text-xs text-gray-500">{label}</p><p className={`text-sm font-black ${highlight ? 'text-emerald-700' : 'text-[#0F3F1A]'}`}>{value}</p></div></div>; }
 function FeatureCard({ icon, label }) { return <div className="rounded-2xl border border-[#E6DCC8] bg-white p-4 text-center shadow-sm">{icon}<p className="mt-2 text-sm font-black text-[#0F3F1A]">{label}</p></div>; }
 
-export async function getStaticProps({ params }) {
-  const provider = providers.find((item) => item.slug === params.slug);
+export async function getServerSideProps({ params, res }) {
+  const provider = await getPublicProviderProfile(params.slug);
   if (!provider) return { notFound: true };
-  return { props: { provider }, revalidate: 3600 };
+  res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=120');
+  return { props: { provider } };
 }
-
-export async function getStaticPaths() { return { paths: providers.filter((provider) => provider.slug !== 'alrehab-cleaning-sanitizing').map((provider) => ({ params: { slug: provider.slug } })), fallback: 'blocking' }; }
