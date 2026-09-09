@@ -131,9 +131,9 @@ function ProfileContent({ provider, locale }) {
       <section className="mx-auto max-w-6xl px-4 py-6 md:py-10">
         <Link href={`${base}/providers`} className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#DCCBAE] bg-white px-4 py-2 text-sm font-black">{isEn ? <ArrowLeft className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}{isEn ? 'Back to providers' : 'العودة إلى مزودي الخدمات'}</Link>
         <div className="overflow-hidden rounded-[2.5rem] border border-[#DCCBAE] bg-white shadow-[0_24px_70px_rgba(15,63,26,.12)]">
-          <div className="relative h-[300px] md:h-[430px]"><Image src={provider.cover} alt={name} fill priority className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#071A10]/75 via-transparent to-transparent" /></div>
+          <div className="relative aspect-[16/5]"><Image src={provider.cover} alt={name} fill priority className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#071A10]/75 via-transparent to-transparent" /></div>
           <div className="relative px-5 pb-8 pt-16 md:px-10">
-            <div className={`absolute -top-16 ${isEn ? 'left-6 md:left-10' : 'right-6 md:right-10'} h-32 w-32 overflow-hidden rounded-full border-[6px] border-white bg-white shadow-xl`}><Image src={provider.avatar || provider.logo} alt={isEn ? `${name} profile` : `صورة ملف ${name}`} fill className="object-cover" /></div>
+            <div className={`absolute -top-16 ${isEn ? 'left-6 md:left-10' : 'right-6 md:right-10'} h-32 w-32 overflow-hidden rounded-full border-[6px] border-white bg-white shadow-xl`}><Image src={provider.avatar || provider.logo} alt={isEn ? `${name} profile` : `صورة ملف ${name}`} fill className="object-contain p-1" /></div>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2"><h1 className="text-3xl font-black md:text-5xl">{name}</h1>{provider.verified ? <BadgeCheck className="h-7 w-7 text-[#B8860B]" /> : null}</div>
