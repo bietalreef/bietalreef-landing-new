@@ -1,0 +1,46 @@
+name: Canonical provider media
+
+on:
+  push:
+    paths:
+      - .release/canonical-provider-media.request
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Apply canonical media
+        run: node scripts/apply-canonical-provider-media.mjs
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build and verify
+        run: pnpm build
+      - name: Validate provider media contract
+        run: |
+          grep -q 'aspect-\[16/5\]' components/GenericProviderProfile.js
+          grep -q 'object-contain p-1' components/GenericProviderProfile.js
+          grep -q 'h-32 w-32' components/GenericProviderProfile.js
+      - name: Commit runtime changes
+        run: |
+          git config user.name "bietalreef"
+          git config user.email "bietalreef@gmail.com"
+          git add components/GenericProviderProfile.js
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m "fix: unify landing provider media"
+            git push origin HEAD:master
+          fi
