@@ -65,7 +65,7 @@ export default function CustomerServicePage() {
                 <p className="mt-6 max-w-3xl text-base font-semibold leading-9 text-white/90 md:text-xl">إذا لم تجد الخدمة، المنتج، أو مزود الخدمة المناسب، لا تخرج من المنصة بدون حل. أرسل طلبك الآن، وسيساعدك فريق بيت الريف أو وكيل وياك في ترتيب المسار المناسب داخل الإمارات.</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link href="/request-quote" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#102F18] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">إرسال طلبك الآن<ArrowLeft className="h-5 w-5" /></Link>
-                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/12 px-7 py-4 text-base font-black text-white shadow-lg backdrop-blur-xl transition hover:bg-white/18"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />تواصل مع الدعم</a>
+                  <a href="https://wa.me/971564456337" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/12 px-7 py-4 text-base font-black text-white shadow-lg backdrop-blur-xl transition hover:bg-white/18"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />تواصل مع الدعم</a>
                 </div>
               </div>
 

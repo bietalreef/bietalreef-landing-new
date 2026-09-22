@@ -81,7 +81,7 @@ export default function ServiceLandingPage({
       serviceType: service.nameAr,
       areaServed: UAE_EMIRATES.map((emirate) => ({ '@type': 'AdministrativeArea', name: emirate.nameAr })),
       provider: { '@type': 'Organization', name: 'بيت الريف', url: SITE_URL, logo: `${SITE_URL}/logo.png` },
-      availableChannel: { '@type': 'ServiceChannel', serviceUrl, servicePhone: '+971567856001' },
+      availableChannel: { '@type': 'ServiceChannel', serviceUrl, servicePhone: '+971564456337' },
     },
     {
       '@context': 'https://schema.org',
@@ -154,7 +154,7 @@ export default function ServiceLandingPage({
           <PublishedEntityGrid items={publishedServices} locale="ar" type="service" />
 
           {publishedServices.length === 0 && (
-            <section className="max-w-6xl mx-auto px-4 py-10" aria-label="العروض المتاحة"><div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status"><h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد خدمات منشورة حاليًا</h2><p className="mt-3 text-gray-600 leading-8">لا توجد بطاقة منشورة من قاعدة البيانات مرتبطة بقسم {service.nameAr} الآن. يمكنك طلب عرض سعر مخصص حسب تفاصيل مشروعك.</p><a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب عرض سعر مخصص</a></div></section>
+            <section className="max-w-6xl mx-auto px-4 py-10" aria-label="العروض المتاحة"><div className="rounded-3xl border border-[#E6DCC8] bg-white p-10 text-center shadow-sm" role="status"><h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد خدمات منشورة حاليًا</h2><p className="mt-3 text-gray-600 leading-8">لا توجد بطاقة منشورة من قاعدة البيانات مرتبطة بقسم {service.nameAr} الآن. يمكنك طلب عرض سعر مخصص حسب تفاصيل مشروعك.</p><a href="https://wa.me/971564456337" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب عرض سعر مخصص</a></div></section>
           )}
 
           <section className="max-w-6xl mx-auto px-4 py-10"><div className="rounded-[2rem] bg-white border border-[#E6DCC8] p-8 shadow-sm"><h2 className="text-2xl font-black text-[#0F3F1A] mb-5">اختر الإمارة عند الحاجة للبحث المحلي</h2><div className="flex flex-wrap gap-3">{UAE_EMIRATES.map((emirate) => (<Link key={emirate.slug} href={`/uae/${emirate.slug}`} className="rounded-full border border-[#E6DCC8] px-5 py-3 text-sm font-black text-gray-700 hover:text-primary hover:border-primary">{emirate.nameAr}</Link>))}</div></div></section>
