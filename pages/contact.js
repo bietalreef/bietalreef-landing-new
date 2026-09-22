@@ -8,7 +8,7 @@ const channels = [
   {
     title: 'واتساب بيت الريف',
     description: 'للطلبات والاستفسارات ومتابعة الخدمات.',
-    href: 'https://wa.me/971567856001',
+    href: 'https://wa.me/971564456337',
     label: 'ابدأ المحادثة',
     icon: MessageCircle,
     external: true,
@@ -16,8 +16,8 @@ const channels = [
   {
     title: 'الاتصال المباشر',
     description: 'للتواصل مع فريق بيت الريف داخل دولة الإمارات.',
-    href: 'tel:+971567856001',
-    label: '+971 56 785 6001',
+    href: 'tel:+971564456337',
+    label: '+971 56 445 6337',
     icon: Phone,
   },
   {

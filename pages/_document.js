@@ -16,7 +16,7 @@ const organizationSchema = {
   knowsLanguage: ['ar-AE', 'en-AE'],
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+971567856001',
+    telephone: '+971564456337',
     contactType: 'customer support',
     areaServed: 'AE',
     availableLanguage: ['Arabic', 'English'],

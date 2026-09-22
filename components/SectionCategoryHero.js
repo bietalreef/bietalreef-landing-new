@@ -22,7 +22,7 @@ export default function SectionCategoryHero({ locale = 'ar', type, title, descri
           <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight md:text-6xl">{title}</h1>
           <p className="mt-4 max-w-3xl text-sm font-semibold leading-8 text-white/85 md:text-lg md:leading-9">{description}</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 font-black text-[#0F3F1A] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]"><MessageCircle className="h-5 w-5" />{requestLabel}</a>
+            <a href="https://wa.me/971564456337" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 font-black text-[#0F3F1A] transition hover:-translate-y-0.5 hover:bg-[#c9a52f]"><MessageCircle className="h-5 w-5" />{requestLabel}</a>
             <Link href={backHref} className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/12 px-7 font-black text-white backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/20">{backLabel}<ExternalLink className="h-4 w-4" /></Link>
           </div>
         </div>

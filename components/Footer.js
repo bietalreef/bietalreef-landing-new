@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 
 const socialLinks = [
-  { href: 'https://wa.me/971567856001', label: 'WhatsApp', icon: MessageCircle },
+  { href: 'https://wa.me/971564456337', label: 'WhatsApp', icon: MessageCircle },
   { href: 'https://www.instagram.com/bietalreef?igsh=Mzg0cDR4Y3YzbmJn', label: 'Instagram', icon: Instagram },
   { href: 'https://www.facebook.com/share/14fy6hGM7SJ/', label: 'Facebook', icon: Facebook },
   { href: 'https://youtube.com/@bietalreef', label: 'YouTube', icon: Youtube },
@@ -44,7 +44,7 @@ const copy = {
       { id: 'biet-alreef', title: 'بيت الريف', icon: Home, links: [['/about', 'عن بيت الريف'], ['/why-biet-alreef', 'لماذا بيت الريف']] },
       { id: 'platform', title: 'المنصة', icon: Layers3, links: [['/platform-for-business', 'كيف تعمل منصة بيت الريف للأعمال'], ['/join-provider', 'انضم كمزود خدمة إلى بيت الريف'], ['/business-solutions', 'حلول وخدمات بيت الريف للأعمال'], ['/start-your-store', 'أنشئ متجرك على بيت الريف'], ['/business-plans', 'خطط الأعمال والاشتراكات'], ['/blog', 'المدونة']] },
       { id: 'partners', title: 'الشركاء', icon: Handshake, links: [['/partner-with-biet-alreef', 'الشراكة مع بيت الريف'], ['/join-biet-alreef', 'ضم شركتك إلى بيت الريف'], ['/google-cloud-biet-alreef', 'Google Cloud | بيت الريف'], ['/google-workspace-biet-alreef', 'Google Workspace | بيت الريف'], ['/weyaak-ai', 'وياك – الذكاء الاصطناعي من بيت الريف'], ['/suppliers-biet-alreef', 'الموردون مع بيت الريف'], ['/factories-workshops-biet-alreef', 'المصانع والورش مع بيت الريف']] },
-      { id: 'support', title: 'الدعم', icon: Headphones, links: [['/contact', 'تواصل معنا'], ['/faq', 'الأسئلة الشائعة'], ['/support-policy', 'سياسة الدعم'], ['tel:+971567856001', 'اتصل بنا']] },
+      { id: 'support', title: 'الدعم', icon: Headphones, links: [['/contact', 'تواصل معنا'], ['/faq', 'الأسئلة الشائعة'], ['/support-policy', 'سياسة الدعم'], ['tel:+971564456337', 'اتصل بنا']] },
       { id: 'legal', title: 'القانونية', icon: ShieldCheck, links: [['/privacy', 'سياسة الخصوصية'], ['/legal', 'الشروط والأحكام'], ['/cookies', 'سياسة ملفات الارتباط'], ['/refund-policy', 'سياسة الاسترداد']] },
     ],
   },
@@ -61,7 +61,7 @@ const copy = {
       { id: 'biet-alreef', title: 'Biet Al Reef', icon: Home, links: [['/en/about', 'About Biet Al Reef'], ['/en/why-biet-alreef', 'Why Biet Al Reef']] },
       { id: 'platform', title: 'Platform', icon: Layers3, links: [['/en/platform-for-business', 'How Biet Al Reef works for business'], ['/en/join-provider', 'Join Biet Al Reef as a service provider'], ['/en/business-solutions', 'Biet Al Reef business solutions'], ['/en/start-your-store', 'Start your store on Biet Al Reef'], ['/en/business-plans', 'Business plans & subscriptions'], ['/en/blog', 'Blog']] },
       { id: 'partners', title: 'Partners', icon: Handshake, links: [['/en/partner-with-biet-alreef', 'Partner with Biet Al Reef'], ['/en/join-biet-alreef', 'Bring your company to Biet Al Reef'], ['/en/google-cloud-biet-alreef', 'Google Cloud | Biet Al Reef'], ['/en/google-workspace-biet-alreef', 'Google Workspace | Biet Al Reef'], ['/en/weyaak-ai', 'Weyaak – AI from Biet Al Reef'], ['/en/suppliers-biet-alreef', 'Suppliers with Biet Al Reef'], ['/en/factories-workshops-biet-alreef', 'Factories & workshops with Biet Al Reef']] },
-      { id: 'support', title: 'Support', icon: Headphones, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['/en/support-policy', 'Support policy'], ['tel:+971567856001', 'Call us']] },
+      { id: 'support', title: 'Support', icon: Headphones, links: [['/en/contact', 'Contact us'], ['/en/faq', 'FAQ'], ['/en/support-policy', 'Support policy'], ['tel:+971564456337', 'Call us']] },
       { id: 'legal', title: 'Legal', icon: ShieldCheck, links: [['/en/privacy', 'Privacy Policy'], ['/en/legal', 'Terms & Conditions'], ['/en/cookies', 'Cookie Policy'], ['/en/refund-policy', 'Refund policy']] },
     ],
   },
