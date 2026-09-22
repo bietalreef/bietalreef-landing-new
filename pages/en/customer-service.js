@@ -52,7 +52,7 @@ export default function EnglishCustomerServicePage() {
                 <p className="mt-6 max-w-3xl text-base font-semibold leading-9 text-white/88 md:text-xl">If you did not find the right service, product or provider, do not leave without a clear path. Send your request now and the Biet Al Reef team or Weyaak will help organize the right route in the UAE.</p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link href="/en/request-quote" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl bg-[#D4AF37] px-7 py-4 text-base font-black text-[#102F18] shadow-lg transition hover:-translate-y-0.5 hover:bg-[#E7C45A]">Send your request now<ArrowRight className="h-5 w-5" /></Link>
-                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-base font-black text-white transition hover:bg-white/16"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />Contact support</a>
+                  <a href="https://wa.me/971564456337" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-base font-black text-white transition hover:bg-white/16"><MessageCircle className="h-5 w-5 text-[#F7E7A0]" />Contact support</a>
                 </div>
               </div>
 

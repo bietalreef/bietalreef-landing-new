@@ -8,7 +8,7 @@ import {
   Star,
 } from 'lucide-react';
 
-const BIET_AL_REEF_WHATSAPP = '971567856001';
+const BIET_AL_REEF_WHATSAPP = '971564456337';
 const PROVIDERS = {
   arkleen: {
     id: 'BR-PROV-ARK-001',

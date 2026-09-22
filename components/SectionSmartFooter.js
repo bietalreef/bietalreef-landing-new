@@ -17,7 +17,7 @@ import {
 import { UAE_EMIRATES } from '../data/siteTaxonomy';
 import { getSectionCardHref } from '../lib/sectionCardRoutes';
 
-const WHATSAPP_URL = 'https://wa.me/971567856001';
+const WHATSAPP_URL = 'https://wa.me/971564456337';
 
 const FALLBACK_ACTIVITIES = [
   { slug: 'construction-contracting', ar: 'المقاولات والبناء', en: 'Construction & Contracting' },

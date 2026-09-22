@@ -122,7 +122,7 @@ export default function ProvidersPage({ providers = [], directoryCards = [] }) {
                   </Link>
 
                   <a
-                    href="https://wa.me/971567856001"
+                    href="https://wa.me/971564456337"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-[#123A46]/20 bg-white/86 px-5 py-4 text-base font-black text-[#123A46] shadow-[0_10px_0_rgba(18,58,70,0.08),0_18px_30px_rgba(18,58,70,0.12)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white"

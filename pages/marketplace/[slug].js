@@ -108,7 +108,7 @@ export default function MarketplaceCategoryPage({
                 <h2 className="text-2xl font-black text-[#0F3F1A]">لا توجد منتجات منشورة حاليًا</h2>
                 <p className="mt-3 text-gray-600 leading-8">لا توجد بطاقة منتج منشورة من قاعدة البيانات داخل تصنيف {category.title}. يمكنك إرسال طلبك وسنساعدك في الوصول إلى المورد أو المتجر المناسب.</p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                  <a href="https://wa.me/971567856001" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب المنتج عبر واتساب</a>
+                  <a href="https://wa.me/971564456337" target="_blank" rel="noopener noreferrer" className="rounded-2xl bg-primary px-7 py-3 text-sm font-black text-white">اطلب المنتج عبر واتساب</a>
                   <Link href="/marketplace" className="rounded-2xl border border-[#E6DCC8] px-7 py-3 text-sm font-black text-primary">العودة إلى المنتجات والمتاجر</Link>
                 </div>
               </div>
