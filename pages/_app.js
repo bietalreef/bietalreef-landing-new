@@ -25,6 +25,7 @@ const ArklineProjectsAndChannels = dynamic(
   { ssr: false }
 );
 const WeyakChat = dynamic(() => import('../components/WeyakChat'), { ssr: false });
+const FloatingWhatsAppSupport = dynamic(() => import('../components/FloatingWhatsAppSupport'), { ssr: false });
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -92,7 +93,11 @@ export default function MyApp({ Component, pageProps }) {
     <ClientSafetyBoundary>
       <Component {...pageProps} />
       <BusinessLandingMeta path={metadataPath} />
-      <WeyakChat locale={isEnglishPage ? 'en' : 'ar'} standalone={currentPath === '/weyaak' || currentPath === '/en/weyaak'} />
+      {currentPath === '/weyaak' || currentPath === '/en/weyaak' ? (
+        <WeyakChat locale={isEnglishPage ? 'en' : 'ar'} standalone />
+      ) : (
+        <FloatingWhatsAppSupport locale={isEnglishPage ? 'en' : 'ar'} />
+      )}
       {isProviderProfile ? (
         <>
           <Head>
