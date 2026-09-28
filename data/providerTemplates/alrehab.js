@@ -1,7 +1,7 @@
 export const alrehabTemplate = {
   schemaVersion: 2,
   id: 'BR-PROV-ALR-001',
-  slug: 'alrehab-cleaning-sanitizing',
+  slug: 'alrehab-home-clean',
   identity: {
     name: { ar: 'الرحاب هوم كلين', en: 'Al Rehab Home Clean' },
     shortName: { ar: 'الرحاب هوم كلين', en: 'Al Rehab Home Clean' },

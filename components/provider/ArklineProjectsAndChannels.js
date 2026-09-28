@@ -69,10 +69,10 @@ const PROVIDERS = {
   alrehab: {
     id: 'BR-PROV-ALR-001',
     code: 'ALR',
-    paths: ['/providers/alrehab-cleaning-sanitizing', '/en/providers/alrehab-cleaning-sanitizing'],
+    paths: ['/providers/alrehab-home-clean', '/en/providers/alrehab-home-clean'],
     base: '/images/providers/alrehab/',
-    website: 'https://bietalreef.ae/providers/alrehab-cleaning-sanitizing',
-    websiteEn: 'https://bietalreef.ae/en/providers/alrehab-cleaning-sanitizing',
+    website: 'https://bietalreef.ae/providers/alrehab-home-clean',
+    websiteEn: 'https://bietalreef.ae/en/providers/alrehab-home-clean',
     copy: {
       ar: {
         projectsTab: 'المشاريع', eyebrow: 'المشاريع', title: 'مشاريع وأعمال الرحاب',

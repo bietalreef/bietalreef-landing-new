@@ -37,7 +37,7 @@ export default function MyApp({ Component, pageProps }) {
   });
   const isEnglishPage = currentPath === '/en' || currentPath.startsWith('/en/');
   const isProviderProfile = /^\/(?:en\/)?providers\/(?!register(?:\/|$))[^/?#]+/.test(currentPath);
-  const usesUnifiedProviderTemplate = /^\/(?:en\/)?providers\/(?:arkleen|arkline|alrehab-cleaning-sanitizing)(?:\/|$)/.test(currentPath);
+  const usesUnifiedProviderTemplate = /^\/(?:en\/)?providers\/(?:arkleen|arkline|alrehab-home-clean)(?:\/|$)/.test(currentPath);
 
   useEffect(() => initPublicAnalytics(router), [router]);
 

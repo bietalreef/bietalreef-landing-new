@@ -124,7 +124,7 @@ export const providers = [
     ]
   },
   {
-    slug: 'alrehab-cleaning-sanitizing',
+    slug: 'alrehab-home-clean',
     providerId: 'BR-PROV-ALR-001',
     nameAr: 'الرحاب هوم كلين',
     nameEn: 'Al Rehab Home Clean',

@@ -32,7 +32,7 @@ const PROVIDERS = {
   alrehab: {
     id: 'BR-PROV-ALR-001',
     code: 'ALR',
-    paths: ['/providers/alrehab-cleaning-sanitizing', '/en/providers/alrehab-cleaning-sanitizing'],
+    paths: ['/providers/alrehab-home-clean', '/en/providers/alrehab-home-clean'],
     name: {
       ar: 'الرحاب للتنظيف والتعقيم',
       en: 'Al Rehab Cleaning & Sanitizing',
