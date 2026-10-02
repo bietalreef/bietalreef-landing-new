@@ -1,6 +1,14 @@
 name: Canonical provider media
 
 on:
+  pull_request:
+    branches: [master, main]
+    paths:
+      - components/GenericProviderProfile.js
+      - lib/publicProviderProfiles.js
+      - pages/providers/alrehab-home-clean.js
+      - pages/en/providers/alrehab-home-clean.js
+      - .github/workflows/canonical-provider-media.yml
   push:
     paths:
       - .release/canonical-provider-media.request
@@ -9,7 +17,26 @@ permissions:
   contents: write
 
 jobs:
+  review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build existing platform
+        run: pnpm build
   apply:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
