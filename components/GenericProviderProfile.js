@@ -30,13 +30,13 @@ function CardSlider({ card, title, priority = false }) {
   const active = images[index] || card?.image;
   return (
     <div
-      className="group relative h-52 overflow-hidden bg-[#F4F1EB]"
+      className="group relative aspect-square overflow-hidden bg-gray-50"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      {active ? <Image src={active} alt={`${title} — ${index + 1}`} fill priority={priority && index === 0} className="object-cover transition-opacity duration-700" /> : null}
+      {active ? <Image src={active} alt={`${title} — ${index + 1}`} fill priority={priority && index === 0} className="object-contain transition-opacity duration-700" /> : null}
       {images.length > 1 ? (
         <div className="absolute inset-x-0 bottom-2 flex items-center justify-center gap-1.5" aria-label="Image gallery">
           {images.map((_, imageIndex) => (
@@ -91,7 +91,6 @@ function ProviderCard({ provider, card, locale, type, priority = false }) {
           </div>
         </div>
         {description ? <p className="mt-3 line-clamp-4 text-sm font-semibold leading-7 text-gray-600">{description}</p> : null}
-        <div className="mt-4 rounded-xl bg-[#FAF8F3] px-3 py-2 font-mono text-[10px] font-black text-[#6D675E]" dir="ltr">{card.cardId}</div>
         <p className="mt-3 text-xs font-bold leading-6 text-[#6C6A65]">
           {isEn
             ? 'Price is confirmed directly with the provider after reviewing the requested scope. No intermediary commission on service execution.'
