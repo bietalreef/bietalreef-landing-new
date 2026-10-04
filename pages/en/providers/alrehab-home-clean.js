@@ -156,7 +156,7 @@ export default function AlRehabEnglishProviderPage() {
     summary: description,
     profilePath: '/en/providers/alrehab-home-clean',
   });
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Al Rehab Home Clean UAE')}`;
+  const mapUrl = 'https://share.google/IFGGGyVTMhwW0x8N6';
 
   useEffect(() => {
     if (!selectedService) return undefined;
@@ -206,6 +206,7 @@ export default function AlRehabEnglishProviderPage() {
       url: canonical,
       telephone: provider.phone,
       foundingDate: provider.establishedAt,
+      sameAs: ['https://alrehabhomeclean.ae', 'https://share.google/IFGGGyVTMhwW0x8N6'],
       image: gallery.map(([src]) => `https://bietalreef.ae${resolveProviderMedia(src)}`),
       address: {
         '@type': 'PostalAddress',
@@ -214,6 +215,7 @@ export default function AlRehabEnglishProviderPage() {
         addressCountry: 'AE',
       },
       areaServed: [
+        { '@type': 'City', name: 'Al Ain' },
         ...alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.en })),
       ],
       hasOfferCatalog: {
@@ -242,14 +244,14 @@ export default function AlRehabEnglishProviderPage() {
   return (
     <>
       <Head>
-        <title>Al Rehab Home Clean across the UAE</title>
+        <title>Al Rehab Home Clean | Home & Villa Cleaning in Al Ain</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
         <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers/alrehab-home-clean" />
         <link rel="alternate" hrefLang="en-AE" href={canonical} />
         <link rel="alternate" hrefLang="x-default" href="https://bietalreef.ae/providers/alrehab-home-clean" />
-        <meta property="og:title" content="Al Rehab Home Clean across the UAE" />
+        <meta property="og:title" content="Al Rehab Home Clean | Home & Villa Cleaning in Al Ain" />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
         <meta property="og:locale" content="en_AE" />
