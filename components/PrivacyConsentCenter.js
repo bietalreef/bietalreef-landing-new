@@ -89,7 +89,7 @@ const copy = {
       'ضروري لعمل واجهة وياك وحماية الجلسة أثناء الاستخدام. لا ترسل أسئلة المستخدم أو إجابات وياك إلى جداول تحليلات السلوك، ولا نستخدمها لإنشاء ملف إعلاني للمستخدم.',
     externalTitle: 'أدوات الإعلانات والتتبع التسويقي',
     externalText:
-      'تستخدم بيت الريف علامة Google لقياس أداء الصفحات والحملات والتحويلات بصورة مجمعة بعد موافقتك فقط. لا تعمل العلامة قبل الموافقة، ولا نرسل إليها محتوى النماذج أو محادثات وياك أو بيانات إنشاء الحساب.',
+      'تستخدم بيت الريف علامة Google وفق وضع الموافقة. قبل موافقتك تبقى مساحات تخزين التحليلات والإعلانات مرفوضة، وبعد الموافقة تُفعّل القياسات المجمعة للحملات والتحويلات. لا نرسل محتوى النماذج أو محادثات وياك أو بيانات إنشاء الحساب.',
     save: 'موافق وتحسين التجربة',
     close: 'إغلاق',
   },
@@ -119,7 +119,7 @@ const copy = {
       'Required for the Weyaak interface and session safety. User questions and Weyaak answers are not sent to behavior analytics tables and are not used to build advertising profiles.',
     externalTitle: 'Advertising and marketing trackers',
     externalText:
-      'Biet Al Reef uses the Google tag to measure aggregate page, campaign and conversion performance only after you consent. The tag stays off before consent, and form content, Weyaak conversations and account-creation data are not sent to it.',
+      'Biet Al Reef uses the Google tag with Consent Mode. Analytics and advertising storage remain denied before consent, and aggregate campaign and conversion measurement is enabled after consent. Form content, Weyaak conversations and account-creation data are not sent to it.',
     save: 'Allow and improve my experience',
     close: 'Close',
   },
