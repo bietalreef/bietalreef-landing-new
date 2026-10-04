@@ -152,7 +152,7 @@ export default function AlRehabProviderPage() {
     summary: description,
     profilePath: '/providers/alrehab-home-clean',
   });
-  const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('الرحاب هوم كلين العين أبوظبي دبي')}`;
+  const mapUrl = 'https://share.google/IFGGGyVTMhwW0x8N6';
 
   useEffect(() => {
     if (!selectedService) return undefined;
@@ -207,6 +207,7 @@ export default function AlRehabProviderPage() {
       url: canonical,
       telephone: provider.phone,
       foundingDate: provider.establishedAt,
+      sameAs: ['https://alrehabhomeclean.ae', 'https://share.google/IFGGGyVTMhwW0x8N6'],
       image: gallery.map(([src]) => `https://bietalreef.ae${resolveProviderMedia(src)}`),
       address: {
         '@type': 'PostalAddress',
@@ -215,6 +216,7 @@ export default function AlRehabProviderPage() {
         addressCountry: 'AE',
       },
       areaServed: [
+        { '@type': 'City', name: 'العين' },
         ...alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.ar })),
       ],
       hasOfferCatalog: {
@@ -243,7 +245,7 @@ export default function AlRehabProviderPage() {
   return (
     <>
       <Head>
-        <title>الرحاب هوم كلين في جميع إمارات الدولة | بيت الريف</title>
+        <title>الرحاب هوم كلين | شركة تنظيف منازل وفلل في العين</title>
         <meta name="description" content={description} />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
