@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { analyticsConsent, CONSENT_EVENT } from './PrivacyConsentCenter';
 
 export const GOOGLE_ADS_TAG_ID = 'AW-17691718176';
+export const GOOGLE_ANALYTICS_ID = 'G-YXKFW0GEMF';
 export const GOOGLE_TAG_ID = 'GT-TXH7M28M';
 
 export default function ConsentAwareGoogleTag() {
@@ -21,7 +22,7 @@ export default function ConsentAwareGoogleTag() {
     if (!enabled) return undefined;
 
     const trackPage = (url) => {
-      window.gtag?.('config', GOOGLE_ADS_TAG_ID, {
+      window.gtag?.('config', GOOGLE_ANALYTICS_ID, {
         page_path: url,
         page_location: window.location.href,
       });
@@ -47,6 +48,7 @@ export default function ConsentAwareGoogleTag() {
           window.gtag = window.gtag || gtag;
           gtag('js', new Date());
           gtag('config', '${GOOGLE_ADS_TAG_ID}');
+          gtag('config', '${GOOGLE_ANALYTICS_ID}');
         `}
       </Script>
     </>
