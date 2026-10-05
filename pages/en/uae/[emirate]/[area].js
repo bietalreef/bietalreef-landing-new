@@ -1,3 +1,6 @@
+import LocalServicesPage from '../../../../components/LocalServicesPage';
+import { localProps } from '../../../../lib/localRouteProps';
+import { AREAS, CATEGORY } from '../../../../data/localServices';
 import EnglishLayout from '../../../../components/EnglishLayout';
 import FAQ from '../../../../components/FAQ';
 import SeoContent from '../../../../components/SeoContent';
@@ -47,7 +50,8 @@ function EnglishEmirateServiceHub({ emirate, service }) {
   );
 }
 
-export default function EnglishAreaOrServicePage({ mode, emirate, area, service, directoryCards = [] }) {
+export default function EnglishAreaOrServicePage({ model, mode, emirate, area, service, directoryCards = [] }) {
+  if (model) return <LocalServicesPage model={model} />;
   if (mode === 'emirateService') {
     return <EnglishEmirateServiceHub emirate={emirate} service={service} />;
   }
@@ -88,6 +92,7 @@ export default function EnglishAreaOrServicePage({ mode, emirate, area, service,
 }
 
 export async function getStaticProps({ params }) {
+  if (params.emirate === 'abu-dhabi' && params.area === 'al-ain') return localProps('en', []);
   const emirate = getEmirate(params.emirate);
   if (!emirate) return { notFound: true };
 

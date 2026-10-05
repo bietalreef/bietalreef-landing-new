@@ -1,3 +1,6 @@
+import LocalServicesPage from '../../../../../components/LocalServicesPage';
+import { localProps } from '../../../../../lib/localRouteProps';
+import { AREAS, CATEGORY } from '../../../../../data/localServices';
 import EnglishLayout from '../../../../../components/EnglishLayout';
 import FAQ from '../../../../../components/FAQ';
 import UaeSmartFooter from '../../../../../components/UaeSmartFooter';
@@ -9,7 +12,8 @@ import UaeActivityProviders from '../../../../../components/UaeActivityProviders
 import UaeDirectorySeo from '../../../../../components/UaeDirectorySeo';
 import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCategory } from '../../../../../data/siteTaxonomy';
 
-export default function EnglishLocalServicePage({ emirate, area, service }) {
+export default function EnglishLocalServicePage({ model, emirate, area, service }) {
+  if (model) return <LocalServicesPage model={model} />;
   const title = `${service.nameEn} in ${area.nameEn}`;
   const faqItems = [
     [`How do I find ${service.nameEn} in ${area.nameEn}?`, 'Choose the location and service, then send the project details so the request can be routed correctly.'],
@@ -36,6 +40,7 @@ export default function EnglishLocalServicePage({ emirate, area, service }) {
 }
 
 export async function getStaticProps({ params }) {
+  if (params.emirate === 'abu-dhabi' && params.area === 'al-ain' && (params.service === CATEGORY.slug || AREAS.some(area => area.slug === params.service))) return localProps('en', [params.service]);
   const emirate = getEmirate(params.emirate);
   const area = getArea(params.emirate, params.area);
   const service = getServiceCategory(params.service);

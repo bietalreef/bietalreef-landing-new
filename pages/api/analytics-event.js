@@ -61,6 +61,13 @@ function sanitizeMetadata(raw, req) {
     label: 120,
     target_path: 500,
     provider_slug: 120,
+    local_event: 80,
+    emirate: 120,
+    city: 120,
+    area: 120,
+    category: 120,
+    service: 120,
+    provider_id: 120,
   };
 
   for (const [key, maxLength] of Object.entries(fields)) {
@@ -73,7 +80,7 @@ function sanitizeMetadata(raw, req) {
   const city = text(req.headers['x-vercel-ip-city'], 120);
   if (country) metadata.country = country;
   if (region) metadata.region = region;
-  if (city) metadata.city = city;
+  if (city) metadata.visitor_city = city;
 
   return metadata;
 }

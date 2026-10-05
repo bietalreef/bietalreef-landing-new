@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import SEOHead from '../../components/SEOHead';
+import ProviderServiceAreas from '../../components/ProviderServiceAreas';
+import { AREAS } from '../../data/localServices';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
@@ -185,8 +187,7 @@ export default function AlRehabProviderPage() {
       inLanguage: 'ar-AE',
     },
     areaServed: alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.ar })),
-    provider: { '@id': `${canonical}#provider` },
-    additionalProperty: { '@type': 'PropertyValue', name: 'نظام التسعير', value: 'عرض سعر بعد مراجعة المقاسات والخامة وموقع المشروع' },
+    provider: { '@id': 'https://bietalreef.ae/providers/alrehab-home-clean#provider' },
   }));
 
   const offerListItems = offers.map((offer, index) => ({
@@ -200,22 +201,16 @@ export default function AlRehabProviderPage() {
   const schemas = [
     {
       '@context': 'https://schema.org',
-      '@type': 'CleaningService',
-      '@id': `${canonical}#provider`,
+      '@type': 'LocalBusiness',
+      '@id': 'https://bietalreef.ae/providers/alrehab-home-clean#provider',
       identifier: provider.id,
       name: provider.name,
       url: canonical,
       telephone: provider.phone,
-      foundingDate: provider.establishedAt,
       sameAs: ['https://alrehabhomeclean.ae', 'https://share.google/IFGGGyVTMhwW0x8N6'],
       image: gallery.map(([src]) => `https://bietalreef.ae${resolveProviderMedia(src)}`),
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'العين',
-        addressRegion: 'أبوظبي',
-        addressCountry: 'AE',
-      },
       areaServed: [
+        ...AREAS.map(area => ({ '@type': 'Place', name: area.nameAr, containedInPlace: { '@type': 'City', name: 'Al Ain' } })),
         { '@type': 'City', name: 'العين' },
         ...alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.ar })),
       ],
@@ -244,17 +239,7 @@ export default function AlRehabProviderPage() {
 
   return (
     <>
-      <Head>
-        <title>الرحاب هوم كلين | شركة تنظيف منازل وفلل في العين</title>
-        <meta name="description" content={description} />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content="الرحاب هوم كلين في جميع إمارات الدولة" />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
-        <meta property="og:locale" content="ar_AE" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
-      </Head>
+      <SEOHead title="الرحاب هوم كلين | شركة تنظيف منازل وفلل في العين" description={description} canonicalPath="/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'مزودو الخدمات', href: '/providers' }, { name: provider.name, href: '/providers/alrehab-home-clean' }]} />
 
       <div dir="rtl" className="min-h-screen bg-[#F8F4EC] text-[#1D2E22]">
         <Navbar />
@@ -503,6 +488,7 @@ export default function AlRehabProviderPage() {
               ))}
             </div>
           </section>
+          <ProviderServiceAreas locale="ar" />
         </main>
 
         {selectedService && (

@@ -1,3 +1,4 @@
+const { AREAS } = require('./data/localServices');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -50,6 +51,8 @@ module.exports = {
   ...nextConfig,
   async redirects() {
     return [
+      ...AREAS.flatMap(area => ['', '/en'].map(prefix => ({ source: `${prefix}/uae/abu-dhabi/${area.slug}`, destination: `${prefix}/uae/abu-dhabi/al-ain/${area.slug}`, permanent: true }))),
+      ...AREAS.flatMap(area => ['', '/en'].map(prefix => ({ source: `${prefix}/uae/abu-dhabi/${area.slug}/cleaning-services`, destination: `${prefix}/uae/abu-dhabi/al-ain/${area.slug}/cleaning-services`, permanent: true }))),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.bietalreef.ae' }],

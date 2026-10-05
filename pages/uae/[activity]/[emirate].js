@@ -1,3 +1,6 @@
+import LocalServicesPage from '../../../components/LocalServicesPage';
+import { localProps } from '../../../lib/localRouteProps';
+import { AREAS, CATEGORY } from '../../../data/localServices';
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
@@ -58,7 +61,8 @@ function EmirateServiceHub({ emirate, service, emirateSlug }) {
   );
 }
 
-export default function AreaOrServicePage({ mode, emirate, area, service, emirateSlug, areaSlug, directoryCards = [] }) {
+export default function AreaOrServicePage({ model, mode, emirate, area, service, emirateSlug, areaSlug, directoryCards = [] }) {
+  if (model) return <LocalServicesPage model={model} />;
   if (!emirate) return null;
 
   if (mode === 'emirateService') {
@@ -108,6 +112,7 @@ export default function AreaOrServicePage({ mode, emirate, area, service, emirat
 }
 
 export async function getStaticProps({ params }) {
+  if (params.activity === 'abu-dhabi' && params.emirate === 'al-ain') return localProps('ar', []);
   const emirateSlug = params.activity;
   const secondSlug = params.emirate;
   const emirate = getEmirate(emirateSlug);

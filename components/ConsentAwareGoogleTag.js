@@ -75,6 +75,7 @@ export default function ConsentAwareGoogleTag() {
           gtag('js', new Date());
           gtag('config', '${GOOGLE_ADS_TAG_ID}');
           gtag('config', '${GOOGLE_ANALYTICS_ID}');
+          window.dispatchEvent(new Event('bietalreef:google-ready'));
         `}
       </Script>
     </>

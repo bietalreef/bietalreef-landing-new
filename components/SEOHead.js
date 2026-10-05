@@ -37,6 +37,7 @@ export default function SEOHead({
   ogImageHeight = 630,
   ogType = 'website',
   noIndex = false,
+  noIndexFollow = false,
   structuredData = null,
   breadcrumbs = null,
   canonicalPath,
@@ -80,13 +81,11 @@ export default function SEOHead({
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+      <meta name="robots" content={noIndex ? (noIndexFollow ? 'noindex, follow' : 'noindex, nofollow') : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
       <link rel="canonical" href={canonicalUrl} />
       <meta name="author" content={SITE_NAME} />
       <meta name="geo.region" content="AE" />
       <meta name="geo.placename" content={paths.isEnglish ? 'United Arab Emirates' : 'الإمارات العربية المتحدة'} />
-      <meta name="geo.position" content="25.2048;55.2708" />
-      <meta name="ICBM" content="25.2048, 55.2708" />
       <meta httpEquiv="content-language" content={pageLanguage} />
       {/* React hrefLang renders the standard HTML hreflang attribute. */}
       <link rel="alternate" hrefLang="ar-AE" href={arabicUrl} />

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import SEOHead from '../../../components/SEOHead';
+import ProviderServiceAreas from '../../../components/ProviderServiceAreas';
+import { AREAS } from '../../../data/localServices';
 import Image from 'next/image';
 import Link from 'next/link';
 import EnglishLayout from '../../../components/EnglishLayout';
@@ -184,8 +186,7 @@ export default function AlRehabEnglishProviderPage() {
     url: `${canonical}#${service.id}`,
     image: { '@type': 'ImageObject', contentUrl: `https://bietalreef.ae${resolveProviderMedia(service.image)}`, caption: `${service.title} by Al Rehab in Abu Dhabi, Dubai, Sharjah, Ajman and the other UAE emirates`, inLanguage: 'en-AE' },
     areaServed: alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.en })),
-    provider: { '@id': `${canonical}#provider` },
-    additionalProperty: { '@type': 'PropertyValue', name: 'Pricing model', value: 'Quotation after reviewing dimensions, materials and project location' },
+    provider: { '@id': 'https://bietalreef.ae/providers/alrehab-home-clean#provider' },
   }));
 
   const offerListItems = offers.map((offer, index) => ({
@@ -199,22 +200,16 @@ export default function AlRehabEnglishProviderPage() {
   const schemas = [
     {
       '@context': 'https://schema.org',
-      '@type': 'CleaningService',
-      '@id': `${canonical}#provider`,
+      '@type': 'LocalBusiness',
+      '@id': 'https://bietalreef.ae/providers/alrehab-home-clean#provider',
       identifier: provider.id,
       name: provider.name,
       url: canonical,
       telephone: provider.phone,
-      foundingDate: provider.establishedAt,
       sameAs: ['https://alrehabhomeclean.ae', 'https://share.google/IFGGGyVTMhwW0x8N6'],
       image: gallery.map(([src]) => `https://bietalreef.ae${resolveProviderMedia(src)}`),
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Al Ain',
-        addressRegion: 'Abu Dhabi',
-        addressCountry: 'AE',
-      },
       areaServed: [
+        ...AREAS.map(area => ({ '@type': 'Place', name: area.nameEn, containedInPlace: { '@type': 'City', name: 'Al Ain' } })),
         { '@type': 'City', name: 'Al Ain' },
         ...alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.en })),
       ],
@@ -243,20 +238,7 @@ export default function AlRehabEnglishProviderPage() {
 
   return (
     <>
-      <Head>
-        <title>Al Rehab Home Clean | Home & Villa Cleaning in Al Ain</title>
-        <meta name="description" content={description} />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-        <link rel="canonical" href={canonical} />
-        <link rel="alternate" hrefLang="ar-AE" href="https://bietalreef.ae/providers/alrehab-home-clean" />
-        <link rel="alternate" hrefLang="en-AE" href={canonical} />
-        <link rel="alternate" hrefLang="x-default" href="https://bietalreef.ae/providers/alrehab-home-clean" />
-        <meta property="og:title" content="Al Rehab Home Clean | Home & Villa Cleaning in Al Ain" />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} />
-        <meta property="og:locale" content="en_AE" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }} />
-      </Head>
+      <SEOHead title="Al Rehab Home Clean | Home & Villa Cleaning in Al Ain" description={description} canonicalPath="/en/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'Providers', href: '/en/providers' }, { name: provider.name, href: '/en/providers/alrehab-home-clean' }]} />
 
       <EnglishLayout>
         <main dir="ltr" lang="en" className="bg-[#F8F4EC] text-left text-[#1D2E22]">
@@ -516,6 +498,7 @@ export default function AlRehabEnglishProviderPage() {
               onClose={() => setSelectedService(null)}
             />
           )}
+          <ProviderServiceAreas locale="en" />
         </main>
       </EnglishLayout>
     </>

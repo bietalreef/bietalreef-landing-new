@@ -1,3 +1,6 @@
+import LocalServicesPage from '../../../../components/LocalServicesPage';
+import { localProps } from '../../../../lib/localRouteProps';
+import { AREAS, CATEGORY } from '../../../../data/localServices';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
 import SecondaryHeader from '../../../../components/SecondaryHeader';
@@ -13,7 +16,8 @@ import { UAE_EMIRATES, SERVICE_CATEGORIES, getEmirate, getArea, getServiceCatego
 
 const AL_HOOT_SERVICE_SLUGS = ['marble-ceramic', 'building-materials', 'finishing-works'];
 
-export default function AreaServicePage({ emirate, area, service, emirateSlug, areaSlug }) {
+export default function AreaServicePage({ model, emirate, area, service, emirateSlug, areaSlug }) {
+  if (model) return <LocalServicesPage model={model} />;
   const title = `${service.nameAr} في ${area.nameAr}`;
   const showAlHootPath = false;
   const faqItems = [
@@ -49,6 +53,7 @@ export default function AreaServicePage({ emirate, area, service, emirateSlug, a
 }
 
 export async function getStaticProps({ params }) {
+  if (params.activity === 'abu-dhabi' && params.emirate === 'al-ain' && (params.service === CATEGORY.slug || AREAS.some(area => area.slug === params.service))) return localProps('ar', [params.service]);
   if (params.activity === '[emirate]' && params.emirate === '[area]' && params.service === '[service]') {
     return {
       redirect: {

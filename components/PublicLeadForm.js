@@ -1,3 +1,4 @@
+import { getLocalArea, validSlug } from '../lib/localServices';
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, CheckCircle2, Copy, ImagePlus, Loader2, MessageSquareText, Phone, ShieldCheck, X } from 'lucide-react';
 
@@ -91,6 +92,12 @@ export default function PublicLeadForm({ formType = 'quote' }) {
 
   useEffect(() => {
     setSource({ source_path: window.location.pathname, source_page_title: document.title, utm: readUtm() });
+    const params = new URLSearchParams(window.location.search);
+    const area = getLocalArea(params.get('area'));
+    const provider = params.get('provider');
+    if (params.get('city') === 'al-ain' && validSlug(provider)) {
+      setForm(current => ({ ...current, city: `العين${area ? ` – ${area.nameAr}` : ''}`, project_description: `طلب عرض سعر للمزود ${provider}. يرجى وصف نطاق التنظيف المطلوب:` }));
+    }
   }, []);
 
   const title = isQuote ? 'طلب عرض سعر' : 'إرسال استفسار';

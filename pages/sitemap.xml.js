@@ -1,3 +1,6 @@
+import { localSitemap } from '../lib/localServices';
+import { getLocalProviders } from '../lib/localProviderData';
+import { AREAS } from '../data/localServices';
 const { buildSearchIndexEntries } = require('../lib/searchIndexRoutes');
 import { UAE_EMIRATES } from '../data/siteTaxonomy';
 import {
@@ -47,7 +50,7 @@ function buildSitemapXml(entries) {
       '  <url>',
       `    <loc>${escapeXml(entry.loc)}</loc>`,
       ...optionalLines,
-      `    <lastmod>${entry.lastmod}</lastmod>`,
+      ...(entry.lastmod ? [`    <lastmod>${escapeXml(entry.lastmod)}</lastmod>`] : []),
       `    <changefreq>${entry.changefreq}</changefreq>`,
       `    <priority>${entry.priority.toFixed(2)}</priority>`,
       '  </url>',
@@ -65,13 +68,12 @@ function buildSitemapXml(entries) {
 }
 
 export async function getServerSideProps({ res }) {
-  const entries = buildSearchIndexEntries();
+  const entries = [...buildSearchIndexEntries(), ...localSitemap(await getLocalProviders())];
   const [cards, providerCards, products] = await Promise.all([
     getArabicUaeDirectoryCards(),
     getPublishedProviderCards('ar'),
     getPublishedProductsForSitemap('ar'),
   ]);
-  const lastmod = new Date().toISOString().slice(0, 10);
   const addPair = (arPath, enPath, image, options = {}) => {
     const alternates = {
       ar: `https://bietalreef.ae${arPath}`,
@@ -79,7 +81,7 @@ export async function getServerSideProps({ res }) {
       default: `https://bietalreef.ae${arPath}`,
     };
     const shared = {
-      lastmod,
+      ...(options.lastmod ? { lastmod: options.lastmod } : {}),
       changefreq: options.changefreq || 'weekly',
       priority: options.priority ?? 0.72,
       alternates,
@@ -123,7 +125,7 @@ export async function getServerSideProps({ res }) {
       const section = UAE_DIRECTORY_SECTION_SLUGS[card.sectionKey];
       const suffix = `/directory/${section}/${card.activity.slug}`;
       addPair(`/uae/${emirate.slug}${suffix}`, `/en/uae/${emirate.slug}${suffix}`, card.image);
-      emirate.areas.forEach((area) => {
+      emirate.areas.filter(area => !(emirate.slug === 'abu-dhabi' && (area.slug === 'al-ain' || AREAS.some(item => item.slug === area.slug)))).forEach((area) => {
         const areaSuffix = `/${area.slug}${suffix}`;
         addPair(`/uae/${emirate.slug}${areaSuffix}`, `/en/uae/${emirate.slug}${areaSuffix}`, card.image);
       });

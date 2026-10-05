@@ -10,7 +10,8 @@
     "build": "next build",
     "postbuild": "node scripts/postbuild-preview-smoke.mjs",
     "test:weyaak:live": "node scripts/weyaak-preview-smoke.mjs && node scripts/weyaak-provider-search-smoke.mjs",
-    "start": "next start"
+    "start": "next start",
+    "test:local-services": "node --test scripts/local-services.test.cjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.3.0",
