@@ -80,7 +80,7 @@ Modified: existing Arabic/English city and service route handlers; Arabic/Englis
 
 ## Validation
 
-Unit command: `npm run test:local-services` (10 tests covering invalid slugs and area lookup, coverage/eligibility, indexability, canonicals/alternates, schema, sitemap, missing entities, commercial scope and Search Console dimensions).
+Unit command: `npm run test:local-services` (11 tests covering invalid slugs and area lookup, coverage/eligibility, indexability, canonicals/alternates, schema, sitemap, missing entities, commercial scope and Search Console dimensions).
 
 HTTP command after a production build: `node scripts/local-services-http.cjs`, with the existing public Supabase environment variables. Starts and stops its own production server; checks 54 bilingual URLs, intentional 404s, redirects, metadata, schema and sitemap.
 
@@ -90,4 +90,6 @@ Build command: `npm run build`. Existing large-page and taxonomy transport warni
 
 Deployment commit and live verification results are recorded in the release response; this document does not substitute for those checks.
 
-Verified locally: 10/10 unit tests; successful production build; 54 route responses; four intentional 404s; two redirect checks; mobile 390px and desktop 1440px with no horizontal overflow; internal links; zero page errors; analytics and rejected-consent checks. Schema checks validate generated JSON and absence of unsupported/fictional business data; they are not an external Google Rich Results certification. Search Console indexing and field Core Web Vitals require post-release observation.
+Verified locally: 11/11 unit tests; successful production build; 54 route responses; four intentional 404s; two redirect checks; mobile 390px and desktop 1440px with no horizontal overflow; internal links; zero page errors; analytics and rejected-consent checks. Schema checks validate generated JSON and absence of unsupported/fictional business data; they are not an external Google Rich Results certification. Search Console indexing and field Core Web Vitals require post-release observation.
+
+Production review found the public phone stored in local UAE format. The adapter now normalizes validated UAE numbers to E.164 before constructing phone/WhatsApp CTAs; this has a dedicated regression test.

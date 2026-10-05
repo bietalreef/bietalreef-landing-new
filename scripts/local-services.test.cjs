@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { CITY, AREAS, CATEGORY } = require('../data/localServices');
-const { validSlug, getLocalArea, localPath, alternates, eligibleProviders, featuredProviders, isIndexableAreaPage, pageModel, localSitemap, localSearchDimensions } = require('../lib/localServices');
+const { validSlug, normalizeUaePhone, getLocalArea, localPath, alternates, eligibleProviders, featuredProviders, isIndexableAreaPage, pageModel, localSitemap, localSearchDimensions } = require('../lib/localServices');
 const fixture = { id: 'provider-1', slug: 'alrehab-home-clean', name: { ar: 'الرحاب', en: 'Alrehab' }, published: true, verified: true,
   visibility: { directory: true, requiresSubscription: false }, subscription: { active: false },
   services: [{ slug: 'sofa-cleaning', category: CATEGORY.slug, published: true, title: { ar: 'تنظيف الكنب', en: 'Sofa cleaning' } }],
@@ -77,4 +77,10 @@ test('Search Console dimensions resolve canonical bilingual URLs', () => {
   assert.deepEqual(localSearchDimensions('/en/uae/abu-dhabi/al-ain/al-jimi/cleaning-services'), { locale: 'en', emirate: 'abu-dhabi', city: 'al-ain', area: 'al-jimi', category: 'cleaning-services', service: '' });
   assert.equal(localSearchDimensions('/uae/abu-dhabi/al-ain/fake/cleaning-services'), null);
   assert.equal(localSearchDimensions('/uae/dubai'), null);
+});
+
+test('UAE contact numbers resolve to international phone and WhatsApp forms', () => {
+  for (const phone of ['0547761290', '547761290', '+971 54 776 1290', '00971547761290']) assert.equal(normalizeUaePhone(phone), '+971547761290');
+  assert.equal(normalizeUaePhone('03 1234567'), '+97131234567');
+  assert.equal(normalizeUaePhone(''), ''); assert.equal(normalizeUaePhone('123'), '');
 });
