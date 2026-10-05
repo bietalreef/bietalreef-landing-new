@@ -11,7 +11,9 @@
     "postbuild": "node scripts/postbuild-preview-smoke.mjs",
     "test:weyaak:live": "node scripts/weyaak-preview-smoke.mjs && node scripts/weyaak-provider-search-smoke.mjs",
     "start": "next start",
-    "test:local-services": "node --test scripts/local-services.test.cjs"
+    "test:local-services": "node --test scripts/local-services.test.cjs",
+    "test:local-growth": "node --test scripts/local-seo-growth.test.cjs",
+    "check:google-edge": "tsc -p supabase/functions/tsconfig.json"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.3.0",

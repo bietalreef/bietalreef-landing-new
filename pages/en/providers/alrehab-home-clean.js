@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import SEOHead from '../../../components/SEOHead';
+import { getLocalProviders } from '../../../lib/localProviderData';
+import { pageModel } from '../../../lib/localServices';
 import ProviderServiceAreas from '../../../components/ProviderServiceAreas';
 import { AREAS } from '../../../data/localServices';
 import Image from 'next/image';
@@ -52,43 +54,9 @@ const provider = {
   logo: alrehabTemplate.media.logo,
 };
 
-const resolveProviderMedia = (src) => (src?.startsWith('/') ? src : `${provider.base}${src}`);
+const resolveProviderMedia = (src) => (src?.startsWith('/') || /^https:\/\//.test(src || '') ? src : `${provider.base}${src}`);
+const absoluteProviderMedia = (src) => new URL(resolveProviderMedia(src), 'https://bietalreef.ae').href;
 
-const serviceDetails = [
-  {
-    icon: Sparkles,
-    tags: ['Steam cleaning', 'Stain treatment', 'Fabric-aware process'],
-    requiredDetails: ['City and area', 'Number and approximate size of sofa pieces', 'Clear photos of stains and fabric condition', 'Preferred service appointment'],
-    wayaakPrompt: 'Help me prepare a steam sofa cleaning request for Al Rehab. Ask about the pieces, fabric, stains, location and required photos before contact.',
-  },
-  {
-    icon: Layers3,
-    tags: ['Carpets and rugs', 'Deep extraction', 'Controlled drying'],
-    requiredDetails: ['City and area', 'Number of rugs or carpeted area', 'Approximate dimensions', 'Photos of stains and overall condition'],
-    wayaakPrompt: 'Help me prepare a carpet or rug cleaning request for Al Rehab. Ask about quantity, area, dimensions, stains and location.',
-  },
-  {
-    icon: Home,
-    tags: ['Arabic majlis', 'Cushion cleaning', 'Odour treatment'],
-    requiredDetails: ['City and area', 'Majlis length or number of pieces', 'Number of backrests and cushions', 'Clear photos of the majlis and stains'],
-    wayaakPrompt: 'Help me prepare an Arabic majlis cleaning request for Al Rehab. Ask about length, backrests, cushions, stains and location.',
-  },
-  {
-    icon: ShieldCheck,
-    tags: ['Mattress cleaning', 'Suitable sanitizing', 'Dust and odour removal'],
-    requiredDetails: ['City and area', 'Number and size of mattresses', 'Photos of condition and stains', 'Any odours or specific sanitizing need'],
-    wayaakPrompt: 'Help me prepare a mattress cleaning and sanitizing request for Al Rehab. Ask about quantity, sizes, stains, odours and location.',
-  },
-];
-
-const services = alrehabTemplate.services.map((service, index) => ({
-  id: service.id,
-  slug: service.slug,
-  title: service.title.en,
-  description: service.summary.en,
-  image: service.image,
-  ...(serviceDetails[index] || { icon: Sparkles, tags: [], requiredDetails: [], wayaakPrompt: '' }),
-}));
 
 const offers = alrehabTemplate.offers.map((offer, index) => ({
   id: offer.id,
@@ -109,7 +77,7 @@ const gallery = [
   ...alrehabTemplate.gallery.map((item) => [item.image, item.title.en]),
 ];
 
-const faqs = [
+const publishedFaqs = [
   ['Which areas does Al Rehab serve?', 'Services cover Abu Dhabi, Dubai, Sharjah, Ajman and the other UAE emirates. Appointment availability depends on the area and requested work.'],
   ['Do you use safe cleaning and sanitizing products?', 'Products are selected according to the fabric and its condition, with use and safety instructions considered before cleaning starts.'],
   ['How do I get an accurate price?', 'Send photos, quantity, dimensions and the service location through WhatsApp. The condition is reviewed before the price and appointment are confirmed.'],
@@ -117,7 +85,6 @@ const faqs = [
 ];
 
 const sectionCopy = {
-  services: 'Al Rehab Home Clean provides home, villa and building cleaning, steam cleaning for sofas, carpets and upholstery, tank and pool cleaning, sanitizing and pest control across all UAE emirates according to appointment and request scope. This section helps customers select the right cleaning service and request a quotation based on condition, rather than a figure that may change. Each card shows the service name, its Biet Al Reef identifier, a dedicated image, a concise description and the information needed for assessment. For a more accurate quotation, share the city and area, clear photographs, quantity, approximate dimensions, fabric type when known, soil level, stain or odor condition and preferred appointment. Al Rehab can then review the scope, cleaning method, suitable materials and equipment before confirming price and attendance. Options include steam sofa cleaning and stain treatment according to textile type, deep extraction for rugs and fitted carpets, cleaning of majlis seating, cushions and pillows, and mattress cleaning and sanitizing based on condition. How do you request an Al Rehab cleaning service? Choose the relevant card, read its summary, open Details, then send the photographs, quantity, measurements and location through the contact option. A photograph alone does not approve a price; it starts the assessment, and further clarification may be required when materials, stains or site access differ. The content answers customers searching for home and villa cleaning, steam sofa and carpet cleaning, tank and pool cleaning or pest control across the UAE. Customers may also mention children, pets or sensitivity to odors when relevant to treatment, plus floor level, lift access and loading arrangements if they affect attendance. They prevent missing information and help prepare the team before arrival. Select Details to review the requirements for each service and submit complete information for a faster assessment and a clearer quotation.',
   offers: 'Al Rehab Home Clean offers provide a flexible way to combine several cleaning needs in one request, whether the customer needs sofa and majlis cleaning, carpets and fitted carpeting, mattresses, or more than one service type at the same location. A package is not one fixed price for every property. Every request begins with the city and area in any UAE emirate, subject to the available service scope, followed by photographs, quantity, approximate dimensions, fabric or surface type, stain and odor condition, and any access notes that may affect attendance or work time. Al Rehab reviews this information to identify the required services, arrange the visit and select a suitable cleaning method, materials and equipment. What is the difference between an individual service and a cleaning package? A service focuses on one defined requirement, such as sofa or mattress cleaning, while a package may combine several items or a larger quantity within one assessed request. Is the displayed price final? No price is confirmed until the request data is reviewed, because quantity, size, material, soil level and location are essential pricing factors. Offer cards help customers find a suitable option for homes, villas, apartments and majlis areas that require more than one treatment, without assuming needs or inserting unwanted items. Open Details to review each offer, then share the requested information for a quotation that can be checked before service. This approach answers searches for cleaning packages in Al Ain, sofa and majlis cleaning offers in Abu Dhabi, and deep cleaning in Dubai by appointment. Choose the closest offer, list all items and areas, attach recent photographs and specify a preferred time. The scope, price and attendance time are then confirmed clearly before work begins, so the customer knows what will be delivered and which information supported the assessment.',
   products: 'The Al Rehab products section is reserved for cleaning materials or products that the provider chooses to add and officially publish through the Biet Al Reef administration dashboard. No products are currently published, so this page does not display invented names, prices or specifications and does not suggest that an unapproved item is available. When a real product is added, it will appear in a dedicated card containing its name, identifier, image, intended use, status, direct price or quotation method, and the information customers need before making contact. This structure creates a clear distinction between cleaning services delivered at the customer location and products offered as separate materials or supplies. Does Al Rehab sell cleaning products now? According to the published provider data, no products are available in this section at present. If a product is published later, use its official card to verify the name, price and specifications instead of relying on general information outside the provider profile. The section helps customers in Abu Dhabi, Dubai, Sharjah, Ajman and the other UAE emirates verify the source of information and connect every published product to Al Rehab and its Biet Al Reef identifier. It also gives search engines and AI assistants a precise answer instead of unverified promotional copy. The absence of products does not affect requests for sofa, carpet, fitted carpet, majlis or mattress cleaning through the other sections. It only means that separate material sales have not been announced on this page. When a new card appears, review the image, description, quantity or size, price or pricing method, then use the contact option on that card to ask about availability, collection or delivery in advance. This keeps the content current, preserves the dashboard as the main source and prevents any product, claim or cost from appearing without official publication by Al Rehab.',
 };
@@ -145,10 +112,12 @@ function buildWeyaakHref(service) {
   return 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
 }
 
-export default function AlRehabEnglishProviderPage() {
+export default function AlRehabEnglishProviderPage({ discoveryServices = [], liveServices = [] }) {
+  const services = liveServices.map(item => ({ id: item.id, slug: item.slug, title: item.title.en, description: item.summary.en, image: item.image || alrehabTemplate.media.cover, icon: Sparkles, tags: [], requiredDetails: discoveryServices.find(service => service.slug === item.slug)?.details?.en || ['City and district', 'Photos of the condition', 'Requested scope and appointment'], wayaakPrompt: '' }));
+  const faqs = publishedFaqs.map(([question, answer], index) => index === 1 ? ['Which published services are available?', services.map(item => item.title).join(', ')] : [question, answer]);
   const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/en/providers/alrehab-home-clean';
-  const description = alrehabTemplate.description.en;
+  const description = liveServices.map(item => item.summary.en).join(' ');
   const message = buildProviderWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'en',
@@ -184,7 +153,7 @@ export default function AlRehabEnglishProviderPage() {
     name: service.title,
     description: service.description,
     url: `${canonical}#${service.id}`,
-    image: { '@type': 'ImageObject', contentUrl: `https://bietalreef.ae${resolveProviderMedia(service.image)}`, caption: `${service.title} by Al Rehab in Abu Dhabi, Dubai, Sharjah, Ajman and the other UAE emirates`, inLanguage: 'en-AE' },
+    image: { '@type': 'ImageObject', contentUrl: absoluteProviderMedia(service.image), caption: `${service.title} by Al Rehab in Abu Dhabi, Dubai, Sharjah, Ajman and the other UAE emirates`, inLanguage: 'en-AE' },
     areaServed: alrehabTemplate.coverage.map((area) => ({ '@type': 'AdministrativeArea', name: area.en })),
     provider: { '@id': 'https://bietalreef.ae/providers/alrehab-home-clean#provider' },
   }));
@@ -238,7 +207,7 @@ export default function AlRehabEnglishProviderPage() {
 
   return (
     <>
-      <SEOHead title="Al Rehab Home Clean | Home & Villa Cleaning in Al Ain" description={description} canonicalPath="/en/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'Providers', href: '/en/providers' }, { name: provider.name, href: '/en/providers/alrehab-home-clean' }]} />
+      <SEOHead title="Al Rehab Home Clean | Provider profile on Biet Alreef" description={description} canonicalPath="/en/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'Providers', href: '/en/providers' }, { name: provider.name, href: '/en/providers/alrehab-home-clean' }]} />
 
       <EnglishLayout>
         <main dir="ltr" lang="en" className="bg-[#F8F4EC] text-left text-[#1D2E22]">
@@ -358,7 +327,7 @@ export default function AlRehabEnglishProviderPage() {
             <div className="mt-6 grid gap-3 lg:grid-cols-3">
               <ActivityDetail icon={Building2} title="Main activity" value="Service Providers — Cleaning and Pest Control Services" source="provider_categories.is_primary" />
               <ActivityDetail icon={Layers3} title="Specialisation" value="Deep cleaning for sofas, carpets, rugs, Arabic majlis seating and mattresses" source="provider_specialties" />
-              <ActivityDetail icon={ListChecks} title="Services" value="Home and villa cleaning, steam sofa and carpet cleaning, tank and pool cleaning, pest control and sanitizing" source="provider_services.service_id" />
+              <ActivityDetail icon={ListChecks} title="Services" value={services.map(item => item.title).join(', ')} source="provider_services.service_id" />
             </div>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -406,7 +375,7 @@ export default function AlRehabEnglishProviderPage() {
           <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-12 md:py-14">
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="Services & Offers" title="Al Rehab services available for quotation requests" />
-              <ExpandableSectionCopy id="alrehab-services-copy-en" text={sectionCopy.services} />
+              <ExpandableSectionCopy id="alrehab-services-copy-en" text={description} />
 
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {services.map((service) => (
@@ -498,6 +467,7 @@ export default function AlRehabEnglishProviderPage() {
               onClose={() => setSelectedService(null)}
             />
           )}
+          {discoveryServices.length > 0 && <section className="mx-auto max-w-6xl px-4 py-8"><h2 className="text-2xl font-bold text-[#0F3F1A]">{'Discover services in Al Ain'}</h2><div className="mt-4 flex flex-wrap gap-3">{discoveryServices.map(item => <Link key={item.slug} href={item.path} className="rounded-xl border border-[#D8C8AA] px-4 py-3">{item.name.en}</Link>)}</div></section>}
           <ProviderServiceAreas locale="en" />
         </main>
       </EnglishLayout>
@@ -838,4 +808,9 @@ function OfferCard({ product }) {
       </div>
     </article>
   );
+}
+
+export async function getStaticProps() {
+  const providers = (await getLocalProviders()).filter(item => item.slug === 'alrehab-home-clean');
+  return { props: { liveServices: providers[0]?.services || [], discoveryServices: pageModel({ locale: 'en', category: 'cleaning-services', providers })?.relatedServices || [] }, revalidate: 3600 };
 }

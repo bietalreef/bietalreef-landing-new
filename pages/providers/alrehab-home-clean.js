@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import SEOHead from '../../components/SEOHead';
+import { getLocalProviders } from '../../lib/localProviderData';
+import { pageModel } from '../../lib/localServices';
 import ProviderServiceAreas from '../../components/ProviderServiceAreas';
 import { AREAS } from '../../data/localServices';
 import Image from 'next/image';
@@ -53,43 +55,9 @@ const provider = {
   logo: alrehabTemplate.media.logo,
 };
 
-const resolveProviderMedia = (src) => (src?.startsWith('/') ? src : `${provider.base}${src}`);
+const resolveProviderMedia = (src) => (src?.startsWith('/') || /^https:\/\//.test(src || '') ? src : `${provider.base}${src}`);
+const absoluteProviderMedia = (src) => new URL(resolveProviderMedia(src), 'https://bietalreef.ae').href;
 
-const serviceDetails = [
-  {
-    icon: Sparkles,
-    tags: ['تنظيف بالبخار', 'معالجة البقع', 'حسب نوع القماش'],
-    requiredDetails: ['المدينة والمنطقة', 'عدد قطع الكنب وحجمها التقريبي', 'صور واضحة للبقع وحالة القماش', 'الموعد المفضل لتنفيذ الخدمة'],
-    wayaakPrompt: 'ساعدني في تجهيز طلب تنظيف كنب بالبخار من الرحاب، واسألني عن عدد القطع ونوع القماش والبقع والموقع والصور المطلوبة قبل التواصل.',
-  },
-  {
-    icon: Layers3,
-    tags: ['سجاد وموكيت', 'استخلاص عميق', 'تجفيف منظم'],
-    requiredDetails: ['المدينة والمنطقة', 'عدد قطع السجاد أو مساحة الموكيت', 'المقاسات التقريبية', 'صور البقع وحالة السجاد أو الموكيت'],
-    wayaakPrompt: 'ساعدني في تجهيز طلب تنظيف سجاد أو موكيت من الرحاب، واسألني عن العدد والمساحة والمقاسات والبقع والموقع.',
-  },
-  {
-    icon: Home,
-    tags: ['مجالس عربية', 'تنظيف المساند', 'معالجة الروائح'],
-    requiredDetails: ['المدينة والمنطقة', 'طول المجلس أو عدد القطع', 'عدد المساند والوسائد', 'صور واضحة للمجلس وحالة البقع'],
-    wayaakPrompt: 'ساعدني في تجهيز طلب تنظيف مجلس عربي من الرحاب، واسألني عن الطول وعدد المساند والوسائد والبقع والموقع.',
-  },
-  {
-    icon: ShieldCheck,
-    tags: ['تنظيف المراتب', 'تعقيم مناسب', 'إزالة الأتربة والروائح'],
-    requiredDetails: ['المدينة والمنطقة', 'عدد المراتب ومقاس كل مرتبة', 'صور الحالة والبقع', 'وجود روائح أو احتياج تعقيم محدد'],
-    wayaakPrompt: 'ساعدني في تجهيز طلب تنظيف وتعقيم مراتب من الرحاب، واسألني عن العدد والمقاسات والبقع والروائح والموقع.',
-  },
-];
-
-const services = alrehabTemplate.services.map((service, index) => ({
-  id: service.id,
-  slug: service.slug,
-  title: service.title.ar,
-  description: service.summary.ar,
-  image: service.image,
-  ...(serviceDetails[index] || { icon: Sparkles, tags: [], requiredDetails: [], wayaakPrompt: '' }),
-}));
 
 const offers = alrehabTemplate.offers.map((offer, index) => ({
   id: offer.id,
@@ -110,10 +78,8 @@ const gallery = [
   ...alrehabTemplate.gallery.map((item) => [item.image, item.title.ar]),
 ];
 
-const faqs = alrehabTemplate.faq.map((item) => [item.questionAr, item.answerAr]);
 
 const sectionCopy = {
-  services: 'تقدّم الرحاب هوم كلين خدمات تنظيف المنازل والفلل والمباني، وتنظيف الكنب والسجاد والمفروشات بالبخار، وتنظيف الخزانات والمسابح والتعقيم ومكافحة الحشرات في جميع إمارات الدولة حسب الموعد ونطاق الطلب. يهدف هذا القسم إلى مساعدة العميل على اختيار نوع التنظيف الصحيح وطلب عرض سعر مبني على الحالة الفعلية، وليس على رقم تقريبي قد يتغير لاحقًا. تعرض كل بطاقة اسم الخدمة، معرفها داخل منصة بيت الريف، صورة مستقلة، ملخص العمل، ونوع المعلومات اللازمة للتقييم. للحصول على تسعير أدق، يرسل العميل المدينة والمنطقة، صورًا واضحة، عدد القطع، المقاسات التقريبية، نوع القماش إن كان معروفًا، مستوى الاتساخ، حالة البقع أو الروائح، والموعد المناسب. بعد مراجعة هذه البيانات يمكن تحديد نطاق الخدمة وطريقة التنظيف والمواد والمعدات المناسبة قبل تأكيد السعر والزيارة. تشمل الخيارات تنظيف الكنب بالبخار ومعالجة البقع حسب نوع النسيج، وتنظيف السجاد والموكيت بالاستخلاص العميق والتجفيف المنظم، وتنظيف المجالس والمساند والوسائد، وتنظيف وتعقيم المراتب وإزالة الأتربة والروائح وفق الحالة. إذا كان السؤال: كيف أطلب خدمة تنظيف من الرحاب؟ فالجواب المباشر هو اختيار البطاقة المطابقة، قراءة الملخص، فتح التفاصيل، ثم إرسال الصور والعدد والمقاسات والموقع عبر وسيلة التواصل المتاحة. لا تعني الصورة وحدها اعتماد السعر؛ فهي خطوة أولى لفهم الحالة، وقد يلزم توضيح إضافي عند اختلاف الخامة أو شدة البقع أو صعوبة الوصول إلى موقع العمل. صُمم المحتوى ليجيب عن أسئلة العملاء الباحثين عن شركة تنظيف منازل وفلل، تنظيف كنب وسجاد بالبخار، تنظيف خزانات ومسابح، أو مكافحة حشرات في الإمارات، مع إبقاء القرار النهائي واضحًا ومرتبطًا بالطلب الحقيقي. اضغط «التفاصيل» لمعرفة المتطلبات الخاصة بكل خدمة، ثم جهّز المعلومات كاملة حتى تحصل على تقييم أسرع وعرض سعر أوضح دون إضافة خدمات أو أسعار غير منشورة. ويستطيع العميل ذكر وجود أطفال أو حيوانات أليفة أو حساسية من روائح معينة عند ارتباط ذلك بالمعالجة، مع توضيح الطابق والمصعد ومواقف التحميل إن أثرت في الوصول. هذه التفاصيل لا ترفع السعر تلقائيًا، لكنها تمنع نقص المعلومات وتساعد على تجهيز الفريق قبل الحضور.',
   offers: 'توفّر عروض الرحاب هوم كلين طريقة مرنة لتجميع احتياجات التنظيف في طلب واحد، سواء كان المطلوب تنظيف كنب ومجلس، سجاد وموكيت، مراتب، أو أكثر من نوع خدمة في الموقع نفسه. الباقة هنا ليست سعرًا ثابتًا للجميع؛ بل إطار منظم يساعد العميل على وصف الحالة، مقارنة نطاق العمل، ومعرفة ما الذي يجب إرساله قبل اعتماد السعر والموعد. يبدأ كل طلب بتحديد المدينة والمنطقة في أي إمارة من إمارات الدولة حسب نطاق الخدمة المتاح، ثم إرسال الصور، عدد القطع، المقاسات التقريبية، نوع الأقمشة أو الأسطح، حالة البقع والروائح، وأي ملاحظات تؤثر في الوصول أو وقت التنفيذ. تراجع الرحاب هذه المعلومات لتحديد الخدمات المطلوبة، ترتيب الزيارة، واختيار طريقة التنظيف والمواد والمعدات المناسبة للحالة. إذا كان العميل يسأل: ما الفرق بين خدمة منفردة وباقة تنظيف؟ فالخدمة تركز على نوع محدد مثل تنظيف الكنب أو المراتب، بينما الباقة قد تجمع عدة عناصر أو كمية أكبر ضمن طلب واحد بعد التقييم. وإذا كان السؤال: هل السعر الظاهر نهائي؟ فلا يتم اعتماد أي سعر إلا بعد مراجعة بيانات الطلب بوضوح؛ لأن العدد والمقاس والخامة وشدة الاتساخ وموقع الخدمة عوامل أساسية في التسعير. تساعد بطاقات العروض على الوصول إلى خيار مناسب للمنازل والفلل والمجالس والشقق والمواقع التي تحتاج أكثر من معالجة، من دون افتراض احتياجات العميل أو إضافة بنود غير مطلوبة. يمكن استخدام زر التفاصيل لمعرفة وصف كل عرض، ثم مشاركة المعلومات المطلوبة للحصول على عرض سعر قابل للمراجعة قبل التنفيذ. هذا الأسلوب يخدم الباحثين عن باقات تنظيف في العين، عروض تنظيف كنب ومجالس في أبوظبي، أو خدمة تنظيف عميق في دبي حسب الموعد، ويمنح محركات البحث والمساعدات الذكية إجابة واضحة عن خطوات الطلب. اختر العرض الأقرب لاحتياجك، اذكر جميع القطع والمساحات، أرفق صورًا حديثة، وحدد الموعد المفضل. بعد ذلك يُؤكد نطاق العمل والسعر ووقت الحضور بطريقة مباشرة قبل بدء الخدمة، حتى يعرف العميل ما الذي سيُنفذ وما المعلومات التي بُني عليها التقييم. ويمنع ذلك المفاجآت واختلاف التوقعات لاحقًا تمامًا.',
   products: 'قسم منتجات الرحاب مخصص لعرض مواد أو منتجات التنظيف التي يقرر مزود الخدمة إضافتها ونشرها رسميًا من لوحة إدارة منصة بيت الريف. لا توجد منتجات منشورة حاليًا، ولذلك لا تعرض الصفحة أسماء أو أسعارًا أو مواصفات افتراضية، ولا توحي بتوافر سلعة غير معتمدة. عند إضافة منتج حقيقي سيظهر ببطاقة مستقلة تتضمن اسم المنتج، معرفه، صورته، وصف استخدامه، حالته، السعر المباشر أو طريقة طلب التسعير، وأي معلومات ضرورية تساعد العميل على فهم ما يشتريه قبل التواصل. يحقق هذا التنظيم فرقًا واضحًا بين خدمات التنظيف التي تُنفذ في موقع العميل وبين المنتجات التي يمكن عرضها كمواد أو مستلزمات مستقلة. إذا كان السؤال: هل تبيع الرحاب منتجات تنظيف الآن؟ فالجواب وفق البيانات المنشورة هو أنه لا توجد منتجات متاحة في هذا القسم حتى الآن. وإذا نُشر منتج لاحقًا، يجب الاعتماد على البطاقة الرسمية لمعرفة الاسم والسعر والمواصفات بدل استخدام معلومات عامة من خارج ملف المزود. يمكن أن تشمل البيانات المفيدة نوع المنتج، حجم العبوة، مجال الاستخدام، الأسطح أو الأقمشة المناسبة، تعليمات السلامة، نطاق التوصيل إن وُجد، وسياسة التسعير أو الطلب، لكن هذه الحقول لا تظهر إلا بعد اعتمادها من لوحة الإدارة. يساعد القسم العملاء في أبوظبي ودبي والشارقة وعجمان وبقية إمارات الدولة على التحقق من مصدر المعلومة وربط كل منتج بمزود الخدمة ومعرفه داخل بيت الريف، كما يمنح محركات البحث والمساعدات الذكية إجابة دقيقة بدل محتوى تسويقي غير موثق. عدم وجود منتجات منشورة لا يؤثر في إمكانية طلب خدمات تنظيف الكنب والسجاد والموكيت والمجالس والمراتب من الأقسام الأخرى؛ فهو يعني فقط أن البيع المستقل للمواد لم يُعلن عبر الصفحة. عند ظهور أي بطاقة جديدة، راجع الصورة والوصف والكمية أو المقاس والسعر أو آلية التسعير، ثم استخدم وسيلة التواصل الموجودة في البطاقة للاستفسار عن التوفر وطريقة الاستلام أو التوصيل. بهذه الطريقة يبقى المحتوى محدثًا، وتظل البيانات المعروضة متوافقة مع المصدر الرئيسي في لوحة الإدارة، ولا يُضاف أي منتج أو ادعاء أو تكلفة من دون نشر رسمي من الرحاب.',
 };
@@ -141,10 +107,12 @@ function buildWeyaakHref(service) {
   return 'https://play.google.com/store/apps/details?id=ae.bietalreef.app';
 }
 
-export default function AlRehabProviderPage() {
+export default function AlRehabProviderPage({ discoveryServices = [], liveServices = [] }) {
+  const services = liveServices.map(item => ({ id: item.id, slug: item.slug, title: item.title.ar, description: item.summary.ar, image: item.image || alrehabTemplate.media.cover, icon: Sparkles, tags: [], requiredDetails: discoveryServices.find(service => service.slug === item.slug)?.details?.ar || ['المدينة والمنطقة', 'صور الحالة', 'نطاق العمل والموعد المطلوب'], wayaakPrompt: '' }));
+  const faqs = alrehabTemplate.faq.map(item => [item.questionAr, item.answerAr]).map(([question, answer], index) => index === 1 ? [question, services.map(item => item.title).join('، ')] : [question, answer]);
   const [selectedService, setSelectedService] = useState(null);
   const canonical = 'https://bietalreef.ae/providers/alrehab-home-clean';
-  const description = alrehabTemplate.description.ar;
+  const description = liveServices.map(item => item.summary.ar).join(' ');
   const message = buildProviderWhatsappUrl({
     phone: provider.whatsapp,
     locale: 'ar',
@@ -182,7 +150,7 @@ export default function AlRehabProviderPage() {
     url: `${canonical}#${service.id}`,
     image: {
       '@type': 'ImageObject',
-      contentUrl: `https://bietalreef.ae${resolveProviderMedia(service.image)}`,
+      contentUrl: absoluteProviderMedia(service.image),
       caption: `${service.title} من الرحاب في أبوظبي ودبي والشارقة وعجمان وبقية إمارات الدولة`,
       inLanguage: 'ar-AE',
     },
@@ -239,7 +207,7 @@ export default function AlRehabProviderPage() {
 
   return (
     <>
-      <SEOHead title="الرحاب هوم كلين | شركة تنظيف منازل وفلل في العين" description={description} canonicalPath="/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'مزودو الخدمات', href: '/providers' }, { name: provider.name, href: '/providers/alrehab-home-clean' }]} />
+      <SEOHead title="الرحاب هوم كلين | ملف المزود على بيت الريف" description={description} canonicalPath="/providers/alrehab-home-clean" ogImage={`https://bietalreef.ae${resolveProviderMedia(provider.hero)}`} structuredData={schemas} breadcrumbs={[{ name: 'مزودو الخدمات', href: '/providers' }, { name: provider.name, href: '/providers/alrehab-home-clean' }]} />
 
       <div dir="rtl" className="min-h-screen bg-[#F8F4EC] text-[#1D2E22]">
         <Navbar />
@@ -356,7 +324,7 @@ export default function AlRehabProviderPage() {
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <ActivityDetail icon={Building2} title="النشاط الرئيسي" value="مزودو الخدمات — خدمات التنظيف ومكافحة الحشرات" source="provider_categories.is_primary" />
               <ActivityDetail icon={Layers3} title="التخصص" value="التنظيف العميق للكنب والسجاد والموكيت والمجالس والمراتب" source="provider_specialties" />
-              <ActivityDetail icon={ListChecks} title="الخدمات" value="تنظيف المنازل والفلل، تنظيف الكنب والسجاد بالبخار، تنظيف الخزانات والمسابح، مكافحة الحشرات والتعقيم" source="provider_services.service_id" />
+              <ActivityDetail icon={ListChecks} title="الخدمات" value={services.map(item => item.title).join('، ')} source="provider_services.service_id" />
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
@@ -404,7 +372,7 @@ export default function AlRehabProviderPage() {
           <section id="services" className="scroll-mt-28 border-y border-[#E6DCC8] bg-white/65 py-12 md:py-14">
             <div className="mx-auto max-w-6xl px-4">
               <SectionHeading eyebrow="الخدمات والعروض" title="خدمات الرحاب القابلة لطلب عرض سعر" />
-              <ExpandableSectionCopy id="alrehab-services-copy" text={sectionCopy.services} />
+              <ExpandableSectionCopy id="alrehab-services-copy" text={description} />
 
               <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
                 {services.map((service) => (
@@ -488,6 +456,7 @@ export default function AlRehabProviderPage() {
               ))}
             </div>
           </section>
+          {discoveryServices.length > 0 && <section className="mx-auto max-w-6xl px-4 py-8"><h2 className="text-2xl font-bold text-[#0F3F1A]">{'اكتشف الخدمات في العين'}</h2><div className="mt-4 flex flex-wrap gap-3">{discoveryServices.map(item => <Link key={item.slug} href={item.path} className="rounded-xl border border-[#D8C8AA] px-4 py-3">{item.name.ar}</Link>)}</div></section>}
           <ProviderServiceAreas locale="ar" />
         </main>
 
@@ -838,4 +807,9 @@ function OfferCard({ product }) {
       </div>
     </article>
   );
+}
+
+export async function getStaticProps() {
+  const providers = (await getLocalProviders()).filter(item => item.slug === 'alrehab-home-clean');
+  return { props: { liveServices: providers[0]?.services || [], discoveryServices: pageModel({ locale: 'ar', category: 'cleaning-services', providers })?.relatedServices || [] }, revalidate: 3600 };
 }

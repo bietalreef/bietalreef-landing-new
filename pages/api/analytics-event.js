@@ -47,7 +47,7 @@ function sameOrigin(req) {
 function sanitizeUtm(raw) {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {};
   return Object.fromEntries(
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid']
       .map((key) => [key, text(raw[key], 160)])
       .filter(([, value]) => value),
   );
@@ -68,6 +68,9 @@ function sanitizeMetadata(raw, req) {
     category: 120,
     service: 120,
     provider_id: 120,
+    locale: 16,
+    source_page: 500,
+    page_type: 40,
   };
 
   for (const [key, maxLength] of Object.entries(fields)) {

@@ -8,3 +8,5 @@ out
 rclone_*.conf
 *.log
 .DS_Store
+
+supabase/.temp/

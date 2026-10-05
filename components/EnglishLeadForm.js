@@ -1,3 +1,4 @@
+import { SERVICE_INTENTS } from '../data/localServices';
 import { getLocalArea, validSlug } from '../lib/localServices';
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, CheckCircle2, Copy, ImagePlus, Loader2, MessageSquareText, Phone, ShieldCheck, X } from 'lucide-react';
@@ -94,9 +95,10 @@ export default function EnglishLeadForm({ formType = 'quote' }) {
     setSource({ source_path: window.location.pathname, source_page_title: document.title, utm: readUtm() });
     const params = new URLSearchParams(window.location.search);
     const area = getLocalArea(params.get('area'));
+    const service = SERVICE_INTENTS.find(item => item.slug === params.get('service') && item.category === params.get('category'));
     const provider = params.get('provider');
     if (params.get('city') === 'al-ain' && validSlug(provider)) {
-      setForm(current => ({ ...current, city: `Al Ain${area ? ` – ${area.nameEn}` : ''}`, project_description: `Quotation request for provider ${provider}. Please describe the cleaning scope:` }));
+      setForm(current => ({ ...current, city: `Al Ain${area ? ` – ${area.nameEn}` : ''}`, project_description: `Quotation request for provider ${provider}${service ? ` — ${service.name.en}` : ''}. Please describe the cleaning scope:` }));
     }
   }, []);
 

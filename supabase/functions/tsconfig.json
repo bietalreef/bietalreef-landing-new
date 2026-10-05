@@ -1,0 +1,4 @@
+{
+  "compilerOptions": { "target": "ES2022", "module": "ESNext", "moduleResolution": "bundler", "lib": ["ES2022", "DOM"], "allowJs": true, "checkJs": false, "noEmit": true, "skipLibCheck": true },
+  "include": ["edge-runtime.d.ts", "google-integration-health/index.ts"]
+}

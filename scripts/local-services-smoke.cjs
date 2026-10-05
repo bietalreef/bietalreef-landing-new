@@ -2,7 +2,7 @@
 const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
-const { AREAS, CATEGORY } = require('../data/localServices');
+const { AREAS, CATEGORY, SERVICE_INTENTS } = require('../data/localServices');
 const { localPath } = require('../lib/localServices');
 const base = process.env.LOCAL_SEO_BASE_URL || 'http://127.0.0.1:3099';
 const local = (locale, context = {}) => localPath({ locale, ...context });
@@ -17,7 +17,7 @@ const server = process.env.LOCAL_SEO_START === '1' ? spawn(process.execPath, ['n
   const checks = [];
   try {
     for (const locale of ['ar', 'en']) {
-      const paths = [local(locale), local(locale, { category: CATEGORY.slug }), ...AREAS.flatMap(area => [local(locale, { area: area.slug }), local(locale, { area: area.slug, category: CATEGORY.slug })])];
+      const paths = [local(locale), local(locale, { category: CATEGORY.slug }), ...SERVICE_INTENTS.slice(0, 2).map(item => local(locale, { category: CATEGORY.slug, service: item.slug })), local(locale, { area: 'al-jimi', category: CATEGORY.slug, service: 'sofa-cleaning' }), ...AREAS.flatMap(area => [local(locale, { area: area.slug }), local(locale, { area: area.slug, category: CATEGORY.slug })])];
       for (const path of paths) {
         const response = await context.request.get(base + path);
         assert.equal(response.status(), 200, path);
@@ -54,12 +54,18 @@ const server = process.env.LOCAL_SEO_START === '1' ? spawn(process.execPath, ['n
       const response = await context.request.get(base + old, { maxRedirects: 0 });
       assert.equal(response.status(), 308); assert.equal(response.headers().location, local(locale, { area: 'al-jimi' }));
     }
+    for (const locale of ['ar', 'en']) for (const service of ['homes-buildings-cleaning-302','steam-upholstery-cleaning-309']) { const response = await context.request.get(base + local(locale, { category: CATEGORY.slug, service }), { maxRedirects: 0 }); assert.equal(response.status(), 308); }
     const sitemap = await (await context.request.get(base + '/sitemap.xml')).text();
     for (const locale of ['ar', 'en']) {
       assert.ok(sitemap.includes('https://bietalreef.ae' + local(locale)));
       assert.ok(sitemap.includes('https://bietalreef.ae' + local(locale, { category: CATEGORY.slug })));
       for (const area of AREAS) assert.ok(!sitemap.includes('https://bietalreef.ae' + local(locale, { area: area.slug })), 'noindex excluded');
     }
+    for (const path of ['/providers/arkleen', '/en/providers/arkleen']) { assert.equal((await context.request.get(base + path)).status(), 200); checks.push({ path, status: 200 }); }
+    for (const locale of ['ar', 'en']) for (const service of SERVICE_INTENTS.slice(2)) assert.equal((await context.request.get(base + local(locale, { category: CATEGORY.slug, service: service.slug }))).status(), 404, 'missing live relation');
+    const manifest = await (await context.request.get(base + '/api/local-seo-registry')).json();
+    assert.equal(manifest.rows.length, 56); assert.equal(manifest.rows.filter(row => row.sitemap_eligible).length, 8); assert.equal(manifest.missing_services.length, 3);
+    for (const locale of ['ar', 'en']) for (const service of SERVICE_INTENTS.slice(0, 2)) assert.ok(sitemap.includes('https://bietalreef.ae' + local(locale, { category: CATEGORY.slug, service: service.slug })));
     const page = await context.newPage();
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -94,7 +100,33 @@ const server = process.env.LOCAL_SEO_START === '1' ? spawn(process.execPath, ['n
     const prior = events.length;
     await page.evaluate(() => { document.querySelector('main a[href^="tel:"]').click(); });
     await page.waitForTimeout(100); assert.equal(events.length, prior, 'rejected analytics consent respected');
+    await page.evaluate(() => { localStorage.setItem('bietalreef.privacy.v1', JSON.stringify({ analytics: 'accepted' })); });
+    for (const locale of ['ar', 'en']) for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844 }]) {
+      await page.setViewportSize(viewport);
+      await page.goto(base + local(locale, { category: CATEGORY.slug, service: 'sofa-cleaning' }), { waitUntil: 'networkidle' });
+      assert.equal(await page.locator('h1').count(), 1);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, 'city service overflow');
+      assert.equal(await page.locator('main a[href^="tel:"]').first().getAttribute('href'), 'tel:+971547761290');
+      assert.ok((await page.locator('main a[href^="https://wa.me/"]').first().getAttribute('href')).startsWith('https://wa.me/971547761290?'));
+      await page.screenshot({ path: `/tmp/local-city-service-${locale}-${viewport.width}.png`, fullPage: true });
+      const internal = await page.locator('main a').evaluateAll(nodes => nodes.map(node => node.getAttribute('href')).filter(href => href?.startsWith('/')));
+      for (const href of [...new Set(internal)]) assert.equal((await context.request.get(base + href.split('#')[0])).status(), 200, 'city service broken link: ' + href);
+    }
+    const serviceEvents = events.filter(event => event.metadata?.local_event === 'city_service_view');
+    assert.ok(serviceEvents.length >= 4); assert.ok(serviceEvents.every(event => event.metadata.service === 'sofa-cleaning' && event.metadata.page_type === 'city_service' && event.metadata.source_page));
+    await page.evaluate(() => { document.addEventListener('click', event => { if (event.target.closest('main a')) event.preventDefault(); }, { capture: true }); });
+    await page.locator('main a[href="/en/providers/alrehab-home-clean"]').first().click();
+    await page.locator('main a[href^="/en/request-quote?"]').first().click();
+    await page.waitForTimeout(200); assert.ok(events.some(event => event.metadata?.local_event === 'provider_view_from_service'));
+    const quoteHref = await page.locator('main a[href^="/en/request-quote?"]').first().getAttribute('href');
+    await page.goto(base + quoteHref, { waitUntil: 'networkidle' });
+    assert.ok(await page.locator('textarea').first().inputValue().then(value => value.includes('Steam Sofa Cleaning')));
+    const dnt = await browser.newContext(); const dntPage = await dnt.newPage(); let dntCalls = 0;
+    await dntPage.route('**/api/analytics-event', route => { dntCalls++; return route.fulfill({ json: { ok: true } }); });
+    await dntPage.addInitScript(() => { Object.defineProperty(navigator, 'doNotTrack', { get: () => '1' }); localStorage.setItem('bietalreef.privacy.v1', JSON.stringify({ analytics: 'accepted' })); });
+    await dntPage.goto(base + local('ar', { category: CATEGORY.slug, service: 'sofa-cleaning' }), { waitUntil: 'networkidle' });
+    assert.equal(dntCalls, 0, 'DNT respected'); await dnt.close();
     assert.deepEqual(errors, [], 'application console errors');
-    console.log(JSON.stringify({ routesChecked: checks.length, invalidRoutes: 4, redirects: 2, mobile: 'pass', desktop: 'pass', internalLinks: 'pass', analytics: 'pass', consent: 'pass', applicationErrors: errors, checks }, null, 2));
+    console.log(JSON.stringify({ routesChecked: checks.length, invalidRoutes: 10, redirects: 6, mobile: 'pass', desktop: 'pass', internalLinks: 'pass', analytics: 'pass', consent: 'pass', dnt: 'pass', cityService: 'pass', registry: 'pass', applicationErrors: errors, checks }, null, 2));
   } finally { await browser.close(); server?.kill('SIGTERM'); }
 })().catch(error => { console.error(error); server?.kill('SIGTERM'); process.exit(1); });
