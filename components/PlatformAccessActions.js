@@ -1,15 +1,15 @@
 import { Download, Globe2, ShoppingBag } from 'lucide-react';
-import { GOOGLE_PLAY_URL, MARKET_URL, PROVIDERS_APP_URL } from '../lib/platformUrls';
+import { APP_DOWNLOAD_URL, BROWSER_PORTAL_URL, MARKET_URL } from '../lib/platformUrls';
 
 const copy = {
   ar: {
-    download: 'حمّل تطبيق بيت الريف',
-    browser: 'الدخول من المتصفح',
+    download: 'طرق تحميل بيت الريف',
+    browser: 'فتح بيت الريف للمتصفح',
     market: 'فتح سوق بيت الريف',
   },
   en: {
-    download: 'Download Biet Al Reef',
-    browser: 'Open the web app',
+    download: 'Download Biet Al Reef: Web or Android',
+    browser: 'Open browser hub',
     market: 'Open Biet Al Reef Market',
   },
 };
@@ -21,10 +21,10 @@ export default function PlatformAccessActions({ locale = 'ar', compact = false, 
 
   return (
     <div className={`grid gap-2 ${compact ? 'grid-cols-1' : 'sm:grid-cols-3'} ${className}`} data-platform-access-actions>
-      <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={`${base} ${spacing} bg-[#D4AF37] text-[#0F3F1A]`}>
+      <a href={APP_DOWNLOAD_URL} className={`${base} ${spacing} bg-[#D4AF37] text-[#0F3F1A]`}>
         <Download className="h-4 w-4" />{t.download}
       </a>
-      <a href={PROVIDERS_APP_URL} className={`${base} ${spacing} bg-[#0F3F1A] text-white`}>
+      <a href={BROWSER_PORTAL_URL} className={`${base} ${spacing} bg-[#0F3F1A] text-white`}>
         <Globe2 className="h-4 w-4" />{t.browser}
       </a>
       <a href={MARKET_URL} className={`${base} ${spacing} border border-[#D8C9A8] bg-white text-[#0F3F1A]`}>
